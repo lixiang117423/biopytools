@@ -6,6 +6,8 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class PCAAnalyzer:
     """PCA分析器|PCA Analyzer"""
@@ -28,10 +30,11 @@ class PCAAnalyzer:
         self.logger.info(f"主成分数量|Number of components: {self.config.components}")
         
         # 运行PLINK PCA|Run PLINK PCA
-        cmd = (
-            f"{self.config.plink_path} --bfile {input_prefix} "
-            f"--pca {self.config.components} --out {output_prefix_abs} --allow-extra-chr"
-        )
+        cmd = build_conda_command(self.config.plink_path, [
+            "--bfile", str(input_prefix),
+            "--pca", str(self.config.components),
+            "--out", str(output_prefix_abs), "--allow-extra-chr",
+        ])
         
         success = self.cmd_runner.run(cmd, f"PCA分析|PCA analysis ({self.config.components} components)")
         

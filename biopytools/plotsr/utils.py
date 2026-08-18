@@ -8,7 +8,19 @@ import os
 import glob
 import re
 import subprocess
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path, Optional
+
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path, Optional
+
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path, Optional
+
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 class PlotSRLogger:
@@ -133,19 +145,28 @@ def smart_sort(files: List[str]) -> List[str]:
         return sorted(files)
 
 
-def extract_chromosome_lengths(fasta_file: str, output_file: str):
+def extract_chromosome_lengths(
+    fasta_file: str, output_file: str, samtools_path: Optional[str] = None
+):
     """
     提取染色体长度|Extract chromosome lengths
 
     Args:
         fasta_file: FASTA文件路径|FASTA file path
         output_file: 输出文件路径|Output file path
+        samtools_path: samtools路径(默认域环境自动解析)|samtools path
+                       (default: auto domain env)
     """
     try:
         # 首先确保索引存在|First ensure index exists
         fai_file = f"{fasta_file}.fai"
         if not os.path.exists(fai_file):
-            cmd = ['samtools', 'faidx', fasta_file]
+            if samtools_path is None:
+                samtools_path = expand_path(get_domain_tool_path(
+                    'samtools', 'samtools', 'SAMTOOLS_PATH'
+                ))
+            # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+            cmd = build_conda_command(samtools_path, ['faidx', fasta_file])
             subprocess.run(cmd, check=True, capture_output=True)
 
         # 读取索引文件|Read index file
@@ -179,9 +200,11 @@ def run_command(cmd: List[str], logger: logging.Logger, check: bool = True) -> b
         bool: 是否成功|Whether successful
     """
     try:
-        logger.info(f"运行命令|Running command: {' '.join(cmd)}")
+        # 列表命令自动conda包装|List commands auto conda-wrapped
+        wrapped = build_conda_command(cmd[0], cmd[1:])
+        logger.info(f"运行命令|Running command: {' '.join(wrapped)}")
         result = subprocess.run(
-            cmd,
+            wrapped,
             check=check,
             capture_output=True,
             text=True

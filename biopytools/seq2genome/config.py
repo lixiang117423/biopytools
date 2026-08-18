@@ -4,21 +4,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-
-def expand_path(file_path: str) -> str:
-    """展开路径中的~符号|Expand tilde in path
-
-    Args:
-        file_path: 文件路径|File path
-
-    Returns:
-        str: 展开后的绝对路径|Expanded absolute path
-    """
-    return os.path.normpath(os.path.abspath(os.path.expanduser(file_path)))
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -40,8 +30,12 @@ class Seq2GenomeConfig:
     threads: int = 12  # 线程数|Number of threads
 
     # 工具路径配置|Tool path configuration
-    miniprot_path: str = "miniprot"  # Miniprot工具路径|Miniprot tool path
-    minimap2_path: str = "minimap2"  # Minimap2工具路径|Minimap2 tool path
+    miniprot_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'miniprot', 'miniprot', 'MINIPROT_PATH'))  # Miniprot工具路径|Miniprot tool path
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))  # Minimap2工具路径|Minimap2 tool path
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     # 输出选项|Output options
     export_gff3: bool = True  # 是否导出GFF3格式|Whether to export GFF3 format
@@ -66,11 +60,10 @@ class Seq2GenomeConfig:
             if self.protein_fa and self.protein_fa != self.query_fa:
                 self.query_fa = expand_path(self.protein_fa)
 
-        # 只有在工具路径不是默认值时才展开|Only expand tool paths if not default
-        if self.miniprot_path and self.miniprot_path != "miniprot":
-            self.miniprot_path = expand_path(self.miniprot_path)
-        if self.minimap2_path and self.minimap2_path != "minimap2":
-            self.minimap2_path = expand_path(self.minimap2_path)
+        # 展开工具路径|Expand tool paths
+        self.miniprot_path = expand_path(self.miniprot_path)
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

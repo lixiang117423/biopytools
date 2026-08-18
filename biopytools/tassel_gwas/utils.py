@@ -8,6 +8,22 @@ import sys
 import os
 from pathlib import Path
 
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+
+
+def _get_bcftools_path():
+    """获取bcftools路径(功能域环境自动解析)|Get bcftools path (auto domain env)"""
+    return get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+
+
+def _get_bcftools_path():
+    """获取bcftools路径(功能域环境自动解析)|Get bcftools path (auto domain env)"""
+    return get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+
 
 class TASSELLogger:
     """TASSEL GWAS日志管理器|TASSEL GWAS Logger Manager"""
@@ -369,12 +385,12 @@ def extract_vcf_samples(vcf_file: Path, logger) -> set:
         set: 样本ID集合
     """
     try:
-        # 使用bcftools查询样本ID
-        cmd = f"bcftools query -l {vcf_file}"
-        logger.info(f"命令|Command: {cmd}")
+        # 使用bcftools查询样本ID(conda环境自动包装)|Query sample IDs with bcftools (auto conda wrap)
+        cmd = build_conda_command(_get_bcftools_path(), ['query', '-l', str(vcf_file)])
+        logger.info(f"命令|Command: {' '.join(cmd)}")
         result = subprocess.run(
             cmd,
-            shell=True,
+            shell=False,
             capture_output=True,
             text=True,
             timeout=120  # 2分钟超时
@@ -489,11 +505,13 @@ def find_common_samples_and_filter(
 
         logger.info(f"   从{len(vcf_samples)}个样本筛选到{len(common_samples)}个共有样本|Filtering from {len(vcf_samples)} to {len(common_samples)} common samples...")
 
-        # 使用bcftools筛选样本
-        cmd = f"bcftools view -S {keep_file} -Oz -o {vcf_filtered} {vcf_file}"
+        # 使用bcftools筛选样本(conda环境自动包装)|Filter samples with bcftools (auto conda wrap)
+        cmd = build_conda_command(_get_bcftools_path(),
+                                  ['view', '-S', str(keep_file), '-Oz', '-o',
+                                   str(vcf_filtered), str(vcf_file)])
 
-        logger.info(f"   命令|Command: {cmd}")
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        logger.info(f"   命令|Command: {' '.join(cmd)}")
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True)
 
         if result.returncode != 0:
             logger.error(f"bcftools筛选VCF失败|bcftools VCF filtering failed: {result.stderr}")

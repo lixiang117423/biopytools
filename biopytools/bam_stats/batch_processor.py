@@ -15,6 +15,10 @@ import pandas as pd
 from tqdm import tqdm
 
 from .sample_stats import SampleStatsGenerator
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 from .utils import (
     CommandRunner,
     get_sample_name,
@@ -314,12 +318,15 @@ class BAMBatchProcessor:
         self.logger.info(
             f"正在创建BAM索引|Creating BAM index: {bai_file.name}"
         )
-        cmd = f"{self.config.samtools_path} index {bam_file}"
-        self.logger.info(f"命令|Command: {cmd}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.samtools_path, ["index", bam_file]
+        )
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
         try:
             subprocess.run(
-                cmd, shell=True, capture_output=True, text=True, check=True,
+                cmd, capture_output=True, text=True, check=True,
             )
             self.logger.info(
                 f"BAM索引创建成功|BAM index created: {bai_file.name}"

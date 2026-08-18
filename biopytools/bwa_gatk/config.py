@@ -7,6 +7,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
 @dataclass
 class PipelineConfig:
     """流程配置类|Pipeline Configuration Class"""
@@ -29,7 +33,8 @@ class PipelineConfig:
 
     #  质控参数|Quality Control parameters
     skip_qc: bool = False  # 是否跳过质控|Whether to skip QC
-    fastp_path: str = 'fastp'  # fastp可执行文件路径|fastp executable path
+    fastp_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'fastp', 'fastp', 'FASTP_PATH'))  # fastp可执行文件路径|fastp executable path
     qc_threads: int = 12  # 质控线程数|QC threads
     qc_quality_threshold: int = 20  # 质量阈值|Quality threshold
     qc_min_length: int = 50  # 最小长度|Minimum length
@@ -39,10 +44,14 @@ class PipelineConfig:
     qc_read2_suffix: Optional[str] = None  # R2文件后缀|R2 file suffix
     qc_single_end: bool = False  # 单末端模式|Single-end mode
     
-    #  工具路径|Tool paths
-    bwa_path: str = 'bwa'
-    samtools_path: str = 'samtools'
-    gatk_path: str = 'gatk'
+    #  工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bwa', 'bwa', 'BWA_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    gatk_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gatk', 'gatk', 'GATK_PATH'))
     
     #  过滤参数|Filtering parameters (GATK Best Practices)
     # InDel过滤|InDel filtering
@@ -100,6 +109,18 @@ class PipelineConfig:
         
         # 计算总内存|Calculate total memory
         self.total_memory = self.threads * self.mem_per_thread
+
+        # 展开工具路径|Expand tool paths
+        self.fastp_path = expand_path(self.fastp_path)
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.gatk_path = expand_path(self.gatk_path)
+
+        # 展开工具路径|Expand tool paths
+        self.fastp_path = expand_path(self.fastp_path)
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.gatk_path = expand_path(self.gatk_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -3,12 +3,15 @@ TASSEL GWAS分析核心模块|TASSEL GWAS Analysis Core Module
 """
 
 import os
+import shutil
 import subprocess
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
 from .utils import (TASSELLogger, check_dependencies, validate_vcf_file, validate_phenotype_file,
                      prepare_phenotype_file, create_statistics_report, find_common_samples_and_filter)
 
@@ -233,12 +236,14 @@ class TASSELGWASAnalyzer:
         self.temp_files.append(vcf_sorted)
 
         try:
-            # 检查是否有bcftools|Check if bcftools is available
-            which_cmd = ['which', 'bcftools']
-            self.logger.info(f"   命令|Command: {' '.join(which_cmd)}")
-            subprocess.run(which_cmd, check=True, capture_output=True)
+            # bcftools路径(功能域环境自动解析)|bcftools path (auto domain env)
+            bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+            if not (os.path.isabs(bcftools_path) and os.path.exists(bcftools_path)) and not shutil.which(bcftools_path):
+                raise FileNotFoundError("bcftools not found")
 
-            filter_cmd = ['bcftools', 'view']
+            # 方案B: 管道中的bcftools直接调用域环境二进制, 避免 conda run | conda run
+            # |Solution B: call domain binary directly in the pipeline
+            filter_cmd = [bcftools_path, 'view']
             if self.config.maf_filter:
                 filter_cmd.extend(['-q', str(self.config.maf_filter)])
             if self.config.miss_filter:
@@ -247,15 +252,15 @@ class TASSELGWASAnalyzer:
             filter_cmd.append(str(vcf_file))
 
             # 使用bcftools排序|Sort with bcftools
-            self.logger.info(f"   命令|Command: {' '.join(filter_cmd)} | bcftools sort -O v -T {self.config.output_dir} -o {vcf_sorted}")
+            sort_cmd = [bcftools_path, 'sort', '-O', 'v', '-T', str(self.config.output_dir), '-o', str(vcf_sorted)]
+            self.logger.info(f"   命令|Command: {' '.join(filter_cmd)} | {' '.join(sort_cmd)}")
             sort_process = subprocess.Popen(filter_cmd, stdout=subprocess.PIPE)
-            sort_cmd = ['bcftools', 'sort', '-O', 'v', '-T', str(self.config.output_dir), '-o', str(vcf_sorted)]
             subprocess.run(sort_cmd, stdin=sort_process.stdout, check=True)
 
             # 统计过滤后的变异位点数|Count variants after filtering
-            stats_cmd = ['bcftools', 'stats', str(vcf_sorted)]
+            stats_cmd = build_conda_command(bcftools_path, ['stats', str(vcf_sorted)])
             self.logger.info(f"   命令|Command: {' '.join(stats_cmd)}")
-            result = subprocess.run(stats_cmd, capture_output=True, text=True)
+            result = subprocess.run(stats_cmd, shell=False, capture_output=True, text=True)
             # 简单统计，假设每个非注释行都是一个变异
             grep_cmd = ['grep', '-v', '^#', str(vcf_sorted)]
             self.logger.info(f"   命令|Command: {' '.join(grep_cmd)}")

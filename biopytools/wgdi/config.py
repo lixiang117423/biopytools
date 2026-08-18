@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -15,7 +15,7 @@ class WGDIConfig:
 
     # WGDI软件路径|WGDI software path
     wgdi_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'wgdi',
             '~/miniforge3/envs/phylo/bin/wgdi',
             'WGDI_PATH'

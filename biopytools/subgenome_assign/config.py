@@ -34,12 +34,12 @@ class SubgenomeAssignConfig:
     # 工具路径|Tool paths
     minimap2_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'minimap2', '~/miniforge3/envs/align/bin/minimap2', 'MINIMAP2_PATH'
+            'minimap2', 'minimap2', 'MINIMAP2_PATH'
         )
     )
     samtools_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'samtools', '~/.local/bin/samtools', 'SAMTOOLS_PATH'
+            'samtools', 'samtools', 'SAMTOOLS_PATH'
         )
     )
 

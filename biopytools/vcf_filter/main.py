@@ -139,7 +139,7 @@ def main():
     # 格式转换参数|Format conversion parameters
     parser.add_argument('--convert-format', action='store_true',
                        help='使用PLINK进行格式转换|Use PLINK for format conversion')
-    parser.add_argument('--plink-path', default='plink',
+    parser.add_argument('--plink-path', default=None,
                        help='PLINK可执行文件路径|PLINK executable path')
     parser.add_argument('--allow-extra-chr', action='store_true', default=True,
                        help='允许额外染色体|Allow extra chromosomes')
@@ -220,15 +220,15 @@ def main():
     try:
         start_time = time.time()
         
-        # 创建筛选器并运行|Create filter and run
-        analyzer = VCFFilterMain(
+        # 构建配置参数(工具路径默认None时不传, 保持配置默认值)
+        # |Build config kwargs (None tool path keeps config default)
+        config_kwargs = dict(
             vcf_file=args.input,
             output_file=args.output,
             chr_name=chr_name,
             start=args.start,
             end=args.end,
             convert_format=args.convert_format,
-            plink_path=args.plink_path,
             allow_extra_chr=args.allow_extra_chr,
             min_maf=args.maf,
             max_missing=args.max_missing,
@@ -242,8 +242,13 @@ def main():
             biallelic_only=args.biallelic_only,
             remove_indels=args.remove_indels,
             skip_validation=skip_validation,
-            verbose=args.verbose
+            verbose=args.verbose,
         )
+        if args.plink_path is not None:
+            config_kwargs['plink_path'] = args.plink_path
+
+        # 创建筛选器并运行|Create filter and run
+        analyzer = VCFFilterMain(**config_kwargs)
         
         output_file = analyzer.run_analysis()
         

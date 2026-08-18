@@ -3,10 +3,10 @@ Fastq到VCF (Parabricks) 配置管理模块|Fastq to VCF (Parabricks) Configurat
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path, resolve_legacy_path
+from ..common.paths import get_domain_tool_path, expand_path, resolve_legacy_path
 
 @dataclass
 class Fastq2VcfParabricksConfig:
@@ -49,7 +49,16 @@ class Fastq2VcfParabricksConfig:
     gtx_ploidy: int = 2
 
     # 工具路径|Tool paths
-    gtx_bin: str = "~/software/gtx/bin/gtx"
+    gtx_bin: str = field(default_factory=lambda: get_domain_tool_path(
+        'gtx', '~/software/gtx/bin/gtx', 'GTX_PATH'))
+    bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bwa', 'bwa', 'BWA_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    gatk_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gatk', 'gatk', 'GATK_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
 
     # 高级选项|Advanced options
     enable_checkpoint: bool = True
@@ -99,6 +108,14 @@ class Fastq2VcfParabricksConfig:
         self.filter_dir = os.path.normpath(os.path.abspath(self.filter_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         self.gtx_bin = os.path.normpath(os.path.abspath(expand_path(self.gtx_bin)))
+        self.bwa_path = os.path.normpath(os.path.abspath(expand_path(self.bwa_path)))
+        self.samtools_path = os.path.normpath(os.path.abspath(expand_path(self.samtools_path)))
+        self.gatk_path = os.path.normpath(os.path.abspath(expand_path(self.gatk_path)))
+        self.bcftools_path = os.path.normpath(os.path.abspath(expand_path(self.bcftools_path)))
+        self.bwa_path = os.path.normpath(os.path.abspath(expand_path(self.bwa_path)))
+        self.samtools_path = os.path.normpath(os.path.abspath(expand_path(self.samtools_path)))
+        self.gatk_path = os.path.normpath(os.path.abspath(expand_path(self.gatk_path)))
+        self.bcftools_path = os.path.normpath(os.path.abspath(expand_path(self.bcftools_path)))
 
         # 创建必要的目录|Create necessary directories
         for dir_path in [self.clean_fastq_dir, self.mapping_dir, self.gvcf_dir,

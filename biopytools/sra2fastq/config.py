@@ -3,9 +3,11 @@ SRA转换配置管理模块 |SRA Conversion Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class ConvertConfig:
@@ -22,7 +24,11 @@ class ConvertConfig:
     
     # 工具选择|Tool selection
     use_parallel: bool = True  # 优先使用parallel-fastq-dump|Prefer parallel-fastq-dump
-    tool_path: str = 'parallel-fastq-dump'  # 工具路径|Tool path
+    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)|Tool paths (auto domain env, fallback to bare name via PATH)
+    tool_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'parallel-fastq-dump', 'parallel-fastq-dump', 'PARALLEL_FASTQ_DUMP_PATH'))
+    fastq_dump_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'fastq-dump', 'fastq-dump', 'FASTQ_DUMP_PATH'))
     
     # 额外参数|Additional parameters
     skip_technical: bool = True  # 跳过技术序列|Skip technical reads
@@ -46,6 +52,10 @@ class ConvertConfig:
         if self.tmpdir:
             Path(self.tmpdir).mkdir(parents=True, exist_ok=True)
         
+        # 展开工具路径|Expand tool paths
+        self.tool_path = expand_path(self.tool_path)
+        self.fastq_dump_path = expand_path(self.fastq_dump_path)
+
         # 确定输入文件列表|Determine input file list
         self._determine_input_files()
     

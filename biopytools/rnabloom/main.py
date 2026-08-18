@@ -125,8 +125,8 @@ def main():
                          help="线程数|Number of threads (default: 12)")
 
     optional.add_argument("--rnabloom-path",
-                         default="rnabloom",
-                         help="RNA-Bloom工具路径|RNA-Bloom tool path (default: rnabloom)")
+                         default=None,
+                         help="RNA-Bloom工具路径|RNA-Bloom tool path (default: 自动解析|auto-detected)")
 
     # Bloom filter配置|Bloom filter configuration
     bloom_group = parser.add_argument_group('Bloom filter配置|Bloom filter configuration')
@@ -183,7 +183,7 @@ def main():
 
     # 创建组装器并运行|Create assembler and run
     try:
-        assembler = RNABloomAssembler(
+        kwargs = dict(
             # 输入文件|Input files
             left_reads=args.left,
             right_reads=args.right,
@@ -197,7 +197,6 @@ def main():
 
             # 处理参数|Processing parameters
             threads=args.threads,
-            rnabloom_path=args.rnabloom_path,
 
             # Bloom filter|Bloom filter
             memory_gb=args.mem,
@@ -221,7 +220,12 @@ def main():
             # 步骤控制|Step control
             stage=args.stage
         )
+        # 工具路径仅在显式指定时传入，否则用配置默认(域环境自动解析)
+        # |Only pass tool path when explicitly given, else use config default
+        if args.rnabloom_path is not None:
+            kwargs['rnabloom_path'] = args.rnabloom_path
 
+        assembler = RNABloomAssembler(**kwargs)
         return assembler.run_assembly()
 
     except ValueError as e:

@@ -9,6 +9,8 @@ import subprocess
 import glob
 from typing import List
 
+from ..common.conda_runner import build_conda_command
+
 
 class WgsimLogger:
     """Wgsim日志管理器|Wgsim Logger Manager"""
@@ -86,15 +88,18 @@ def run_wgsim(
     inner_distance: int = 0,
 ) -> bool:
     """执行wgsim模拟|Execute wgsim simulation"""
-    cmd = [wgsim_path, genome_file, tmp1, tmp2]
-    cmd.extend(['-N', str(num_reads)])
-    cmd.extend(['-1', str(read_length)])
-    cmd.extend(['-2', str(read_length)])
-    cmd.extend(['-s', str(seed)])
-    cmd.extend(['-e', str(error_rate)])
-    cmd.extend(['-r', str(mutation_rate)])
-    cmd.extend(['-d', str(outer_distance)])
-    cmd.extend(['-D', str(inner_distance)])
+    args = [genome_file, tmp1, tmp2]
+    args.extend(['-N', str(num_reads)])
+    args.extend(['-1', str(read_length)])
+    args.extend(['-2', str(read_length)])
+    args.extend(['-s', str(seed)])
+    args.extend(['-e', str(error_rate)])
+    args.extend(['-r', str(mutation_rate)])
+    args.extend(['-d', str(outer_distance)])
+    args.extend(['-D', str(inner_distance)])
+
+    # conda 环境自动包装|Auto conda env wrapping
+    cmd = build_conda_command(wgsim_path, args)
 
     logger.info(f"命令|Command: {' '.join(cmd)}")
 

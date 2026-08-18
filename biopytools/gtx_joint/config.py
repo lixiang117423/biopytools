@@ -5,7 +5,7 @@ GTX Joint Calling配置类|GTX Joint Calling Configuration Class
 import os
 import re
 
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 class GTXJointConfig:
@@ -40,6 +40,9 @@ class GTXJointConfig:
             window_size: 区间大小(bp)|Window size in bp
         """
         self.gtx_exec = expand_path(gtx_exec or "~/software/gtx/bin/gtx")
+        # 工具路径(域环境解析, 回退裸命令名靠PATH)|Tool paths (domain env, fallback to bare name via PATH)
+        self.samtools_path = get_domain_tool_path('samtools', 'samtools', 'SAMTOOLS_PATH')
+        self.tabix_path = get_domain_tool_path('tabix', 'tabix', 'TABIX_PATH')
         self.reference = reference
         self.gvcf_dir = gvcf_dir
         self.output_dir = output_dir

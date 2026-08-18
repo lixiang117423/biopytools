@@ -36,7 +36,7 @@ class FastqStatsRunner:
 
     def check_dependencies(self):
         """检查依赖|Check dependencies"""
-        if not SeqkitChecker.check_seqkit():
+        if not SeqkitChecker.check_seqkit(self.config.seqkit_path):
             self.logger.error("未找到seqkit|seqkit not found")
             self.logger.error("请安装seqkit|Please install seqkit:")
             self.logger.error("  conda install -c bioconda seqkit")

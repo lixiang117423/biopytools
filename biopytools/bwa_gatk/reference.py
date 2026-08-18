@@ -5,6 +5,8 @@
 import os
 from pathlib import Path
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class ReferenceIndexer:
     """参考基因组索引管理器|Reference Genome Index Manager"""
@@ -53,7 +55,8 @@ class ReferenceIndexer:
     def _build_bwa_index(self):
         """构建BWA索引|Build BWA index"""
         self.logger.info("构建BWA索引|Building BWA index")
-        cmd = f"{self.config.bwa_path} index {self.reference}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(self.config.bwa_path, ["index", str(self.reference)])
         self.cmd_runner.run(cmd, "构建BWA索引|Building BWA index")
     
     def _check_samtools_index(self):
@@ -71,7 +74,8 @@ class ReferenceIndexer:
     def _build_samtools_index(self):
         """构建SAMtools索引|Build SAMtools index"""
         self.logger.info("构建SAMtools索引|Building SAMtools index")
-        cmd = f"{self.config.samtools_path} faidx {self.reference}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(self.config.samtools_path, ["faidx", str(self.reference)])
         self.cmd_runner.run(cmd, "构建SAMtools索引|Building SAMtools index")
     
     def _check_gatk_dict(self):
@@ -90,5 +94,9 @@ class ReferenceIndexer:
         """构建GATK字典|Build GATK dictionary"""
         self.logger.info("构建GATK字典|Building GATK dictionary")
         dict_file = self.reference.with_suffix('.dict')
-        cmd = f"{self.config.gatk_path} CreateSequenceDictionary -R {self.reference} -O {dict_file}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["CreateSequenceDictionary", "-R", str(self.reference), "-O", str(dict_file)],
+        )
         self.cmd_runner.run(cmd, "构建GATK字典|Building GATK dictionary")

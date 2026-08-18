@@ -4,6 +4,8 @@ TEsorter工具包装器|TEsorter Tool Wrapper
 
 import os
 from pathlib import Path
+from ...common.conda_runner import build_conda_command
+from ...common.conda_runner import build_conda_command
 
 class TESorterRunner:
     """ TEsorter运行器|TEsorter Runner"""
@@ -26,12 +28,11 @@ class TESorterRunner:
         
         output_prefix = output_dir / f"{self.config.base_name}_tesorter"
         
-        cmd = (
-            f"{self.config.tesorter_path} {repeat_library} "
-            f"-db rexdb-plant "
-            f"-pre {output_prefix} "
-            f"-p {self.config.threads}"
-        )
+        # conda 域环境自动包装|Auto conda wrap
+        cmd = build_conda_command(self.config.tesorter_path, [
+            str(repeat_library), "-db", "rexdb-plant", "-pre", str(output_prefix),
+            "-p", str(self.config.threads),
+        ])
         
         success = self.cmd_runner.run(
             cmd,

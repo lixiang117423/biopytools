@@ -95,11 +95,16 @@ class ResultsSummary:
     def _count_variants(self, vcf_file, pass_only=False):
         """统计VCF中的变异数|Count variants in VCF"""
         try:
+            # 管道命令(方案B): bcftools路径已解析到域环境二进制, 直接调用;
+            # grep/zgrep/wc 为系统工具保持裸名, 避免 conda run | conda run
+            # |Pipeline (solution B): bcftools resolves to domain env binary and
+            # is called directly; grep/zgrep/wc stay bare, no conda run in pipe
             if pass_only:
                 cmd = f"{self.config.bcftools_path} view -f PASS {vcf_file}|grep -v '^#'|wc -l"
             else:
                 cmd = f"zgrep -v '^#' {vcf_file}|wc -l"
-            
+
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             return result.stdout.strip()
         except:

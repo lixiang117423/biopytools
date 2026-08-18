@@ -59,11 +59,12 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir or Path.cwd()
 
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "") -> bool:
         """执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表(由build_conda_command构建, shell=False)或命令字符串(shell=True)
+                 |Command list (built by build_conda_command, shell=False) or command string (shell=True)
             description: 命令描述|Command description
 
         Returns:
@@ -72,12 +73,18 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f"命令|Command: {display}")
 
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=use_shell,
                 capture_output=True,
                 text=True,
                 check=True,
@@ -263,7 +270,7 @@ class DependencyChecker:
         self.logger = logger
 
     def check_java(self) -> bool:
-        """检查Java是否可用|Check if Java is available"""
+        """检查Java是否可用|Check if Java is available (系统工具|system tool)"""
         try:
             result = subprocess.run(
                 ["java", "-version"],
@@ -275,64 +282,4 @@ class DependencyChecker:
             return True
         except (subprocess.CalledProcessError, FileNotFoundError, IndexError):
             self.logger.error("Java未安装或不在PATH中|Java is not installed or not in PATH")
-            return False
-
-    def check_minimap2(self) -> bool:
-        """检查minimap2是否可用|Check if minimap2 is available"""
-        try:
-            result = subprocess.run(
-                ["minimap2", "--version"],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            self.logger.info(f"minimap2已安装|minimap2 is available: {result.stdout.strip()}")
-            return True
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            self.logger.error("minimap2未安装或不在PATH中|minimap2 is not installed or not in PATH")
-            return False
-
-    def check_ntcard(self) -> bool:
-        """检查ntCard是否可用|Check if ntCard is available"""
-        try:
-            result = subprocess.run(
-                ["ntCard", "--version"],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            self.logger.info(f"ntCard已安装|ntCard is available")
-            return True
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            self.logger.warning("ntCard未安装或不在PATH中|ntCard is not installed or not in PATH")
-            return False
-
-    def check_rnabloom(self, rnabloom_path: str = "rnabloom") -> bool:
-        """检查RNA-Bloom是否可用|Check if RNA-Bloom is available
-
-        Args:
-            rnabloom_path: RNA-Bloom路径|RNA-Bloom path
-
-        Returns:
-            bool: 可用返回True|True if available
-        """
-        try:
-            # 如果是JAR文件路径|If it's a JAR file path
-            if rnabloom_path.endswith('.jar'):
-                return os.path.exists(rnabloom_path)
-
-            # 尝试运行rnabloom命令|Try to run rnabloom command
-            result = subprocess.run(
-                [rnabloom_path, "--help"],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            self.logger.info(f"RNA-Bloom可用|RNA-Bloom is available")
-            return True
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            self.logger.error(
-                f"RNA-Bloom不可用|RNA-Bloom is not available: {rnabloom_path}. "
-                f"请安装RNA-Bloom: conda install -c bioconda rnabloom"
-            )
             return False

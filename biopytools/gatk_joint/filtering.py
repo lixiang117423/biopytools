@@ -4,6 +4,10 @@
 
 from pathlib import Path
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class VariantFilter:
     """变异过滤器|Variant Filter"""
@@ -19,11 +23,15 @@ class VariantFilter:
         
         snp_vcf = self.config.output_path / f"{self.config.base_name}_snps_raw.vcf.gz"
         
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' SelectVariants"
-        cmd += f" -R {self.config.reference}"
-        cmd += f" -V {self.config.raw_vcf}"
-        cmd += f" -select-type SNP"
-        cmd += f" -O {snp_vcf}"
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "SelectVariants",
+            "-R", self.config.reference,
+            "-V", self.config.raw_vcf,
+            "-select-type", "SNP",
+            "-O", str(snp_vcf),
+        ]
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(cmd, "提取SNP|Extract SNPs")
         
@@ -38,11 +46,15 @@ class VariantFilter:
         
         indel_vcf = self.config.output_path / f"{self.config.base_name}_indels_raw.vcf.gz"
         
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' SelectVariants"
-        cmd += f" -R {self.config.reference}"
-        cmd += f" -V {self.config.raw_vcf}"
-        cmd += f" -select-type INDEL"
-        cmd += f" -O {indel_vcf}"
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "SelectVariants",
+            "-R", self.config.reference,
+            "-V", self.config.raw_vcf,
+            "-select-type", "INDEL",
+            "-O", str(indel_vcf),
+        ]
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(cmd, "提取INDEL|Extract INDELs")
         
@@ -59,21 +71,26 @@ class VariantFilter:
         
         # 构建过滤表达式|Build filter expression
         filters = [
-            f'"QD < {self.config.snp_qd}" --filter-name "QD_filter"',
-            f'"FS > {self.config.snp_fs}" --filter-name "FS_filter"',
-            f'"MQ < {self.config.snp_mq}" --filter-name "MQ_filter"',
-            f'"MQRankSum < {self.config.snp_mqrs}" --filter-name "MQRS_filter"',
-            f'"ReadPosRankSum < {self.config.snp_rprs}" --filter-name "RPRS_filter"',
-            f'"SOR > {self.config.snp_sor}" --filter-name "SOR_filter"'
+            (f"QD < {self.config.snp_qd}", "QD_filter"),
+            (f"FS > {self.config.snp_fs}", "FS_filter"),
+            (f"MQ < {self.config.snp_mq}", "MQ_filter"),
+            (f"MQRankSum < {self.config.snp_mqrs}", "MQRS_filter"),
+            (f"ReadPosRankSum < {self.config.snp_rprs}", "RPRS_filter"),
+            (f"SOR > {self.config.snp_sor}", "SOR_filter"),
+        ]
+
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "VariantFiltration",
+            "-R", self.config.reference,
+            "-V", self.config.snp_raw_vcf,
+            "-O", str(snp_filtered),
         ]
         
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' VariantFiltration"
-        cmd += f" -R {self.config.reference}"
-        cmd += f" -V {self.config.snp_raw_vcf}"
-        cmd += f" -O {snp_filtered}"
+        for expression, name in filters:
+            args += ["--filter-expression", expression, "--filter-name", name]
         
-        for filt in filters:
-            cmd += f" --filter-expression {filt}"
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(cmd, "过滤SNP|Filter SNPs")
         
@@ -90,19 +107,24 @@ class VariantFilter:
         
         # 构建过滤表达式|Build filter expression
         filters = [
-            f'"QD < {self.config.indel_qd}" --filter-name "QD_filter"',
-            f'"FS > {self.config.indel_fs}" --filter-name "FS_filter"',
-            f'"ReadPosRankSum < {self.config.indel_rprs}" --filter-name "RPRS_filter"',
-            f'"SOR > {self.config.indel_sor}" --filter-name "SOR_filter"'
+            (f"QD < {self.config.indel_qd}", "QD_filter"),
+            (f"FS > {self.config.indel_fs}", "FS_filter"),
+            (f"ReadPosRankSum < {self.config.indel_rprs}", "RPRS_filter"),
+            (f"SOR > {self.config.indel_sor}", "SOR_filter"),
         ]
         
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' VariantFiltration"
-        cmd += f" -R {self.config.reference}"
-        cmd += f" -V {self.config.indel_raw_vcf}"
-        cmd += f" -O {indel_filtered}"
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "VariantFiltration",
+            "-R", self.config.reference,
+            "-V", self.config.indel_raw_vcf,
+            "-O", str(indel_filtered),
+        ]
+
+        for expression, name in filters:
+            args += ["--filter-expression", expression, "--filter-name", name]
         
-        for filt in filters:
-            cmd += f" --filter-expression {filt}"
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(cmd, "过滤INDEL|Filter INDELs")
         
@@ -118,10 +140,14 @@ class VariantFilter:
         merged_vcf = self.config.output_path / f"{self.config.base_name}_merged_filtered.vcf.gz"
         
         # 使用bcftools合并|Use bcftools to merge
-        cmd = f"{self.config.bcftools_path} concat"
-        cmd += f" -a -O z"
-        cmd += f" -o {merged_vcf}"
-        cmd += f" {self.config.snp_filtered_vcf} {self.config.indel_filtered_vcf}"
+        args = [
+            "concat",
+            "-a", "-O", "z",
+            "-o", str(merged_vcf),
+            self.config.snp_filtered_vcf,
+            self.config.indel_filtered_vcf,
+        ]
+        cmd = build_conda_command(self.config.bcftools_path, args)
         
         success = self.cmd_runner.run(cmd, "合并变异|Merge variants")
         
@@ -134,5 +160,5 @@ class VariantFilter:
     
     def _index_vcf(self, vcf_file):
         """为VCF文件建立索引|Index VCF file"""
-        cmd = f"{self.config.bcftools_path} index -t {vcf_file}"
+        cmd = build_conda_command(self.config.bcftools_path, ["index", "-t", str(vcf_file)])
         self.cmd_runner.run(cmd, f"索引VCF|Index VCF: {vcf_file}")

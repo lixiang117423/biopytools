@@ -6,6 +6,7 @@ import os
 import glob
 import shutil
 from pathlib import Path
+from ..common.conda_runner import build_conda_command
 from .utils import CommandRunner
 from .results import ResultsManager
 
@@ -32,11 +33,10 @@ class CorePipeline:
         bowtie2_dir = os.path.dirname(bowtie2_path)
         self.logger.info(f"  -> 使用bowtie2路径|Using bowtie2 path: {bowtie2_dir}")
 
-        cmd = (
-            f"\"{self.config.bismark_genome_preparation_path}\" "
-            f"--path_to_aligner \"{bowtie2_dir}\" "
-            f"--verbose "
-            f"\"{self.config.genome_dir}\""
+        # 构建完整命令(功能域环境自动包装)|Build full command (auto domain env wrapping)
+        cmd = build_conda_command(
+            self.config.bismark_genome_preparation_path,
+            ['--path_to_aligner', bowtie2_dir, '--verbose', self.config.genome_dir]
         )
         
         if cmd_runner.run(cmd, "构建Bismark索引|Building Bismark index"):
@@ -44,9 +44,9 @@ class CorePipeline:
             return True
         else:
             self.logger.warning("   主索引构建命令失败，尝试备用方案|Main index build command failed, trying fallback.")
-            cmd_auto = (
-                f"\"{self.config.bismark_genome_preparation_path}\" "
-                f"--verbose \"{self.config.genome_dir}\""
+            cmd_auto = build_conda_command(
+                self.config.bismark_genome_preparation_path,
+                ['--verbose', self.config.genome_dir]
             )
             if cmd_runner.run(cmd_auto, "构建Bismark索引 (自动查找bowtie2)|Building Bismark index (auto-detect bowtie2)"):
                 self.logger.info(" Bismark索引构建完成 (备用方案成功)|Bismark index build complete (fallback succeeded).")
@@ -103,13 +103,14 @@ class CorePipeline:
             sample_tmp_dir.mkdir(parents=True, exist_ok=True)
             cmd_runner = CommandRunner(self.logger, sample_tmp_dir)
             
-            align_cmd = (
-                f"\"{self.config.bismark_path}\" --genome \"{self.config.genome_dir}\" "
-                f"--multicore {max(1, self.config.threads // 4)} "
-                f"-1 \"{files['R1']}\" -2 \"{files['R2']}\" "
-                f"--output_dir \"{sample_tmp_dir}\" "
-                f"--temp_dir \"{sample_tmp_dir}\" "
-                f"--bowtie2 --non_directional"
+            align_cmd = build_conda_command(
+                self.config.bismark_path,
+                ['--genome', self.config.genome_dir,
+                 '--multicore', str(max(1, self.config.threads // 4)),
+                 '-1', files['R1'], '-2', files['R2'],
+                 '--output_dir', str(sample_tmp_dir),
+                 '--temp_dir', str(sample_tmp_dir),
+                 '--bowtie2', '--non_directional']
             )
 
             if not cmd_runner.run(align_cmd, f"Bismark比对|Bismark alignment: {sample}"):
@@ -122,18 +123,22 @@ class CorePipeline:
                 continue
             temp_bam_path = temp_bam_files[0]
 
-            extract_cmd_parts = [
-                f"\"{self.config.bismark_methylation_extractor_path}\"",
+            extract_args = [
                 "--paired-end",
                 "--report", "--bedGraph", "--cytosine_report", "--CX_context",
-                f"--genome_folder \"{self.config.genome_dir}\"",
-                f"--buffer_size {self.config.sort_buffer}",
-                f"--multicore {self.config.threads}",
-                f"\"{temp_bam_path}\""
+                "--genome_folder", self.config.genome_dir,
+                "--buffer_size", self.config.sort_buffer,
+                "--multicore", str(self.config.threads),
+                str(temp_bam_path)
             ]
-            if self.config.no_overlap: extract_cmd_parts.insert(1, "--no_overlap")
-            
-            if not cmd_runner.run(" ".join(extract_cmd_parts), f"甲基化提取|Methylation extraction: {sample}"):
+            if self.config.no_overlap:
+                extract_args.insert(0, "--no_overlap")
+
+            extract_cmd = build_conda_command(
+                self.config.bismark_methylation_extractor_path, extract_args
+            )
+
+            if not cmd_runner.run(extract_cmd, f"甲基化提取|Methylation extraction: {sample}"):
                 self.logger.error(f" 样品 {sample} 的甲基化提取步骤失败，跳过|Methylation extraction step failed for sample {sample}, skipping.")
                 continue
 

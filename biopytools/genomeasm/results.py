@@ -379,8 +379,10 @@ class ResultsManager:
     def _create_fasta_index(self, fasta_file: Path):
         """创建FASTA索引|Create FASTA index"""
         try:
-            cmd = f"{self.config.samtools_path} faidx {fasta_file}"
-            self.cmd_runner.run(cmd, f"创建索引 - {fasta_file.name}")
+            self.cmd_runner.run(
+                [self.config.samtools_path, 'faidx', str(fasta_file)],
+                f"创建索引 - {fasta_file.name}"
+            )
         except Exception as e:
             self.logger.warning(f" 无法创建索引|Failed to create index {fasta_file.name}: {e}")
     

@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path, get_tool_path, resolve_legacy_path
+from ..common.paths import expand_path, get_tool_path, get_domain_tool_path, resolve_legacy_path
 
 
 @dataclass
@@ -50,13 +50,17 @@ class HifiHicWorkflowConfig:
 
     # HapHiC工具路径|HapHiC tool paths
     haphic_bin: str = field(
-        default_factory=lambda: get_tool_path('haphic', 'haphic', 'HAPHIC_BIN')
+        default_factory=lambda: get_domain_tool_path('haphic', 'haphic', 'HAPHIC_BIN')
     )
     bwa_bin: str = field(
-        default_factory=lambda: get_tool_path('bwa', 'bwa', 'BWA_BIN')
+        default_factory=lambda: get_domain_tool_path('bwa', 'bwa', 'BWA_BIN')
     )
     samtools_bin: str = field(
-        default_factory=lambda: get_tool_path('samtools', 'samtools', 'SAMTOOLS_BIN')
+        default_factory=lambda: get_domain_tool_path('samtools', 'samtools', 'SAMTOOLS_BIN')
+    )
+    minimap2_path: str = field(
+        default_factory=lambda: get_domain_tool_path(
+            'minimap2', 'minimap2', 'MINIMAP2_PATH')
     )
 
     # Hi-C数据处理参数|Hi-C data processing parameters
@@ -164,6 +168,7 @@ class HifiHicWorkflowConfig:
         self.haphic_bin = expand_path(self.haphic_bin)
         self.bwa_bin = expand_path(self.bwa_bin)
         self.samtools_bin = expand_path(self.samtools_bin)
+        self.minimap2_path = expand_path(self.minimap2_path)
         self.hicpro_path = expand_path(self.hicpro_path)
         self.plothic_path = expand_path(self.plothic_path)
 

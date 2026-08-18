@@ -7,6 +7,10 @@ import subprocess
 from pathlib import Path
 from typing import Optional
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class MAFFTAligner:
     """MAFFT多序列比对器|MAFFT Multiple Sequence Aligner"""
@@ -38,8 +42,11 @@ class MAFFTAligner:
             MAFFT是否可用|Whether MAFFT is available
         """
         try:
+            cmd = build_conda_command(self.mafft_path, ['--help'])
+            if self.logger:
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
-                [self.mafft_path, '--help'],
+                cmd,
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -85,22 +92,26 @@ class MAFFTAligner:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         # 构建MAFFT命令|Build MAFFT command
-        cmd = f"{self.mafft_path} {mafft_params} --thread {self.threads} "
-        cmd += f"{input_file.resolve()} > {output_file.resolve()}"
+        mafft_args = mafft_params.split() + [
+            "--thread", str(self.threads),
+            str(input_file.resolve()),
+        ]
+        cmd = build_conda_command(self.mafft_path, mafft_args)
 
         if self.logger:
             self.logger.info(f"运行MAFFT比对|Running MAFFT alignment")
-            self.logger.info(f"命令|Command: {self.mafft_path} {mafft_params} --thread {self.threads}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)} > {output_file.resolve()}")
 
         try:
             # 运行MAFFT|Run MAFFT
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                timeout=3600  # 1 hour timeout
-            )
+            with open(output_file, 'w') as f:
+                result = subprocess.run(
+                    cmd,
+                    stdout=f,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=3600  # 1 hour timeout
+                )
 
             if result.returncode == 0:
                 # 检查输出文件|Check output file

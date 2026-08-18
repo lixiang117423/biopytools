@@ -40,10 +40,10 @@ class SequenceExtractor:
         self.logger.info(f"  输出文件|Output file: {output_file}")
 
         # 构建seqkit命令|Build seqkit command
-        cmd = f"seqkit subseq --bed {bed_file} {self.config.genome_fa} > {output_file}"
+        cmd = [self.config.seqkit_path, "subseq", "--bed", bed_file, self.config.genome_fa]
 
         # 执行命令|Execute command
-        success = self.cmd_runner.run(cmd, " 序列提取|Sequence extraction")
+        success = self.cmd_runner.run(cmd, " 序列提取|Sequence extraction", output_file=output_file)
 
         if success:
             # 统计提取的序列数|Count extracted sequences

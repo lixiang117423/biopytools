@@ -11,6 +11,8 @@ import tempfile
 from .msaviz import MsaViz
 from .logger import MsaVizLogger
 from .aligner import MAFFTAligner
+from ..common.paths import get_domain_tool_path
+from ..common.paths import get_domain_tool_path
 
 
 def parse_arguments():
@@ -36,8 +38,8 @@ def parse_arguments():
                        action='store_true',
                        help=' 跳过MAFFT比对（输入已是比对结果）|Skip MAFFT alignment (input is already aligned)')
     parser.add_argument('--mafft-path',
-                       default='mafft',
-                       help=' MAFFT可执行文件路径|MAFFT executable path (default: mafft)')
+                       default=None,
+                       help=' MAFFT可执行文件路径(默认域环境自动解析)|MAFFT executable path (default: auto domain env)')
     parser.add_argument('--mafft-params',
                        default='--auto --preservecase',
                        help=' MAFFT参数|MAFFT parameters (default: --auto --preservecase)')
@@ -156,8 +158,12 @@ def main():
             logger.info(" 步骤1/2: MAFFT多序列比对|Step 1/2: MAFFT Multiple Sequence Alignment")
 
             # 初始化MAFFT比对器|Initialize MAFFT aligner
+            # 工具路径未显式指定时使用域环境自动解析
+            # |Tool path uses domain-env auto resolution when not explicitly given
+            mafft_path = args.mafft_path if args.mafft_path else get_domain_tool_path(
+                'mafft', 'mafft', 'MAFFT_PATH')
             aligner = MAFFTAligner(
-                mafft_path=args.mafft_path,
+                mafft_path=mafft_path,
                 threads=args.threads,
                 logger=logger
             )

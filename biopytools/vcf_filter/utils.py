@@ -12,6 +12,12 @@ import os
 from pathlib import Path
 from typing import Optional
 
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+
 class FilterLogger:
     """筛选日志管理器|Filtering Logger Manager"""
     
@@ -141,11 +147,14 @@ class FastVCFStats:
     def quick_count_variants_system(self, vcf_file: str) -> Optional[int]:
         """使用系统命令快速统计变异数量|Quick count variants using system commands"""
         try:
+            # 管道命令: zcat/grep/wc 均为系统工具, 保持裸名
+            # |Pipeline: zcat/grep/wc are all system tools, keep bare names
             if vcf_file.endswith('.gz'):
                 cmd = f"zcat {vcf_file}|grep -v '^#'|wc -l"
             else:
                 cmd = f"grep -v '^#' {vcf_file}|wc -l"
-            
+
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
             if result.returncode == 0:
                 count = int(result.stdout.strip())
@@ -158,8 +167,15 @@ class FastVCFStats:
     def quick_count_variants_bcftools(self, vcf_file: str) -> Optional[int]:
         """使用bcftools快速统计变异数量|Quick count variants using bcftools"""
         try:
-            if shutil.which('bcftools'):
-                cmd = f"bcftools view -H {vcf_file}|wc -l"
+            bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+            if (os.path.isabs(bcftools_path) and os.path.exists(bcftools_path)) or shutil.which(bcftools_path):
+                # 管道命令(方案B): bcftools解析到域环境二进制直接调用, wc为系统工具
+                # |Pipeline (solution B): bcftools resolves to domain binary, wc stays bare
+                cmd = build_pipeline_command([
+                    [bcftools_path, 'view', '-H', vcf_file],
+                    ['wc', '-l'],
+                ])
+                self.logger.info(f"命令|Command: {cmd}")
                 result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
                 if result.returncode == 0:
                     count = int(result.stdout.strip())
@@ -231,7 +247,9 @@ class FastVCFStats:
 def check_plink_availability(plink_path: str, logger):
     """检查plink可用性|Check plink availability"""
     try:
-        result = subprocess.run([plink_path, '--version'], 
+        cmd = build_conda_command(plink_path, ['--version'])
+        logger.info(f"命令|Command: {' '.join(cmd)}")
+        result = subprocess.run(cmd, shell=False,
                               capture_output=True, text=True, timeout=10)
         if result.returncode == 0:
             logger.info(f"PLINK 可用|available: {plink_path}")

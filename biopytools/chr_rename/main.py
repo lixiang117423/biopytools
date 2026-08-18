@@ -64,8 +64,8 @@ def main():
                        help='输出目录|Output directory')
 
     parser.add_argument('-a', '--minimap2-path',
-                       default='minimap2',
-                       help='minimap2软件路径|minimap2 software path')
+                       default=None,
+                       help='minimap2软件路径(默认域环境自动解析)|minimap2 software path (default: auto domain env)')
 
     parser.add_argument('-x', '--preset',
                        default='asm5',
@@ -86,16 +86,21 @@ def main():
     args = parser.parse_args()
 
     # 创建重命名器并运行|Create renamer and run
-    renamer = ChrRenameAnnotator(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool path uses config domain-env default when not explicitly given
+    renamer_kwargs = dict(
         ref_fasta=args.ref,
         query_fasta=args.query,
         output_dir=args.output_dir,
-        minimap2_path=args.minimap2_path,
         preset=args.preset,
         threads=args.threads,
         min_identity=args.min_identity,
         min_alignment_length=args.min_alignment_length
     )
+    if args.minimap2_path is not None:
+        renamer_kwargs['minimap2_path'] = args.minimap2_path
+
+    renamer = ChrRenameAnnotator(**renamer_kwargs)
 
     renamer.run_analysis()
 

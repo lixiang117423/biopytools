@@ -7,6 +7,10 @@ import subprocess
 from pathlib import Path
 from typing import Dict, Tuple
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class LongRNASeqAligner:
     """三代转录组比对器|Long RNA-seq Aligner"""
@@ -174,9 +178,7 @@ class LongRNASeqAligner:
             # 步骤1: 运行minimap2，输出SAM文件|Step 1: Run minimap2, output SAM file
             self.logger.info("步骤1/3: 运行minimap2生成SAM文件|Step 1/3: Running minimap2 to generate SAM file")
 
-            minimap2_cmd = [
-                self.config.minimap2_path
-            ] + self.config.get_minimap2_params() + [
+            minimap2_args = self.config.get_minimap2_params() + [
                 self.config.ref_genome
             ]
 
@@ -184,19 +186,20 @@ class LongRNASeqAligner:
             if isinstance(fastq_files, tuple):
                 # 双端FASTQ|Paired-end FASTQ
                 r1, r2 = fastq_files
-                minimap2_cmd.extend([str(r1), str(r2)])
+                minimap2_args.extend([str(r1), str(r2)])
                 self.logger.info(f"双端比对模式|Paired-end alignment mode")
             else:
                 # 单端FASTQ|Single-end FASTQ
-                minimap2_cmd.append(str(fastq_files))
+                minimap2_args.append(str(fastq_files))
                 self.logger.info(f"单端比对模式|Single-end alignment mode")
 
-            self.logger.info(f"运行命令|Running command: {' '.join(minimap2_cmd)} > {sam_file}")
+            cmd = build_conda_command(self.config.minimap2_path, minimap2_args)
+            self.logger.info(f"命令|Command: {' '.join(cmd)} > {sam_file}")
 
-            # 使用shell重定向输出到SAM文件|Use shell redirection to output to SAM file
+            # 使用文件句柄重定向输出到SAM文件|Redirect stdout to SAM file
             with open(sam_file, 'w') as f:
                 result = subprocess.run(
-                    minimap2_cmd,
+                    cmd,
                     stdout=f,
                     stderr=subprocess.PIPE,
                     check=True
@@ -211,16 +214,15 @@ class LongRNASeqAligner:
             # 步骤2: 转换SAM为BAM|Step 2: Convert SAM to BAM
             self.logger.info("步骤2/3: 转换SAM为BAM|Step 2/3: Converting SAM to BAM")
 
-            samtools_view_cmd = [
-                self.config.samtools_path,
+            samtools_view_cmd = build_conda_command(self.config.samtools_path, [
                 "view",
                 "-b",
                 str(sam_file)
-            ]
+            ])
 
-            self.logger.info(f"运行命令|Running command: {' '.join(samtools_view_cmd)} > {bam_file}")
+            self.logger.info(f"命令|Command: {' '.join(samtools_view_cmd)} > {bam_file}")
 
-            # 使用shell重定向输出到BAM文件|Use shell redirection to output to BAM file
+            # 使用文件句柄重定向输出到BAM文件|Redirect stdout to BAM file
             with open(bam_file, 'wb') as f:
                 result = subprocess.run(
                     samtools_view_cmd,
@@ -242,15 +244,14 @@ class LongRNASeqAligner:
             # 步骤3: 排序BAM文件|Step 3: Sort BAM file
             self.logger.info("步骤3/3: 排序BAM文件|Step 3/3: Sorting BAM file")
 
-            samtools_sort_cmd = [
-                self.config.samtools_path,
+            samtools_sort_cmd = build_conda_command(self.config.samtools_path, [
                 "sort",
                 "-@", str(self.config.threads),
                 "-o", str(sorted_bam),
                 str(bam_file)
-            ]
+            ])
 
-            self.logger.info(f"运行命令|Running command: {' '.join(samtools_sort_cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(samtools_sort_cmd)}")
             result = subprocess.run(
                 samtools_sort_cmd,
                 stderr=subprocess.PIPE,

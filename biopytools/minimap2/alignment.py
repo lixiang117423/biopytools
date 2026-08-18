@@ -4,6 +4,10 @@ Minimap2比对模块|Minimap2 Alignment Module
 
 import os
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class Minimap2Aligner:
     """Minimap2比对器|Minimap2 Aligner"""
@@ -33,13 +37,21 @@ class Minimap2Aligner:
             self.logger.info(f"PAF文件已存在，跳过比对|PAF file already exists, skipping alignment: {output_paf}")
             return True
         
-        # 构建minimap2命令|Build minimap2 command
-        command = (
-            f"{minimap2_path} -x {preset} {target_genome} {query_genome} "
-            f"-t {threads} > {output_paf}"
+        # 构建minimap2命令(conda环境自动包装, 输出重定向到文件)
+        # |Build minimap2 command (auto conda wrap, redirect stdout to file)
+        args = [
+            "-x", preset,
+            "-t", str(threads),
+            target_genome,
+            query_genome,
+        ]
+        command = build_conda_command(minimap2_path, args)
+
+        success, _, _ = self.cmd_runner.run(
+            command,
+            "Minimap2全基因组比对|Minimap2 whole genome alignment",
+            output_file=output_paf,
         )
-        
-        success = self.cmd_runner.run(command, "Minimap2全基因组比对|Minimap2 whole genome alignment")
         
         if success:
             self.logger.info(f"比对完成，PAF文件已生成|Alignment completed, PAF file generated: {output_paf}")

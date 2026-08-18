@@ -60,12 +60,12 @@ def parse_arguments():
                         help='不输出次优比对|Do not output secondary alignments')
 
     parser.add_argument('--minimap2-path',
-                        default='minimap2',
-                        help='minimap2可执行文件路径 (默认: minimap2)|minimap2 executable path (default: minimap2)')
+                        default=None,
+                        help='minimap2可执行文件路径 (默认域环境自动解析)|minimap2 executable path (default: auto domain env)')
 
     parser.add_argument('--samtools-path',
-                        default='samtools',
-                        help='samtools可执行文件路径 (默认: samtools)|samtools executable path (default: samtools)')
+                        default=None,
+                        help='samtools可执行文件路径 (默认域环境自动解析)|samtools executable path (default: auto domain env)')
 
     parser.add_argument('--version',
                         action='version',
@@ -80,7 +80,9 @@ def main():
 
     try:
         # 创建基础配置|Create base configuration (用于检测是否为文件夹|for detecting if directory)
-        base_config = LongRNASeqConfig(
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        base_config_kwargs = dict(
             input_file=args.input_file,
             ref_genome=args.ref_genome,
             output_dir=args.output_dir,
@@ -89,9 +91,13 @@ def main():
             max_intron=args.max_intron,
             min_mapq=args.min_mapq,
             secondary=not args.no_secondary,
-            minimap2_path=args.minimap2_path,
-            samtools_path=args.samtools_path
         )
+        if args.minimap2_path is not None:
+            base_config_kwargs['minimap2_path'] = args.minimap2_path
+        if args.samtools_path is not None:
+            base_config_kwargs['samtools_path'] = args.samtools_path
+
+        base_config = LongRNASeqConfig(**base_config_kwargs)
 
         base_config.validate()
 

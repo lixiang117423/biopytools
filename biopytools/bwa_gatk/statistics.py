@@ -6,6 +6,10 @@ import subprocess
 from pathlib import Path
 from typing import List, Dict
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 class StatisticsGenerator:
     """统计信息生成器|Statistics Generator"""
     
@@ -122,9 +126,13 @@ class StatisticsGenerator:
     def _get_alignment_stats(self, bam_file: Path) -> dict:
         """获取比对统计|Get alignment statistics"""
         try:
-            # samtools flagstat
+            # samtools flagstat(conda环境自动包装)|samtools flagstat (auto conda wrap)
+            flagstat_cmd = build_conda_command(
+                self.config.samtools_path, ['flagstat', str(bam_file)]
+            )
+            self.logger.info(f"命令|Command: {' '.join(flagstat_cmd)}")
             result = subprocess.run(
-                [self.config.samtools_path, 'flagstat', str(bam_file)],
+                flagstat_cmd,
                 capture_output=True, text=True, check=True
             )
             

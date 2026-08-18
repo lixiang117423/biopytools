@@ -9,6 +9,10 @@ import re
 from pathlib import Path
 from typing import List, Tuple, Dict
 
+from ..common.conda_runner import build_conda_command, check_tools
+
+from ..common.conda_runner import build_conda_command, check_tools
+
 class TranscriptomeLogger:
     """ 转录组分析日志管理器|Transcriptome Analysis Logger Manager"""
     
@@ -43,18 +47,25 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()  # 使用绝对路径|Use absolute path
     
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "") -> bool:
         """ 执行命令|Execute command"""
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-        self.logger.info(f" 命令|Command: {cmd}")
+        # 列表命令用 shell=False, 字符串命令用 shell=True|List -> shell=False, string -> shell=True
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f" 命令|Command: {display}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
         try:
             result = subprocess.run(
                 cmd, 
-                shell=True, 
+                shell=use_shell,
                 capture_output=True, 
                 text=True, 
                 check=True,
@@ -161,43 +172,15 @@ class SequencingTypeDetector:
 
 def check_dependencies(config, logger):
     """ 检查依赖软件|Check dependencies"""
-    logger.info(" 检查依赖软件|Checking dependencies")
-    
     dependencies = [
-        (config.hisat2_path, "HISAT2", ""),
-        (config.hisat2_build_path, "HISAT2-build", ""),
-        (config.stringtie_path, "StringTie", ""),
-        (config.trinity_path, "Trinity", ""),
-        (config.samtools_path, "SAMtools", "")
+        (config.hisat2_path, "HISAT2", ["--version"]),
+        (config.hisat2_build_path, "HISAT2-build", ["--version"]),
+        (config.stringtie_path, "StringTie", ["--version"]),
+        (config.trinity_path, "Trinity", ["--version"], True),
+        (config.samtools_path, "SAMtools", ["--version"])
     ]
     
-    missing_deps = []
-    
-    for cmd, name, emoji in dependencies:
-        try:
-            # 不同工具的版本检查命令不同|Different tools have different version check commands
-            if name == "HISAT2":
-                result = subprocess.run([cmd, "--version"], 
-                                      capture_output=True, text=True, timeout=10)
-            elif name == "StringTie":
-                result = subprocess.run([cmd, "--version"], 
-                                      capture_output=True, text=True, timeout=10)
-            elif name == "Trinity":
-                result = subprocess.run([cmd, "--version"], 
-                                      capture_output=True, text=True, timeout=10)
-            elif name == "SAMtools":
-                result = subprocess.run([cmd, "--version"], 
-                                      capture_output=True, text=True, timeout=10)
-            else:
-                result = subprocess.run([cmd, "--help"], 
-                                      capture_output=True, text=True, timeout=10)
-            
-            if result.returncode == 0:
-                logger.info(f" {emoji} {name} 可用|available")
-            else:
-                missing_deps.append(f"{emoji} {name}")
-        except (subprocess.TimeoutExpired, FileNotFoundError):
-            missing_deps.append(f"{emoji} {name}")
+    missing_deps = check_tools(dependencies, logger)
     
     if missing_deps:
         error_msg = f" 缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"

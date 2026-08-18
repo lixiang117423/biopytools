@@ -40,7 +40,7 @@ class CoverageFilter:
             self.logger.info("=" * 60)
 
             # 检查依赖|Check dependencies
-            if not check_dependencies(self.logger):
+            if not check_dependencies(self.config, self.logger):
                 return False
 
             # 步骤1: 计算覆盖度|Step 1: Calculate coverage

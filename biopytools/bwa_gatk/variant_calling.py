@@ -5,6 +5,8 @@
 from pathlib import Path
 from typing import List
 from .utils import CommandRunner, check_file_exists
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class VariantCaller:
     """变异检测器|Variant Caller"""
@@ -44,19 +46,22 @@ class VariantCaller:
             self.logger.info("跳过GVCF生成（文件已存在）| Skipping GVCF generation (file exists)")
             return gvcf_file
         
-        # 构建命令|Build command
-        cmd = (f"{self.config.gatk_path} HaplotypeCaller "
-               f"-R {self.config.reference} "
-               f"-I {bam_file} "
-               f"-O {gvcf_file} "
-               f"-ERC GVCF "
-               f"--sample-ploidy {self.config.ploidy} "
-               f"--native-pair-hmm-threads {self.config.threads}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        args = [
+            "HaplotypeCaller",
+            "-R", self.config.reference,
+            "-I", str(bam_file),
+            "-O", str(gvcf_file),
+            "-ERC", "GVCF",
+            "--sample-ploidy", str(self.config.ploidy),
+            "--native-pair-hmm-threads", str(self.config.threads),
+        ]
         
         # 添加区间限定|Add intervals if specified
         if self.config.intervals:
-            cmd += f" -L {self.config.intervals}"
+            args += ["-L", self.config.intervals]
         
+        cmd = build_conda_command(self.config.gatk_path, args)
         self.cmd_runner.run(cmd, f"生成GVCF|Generate GVCF: {sample_name}")
         return gvcf_file
     
@@ -71,12 +76,16 @@ class VariantCaller:
             return combined_gvcf
         
         # 构建输入参数|Build input arguments
-        variant_inputs = " ".join([f"-V {gvcf}" for gvcf in gvcf_files])
+        variant_inputs = []
+        for gvcf in gvcf_files:
+            variant_inputs += ["-V", str(gvcf)]
         
-        cmd = (f"{self.config.gatk_path} CombineGVCFs "
-               f"-R {self.config.reference} "
-               f"{variant_inputs} "
-               f"-O {combined_gvcf}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["CombineGVCFs", "-R", self.config.reference]
+            + variant_inputs + ["-O", str(combined_gvcf)],
+        )
         
         self.cmd_runner.run(cmd, "合并GVCF|Combine GVCFs")
         return combined_gvcf
@@ -91,15 +100,19 @@ class VariantCaller:
             self.logger.info("跳过联合分型（文件已存在）| Skipping joint genotyping (file exists)")
             return raw_vcf
         
-        cmd = (f"{self.config.gatk_path} GenotypeGVCFs "
-               f"-R {self.config.reference} "
-               f"-V {combined_gvcf} "
-               f"-O {raw_vcf} "
-               f"--sample-ploidy {self.config.ploidy}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        args = [
+            "GenotypeGVCFs",
+            "-R", self.config.reference,
+            "-V", str(combined_gvcf),
+            "-O", str(raw_vcf),
+            "--sample-ploidy", str(self.config.ploidy),
+        ]
         
         # 添加区间限定|Add intervals if specified
         if self.config.intervals:
-            cmd += f" -L {self.config.intervals}"
+            args += ["-L", self.config.intervals]
         
+        cmd = build_conda_command(self.config.gatk_path, args)
         self.cmd_runner.run(cmd, "联合分型|Joint genotyping")
         return raw_vcf

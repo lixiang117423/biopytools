@@ -3,9 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class PhyloConfig:
@@ -28,8 +30,10 @@ class PhyloConfig:
     fasttree_params: str = ''  # Default FastTree parameters
     
     # 工具路径|Tool paths
-    mafft_path: str = 'mafft'
-    fasttree_path: str = 'fasttree'
+    mafft_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'mafft', 'mafft', 'MAFFT_PATH'))
+    fasttree_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'fasttree', 'fasttree', 'FASTTREE_PATH'))
     
     # 内部属性|Internal attributes
     base_name: str = 'sequences'
@@ -52,6 +56,14 @@ class PhyloConfig:
         self.mafft_file = self.output_path / f"{self.base_name}.mafft.fa"
         self.tree_file = self.output_path / f"{self.base_name}.fasttree.nwk"
         self.id_mapping_file = self.output_path / f"{self.base_name}.id_mapping.txt"
+
+        # 展开工具路径|Expand tool paths
+        self.mafft_path = expand_path(self.mafft_path)
+        self.fasttree_path = expand_path(self.fasttree_path)
+
+        # 展开工具路径|Expand tool paths
+        self.mafft_path = expand_path(self.mafft_path)
+        self.fasttree_path = expand_path(self.fasttree_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -5,6 +5,8 @@
 import os
 from pathlib import Path
 from .utils import CommandRunner, SequencingTypeDetector
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+from ..common.conda_runner import build_conda_command, build_pipeline_command
 
 class HISAT2Aligner:
     """ HISAT2比对器|HISAT2 Aligner"""
@@ -21,12 +23,10 @@ class HISAT2Aligner:
         
         self.logger.info("  构建HISAT2索引|Building HISAT2 index")
         
-        cmd = (
-            f"{self.config.hisat2_build_path} "
-            f"-p {self.config.threads} "
-            f"{self.config.genome_file} "
-            f"{index_prefix}"
-        )
+        # conda 域环境自动包装|Auto conda wrap
+        cmd = build_conda_command(self.config.hisat2_build_path, [
+            "-p", str(self.config.threads), self.config.genome_file, str(index_prefix),
+        ])
         
         success = self.cmd_runner.run(cmd, "  构建HISAT2索引|Build HISAT2 index")
         
@@ -384,36 +384,35 @@ class HISAT2Aligner:
         
         self.logger.info(f"执行配对末端读段比对|Performing paired-end read alignment: {sample_name}")
         
-        # HISAT2直接管道到排序BAM|HISAT2 pipeline to sorted BAM
-        cmd = (
-            f"{self.config.hisat2_path} "
-            f"-x {self.config.hisat2_index} "
-            f"-1 {r1_file} "
-            f"-2 {r2_file} "
-            f"-p {self.config.threads} "
-            f"--min-intronlen {self.config.hisat2_min_intron} "
-            f"--max-intronlen {self.config.hisat2_max_intron}"
-        )
-        
-        # 添加可选参数
+        # HISAT2直接管道到排序BAM(方案B: 管道内工具用域环境二进制, 严禁 conda run | conda run)
+        # HISAT2 pipeline to sorted BAM (solution B: domain binaries in pipe, no conda run | conda run)
+        hisat2_args = [
+            "-x", self.config.hisat2_index, "-1", r1_file, "-2", r2_file,
+            "-p", str(self.config.threads),
+            "--min-intronlen", str(self.config.hisat2_min_intron),
+            "--max-intronlen", str(self.config.hisat2_max_intron),
+        ]
+
+        # 添加可选参数|Add optional parameters
         if self.config.hisat2_dta:
-            cmd += " --dta"
+            hisat2_args.append("--dta")
         
         if self.config.hisat2_novel_splicesite:
             novel_ss_file = output_dir / f"{sample_name}_novel_splicesites.txt"
-            cmd += f" --novel-splicesite-outfile {novel_ss_file}"
+            hisat2_args += ["--novel-splicesite-outfile", str(novel_ss_file)]
         
-        # 添加管道到samtools
-        cmd += (
-            f"|{self.config.samtools_path} view -@ {self.config.threads} -bS - "
-            f"| {self.config.samtools_path} sort -@ {self.config.threads} - -o {sorted_bam}"
-        )
+        # 管道到samtools|Pipe to samtools
+        cmd = build_pipeline_command([
+            [self.config.hisat2_path] + hisat2_args,
+            [self.config.samtools_path, "view", "-@", str(self.config.threads), "-bS", "-"],
+            [self.config.samtools_path, "sort", "-@", str(self.config.threads), "-", "-o", str(sorted_bam)],
+        ])
         
         if not self.cmd_runner.run(cmd, f"HISAT2配对末端比对到排序BAM|HISAT2 paired-end alignment to sorted BAM: {sample_name}"):
             return False
         
-        # 建立索引
-        cmd_index = f"{self.config.samtools_path} index -@ {self.config.threads} {sorted_bam}"
+        # 建立索引(conda 域环境自动包装)|Build index (auto conda wrap)
+        cmd_index = build_conda_command(self.config.samtools_path, ["index", "-@", str(self.config.threads), str(sorted_bam)])
         if not self.cmd_runner.run(cmd_index, f"BAM索引|BAM indexing: {sorted_bam.name}"):
             return False
         
@@ -462,35 +461,35 @@ class HISAT2Aligner:
         
         self.logger.info(f"执行单端读段比对|Performing single-end read alignment: {sample_name}")
         
-        # HISAT2直接管道到排序BAM|HISAT2 pipeline to sorted BAM
-        cmd = (
-            f"{self.config.hisat2_path} "
-            f"-x {self.config.hisat2_index} "
-            f"-U {read_file} "
-            f"-p {self.config.threads} "
-            f"--min-intronlen {self.config.hisat2_min_intron} "
-            f"--max-intronlen {self.config.hisat2_max_intron}"
-        )
-        
-        # 添加可选参数
+        # HISAT2直接管道到排序BAM(方案B: 管道内工具用域环境二进制, 严禁 conda run | conda run)
+        # HISAT2 pipeline to sorted BAM (solution B: domain binaries in pipe, no conda run | conda run)
+        hisat2_args = [
+            "-x", self.config.hisat2_index, "-U", read_file,
+            "-p", str(self.config.threads),
+            "--min-intronlen", str(self.config.hisat2_min_intron),
+            "--max-intronlen", str(self.config.hisat2_max_intron),
+        ]
+
+        # 添加可选参数|Add optional parameters
         if self.config.hisat2_dta:
-            cmd += " --dta"
+            hisat2_args.append("--dta")
         
         if self.config.hisat2_novel_splicesite:
             novel_ss_file = output_dir / f"{sample_name}_novel_splicesites.txt"
-            cmd += f" --novel-splicesite-outfile {novel_ss_file}"
+            hisat2_args += ["--novel-splicesite-outfile", str(novel_ss_file)]
         
-        # 添加管道到samtools
-        cmd += (
-            f"|{self.config.samtools_path} view -@ {self.config.threads} -bS - "
-            f"| {self.config.samtools_path} sort -@ {self.config.threads} - -o {sorted_bam}"
-        )
+        # 管道到samtools|Pipe to samtools
+        cmd = build_pipeline_command([
+            [self.config.hisat2_path] + hisat2_args,
+            [self.config.samtools_path, "view", "-@", str(self.config.threads), "-bS", "-"],
+            [self.config.samtools_path, "sort", "-@", str(self.config.threads), "-", "-o", str(sorted_bam)],
+        ])
         
         if not self.cmd_runner.run(cmd, f"HISAT2单端比对到排序BAM|HISAT2 single-end alignment to sorted BAM: {sample_name}"):
             return False
         
-        # 建立索引
-        cmd_index = f"{self.config.samtools_path} index -@ {self.config.threads} {sorted_bam}"
+        # 建立索引(conda 域环境自动包装)|Build index (auto conda wrap)
+        cmd_index = build_conda_command(self.config.samtools_path, ["index", "-@", str(self.config.threads), str(sorted_bam)])
         if not self.cmd_runner.run(cmd_index, f"BAM索引|BAM indexing: {sorted_bam.name}"):
             return False
         

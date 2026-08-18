@@ -4,6 +4,8 @@ RepeatMasker工具包装器|RepeatMasker Tool Wrapper
 
 import os
 from pathlib import Path
+from ...common.conda_runner import build_conda_command
+from ...common.conda_runner import build_conda_command
 
 class RepeatMaskerRunner:
     """ RepeatMasker运行器|RepeatMasker Runner"""
@@ -30,14 +32,15 @@ class RepeatMaskerRunner:
             import shutil
             shutil.copy2(self.config.genome_file, genome_copy)
         
-        cmd = (
-            f"cd {output_dir} && "
-            f"{self.config.repeatmasker_path} -lib {library_path} "
+        # conda 域环境自动包装(保留 cd 进入输出目录)|Auto conda wrap (keep cd into output dir)
+        rm_cmd = build_conda_command(self.config.repeatmasker_path, [
+            "-lib", str(library_path),
             # 新增 -xsmall 参数以启用软屏蔽（小写字母）
             # Add -xsmall parameter to enable soft masking (lowercase letters)
-            f"-xsmall "
-            f"-pa {self.config.threads} -gff -dir {output_dir} {genome_copy.name}"
-        )
+            "-xsmall",
+            "-pa", str(self.config.threads), "-gff", "-dir", str(output_dir), genome_copy.name,
+        ])
+        cmd = f"cd {output_dir} && {' '.join(rm_cmd)}"
         
         success = self.cmd_runner.run(
             cmd,

@@ -4,6 +4,8 @@
 
 from pathlib import Path
 from .utils import CommandRunner, check_file_exists
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class VariantFilter:
     """变异过滤器|Variant Filter"""
@@ -55,11 +57,12 @@ class VariantFilter:
         if not self.config.force_restart and check_file_exists(output_vcf, self.logger):
             return output_vcf
         
-        cmd = (f"{self.config.gatk_path} SelectVariants "
-               f"-R {self.config.reference} "
-               f"-V {vcf_file} "
-               f"-O {output_vcf} "
-               f"--select-type-to-include {variant_type}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["SelectVariants", "-R", self.config.reference, "-V", str(vcf_file),
+             "-O", str(output_vcf), "--select-type-to-include", variant_type],
+        )
         
         self.cmd_runner.run(cmd, f"分离{variant_type}|Select {variant_type}")
         return output_vcf
@@ -73,23 +76,25 @@ class VariantFilter:
         
         filter_expr = self.config.get_filter_expression(variant_type)
         
-        cmd = (f"{self.config.gatk_path} VariantFiltration "
-               f"-R {self.config.reference} "
-               f"-V {vcf_file} "
-               f"-O {output_vcf} "
-               f"--filter-expression \"{filter_expr}\" "
-               f"--filter-name \"GATK_HARD_FILTER\"")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["VariantFiltration", "-R", self.config.reference, "-V", str(vcf_file),
+             "-O", str(output_vcf),
+             "--filter-expression", filter_expr,
+             "--filter-name", "GATK_HARD_FILTER"],
+        )
         
         self.cmd_runner.run(cmd, f"硬过滤{variant_type}|Hard filter {variant_type}")
         
         # 移除过滤掉的位点|Remove filtered sites
         passed_vcf = self.config.vcf_dir / f"all_samples.filtered.{variant_type}.vcf.gz"
         
-        cmd_exclude = (f"{self.config.gatk_path} SelectVariants "
-                      f"-R {self.config.reference} "
-                      f"-V {output_vcf} "
-                      f"-O {passed_vcf} "
-                      f"--exclude-filtered")
+        cmd_exclude = build_conda_command(
+            self.config.gatk_path,
+            ["SelectVariants", "-R", self.config.reference, "-V", str(output_vcf),
+             "-O", str(passed_vcf), "--exclude-filtered"],
+        )
         
         self.cmd_runner.run(cmd_exclude, f"移除过滤位点|Remove filtered sites")
         return passed_vcf
@@ -103,12 +108,14 @@ class VariantFilter:
         
         filter_expr = self.config.get_filter_expression(variant_type)
         
-        cmd = (f"{self.config.gatk_path} VariantFiltration "
-               f"-R {self.config.reference} "
-               f"-V {vcf_file} "
-               f"-O {output_vcf} "
-               f"--filter-expression \"{filter_expr}\" "
-               f"--filter-name \"GATK_SOFT_FILTER\"")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["VariantFiltration", "-R", self.config.reference, "-V", str(vcf_file),
+             "-O", str(output_vcf),
+             "--filter-expression", filter_expr,
+             "--filter-name", "GATK_SOFT_FILTER"],
+        )
         
         self.cmd_runner.run(cmd, f"软过滤{variant_type}|Soft filter {variant_type}")
         return output_vcf
@@ -120,5 +127,8 @@ class VariantFilter:
         if not self.config.force_restart and check_file_exists(tbi_file, self.logger):
             return
         
-        cmd = f"{self.config.gatk_path} IndexFeatureFile -I {vcf_file}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path, ["IndexFeatureFile", "-I", str(vcf_file)]
+        )
         self.cmd_runner.run(cmd, f"建立VCF索引|Index VCF: {vcf_file.name}")

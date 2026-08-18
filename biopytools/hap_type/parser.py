@@ -15,6 +15,10 @@ from typing import List, Dict, Optional, Any
 from collections import defaultdict
 
 from .utils import parse_gff_attributes
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
 
 
 @dataclass
@@ -396,13 +400,17 @@ class GFFParser:
 class VCFParser:
     """VCF文件解析器|VCF File Parser"""
 
-    def __init__(self, logger):
+    def __init__(self, logger, bcftools_path=None):
         """初始化VCF解析器|Initialize VCF parser
 
         Args:
             logger: 日志器|Logger
+            bcftools_path: bcftools路径(默认功能域环境自动解析)
+                           |bcftools path (default: auto domain env)
         """
         self.logger = logger
+        self.bcftools_path = expand_path(bcftools_path) if bcftools_path else \
+            get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
         self.variants: List[Variant] = []
         self.sample_names: List[str] = []
 
@@ -482,22 +490,25 @@ class VCFParser:
                 self.logger.info(f"VCF索引不存在，正在构建索引|VCF index not found, building index")
                 self._build_vcf_index(vcf_file)
 
-            # 构建bcftools命令|Build bcftools command
+            # 构建bcftools命令(conda环境自动包装)|Build bcftools command (auto conda wrap)
             region = f"{chrom}:{start}-{end}"
-            cmd = [
-                'bcftools',
-                'view',
-                '-r', region,
-                '-O', 'v',
-                '-o', str(temp_vcf_path),
-                str(vcf_file)
-            ]
+            cmd = build_conda_command(
+                self.bcftools_path,
+                [
+                    'view',
+                    '-r', region,
+                    '-O', 'v',
+                    '-o', str(temp_vcf_path),
+                    str(vcf_file)
+                ]
+            )
 
-            self.logger.debug(f"执行命令|Executing command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             # 运行bcftools|Run bcftools
             result = subprocess.run(
                 cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True
@@ -548,12 +559,13 @@ class VCFParser:
         """
         self.logger.info(f"开始构建VCF索引|Start building VCF index: {vcf_file}")
 
-        cmd = ['bcftools', 'index', str(vcf_file)]
+        cmd = build_conda_command(self.bcftools_path, ['index', str(vcf_file)])
 
         try:
-            self.logger.debug(f"执行命令|Executing command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
                 cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True

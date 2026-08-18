@@ -6,6 +6,8 @@ import os
 import subprocess
 from pathlib import Path
 from .utils import run_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 
 class CoverageCalculator:
@@ -15,15 +17,61 @@ class CoverageCalculator:
         self.config = config
         self.logger = logger
 
+    def _run_to_file(self, cmd, out_file, description):
+        """运行命令并将stdout重定向到文件|Run command redirecting stdout to file"""
+        self.logger.info(f"命令|Command: {' '.join(cmd)} > {out_file}")
+        try:
+            with open(out_file, 'w') as f:
+                result = subprocess.run(cmd, stdout=f, stderr=subprocess.PIPE, text=True)
+            if result.returncode != 0:
+                self.logger.error(f"{description} 失败|failed: {result.stderr}")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"{description} 失败|failed: {e}")
+            return False
+
+    def _run_capture(self, cmd, description):
+        """运行命令并捕获输出|Run command and capture output"""
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        try:
+            return subprocess.run(cmd, capture_output=True, text=True)
+        except Exception as e:
+            self.logger.error(f"{description} 失败|failed: {e}")
+            return None
+
+    def _run_to_file(self, cmd, out_file, description):
+        """运行命令并将stdout重定向到文件|Run command redirecting stdout to file"""
+        self.logger.info(f"命令|Command: {' '.join(cmd)} > {out_file}")
+        try:
+            with open(out_file, 'w') as f:
+                result = subprocess.run(cmd, stdout=f, stderr=subprocess.PIPE, text=True)
+            if result.returncode != 0:
+                self.logger.error(f"{description} 失败|failed: {result.stderr}")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"{description} 失败|failed: {e}")
+            return False
+
+    def _run_capture(self, cmd, description):
+        """运行命令并捕获输出|Run command and capture output"""
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        try:
+            return subprocess.run(cmd, capture_output=True, text=True)
+        except Exception as e:
+            self.logger.error(f"{description} 失败|failed: {e}")
+            return None
+
     def calculate_coverage(self):
         """计算覆盖度|Calculate coverage"""
         self.logger.info("开始计算覆盖度|Starting coverage calculation")
 
         coverage_file = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_coverage.txt")
 
-        cmd = f"samtools coverage {self.config.bam_file} > {coverage_file}"
+        cmd = build_conda_command(self.config.samtools_path, ['coverage', self.config.bam_file])
 
-        if not run_command(cmd, self.logger, "覆盖度计算|Coverage calculation"):
+        if not self._run_to_file(cmd, coverage_file, "覆盖度计算|Coverage calculation"):
             return None
 
         self.logger.info(f"覆盖度文件已生成|Coverage file generated: {coverage_file}")
@@ -75,23 +123,20 @@ class CoverageCalculator:
 
         # 提取高质量序列|Extract high quality sequences
         high_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_high_quality.fa")
-        cmd = f"seqtk subseq {self.config.fasta_file} {high_list} > {high_fasta}"
-
-        if not run_command(cmd, self.logger, "提取高质量序列|Extracting high quality sequences"):
+        cmd = build_conda_command(self.config.seqtk_path, ['subseq', self.config.fasta_file, high_list])
+        if not self._run_to_file(cmd, high_fasta, "提取高质量序列|Extracting high quality sequences"):
             return False
 
         # 提取中等质量序列|Extract medium quality sequences
         medium_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_medium_quality.fa")
-        cmd = f"seqtk subseq {self.config.fasta_file} {medium_list} > {medium_fasta}"
-
-        if not run_command(cmd, self.logger, "提取中等质量序列|Extracting medium quality sequences"):
+        cmd = build_conda_command(self.config.seqtk_path, ['subseq', self.config.fasta_file, medium_list])
+        if not self._run_to_file(cmd, medium_fasta, "提取中等质量序列|Extracting medium quality sequences"):
             return False
 
         # 提取低质量序列|Extract low quality sequences
         low_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_low_quality.fa")
-        cmd = f"seqtk subseq {self.config.fasta_file} {low_list} > {low_fasta}"
-
-        if not run_command(cmd, self.logger, "提取低质量序列|Extracting low quality sequences"):
+        cmd = build_conda_command(self.config.seqtk_path, ['subseq', self.config.fasta_file, low_list])
+        if not self._run_to_file(cmd, low_fasta, "提取低质量序列|Extracting low quality sequences"):
             return False
 
         self.logger.info("序列提取完成|Sequence extraction completed")
@@ -104,9 +149,9 @@ class CoverageCalculator:
         stats = {}
 
         # 原始序列统计|Original sequence statistics
-        cmd = f"seqkit stats -j {self.config.threads} {self.config.fasta_file}"
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        if result.returncode == 0:
+        cmd = build_conda_command(self.config.seqkit_path, ['stats', '-j', str(self.config.threads), self.config.fasta_file])
+        result = self._run_capture(cmd, "原始序列统计|Original sequence statistics")
+        if result and result.returncode == 0:
             stats['original'] = result.stdout
             self.logger.info("原始序列统计完成|Original sequence statistics completed")
         else:
@@ -116,9 +161,9 @@ class CoverageCalculator:
         # 高质量序列统计|High quality sequence statistics
         high_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_high_quality.fa")
         if os.path.exists(high_fasta):
-            cmd = f"seqkit stats -j {self.config.threads} {high_fasta}"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-            if result.returncode == 0:
+            cmd = build_conda_command(self.config.seqkit_path, ['stats', '-j', str(self.config.threads), high_fasta])
+            result = self._run_capture(cmd, "高质量序列统计|High quality sequence statistics")
+            if result and result.returncode == 0:
                 stats['high_quality'] = result.stdout
                 self.logger.info("高质量序列统计完成|High quality sequence statistics completed")
             else:
@@ -129,9 +174,9 @@ class CoverageCalculator:
         # 中等质量序列统计|Medium quality sequence statistics
         medium_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_medium_quality.fa")
         if os.path.exists(medium_fasta):
-            cmd = f"seqkit stats -j {self.config.threads} {medium_fasta}"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-            if result.returncode == 0:
+            cmd = build_conda_command(self.config.seqkit_path, ['stats', '-j', str(self.config.threads), medium_fasta])
+            result = self._run_capture(cmd, "中等质量序列统计|Medium quality sequence statistics")
+            if result and result.returncode == 0:
                 stats['medium_quality'] = result.stdout
                 self.logger.info("中等质量序列统计完成|Medium quality sequence statistics completed")
             else:
@@ -142,9 +187,9 @@ class CoverageCalculator:
         # 低质量序列统计|Low quality sequence statistics
         low_fasta = os.path.join(self.config.output_dir, f"{self.config.output_prefix}_low_quality.fa")
         if os.path.exists(low_fasta):
-            cmd = f"seqkit stats -j {self.config.threads} {low_fasta}"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-            if result.returncode == 0:
+            cmd = build_conda_command(self.config.seqkit_path, ['stats', '-j', str(self.config.threads), low_fasta])
+            result = self._run_capture(cmd, "低质量序列统计|Low quality sequence statistics")
+            if result and result.returncode == 0:
                 stats['low_quality'] = result.stdout
                 self.logger.info("低质量序列统计完成|Low quality sequence statistics completed")
             else:

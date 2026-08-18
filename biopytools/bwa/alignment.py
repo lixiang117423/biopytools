@@ -5,6 +5,18 @@
 import os
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 class BWAAlignmentProcessor:
     """BWA比对处理器|BWA Alignment Processor"""
     
@@ -72,50 +84,75 @@ class BWAAlignmentProcessor:
         # 添加read group信息|Add read group info
         rg = f"@RG\\tID:{sample_name}\\tSM:{sample_name}\\tPL:ILLUMINA"
 
-        cmd = (f"{self.config.bwa_path} mem "
-               f"{bwa_options} "
-               f"-R '{rg}' "
-               f"{self.config.genome} "
-               f"{read1} {read2} "
-               f"> {sam_file.absolute()}")
+        # 构建命令(conda环境自动包装, SAM输出重定向到文件)
+        # |Build command (auto conda wrap, redirect SAM to file)
+        args = ["mem"] + bwa_options.split() + [
+            "-R", rg,
+            self.config.genome,
+            read1, read2,
+        ]
+        cmd = build_conda_command(self.config.bwa_path, args)
 
-        return self.cmd_runner.run(cmd, f"BWA mem比对|BWA mem alignment: {sample_name}")
+        success, _, _ = self.cmd_runner.run(
+            cmd,
+            f"BWA mem比对|BWA mem alignment: {sample_name}",
+            output_file=str(sam_file.absolute()),
+        )
+        return success
     
     def _sam_to_bam(self, sam_file: Path, bam_file: Path) -> bool:
         """SAM转BAM|Convert SAM to BAM"""
-        cmd = (f"{self.config.samtools_path} view "
-               f"-@ {self.config.threads} "
-               f"-b -o {bam_file.absolute()} {sam_file.absolute()}")
+        args = [
+            "view",
+            "-@", str(self.config.threads),
+            "-b",
+            "-o", str(bam_file.absolute()),
+            str(sam_file.absolute()),
+        ]
+        cmd = build_conda_command(self.config.samtools_path, args)
 
-        return self.cmd_runner.run(cmd, "SAM转BAM|SAM to BAM conversion")
+        success, _, _ = self.cmd_runner.run(cmd, "SAM转BAM|SAM to BAM conversion")
+        return success
 
     def _sort_bam(self, input_bam: Path, output_bam: Path) -> bool:
         """排序BAM|Sort BAM"""
-        cmd = (f"{self.config.samtools_path} sort "
-               f"-@ {self.config.threads} "
-               f"-o {output_bam.absolute()} {input_bam.absolute()}")
+        args = [
+            "sort",
+            "-@", str(self.config.threads),
+            "-o", str(output_bam.absolute()),
+            str(input_bam.absolute()),
+        ]
+        cmd = build_conda_command(self.config.samtools_path, args)
 
-        return self.cmd_runner.run(cmd, "排序BAM|Sorting BAM")
+        success, _, _ = self.cmd_runner.run(cmd, "排序BAM|Sorting BAM")
+        return success
 
     def _mark_duplicates(self, input_bam: Path, output_bam: Path) -> bool:
         """标记重复序列|Mark duplicates"""
         stats_file = self.config.stats_dir / f"{input_bam.stem}.markdup_stats.txt"
 
-        remove_flag = "-r" if self.config.remove_dup else ""
+        args = [
+            "markdup",
+            "-@", str(self.config.threads),
+        ]
+        if self.config.remove_dup:
+            args.append("-r")
+        args.extend([
+            "-f", str(stats_file.absolute()),
+            str(input_bam.absolute()), str(output_bam.absolute()),
+        ])
+        cmd = build_conda_command(self.config.samtools_path, args)
 
-        cmd = (f"{self.config.samtools_path} markdup "
-               f"-@ {self.config.threads} "
-               f"{remove_flag} "
-               f"-f {stats_file.absolute()} "
-               f"{input_bam.absolute()} {output_bam.absolute()}")
-
-        return self.cmd_runner.run(cmd, "标记重复序列|Marking duplicates")
+        success, _, _ = self.cmd_runner.run(cmd, "标记重复序列|Marking duplicates")
+        return success
 
     def _build_bam_index(self, bam_file: Path) -> bool:
         """构建BAM索引|Build BAM index"""
-        cmd = f"{self.config.samtools_path} index -@ {self.config.threads} {bam_file.absolute()}"
+        args = ["index", "-@", str(self.config.threads), str(bam_file.absolute())]
+        cmd = build_conda_command(self.config.samtools_path, args)
 
-        return self.cmd_runner.run(cmd, "构建BAM索引|Building BAM index")
+        success, _, _ = self.cmd_runner.run(cmd, "构建BAM索引|Building BAM index")
+        return success
     
     def _cleanup_intermediate_files(self, sam_file: Path, raw_bam: Path, sorted_bam: Path):
         """清理中间文件|Cleanup intermediate files"""

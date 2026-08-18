@@ -9,6 +9,10 @@ import os
 from pathlib import Path
 from typing import List
 
+from ..common.conda_runner import check_tools
+
+from ..common.conda_runner import check_tools
+
 class DepthLogger:
     """ 覆盖度分析日志管理器|Depth Analysis Logger Manager"""
     
@@ -151,30 +155,15 @@ class CommandRunner:
 
 def check_dependencies(config, logger):
     """ 检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
-    
-    dependencies = [
-        (config.samtools_path, "samtools")
-    ]
-    
-    missing_deps = []
-    
-    for cmd, name in dependencies:
-        try:
-            result = subprocess.run([cmd, "--version"], 
-                                  capture_output=True, text=True, timeout=10)
-            if result.returncode == 0:
-                logger.info(f" {name} 可用|available")
-            else:
-                missing_deps.append(name)
-        except (subprocess.TimeoutExpired, FileNotFoundError):
-            missing_deps.append(name)
-    
+    missing_deps = check_tools([
+        (config.samtools_path, "samtools", ["--version"]),
+    ], logger)
+
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
-    
+
     return True
 
 def get_sample_name(file_path: str) -> str:

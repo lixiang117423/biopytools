@@ -3,24 +3,12 @@ VCF2PCA配置管理模块|VCF2PCA Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
 # 路径管理工具|Path management utilities
-try:
-    from common.paths import get_tool_path, expand_path
-except ImportError:
-    # 如果common模块不可用，使用简化版本|Fallback if common module unavailable
-    def get_tool_path(tool_name, default_path, env_var=None):
-        """获取工具路径|Get tool path"""
-        if env_var and os.environ.get(env_var):
-            return os.path.expandvars(os.path.expanduser(os.environ[env_var]))
-        return os.path.expandvars(os.path.expanduser(default_path))
-
-    def expand_path(path):
-        """展开路径|Expand path"""
-        return os.path.expandvars(os.path.expanduser(path))
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -59,22 +47,14 @@ class VCF2PCAConfig:
     # 分组列名(配合样本信息文件,按分组着色)|Group column for colored plots
     group_column: Optional[str] = None
 
-    # 工具路径|Tool paths
-    vcf2pca_path: str = get_tool_path(
-        'VCF2PCACluster',
-        '~/software/VCF2PCACluster-1.42/bin/VCF2PCACluster',
-        'VCF2PCA_PATH'
-    )
-    plink_path: str = get_tool_path(
-        'plink',
-        'plink',
-        'PLINK_PATH'
-    )
-    bcftools_path: str = get_tool_path(
-        'bcftools',
-        'bcftools',
-        'BCFTOOLS_PATH'
-    )
+    # 工具路径(功能域环境自动解析, 回退旧默认路径)
+    # |Tool paths (auto domain env, fallback to legacy defaults)
+    vcf2pca_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'VCF2PCACluster', '~/software/VCF2PCACluster-1.42/bin/VCF2PCACluster', 'VCF2PCA_PATH'))
+    plink_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plink', 'plink', 'PLINK_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
 
     # 其他参数|Other parameters
     threads: int = 12

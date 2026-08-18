@@ -3,9 +3,9 @@
 """
 
 import os
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 import shutil
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
@@ -22,13 +22,22 @@ class RepeatConfig:
     skip_modeler: bool = False  # 跳过RepeatModeler步骤|Skip RepeatModeler step
     skip_ltr: bool = False      # 跳过LTR分析步骤|Skip LTR analysis step
     
-    #  工具路径|Tool paths - 自动检测或手动指定
-    repeatmodeler_path: str = 'RepeatModeler'
-    ltr_finder_path: str = 'ltr_finder'
-    ltrharvest_path: str = 'gt ltrharvest'
-    ltr_retriever_path: str = 'LTR_retriever'
-    repeatmasker_path: str = 'RepeatMasker'
-    tesorter_path: str = 'TEsorter'
+    #  工具路径|Tool paths - 域环境解析, 回退裸命令名靠PATH
+    # |Tool paths (domain env resolution, fallback to bare name via PATH)
+    repeatmodeler_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'RepeatModeler', 'RepeatModeler', 'REPEATMODELER_PATH'))
+    build_database_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'BuildDatabase', 'BuildDatabase', 'BUILDDATABASE_PATH'))
+    ltr_finder_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'ltr_finder', 'ltr_finder', 'LTR_FINDER_PATH'))
+    ltrharvest_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gt', 'gt', 'GT_PATH'))  # gt 二进制路径(ltrharvest/suffixerator 是 gt 子命令)|gt binary (ltrharvest/suffixerator are gt subcommands)
+    ltr_retriever_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'LTR_retriever', 'LTR_retriever', 'LTR_RETRIEVER_PATH'))
+    repeatmasker_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'RepeatMasker', 'RepeatMasker', 'REPEATMASKER_PATH'))
+    tesorter_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'TEsorter', 'TEsorter', 'TESORTER_PATH'))
     
     #  内部属性|Internal attributes
     base_name: str = 'repeat_analysis'

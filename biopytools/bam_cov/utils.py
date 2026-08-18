@@ -10,6 +10,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List, Dict, Tuple
 
+from ..common.conda_runner import build_conda_command, check_tools
+
+from ..common.conda_runner import build_conda_command, check_tools
+
 
 @dataclass
 class BEDInterval:
@@ -86,30 +90,26 @@ class BAMCoverageLogger:
 class SAMToolsHelper:
     """SAMTools辅助工具类|SAMTools Helper Class"""
 
-    def __init__(self, logger, threads: int = 64):
+    def __init__(self, logger, samtools_path: str = 'samtools', threads: int = 64):
         self.logger = logger
+        self.samtools_path = samtools_path
         self.threads = threads
 
     def check_samtools(self) -> bool:
         """检查samtools是否可用|Check if samtools is available"""
-        try:
-            result = subprocess.run(
-                ['samtools', '--version'],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            self.logger.info(f"samtools版本|samtools version: {result.stdout.split()[1]}")
-            return True
-        except (subprocess.CalledProcessError, FileNotFoundError):
+        missing = check_tools([(self.samtools_path, "samtools", ["--version"])], self.logger)
+        if missing:
             self.logger.error("samtools未安装或不在PATH中|samtools not installed or not in PATH")
             return False
+        return True
 
     def get_chromosome_length(self, bam_file: str, chromosome: str) -> Optional[int]:
         """从BAM文件头部获取染色体长度|Get chromosome length from BAM header"""
         try:
+            cmd = build_conda_command(self.samtools_path, ['view', '-H', bam_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
-                ['samtools', 'view', '-H', bam_file],
+                cmd,
                 capture_output=True,
                 text=True,
                 check=True
@@ -145,8 +145,11 @@ class SAMToolsHelper:
         self.logger.info(f"创建BAM索引|Creating BAM index: {bam_file}")
 
         try:
+            cmd = build_conda_command(
+                self.samtools_path, ['index', '-@', str(self.threads), bam_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             subprocess.run(
-                ['samtools', 'index', '-@', str(self.threads), bam_file],
+                cmd,
                 capture_output=True,
                 text=True,
                 check=True
@@ -164,16 +167,16 @@ class SAMToolsHelper:
         """使用samtools depth提取覆盖度|Extract coverage using samtools depth"""
         region = f"{chromosome}:{start}-{end if end else ''}"
 
-        cmd = [
-            'samtools', 'depth',
+        cmd = build_conda_command(self.samtools_path, [
+            'depth',
             '-@', str(self.threads),
             '-r', region,
             '-Q', str(min_mapq),
             '-q', str(min_baseq),
             bam_file
-        ]
+        ])
 
-        self.logger.debug(f"执行命令|Executing command: {' '.join(cmd)}")
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
         try:
             with open(output_file, 'w') as f:

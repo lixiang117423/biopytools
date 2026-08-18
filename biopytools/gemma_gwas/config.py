@@ -11,7 +11,7 @@ Version: 1.0.0
 import os
 from dataclasses import dataclass, field
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import expand_path, get_domain_tool_path
 
 
 @dataclass
@@ -72,8 +72,17 @@ class AnalysisConfig:
     # 线程数
     threads: int = 12
 
-    # GEMMA程序路径
-    gemma_path: str = "~/.local/bin/gemma"
+    # GEMMA程序路径(功能域环境自动解析, 回退旧默认路径)
+    # |GEMMA program path (auto domain env, fallback to legacy default)
+    gemma_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gemma', '~/.local/bin/gemma', 'GEMMA_PATH'))
+
+    # 配套工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Companion tool paths (auto domain env, fallback to bare name via PATH)
+    plink_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plink', 'plink', 'PLINK_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
 
     # 子配置
     plink_qc: PLINKQCConfig = field(default_factory=PLINKQCConfig)
@@ -82,6 +91,8 @@ class AnalysisConfig:
     def __post_init__(self):
         """验证配置"""
         self.gemma_path = expand_path(self.gemma_path)
+        self.plink_path = expand_path(self.plink_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
         if self.n_pca <= 0:
             raise ValueError(f"Number of PCA must be positive, got {self.n_pca}")
         if self.threads <= 0:

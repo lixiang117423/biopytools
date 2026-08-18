@@ -662,19 +662,19 @@ def main():
     
     # 工具路径参数|Tool path arguments
     tools = parser.add_argument_group('工具路径|Tool Paths')
-    tools.add_argument('--hifiasm-path', default='hifiasm',
+    tools.add_argument('--hifiasm-path', default=None,
                       help='Hifiasm程序路径|Hifiasm program path')
-    tools.add_argument('--bwa-path', default='bwa',
+    tools.add_argument('--bwa-path', default=None,
                       help='BWA程序路径|BWA program path')
-    tools.add_argument('--samtools-path', default='samtools',
+    tools.add_argument('--samtools-path', default=None,
                       help='Samtools程序路径|Samtools program path')
-    tools.add_argument('--juicer-path', default='juicer.sh',
+    tools.add_argument('--juicer-path', default=None,
                       help='Juicer脚本路径|Juicer script path')
-    tools.add_argument('--pipeline-3ddna', default='3d-dna/run-asm-pipeline.sh',
+    tools.add_argument('--pipeline-3ddna', default=None,
                       help='3D-DNA pipeline路径|3D-DNA pipeline path')
-    tools.add_argument('--juicer-tools', default='juicer_tools.jar',
+    tools.add_argument('--juicer-tools', default=None,
                       help='Juicer tools JAR路径|Juicer tools JAR path')
-    tools.add_argument('--salsa2-path', default='run_pipeline.py',
+    tools.add_argument('--salsa2-path', default=None,
                       help='SALSA2脚本路径|SALSA2 script path')
     tools.add_argument('--skip-dependency-check', action='store_true',
                       help='跳过依赖软件检查|Skip dependency check')
@@ -688,6 +688,24 @@ def main():
     else:
         skip_fastqc = args.skip_fastqc  # 否则按skip_fastqc参数决定
     
+    # 工具路径参数(None时不传入, 使用config默认的get_domain_tool_path域环境解析)
+    # |Tool path args (omit when None to use config's get_domain_tool_path default)
+    tool_kwargs = {}
+    if args.hifiasm_path is not None:
+        tool_kwargs['hifiasm_path'] = args.hifiasm_path
+    if args.bwa_path is not None:
+        tool_kwargs['bwa_path'] = args.bwa_path
+    if args.samtools_path is not None:
+        tool_kwargs['samtools_path'] = args.samtools_path
+    if args.juicer_path is not None:
+        tool_kwargs['juicer_path'] = args.juicer_path
+    if args.pipeline_3ddna is not None:
+        tool_kwargs['pipeline_3ddna'] = args.pipeline_3ddna
+    if args.juicer_tools is not None:
+        tool_kwargs['juicer_tools'] = args.juicer_tools
+    if args.salsa2_path is not None:
+        tool_kwargs['salsa2_path'] = args.salsa2_path
+
     try:
         # 创建组装器实例
         assembler = GenomeAssembler(
@@ -719,15 +737,9 @@ def main():
             min_mapping_rate=args.min_mapping_rate,
             busco_lineage=args.busco_lineage,
             
-            # 工具路径参数
-            hifiasm_path=args.hifiasm_path,
-            bwa_path=args.bwa_path,
-            samtools_path=args.samtools_path,
-            juicer_path=args.juicer_path,
-            pipeline_3ddna=args.pipeline_3ddna,
-            juicer_tools=args.juicer_tools,
-            salsa2_path=args.salsa2_path,
-            skip_dependency_check=getattr(args, 'skip_dependency_check', False)
+            # 工具路径参数|Tool path arguments
+            skip_dependency_check=getattr(args, 'skip_dependency_check', False),
+            **tool_kwargs
         )
         
         # 运行组装流程

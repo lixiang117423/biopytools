@@ -51,12 +51,14 @@ def main():
                        help='输出文件前缀|Output file prefix')
 
     parser.add_argument('--gffread-path',
-                       default='gffread',
-                       help='gffread程序路径|gffread program path')
+                       default=None,
+                       help='gffread可执行文件路径(默认域环境自动解析)|'
+                            'gffread executable path (default: auto domain env)')
 
     parser.add_argument('--seqkit-path',
-                       default='seqkit',
-                       help='seqkit程序路径|seqkit program path')
+                       default=None,
+                       help='seqkit可执行文件路径(默认域环境自动解析)|'
+                            'seqkit executable path (default: auto domain env)')
 
     parser.add_argument('--keep-temp',
                        action='store_true',
@@ -66,7 +68,9 @@ def main():
 
     try:
         # 创建配置对象|Create configuration object
-        config = SnpRegionConfig(
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        config_kwargs = dict(
             snp_file=args.snp,
             gff_file=args.gff,
             genome_file=args.genome,
@@ -74,9 +78,13 @@ def main():
             right=args.right,
             promoter=args.promoter,
             output_prefix=args.output,
-            gffread_path=args.gffread_path,
-            seqkit_path=args.seqkit_path
         )
+        if args.gffread_path is not None:
+            config_kwargs['gffread_path'] = args.gffread_path
+        if args.seqkit_path is not None:
+            config_kwargs['seqkit_path'] = args.seqkit_path
+
+        config = SnpRegionConfig(**config_kwargs)
 
         # 验证配置|Validate configuration
         config.validate()

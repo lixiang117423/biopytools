@@ -4,6 +4,8 @@
 
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command
+
 class AlignmentStatsGenerator:
     """比对统计生成器|Alignment Statistics Generator"""
     
@@ -31,17 +33,37 @@ class AlignmentStatsGenerator:
         """运行samtools flagstat|Run samtools flagstat"""
         output_file = self.config.stats_dir / f"{sample_name}.flagstat.txt"
 
-        cmd = f"{self.config.samtools_path} flagstat {Path(bam_file).absolute()} > {output_file.absolute()}"
+        # 构建命令(conda环境自动包装, 输出重定向到文件)
+        # |Build command (auto conda wrap, redirect to file)
+        cmd = build_conda_command(
+            self.config.samtools_path,
+            ["flagstat", str(Path(bam_file).absolute())],
+        )
 
-        return self.cmd_runner.run(cmd, f"生成flagstat统计|Generating flagstat: {sample_name}")
+        success, _, _ = self.cmd_runner.run(
+            cmd,
+            f"生成flagstat统计|Generating flagstat: {sample_name}",
+            output_file=str(output_file.absolute()),
+        )
+        return success
 
     def _run_stats(self, sample_name: str, bam_file: str) -> bool:
         """运行samtools stats|Run samtools stats"""
         output_file = self.config.stats_dir / f"{sample_name}.stats.txt"
 
-        cmd = f"{self.config.samtools_path} stats {Path(bam_file).absolute()} > {output_file.absolute()}"
+        # 构建命令(conda环境自动包装, 输出重定向到文件)
+        # |Build command (auto conda wrap, redirect to file)
+        cmd = build_conda_command(
+            self.config.samtools_path,
+            ["stats", str(Path(bam_file).absolute())],
+        )
 
-        return self.cmd_runner.run(cmd, f"生成详细统计|Generating detailed stats: {sample_name}")
+        success, _, _ = self.cmd_runner.run(
+            cmd,
+            f"生成详细统计|Generating detailed stats: {sample_name}",
+            output_file=str(output_file.absolute()),
+        )
+        return success
     
     def generate_summary_report(self, samples):
         """生成汇总报告|Generate summary report"""

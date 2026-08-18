@@ -4,6 +4,8 @@ import logging
 import sys
 import subprocess
 
+from ..common.conda_runner import build_conda_command
+
 
 class SnpRegionLogger:
     """SNP区域基因提取日志管理器|SNP Region Gene Extractor Logger Manager"""
@@ -48,11 +50,14 @@ def run_command(command, logger):
     返回|Returns:
         tuple: (success: bool, stdout: str, stderr: str)
     """
+    # 构建完整命令(功能域环境自动包装)|Build full command (auto domain env wrapping)
+    cmd = build_conda_command(command[0], list(command[1:]))
+
     try:
-        logger.debug(f"执行命令|Executing command: {' '.join(command)}")
+        logger.info(f"命令|Command: {' '.join(cmd)}")
 
         result = subprocess.run(
-            command,
+            cmd,
             check=True,
             capture_output=True,
             text=True

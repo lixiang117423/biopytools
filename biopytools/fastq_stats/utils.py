@@ -49,11 +49,23 @@ class SeqkitChecker:
     """Seqkit工具检查器|Seqkit Tool Checker"""
 
     @staticmethod
-    def check_seqkit() -> bool:
-        """检查seqkit是否已安装|Check if seqkit is installed"""
+    def check_seqkit(seqkit_path: str = "seqkit") -> bool:
+        """检查seqkit是否已安装|Check if seqkit is installed
+
+        Args:
+            seqkit_path: seqkit路径(默认域环境自动解析)|seqkit path
+                         (default: auto domain env)
+        """
+        from ..common.paths import get_domain_tool_path, expand_path
+        if seqkit_path == "seqkit":
+            seqkit_path = get_domain_tool_path('seqkit', 'seqkit', 'SEQKIT_PATH')
+        seqkit_path = expand_path(seqkit_path)
+
+        from ..common.conda_runner import build_conda_command
+        cmd = build_conda_command(seqkit_path, ['version'])
         try:
             result = subprocess.run(
-                ['seqkit', 'version'],
+                cmd,
                 capture_output=True,
                 text=True
             )

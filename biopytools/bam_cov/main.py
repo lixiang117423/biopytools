@@ -25,7 +25,9 @@ class BAMCoverageAnalyzer:
         self.logger = self.logger_manager.get_logger()
 
         # 初始化辅助工具|Initialize helper tools
-        self.samtools = SAMToolsHelper(self.logger, threads=self.config.threads)
+        self.samtools = SAMToolsHelper(
+            self.logger, samtools_path=self.config.samtools_path,
+            threads=self.config.threads)
         self.processor = CoverageDataProcessor()
 
     def run_bed_batch_analysis(self):

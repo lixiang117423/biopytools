@@ -245,11 +245,11 @@ def main():
         help='VCF2PCACluster路径|VCF2PCACluster path'
     )
     parser.add_argument(
-        '--plink-path', dest='plink_path', default='plink',
+        '--plink-path', dest='plink_path', default=None,
         help='PLINK软件路径|PLINK software path'
     )
     parser.add_argument(
-        '--bcftools-path', dest='bcftools_path', default='bcftools',
+        '--bcftools-path', dest='bcftools_path', default=None,
         help='BCFtools软件路径|BCFtools software path'
     )
 

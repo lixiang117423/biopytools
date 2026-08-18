@@ -135,15 +135,19 @@ def main():
                        help='最小未比对区间长度阈值|Minimum unmapped region length threshold')
     parser.add_argument('--tp-type', default='P', choices=['S', 'P', 'SP'],
                        help='保留的tp类型|tp type to keep: S(secondary), P(primary), SP(both) - 默认P|default P')
-    parser.add_argument('-M', '--minimap2-path', default='minimap2',
-                       help='minimap2可执行文件路径|minimap2 executable path')
-    parser.add_argument('-S', '--seqkit-path', default='seqkit',
-                       help='seqkit可执行文件路径|seqkit executable path')
+    parser.add_argument('-M', '--minimap2-path', default=None,
+                       help='minimap2可执行文件路径(默认域环境自动解析)|'
+                            'minimap2 executable path (default: auto domain env)')
+    parser.add_argument('-S', '--seqkit-path', default=None,
+                       help='seqkit可执行文件路径(默认域环境自动解析)|'
+                            'seqkit executable path (default: auto domain env)')
     
     args = parser.parse_args()
     
     # 创建分析器并运行|Create analyzer and run
-    analyzer = Minimap2Analyzer(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool paths use config domain-env defaults when not explicitly given
+    analyzer_kwargs = dict(
         target_genome=args.target,
         query_genome=args.query,
         output_dir=args.output_dir,
@@ -152,9 +156,13 @@ def main():
         min_match_length=args.min_match,
         min_unmapped_length=args.min_unmapped,
         tp_type=args.tp_type,
-        minimap2_path=args.minimap2_path,
-        seqkit_path=args.seqkit_path
     )
+    if args.minimap2_path is not None:
+        analyzer_kwargs['minimap2_path'] = args.minimap2_path
+    if args.seqkit_path is not None:
+        analyzer_kwargs['seqkit_path'] = args.seqkit_path
+
+    analyzer = Minimap2Analyzer(**analyzer_kwargs)
     
     analyzer.run_analysis()
 

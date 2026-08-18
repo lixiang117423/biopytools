@@ -8,6 +8,10 @@ from pathlib import Path
 from typing import Optional, List, Union
 from dataclasses import dataclass, field
 
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
 class ConfigurationError(Exception):
     """配置错误异常|Configuration error exception"""
     pass
@@ -59,11 +63,15 @@ class HifiasmConfig:
     resume: bool = False
     
     # ===== 工具路径参数|Tool paths parameters =====
-    hifiasm_path: str = 'hifiasm'
-    busco_path: str = 'busco'
-    quast_path: str = 'quast'
+    hifiasm_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hifiasm', 'hifiasm', 'HIFIASM_PATH'))
+    busco_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'busco', 'busco', 'BUSCO_PATH'))
+    quast_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'quast', 'quast', 'QUAST_PATH'))
     python_path: str = 'python3'
-    samtools_path: str = 'samtools'
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     
     # ===== 数据库路径参数|Database paths parameters =====
     busco_db_path: Optional[str] = None
@@ -109,6 +117,18 @@ class HifiasmConfig:
         if self.tmp_dir in (None, ''):
             self.tmp_dir = os.path.join(self.output_dir, 'tmp')
         os.makedirs(self.tmp_dir, exist_ok=True)
+
+        # 展开工具路径|Expand tool paths
+        self.hifiasm_path = expand_path(self.hifiasm_path)
+        self.busco_path = expand_path(self.busco_path)
+        self.quast_path = expand_path(self.quast_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.hifiasm_path = expand_path(self.hifiasm_path)
+        self.busco_path = expand_path(self.busco_path)
+        self.quast_path = expand_path(self.quast_path)
+        self.samtools_path = expand_path(self.samtools_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

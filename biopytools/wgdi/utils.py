@@ -47,12 +47,12 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir
 
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "") -> bool:
         """
         执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表或字符串|Command list or string
             description: 步骤描述|Step description
 
         Returns:
@@ -61,12 +61,19 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        # 列表命令用 shell=False, 字符串命令用 shell=True|List -> shell=False, string -> shell=True
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f"命令|Command: {display}")
 
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=use_shell,
                 capture_output=True,
                 text=True,
                 check=True,

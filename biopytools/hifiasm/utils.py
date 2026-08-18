@@ -13,6 +13,10 @@ from pathlib import Path
 from typing import Optional, List, Dict, Any, Union
 from datetime import datetime
 
+from ..common.conda_runner import build_conda_command, check_tools
+
+from ..common.conda_runner import build_conda_command, check_tools
+
 class HifiasmLogger:
     """HiFiasm日志管理器|HiFiasm Logger Manager"""
 
@@ -160,8 +164,10 @@ class CommandRunner:
         """执行命令|Execute command"""
         
         if isinstance(cmd, list):
-            cmd_str = ' '.join(str(c) for c in cmd)
-            cmd_list = cmd
+            # 列表命令用 build_conda_command 包装(conda环境自动检测)
+            # |Wrap list commands with build_conda_command (auto conda env detection)
+            cmd_list = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
+            cmd_str = ' '.join(cmd_list)
         else:
             cmd_str = cmd
             cmd_list = cmd.split()
@@ -244,8 +250,10 @@ class CommandRunner:
         """执行带进度监控的命令|Execute command with progress monitoring"""
         
         if isinstance(cmd, list):
-            cmd_str = ' '.join(str(c) for c in cmd)
-            cmd_list = cmd
+            # 列表命令用 build_conda_command 包装(conda环境自动检测)
+            # |Wrap list commands with build_conda_command (auto conda env detection)
+            cmd_list = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
+            cmd_str = ' '.join(cmd_list)
         else:
             cmd_str = cmd
             cmd_list = cmd.split()
@@ -325,46 +333,24 @@ class CommandRunner:
 
 def check_dependencies(config, logger: logging.Logger) -> bool:
     """检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
-    
     dependencies = [
         (config.hifiasm_path, "HiFiasm", ["--version"]),
         (config.python_path, "Python3", ["--version"]),
     ]
-    
+
     if not config.skip_busco:
         dependencies.append((config.busco_path, "BUSCO", ["--version"]))
-    
+
     if not config.skip_quast:
         dependencies.append((config.quast_path, "QUAST", ["--version"]))
-    
-    missing_deps = []
-    
-    for cmd, name, version_args in dependencies:
-        try:
-            result = subprocess.run(
-                [cmd] + version_args,
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
-            
-            if result.returncode == 0:
-                version_info = result.stdout.strip() or result.stderr.strip()
-                logger.info(f" {name}可用|available: {version_info.split()[0] if version_info else 'unknown version'}")
-            else:
-                missing_deps.append(name)
-                logger.error(f" {name} 版本检查失败|version check failed")
-                
-        except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.CalledProcessError):
-            missing_deps.append(name)
-            logger.error(f" {name}未找到或不可执行|not found or not executable: {cmd}")
-    
+
+    missing_deps = check_tools(dependencies, logger)
+
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"
         logger.error(error_msg)
         return False
-    
+
     logger.info("所有依赖软件检查通过|All dependencies check passed")
     return True
 

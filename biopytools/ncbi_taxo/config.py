@@ -3,10 +3,10 @@ NCBI分类学注释配置管理模块|NCBI Taxonomy Annotation Configuration Man
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -38,6 +38,11 @@ class NCBITaxoConfig:
     # 性能配置|Performance configuration
     threads: int = 4
 
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env resolution, fallback to bare name via PATH)
+    taxonkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'taxonkit', 'taxonkit', 'TAXONKIT_PATH'))
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 设置默认统计层级|Set default statistics levels
@@ -51,6 +56,9 @@ class NCBITaxoConfig:
 
         # 标准化输入输出路径|Normalize input and output paths
         self.input_file = os.path.normpath(os.path.abspath(self.input_file))
+
+        # 展开工具路径|Expand tool paths
+        self.taxonkit_path = expand_path(self.taxonkit_path)
 
         # 创建输出目录|Create output directory
         output_dir = os.path.dirname(os.path.abspath(self.output_prefix))

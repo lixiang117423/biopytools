@@ -4,8 +4,9 @@ Bismark流程工具函数模块|Bismark Pipeline Utility Functions Module
 import logging
 import subprocess
 import sys
-import shutil
 from pathlib import Path
+
+from ..common.conda_runner import check_tools
 
 class BismarkLogger:
     def __init__(self, output_dir: Path):
@@ -33,12 +34,18 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir
 
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "") -> bool:
         if description: self.logger.info(f"执行步骤|Executing step: {description}")
-        self.logger.info(f"  命令|Command: {cmd}")
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f"  命令|Command: {display}")
         self.logger.info(f"  工作目录|Working directory: {self.working_dir}")
         try:
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True, cwd=self.working_dir)
+            result = subprocess.run(cmd, shell=use_shell, capture_output=True, text=True, check=True, cwd=self.working_dir)
             self.logger.info(f"命令执行成功|Command executed successfully: {description}")
             if result.stdout: self.logger.debug(f"标准输出|Stdout: {result.stdout}")
             return True
@@ -52,12 +59,12 @@ class CommandRunner:
 def check_dependencies(config, logger):
     logger.info("检查依赖软件|Checking dependencies...")
     required = [
-        (config.bismark_path, "bismark"),
-        (config.bismark_genome_preparation_path, "bismark_genome_preparation"),
-        (config.bowtie2_path, "bowtie2"),
-        (config.bismark_methylation_extractor_path, "bismark_methylation_extractor"),
+        (config.bismark_path, "bismark", ['--version']),
+        (config.bismark_genome_preparation_path, "bismark_genome_preparation", ['--version']),
+        (config.bowtie2_path, "bowtie2", ['--version']),
+        (config.bismark_methylation_extractor_path, "bismark_methylation_extractor", ['--version']),
     ]
-    missing = [name for cmd, name in required if not shutil.which(cmd)]
+    missing = check_tools(required, logger)
     if missing:
         raise RuntimeError(f"缺少必需软件|Missing required software: {', '.join(missing)}")
     logger.info("依赖软件检查完成|Dependency check complete.")

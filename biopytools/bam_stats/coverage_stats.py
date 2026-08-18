@@ -34,6 +34,14 @@ class CoverageStatsAnalyzer:
 
     def _get_chromosome_sizes(self, bam_file: str) -> Dict[str, int]:
         """获取染色体大小信息|Get chromosome size information"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -H {bam_file}"
             f"| grep '^@SQ' | awk '{{print $2,$3}}'"
@@ -71,6 +79,14 @@ class CoverageStatsAnalyzer:
                         end = min(start + self.config.window_size, size)
                         f.write(f"{chrom}\t{start}\t{end}\n")
 
+            # 管道字符串(含重定向): 方案B(§13.2.2) 直调域环境二进制
+            # |Pipeline string with redirect: solution B, direct domain binary
+            # 管道字符串(含重定向): 方案B(§13.2.2) 直调域环境二进制
+            # |Pipeline string with redirect: solution B, direct domain binary
+            # 管道字符串(含重定向): 方案B(§13.2.2) 直调域环境二进制
+            # |Pipeline string with redirect: solution B, direct domain binary
+            # 管道字符串(含重定向): 方案B(§13.2.2) 直调域环境二进制
+            # |Pipeline string with redirect: solution B, direct domain binary
             cmd = (
                 f"{self.config.bedtools_path} coverage"
                 f" -a {windows_file} -b {bam_file} -mean"

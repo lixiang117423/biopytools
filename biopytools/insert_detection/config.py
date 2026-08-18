@@ -1,9 +1,11 @@
 """插入检测模块配置类|Insert detection module configuration"""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional
 import os
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -32,14 +34,31 @@ class InsertDetectionConfig:
     read2_suffix: str = "_2.clean.fq.gz"  # R2后缀（包含扩展名）
 
     # 工具路径|Tool paths
-    bowtie2_path: str = "bowtie2"
-    samtools_path: str = "samtools"
-    minimap2_path: str = "minimap2"  # 可选，用于长序列
+    bowtie2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bowtie2', 'bowtie2', 'BOWTIE2_PATH'))
+    bowtie2_build_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bowtie2-build', 'bowtie2-build', 'BOWTIE2_BUILD_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))  # 可选，用于长序列
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
+
+        # 展开工具路径|Expand tool paths
+        self.bowtie2_path = expand_path(self.bowtie2_path)
+        self.bowtie2_build_path = expand_path(self.bowtie2_build_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.minimap2_path = expand_path(self.minimap2_path)
+
+        # 展开工具路径|Expand tool paths
+        self.bowtie2_path = expand_path(self.bowtie2_path)
+        self.bowtie2_build_path = expand_path(self.bowtie2_build_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.minimap2_path = expand_path(self.minimap2_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

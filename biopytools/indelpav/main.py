@@ -117,13 +117,14 @@ def main():
                        help='压缩输出文件|Compress output file')
     
     # 工具路径|Tool paths
-    parser.add_argument('--bcftools-path', default='bcftools', 
+    parser.add_argument('--bcftools-path', default=None,
                        help='BCFtools软件路径|BCFtools software path')
     
     args = parser.parse_args()
     
-    # 创建分析器并运行|Create analyzer and run
-    analyzer = IndelPAVAnalyzer(
+    # 构建配置参数(工具路径默认None时不传, 保持配置默认值)
+    # |Build config kwargs (None tool path keeps config default)
+    config_kwargs = dict(
         vcf_file=args.vcf,
         output_file=args.output,
         threads=args.threads,
@@ -134,8 +135,12 @@ def main():
         max_missing_rate=args.max_missing,
         include_complex=args.include_complex,
         compress_output=args.compress,
-        bcftools_path=args.bcftools_path
     )
+    if args.bcftools_path is not None:
+        config_kwargs['bcftools_path'] = args.bcftools_path
+
+    # 创建分析器并运行|Create analyzer and run
+    analyzer = IndelPAVAnalyzer(**config_kwargs)
     
     analyzer.run_analysis()
 

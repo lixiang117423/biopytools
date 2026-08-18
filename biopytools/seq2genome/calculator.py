@@ -50,7 +50,9 @@ class MiniprotAligner:
 
         # 执行命令|Execute command
         timeout = 86400  # 24小时超时|24 hours timeout
-        success = self.cmd_runner.run(cmd, "Miniprot对齐|Miniprot alignment", timeout=timeout)
+        success = self.cmd_runner.run(
+            cmd, "Miniprot对齐|Miniprot alignment",
+            timeout=timeout, output_file=output_paf)
 
         if not success:
             raise RuntimeError("Miniprot对齐失败|Miniprot alignment failed")
@@ -64,24 +66,21 @@ class MiniprotAligner:
 
         return output_paf
 
-    def _build_miniprot_command(self, output_paf: str) -> str:
+    def _build_miniprot_command(self, output_paf: str) -> list:
         """构建miniprot命令|Build miniprot command
 
         Args:
             output_paf: 输出PAF文件|Output PAF file
 
         Returns:
-            str: miniprot命令|miniprot command
+            list: miniprot命令参数列表|miniprot command argument list
         """
-        cmd = (
-            f"{self.config.miniprot_path} "
-            f"{self.config.genome_fa} "
-            f"{self.config.query_fa} "
-            f"-t {self.config.threads} "
-            f"> {output_paf}"
-        )
-
-        return cmd
+        return [
+            self.config.miniprot_path,
+            self.config.genome_fa,
+            self.config.query_fa,
+            "-t", str(self.config.threads),
+        ]
 
 
 class Minimap2Aligner:
@@ -126,7 +125,9 @@ class Minimap2Aligner:
 
         # 执行命令|Execute command
         timeout = 86400  # 24小时超时|24 hours timeout
-        success = self.cmd_runner.run(cmd, "Minimap2对齐|Minimap2 alignment", timeout=timeout)
+        success = self.cmd_runner.run(
+            cmd, "Minimap2对齐|Minimap2 alignment",
+            timeout=timeout, output_file=output_paf)
 
         if not success:
             raise RuntimeError("Minimap2对齐失败|Minimap2 alignment failed")
@@ -140,25 +141,22 @@ class Minimap2Aligner:
 
         return output_paf
 
-    def _build_minimap2_command(self, output_paf: str) -> str:
+    def _build_minimap2_command(self, output_paf: str) -> list:
         """构建minimap2命令|Build minimap2 command
 
         Args:
             output_paf: 输出PAF文件|Output PAF file
 
         Returns:
-            str: minimap2命令|minimap2 command
+            list: minimap2命令参数列表|minimap2 command argument list
         """
         # 使用asm5 preset (for mapping similar sequences)
         # 也可以使用asm10, asm20等preset depending on divergence
-        cmd = (
-            f"{self.config.minimap2_path} "
-            f"-x asm5 "  # preset for mapping sequences with ~5% divergence
-            f"-t {self.config.threads} "
-            f"--secondary=no "  # 只输出primary alignment|Only output primary alignments
-            f"{self.config.genome_fa} "
-            f"{self.config.query_fa} "
-            f"> {output_paf}"
-        )
-
-        return cmd
+        return [
+            self.config.minimap2_path,
+            "-x", "asm5",  # preset for mapping sequences with ~5% divergence
+            "-t", str(self.config.threads),
+            "--secondary=no",  # 只输出primary alignment|Only output primary alignments
+            self.config.genome_fa,
+            self.config.query_fa,
+        ]

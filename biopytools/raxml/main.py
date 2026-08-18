@@ -184,8 +184,8 @@ def create_parser():
     output_group = parser.add_argument_group(' 输出和工具参数|Output and tool parameters')
     output_group.add_argument('-w', '--output-dir', default='./raxml_output',
                              help=' 输出目录|Output directory')
-    output_group.add_argument('--raxml-path', default='raxmlHPC-PTHREADS',
-                             help=' RAxML程序路径|RAxML program path')
+    output_group.add_argument('--raxml-path', default=None,
+                             help=' RAxML程序路径(默认域环境自动解析)|RAxML program path (default: auto domain env)')
     
     # 质量控制参数|Quality control parameters
     qc_group = parser.add_argument_group(' 质量控制参数|Quality control parameters')
@@ -207,7 +207,7 @@ def main():
     
     # 创建分析器并运行|Create analyzer and run
     try:
-        analyzer = RAxMLPhylogeneticAnalyzer(
+        analyzer_kwargs = dict(
             sequence_file=args.sequence_file,
             output_name=args.output_name,
             model=args.model,
@@ -233,10 +233,15 @@ def main():
             bootstop_threshold=args.bootstop_threshold,
             bootstop_perms=args.bootstop_perms,
             print_bootstrap_trees=args.print_bootstrap_trees,
-            raxml_path=args.raxml_path,
             no_seq_check=args.no_seq_check,
             silent=args.silent
         )
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool path uses config domain-env default when not explicitly given
+        if args.raxml_path is not None:
+            analyzer_kwargs['raxml_path'] = args.raxml_path
+
+        analyzer = RAxMLPhylogeneticAnalyzer(**analyzer_kwargs)
         
         analyzer.run_analysis()
 

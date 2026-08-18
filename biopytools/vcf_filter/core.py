@@ -360,6 +360,10 @@ from pathlib import Path
 from typing import Optional, List, Union
 # 假设 PerformanceLogger 等在 utils.py 中，如果不在，需要调整导入
 from .utils import PerformanceLogger 
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
 
 class VCFFilter:
     """VCF文件筛选类（重构为以BCFtools为核心）"""
@@ -436,9 +440,12 @@ class VCFFilter:
             index_file = self.vcf_file.with_suffix('.gz.tbi')
             if not index_file.exists():
                 logger.info(f"输入文件缺少索引，正在生成: {index_file}|Input file missing index, generating: {index_file}")
-                if shutil.which('tabix'):
+                tabix_path = get_domain_tool_path('tabix', 'tabix', 'TABIX_PATH')
+                if (os.path.isabs(tabix_path) and os.path.exists(tabix_path)) or shutil.which(tabix_path):
                     try:
-                        subprocess.run(['tabix', '-p', 'vcf', str(self.vcf_file)], check=True, capture_output=True, text=True)
+                        tabix_cmd = build_conda_command(tabix_path, ['-p', 'vcf', str(self.vcf_file)])
+                        logger.info(f"命令|Command: {' '.join(tabix_cmd)}")
+                        subprocess.run(tabix_cmd, shell=False, check=True, capture_output=True, text=True)
                         logger.info("Tabix索引生成成功。|Tabix index generated successfully.")
                     except subprocess.CalledProcessError as e:
                         logger.error(f"生成tabix索引失败: {e.stderr}|Failed to generate tabix index: {e.stderr}")
@@ -446,9 +453,11 @@ class VCFFilter:
                 else:
                     logger.warning("未找到'tabix'命令，BCFtools性能将大幅下降。|'tabix' command not found, BCFtools performance will be significantly degraded.")
 
-        # 2. 构建并执行命令
-        bcftools_path = "bcftools"
-        if not shutil.which(bcftools_path):
+        # 2. 构建并执行命令|Build and execute command
+        # bcftools路径(功能域环境自动解析); 管道中直接调用域环境二进制, 避免 conda run | conda run
+        # |bcftools path (auto domain env); call domain binary directly in pipeline (solution B)
+        bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+        if not (os.path.isabs(bcftools_path) and os.path.exists(bcftools_path)) and not shutil.which(bcftools_path):
             raise FileNotFoundError("BCFtools 未安装或不在系统路径中。")
 
         cmd_view = [bcftools_path, 'view']

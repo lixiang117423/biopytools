@@ -8,6 +8,10 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+from ..common.conda_runner import check_tools
+
+from ..common.conda_runner import check_tools
+
 class PhyloLogger:
     """系统发育树分析日志管理器|Phylogenetic Tree Analysis Logger Manager"""
     
@@ -89,35 +93,26 @@ class CommandRunner:
 
 def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
-    
-    dependencies = [
-        (config.mafft_path, "MAFFT"),
-        (config.fasttree_path, "FastTree")
-    ]
-    
-    missing_deps = []
-    
-    for cmd, name in dependencies:
-        try:
-            # MAFFT使用--version
-            if 'mafft' in cmd.lower():
-                result = subprocess.run([cmd, "--version"], 
-                                      capture_output=True, text=True, timeout=10)
-            # FastTree使用-expert然后立即退出
-            else:
-                result = subprocess.run([cmd], 
-                                      capture_output=True, text=True, timeout=10, input="\n")
-            
-            logger.info(f"{name} 可用|available")
-            
-        except (subprocess.TimeoutExpired, FileNotFoundError, Exception) as e:
-            logger.error(f"{name} 不可用|not available: {e}")
-            missing_deps.append(name)
-    
+    from ..common.conda_runner import build_conda_command
+
+    missing_deps = check_tools([
+        (config.mafft_path, "MAFFT", ["--version"]),
+    ], logger)
+
+    # FastTree无--version, 单独检查(提供stdin换行使其立即退出)
+    # |FastTree has no --version; check separately (feed newline to exit immediately)
+    fasttree_cmd = build_conda_command(config.fasttree_path, [])
+    logger.info(f"命令|Command: {' '.join(fasttree_cmd)}")
+    try:
+        subprocess.run(fasttree_cmd, capture_output=True, text=True, timeout=10, input="\n")
+        logger.info("FastTree 可用|available")
+    except (subprocess.TimeoutExpired, FileNotFoundError, Exception):
+        logger.error("FastTree 不可用|not available")
+        missing_deps.append("FastTree")
+
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
-    
+
     return True

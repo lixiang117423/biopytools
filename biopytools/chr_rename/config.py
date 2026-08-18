@@ -3,9 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -17,7 +19,8 @@ class ChrRenameConfig:
     query_fasta: str  # 待重命名的基因组FASTA文件|Query genome FASTA file to rename
 
     # 路径配置|Path configuration
-    minimap2_path: str = 'minimap2'  # minimap2软件路径|minimap2 software path
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))  # minimap2软件路径|minimap2 software path
     output_dir: str = './chr_rename_output'  # 输出目录|Output directory
 
     # 比对参数|Alignment parameters
@@ -38,6 +41,12 @@ class ChrRenameConfig:
         self.ref_fasta = os.path.normpath(os.path.abspath(self.ref_fasta))
         self.query_fasta = os.path.normpath(os.path.abspath(self.query_fasta))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 展开工具路径|Expand tool path
+        self.minimap2_path = expand_path(self.minimap2_path)
+
+        # 展开工具路径|Expand tool path
+        self.minimap2_path = expand_path(self.minimap2_path)
 
         # 验证参数范围|Validate parameter ranges
         if not 0 < self.min_identity <= 1:

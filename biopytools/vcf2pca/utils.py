@@ -7,6 +7,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command, check_tools
+
+from ..common.conda_runner import build_conda_command, check_tools
+
 
 class VCF2PCALogger:
     """VCF2PCA日志管理器|VCF2PCA Logger Manager"""
@@ -86,12 +90,15 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()  # 使用绝对路径|Use absolute path
 
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "") -> bool:
         """
         执行命令|Execute command
 
+        列表命令用 build_conda_command 包装后以 shell=False 执行
+        |List commands are conda-wrapped and run with shell=False
+
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表|Command list
             description: 步骤描述|Step description
 
         Returns:
@@ -100,13 +107,20 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+
+        self.logger.info(f"命令|Command: {display}")
         self.logger.info(f"工作目录|Working directory: {self.working_dir}")
 
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=use_shell,
                 capture_output=True,
                 text=True,
                 check=True,
@@ -144,27 +158,10 @@ def check_dependencies(config, logger):
     """
     logger.info("检查依赖软件|Checking dependencies")
 
-    dependencies = [
-        (config.plink_path, "PLINK"),
-        (config.bcftools_path, "BCFtools")
-    ]
-
-    missing_deps = []
-
-    for cmd, name in dependencies:
-        try:
-            result = subprocess.run(
-                [cmd, "--version"],
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
-            if result.returncode == 0:
-                logger.info(f"{name} 可用|{name} available")
-            else:
-                missing_deps.append(name)
-        except (subprocess.TimeoutExpired, FileNotFoundError):
-            missing_deps.append(name)
+    missing_deps = check_tools([
+        (config.plink_path, "PLINK", ["--version"]),
+        (config.bcftools_path, "BCFtools", ["--version"]),
+    ], logger)
 
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"

@@ -3,10 +3,13 @@ BAM统计分析工具函数模块|BAM Statistics Analysis Utility Functions Modu
 """
 
 import logging
+import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import List
+from typing import List, Union
+
+from ..common.conda_runner import build_conda_command, check_tools
 
 
 def setup_logger(
@@ -46,7 +49,15 @@ def setup_logger(
 
 
 class CommandRunner:
-    """命令执行器|Command Runner"""
+    """命令执行器|Command Runner
+
+    支持列表命令(conda环境自动包装, shell=False)与管道命令字符串
+    (方案B: 管道内直调域环境二进制, 禁止 conda run, shell=True)
+    |Supports list commands (auto conda wrap, shell=False) and pipeline
+    strings (solution B: direct domain-env binary, no conda run, shell=True)
+    """
+
+    THREAD_SUBCMDS = ('view', 'sort', 'index', 'depth', 'flagstat')
 
     def __init__(self, logger: logging.Logger, threads: int = 24):
         self.logger = logger
@@ -54,7 +65,7 @@ class CommandRunner:
 
     def run(
         self,
-        cmd: str,
+        cmd: Union[List[str], str],
         description: str = "",
         use_threads: bool = True,
     ) -> tuple:
@@ -62,7 +73,7 @@ class CommandRunner:
         执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表或管道命令字符串|Command list or pipeline string
             description: 步骤描述|Step description
             use_threads: 是否注入线程参数|Whether to inject thread params
 
@@ -72,22 +83,28 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行|Executing: {description}")
 
-        if use_threads and self.threads > 1:
-            if 'samtools' in cmd and '-@' not in cmd and '--threads' not in cmd:
-                for subcmd in ['view', 'sort', 'index', 'depth', 'flagstat']:
-                    if f'samtools {subcmd}' in cmd:
-                        cmd = cmd.replace(
-                            f'samtools {subcmd}',
-                            f'samtools {subcmd} -@ {self.threads}',
-                        )
-                        break
+        if isinstance(cmd, (list, tuple)):
+            if use_threads and self.threads > 1:
+                cmd = self._inject_threads_list(list(cmd))
+            # 列表命令: conda环境自动包装|List command: auto conda wrap
+            full_cmd = build_conda_command(cmd[0], cmd[1:])
+            use_shell = False
+            display = ' '.join(full_cmd)
+        else:
+            if use_threads and self.threads > 1:
+                cmd = self._inject_threads_string(cmd)
+            # 管道字符串: 方案B(§13.2.2), 工具为域环境二进制直调, 不 conda run
+            # |Pipeline string: solution B, direct domain binary, no conda run
+            full_cmd = cmd
+            use_shell = True
+            display = cmd
 
-        self.logger.info(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {display}")
 
         try:
             result = subprocess.run(
-                cmd,
-                shell=True,
+                full_cmd,
+                shell=use_shell,
                 capture_output=True,
                 text=True,
                 check=True,
@@ -108,13 +125,38 @@ class CommandRunner:
             )
             return False, 'Timeout'
 
+    def _inject_threads_list(self, cmd: List[str]) -> List[str]:
+        """列表命令注入线程参数|Inject thread params into list command"""
+        if any(a in ('-@', '--threads') for a in cmd):
+            return cmd
+        # 在已知子命令后插入 -@ N|Insert -@ N after known subcommand
+        for i, token in enumerate(cmd):
+            if token in self.THREAD_SUBCMDS:
+                cmd[i + 1:i + 1] = ['-@', str(self.threads)]
+                break
+        return cmd
+
+    def _inject_threads_string(self, cmd: str) -> str:
+        """管道字符串注入线程参数|Inject thread params into pipeline string"""
+        if '-@' in cmd or '--threads' in cmd:
+            return cmd
+        # 匹配 (路径)samtools 子命令, 在子命令后插入 -@ N
+        # |Match (path)samtools subcommand, insert -@ N after subcommand
+        pattern = re.compile(
+            r'((?:^|\s)[^\s|]*samtools)\s+(view|sort|index|depth|flagstat)(?=\s)'
+        )
+        m = pattern.search(cmd)
+        if m:
+            return cmd[:m.end()] + f' -@ {self.threads}' + cmd[m.end():]
+        return cmd
+
 
 def get_sample_name(bam_file: str) -> str:
     """从BAM文件路径提取样品名称|Extract sample name from BAM file path"""
     return Path(bam_file).stem.replace('.sorted', '')
 
 
-def check_dependencies(logger: logging.Logger) -> bool:
+def check_dependencies(config, logger: logging.Logger) -> bool:
     """检查依赖软件是否已安装|Check if required software is installed"""
     missing_libs = []
     for lib in ['pandas', 'openpyxl', 'tqdm']:
@@ -130,14 +172,10 @@ def check_dependencies(logger: logging.Logger) -> bool:
         )
         return False
 
-    try:
-        result = subprocess.run(
-            ['samtools', '--version'],
-            capture_output=True, text=True, timeout=10,
-        )
-        version = result.stdout.strip().split('\n')[0]
-        logger.info(f"samtools可用|samtools available: {version}")
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    missing = check_tools(
+        [(config.samtools_path, "samtools", ["--version"])], logger
+    )
+    if missing:
         logger.error("未找到samtools|samtools not found")
         return False
 

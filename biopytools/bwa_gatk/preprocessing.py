@@ -4,6 +4,8 @@
 
 from pathlib import Path
 from .utils import CommandRunner, check_file_exists
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class BAMPreprocessor:
     """BAM预处理器|BAM Preprocessor"""
@@ -45,10 +47,12 @@ class BAMPreprocessor:
         if not self.config.force_restart and check_file_exists(bam_file, self.logger):
             return bam_file
         
-        cmd = (f"{self.config.samtools_path} view "
-               f"-@ {self.config.threads} "
-               f"-b {sam_file} "
-               f"-o {bam_file}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.samtools_path,
+            ["view", "-@", str(self.config.threads), "-b",
+             str(sam_file), "-o", str(bam_file)],
+        )
         
         self.cmd_runner.run(cmd, "SAM转BAM|SAM to BAM")
         return bam_file
@@ -62,10 +66,12 @@ class BAMPreprocessor:
         if not self.config.force_restart and check_file_exists(sorted_bam, self.logger):
             return sorted_bam
         
-        cmd = (f"{self.config.samtools_path} sort "
-               f"-@ {self.config.threads} "
-               f"-o {sorted_bam} "
-               f"{bam_file}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.samtools_path,
+            ["sort", "-@", str(self.config.threads),
+             "-o", str(sorted_bam), str(bam_file)],
+        )
         
         self.cmd_runner.run(cmd, "排序BAM|Sort BAM")
         return sorted_bam
@@ -80,11 +86,12 @@ class BAMPreprocessor:
         if not self.config.force_restart and check_file_exists(dedup_bam, self.logger):
             return dedup_bam
         
-        cmd = (f"{self.config.gatk_path} MarkDuplicates "
-               f"-I {sorted_bam} "
-               f"-O {dedup_bam} "
-               f"-M {metrics_file} "
-               f"--TMP_DIR {self.config.temp_dir}")
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.gatk_path,
+            ["MarkDuplicates", "-I", str(sorted_bam), "-O", str(dedup_bam),
+             "-M", str(metrics_file), "--TMP_DIR", str(self.config.temp_dir)],
+        )
         
         self.cmd_runner.run(cmd, "标记重复|Mark duplicates")
         return dedup_bam
@@ -98,7 +105,10 @@ class BAMPreprocessor:
         if not self.config.force_restart and check_file_exists(bai_file, self.logger):
             return
         
-        cmd = f"{self.config.samtools_path} index {bam_file}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(
+            self.config.samtools_path, ["index", str(bam_file)]
+        )
         self.cmd_runner.run(cmd, "建立BAM索引|Index BAM")
     
     def _cleanup(self, sam_file: Path, bam_file: Path):

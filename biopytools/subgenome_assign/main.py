@@ -14,6 +14,8 @@ from typing import Dict, List
 
 from .config import SubgenomeAssignConfig
 from .utils import SubgenomeLogger, CommandRunner, check_dependencies
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 from .aligner import ParentAligner
 from .assigner import SubgenomeAssigner
 from .splitter import FastaSplitter
@@ -183,8 +185,10 @@ class SubgenomeAssignRunner:
             ('samtools', self.config.samtools_path, ['--version']),
         ]:
             try:
+                cmd = build_conda_command(tool_path, version_args)
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
                 result = subprocess.run(
-                    [tool_path] + version_args,
+                    cmd,
                     capture_output=True, text=True, timeout=30,
                 )
                 first_line = (result.stdout or result.stderr).strip().split('\n')[0]
@@ -310,11 +314,11 @@ def main():
     # 工具路径|Tool paths
     tool_g = parser.add_argument_group('工具路径|Tool paths')
     tool_g.add_argument('--minimap2-path',
-                        default='~/miniforge3/envs/align/bin/minimap2',
-                        help='minimap2 二进制路径|minimap2 binary path')
+                        default=None,
+                        help='minimap2 二进制路径(默认域环境自动解析)|minimap2 binary path (default: auto domain env)')
     tool_g.add_argument('--samtools-path',
-                        default='~/.local/bin/samtools',
-                        help='samtools 二进制路径|samtools binary path')
+                        default=None,
+                        help='samtools 二进制路径(默认域环境自动解析)|samtools binary path (default: auto domain env)')
 
     args = parser.parse_args()
 
@@ -322,7 +326,7 @@ def main():
         # 解析 --parent 列表|Parse parent list
         parents = parse_parents_arg(args.parent)
 
-        runner = SubgenomeAssignRunner(
+        runner_kwargs = dict(
             target=args.target,
             parents=parents,
             output_dir=args.output_dir,
@@ -332,9 +336,15 @@ def main():
             min_conf=args.min_conf,
             split_fasta=not args.no_split,
             keep_unassigned=not args.no_keep_unassigned,
-            minimap2_path=args.minimap2_path,
-            samtools_path=args.samtools_path,
         )
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        if args.minimap2_path is not None:
+            runner_kwargs['minimap2_path'] = args.minimap2_path
+        if args.samtools_path is not None:
+            runner_kwargs['samtools_path'] = args.samtools_path
+
+        runner = SubgenomeAssignRunner(**runner_kwargs)
         success = runner.run()
         sys.exit(0 if success else 1)
 

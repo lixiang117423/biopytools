@@ -7,6 +7,14 @@ import subprocess
 from typing import List, Tuple
 import logging
 
+from ..common.conda_runner import build_conda_command, run_pipeline
+
+from ..common.conda_runner import build_conda_command, run_pipeline
+
+from ..common.conda_runner import build_conda_command, run_pipeline
+
+from ..common.conda_runner import build_conda_command, run_pipeline
+
 
 class PlotSRPipeline:
     """PlotSR流程执行类|PlotSR Pipeline Executor"""
@@ -137,11 +145,15 @@ class PlotSRPipeline:
                     self.temp_genomes.append(extracted_fa)
                     continue
 
-                # 使用samtools提取染色体|Use samtools to extract chromosomes
+                # 使用samtools提取染色体(conda环境自动包装)
+                # |Use samtools to extract chromosomes (auto conda wrap)
                 chr_list = ','.join(resolved_chrs)
-                cmd = ['samtools', 'faidx', genome_file, chr_list]
+                cmd = build_conda_command(
+                    self.config.samtools_path,
+                    ['faidx', genome_file, chr_list],
+                )
 
-                self.logger.debug(f"运行|Running: {' '.join(cmd)}")
+                self.logger.info(f"运行|Running: {' '.join(cmd)}")
 
                 with open(extracted_fa, 'w') as f_out:
                     result = subprocess.run(
@@ -194,7 +206,12 @@ class PlotSRPipeline:
         if not os.path.exists(fai_file):
             self.logger.warning(f"索引文件不存在，创建索引|Index file not found, creating index: {fai_file}")
             try:
-                subprocess.run(['samtools', 'faidx', first_genome], check=True, capture_output=True)
+                # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+                index_cmd = build_conda_command(
+                    self.config.samtools_path, ['faidx', first_genome]
+                )
+                self.logger.info(f"命令|Command: {' '.join(index_cmd)}")
+                subprocess.run(index_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
                 self.logger.error(f"创建索引失败|Failed to create index: {e}")
                 return chr_list
@@ -248,7 +265,9 @@ class PlotSRPipeline:
                 continue
 
             self.logger.info(f"处理基因组|Processing genome [{i+1}]: {name}")
-            extract_chromosome_lengths(genome, output_file)
+            extract_chromosome_lengths(
+                genome, output_file, self.config.samtools_path
+            )
             chr_length_files.append(output_file)
             self.logger.info(f"染色体长度已保存|Chromosome lengths saved: {output_file}")
 
@@ -313,34 +332,36 @@ class PlotSRPipeline:
         preset = self.config.minimap2_preset
 
         try:
-            # 使用管道方式：minimap2 | samtools sort | samtools index
-            # Use pipeline: minimap2 | samtools sort | samtools index
-            cmd = f"""
-                minimap2 -x {preset} -t {threads} -a --eqx {ref} {query} |
-                samtools sort -@ {threads} -O BAM -o {output_bam} -
-            """
-
-            self.logger.debug(f"运行|Running: minimap2 -x {preset} {ref} {query}")
-
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                check=True,
-                capture_output=True,
-                text=True
+            # 管道: minimap2 | samtools sort
+            # 方案B(§13.2.2): 提取conda包装中的实际命令后Popen链接执行,
+            # 管道内直调域环境二进制, 严禁 conda run | conda run
+            # |Pipeline: minimap2 | samtools sort (solution B: Popen chain,
+            # direct domain-env binaries, no conda run in pipes)
+            segments = [
+                [self.config.minimap2_path, "-x", preset, "-t", str(threads),
+                 "-a", "--eqx", ref, query],
+                [self.config.samtools_path, "sort", "-@", str(threads),
+                 "-O", "BAM", "-o", output_bam, "-"],
+            ]
+            ok, err = run_pipeline(
+                segments,
+                self.logger,
+                "minimap2比对并排序|minimap2 alignment and sorting",
             )
-
-            if result.stderr:
-                # 检查是否有警告|Check for warnings
-                for line in result.stderr.split('\n'):
-                    if line.strip() and not line.strip().startswith('[W::hts_set_opt]'):
-                        self.logger.debug(f"minimap2|minimap2: {line}")
+            if not ok:
+                return False
 
             # 索引BAM文件|Index BAM file
             self.logger.debug(f"索引BAM文件|Indexing BAM file: {output_bam}")
 
+            # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+            index_cmd = build_conda_command(
+                self.config.samtools_path,
+                ['index', '-@', str(threads), output_bam],
+            )
+            self.logger.info(f"命令|Command: {' '.join(index_cmd)}")
             subprocess.run(
-                ['samtools', 'index', '-@', str(threads), output_bam],
+                index_cmd,
                 check=True,
                 capture_output=True
             )
@@ -429,17 +450,20 @@ class PlotSRPipeline:
             bool: 是否成功|Whether successful
         """
         try:
-            cmd = [
-                'syri',
-                '-c', bam,
-                '-r', ref,
-                '-q', query,
-                '-F', 'B',
-                '--dir', syri_dir,
-                '--prefix', prefix_name
-            ]
+            # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+            cmd = build_conda_command(
+                self.config.syri_path,
+                [
+                    '-c', bam,
+                    '-r', ref,
+                    '-q', query,
+                    '-F', 'B',
+                    '--dir', syri_dir,
+                    '--prefix', prefix_name,
+                ],
+            )
 
-            self.logger.debug(f"运行|Running: {' '.join(cmd)}")
+            self.logger.info(f"运行|Running: {' '.join(cmd)}")
 
             subprocess.run(
                 cmd,
@@ -599,9 +623,9 @@ class PlotSRPipeline:
 
             self.logger.info(f"找到|Found {len(syri_file_list)} 个SyRI文件|SyRI files")
 
-            # 构建PlotSR命令|Build PlotSR command
+            # 构建PlotSR命令(conda环境自动包装)|Build PlotSR command (auto conda wrap)
             cmd = [
-                'plotsr',
+                self.config.plotsr_path,
                 '--genomes', os.path.join(self.config.output_dir, 'plotsr', 'genomes.txt'),
                 '-o', plot_output,
                 '-s', str(self.config.min_sr_size),
@@ -609,6 +633,7 @@ class PlotSRPipeline:
                 '-d', str(self.config.dpi),
                 '-S', str(self.config.space_ratio)
             ]
+            cmd = build_conda_command(self.config.plotsr_path, cmd[1:])
 
             # 添加每个SyRI文件|Add each SyRI file
             for syri_file in syri_file_list:
@@ -636,7 +661,7 @@ class PlotSRPipeline:
                 cmd.append('--nodup')
 
             self.logger.info(f"运行PlotSR|Running PlotSR...")
-            self.logger.debug(f"命令|Command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             subprocess.run(
                 cmd,

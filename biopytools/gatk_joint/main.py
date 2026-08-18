@@ -168,15 +168,16 @@ def main():
 
     # 工具路径|Tool paths
     tool_group = parser.add_argument_group('工具路径|Tool Paths')
-    tool_group.add_argument('--gatk-path', default='gatk',
+    tool_group.add_argument('--gatk-path', default=None,
                            help='GATK软件路径|GATK software path')
-    tool_group.add_argument('--bcftools-path', default='bcftools',
+    tool_group.add_argument('--bcftools-path', default=None,
                            help='BCFtools软件路径|BCFtools software path')
     
     args = parser.parse_args()
 
-    # 创建分析器并运行|Create genotyper and run
-    genotyper = GATKJointGenotyper(
+    # 构建配置参数(工具路径默认None时不传, 保持配置默认值)
+    # |Build config kwargs (None tool paths keep config default)
+    config_kwargs = dict(
         input_dir=args.input,
         reference=args.genome,
         output_dir=args.output_dir,
@@ -193,9 +194,14 @@ def main():
         indel_fs=args.indel_fs,
         indel_rprs=args.indel_rprs,
         indel_sor=args.indel_sor,
-        gatk_path=args.gatk_path,
-        bcftools_path=args.bcftools_path
     )
+    if args.gatk_path is not None:
+        config_kwargs['gatk_path'] = args.gatk_path
+    if args.bcftools_path is not None:
+        config_kwargs['bcftools_path'] = args.bcftools_path
+
+    # 创建分析器并运行|Create genotyper and run
+    genotyper = GATKJointGenotyper(**config_kwargs)
     
     genotyper.run_pipeline()
 

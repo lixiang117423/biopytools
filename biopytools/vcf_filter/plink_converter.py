@@ -6,6 +6,10 @@ import subprocess
 import os
 from typing import List
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 class PlinkConverter:
     """PLINK格式转换器|PLINK Format Converter"""
     
@@ -23,46 +27,47 @@ class PlinkConverter:
         output_prefix = str(self.config.output_path.with_suffix(''))
         
         # 构建PLINK命令|Build PLINK command
-        cmd = [
-            self.config.plink_path,
+        args = [
             "--vcf", filtered_vcf,
             "--recode", "vcf-iid",
             "--out", output_prefix
         ]
         
         if self.config.allow_extra_chr:
-            cmd.append("--allow-extra-chr")
+            args.append("--allow-extra-chr")
         
         # 添加染色体筛选|Add chromosome filtering
         if self.config.chr_name is not None:
             if isinstance(self.config.chr_name, list):
                 chr_list = ",".join(self.config.chr_name)
-                cmd.extend(["--chr", chr_list])
+                args.extend(["--chr", chr_list])
             else:
-                cmd.extend(["--chr", str(self.config.chr_name)])
+                args.extend(["--chr", str(self.config.chr_name)])
         
         # 添加位置筛选|Add position filtering
         if self.config.start is not None and self.config.end is not None:
-            cmd.extend(["--from-bp", str(self.config.start), 
+            args.extend(["--from-bp", str(self.config.start),
                        "--to-bp", str(self.config.end)])
         elif self.config.start is not None:
-            cmd.extend(["--from-bp", str(self.config.start)])
+            args.extend(["--from-bp", str(self.config.start)])
         elif self.config.end is not None:
-            cmd.extend(["--to-bp", str(self.config.end)])
+            args.extend(["--to-bp", str(self.config.end)])
         
         # 添加质量控制参数|Add quality control parameters
         if self.config.min_maf is not None:
-            cmd.extend(["--maf", str(self.config.min_maf)])
+            args.extend(["--maf", str(self.config.min_maf)])
         
         if self.config.max_missing is not None:
-            cmd.extend(["--geno", str(self.config.max_missing)])
+            args.extend(["--geno", str(self.config.max_missing)])
+
+        # 构建完整命令(conda环境自动包装)|Build full command (auto conda wrap)
+        cmd = build_conda_command(self.config.plink_path, args)
         
         try:
             # 执行PLINK命令|Execute PLINK command
-            if self.config.verbose:
-                self.logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             
-            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            result = subprocess.run(cmd, shell=False, capture_output=True, text=True, check=True)
             
             if self.config.verbose:
                 self.logger.info("PLINK执行成功|PLINK execution successful")

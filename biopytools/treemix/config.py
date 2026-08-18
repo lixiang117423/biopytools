@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_domain_tool_path
 
 
 @dataclass
@@ -23,28 +23,28 @@ class TreemixConfig:
 
     # ============ 软件路径 (conda环境) ============
     treemix_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'treemix',
             '~/miniforge3/envs/pop/bin/treemix',
             'TREEMIX_PATH',
         )
     )
     plink_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'plink',
             '~/miniforge3/envs/pop/bin/plink',
             'PLINK_PATH',
         )
     )
     r_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'R',
             '~/miniforge3/envs/treemix_v.1.13/bin/R',
             'R_PATH',
         )
     )
     bcftools_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'bcftools',
             '~/miniforge3/envs/align/bin/bcftools',
             'BCFTOOLS_PATH',

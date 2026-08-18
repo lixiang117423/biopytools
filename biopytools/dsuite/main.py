@@ -42,7 +42,7 @@ def main():
     optional.add_argument('-p', '--prefix', default='dsuite',
                          help='[STR] 输出文件前缀|Output file prefix')
     optional.add_argument('--dsuite-bin',
-                         default='~/software/Dsuite/Build/Dsuite',
+                         default=None,
                          help='[FILE] Dsuite可执行文件路径|Dsuite binary path')
     optional.add_argument('--min-alleles', type=int, default=2,
                          help='[INT] 最小等位基因数|Min number of alleles')
@@ -51,7 +51,7 @@ def main():
     optional.add_argument('--variant-type', default='snps',
                          choices=['snps', 'indels', 'both', 'none'],
                          help='[STR] 变异类型|Variant type')
-    optional.add_argument('--bcftools', default='bcftools',
+    optional.add_argument('--bcftools', default=None,
                          help='[CMD] bcftools命令路径|bcftools command path')
     optional.add_argument('--collect-stats', action='store_true',
                          help='[FLAG] 是否收集VCF统计信息|Whether to collect VCF statistics')
@@ -71,19 +71,24 @@ def main():
         logger.info("Dsuite D-trios Analysis Pipeline")
         logger.info("=" * 60)
 
-        # 初始化配置|Initialize config
-        config = DsuiteConfig(
+        # 初始化配置(工具路径默认None时不传, 保持配置默认值)
+        # |Initialize config (None tool paths keep config default)
+        config_kwargs = dict(
             vcf_file=args.input,
             sets_file=args.sets,
             output_dir=args.output_dir,
             output_prefix=args.prefix,
-            dsuite_bin=args.dsuite_bin,
             min_alleles=args.min_alleles,
             max_alleles=args.max_alleles,
             variant_type=args.variant_type,
-            bcftools=args.bcftools,
-            collect_stats=args.collect_stats
+            collect_stats=args.collect_stats,
         )
+        if args.dsuite_bin is not None:
+            config_kwargs['dsuite_bin'] = args.dsuite_bin
+        if args.bcftools is not None:
+            config_kwargs['bcftools'] = args.bcftools
+
+        config = DsuiteConfig(**config_kwargs)
 
         config.validate()
 

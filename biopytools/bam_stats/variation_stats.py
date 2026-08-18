@@ -40,7 +40,8 @@ class VariationStatsAnalyzer:
 
     def _get_mismatch_rate(self, bam_file: str) -> Dict[str, Any]:
         """获取错配率|Get mismatch rate via samtools stats"""
-        cmd = f"{self.config.samtools_path} stats {bam_file}"
+        # 列表命令: conda环境自动包装|List command: auto conda wrap
+        cmd = [self.config.samtools_path, "stats", bam_file]
         success, output = self.cmd_runner.run(
             cmd, f"samtools stats for {Path(bam_file).name}"
         )
@@ -70,6 +71,14 @@ class VariationStatsAnalyzer:
             'if($i ~ /^NM:/){split($i,a,":"); nm=a[2]} '
             'seq_len=length($10); if(seq_len>0) print nm, seq_len}'
         )
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 -d 0 {bam_file}"
             f"| head -50000"
@@ -103,6 +112,14 @@ class VariationStatsAnalyzer:
 
     def _get_gc_bias(self, bam_file: str) -> Dict[str, Any]:
         """获取GC含量偏倚|Get GC content bias"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 {bam_file}"
             f"| cut -f10 | head -10000"
@@ -176,6 +193,14 @@ class VariationStatsAnalyzer:
             '} '
             'if(total_len>0) print clip_len, total_len;}'
         )
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 -d 0 {bam_file}"
             f"| awk '{awk_script}'"

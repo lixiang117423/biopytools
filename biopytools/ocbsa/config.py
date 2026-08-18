@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -119,12 +119,23 @@ class BsaPrimerConfig:
     max_gc: float = 65.0
     tm_diff: float = 0.5
 
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    makeblastdb_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'makeblastdb', 'makeblastdb', 'MAKEBLASTDB_PATH'))
+    blastn_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'blastn', 'blastn', 'BLASTN_PATH'))
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         self.genome = os.path.normpath(expand_path(self.genome))
         self.ocvalue_file = os.path.normpath(expand_path(self.ocvalue_file))
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
+
+        # 展开工具路径|Expand tool paths
+        self.makeblastdb_path = expand_path(self.makeblastdb_path)
+        self.blastn_path = expand_path(self.blastn_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

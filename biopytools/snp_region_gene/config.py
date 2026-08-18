@@ -1,9 +1,11 @@
 """SNP区域基因提取配置类|SNP Region Gene Extractor Configuration"""
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -20,8 +22,13 @@ class SnpRegionConfig:
     right: int = 0
     promoter: int = 2000
     output_prefix: str = "./snp_region_output"
-    gffread_path: str = "gffread"
-    seqkit_path: str = "seqkit"
+
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    gffread_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gffread', 'gffread', 'GFFREAD_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -38,6 +45,10 @@ class SnpRegionConfig:
         # 临时文件路径|Temporary file paths
         self.temp_cds = f"{base_path}_temp_all_cds.fasta"
         self.temp_protein = f"{base_path}_temp_all_protein.fasta"
+
+        # 展开工具路径|Expand tool paths
+        self.gffread_path = expand_path(self.gffread_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

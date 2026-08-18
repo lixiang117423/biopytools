@@ -110,7 +110,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class GTXConfig:
@@ -124,12 +124,16 @@ class GTXConfig:
 
     #  GTX参数|GTX parameters
     gtx_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'gtx',
             '~/software/gtx/GTX.CAT_2.2.1/bin/gtx',
             'GTX_PATH'
         )
     )
+    bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bwa', 'bwa', 'BWA_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     threads: int = 88
     
     #  质量控制参数|Quality control parameters
@@ -159,6 +163,10 @@ class GTXConfig:
         """初始化后处理 |Post-initialization processing"""
         # 标准化路径|Normalize paths
         self.gtx_path = expand_path(self.gtx_path)
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         self.reference = os.path.normpath(os.path.abspath(self.reference))

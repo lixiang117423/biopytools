@@ -21,7 +21,8 @@ class AlignmentStatsAnalyzer:
             f"获取比对统计|Getting alignment statistics: {Path(bam_file).name}"
         )
 
-        cmd = f"{self.config.samtools_path} flagstat {bam_file}"
+        # 列表命令: conda环境自动包装|List command: auto conda wrap
+        cmd = [self.config.samtools_path, "flagstat", bam_file]
         success, output = self.cmd_runner.run(
             cmd, f"samtools flagstat for {Path(bam_file).name}"
         )
@@ -72,6 +73,14 @@ class AlignmentStatsAnalyzer:
 
     def _get_mapq_distribution(self, bam_file: str) -> Dict[str, Any]:
         """获取MAPQ分布|Get MAPQ distribution"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 {bam_file}"
             f"| cut -f5 | sort -n | uniq -c"

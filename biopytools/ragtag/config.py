@@ -3,9 +3,11 @@ RagTag配置管理模块|RagTag Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -36,8 +38,10 @@ class RagTagConfig:
     max_gap_size: int = 100000  # -m
     remove_small_alignments: bool = False  # --remove-small
 
-    # RagTag软件路径|RagTag software path
-    ragtag_path: str = 'ragtag.py'
+    # RagTag软件路径|RagTag software path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |auto domain env resolution, fallback to bare name via PATH
+    ragtag_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'ragtag.py', 'ragtag.py', 'RAGTAG_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -48,6 +52,9 @@ class RagTagConfig:
         self.reference = os.path.normpath(os.path.abspath(self.reference))
         self.query = os.path.normpath(os.path.abspath(self.query))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 展开工具路径|Expand tool path
+        self.ragtag_path = expand_path(self.ragtag_path)
 
         # 验证aligner参数|Validate aligner parameter
         valid_aligners = ['minimap2', 'unimap', 'nucmer']

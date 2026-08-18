@@ -14,24 +14,31 @@ import logging
 from typing import Tuple, List
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command, check_tools
 
-def run_command(cmd: str, log_file: str, logger: logging.Logger) -> Tuple[bool, str]:
+
+def run_command(cmd: list, log_file: str, logger: logging.Logger) -> Tuple[bool, str]:
     """
-    运行shell命令并记录日志
+    运行外部命令并记录日志|Run external command and log
+
+    列表命令(首个元素为工具路径)经 build_conda_command 包装后以 shell=False 执行
+    |List commands (first element is tool path) are conda-wrapped and run with shell=False
 
     Args:
-        cmd: 要执行的命令
-        log_file: 日志文件路径
-        logger: 日志对象
+        cmd: 要执行的命令列表|Command list to execute
+        log_file: 日志文件路径|Log file path
+        logger: 日志对象|Logger object
 
     Returns:
-        tuple: (是否成功, 错误消息)
+        tuple: (是否成功, 错误消息)|(success, error message)
     """
     try:
+        wrapped = build_conda_command(cmd[0], list(cmd[1:]))
+        logger.info(f"命令|Command: {' '.join(wrapped)}")
         with open(log_file, 'w') as f:
             result = subprocess.run(
-                cmd,
-                shell=True,
+                wrapped,
+                shell=False,
                 stdout=f,
                 stderr=subprocess.STDOUT,
                 text=True
@@ -46,20 +53,24 @@ def run_command(cmd: str, log_file: str, logger: logging.Logger) -> Tuple[bool, 
         return False, f"Exception: {str(e)}"
 
 
-def check_dependencies(logger: logging.Logger) -> Tuple[bool, str]:
+def check_dependencies(config, logger: logging.Logger) -> Tuple[bool, str]:
     """
-    检查依赖程序是否安装
+    检查依赖程序是否安装|Check if dependencies are installed
 
     Args:
-        logger: 日志对象
+        config: 分析配置(提供工具路径)|Analysis config (provides tool paths)
+        logger: 日志对象|Logger object
 
     Returns:
-        tuple: (是否都安装, 缺失的程序列表)
+        tuple: (是否都安装, 缺失的程序列表)|(all installed, missing list)
     """
-    required_commands = ['plink', 'bcftools', 'awk']
-    missing = []
+    missing = check_tools([
+        (config.plink_path, "PLINK", ["--version"]),
+        (config.bcftools_path, "BCFtools", ["--version"]),
+    ], logger)
 
-    for cmd in required_commands:
+    # awk 为系统工具, 用 which 探测|awk is a system tool, probe via which
+    for cmd in ['awk']:
         try:
             result = subprocess.run(
                 ['which', cmd],
@@ -77,23 +88,26 @@ def check_dependencies(logger: logging.Logger) -> Tuple[bool, str]:
     return True, ""
 
 
-def extract_vcf_samples(vcf_file: str, logger: logging.Logger = None) -> set:
+def extract_vcf_samples(vcf_file: str, bcftools_path: str, logger: logging.Logger = None) -> set:
     """
-    从VCF文件中提取样本ID（不需要完全转换）
+    从VCF文件中提取样本ID（不需要完全转换）|Extract sample IDs from VCF file
 
     Args:
-        vcf_file: VCF文件路径
-        logger: 日志对象
+        vcf_file: VCF文件路径|VCF file path
+        bcftools_path: bcftools路径|bcftools path
+        logger: 日志对象|Logger object
 
     Returns:
-        set: 样本ID集合
+        set: 样本ID集合|Set of sample IDs
     """
     try:
-        # 使用bcftools查询样本ID
-        cmd = f"bcftools query -l {vcf_file}"
+        # 使用bcftools查询样本ID|Query sample IDs with bcftools
+        cmd = build_conda_command(bcftools_path, ["query", "-l", vcf_file])
+        if logger:
+            logger.info(f"命令|Command: {' '.join(cmd)}")
         result = subprocess.run(
             cmd,
-            shell=True,
+            shell=False,
             capture_output=True,
             text=True
         )
@@ -264,25 +278,31 @@ def find_common_samples_and_filter(
     pheno_with_header: str,
     output_prefix: str,
     threads: int,
-    logger: logging.Logger
+    logger: logging.Logger,
+    bcftools_path: str,
+    plink_path: str,
 ) -> Tuple[bool, str, str]:
     """
     找到VCF和表型的样本交集，并使用bcftools从VCF筛选样本
+    |Find sample intersection between VCF and phenotype, filter VCF with bcftools
 
     Args:
-        vcf_file: 原始VCF文件路径
-        pheno_file_no_header: 表型文件路径（无表头）
-        pheno_with_header: 表型文件路径（带表头）
-        output_prefix: 输出文件前缀
-        threads: 线程数
-        logger: 日志对象
+        vcf_file: 原始VCF文件路径|Original VCF file path
+        pheno_file_no_header: 表型文件路径（无表头）|Phenotype file (no header)
+        pheno_with_header: 表型文件路径（带表头）|Phenotype file (with header)
+        output_prefix: 输出文件前缀|Output file prefix
+        threads: 线程数|Thread count
+        logger: 日志对象|Logger object
+        bcftools_path: bcftools路径|bcftools path
+        plink_path: plink路径|plink path
 
     Returns:
         tuple: (是否成功, 过滤后的表型文件路径(无表头), 样本数量)
+        |(success, filtered phenotype path (no header), sample count)
     """
     try:
-        # 1. 从VCF文件读取样本ID（使用bcftools，快速）
-        vcf_samples = extract_vcf_samples(vcf_file, logger)
+        # 1. 从VCF文件读取样本ID（使用bcftools，快速）|Read sample IDs from VCF via bcftools
+        vcf_samples = extract_vcf_samples(vcf_file, bcftools_path, logger)
 
         if len(vcf_samples) == 0:
             logger.error("No samples found in VCF file!")
@@ -319,8 +339,9 @@ def find_common_samples_and_filter(
 
         logger.info(f"Filtering VCF from {len(vcf_samples)} to {len(common_samples)} samples...")
 
-        # 使用bcftools筛选样本（多线程）
-        cmd = f"bcftools view -S {keep_file} -Oz -o {vcf_filtered} {vcf_file} --threads {threads}"
+        # 使用bcftools筛选样本（多线程）|Filter samples with bcftools (multithreaded)
+        cmd = [bcftools_path, "view", "-S", keep_file, "-Oz", "-o",
+               vcf_filtered, vcf_file, "--threads", str(threads)]
 
         log_file = f"{output_prefix}_bcftools.log"
         success, error = run_command(cmd, log_file, logger)
@@ -331,11 +352,11 @@ def find_common_samples_and_filter(
 
         logger.info("VCF filtering completed with bcftools")
 
-        # 5. 将筛选后的VCF转换为PLINK格式
+        # 5. 将筛选后的VCF转换为PLINK格式|Convert filtered VCF to PLINK format
         logger.info("Converting filtered VCF to PLINK format...")
-        cmd = f"plink --vcf {vcf_filtered} " \
-              f"--make-bed --out {output_prefix} " \
-              f"--allow-extra-chr --double-id --threads {threads}"
+        cmd = [plink_path, "--vcf", vcf_filtered,
+               "--make-bed", "--out", output_prefix,
+               "--allow-extra-chr", "--double-id", "--threads", str(threads)]
 
         log_file = f"{output_prefix}_plink_convert.log"
         success, error = run_command(cmd, log_file, logger)

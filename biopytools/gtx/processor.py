@@ -80,6 +80,8 @@
 from pathlib import Path
 from typing import List, Tuple
 from .utils import CommandRunner, FileProcessor
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class GTXProcessor:
     """ GTX数据处理器|GTX Data Processor"""
@@ -111,25 +113,27 @@ class GTXProcessor:
         self.logger.info(f"   输出VCF|Output VCF: vcf/{output_vcf.name}")
         self.logger.info(f"   输出BAM|Output BAM: bam/{output_bam.name}")
         
-        # 构建GTX WGS命令 |Build GTX WGS command
-        cmd = (
-            f"faketime '2020-10-20 00:00:00' {self.config.gtx_path} wgs -g "
-            f"-R \"{read_group}\" "
-            f"-o {output_vcf} "
-            f"-b {output_bam} "
-            f"-t {self.config.threads} "
-            f"--tmp-dir {self.config.tmp_dir} "
-            f"--pcr-indel-model {self.config.pcr_indel_model} "
-            f"--standard-min-confidence-threshold-for-calling {self.config.min_confidence_threshold} "
-            f"--min-base-quality-score {self.config.min_base_quality} "
-            f"--ploidy {self.config.ploidy} "
-            f"{self.config.reference} "
-            f"{r1_file} "
-            f"{r2_file}"
-        )
+        # 构建GTX WGS命令(GTX 为 ~/software 直调, 非 conda; faketime 为系统工具)
+        # |Build GTX WGS command (GTX is ~/software direct call, not conda; faketime is a system tool)
+        gtx_args = [
+            "wgs", "-g",
+            "-R", read_group,
+            "-o", str(output_vcf),
+            "-b", str(output_bam),
+            "-t", str(self.config.threads),
+            "--tmp-dir", self.config.tmp_dir,
+            "--pcr-indel-model", self.config.pcr_indel_model,
+            "--standard-min-confidence-threshold-for-calling", str(self.config.min_confidence_threshold),
+            "--min-base-quality-score", str(self.config.min_base_quality),
+            "--ploidy", str(self.config.ploidy),
+            self.config.reference,
+            r1_file,
+            r2_file,
+        ]
+        cmd = ["faketime", "2020-10-20 00:00:00"] + build_conda_command(self.config.gtx_path, gtx_args)
         
         # 运行GTX命令 |Run GTX command
-        success = self.cmd_runner.run(cmd, f" GTX WGS分析 (样品: {sample_name})|GTX WGS analysis (sample: {sample_name})")
+        success, _, _ = self.cmd_runner.run(cmd, f" GTX WGS分析 (样品: {sample_name})|GTX WGS analysis (sample: {sample_name})")
         
         if success:
             self.logger.info(f"    样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
@@ -232,25 +236,27 @@ class JointProcessor:
             self.logger.info(f" Joint calling结果已存在，跳过|Joint calling result already exists, skipping: {self.config.joint_output_file}")
             return True
         
-        # 构建GTX joint命令
-        cmd = (
-            f"{self.config.gtx_path} joint "
-            f"-r {self.config.reference} "
-            f"--sample-name-map {self.config.sample_map_file} "
-            f"-o {self.config.joint_output_file}"
-            f"--ploidy {self.config.ploidy} "
-
-        )
+        # 构建GTX joint命令(列表 + build_conda_command, GTX 为 ~/software 直调)
+        # |Build GTX joint command (list + build_conda_command, GTX is ~/software direct call)
+        joint_args = [
+            "joint",
+            "-r", self.config.reference,
+            "--sample-name-map", str(self.config.sample_map_file),
+            "-o", str(self.config.joint_output_file),
+            "--ploidy", str(self.config.ploidy),
+        ]
         
         # 如果配置了joint calling专用的线程数，添加线程参数
         if hasattr(self.config, 'joint_threads') and self.config.joint_threads != self.config.threads:
-            cmd += f" -t {self.config.joint_threads}"
+            joint_args.extend(["-t", str(self.config.joint_threads)])
+
+        cmd = build_conda_command(self.config.gtx_path, joint_args)
         
         self.logger.info(f"   输出文件|Output file: {self.config.joint_output_file}")
         self.logger.info(f"   样品映射文件|Sample mapping file: {self.config.sample_map_file}")
         
         # 运行joint calling命令
-        success = self.cmd_runner.run(cmd, " GTX Joint Calling")
+        success, _, _ = self.cmd_runner.run(cmd, " GTX Joint Calling")
         
         if success:
             self.logger.info(" GTX Joint Calling完成|GTX Joint Calling completed")

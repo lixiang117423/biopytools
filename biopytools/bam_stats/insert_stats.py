@@ -22,6 +22,14 @@ class InsertStatsAnalyzer:
             f"分析插入片段大小|Analyzing insert sizes: {Path(bam_file).name}"
         )
 
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -f 2 -F 4 {bam_file}"
             f"| awk '{{if($9>0 && $9<={self.config.max_insert_size}) print $9}}'"

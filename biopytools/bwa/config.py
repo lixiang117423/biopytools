@@ -8,6 +8,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
 @dataclass
 class AlignConfig:
     """BWA比对配置类|BWA Alignment Configuration Class"""
@@ -73,9 +81,12 @@ class AlignConfig:
     # 断点续传|Resume option
     resume: bool = False  # 跳过已完成的样品|Skip completed samples
     
-    # 工具路径|Tool paths
-    bwa_path: str = 'bwa'
-    samtools_path: str = 'samtools'
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bwa', 'bwa', 'BWA_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -95,6 +106,22 @@ class AlignConfig:
         self.genome = os.path.normpath(os.path.abspath(self.genome))
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 展开工具路径|Expand tool paths
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -30,6 +30,14 @@ class SequenceStatsAnalyzer:
 
     def _get_read_length_distribution(self, bam_file: str) -> Dict[str, Any]:
         """获取读长分布|Get read length distribution"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 {bam_file}"
             f"| awk '{{print length($10)}}' | sort -n | uniq -c"
@@ -69,6 +77,14 @@ class SequenceStatsAnalyzer:
 
     def _get_gc_content_distribution(self, bam_file: str) -> Dict[str, Any]:
         """获取GC含量分布|Get GC content distribution"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 {bam_file}"
             f"| cut -f10 | head -10000"
@@ -102,6 +118,14 @@ class SequenceStatsAnalyzer:
 
     def _get_base_quality_distribution(self, bam_file: str) -> Dict[str, Any]:
         """获取碱基质量分布|Get base quality distribution"""
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
+        # 管道字符串: 方案B(§13.2.2) 管道内直调域环境二进制, 不 conda run
+        # |Pipeline string: solution B, direct domain binary, no conda run
         cmd = (
             f"{self.config.samtools_path} view -F 4 {bam_file}"
             f"| cut -f11 | head -1000"

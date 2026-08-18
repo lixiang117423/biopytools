@@ -406,7 +406,7 @@ def main():
     # 可选参数|Optional arguments
     parser.add_argument('-t', '--threads', type=int, default=88,
                        help='线程数|Number of threads')
-    parser.add_argument('--gtx-path', default='~/software/gtx/GTX.CAT_2.2.1/bin/gtx',
+    parser.add_argument('--gtx-path', default=None,
                        help='GTX程序路径|GTX program path')
     parser.add_argument('--tmp-dir',
                        help='临时目录路径|Temporary directory path')
@@ -441,13 +441,14 @@ def main():
     extra_kwargs = {}
     if hasattr(args, 'force_rebuild_index'):
         extra_kwargs['force_rebuild_index'] = args.force_rebuild_index
+    if args.gtx_path is not None:
+        extra_kwargs['gtx_path'] = args.gtx_path
 
     # 创建分析器并运行|Create analyzer and run
     analyzer = GTXAnalyzer(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
         reference=args.reference,
-        gtx_path=args.gtx_path,
         threads=args.threads,
         tmp_dir=args.tmp_dir,
         min_confidence_threshold=args.min_confidence,

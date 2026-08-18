@@ -113,8 +113,8 @@ def main():
                        help=' 最小比对质量阈值|Minimum mapping quality threshold')
     
     # 工具路径|Tool paths
-    parser.add_argument('--samtools-path', default='samtools', 
-                       help=' samtools软件路径|samtools software path')
+    parser.add_argument('--samtools-path', default=None,
+                       help=' samtools软件路径(默认域环境自动解析)|samtools software path (default: auto domain env)')
     
     # 输出格式|Output format
     parser.add_argument('--output-format', default='txt', choices=['txt'], 
@@ -133,13 +133,14 @@ def main():
     args = parser.parse_args()
     
     # 创建分析器并运行|Create analyzer and run
-    analyzer = DepthAnalyzer(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool path uses config domain-env default when not explicitly given
+    analyzer_kwargs = dict(
         input_files=args.input,
         output_file=args.output,
         chromosome=args.chromosome,
         region=args.region,
         threads=args.threads,
-        samtools_path=args.samtools_path,
         quality_threshold=args.quality,
         mapping_quality=args.mapping_quality,
         output_format=args.output_format,
@@ -148,6 +149,10 @@ def main():
         window_size=args.window_size,
         window_step=args.window_step
     )
+    if args.samtools_path is not None:
+        analyzer_kwargs['samtools_path'] = args.samtools_path
+
+    analyzer = DepthAnalyzer(**analyzer_kwargs)
     
     analyzer.run_analysis()
 

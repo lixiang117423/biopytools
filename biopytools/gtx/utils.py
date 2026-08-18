@@ -233,6 +233,8 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Tuple, Optional
 
+from ..common.conda_runner import CommandRunner, build_conda_command, check_tools
+
 class GTXLogger:
     """GTX分析日志管理器|GTX Analysis Logger Manager"""
     
@@ -262,45 +264,6 @@ class GTXLogger:
     def get_logger(self):
         """获取日志器 |Get logger"""
         return self.logger
-
-class CommandRunner:
-    """命令执行器|Command Runner"""
-    
-    def __init__(self, logger, working_dir: Path):
-        self.logger = logger
-        self.working_dir = working_dir.resolve()
-    
-    def run(self, cmd: str, description: str = "") -> bool:
-        """执行命令 |Execute command"""
-        if description:
-            self.logger.info(f"执行步骤|Executing step: {description}")
-        
-        self.logger.info(f"命令|Command: {cmd}")
-        self.logger.info(f"工作目录|Working directory: {self.working_dir}")
-        
-        try:
-            result = subprocess.run(
-                cmd, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
-                check=True,
-                cwd=self.working_dir
-            )
-            
-            self.logger.info(f"命令执行成功|Command executed successfully: {description}")
-            
-            if result.stdout:
-                self.logger.debug(f"标准输出|Stdout: {result.stdout}")
-            
-            return True
-            
-        except subprocess.CalledProcessError as e:
-            self.logger.error(f"命令执行失败|Command execution failed: {description}")
-            self.logger.error(f"错误代码|Error code: {e.returncode}")
-            self.logger.error(f"错误信息|Error message: {e.stderr}")
-            self.logger.error(f"标准输出|Stdout: {e.stdout}")
-            return False
 
 class PatternParser:
     """文件模式解析器|File Pattern Parser"""
@@ -510,12 +473,12 @@ class ReferenceIndexManager:
             estimated_time = int(file_size_gb * 5)
             self.logger.info(f"  文件大小: {file_size_gb:.1f} GB，预计需要 ~ {estimated_time} 分钟|File size: {file_size_gb:.1f} GB, estimated ~ {estimated_time} minutes")
         
-        # cmd = f"{self.config.gtx_path} index {reference_path}"
-        cmd = f"bwa index {reference_path}"
-        success = self.cmd_runner.run(cmd, "BWA构建参考基因组索引|Building reference index with BWA")
+        # 用 build_conda_command 包装 conda 域环境工具(bwa/samtools)|Wrap conda domain tools with build_conda_command
+        bwa_cmd = build_conda_command(self.config.bwa_path, ["index", reference_path])
+        self.cmd_runner.run(bwa_cmd, "BWA构建参考基因组索引|Building reference index with BWA")
 
-        cmd = f"samtools faidx {reference_path}"
-        success = self.cmd_runner.run(cmd, "SAMtools构建参考基因组索引|Building reference index with SAMtools")
+        samtools_cmd = build_conda_command(self.config.samtools_path, ["faidx", reference_path])
+        success, _, _ = self.cmd_runner.run(samtools_cmd, "SAMtools构建参考基因组索引|Building reference index with SAMtools")
         
         if success:
             self.logger.info("索引构建完成|Index build complete")
@@ -665,6 +628,16 @@ def check_dependencies(config, logger):
     # 检查GTX程序是否可执行 |Check if GTX program is executable
     if not os.access(config.gtx_path, os.X_OK):
         error_msg = f"GTX程序不可执行|GTX program is not executable: {config.gtx_path}"
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+
+    # 用 check_tools 检查 BWA/SAMtools(构建索引所需)|Check BWA/SAMtools via check_tools (needed for index building)
+    missing = check_tools([
+        (config.bwa_path, "BWA", ["--version"], True),  # BWA --version 返回非零, 视为可用|exits non-zero, treat as OK
+        (config.samtools_path, "SAMtools", ["--version"]),
+    ], logger)
+    if missing:
+        error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing)}"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
     

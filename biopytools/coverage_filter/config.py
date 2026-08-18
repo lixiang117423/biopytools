@@ -3,8 +3,10 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -19,6 +21,22 @@ class CoverageFilterConfig:
 
     # 线程数|Number of threads
     threads: int = 12
+
+    # 工具路径|Tool paths
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    seqtk_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqtk', 'seqtk', 'SEQTK_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+
+    # 工具路径|Tool paths
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    seqtk_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqtk', 'seqtk', 'SEQTK_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     # 高质量覆盖度阈值（默认90%）|High quality coverage threshold (default: 90%)
     high_coverage: float = 90.0
@@ -35,6 +53,16 @@ class CoverageFilterConfig:
 
         # 创建输出目录|Create output directory
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+
+        # 展开工具路径|Expand tool paths
+        self.samtools_path = expand_path(self.samtools_path)
+        self.seqtk_path = expand_path(self.seqtk_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool paths
+        self.samtools_path = expand_path(self.samtools_path)
+        self.seqtk_path = expand_path(self.seqtk_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
         # 计算衍生阈值|Calculate derived thresholds
         self.high_coverage_min = self.high_coverage

@@ -3,9 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class RAxMLConfig:
@@ -53,8 +55,10 @@ class RAxMLConfig:
     ml_search_convergence: bool = False  # -D parameter
     random_starting_tree: bool = False  # -d parameter
     
-    # 工具路径|Tool paths
-    raxml_path: str = 'raxmlHPC-PTHREADS'
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |auto domain env resolution, fallback to bare name via PATH
+    raxml_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'raxmlHPC-PTHREADS', 'raxmlHPC-PTHREADS', 'RAXML_PATH'))
     
     # 质量控制|Quality control
     no_seq_check: bool = False  # --no-seq-check
@@ -74,6 +78,9 @@ class RAxMLConfig:
         
         if self.constraint_tree:
             self.constraint_tree = os.path.normpath(os.path.abspath(self.constraint_tree))
+
+        # 展开工具路径|Expand tool path
+        self.raxml_path = expand_path(self.raxml_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

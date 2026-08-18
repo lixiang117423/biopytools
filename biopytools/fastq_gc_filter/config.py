@@ -3,9 +3,11 @@ FASTQ GC过滤配置管理模块|FASTQ GC Filter Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -24,6 +26,11 @@ class FastqGcFilterConfig:
     min_length: int = 50  # 最短序列长度|Minimum sequence length
     max_length: Optional[int] = None  # 最长序列长度, None表示不限制|Maximum sequence length, None means no limit
 
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 标准化路径|Normalize paths
@@ -34,6 +41,9 @@ class FastqGcFilterConfig:
         output_dir = os.path.dirname(self.output_file)
         if output_dir:
             Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+        # 展开工具路径|Expand tool path
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

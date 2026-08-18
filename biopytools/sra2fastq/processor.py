@@ -6,6 +6,7 @@ import os
 import glob as glob_module
 from pathlib import Path
 from typing import List
+from ..common.conda_runner import build_conda_command
 from .utils import CommandRunner
 
 
@@ -17,78 +18,78 @@ class SRAProcessor:
         self.logger = logger
         self.cmd_runner = cmd_runner
 
-    def _build_parallel_fastq_dump_cmd(self, sra_file: str) -> str:
-        """构建parallel-fastq-dump命令|Build parallel-fastq-dump command"""
-        cmd_parts = [self.config.tool_path]
+    def _build_parallel_fastq_dump_args(self, sra_file: str) -> list:
+        """构建parallel-fastq-dump参数|Build parallel-fastq-dump arguments"""
+        args = []
 
         # SRA文件 (使用-s或--sra-id)|SRA file
-        cmd_parts.append(f"--sra-id {sra_file}")
+        args.extend(['--sra-id', sra_file])
 
         # 线程数|Threads
-        cmd_parts.append(f"--threads {self.config.threads}")
+        args.extend(['--threads', str(self.config.threads)])
 
         # 输出目录|Output directory
-        cmd_parts.append(f"--outdir {self.config.output_dir}")
+        args.extend(['--outdir', self.config.output_dir])
 
         # 临时目录|Temporary directory
         if self.config.tmpdir:
-            cmd_parts.append(f"--tmpdir {self.config.tmpdir}")
+            args.extend(['--tmpdir', self.config.tmpdir])
 
         # 以下参数会传递给底层的fastq-dump|Following params pass to underlying fastq-dump
 
         # 拆分双端测序|Split paired-end reads
         if self.config.split_files:
-            cmd_parts.append("--split-files")
+            args.append("--split-files")
 
         # 压缩输出|Compress output
         if self.config.compress:
-            cmd_parts.append("--gzip")
+            args.append("--gzip")
 
         # 跳过技术序列|Skip technical reads
         if self.config.skip_technical:
-            cmd_parts.append("--skip-technical")
+            args.append("--skip-technical")
 
         # 剪切adapters|Clip adapters
         if self.config.clip:
-            cmd_parts.append("--clip")
+            args.append("--clip")
 
         # 最小读长过滤|Minimum read length filter
         if self.config.min_read_len > 0:
-            cmd_parts.append(f"--minReadLen {self.config.min_read_len}")
+            args.extend(['--minReadLen', str(self.config.min_read_len)])
 
-        return " ".join(cmd_parts)
+        return args
 
-    def _build_fastq_dump_cmd(self, sra_file: str) -> str:
-        """构建fastq-dump命令 (备选方案)|Build fastq-dump command (fallback)"""
-        cmd_parts = [self.config.tool_path]
+    def _build_fastq_dump_args(self, sra_file: str) -> list:
+        """构建fastq-dump参数 (备选方案)|Build fastq-dump arguments (fallback)"""
+        args = []
 
         # 拆分双端测序|Split paired-end reads
         if self.config.split_files:
-            cmd_parts.append("--split-3")
+            args.append("--split-3")
 
         # 压缩输出|Compress output
         if self.config.compress:
-            cmd_parts.append("--gzip")
+            args.append("--gzip")
 
         # 跳过技术序列|Skip technical reads
         if self.config.skip_technical:
-            cmd_parts.append("--skip-technical")
+            args.append("--skip-technical")
 
         # 剪切adapters|Clip adapters
         if self.config.clip:
-            cmd_parts.append("--clip")
+            args.append("--clip")
 
         # 最小读长过滤|Minimum read length filter
         if self.config.min_read_len > 0:
-            cmd_parts.append(f"--minReadLen {self.config.min_read_len}")
+            args.extend(['--minReadLen', str(self.config.min_read_len)])
 
         # 输出目录|Output directory
-        cmd_parts.append(f"--outdir {self.config.output_dir}")
+        args.extend(['--outdir', self.config.output_dir])
 
         # 输入文件|Input file
-        cmd_parts.append(sra_file)
+        args.append(sra_file)
 
-        return " ".join(cmd_parts)
+        return args
 
     def _is_already_converted(self, sra_file: str) -> bool:
         """
@@ -152,16 +153,19 @@ class SRAProcessor:
             self.logger.info(f"跳过已完成文件|Skipping already converted file: {base_name}")
             return True
 
-        # 根据工具类型构建命令|Build command based on tool type
+        # 根据工具类型构建参数|Build arguments based on tool type
         if self.config.use_parallel:
-            cmd = self._build_parallel_fastq_dump_cmd(sra_file)
+            args = self._build_parallel_fastq_dump_args(sra_file)
             tool_name = "parallel-fastq-dump (多线程加速)|(multi-threaded)"
         else:
-            cmd = self._build_fastq_dump_cmd(sra_file)
+            args = self._build_fastq_dump_args(sra_file)
             tool_name = "fastq-dump (单线程)|(single-threaded)"
 
         self.logger.info(f"使用工具|Using tool: {tool_name}")
         self.logger.info(f"线程数|Threads: {self.config.threads}")
+
+        # 构建完整命令(功能域环境自动包装)|Build full command (auto domain env wrapping)
+        cmd = build_conda_command(self.config.tool_path, args)
 
         # 执行转换|Execute conversion
         success = self.cmd_runner.run(

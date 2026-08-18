@@ -49,7 +49,9 @@ class MiniprotAligner:
 
         # 执行命令|Execute command
         timeout = 86400  # 24小时超时|24 hours timeout
-        success = self.cmd_runner.run(cmd, "Miniprot对齐|Miniprot alignment", timeout=timeout)
+        success = self.cmd_runner.run(
+            cmd, "Miniprot对齐|Miniprot alignment",
+            timeout=timeout, output_file=output_paf)
 
         if not success:
             raise RuntimeError("Miniprot对齐失败|Miniprot alignment failed")
@@ -63,21 +65,18 @@ class MiniprotAligner:
 
         return output_paf
 
-    def _build_miniprot_command(self, output_paf: str) -> str:
+    def _build_miniprot_command(self, output_paf: str) -> list:
         """构建miniprot命令|Build miniprot command
 
         Args:
             output_paf: 输出PAF文件|Output PAF file
 
         Returns:
-            str: miniprot命令|miniprot command
+            list: miniprot命令参数列表|miniprot command argument list
         """
-        cmd = (
-            f"{self.config.miniprot_path} "
-            f"{self.config.genome_fa} "
-            f"{self.config.protein_fa} "
-            f"-t {self.config.threads} "
-            f"> {output_paf}"
-        )
-
-        return cmd
+        return [
+            self.config.miniprot_path,
+            self.config.genome_fa,
+            self.config.protein_fa,
+            "-t", str(self.config.threads),
+        ]

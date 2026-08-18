@@ -3,10 +3,10 @@ RNA-Bloom组装配置管理模块|RNA-Bloom Assembly Configuration Management Mo
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -27,8 +27,14 @@ class RNABloomConfig:
     # 处理参数|Processing parameters
     threads: int = 12  # 线程数|Number of threads
 
-    # RNA-Bloom路径配置|RNA-Bloom path configuration
-    rnabloom_path: str = "rnabloom"  # 默认使用工具名，让系统从PATH查找|Default uses tool name, let system find from PATH
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env resolution, fallback to bare name via PATH)
+    rnabloom_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'rnabloom', 'rnabloom', 'RNABLOOM_PATH'))
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))
+    ntcard_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'ntCard', 'ntCard', 'NTCARD_PATH'))
 
     # Bloom filter配置|Bloom filter configuration
     memory_gb: Optional[float] = None  # Bloom filter总大小(GB)|Total Bloom filter size in GB
@@ -79,9 +85,10 @@ class RNABloomConfig:
         if self.reference_transcripts:
             self.reference_transcripts = expand_path(self.reference_transcripts)
 
-        # 只有在rnabloom_path不是默认值时才展开|Only expand rnabloom_path if not default
-        if self.rnabloom_path and self.rnabloom_path != "rnabloom":
-            self.rnabloom_path = expand_path(self.rnabloom_path)
+        # 展开工具路径|Expand tool paths
+        self.rnabloom_path = expand_path(self.rnabloom_path)
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.ntcard_path = expand_path(self.ntcard_path)
 
         # 如果没有指定任何reads，报错|If no reads specified, raise error
         if not any([

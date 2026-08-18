@@ -63,11 +63,13 @@ def run_command(cmd: list, logger: logging.Logger = None,
     Returns:
         subprocess.CompletedProcess: 命令执行结果|Command execution result
     """
+    from ..common.conda_runner import build_conda_command
+    full_cmd = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
     if logger:
-        logger.debug(f"执行命令|Running command: {' '.join(cmd)}")
+        logger.info(f"命令|Command: {' '.join(full_cmd)}")
 
     return subprocess.run(
-        cmd,
+        full_cmd,
         capture_output=capture_output,
         text=True,
         check=check
@@ -86,22 +88,11 @@ def check_tool(tool_path: str, tool_name: str, logger: logging.Logger = None) ->
     Returns:
         bool: 是否可用|Whether available
     """
-    try:
-        result = subprocess.run(
-            [tool_path, "--version"],
-            capture_output=True,
-            text=True,
-            check=False
-        )
-        version = result.stdout.split('\n')[0] if result.stdout else "unknown"
-        if logger:
-            logger.info(f"找到工具|Found tool: {tool_name} - {version}")
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError) as e:
-        if logger:
-            logger.error(f"未找到工具|Tool not found: {tool_name}")
-            logger.error(f"请先安装{tool_name}|Please install {tool_name} first")
-        return False
+    from ..common.conda_runner import check_tools
+    missing = check_tools([(tool_path, tool_name, ["--version"])], logger)
+    if missing and logger:
+        logger.error(f"请先安装{tool_name}|Please install {tool_name} first")
+    return not missing
 
 
 def format_number(num: int) -> str:

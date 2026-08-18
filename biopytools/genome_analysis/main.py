@@ -13,6 +13,7 @@ from pathlib import Path
 from datetime import datetime
 from .config import GenomeAnalysisConfig
 from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder
+from ..common.conda_runner import build_conda_command, check_tools
 
 
 def find_fastq_files(input_path: str, logger) -> list:
@@ -79,11 +80,12 @@ def setup_temp_dir(output_dir: str, logger) -> str:
     return temp_dir
 
 
-def check_dependencies(logger, run_smudgeplot=False) -> bool:
+def check_dependencies(config: GenomeAnalysisConfig, logger, run_smudgeplot=False) -> bool:
     """
     检查依赖环境|Check dependencies
 
     Args:
+        config: 配置对象|Configuration object
         logger: 日志对象|Logger object
         run_smudgeplot: 是否运行Smudgeplot|Whether to run Smudgeplot
 
@@ -94,29 +96,28 @@ def check_dependencies(logger, run_smudgeplot=False) -> bool:
     logger.info("检查依赖环境|Checking dependencies")
     logger.info("=" * 60)
 
+    # genomescope2/smudgeplot 为 Python/R 包装脚本, --version 可能返回非零;
+    # 用 accept_nonzero=True 仅校验二进制可执行(等价于原 which 存在性检查)
+    # |genomescope2/smudgeplot are Python/R wrapper scripts whose --version may
+    # return non-zero; accept_nonzero=True only verifies the binary runs
     dependencies = [
-        ('jellyfish', 'jellyfish'),
-        ('genomescope2', 'GenomeScope 2.0'),
+        (config.jellyfish_path, 'jellyfish', ['--version']),
+        (config.genomescope2_path, 'GenomeScope 2.0', ['--version'], True),
     ]
 
     # 如果需要运行Smudgeplot，添加相关依赖检查|Add Smudgeplot related dependencies if needed
     if run_smudgeplot:
-        dependencies.append(('FastK', 'FastK'))
-        dependencies.append(('smudgeplot', 'smudgeplot'))
+        # FastK -v 输出版本到stderr且返回非零, 用 accept_nonzero=True 视为可用
+        # |FastK -v prints to stderr and returns non-zero; accept_nonzero=True
+        dependencies.append((config.fastk_path, 'FastK', ['-v'], True))
+        dependencies.append((config.smudgeplot_path, 'smudgeplot', ['--version'], True))
 
-    all_ok = True
-    for cmd, name in dependencies:
-        try:
-            # 检查命令|Check command
-            subprocess.run(['which', cmd], capture_output=True, check=True)
-            logger.info(f"[OK] {name} 已找到|{name} found")
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            logger.error(f"[ERROR] {name} 未找到|{name} not found")
-            if cmd == 'genomescope2':
-                logger.error("安装命令|Install command: conda create -n genomescope2_v.2.1.0 -c conda-forge genomescope2")
-            all_ok = False
+    missing = check_tools(dependencies, logger)
+    if missing:
+        logger.error(f"缺失依赖软件|Missing dependencies: {', '.join(missing)}")
+        return False
 
-    return all_ok
+    return True
 
 
 def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig, logger):
@@ -131,23 +132,28 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
     logger.info("生成软件版本信息文件|Generating software versions file")
 
     # 定义工具列表|Define tools list
+    # 生信工具经 build_conda_command 包装(conda环境自动检测); R/Rscript 保持裸名(向后兼容)
+    # |Bioinformatics tools wrapped via build_conda_command; R/Rscript stay bare
     tools = {}
     tool_commands = {
-        'jellyfish': ['jellyfish', '--version'],
-        'R': ['R', '--version'],
-        'Rscript': ['Rscript', '--version'],
+        'jellyfish': (config.jellyfish_path, ['--version']),
+        'R': ('R', ['--version']),
+        'Rscript': ('Rscript', ['--version']),
     }
 
     # 如果运行Smudgeplot，添加相关工具|Add Smudgeplot related tools if running
     if not config.skip_smudgeplot:
         tool_commands.update({
-            'FastK': ['FastK', '-v'],  # FastK -v 不输出版本，会返回空
-            'smudgeplot': ['smudgeplot', '--version'],
+            'FastK': (config.fastk_path, ['-v']),  # FastK -v 不输出版本，会返回空
+            'smudgeplot': (config.smudgeplot_path, ['--version']),
         })
 
     # 获取工具版本|Get tool versions
-    for tool_name, cmd in tool_commands.items():
+    for tool_name, (tool_path, version_args) in tool_commands.items():
         try:
+            cmd = build_conda_command(tool_path, version_args)
+            logger.info(f"命令|Command: {' '.join(cmd)}")
+
             # 同时捕获 stdout 和 stderr|Capture both stdout and stderr
             result = subprocess.run(
                 cmd,
@@ -160,42 +166,46 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
             output = result.stdout.strip() if result.stdout.strip() else result.stderr.strip()
             version = output.split('\n')[0] if output else 'unknown'
 
-            # 尝试获取路径|Try to get path
-            path_result = subprocess.run(
-                ['which', tool_name],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            tool_path = path_result.stdout.strip() if path_result.returncode == 0 else 'not found'
+            # 工具路径: 完整路径直接用; 裸命令名回退 which 探测
+            # |Tool path: use full path directly; probe bare names via which
+            if os.path.isabs(tool_path):
+                tool_path_str = tool_path
+            else:
+                path_result = subprocess.run(
+                    ['which', tool_name],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                tool_path_str = path_result.stdout.strip() if path_result.returncode == 0 else 'not found'
 
             tools[tool_name] = {
                 'version': version,
-                'path': tool_path
+                'path': tool_path_str
             }
 
             # 记录调试信息|Log debug info
             if version == 'unknown':
-                logger.debug(f"无法获取 {tool_name} 版本: stdout='{result.stdout.strip()}', stderr='{result.stderr.strip()}'")
+                logger.debug(f"无法获取 {tool_name} 版本|Failed to get version: stdout='{result.stdout.strip()}', stderr='{result.stderr.strip()}'")
 
         except subprocess.TimeoutExpired:
             tools[tool_name] = {
                 'version': 'timeout',
                 'path': 'not found'
             }
-            logger.warning(f"获取 {tool_name} 版本超时")
+            logger.warning(f"获取 {tool_name} 版本超时|Timeout getting version")
         except FileNotFoundError:
             tools[tool_name] = {
                 'version': 'not installed',
                 'path': 'not found'
             }
-            logger.warning(f"{tool_name} 未安装")
+            logger.warning(f"{tool_name} 未安装|not installed")
         except Exception as e:
             tools[tool_name] = {
                 'version': 'error',
                 'path': 'not found'
             }
-            logger.warning(f"获取 {tool_name} 版本时出错: {str(e)}")
+            logger.warning(f"获取 {tool_name} 版本时出错|Error getting version: {str(e)}")
 
     # 构建版本信息|Build version info
     version_info = {
@@ -312,11 +322,6 @@ def main():
         logger.info(f"K-mer大小: {args.kmer_size}")
         logger.info(f"线程数: {args.threads}")
 
-        # 检查依赖|Check dependencies
-        if not check_dependencies(logger, not args.skip_smudgeplot):
-            logger.error("依赖检查失败，请安装所需软件")
-            sys.exit(1)
-
         # 初始化配置|Initialize config
         config = GenomeAnalysisConfig(
             input_dir=args.input,
@@ -332,6 +337,11 @@ def main():
         )
 
         config.validate()
+
+        # 检查依赖|Check dependencies
+        if not check_dependencies(config, logger, not args.skip_smudgeplot):
+            logger.error("依赖检查失败，请安装所需软件|Dependency check failed, please install required software")
+            sys.exit(1)
 
         # 使用SampleFinder查找样品|Use SampleFinder to find samples
         sample_finder = SampleFinder(logger, config.read1_suffix)
@@ -387,7 +397,7 @@ def main():
             # FastK目录会在需要时创建|FastK directory will be created when needed
 
             # 运行GenomeScope流程|Run GenomeScope pipeline
-            gs_runner = GenomeScopeRunner(logger)
+            gs_runner = GenomeScopeRunner(logger, config)
 
             # 步骤1: Jellyfish count
             if not gs_runner.run_jellyfish_count(
@@ -423,7 +433,7 @@ def main():
             config.kcov = kcov
 
             # 步骤4-5: Smudgeplot (默认运行，可使用--skip-smudgeplot跳过)
-            sm_runner = SmudgeplotRunner(logger)
+            sm_runner = SmudgeplotRunner(logger, config)
 
             if not args.skip_smudgeplot:
                 logger.info("")
@@ -517,8 +527,8 @@ class GenomeAnalysis:
         generate_software_versions_yml(self.config.output_dir, self.config, self.logger)
 
         # 初始化工具类|Initialize utility classes
-        self.gs_runner = GenomeScopeRunner(self.logger)
-        self.sm_runner = SmudgeplotRunner(self.logger)
+        self.gs_runner = GenomeScopeRunner(self.logger, self.config)
+        self.sm_runner = SmudgeplotRunner(self.logger, self.config)
 
     def run(self):
         """
@@ -536,7 +546,7 @@ class GenomeAnalysis:
             self.logger.info(f"配置信息:\n{self.config}")
 
             # 检查依赖|Check dependencies
-            if not check_dependencies(self.logger):
+            if not check_dependencies(self.config, self.logger):
                 self.logger.error("依赖检查失败")
                 return False
 

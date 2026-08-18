@@ -148,8 +148,8 @@ def main():
 
     optional.add_argument("-t", "--threads", type=int, default=12,
                          help="线程数|Number of threads")
-    optional.add_argument("--miniprot-path", default="miniprot",
-                         help="Miniprot工具路径|Miniprot tool path (default: miniprot)")
+    optional.add_argument("--miniprot-path", default=None,
+                         help="Miniprot工具路径(默认域环境自动解析)|Miniprot tool path (default: auto domain env)")
 
     # 输出选项|Output options
     output = parser.add_argument_group('输出选项|Output options')
@@ -167,17 +167,22 @@ def main():
 
     # 创建分析器并运行|Create analyzer and run
     try:
-        analyzer = Pep2GenomeAnalyzer(
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool path uses config domain-env default when not explicitly given
+        analyzer_kwargs = dict(
             genome_fa=args.genome,
             protein_fa=args.protein,
             output_dir=args.output_dir,
             threads=args.threads,
-            miniprot_path=args.miniprot_path,
             export_gff3=args.export_gff3,
             export_bed=args.export_bed,
             export_statistics=args.export_statistics,
             extract_sequences=args.extract_sequences
         )
+        if args.miniprot_path is not None:
+            analyzer_kwargs['miniprot_path'] = args.miniprot_path
+
+        analyzer = Pep2GenomeAnalyzer(**analyzer_kwargs)
 
         analyzer.run_analysis()
 

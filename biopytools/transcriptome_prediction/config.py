@@ -3,9 +3,10 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
+from ..common.paths import get_domain_tool_path
 
 @dataclass
 class TranscriptomeConfig:
@@ -51,15 +52,24 @@ class TranscriptomeConfig:
     transdecoder_genetic_code: str = "universal"
     transdecoder_complete_orfs_only: bool = False
     
-    #  工具路径|Tool paths
-    hisat2_path: str = 'hisat2'
-    hisat2_build_path: str = 'hisat2-build'
-    stringtie_path: str = 'stringtie'
-    trinity_path: str = 'Trinity'
-    pasa_path: str = 'Launch_PASA_pipeline.pl'
-    transdecoder_longorfs_path: str = 'TransDecoder.LongOrfs'
-    transdecoder_predict_path: str = 'TransDecoder.Predict'
-    samtools_path: str = 'samtools'
+    #  工具路径|Tool paths - 域环境解析, 回退裸命令名靠PATH
+    # |Tool paths (domain env resolution, fallback to bare name via PATH)
+    hisat2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hisat2', 'hisat2', 'HISAT2_PATH'))
+    hisat2_build_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hisat2-build', 'hisat2-build', 'HISAT2_BUILD_PATH'))
+    stringtie_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'stringtie', 'stringtie', 'STRINGTIE_PATH'))
+    trinity_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'Trinity', 'Trinity', 'TRINITY_PATH'))
+    pasa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'Launch_PASA_pipeline.pl', 'Launch_PASA_pipeline.pl', 'PASA_PATH'))
+    transdecoder_longorfs_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'TransDecoder.LongOrfs', 'TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))
+    transdecoder_predict_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'TransDecoder.Predict', 'TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     
     #  内部属性|Internal attributes
     base_name: str = 'transcriptome_prediction'
@@ -166,15 +176,24 @@ class TranscriptomeConfig:
     transdecoder_genetic_code: str = "universal"
     transdecoder_complete_orfs_only: bool = False
     
-    #  工具路径|Tool paths
-    hisat2_path: str = 'hisat2'
-    hisat2_build_path: str = 'hisat2-build'
-    stringtie_path: str = 'stringtie'
-    trinity_path: str = 'Trinity'
-    pasa_path: str = 'Launch_PASA_pipeline.pl'
-    transdecoder_longorfs_path: str = 'TransDecoder.LongOrfs'
-    transdecoder_predict_path: str = 'TransDecoder.Predict'
-    samtools_path: str = 'samtools'
+    #  工具路径|Tool paths - 域环境解析, 回退裸命令名靠PATH
+    # |Tool paths (domain env resolution, fallback to bare name via PATH)
+    hisat2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hisat2', 'hisat2', 'HISAT2_PATH'))
+    hisat2_build_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hisat2-build', 'hisat2-build', 'HISAT2_BUILD_PATH'))
+    stringtie_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'stringtie', 'stringtie', 'STRINGTIE_PATH'))
+    trinity_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'Trinity', 'Trinity', 'TRINITY_PATH'))
+    pasa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'Launch_PASA_pipeline.pl', 'Launch_PASA_pipeline.pl', 'PASA_PATH'))
+    transdecoder_longorfs_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'TransDecoder.LongOrfs', 'TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))
+    transdecoder_predict_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'TransDecoder.Predict', 'TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     
     #  内部属性|Internal attributes
     base_name: str = 'transcriptome_prediction'

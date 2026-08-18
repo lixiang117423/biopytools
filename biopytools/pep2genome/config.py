@@ -3,21 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-
-def expand_path(file_path: str) -> str:
-    """展开路径中的~符号|Expand tilde in path
-
-    Args:
-        file_path: 文件路径|File path
-
-    Returns:
-        str: 展开后的绝对路径|Expanded absolute path
-    """
-    return os.path.normpath(os.path.abspath(os.path.expanduser(file_path)))
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -35,7 +25,10 @@ class Pep2GenomeConfig:
     threads: int = 12  # 线程数|Number of threads
 
     # Miniprot路径配置|Miniprot path configuration
-    miniprot_path: str = "miniprot"  # 默认使用工具名，让系统从PATH查找|Default uses tool name, let system find from PATH
+    miniprot_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'miniprot', 'miniprot', 'MINIPROT_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     # 输出选项|Output options
     export_gff3: bool = True  # 是否导出GFF3格式|Whether to export GFF3 format
@@ -53,9 +46,9 @@ class Pep2GenomeConfig:
         self.protein_fa = expand_path(self.protein_fa)
         self.output_dir = expand_path(self.output_dir)
 
-        # 只有在miniprot_path不是默认值时才展开|Only expand miniprot_path if not default
-        if self.miniprot_path and self.miniprot_path != "miniprot":
-            self.miniprot_path = expand_path(self.miniprot_path)
+        # 展开工具路径|Expand tool paths
+        self.miniprot_path = expand_path(self.miniprot_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

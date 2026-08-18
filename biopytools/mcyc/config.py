@@ -5,7 +5,7 @@
 import os
 from dataclasses import dataclass, field
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -22,6 +22,13 @@ class MCycConfig:
     thread_count: int = 4
     skip_diamond: bool = False
     keep_temp_files: bool = False
+
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env resolution, fallback to bare name via PATH)
+    diamond_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'diamond', 'diamond', 'DIAMOND_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     # 内部属性|Internal attributes (在__post_init__中设置)
     work_dir: str = field(default=None, init=False)
@@ -46,6 +53,11 @@ class MCycConfig:
             self.mcyc_base_resolved = "~/software/MCycDB/MCycDB-main"
         else:
             self.mcyc_base_resolved = self.mcyc_base
+
+        # 展开工具路径与数据库路径|Expand tool and database paths
+        self.diamond_path = expand_path(self.diamond_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+        self.mcyc_base_resolved = expand_path(self.mcyc_base_resolved)
 
         # 数据库文件路径|Database file paths
         self.fasta_file = os.path.join(self.mcyc_base_resolved, "MCycDB_2021.faa")

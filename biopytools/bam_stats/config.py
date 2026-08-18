@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_tool_path, get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -60,10 +60,12 @@ class BAMStatsConfig:
         if self.bed_file:
             self.bed_file = expand_path(self.bed_file)
 
-        self.samtools_path = get_tool_path(
+        # 域环境自动解析(存在才用), 回退裸命令名靠PATH
+        # |Domain env auto resolution (if exists), fallback to bare name via PATH
+        self.samtools_path = get_domain_tool_path(
             'samtools', self.samtools_path, 'SAMTOOLS_PATH'
         )
-        self.bedtools_path = get_tool_path(
+        self.bedtools_path = get_domain_tool_path(
             'bedtools', self.bedtools_path, 'BEDTOOLS_PATH'
         )
 

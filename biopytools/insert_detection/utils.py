@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import List, Tuple, Dict
 import pandas as pd
 
+from ..common.conda_runner import check_tools
+
+from ..common.conda_runner import check_tools
+
 
 class InsertDetectionLogger:
     """插入检测日志管理器|Insert detection logger manager"""
@@ -133,34 +137,10 @@ def check_dependencies(config, logger):
     """
     logger.info("检查依赖工具|Checking dependency tools...")
 
-    tools = {
-        'bowtie2': config.bowtie2_path,
-        'samtools': config.samtools_path,
-    }
-
-    missing = []
-
-    for tool_name, tool_path in tools.items():
-        try:
-            result = subprocess.run(
-                [tool_path, '--version'],
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
-
-            if result.returncode == 0:
-                logger.debug(f" {tool_name}: 可用|available")
-            else:
-                missing.append(tool_name)
-                logger.warning(f" {tool_name}: 未找到|not found")
-
-        except FileNotFoundError:
-            missing.append(tool_name)
-            logger.warning(f" {tool_name}: 未找到|not found at {tool_path}")
-        except Exception as e:
-            logger.warning(f" {tool_name}: 检查失败|check failed: {e}")
-            missing.append(tool_name)
+    missing = check_tools([
+        (config.bowtie2_path, 'bowtie2', ['--version']),
+        (config.samtools_path, 'samtools', ['--version']),
+    ], logger)
 
     if missing:
         logger.error(f"缺少依赖工具|Missing required tools: {', '.join(missing)}")

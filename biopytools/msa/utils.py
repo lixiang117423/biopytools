@@ -40,21 +40,44 @@ class CommandRunner:
     def __init__(self, logger):
         self.logger = logger
     
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd, description: str = "", output_file: str = None) -> bool:
         """执行命令|Execute command"""
+        from ..common.conda_runner import build_conda_command
+
+        if isinstance(cmd, list):
+            full_cmd = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
+            shell = False
+            display = ' '.join(full_cmd)
+        else:
+            full_cmd = cmd
+            shell = True
+            display = str(cmd)
+
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
         
-        self.logger.info(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {display}")
         
         try:
-            result = subprocess.run(
-                cmd, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
-                check=True
-            )
+            if output_file:
+                with open(output_file, 'w') as f:
+                    result = subprocess.run(
+                        full_cmd, shell=shell, stdout=f, stderr=subprocess.PIPE, text=True)
+                if result.returncode != 0:
+                    self.logger.error(f"命令执行失败|Command execution failed: {description}")
+                    if result.stderr:
+                        self.logger.error(f"错误信息|Error message: {result.stderr}")
+                    return False
+                self.logger.info(f"命令执行成功|Command executed successfully")
+                return True
+            else:
+                result = subprocess.run(
+                    full_cmd,
+                    shell=shell,
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
             
             self.logger.info(f"命令执行成功|Command executed successfully")
             
@@ -71,40 +94,24 @@ class CommandRunner:
 
 def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
-    
+    from ..common.conda_runner import check_tools
+
     # 根据选择的方法检查对应工具|Check tool based on selected method
     tool_map = {
-        'mafft': config.mafft_path,
-        'clustalo': config.clustalo_path,
-        'muscle': config.muscle_path,
-        't_coffee': config.tcoffee_path
+        'mafft': (config.mafft_path, "--version"),
+        'clustalo': (config.clustalo_path, "--version"),
+        'muscle': (config.muscle_path, "-version"),
+        't_coffee': (config.tcoffee_path, "-version")
     }
-    
-    tool_cmd = tool_map.get(config.method)
-    
-    try:
-        # 不同工具的版本命令不同|Different tools have different version commands
-        if config.method == 'mafft':
-            result = subprocess.run([tool_cmd, "--version"], 
-                                  capture_output=True, text=True, timeout=10)
-        elif config.method == 'clustalo':
-            result = subprocess.run([tool_cmd, "--version"], 
-                                  capture_output=True, text=True, timeout=10)
-        elif config.method == 'muscle':
-            result = subprocess.run([tool_cmd, "-version"], 
-                                  capture_output=True, text=True, timeout=10)
-        elif config.method == 't_coffee':
-            result = subprocess.run([tool_cmd, "-version"], 
-                                  capture_output=True, text=True, timeout=10)
-        
-        if result.returncode == 0 or config.method in ['mafft', 'clustalo']:
-            logger.info(f"{config.method.upper()} 可用|available")
-            return True
-        else:
-            raise FileNotFoundError
-            
-    except (subprocess.TimeoutExpired, FileNotFoundError):
+
+    tool_cmd, version_arg = tool_map.get(config.method, (None, None))
+    if tool_cmd is None:
+        error_msg = f"缺少依赖软件|Missing dependency: {config.method.upper()}"
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+
+    missing = check_tools([(tool_cmd, config.method, [version_arg])], logger)
+    if missing:
         error_msg = f"缺少依赖软件|Missing dependency: {config.method.upper()}"
         logger.error(error_msg)
         raise RuntimeError(error_msg)

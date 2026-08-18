@@ -7,6 +7,8 @@ import subprocess
 from pathlib import Path
 from typing import List, Dict
 from .utils import CommandRunner, get_sample_name, format_region
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class DepthProcessor:
     """ 覆盖度处理器|Depth Processor"""
@@ -61,21 +63,21 @@ class DepthProcessor:
                     region = ""
             
             # 构建samtools depth命令|Build samtools depth command
-            cmd_parts = [
-                self.config.samtools_path, "depth",
-                f"-@ {self.config.threads}",
-                f"-q {self.config.quality_threshold}",
-                f"-Q {self.config.mapping_quality}",
+            depth_args = [
+                "depth",
+                "-@", str(self.config.threads),
+                "-q", str(self.config.quality_threshold),
+                "-Q", str(self.config.mapping_quality),
                 "-a"  # 输出所有位置包括0覆盖度|Output all positions including zero coverage
             ]
             
             # 添加区间参数|Add region parameter
             if region:
-                cmd_parts.append(f"-r {region}")
+                depth_args.extend(["-r", region])
             
-            cmd_parts.append(input_file)
+            depth_args.append(input_file)
             
-            cmd = " ".join(cmd_parts)
+            cmd = build_conda_command(self.config.samtools_path, depth_args)
             
             # 创建临时文件|Create temporary file
             temp_file = Path(self.config.output_file).parent / f"temp_{sample_name}.depth"
@@ -83,11 +85,11 @@ class DepthProcessor:
             
             # 执行samtools depth命令|Execute samtools depth command
             self.logger.info(f" 分析覆盖度: {sample_name}|Analyzing depth: {sample_name}")
+            self.logger.info(f" 命令|Command: {' '.join(cmd)}")
             
             with open(temp_file, 'w') as f:
                 result = subprocess.run(
                     cmd,
-                    shell=True,
                     stdout=f,
                     stderr=subprocess.PIPE,
                     text=True,
@@ -192,15 +194,17 @@ class DepthProcessor:
         # 如果没有索引，创建索引|If no index exists, create one
         self.logger.info(f" 未找到索引文件，正在创建...|Index not found, creating...")
         
-        # index_cmd = f"{self.config.samtools_path} index {bam_file}"
-        index_cmd = f"{self.config.samtools_path} index -@ {self.config.threads} {bam_file}"
+        # 使用 build_conda_command 包装(conda环境自动检测)|Wrap with build_conda_command (auto conda env detection)
+        index_cmd = build_conda_command(
+            self.config.samtools_path,
+            ['index', '-@', str(self.config.threads), bam_file]
+        )
         
-        self.logger.info(f" 创建索引命令: {index_cmd}|Creating index command: {index_cmd}")
+        self.logger.info(f" 创建索引命令: {' '.join(index_cmd)}|Creating index command: {' '.join(index_cmd)}")
         
         try:
             result = subprocess.run(
                 index_cmd,
-                shell=True,
                 capture_output=True,
                 text=True,
                 check=True,

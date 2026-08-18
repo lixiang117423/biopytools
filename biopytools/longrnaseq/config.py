@@ -3,9 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -25,8 +27,10 @@ class LongRNASeqConfig:
     secondary: bool = True  # 是否输出次优比对|Whether to output secondary alignments
 
     # minimap2额外参数|Additional minimap2 parameters
-    minimap2_path: str = "minimap2"  # minimap2路径|minimap2 path
-    samtools_path: str = "samtools"  # samtools路径|samtools path
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))  # minimap2路径|minimap2 path
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))  # samtools路径|samtools path
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -67,6 +71,14 @@ class LongRNASeqConfig:
             else:
                 # 单文件模式：从文件名提取|Single file mode: extract from filename
                 self.sample_name = self._extract_sample_name(self.input_file)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
 
         # 日志文件|Log file
         self.log_file = self.log_dir / f"alignment_{self.sample_name}.log"

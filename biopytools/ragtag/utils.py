@@ -7,6 +7,8 @@ import sys
 import subprocess
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command
+
 
 class RagTagLogger:
     """RagTag日志管理器|RagTag Logger Manager"""
@@ -61,7 +63,7 @@ class CommandRunner:
         Returns:
             subprocess.CompletedProcess: 命令执行结果|Command execution result
         """
-        self.logger.info(f"执行命令|Executing command: {' '.join(command)}")
+        self.logger.info(f"命令|Command: {' '.join(command)}")
 
         try:
             result = subprocess.run(
@@ -95,37 +97,40 @@ class CommandRunner:
         Returns:
             subprocess.CompletedProcess: 命令执行结果|Command execution result
         """
-        # 构建基础命令|Build base command
-        cmd = [config.ragtag_path, 'scaffold']
+        # 构建参数列表(不含 ragtag 路径)|Build argument list (without ragtag path)
+        args = ['scaffold']
 
         # 添加输入文件|Add input files
-        cmd.extend([config.reference, config.query])
+        args.extend([config.reference, config.query])
 
         # 添加scaffolding选项|Add scaffolding options
-        cmd.extend(['-t', str(config.threads)])
-        cmd.extend(['-f', str(config.min_unique_length)])
-        cmd.extend(['-q', str(config.min_mapq)])
-        cmd.extend(['-d', str(config.max_merge_distance)])
-        cmd.extend(['-i', str(config.min_grouping_confidence)])
-        cmd.extend(['-a', str(config.min_location_confidence)])
-        cmd.extend(['-s', str(config.min_orientation_confidence)])
+        args.extend(['-t', str(config.threads)])
+        args.extend(['-f', str(config.min_unique_length)])
+        args.extend(['-q', str(config.min_mapq)])
+        args.extend(['-d', str(config.max_merge_distance)])
+        args.extend(['-i', str(config.min_grouping_confidence)])
+        args.extend(['-a', str(config.min_location_confidence)])
+        args.extend(['-s', str(config.min_orientation_confidence)])
 
         if config.concatenate_unplaced:
-            cmd.append('-C')
+            args.append('-C')
 
         if config.infer_gaps:
-            cmd.append('-r')
-            cmd.extend(['-g', str(config.min_gap_size)])
-            cmd.extend(['-m', str(config.max_gap_size)])
+            args.append('-r')
+            args.extend(['-g', str(config.min_gap_size)])
+            args.extend(['-m', str(config.max_gap_size)])
 
         if config.remove_small_alignments:
-            cmd.append('--remove-small')
+            args.append('--remove-small')
 
         # 添加比对器选项|Add aligner options
-        cmd.extend(['--aligner', config.aligner])
+        args.extend(['--aligner', config.aligner])
 
         # 添加输出选项|Add output options
-        cmd.extend(['-o', config.output_dir])
+        args.extend(['-o', config.output_dir])
+
+        # conda 环境自动包装|Auto conda env wrapping
+        cmd = build_conda_command(config.ragtag_path, args)
 
         return self.run_command(cmd)
 

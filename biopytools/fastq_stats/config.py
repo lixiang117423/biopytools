@@ -3,9 +3,11 @@ FASTQ文件统计配置管理模块|FASTQ File Statistics Configuration Manageme
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -19,6 +21,26 @@ class FastqStatsConfig:
     # 可选参数|Optional parameters
     pattern: Optional[str] = None
     threads: int = 12
+
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+
+    # 工具路径|Tool path (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -40,6 +62,18 @@ class FastqStatsConfig:
 
         # 确定输出格式|Determine output format
         self.output_format = 'excel' if self.output_file.endswith('.xlsx') else 'csv'
+
+        # 展开工具路径|Expand tool path
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool path
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool path
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool path
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

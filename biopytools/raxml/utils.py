@@ -9,6 +9,8 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
+from ..common.conda_runner import build_conda_command, check_tools
+
 class RAxMLLogger:
     """RAxML分析日志管理器|RAxML Analysis Logger Manager"""
     
@@ -44,18 +46,28 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()
     
-    def run(self, cmd: str, description: str = "", timeout: Optional[int] = None) -> bool:
-        """执行命令|Execute command"""
+    def run(self, cmd, description: str = "", timeout: Optional[int] = None) -> bool:
+        """执行命令|Execute command
+
+        cmd 可为列表(shell=False, 由 build_conda_command 构建)或字符串(shell=True)
+        |cmd may be a list (shell=False, built by build_conda_command) or a string (shell=True)
+        """
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
-        
-        self.logger.info(f" 命令|Command: {cmd}")
+
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f" 命令|Command: {display}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
         try:
             result = subprocess.run(
                 cmd, 
-                shell=True, 
+                shell=use_shell,
                 capture_output=True, 
                 text=True, 
                 check=True,
@@ -88,31 +100,19 @@ class CommandRunner:
 
 def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
-    logger.info(" 检查依赖软件|Checking dependencies")
-    
-    # 检查RAxML是否可用|Check if RAxML is available
-    try:
-        result = subprocess.run([config.raxml_path, "-v"], 
-                              capture_output=True, text=True, timeout=10)
-        if result.returncode == 0:
-            version_info = result.stdout.strip()
-            logger.info(f" RAxML 可用|RAxML available: {version_info.split()[4] if len(version_info.split()) > 4 else 'version detected'}")
-        else:
-            logger.error(f" RAxML 不可用|RAxML not available")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError):
-        logger.error(f" 找不到RAxML|RAxML not found: {config.raxml_path}")
+    missing = check_tools([(config.raxml_path, "RAxML", ["-v"])], logger)
+    if missing:
         logger.error(" 请确保RAxML已安装并在PATH中|Please ensure RAxML is installed and in PATH")
         return False
-    
     return True
 
 def get_raxml_version(raxml_path: str) -> str:
     """获取RAxML版本信息|Get RAxML version information"""
     try:
-        result = subprocess.run([raxml_path, "-v"], capture_output=True, text=True, timeout=5)
+        cmd = build_conda_command(raxml_path, ["-v"])
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
             return result.stdout.strip()
         return "Unknown version"
-    except:
+    except Exception:
         return "Version detection failed"

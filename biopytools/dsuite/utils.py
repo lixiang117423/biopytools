@@ -9,6 +9,10 @@ import os
 from datetime import datetime
 from typing import Optional, Tuple, Dict
 
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+
 
 class DsuiteLogger:
     """Dsuite日志管理器|Dsuite Logger Manager"""
@@ -110,8 +114,11 @@ class VCFStatsCollector:
 
         try:
             # 统计样本数|Count samples
+            cmd = build_conda_command(bcftools, ['query', '-l', vcf_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
-                [bcftools, 'query', '-l', vcf_file],
+                cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True
@@ -120,9 +127,15 @@ class VCFStatsCollector:
             stats['sample_count'] = sample_count
             self.logger.info(f"样本数量|Sample count: {sample_count}")
 
-            # 统计总变异数|Count total variants
+            # 统计总变异数(管道方案B: bcftools直接调用域环境二进制, wc为系统工具)
+            # |Count total variants (solution B: bcftools calls domain binary, wc is system tool)
+            cmd = build_pipeline_command([
+                [bcftools, 'view', '-H', vcf_file],
+                ['wc', '-l'],
+            ])
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(
-                f"{bcftools} view -H {vcf_file}|wc -l",
+                cmd,
                 shell=True,
                 capture_output=True,
                 text=True,
@@ -132,9 +145,16 @@ class VCFStatsCollector:
             stats['total_variants'] = total_variants
             self.logger.info(f"总变异数|Total variants: {total_variants}")
 
-            # 统计染色体/scaffold数量|Count chromosomes/scaffolds
+            # 统计染色体/scaffold数量(管道方案B)
+            # |Count chromosomes/scaffolds (solution B)
+            cmd = build_pipeline_command([
+                [bcftools, 'view', '-h', vcf_file],
+                ['grep', '^##contig'],
+                ['wc', '-l'],
+            ])
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(
-                f"{bcftools} view -h {vcf_file}|grep '^##contig'|wc -l",
+                cmd,
                 shell=True,
                 capture_output=True,
                 text=True,
@@ -184,8 +204,14 @@ class VCFStatsCollector:
             self.logger.info(f"  - 变异类型|Variant type: {variant_type}")
 
         try:
-            # 使用bcftools过滤并统计|Filter and count with bcftools
-            cmd = f"{bcftools} view -m{min_alleles} -M{max_alleles} -v {variant_type} {vcf_file}|grep -v '^#'|wc -l"
+            # 使用bcftools过滤并统计(管道方案B: bcftools直接调用域环境二进制)
+            # |Filter and count with bcftools (solution B: bcftools calls domain binary directly)
+            cmd = build_pipeline_command([
+                [bcftools, 'view', f'-m{min_alleles}', f'-M{max_alleles}', '-v', variant_type, vcf_file],
+                ['grep', '-v', '^#'],
+                ['wc', '-l'],
+            ])
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(
                 cmd,
                 shell=True,
@@ -251,7 +277,8 @@ class DsuiteRunner:
         self.logger.info("=" * 60)
 
         try:
-            # 构建bcftools过滤命令|Build bcftools filter command
+            # 构建bcftools过滤命令(方案B: 管道中bcftools直接调用域环境二进制)
+            # |Build bcftools filter command (solution B: bcftools calls domain binary directly)
             filter_cmd = [
                 bcftools, 'view',
                 f'-m{min_alleles}',
@@ -260,7 +287,7 @@ class DsuiteRunner:
                 vcf_file
             ]
 
-            # 构建Dsuite命令|Build Dsuite command
+            # 构建Dsuite命令(~/software 第三方软件直接调用)|Build Dsuite command (~/software direct call)
             dsuite_cmd = [
                 dsuite_bin, 'Dtrios',
                 '-l', str(numlines),

@@ -3,7 +3,7 @@ Wgsim配置类|Wgsim Configuration Class
 """
 
 import os
-from common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 class WgsimConfig:
@@ -66,7 +66,7 @@ class WgsimConfig:
         if self.wgsim_path:
             self.wgsim_path = expand_path(self.wgsim_path)
         else:
-            self.wgsim_path = get_tool_path(
+            self.wgsim_path = get_domain_tool_path(
                 'wgsim',
                 '~/miniforge3/envs/align/bin/wgsim',
                 'WGSIM_PATH'

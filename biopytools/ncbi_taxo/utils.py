@@ -9,6 +9,7 @@ import sys
 import shutil
 from pathlib import Path
 from typing import List, Tuple
+from ..common.conda_runner import check_tools
 
 
 class NCBITaxoLogger:
@@ -68,7 +69,7 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.debug(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {cmd}")
 
         try:
             result = subprocess.run(
@@ -95,23 +96,34 @@ class CommandRunner:
             return False, e.stderr if e.stderr else str(e)
 
 
-def check_dependencies():
-    """检查必需的外部工具|Check required external tools"""
-    required_tools = {
-        'taxonkit': 'taxonkit',
-        'zgrep': 'zgrep',
-        'zcat': 'zcat'
-    }
+def check_dependencies(taxonkit_path: str = 'taxonkit', logger=None):
+    """检查必需的外部工具|Check required external tools
 
+    Args:
+        taxonkit_path: taxonkit工具路径|taxonkit tool path (由配置解析|resolved by config)
+        logger: 日志器|Logger
+    """
+    # taxonkit为生信工具, 用check_tools(自动conda环境检测); zgrep/zcat为系统工具用which探测
+    # |taxonkit is a bioinformatics tool via check_tools; zgrep/zcat are system tools via which
     missing_tools = []
-    for tool_name, cmd in required_tools.items():
-        if not shutil.which(cmd):
+    if logger is not None:
+        missing_tools = check_tools([
+            (taxonkit_path, 'taxonkit', ['version']),
+        ], logger)
+    else:
+        # 无logger时退化为which探测|Fall back to which probe without logger
+        if not shutil.which(taxonkit_path if '/' in taxonkit_path else 'taxonkit'):
+            missing_tools.append('taxonkit')
+
+    # 系统工具|System tools
+    for tool_name in ['zgrep', 'zcat']:
+        if not shutil.which(tool_name):
             missing_tools.append(tool_name)
 
     if missing_tools:
         raise RuntimeError(
             f"缺少必需的工具，请先安装|Missing required tools, please install first: {', '.join(missing_tools)}\n"
-            f"安装方法|Installation: conda install -c bioconda taxonkit taxonkit"
+            f"安装方法|Installation: conda install -c bioconda taxonkit"
         )
 
     return True

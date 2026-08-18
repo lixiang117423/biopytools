@@ -3,10 +3,10 @@ Fastq到VCF (GTX) 配置管理模块|Fastq to VCF (GTX) Configuration Management
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class Fastq2VcfGTXConfig:
@@ -47,7 +47,10 @@ class Fastq2VcfGTXConfig:
     use_gtx_wgs: bool = True        # 使用GTX WGS进行比对+变异检测一体化
 
     # 工具路径|Tool paths
-    gtx_bin: str = "~/software/gtx/bin/gtx"
+    gtx_bin: str = field(default_factory=lambda: get_domain_tool_path(
+        'gtx', '~/software/gtx/bin/gtx', 'GTX_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
     gtx_cmd_gen_script: str = "${HOME}/software/scripts/51.生成GTX按染色体合并gVCF的脚本.sh"
 
     # 高级选项|Advanced options
@@ -106,6 +109,7 @@ class Fastq2VcfGTXConfig:
         self.filter_dir = os.path.normpath(os.path.abspath(self.filter_dir))
         # 工具路径需要展开~和环境变量|Tool paths need ~ and env var expansion
         self.gtx_bin = os.path.normpath(expand_path(self.gtx_bin))
+        self.bcftools_path = os.path.normpath(expand_path(self.bcftools_path))
         self.gtx_cmd_gen_script = os.path.normpath(expand_path(self.gtx_cmd_gen_script))
 
         # 创建必要的目录|Create necessary directories

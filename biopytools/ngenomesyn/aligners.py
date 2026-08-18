@@ -6,6 +6,10 @@ import os
 import subprocess
 from typing import Dict, List, Optional
 from .data_processing import GenomeProcessor
+from ..common.paths import get_domain_tool_path
+from ..common.conda_runner import build_conda_command
+from ..common.paths import get_domain_tool_path
+from ..common.conda_runner import build_conda_command
 
 class BaseAligner:
     """基础比对器类|Base Aligner Class"""
@@ -125,22 +129,28 @@ class Minimap2Aligner(BaseAligner):
         self.logger.info(f"输出LINK文件|Output LINK file: {link_file}")
         
         try:
-            # 运行minimap2 - 使用传入的线程数
-            cmd_minimap2 = f"minimap2 -x {preset} -t {self.threads} \"{genome2_file}\" \"{genome1_file}\" > \"{paf_file}\""
+            # 运行minimap2(conda 域环境自动包装, stdout 重定向到 PAF)|Run minimap2 (conda wrap, stdout to PAF)
+            minimap2_path = get_domain_tool_path('minimap2', 'minimap2', 'MINIMAP2_PATH')
+            cmd_minimap2 = build_conda_command(minimap2_path, [
+                "-x", preset, "-t", str(self.threads), genome2_file, genome1_file,
+            ])
             
             # 记录命令到日志
             self.log_command(
-                command=cmd_minimap2,
+                command=' '.join(cmd_minimap2) + f" > \"{paf_file}\"",
                 working_dir=self.output_dir,
                 description=f" Minimap2比对|Minimap2 alignment: {genome1['name']} vs {genome2['name']}"
             )
             
-            result = subprocess.run(
-                cmd_minimap2, 
-                shell=True, 
-                capture_output=True, 
-                text=True
-            )
+            # stdout 重定向到 PAF 文件|Redirect stdout to PAF file
+            with open(paf_file, 'w') as paf_out:
+                result = subprocess.run(
+                    cmd_minimap2,
+                    shell=False,
+                    stdout=paf_out,
+                    stderr=subprocess.PIPE,
+                    text=True
+                )
             
             if result.returncode != 0:
                 self.logger.error(f" Minimap2执行失败|Minimap2 failed: {result.stderr}")
@@ -286,24 +296,29 @@ class Minimap2Aligner(BaseAligner):
         self.logger.info(f" 输出SAM文件|Output SAM file: {sam_file}")
 
         try:
-            # 运行minimap2生成SAM格式 - 使用 -ax 和 --eqx 参数
-            # -ax asm5: 生成SAM格式输出（用于长序列比对）
-            # --eqx: 生成扩展的CIGAR字符串（包含=和X操作符）
-            cmd_minimap2 = f"minimap2 -ax {preset} --eqx -t {self.threads} \"{genome1_file}\" \"{genome2_file}\" > \"{sam_file}\""
+            # 运行minimap2生成SAM格式(conda 域环境自动包装, stdout 重定向到 SAM)
+            # Run minimap2 to produce SAM (conda wrap, stdout to SAM)
+            minimap2_path = get_domain_tool_path('minimap2', 'minimap2', 'MINIMAP2_PATH')
+            cmd_minimap2 = build_conda_command(minimap2_path, [
+                "-ax", preset, "--eqx", "-t", str(self.threads), genome1_file, genome2_file,
+            ])
 
             # 记录命令到日志
             self.log_command(
-                command=cmd_minimap2,
+                command=' '.join(cmd_minimap2) + f" > \"{sam_file}\"",
                 working_dir=self.output_dir,
                 description=f" Minimap2比对 (SAM格式 for SyRI)|Minimap2 alignment (SAM format for SyRI): {genome1['name']} vs {genome2['name']}"
             )
 
-            result = subprocess.run(
-                cmd_minimap2,
-                shell=True,
-                capture_output=True,
-                text=True
-            )
+            # stdout 重定向到 SAM 文件|Redirect stdout to SAM file
+            with open(sam_file, 'w') as sam_out:
+                result = subprocess.run(
+                    cmd_minimap2,
+                    shell=False,
+                    stdout=sam_out,
+                    stderr=subprocess.PIPE,
+                    text=True
+                )
 
             if result.returncode != 0:
                 self.logger.error(f" Minimap2执行失败|Minimap2 failed: {result.stderr}")
@@ -397,20 +412,24 @@ class MummerAligner(BaseAligner):
         self.logger.info(f" 输出Coords文件|Output Coords file: {coords_file}")
         
         try:
-            # 构建nucmer命令
-            cmd_nucmer = f"nucmer --{match_type} -l {min_match} -c {min_cluster} -g {max_gap} -p \"{output_prefix}\" \"{genome2_file}\" \"{genome1_file}\""
+            # 构建nucmer命令(conda 域环境自动包装)|Build nucmer command (auto conda domain wrap)
+            nucmer_path = get_domain_tool_path('nucmer', 'nucmer', 'NUCMER_PATH')
+            cmd_nucmer = build_conda_command(nucmer_path, [
+                f"--{match_type}", "-l", str(min_match), "-c", str(min_cluster),
+                "-g", str(max_gap), "-p", output_prefix, genome2_file, genome1_file,
+            ])
             
             # 记录命令到日志
             self.log_command(
-                command=cmd_nucmer,
+                command=' '.join(cmd_nucmer),
                 working_dir=self.output_dir,
                 description=f"MUMmer nucmer比对|MUMmer nucmer alignment: {genome1['name']} vs {genome2['name']}"
             )
             
             result = subprocess.run(
-                cmd_nucmer, 
-                shell=True, 
-                capture_output=True, 
+                cmd_nucmer,
+                shell=False,
+                capture_output=True,
                 text=True,
                 cwd=self.output_dir
             )
@@ -434,24 +453,29 @@ class MummerAligner(BaseAligner):
             
             self.logger.info(f" MUMmer nucmer比对完成|MUMmer nucmer alignment completed: {delta_file}")
             
-            # 转换为coords格式以便后续处理
+            # 转换为coords格式以便后续处理(conda 域环境自动包装, stdout 重定向)
+            # Convert to coords (auto conda domain wrap, stdout redirected)
             if self._check_show_coords():
-                cmd_coords = f"show-coords -r -c -l \"{os.path.basename(delta_file)}\" > \"{os.path.basename(coords_file)}\""
+                show_coords_path = get_domain_tool_path('show-coords', 'show-coords', 'SHOW_COORDS_PATH')
+                cmd_coords = build_conda_command(show_coords_path, ["-r", "-c", "-l", os.path.basename(delta_file)])
                 
                 # 记录转换命令到日志
                 self.log_command(
-                    command=cmd_coords,
+                    command=' '.join(cmd_coords) + f" > \"{os.path.basename(coords_file)}\"",
                     working_dir=self.output_dir,
                     description=f" Delta转Coords格式转换|Delta to Coords format conversion: {os.path.basename(delta_file)} -> {os.path.basename(coords_file)}"
                 )
                 
-                result = subprocess.run(
-                    cmd_coords, 
-                    shell=True, 
-                    capture_output=True, 
-                    text=True,
-                    cwd=self.output_dir
-                )
+                # stdout 重定向到 coords 文件|Redirect stdout to coords file
+                with open(coords_file, 'w') as coords_out:
+                    result = subprocess.run(
+                        cmd_coords,
+                        shell=False,
+                        stdout=coords_out,
+                        stderr=subprocess.PIPE,
+                        text=True,
+                        cwd=self.output_dir
+                    )
                 
                 if result.returncode != 0:
                     self.logger.warning(f" Delta转换失败，将使用Delta文件|Delta conversion failed, will use Delta file: {result.stderr}")

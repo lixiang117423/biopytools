@@ -5,6 +5,8 @@
 import os
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command
+
 class GenomeIndexer:
     """基因组索引器|Genome Indexer"""
     
@@ -38,9 +40,10 @@ class GenomeIndexer:
     
     def build_index(self):
         """构建BWA索引|Build BWA index"""
-        cmd = f"{self.config.bwa_path} index {self.config.genome}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(self.config.bwa_path, ["index", self.config.genome])
         
-        success = self.cmd_runner.run(
+        success, _, _ = self.cmd_runner.run(
             cmd,
             "构建BWA索引|Building BWA index"
         )

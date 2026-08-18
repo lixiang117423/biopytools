@@ -7,9 +7,10 @@ parental reference using minimap2
 """
 
 import os
-import shlex
 import subprocess
 from pathlib import Path
+
+from ..common.conda_runner import build_conda_command
 
 
 class ParentAligner:
@@ -68,31 +69,24 @@ class ParentAligner:
                 self.logger.info(f"跳过已完成|Skipping existing: {paf.name}")
                 continue
 
-            # 管道：minimap2 ... > out.paf
-            minimap2_seg = self._pipeline_segment(
+            # 单工具命令 + stdout 重定向(build_conda_command 自动conda包装)
+            # |Single tool command with stdout redirect (auto conda wrap)
+            cmd = build_conda_command(
                 self.config.minimap2_path,
                 opts + [combined, self.config.target],
             )
-            pipeline = f"{minimap2_seg} > {shlex.quote(str(paf))}"
+            self.logger.info(f"命令|Command: {' '.join(cmd)} > {paf}")
 
-            ok = self.cmd_runner.run_pipeline(
-                pipeline,
-                f"minimap2 比对|minimap2 alignment: target vs {name}"
-            )
-            if not ok:
-                self.logger.error(f"比对失败|Alignment failed: target vs {name}")
+            try:
+                with open(paf, 'w') as f:
+                    result = subprocess.run(
+                        cmd, stdout=f, stderr=subprocess.PIPE, text=True)
+                if result.returncode != 0:
+                    self.logger.error(f"比对失败|Alignment failed: target vs {name}")
+                    self.logger.error(f"错误信息|Stderr: {result.stderr.strip()[:1000]}")
+                    return {}
+            except Exception as e:
+                self.logger.error(f"比对异常|Alignment error: target vs {name}: {e}")
                 return {}
 
         return results
-
-    def _pipeline_segment(self, binary_path: str, args: list) -> str:
-        """构建管道命令段（处理conda env里的二进制）|Build pipeline command segment"""
-        env_prefix = ""
-        match = __import__('re').search(r'(/envs/[^/]+)', binary_path)
-        if match:
-            env_lib = f"{match.group(1)}/lib"
-            current_ld = os.environ.get('LD_LIBRARY_PATH', '')
-            env_prefix = f"export LD_LIBRARY_PATH={shlex.quote(env_lib)}:{shlex.quote(current_ld)}; "
-
-        quoted_args = ' '.join(shlex.quote(str(a)) for a in args)
-        return f"{env_prefix}{shlex.quote(binary_path)} {quoted_args}"

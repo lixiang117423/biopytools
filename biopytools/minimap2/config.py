@@ -3,9 +3,11 @@ Minimap2分析配置管理模块|Minimap2 Analysis Configuration Management Modu
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class Minimap2Config:
@@ -19,7 +21,6 @@ class Minimap2Config:
     # Minimap2参数|Minimap2 parameters
     preset: str = 'asm5'  # asm5, asm10, asm20等
     threads: int = 8
-    minimap2_path: str = 'minimap2'  # minimap2可执行文件路径
     
     # 筛选参数|Filtering parameters
     min_match_length: int = 1000  # number_match最小值
@@ -27,7 +28,10 @@ class Minimap2Config:
     tp_type: str = 'P'  # 保留的tp类型：'S'=secondary, 'P'=primary, 'SP'=both
     
     # 工具路径|Tool paths
-    seqkit_path: str = 'seqkit'  # seqkit可执行文件路径
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))  # minimap2可执行文件路径
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))  # seqkit可执行文件路径
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -39,6 +43,22 @@ class Minimap2Config:
         self.query_genome = os.path.normpath(os.path.abspath(self.query_genome))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+
         # 设置输出文件名|Set output file names
         query_basename = os.path.splitext(os.path.basename(self.query_genome))[0]
         self.paf_file = os.path.join(self.output_dir, f"{query_basename}_alignment.paf")

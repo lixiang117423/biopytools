@@ -12,6 +12,10 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
+from ..common.paths import expand_path
+
+from ..common.paths import expand_path
+
 # 添加当前目录到sys.path|Add current directory to sys.path
 current_dir = Path(__file__).parent
 if str(current_dir) not in sys.path:
@@ -348,9 +352,6 @@ def main():
 
             # Step 2: HapHiC参数|Step 2: HapHiC parameters
             nchrs=args.nchrs,
-            haphic_bin=args.haphic_bin or 'haphic',
-            bwa_bin=args.bwa_bin or 'bwa',
-            samtools_bin=args.samtools_bin or 'samtools',
 
             # Step 3: 染色体重命名参数|Step 3: Chromosome rename parameters
             rename_keep_all=args.rename_keep_all,
@@ -364,6 +365,24 @@ def main():
             heatmap_color_map=args.heatmap_colormap,
             heatmap_format=args.heatmap_format,
         )
+
+        # 工具路径未显式指定时使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        if args.haphic_bin is not None:
+            config.haphic_bin = expand_path(args.haphic_bin)
+        if args.bwa_bin is not None:
+            config.bwa_bin = expand_path(args.bwa_bin)
+        if args.samtools_bin is not None:
+            config.samtools_bin = expand_path(args.samtools_bin)
+
+        # 工具路径未显式指定时使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        if args.haphic_bin is not None:
+            config.haphic_bin = expand_path(args.haphic_bin)
+        if args.bwa_bin is not None:
+            config.bwa_bin = expand_path(args.bwa_bin)
+        if args.samtools_bin is not None:
+            config.samtools_bin = expand_path(args.samtools_bin)
 
         # 验证配置|Validate configuration
         config.validate()

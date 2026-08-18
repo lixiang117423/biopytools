@@ -7,6 +7,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class ChrRenameCalculator:
     """染色体重命名计算器|Chromosome Rename Calculator"""
@@ -26,16 +30,15 @@ class ChrRenameCalculator:
         """运行minimap2比对|Run minimap2 alignment"""
         self.logger.info("开始minimap2比对|Starting minimap2 alignment")
 
-        cmd = (
-            f"{self.config.minimap2_path} "
-            f"-x {self.config.preset} "
-            f"-t {self.config.threads} "
-            f"{self.config.ref_fasta} "
-            f"{self.config.query_fasta} "
-            f"-o {self.paf_file}"
-        )
+        cmd = build_conda_command(self.config.minimap2_path, [
+            "-x", self.config.preset,
+            "-t", str(self.config.threads),
+            self.config.ref_fasta,
+            self.config.query_fasta,
+            "-o", self.paf_file,
+        ])
 
-        success = self.cmd_runner.run(cmd, "minimap2比对|minimap2 alignment")
+        success, _, _ = self.cmd_runner.run(cmd, "minimap2比对|minimap2 alignment")
 
         if success and os.path.exists(self.paf_file):
             self.logger.info(f"PAF文件已生成|PAF file generated: {self.paf_file}")

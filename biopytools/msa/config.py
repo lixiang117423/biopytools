@@ -3,9 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class MSAConfig:
@@ -35,10 +37,14 @@ class MSAConfig:
     output_format: str = 'fasta'  # fasta, clustal, phylip, nexus
     
     # 工具路径|Tool paths
-    mafft_path: str = 'mafft'
-    clustalo_path: str = 'clustalo'
-    muscle_path: str = 'muscle'
-    tcoffee_path: str = 't_coffee'
+    mafft_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'mafft', 'mafft', 'MAFFT_PATH'))
+    clustalo_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'clustalo', 'clustalo', 'CLUSTALO_PATH'))
+    muscle_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'muscle', 'muscle', 'MUSCLE_PATH'))
+    tcoffee_path: str = field(default_factory=lambda: get_domain_tool_path(
+        't_coffee', 't_coffee', 'TCOFFEE_PATH'))
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -52,6 +58,18 @@ class MSAConfig:
                            f"可选|Available: {', '.join(valid_methods)}")
         
         self.method = self.method.lower()
+
+        # 展开工具路径|Expand tool paths
+        self.mafft_path = expand_path(self.mafft_path)
+        self.clustalo_path = expand_path(self.clustalo_path)
+        self.muscle_path = expand_path(self.muscle_path)
+        self.tcoffee_path = expand_path(self.tcoffee_path)
+
+        # 展开工具路径|Expand tool paths
+        self.mafft_path = expand_path(self.mafft_path)
+        self.clustalo_path = expand_path(self.clustalo_path)
+        self.muscle_path = expand_path(self.muscle_path)
+        self.tcoffee_path = expand_path(self.tcoffee_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -9,6 +9,10 @@ import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class V2PAnalyzer:
     """VCF2PCACluster分析器|VCF2PCACluster Analyzer"""
@@ -36,15 +40,18 @@ class V2PAnalyzer:
         self.logger.info("=" * 80)
 
         try:
-            # 构建命令|Build command
-            cmd = self._build_command()
+            # 构建命令(conda环境自动包装; ~/software 第三方工具自动直接调用)
+            # |Build command (auto conda wrap; ~/software third-party tools called directly)
+            raw_cmd = self._build_command()
+            cmd = build_conda_command(raw_cmd[0], raw_cmd[1:])
 
             # 记录命令|Log command
-            self.logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             # 执行命令|Execute command
             result = subprocess.run(
                 cmd,
+                shell=False,
                 check=True,
                 capture_output=True,
                 text=True,

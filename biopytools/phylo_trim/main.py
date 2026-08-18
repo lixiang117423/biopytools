@@ -12,6 +12,8 @@ from pathlib import Path
 
 from .config import PhyloTrimConfig
 from .utils import PhyloTrimLogger
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 # 复用现有模块(只 import)|reuse existing modules (import only)
 from ..mafft_fasttree import PhyloTreeBuilder, PhyloConfig
 from ..mafft_fasttree.sequence_processor import SequenceProcessor
@@ -181,7 +183,9 @@ class PhyloTrimRunner:
         |Take first line; return unknown if output looks like help text
         """
         try:
-            r = subprocess.run([tool] + list(args), shell=False, capture_output=True,
+            cmd = build_conda_command(tool, list(args))
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
+            r = subprocess.run(cmd, shell=False, capture_output=True,
                                text=True, timeout=15)
             out = (r.stdout or '').strip() or (r.stderr or '').strip()
             if not out:
@@ -278,10 +282,10 @@ def main():
                         help='MAFFT 额外参数|Additional MAFFT parameters (default: --auto)')
     parser.add_argument('--fasttree-params', default='',
                         help='FastTree 额外参数|Additional FastTree parameters')
-    parser.add_argument('--mafft-path', default='mafft',
-                        help='MAFFT 路径|MAFFT path (default: mafft)')
-    parser.add_argument('--fasttree-path', default='fasttree',
-                        help='FastTree 路径|FastTree path (default: fasttree)')
+    parser.add_argument('--mafft-path', default=None,
+                        help='MAFFT 路径(默认域环境自动解析)|MAFFT path (default: auto domain env)')
+    parser.add_argument('--fasttree-path', default=None,
+                        help='FastTree 路径(默认域环境自动解析)|FastTree path (default: auto domain env)')
 
     parser.add_argument('--sample-name',
                         help='输出文件名前缀|Output filename prefix (default: 输入 basename|input basename)')
@@ -293,7 +297,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        runner = PhyloTrimRunner(
+        runner_kwargs = dict(
             input_file=args.input,
             output_dir=args.output_dir,
             skip_trimal=args.skip_trimal,
@@ -305,12 +309,18 @@ def main():
             threads=args.threads,
             mafft_params=args.mafft_params,
             fasttree_params=args.fasttree_params,
-            mafft_path=args.mafft_path,
-            fasttree_path=args.fasttree_path,
             sample_name=args.sample_name,
             log_file=args.log_file,
             verbose=args.verbose,
         )
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        if args.mafft_path is not None:
+            runner_kwargs['mafft_path'] = args.mafft_path
+        if args.fasttree_path is not None:
+            runner_kwargs['fasttree_path'] = args.fasttree_path
+
+        runner = PhyloTrimRunner(**runner_kwargs)
         success = runner.run()
         sys.exit(0 if success else 1)
     except Exception as e:

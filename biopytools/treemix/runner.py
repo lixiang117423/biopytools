@@ -16,6 +16,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Tuple
 
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 from .config import TreemixConfig
 from .utils import (
     TreemixLogger,
@@ -214,17 +218,19 @@ class TreemixRunner:
 
         self.logger.info(f"    筛选 {len(cluster_data)} 个样品|Filtering {len(cluster_data)} samples")
 
-        cmd = [
+        cmd = build_conda_command(
             self.config.bcftools_path,
-            'view',
-            '-S', sample_list_file,
-            self.config.vcf_file,
-            '-Oz',
-            '-o', out_vcf,
-        ]
+            [
+                'view',
+                '-S', sample_list_file,
+                self.config.vcf_file,
+                '-Oz',
+                '-o', out_vcf,
+            ],
+        )
 
         self.logger.info(f"    命令|Command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=7200)
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True, timeout=7200)
         if result.returncode != 0:
             self.logger.error(f"    bcftools筛选失败|bcftools filtering failed: {result.stderr}")
             return None
@@ -233,9 +239,10 @@ class TreemixRunner:
             self.logger.error("    未生成筛选后的VCF|Filtered VCF not generated")
             return None
 
-        # 建索引
-        cmd_idx = [self.config.bcftools_path, 'index', out_vcf]
-        subprocess.run(cmd_idx, capture_output=True, text=True, timeout=3600)
+        # 建索引|Build index
+        cmd_idx = build_conda_command(self.config.bcftools_path, ['index', out_vcf])
+        self.logger.info(f"    命令|Command: {' '.join(cmd_idx)}")
+        subprocess.run(cmd_idx, shell=False, capture_output=True, text=True, timeout=3600)
 
         self.logger.info(f"    筛选完成|Filtering done: {out_vcf}")
         return out_vcf
@@ -249,21 +256,23 @@ class TreemixRunner:
             self.logger.info("    跳过已完成|Skipping completed: LD pruning")
             return prune_out
 
-        cmd = [
+        cmd = build_conda_command(
             self.config.plink_path,
-            '--vcf', vcf_file,
-            '--indep-pairwise',
-            str(self.config.ld_window),
-            str(self.config.ld_step),
-            str(self.config.ld_r2),
-            '--out', prune_prefix,
-            '--allow-extra-chr',
-            '--set-missing-var-ids', '@:#',
-            '--keep-allele-order',
-        ]
+            [
+                '--vcf', vcf_file,
+                '--indep-pairwise',
+                str(self.config.ld_window),
+                str(self.config.ld_step),
+                str(self.config.ld_r2),
+                '--out', prune_prefix,
+                '--allow-extra-chr',
+                '--set-missing-var-ids', '@:#',
+                '--keep-allele-order',
+            ],
+        )
 
         self.logger.info(f"    命令|Command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True, timeout=3600)
         if result.returncode != 0:
             self.logger.error(f"    LD过滤失败|LD pruning failed: {result.stderr}")
             return None
@@ -285,19 +294,21 @@ class TreemixRunner:
             self.logger.info("    跳过已完成|Skipping completed: PLINK binary conversion")
             return bed_prefix
 
-        cmd = [
+        cmd = build_conda_command(
             self.config.plink_path,
-            '--vcf', vcf_file,
-            '--extract', prune_in,
-            '--make-bed',
-            '--out', bed_prefix,
-            '--allow-extra-chr',
-            '--set-missing-var-ids', '@:#',
-            '--keep-allele-order',
-        ]
+            [
+                '--vcf', vcf_file,
+                '--extract', prune_in,
+                '--make-bed',
+                '--out', bed_prefix,
+                '--allow-extra-chr',
+                '--set-missing-var-ids', '@:#',
+                '--keep-allele-order',
+            ],
+        )
 
         self.logger.info(f"    命令|Command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True, timeout=3600)
         if result.returncode != 0:
             self.logger.error(f"    PLINK格式转换失败|PLINK binary conversion failed: {result.stderr}")
             return None
@@ -329,17 +340,19 @@ class TreemixRunner:
         self.logger.info(f"    修改 {n_modified} 个样本的FID|Modified FID for {n_modified} samples")
 
         # plink --freq --within 计算分层频率
-        cmd = [
+        cmd = build_conda_command(
             self.config.plink_path,
-            '--bfile', bed_prefix,
-            '--freq',
-            '--missing',
-            '--within', pop_cov_file,
-            '--out', frq_prefix,
-        ]
+            [
+                '--bfile', bed_prefix,
+                '--freq',
+                '--missing',
+                '--within', pop_cov_file,
+                '--out', frq_prefix,
+            ],
+        )
 
         self.logger.info(f"    命令|Command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True, timeout=3600)
         if result.returncode != 0:
             self.logger.error(f"    频率计算失败|Frequency calculation failed: {result.stderr}")
             return None
@@ -460,10 +473,13 @@ class TreemixRunner:
             seed = random.randint(1, 999999999)
             args.extend(['-seed', str(seed)])
 
+            full_cmd = build_conda_command(args[0], args[1:])
+            self.logger.info(f"    命令|Command: {' '.join(full_cmd)}")
             log_file = f"{rep_stem}.log"
             with open(log_file, 'w') as log_fh:
                 result = subprocess.run(
-                    args,
+                    full_cmd,
+                    shell=False,
                     stdout=log_fh,
                     stderr=subprocess.STDOUT,
                     timeout=86400,
@@ -515,10 +531,13 @@ class TreemixRunner:
             seed = random.randint(1, 999999999)
             args.extend(['-seed', str(seed)])
 
+            full_cmd = build_conda_command(args[0], args[1:])
+            self.logger.info(f"    命令|Command: {' '.join(full_cmd)}")
             log_file = f"{rep_stem}.log"
             with open(log_file, 'w') as log_fh:
                 result = subprocess.run(
-                    args,
+                    full_cmd,
+                    shell=False,
                     stdout=log_fh,
                     stderr=subprocess.STDOUT,
                     timeout=86400,

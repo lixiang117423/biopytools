@@ -77,7 +77,7 @@ class VCFMerger:
             self._print_header()
 
             # 检查bcftools|Check bcftools
-            if not BCFToolsChecker.check_bcftools(self.logger):
+            if not BCFToolsChecker.check_bcftools(self.logger, self.config.bcftools_path):
                 sys.exit(1)
 
             # 步骤1: 查找VCF文件|Step 1: Find VCF files
@@ -182,13 +182,16 @@ class VCFMerger:
                 vcf_list,
                 output_file,
                 self.config.threads,
-                self.logger
+                self.logger,
+                self.config.bcftools_path,
             ):
                 self.success_count += 1
 
                 # 创建索引（如果启用）| Create index (if enabled)
                 if self.config.create_index:
-                    VCFIndexer.index_vcf_file(output_file, self.logger)
+                    VCFIndexer.index_vcf_file(
+                        output_file, self.logger, self.config.bcftools_path
+                    )
             else:
                 self.failed_chromosomes.append(chr_id)
 

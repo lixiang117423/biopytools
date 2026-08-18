@@ -7,6 +7,8 @@ import subprocess
 from pathlib import Path
 from typing import Dict
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+from ..common.conda_runner import build_conda_command, build_pipeline_command
 
 class VCFProcessor:
     """VCF文件处理器|VCF File Processor"""
@@ -28,11 +30,18 @@ class VCFProcessor:
         
         # 获取样本数量|Get sample count
         if self.is_compressed_vcf(vcf_file):
-            cmd = f"{self.config.bcftools_path} query -l {vcf_file}|wc -l"
+            # 管道(方案B): bcftools解析到域环境二进制, wc为系统工具
+            # |Pipeline (solution B): bcftools resolves to domain binary, wc stays bare
+            cmd = build_pipeline_command([
+                [self.config.bcftools_path, 'query', '-l', vcf_file],
+                ['wc', '-l'],
+            ])
         else:
             cmd = f"grep '^#CHROM' {vcf_file}|cut -f10-|tr '\\t' '\\n'|wc -l"
         
         try:
+            self.logger.info(f"命令|Command: {cmd}")
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             stats['samples'] = int(result.stdout.strip())
         except:
@@ -40,11 +49,18 @@ class VCFProcessor:
         
         # 获取变异数量|Get variant count
         if self.is_compressed_vcf(vcf_file):
-            cmd = f"{self.config.bcftools_path} view -H {vcf_file}|wc -l"
+            # 管道(方案B): bcftools解析到域环境二进制, wc为系统工具
+            # |Pipeline (solution B): bcftools resolves to domain binary, wc stays bare
+            cmd = build_pipeline_command([
+                [self.config.bcftools_path, 'view', '-H', vcf_file],
+                ['wc', '-l'],
+            ])
         else:
             cmd = f"grep -v '^#' {vcf_file}|wc -l"
         
         try:
+            self.logger.info(f"命令|Command: {cmd}")
+            self.logger.info(f"命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             stats['variants'] = int(result.stdout.strip())
         except:
@@ -77,11 +93,12 @@ class VCFProcessor:
             self.logger.error(f"输出目录不可写|Output directory is not writable: {output_prefix.parent}, 错误: {e}")
             return False
         
-        cmd = (
-            f"{self.config.plink_path} --vcf {vcf_path} "
-            f"--make-bed --out {output_prefix_abs} "
-            f"--allow-extra-chr --double-id"
-        )
+        args = [
+            "--vcf", vcf_path,
+            "--make-bed", "--out", str(output_prefix_abs),
+            "--allow-extra-chr", "--double-id",
+        ]
+        cmd = build_conda_command(self.config.plink_path, args)
         
         success = self.cmd_runner.run(cmd, "VCF转换为PLINK格式|Convert VCF to PLINK format")
         
@@ -120,10 +137,11 @@ class QualityController:
         maf_prefix = self.config.output_path / f"{self.config.base_name}_maf"
         maf_prefix.parent.mkdir(parents=True, exist_ok=True)
         maf_prefix_abs = maf_prefix.resolve()
-        cmd_maf = (
-            f"{self.config.plink_path} --bfile {input_prefix} "
-            f"--maf {self.config.maf} --make-bed --out {maf_prefix_abs} --allow-extra-chr"
-        )
+        cmd_maf = build_conda_command(self.config.plink_path, [
+            "--bfile", str(input_prefix),
+            "--maf", str(self.config.maf), "--make-bed",
+            "--out", str(maf_prefix_abs), "--allow-extra-chr",
+        ])
         
         if not self.cmd_runner.run(cmd_maf, f"MAF过滤|MAF filtering (>={self.config.maf})"):
             return False
@@ -132,10 +150,11 @@ class QualityController:
         hwe_prefix = self.config.output_path / f"{self.config.base_name}_hwe"
         hwe_prefix.parent.mkdir(parents=True, exist_ok=True)
         hwe_prefix_abs = hwe_prefix.resolve()
-        cmd_hwe = (
-            f"{self.config.plink_path} --bfile {maf_prefix_abs} "
-            f"--hwe {self.config.hwe_pvalue} --make-bed --out {hwe_prefix_abs} --allow-extra-chr"
-        )
+        cmd_hwe = build_conda_command(self.config.plink_path, [
+            "--bfile", str(maf_prefix_abs),
+            "--hwe", str(self.config.hwe_pvalue), "--make-bed",
+            "--out", str(hwe_prefix_abs), "--allow-extra-chr",
+        ])
         
         if not self.cmd_runner.run(cmd_hwe, f"HWE过滤|HWE filtering (p>{self.config.hwe_pvalue})"):
             return False
@@ -143,11 +162,12 @@ class QualityController:
         # Step 3: 缺失率过滤|Missing rate filtering
         output_prefix.parent.mkdir(parents=True, exist_ok=True)
         output_prefix_abs = output_prefix.resolve()
-        cmd_missing = (
-            f"{self.config.plink_path} --bfile {hwe_prefix_abs} "
-            f"--geno {self.config.missing_rate} --mind {self.config.missing_rate} "
-            f"--make-bed --out {output_prefix_abs} --allow-extra-chr"
-        )
+        cmd_missing = build_conda_command(self.config.plink_path, [
+            "--bfile", str(hwe_prefix_abs),
+            "--geno", str(self.config.missing_rate),
+            "--mind", str(self.config.missing_rate),
+            "--make-bed", "--out", str(output_prefix_abs), "--allow-extra-chr",
+        ])
         
         success = self.cmd_runner.run(cmd_missing, f"缺失率过滤|Missing rate filtering (<{self.config.missing_rate})")
         

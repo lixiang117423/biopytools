@@ -120,6 +120,10 @@ import sys
 import shutil
 from pathlib import Path
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 class PlinkGWASLogger:
     """PLINK GWAS分析日志管理器|PLINK GWAS Analysis Logger Manager"""
 
@@ -318,18 +322,27 @@ class CommandRunner:
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
         
+        # 如果是PLINK命令，提供详细参数解释(基于原始命令)|If it's a PLINK command, provide
+        # detailed parameter explanation (based on original command)
+        if isinstance(cmd, list) and len(cmd) > 0 and cmd[0] == "plink":
+            self._explain_plink_command(cmd)
+
+        # 列表命令用 build_conda_command 包装(plink→功能域环境), 字符串命令保持 shell=True
+        # |Wrap list commands with build_conda_command; string commands keep shell=True
+        if isinstance(cmd, (list, tuple)):
+            cmd = build_conda_command(cmd[0], list(cmd[1:]))
+            use_shell = False
+        else:
+            use_shell = True
+
         cmd_str = ' '.join(cmd) if isinstance(cmd, list) else cmd
         self.logger.info(f" 命令|Command: {cmd_str}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
-        # 如果是PLINK命令，提供详细参数解释|If it's a PLINK command, provide detailed parameter explanation
-        if isinstance(cmd, list) and len(cmd) > 0 and cmd[0] == "plink":
-            self._explain_plink_command(cmd)
-        
         try:
             result = subprocess.run(
                 cmd, 
-                shell=isinstance(cmd, str),
+                shell=use_shell,
                 capture_output=True, 
                 text=True, 
                 check=check,

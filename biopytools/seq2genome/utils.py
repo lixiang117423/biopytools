@@ -69,37 +69,62 @@ class CommandRunner:
     def __init__(self, logger):
         self.logger = logger
 
-    def run(self, cmd: str, description: str = "", timeout: int = None) -> bool:
+    def run(self, cmd, description: str = "", timeout: int = None, output_file: str = None) -> bool:
         """执行命令|Execute command
 
         Args:
-            cmd: 要执行的命令|Command to execute
+            cmd: 命令列表(由build_conda_command构建)或命令字符串
+                 |Command list (built by build_conda_command) or shell string
             description: 命令描述|Command description
             timeout: 超时时间（秒），None表示无限制|Timeout in seconds, None means no limit
+            output_file: stdout重定向文件|Redirect stdout to file
 
         Returns:
             bool: 执行成功返回True，失败返回False|True if successful, False otherwise
         """
+        from ..common.conda_runner import build_conda_command
+
+        if isinstance(cmd, list):
+            full_cmd = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
+            shell = False
+            display = ' '.join(full_cmd)
+        else:
+            full_cmd = cmd
+            shell = True
+            display = str(cmd)
+
         if description:
             self.logger.info(f"运行|Running: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {display}")
 
         if timeout:
             self.logger.info(f"超时设置|Timeout: {timeout}秒|seconds ({timeout/3600:.1f}小时|hours)")
 
         try:
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                check=True,
-                capture_output=True,
-                text=True,
-                timeout=timeout
-            )
-
-            self.logger.info(f"{description} 完成|completed")
-            return True
+            if output_file:
+                with open(output_file, 'w') as f:
+                    result = subprocess.run(
+                        full_cmd, shell=shell, stdout=f, stderr=subprocess.PIPE,
+                        text=True, timeout=timeout)
+                if result.returncode != 0:
+                    self.logger.error(f"{description} 失败|failed")
+                    if result.stderr:
+                        self.logger.error(f"错误信息|Error message: {result.stderr}")
+                    return False
+                self.logger.info(f"{description} 完成|completed")
+                return True
+            else:
+                result = subprocess.run(
+                    full_cmd,
+                    shell=shell,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                    timeout=timeout
+                )
+                self.logger.info(f"{description} 完成|completed")
+                return True
 
         except subprocess.TimeoutExpired:
             self.logger.error(f"{description} 超时|timed out after {timeout}秒|seconds")

@@ -11,6 +11,8 @@ import logging
 from typing import Dict, List, Tuple, Optional
 from pathlib import Path
 from .data_transfer import DataTransferManager
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 
 class ReferenceGenomeNamer:
@@ -101,13 +103,12 @@ class ReferenceGenomeNamer:
             paf_file = os.path.join(output_dir, "alignment.paf")
 
             # 构建minimap2命令|Build minimap2 command
-            cmd = [
-                "minimap2",
+            cmd = build_conda_command(self.config.minimap2_path, [
                 "-cx", self.config.naming_minimap2_preset,  # asm5/asm10/asm20
                 "--secondary=no",  # 只输出 primary alignment
                 query_fa,
                 self.config.reference_genome
-            ]
+            ])
 
             self.logger.info(f"执行minimap2命令|Running minimap2: {' '.join(cmd)}")
 

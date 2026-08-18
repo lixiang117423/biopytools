@@ -112,19 +112,21 @@ def main():
     
     # 工具路径|Tool paths
     tool_group = parser.add_argument_group('工具路径|Tool Paths')
-    tool_group.add_argument('--mafft-path', default='mafft',
-                           help='MAFFT路径|MAFFT path')
-    tool_group.add_argument('--clustalo-path', default='clustalo',
-                           help='Clustal Omega路径|Clustal Omega path')
-    tool_group.add_argument('--muscle-path', default='muscle',
-                           help='MUSCLE路径|MUSCLE path')
-    tool_group.add_argument('--tcoffee-path', default='t_coffee',
-                           help='T-Coffee路径|T-Coffee path')
+    tool_group.add_argument('--mafft-path', default=None,
+                           help='MAFFT路径(默认域环境自动解析)|MAFFT path (default: auto domain env)')
+    tool_group.add_argument('--clustalo-path', default=None,
+                           help='Clustal Omega路径(默认域环境自动解析)|Clustal Omega path (default: auto domain env)')
+    tool_group.add_argument('--muscle-path', default=None,
+                           help='MUSCLE路径(默认域环境自动解析)|MUSCLE path (default: auto domain env)')
+    tool_group.add_argument('--tcoffee-path', default=None,
+                           help='T-Coffee路径(默认域环境自动解析)|T-Coffee path (default: auto domain env)')
     
     args = parser.parse_args()
     
     # 创建分析器并运行|Create analyzer and run
-    analyzer = MSAAnalyzer(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool paths use config domain-env defaults when not explicitly given
+    analyzer_kwargs = dict(
         input_file=args.input,
         output_prefix=args.output,
         method=args.method,
@@ -134,11 +136,17 @@ def main():
         mafft_maxiterate=args.mafft_maxiterate,
         clustalo_iterations=args.clustalo_iterations,
         muscle_maxiters=args.muscle_maxiters,
-        mafft_path=args.mafft_path,
-        clustalo_path=args.clustalo_path,
-        muscle_path=args.muscle_path,
-        tcoffee_path=args.tcoffee_path
     )
+    for key, val in [
+        ('mafft_path', args.mafft_path),
+        ('clustalo_path', args.clustalo_path),
+        ('muscle_path', args.muscle_path),
+        ('tcoffee_path', args.tcoffee_path),
+    ]:
+        if val is not None:
+            analyzer_kwargs[key] = val
+
+    analyzer = MSAAnalyzer(**analyzer_kwargs)
     
     analyzer.run_alignment()
 

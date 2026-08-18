@@ -5,6 +5,8 @@ Dsuite配置类
 
 import os
 
+from ..common.paths import get_domain_tool_path, expand_path
+
 
 class DsuiteConfig:
     """Dsuite配置类|Dsuite Configuration Class"""
@@ -15,11 +17,11 @@ class DsuiteConfig:
         sets_file: str,
         output_dir: str,
         output_prefix: str = "dsuite",
-        dsuite_bin: str = "~/software/Dsuite/Build/Dsuite",
+        dsuite_bin: str = None,
         min_alleles: int = 2,
         max_alleles: int = 2,
         variant_type: str = "snps",
-        bcftools: str = "bcftools",
+        bcftools: str = None,
         collect_stats: bool = False
     ):
         """
@@ -41,11 +43,15 @@ class DsuiteConfig:
         self.sets_file = sets_file
         self.output_dir = output_dir
         self.output_prefix = output_prefix
-        self.dsuite_bin = dsuite_bin
+        # 工具路径(功能域环境自动解析, 回退旧默认路径)
+        # |Tool paths (auto domain env, fallback to legacy defaults)
+        self.dsuite_bin = expand_path(dsuite_bin) if dsuite_bin else get_domain_tool_path(
+            'Dsuite', '~/software/Dsuite/Build/Dsuite', 'DSUITE_PATH')
         self.min_alleles = min_alleles
         self.max_alleles = max_alleles
         self.variant_type = variant_type
-        self.bcftools = bcftools
+        self.bcftools = expand_path(bcftools) if bcftools else get_domain_tool_path(
+            'bcftools', 'bcftools', 'BCFTOOLS_PATH')
         self.collect_stats = collect_stats
 
     def validate(self):

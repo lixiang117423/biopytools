@@ -7,7 +7,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, Dict, List
 
-@dataclass
+from ..common.paths import get_domain_tool_path, expand_path
+
 @dataclass
 class AssemblyConfig:
     """基因组组装配置类|Genome Assembly Configuration Class"""
@@ -55,14 +56,32 @@ class AssemblyConfig:
     min_mapping_rate: float = 0.7
     busco_lineage: str = "auto"  # auto, mammalia_odb10, etc.
     
-    # 工具路径|Tool paths
-    hifiasm_path: str = 'hifiasm'
-    bwa_path: str = 'bwa'
-    samtools_path: str = 'samtools'
-    juicer_path: str = 'juicer.sh'
-    pipeline_3ddna: str = '3d-dna/run-asm-pipeline.sh'
-    juicer_tools: str = 'juicer_tools.jar'
-    salsa2_path: str = 'run_pipeline.py'
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    hifiasm_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'hifiasm', 'hifiasm', 'HIFIASM_PATH'))
+    bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bwa', 'bwa', 'BWA_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    pairtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'pairtools', 'pairtools', 'PAIRTOOLS_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'seqkit', 'seqkit', 'SEQKIT_PATH'))
+    fastqc_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'fastqc', 'fastqc', 'FASTQC_PATH'))
+    busco_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'busco', 'busco', 'BUSCO_PATH'))
+    # 以下为非conda脚本/jar路径, 不在功能域映射表中, 保持旧默认值作为legacy fallback
+    # |The following are non-conda script/jar paths, not in domain map; keep legacy default
+    juicer_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'juicer.sh', 'juicer.sh', 'JUICER_PATH'))
+    pipeline_3ddna: str = field(default_factory=lambda: get_domain_tool_path(
+        '3d-dna/run-asm-pipeline.sh', '3d-dna/run-asm-pipeline.sh', 'PIPELINE_3DDNA_PATH'))
+    juicer_tools: str = field(default_factory=lambda: get_domain_tool_path(
+        'juicer_tools.jar', 'juicer_tools.jar', 'JUICER_TOOLS_PATH'))
+    salsa2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'run_pipeline.py', 'run_pipeline.py', 'SALSA2_PATH'))
     skip_dependency_check: bool = False
     
     # 内部属性|Internal attributes (必须放在最后，因为使用了field)
@@ -77,6 +96,19 @@ class AssemblyConfig:
         # 标准化路径|Normalize paths
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 展开工具路径|Expand tool paths
+        self.hifiasm_path = expand_path(self.hifiasm_path)
+        self.bwa_path = expand_path(self.bwa_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.pairtools_path = expand_path(self.pairtools_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+        self.fastqc_path = expand_path(self.fastqc_path)
+        self.busco_path = expand_path(self.busco_path)
+        self.juicer_path = expand_path(self.juicer_path)
+        self.pipeline_3ddna = expand_path(self.pipeline_3ddna)
+        self.juicer_tools = expand_path(self.juicer_tools)
+        self.salsa2_path = expand_path(self.salsa2_path)
         
         # 确保detected_data_types是列表
         if not isinstance(self.detected_data_types, list):

@@ -191,10 +191,10 @@ def main():
                          help="查询序列类型（默认：auto自动检测）|Query sequence type (default: auto for auto-detection)")
     optional.add_argument("-t", "--threads", type=int, default=12,
                          help="线程数|Number of threads")
-    optional.add_argument("--minimap2-path", default="minimap2",
-                         help="Minimap2工具路径|Minimap2 tool path (default: minimap2)")
-    optional.add_argument("--miniprot-path", default="miniprot",
-                         help="Miniprot工具路径|Miniprot tool path (default: miniprot)")
+    optional.add_argument("--minimap2-path", default=None,
+                         help="Minimap2工具路径(默认域环境自动解析)|Minimap2 tool path (default: auto domain env)")
+    optional.add_argument("--miniprot-path", default=None,
+                         help="Miniprot工具路径(默认域环境自动解析)|Miniprot tool path (default: auto domain env)")
 
     # 输出选项|Output options
     output = parser.add_argument_group('输出选项|Output options')
@@ -215,19 +215,25 @@ def main():
         # 处理query_type参数|Process query_type parameter
         query_type = None if args.query_type == 'auto' else args.query_type
 
-        analyzer = Seq2GenomeAnalyzer(
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        analyzer_kwargs = dict(
             genome_fa=args.genome,
             query_fa=args.query,
             query_type=query_type,
             output_dir=args.output_dir,
             threads=args.threads,
-            minimap2_path=args.minimap2_path,
-            miniprot_path=args.miniprot_path,
             export_gff3=args.export_gff3,
             export_bed=args.export_bed,
             export_statistics=args.export_statistics,
             extract_sequences=args.extract_sequences
         )
+        if args.minimap2_path is not None:
+            analyzer_kwargs['minimap2_path'] = args.minimap2_path
+        if args.miniprot_path is not None:
+            analyzer_kwargs['miniprot_path'] = args.miniprot_path
+
+        analyzer = Seq2GenomeAnalyzer(**analyzer_kwargs)
 
         analyzer.run_analysis()
 

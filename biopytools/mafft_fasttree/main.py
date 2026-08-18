@@ -126,24 +126,30 @@ def main():
                        help='FastTree额外参数|Additional FastTree parameters')
     
     # 工具路径|Tool paths
-    parser.add_argument('--mafft-path', default='mafft', 
-                       help='MAFFT软件路径|MAFFT software path')
-    parser.add_argument('--fasttree-path', default='fasttree', 
-                       help='FastTree软件路径|FastTree software path')
+    parser.add_argument('--mafft-path', default=None,
+                       help='MAFFT软件路径(默认域环境自动解析)|MAFFT software path (default: auto domain env)')
+    parser.add_argument('--fasttree-path', default=None,
+                       help='FastTree软件路径(默认域环境自动解析)|FastTree software path (default: auto domain env)')
     
     args = parser.parse_args()
     
     # 创建分析器并运行|Create analyzer and run
-    builder = PhyloTreeBuilder(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool paths use config domain-env defaults when not explicitly given
+    builder_kwargs = dict(
         input_file=args.input,
         output_dir=args.output,
         seq_type=args.seq_type,
         threads=args.threads,
         mafft_params=args.mafft_params,
         fasttree_params=args.fasttree_params,
-        mafft_path=args.mafft_path,
-        fasttree_path=args.fasttree_path
     )
+    if args.mafft_path is not None:
+        builder_kwargs['mafft_path'] = args.mafft_path
+    if args.fasttree_path is not None:
+        builder_kwargs['fasttree_path'] = args.fasttree_path
+
+    builder = PhyloTreeBuilder(**builder_kwargs)
     
     builder.run_pipeline()
 

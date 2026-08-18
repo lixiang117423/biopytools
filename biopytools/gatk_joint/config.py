@@ -3,9 +3,11 @@ GATK Joint Genotyping 配置管理模块|GATK Joint Genotyping Configuration Man
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class JointConfig:
@@ -37,9 +39,14 @@ class JointConfig:
     indel_rprs: float = -20.0
     indel_sor: float = 10.0
     
-    # 工具路径|Tool paths
-    gatk_path: str = 'gatk'
-    bcftools_path: str = 'bcftools'
+    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    gatk_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'gatk', 'gatk', 'GATK_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     
     # 内部属性|Internal attributes
     base_name: str = 'joint_genotyping'
@@ -54,6 +61,26 @@ class JointConfig:
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.reference = os.path.normpath(os.path.abspath(self.reference))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 展开工具路径|Expand tool paths
+        self.gatk_path = expand_path(self.gatk_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.gatk_path = expand_path(self.gatk_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.gatk_path = expand_path(self.gatk_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.gatk_path = expand_path(self.gatk_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
+        self.samtools_path = expand_path(self.samtools_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

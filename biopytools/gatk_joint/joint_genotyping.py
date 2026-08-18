@@ -5,6 +5,10 @@ Joint Genotyping 主流程模块|Joint Genotyping Main Pipeline Module
 import os
 from pathlib import Path
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class JointGenotyper:
     """Joint Genotyping 执行器|Joint Genotyping Executor"""
@@ -20,15 +24,20 @@ class JointGenotyper:
         
         output_vcf = self.config.output_path / f"{self.config.base_name}_raw.vcf.gz"
         
-        # 构建命令|Build command
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' GenotypeGVCFs"
-        cmd += f" -R {self.config.reference}"
-        cmd += f" -V gendb://{self.config.genomicsdb_path}"
-        cmd += f" -O {output_vcf}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "GenotypeGVCFs",
+            "-R", self.config.reference,
+            "-V", f"gendb://{self.config.genomicsdb_path}",
+            "-O", str(output_vcf),
+        ]
         
         # 添加区间参数|Add interval parameter
         if self.config.intervals:
-            cmd += f" -L {self.config.intervals}"
+            args += ["-L", self.config.intervals]
+
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(
             cmd,
@@ -66,14 +75,19 @@ class JointGenotyper:
                 raise RuntimeError(" 无法生成区间文件|Failed to generate intervals file")
             self.config.intervals = intervals_file
         
-        # 构建命令|Build command
-        cmd = f"{self.config.gatk_path} --java-options '-Xmx{self.config.memory}' GenomicsDBImport"
-        cmd += f" --genomicsdb-workspace-path {genomicsdb_workspace}"
-        cmd += f" --sample-name-map {sample_map_file}"
-        cmd += f" --reader-threads {self.config.threads}"
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        args = [
+            "--java-options", f"-Xmx{self.config.memory}",
+            "GenomicsDBImport",
+            "--genomicsdb-workspace-path", str(genomicsdb_workspace),
+            "--sample-name-map", sample_map_file,
+            "--reader-threads", str(self.config.threads),
+        ]
         
         # 添加区间参数|Add interval parameter
-        cmd += f" -L {self.config.intervals}"
+        args += ["-L", self.config.intervals]
+
+        cmd = build_conda_command(self.config.gatk_path, args)
         
         success = self.cmd_runner.run(
             cmd, 
@@ -110,8 +124,11 @@ class JointGenotyper:
             # 第1步：检查并创建.dict文件|Step 1: Check and create .dict file
             if not os.path.exists(dict_file):
                 self.logger.info(" 未找到字典文件，正在创建...|Dict file not found, creating...")
-                cmd = f"{self.config.gatk_path} CreateSequenceDictionary -R {self.config.reference}"
-                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=self.config.output_path)
+                cmd = build_conda_command(self.config.gatk_path,
+                                          ["CreateSequenceDictionary", "-R", self.config.reference])
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
+                result = subprocess.run(cmd, shell=False, capture_output=True, text=True,
+                                        cwd=self.config.output_path)
                 
                 if result.returncode == 0:
                     self.logger.info(" 字典文件创建成功|Dict file created successfully")
@@ -120,8 +137,10 @@ class JointGenotyper:
                     # 尝试使用.fai文件|Try using .fai file
                     if not os.path.exists(fai_file):
                         self.logger.info(" 尝试创建索引文件...|Trying to create fai file...")
-                        fai_cmd = f"samtools faidx {self.config.reference}"
-                        fai_result = subprocess.run(fai_cmd, shell=True, capture_output=True, text=True)
+                        fai_cmd = build_conda_command(self.config.samtools_path,
+                                                      ["faidx", self.config.reference])
+                        self.logger.info(f"命令|Command: {' '.join(fai_cmd)}")
+                        fai_result = subprocess.run(fai_cmd, shell=False, capture_output=True, text=True)
                         if fai_result.returncode != 0:
                             self.logger.error(f" 索引文件创建失败|Fai creation failed: {fai_result.stderr}")
                             return None

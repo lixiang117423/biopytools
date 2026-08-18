@@ -295,34 +295,44 @@ def main():
                        help=' 跳过LTR分析步骤|Skip LTR analysis step')
     
     # 工具路径参数|Tool path parameters
-    parser.add_argument('--repeatmodeler-path', default='RepeatModeler',
+    parser.add_argument('--repeatmodeler-path', default=None,
                        help=' RepeatModeler程序路径|RepeatModeler program path')
-    parser.add_argument('--ltr-finder-path', default='ltr_finder',
+    parser.add_argument('--ltr-finder-path', default=None,
                        help=' LTR_FINDER程序路径|LTR_FINDER program path')  
-    parser.add_argument('--ltrharvest-path', default='gt ltrharvest',
-                       help=' LTRharvest程序路径|LTRharvest program path')
-    parser.add_argument('--ltr-retriever-path', default='LTR_retriever',
+    parser.add_argument('--ltrharvest-path', default=None,
+                       help=' GenomeTools gt二进制路径|GenomeTools gt binary path')
+    parser.add_argument('--ltr-retriever-path', default=None,
                        help=' LTR_retriever程序路径|LTR_retriever program path')
-    parser.add_argument('--repeatmasker-path', default='RepeatMasker',
+    parser.add_argument('--repeatmasker-path', default=None,
                        help=' RepeatMasker程序路径|RepeatMasker program path')
-    parser.add_argument('--tesorter-path', default='TEsorter',
+    parser.add_argument('--tesorter-path', default=None,
                        help=' TEsorter程序路径|TEsorter program path')
     
     args = parser.parse_args()
     
     # 创建分析器并运行|Create analyzer and run
+    # 工具路径为 None 时不传入, 使用 config 默认域环境解析|Tool paths None -> use config domain env resolution
+    extra_kwargs = {}
+    if args.repeatmodeler_path is not None:
+        extra_kwargs['repeatmodeler_path'] = args.repeatmodeler_path
+    if args.ltr_finder_path is not None:
+        extra_kwargs['ltr_finder_path'] = args.ltr_finder_path
+    if args.ltrharvest_path is not None:
+        extra_kwargs['ltrharvest_path'] = args.ltrharvest_path
+    if args.ltr_retriever_path is not None:
+        extra_kwargs['ltr_retriever_path'] = args.ltr_retriever_path
+    if args.repeatmasker_path is not None:
+        extra_kwargs['repeatmasker_path'] = args.repeatmasker_path
+    if args.tesorter_path is not None:
+        extra_kwargs['tesorter_path'] = args.tesorter_path
+
     analyzer = RepeatAnalyzer(
         genome_file=args.genome_file,
         output_dir=args.output_dir,
         threads=args.threads,
         skip_modeler=args.skip_modeler,
         skip_ltr=args.skip_ltr,
-        repeatmodeler_path=args.repeatmodeler_path,
-        ltr_finder_path=args.ltr_finder_path,
-        ltrharvest_path=args.ltrharvest_path,
-        ltr_retriever_path=args.ltr_retriever_path,
-        repeatmasker_path=args.repeatmasker_path,
-        tesorter_path=args.tesorter_path
+        **extra_kwargs
     )
     
     analyzer.run_analysis()

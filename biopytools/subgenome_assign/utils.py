@@ -68,13 +68,15 @@ class CommandRunner:
 
     def run(self, cmd: List[str], description: str = "") -> bool:
         """执行单条命令（无管道）|Execute single command (no pipe)"""
+        from ..common.conda_runner import build_conda_command
+        full_cmd = build_conda_command(str(cmd[0]), [str(c) for c in cmd[1:]])
         if description:
             self.logger.info(f"执行|Executing: {description}")
-        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        self.logger.info(f"命令|Command: {' '.join(full_cmd)}")
 
         try:
             result = subprocess.run(
-                cmd, shell=False, capture_output=True, text=True,
+                full_cmd, shell=False, capture_output=True, text=True,
                 check=False, cwd=self.working_dir,
             )
             if result.returncode != 0:
@@ -118,24 +120,13 @@ class CommandRunner:
 
 def check_dependencies(config, logger) -> bool:
     """检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
+    from ..common.conda_runner import check_tools
 
-    deps = [
+    missing = check_tools([
         (config.minimap2_path, 'minimap2', ['--version']),
         (config.samtools_path, 'samtools', ['--version']),
-    ]
-
-    for path, name, vargs in deps:
-        try:
-            result = subprocess.run(
-                [path] + vargs, capture_output=True, text=True, timeout=30
-            )
-            first_line = (result.stdout or result.stderr).strip().split('\n')[0]
-            logger.info(f"{name} 可用|{name} available: {first_line}")
-        except Exception as e:
-            logger.error(f"{name} 不可用|{name} not available: {e}")
-            return False
-    return True
+    ], logger)
+    return len(missing) == 0
 
 
 def format_number(n: int) -> str:

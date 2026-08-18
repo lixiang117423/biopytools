@@ -4,6 +4,7 @@
 
 import os
 import sys
+import glob
 import shutil
 import subprocess
 import argparse
@@ -15,6 +16,7 @@ from pathlib import Path
 from .config import MCycConfig
 from .calculator import MatrixCalculator
 from .utils import MCycLogger
+from ..common.conda_runner import build_conda_command, check_tools
 
 
 class MCycAnalyzer:
@@ -69,21 +71,31 @@ class MCycAnalyzer:
             return False
         return True
 
-    def run_cmd(self, cmd: str) -> bool:
+    def run_cmd(self, cmd) -> bool:
         """
         执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表(由build_conda_command构建, shell=False)或命令字符串(shell=True)
+                 |Command list (built by build_conda_command, shell=False) or command string (shell=True)
 
         Returns:
             bool: 是否执行成功|Whether execution was successful
         """
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        # 记录完整命令到INFO|Log full command to INFO
+        self.print_log(f"命令|Command: {display}")
+
         try:
-            subprocess.run(cmd, shell=True, check=True, executable='/bin/bash')
+            subprocess.run(cmd, shell=use_shell, check=True, executable='/bin/bash')
             return True
         except subprocess.CalledProcessError:
-            self.print_log(f"命令执行失败|Command execution failed: {cmd}", "ERROR")
+            self.print_log(f"命令执行失败|Command execution failed: {display}", "ERROR")
             return False
 
     def step1_check_dependencies(self) -> bool:
@@ -95,10 +107,19 @@ class MCycAnalyzer:
         """
         self.print_log("正在检查依赖工具...|Checking dependencies...", "PROCESS")
 
-        required_tools = ['diamond', 'seqkit', 'perl']
-        for tool in required_tools:
-            if not self.check_dependency(tool):
-                return False
+        # 生信工具用check_tools(自动conda环境检测), perl为脚本解释器用which探测
+        # |Bioinformatics tools via check_tools (auto conda env), perl via which (script interpreter)
+        missing = check_tools([
+            (self.config.diamond_path, 'diamond', ['--version']),
+            (self.config.seqkit_path, 'seqkit', ['version']),
+        ], self.logger)
+        if missing:
+            self.print_log(f"缺少依赖工具|Missing dependencies: {', '.join(missing)}", "ERROR")
+            return False
+
+        # perl为脚本解释器(系统工具)|perl is a script interpreter (system tool)
+        if not self.check_dependency('perl'):
+            return False
 
         if not os.path.exists(self.config.input_list):
             self.print_log(f"输入文件不存在|Input file not found: {self.config.input_list}", "ERROR")
@@ -119,7 +140,10 @@ class MCycAnalyzer:
         # 检查并构建Diamond索引|Check and build Diamond index
         if not os.path.exists(self.config.dmnd_file):
             self.print_log("未找到Diamond索引，正在构建...|Diamond index not found, building...", "WARN")
-            cmd = f"diamond makedb --in {self.config.fasta_file} --db {self.config.diamond_db_base} --quiet"
+            cmd = build_conda_command(self.config.diamond_path, [
+                "makedb", "--in", self.config.fasta_file,
+                "--db", self.config.diamond_db_base, "--quiet"
+            ])
             if not self.run_cmd(cmd):
                 self.print_log("Diamond索引构建失败|Diamond index building failed", "ERROR")
                 return False
@@ -208,8 +232,15 @@ class MCycAnalyzer:
         self.print_log("正在统计Reads数量...|Counting reads...", "PROCESS")
 
         # 使用seqkit统计|Use seqkit to count
-        cmd = f"seqkit stats -j {self.config.thread_count} {self.config.staging_dir}/*.fastq.gz -T"
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, text=True)
+        # 用Python glob展开通配符(替代shell展开), 再经build_conda_command包装
+        # |Expand glob in Python (instead of shell), then wrap via build_conda_command
+        fastq_pattern = os.path.join(self.config.staging_dir, "*.fastq.gz")
+        fastq_files = sorted(glob.glob(fastq_pattern))
+        cmd = build_conda_command(self.config.seqkit_path, [
+            "stats", "-j", str(self.config.thread_count), "-T"
+        ] + fastq_files)
+        self.print_log(f"命令|Command: {' '.join(cmd)}")
+        result = subprocess.run(cmd, shell=False, stdout=subprocess.PIPE, text=True)
 
         if result.returncode != 0:
             self.print_log(f"SeqKit统计失败|SeqKit counting failed", "ERROR")

@@ -26,7 +26,7 @@ class BAMAnalyzer:
                 "开始BAM统计分析流程|Starting BAM statistics analysis pipeline"
             )
 
-            if not check_dependencies(self.logger):
+            if not check_dependencies(self.config, self.logger):
                 return False
 
             bam_files = self.config.bam_files

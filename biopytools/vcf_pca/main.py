@@ -153,9 +153,9 @@ def main():
                        help='分组列名|Column name for grouping')
 
     # 工具路径|Tool paths
-    parser.add_argument('--plink-path', default='plink',
+    parser.add_argument('--plink-path', default=None,
                        help='PLINK软件路径|PLINK software path')
-    parser.add_argument('--bcftools-path', default='bcftools',
+    parser.add_argument('--bcftools-path', default=None,
                        help='BCFtools软件路径|BCFtools software path')
 
     args = parser.parse_args()
@@ -164,8 +164,9 @@ def main():
     maf_value = args.maf_legacy if args.maf_legacy is not None else args.maf
     plot_value = args.plot or args.plot_legacy
 
-    # 创建分析器并运行|Create analyzer and run
-    analyzer = VCFPCAAnalyzer(
+    # 构建配置参数(工具路径默认None时不传, 保持配置默认值)
+    # |Build config kwargs (None tool paths keep config default)
+    config_kwargs = dict(
         vcf_file=args.vcf_file,
         output_dir=args.output,
         sample_info_file=args.sample_info,
@@ -176,9 +177,14 @@ def main():
         skip_qc=args.skip_qc,
         plot=plot_value,
         group_column=args.group_column,
-        plink_path=args.plink_path,
-        bcftools_path=args.bcftools_path
     )
+    if args.plink_path is not None:
+        config_kwargs['plink_path'] = args.plink_path
+    if args.bcftools_path is not None:
+        config_kwargs['bcftools_path'] = args.bcftools_path
+
+    # 创建分析器并运行|Create analyzer and run
+    analyzer = VCFPCAAnalyzer(**config_kwargs)
 
     analyzer.run_analysis()
 

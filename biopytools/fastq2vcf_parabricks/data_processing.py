@@ -11,6 +11,8 @@ import glob
 from .config import Fastq2VcfParabricksConfig
 from .utils import CommandRunner, FileManager, CheckpointManager
 from ..common.paths import resolve_legacy_path, resolve_legacy_path_chain
+from ..common.conda_runner import build_conda_command, build_pipeline_command
+from ..common.conda_runner import build_conda_command, build_pipeline_command
 
 
 class QualityController:
@@ -106,7 +108,8 @@ class GenomeIndexer:
         if not os.path.exists(f"{self.config.ref_genome_fa}.bwt"):
             self.logger.info("构建 BWA 索引|Building BWA index")
             need_index = True
-            if not self.cmd_runner.run(f"bwa index {self.config.ref_genome_fa}", " 构建BWA索引|Build BWA index"):
+            bwa_cmd = build_conda_command(self.config.bwa_path, ["index", self.config.ref_genome_fa])
+            if not self.cmd_runner.run(bwa_cmd, " 构建BWA索引|Build BWA index"):
                 return False
         else:
             self.logger.info(" BWA 索引已存在|BWA index already exists")
@@ -115,7 +118,8 @@ class GenomeIndexer:
         if not os.path.exists(f"{self.config.ref_genome_fa}.fai"):
             self.logger.info("构建 SAMtools 索引|Building SAMtools index")
             need_index = True
-            if not self.cmd_runner.run(f"samtools faidx {self.config.ref_genome_fa}", " 构建SAMtools索引|Build SAMtools index"):
+            samtools_cmd = build_conda_command(self.config.samtools_path, ["faidx", self.config.ref_genome_fa])
+            if not self.cmd_runner.run(samtools_cmd, " 构建SAMtools索引|Build SAMtools index"):
                 return False
         else:
             self.logger.info(" SAMtools 索引已存在|SAMtools index already exists")
@@ -125,8 +129,8 @@ class GenomeIndexer:
         if not os.path.exists(ref_dict):
             self.logger.info("构建 GATK 字典|Building GATK dictionary")
             need_index = True
-            command = f"gatk CreateSequenceDictionary -R {self.config.ref_genome_fa} -O {ref_dict}"
-            if not self.cmd_runner.run(command, " 构建GATK字典|Build GATK dictionary"):
+            gatk_cmd = build_conda_command(self.config.gatk_path, ["CreateSequenceDictionary", "-R", self.config.ref_genome_fa, "-O", ref_dict])
+            if not self.cmd_runner.run(gatk_cmd, " 构建GATK字典|Build GATK dictionary"):
                 return False
         else:
             self.logger.info(" GATK 字典已存在|GATK dictionary already exists")
@@ -593,8 +597,13 @@ class VariantFilter:
             for vcf_file in FileManager.find_files(self.config.filter_dir, "*.vcf.gz"):
                 if os.path.exists(vcf_file):
                     try:
+                        # 管道按方案B处理(bcftools 域环境二进制 + 系统工具 wc)|Pipeline solution B (bcftools domain binary + system tool wc)
+                        pipeline = build_pipeline_command([
+                            [self.config.bcftools_path, "view", "-H", vcf_file],
+                            ["wc", "-l"],
+                        ])
                         count = subprocess.check_output(
-                            f"bcftools view -H {vcf_file}|wc -l",
+                            pipeline,
                             shell=True,
                             text=True
                         ).strip()

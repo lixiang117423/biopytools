@@ -3,9 +3,10 @@ Minimap2分析工具函数模块|Minimap2 Analysis Utility Functions Module
 """
 
 import logging
-import subprocess
 import sys
 from pathlib import Path
+
+from ..common.conda_runner import CommandRunner
 
 class Minimap2Logger:
     """Minimap2分析日志管理器|Minimap2 Analysis Logger Manager"""
@@ -34,43 +35,6 @@ class Minimap2Logger:
     def get_logger(self):
         """获取日志器|Get logger"""
         return self.logger
-
-class CommandRunner:
-    """命令执行器|Command Runner"""
-    
-    def __init__(self, logger, working_dir: Path):
-        self.logger = logger
-        self.working_dir = working_dir
-    
-    def run(self, cmd: str, description: str = "") -> bool:
-        """执行命令|Execute command"""
-        if description:
-            self.logger.info(f"执行步骤|Executing step: {description}")
-        
-        self.logger.info(f"命令|Command: {cmd}")
-        
-        try:
-            result = subprocess.run(
-                cmd, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
-                check=True,
-                cwd=self.working_dir
-            )
-            
-            self.logger.info(f"命令执行成功|Command executed successfully: {description}")
-            
-            if result.stdout:
-                self.logger.debug(f"标准输出|Stdout: {result.stdout}")
-            
-            return True
-            
-        except subprocess.CalledProcessError as e:
-            self.logger.error(f"命令执行失败|Command execution failed: {description}")
-            self.logger.error(f"错误代码|Error code: {e.returncode}")
-            self.logger.error(f"错误信息|Error message: {e.stderr}")
-            return False
 
 class IntervalProcessor:
     """区间处理器|Interval Processor"""

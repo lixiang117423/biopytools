@@ -6,13 +6,17 @@ import os
 from pathlib import Path
 from typing import Optional, List, Union
 
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
 class VCFFilterConfig:
     """VCF筛选配置类|VCF Filtering Configuration Class"""
     
     def __init__(self, vcf_file: str, output_file: Optional[str] = None,
                  chr_name: Optional[Union[str, List[str]]] = None,
                  start: Optional[int] = None, end: Optional[int] = None,
-                 convert_format: bool = False, plink_path: str = "plink",
+                 convert_format: bool = False, plink_path: Optional[str] = None,
                  allow_extra_chr: bool = True, min_maf: Optional[float] = None,
                  max_missing: Optional[float] = None, 
                  quality_threshold: Optional[float] = None,
@@ -45,7 +49,10 @@ class VCFFilterConfig:
         
         # 格式转换参数|Format conversion parameters
         self.convert_format = convert_format
-        self.plink_path = plink_path
+        # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+        # |Tool path (auto domain env, fallback to bare name via PATH)
+        self.plink_path = expand_path(plink_path) if plink_path else \
+            get_domain_tool_path('plink', 'plink', 'PLINK_PATH')
         self.allow_extra_chr = allow_extra_chr
         
         # 质量控制参数|Quality control parameters

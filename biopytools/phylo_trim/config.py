@@ -7,7 +7,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_domain_tool_path
 from ..trimal.config import TrimalConfig
 
 
@@ -35,17 +35,22 @@ class PhyloTrimConfig:
     threads: int = 88
     mafft_params: str = "--auto"
     fasttree_params: str = ""
-    mafft_path: str = "mafft"
-    fasttree_path: str = "fasttree"
+    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    mafft_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'mafft', 'mafft', 'MAFFT_PATH'))
+    fasttree_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'fasttree', 'fasttree', 'FASTTREE_PATH'))
 
     # 其他|Other
     sample_name: Optional[str] = None
     log_file: Optional[str] = None
     verbose: bool = False
 
-    # trimal 工具路径(支持 TRIMAL_PATH)|trimal tool path (overridable via TRIMAL_PATH)
+    # trimal 工具路径(功能域环境自动解析, 支持 TRIMAL_PATH 覆盖)
+    # |trimal tool path (auto domain env, overridable via TRIMAL_PATH)
     trimal_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'trimal', '~/miniforge3/envs/phylo/bin/trimal', 'TRIMAL_PATH'
         )
     )

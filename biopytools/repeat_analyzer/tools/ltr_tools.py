@@ -4,6 +4,8 @@ LTR分析工具包装器|LTR Analysis Tool Wrappers
 
 import os
 from pathlib import Path
+from ...common.conda_runner import build_conda_command
+from ...common.conda_runner import build_conda_command
 
 class LTRFinderRunner:
     """ LTR_FINDER运行器|LTR_FINDER Runner"""
@@ -16,14 +18,23 @@ class LTRFinderRunner:
     
     def run_ltr_finder(self) -> bool:
         """ 运行LTR_FINDER|Run LTR_FINDER"""
+        import subprocess
         output_file = self.config.output_path / f"{self.config.base_name}_ltrfinder.scn"
         
-        cmd = f"{self.config.ltr_finder_path} -C -w 2 {self.config.genome_file} > {output_file}"
-        
-        success = self.cmd_runner.run(
-            cmd,
-            " 运行LTR_FINDER识别长末端重复序列|Run LTR_FINDER to identify long terminal repeats"
-        )
+        # conda 域环境自动包装, stdout 重定向到文件|Auto conda wrap, stdout redirected to file
+        cmd = build_conda_command(self.config.ltr_finder_path, ["-C", "-w", "2", self.config.genome_file])
+        self.logger.info(f" 执行步骤|Executing step: 运行LTR_FINDER识别长末端重复序列|Run LTR_FINDER to identify long terminal repeats")
+        self.logger.info(f" 命令|Command: {' '.join(cmd)} > {output_file}")
+        try:
+            with open(output_file, 'w') as out_fh:
+                result = subprocess.run(
+                    cmd, shell=False, stdout=out_fh, stderr=subprocess.PIPE, text=True,
+                    cwd=self.cmd_runner.working_dir,
+                )
+            success = result.returncode == 0
+        except Exception as e:
+            self.logger.error(f" 命令执行失败|Command execution failed: {e}")
+            success = False
         
         if success and output_file.exists():
             self.output_file = output_file
@@ -65,14 +76,22 @@ class LTRHarvestRunner:
         output_file = self.config.output_path / f"{self.config.base_name}_ltrharvest.out"
         index_name = self.config.output_path / f"{self.config.base_name}_index"
         
-        # 第一步：创建索引
-        index_cmd = f"gt suffixerator -db {self.config.genome_file} -indexname {index_name} -tis -suf -lcp -des -ssp -sds -dna"
+        # 第一步：创建索引(gt suffixerator, conda 域环境自动包装)
+        # Step 1: create index (gt suffixerator, auto conda wrap)
+        index_cmd = build_conda_command(self.config.ltrharvest_path, [
+            "suffixerator", "-db", self.config.genome_file, "-indexname", str(index_name),
+            "-tis", "-suf", "-lcp", "-des", "-ssp", "-sds", "-dna",
+        ])
         
         if not self.cmd_runner.run(index_cmd, "创建基因组索引|Create genome index"):
             return False
         
-        # 第二步：运行LTRharvest
-        cmd = f"{self.config.ltrharvest_path} -index {index_name} -out {output_file} -outinner {output_file}.inner -gff3 {output_file}.gff3"
+        # 第二步：运行LTRharvest(gt ltrharvest, conda 域环境自动包装)
+        # Step 2: run LTRharvest (gt ltrharvest, auto conda wrap)
+        cmd = build_conda_command(self.config.ltrharvest_path, [
+            "ltrharvest", "-index", str(index_name), "-out", str(output_file),
+            "-outinner", f"{output_file}.inner", "-gff3", f"{output_file}.gff3",
+        ])
         
         success = self.cmd_runner.run(
             cmd,
@@ -114,7 +133,11 @@ class LTRRetrieverRunner:
         # LTR_retriever输出前缀|LTR_retriever output prefix
         output_prefix = self.config.output_path / self.config.base_name
         
-        cmd = f"{self.config.ltr_retriever_path} -genome {self.config.genome_file} -inharvest {' '.join(input_files)} -threads {self.config.threads}"
+        # conda 域环境自动包装|Auto conda wrap
+        cmd = build_conda_command(self.config.ltr_retriever_path, [
+            "-genome", self.config.genome_file, "-inharvest"] + input_files + [
+            "-threads", str(self.config.threads),
+        ])
         
         success = self.cmd_runner.run(
             cmd,

@@ -2,8 +2,9 @@
 覆盖度分析模块|Coverage Analysis Module
 """
 
-import subprocess
 from pathlib import Path
+
+from ..common.conda_runner import build_conda_command
 
 class CoverageAnalyzer:
     """覆盖度分析器|Coverage Analyzer"""
@@ -33,23 +34,28 @@ class CoverageAnalyzer:
         """计算位点覆盖度|Calculate per-base depth"""
         output_file = self.config.coverage_dir / f"{sample_name}.depth.txt"
         
-        # 构建samtools depth命令|Build samtools depth command
-        cmd_parts = [f"{self.config.samtools_path} depth"]
+        # 构建samtools depth命令(conda环境自动包装, 输出重定向到文件)
+        # |Build samtools depth command (auto conda wrap, redirect to file)
+        args = ["depth"]
         
         if self.config.min_base_quality > 0:
-            cmd_parts.append(f"-q {self.config.min_base_quality}")
+            args.extend(["-q", str(self.config.min_base_quality)])
         
         if self.config.min_mapping_quality > 0:
-            cmd_parts.append(f"-Q {self.config.min_mapping_quality}")
+            args.extend(["-Q", str(self.config.min_mapping_quality)])
         
         if self.config.max_depth > 0:
-            cmd_parts.append(f"-d {self.config.max_depth}")
+            args.extend(["-d", str(self.config.max_depth)])
 
-        cmd_parts.append(f"{Path(bam_file).absolute()} > {output_file.absolute()}")
+        args.append(str(Path(bam_file).absolute()))
 
-        cmd = " ".join(cmd_parts)
+        cmd = build_conda_command(self.config.samtools_path, args)
         
-        success = self.cmd_runner.run(cmd, f"计算位点覆盖度|Calculating depth: {sample_name}")
+        success, _, _ = self.cmd_runner.run(
+            cmd,
+            f"计算位点覆盖度|Calculating depth: {sample_name}",
+            output_file=str(output_file.absolute()),
+        )
         
         return output_file if success else None
     

@@ -46,52 +46,52 @@ class HifiasmAssembler:
         self.logger.info(" Hifiasm组装完成|Hifiasm assembly completed")
         return fasta_files
     
-    def _build_hifiasm_command(self) -> str:
+    def _build_hifiasm_command(self) -> list:
         """构建hifiasm命令|Build hifiasm command"""
         cmd_parts = [
             self.config.hifiasm_path,
-            f"-o {self.assembly_dir / self.config.project_name}",
-            f"-t {self.config.threads}"
+            '-o', str(self.assembly_dir / self.config.project_name),
+            '-t', str(self.config.threads),
         ]
-        
-        # 基本参数
+
+        # 基本参数|Basic parameters
         cmd_parts.extend([
-            "--primary",  # 输出primary assembly
-            f"-l {self.config.purge_level}",  # purging级别
-            f"--purge-max {self.config.purge_max}",  # purging覆盖度上限
-            f"--n-hap {self.config.n_haplotypes}"  # 单倍型数量
+            "--primary",  # 输出primary assembly|Output primary assembly
+            '-l', str(self.config.purge_level),  # purging级别|purging level
+            '--purge-max', str(self.config.purge_max),  # purging覆盖度上限|purging coverage upper limit
+            '--n-hap', str(self.config.n_haplotypes),  # 单倍型数量|number of haplotypes
         ])
-        
-        # Hi-C数据整合
+
+        # Hi-C数据整合|Hi-C data integration
         if 'Hi-C' in self.config.detected_data_types:
             cmd_parts.extend([
-                f"--h1 {self.config.hic_r1}",
-                f"--h2 {self.config.hic_r2}",
-                "--dual-scaf"  # 双重脚手架
+                '--h1', self.config.hic_r1,
+                '--h2', self.config.hic_r2,
+                '--dual-scaf',  # 双重脚手架|dual scaffolding
             ])
-        
-        # ONT数据整合
+
+        # ONT数据整合|ONT data integration
         if 'ONT' in self.config.detected_data_types:
             cmd_parts.extend([
-                f"--ul {self.config.ont_reads}",
-                "--ul-rate 0.15"  # ONT错误率
+                '--ul', self.config.ont_reads,
+                '--ul-rate', '0.15',  # ONT错误率|ONT error rate
             ])
-        
-        # 端粒序列保护
+
+        # 端粒序列保护|Telomere motif protection
         if self.config.telomere_motif:
-            cmd_parts.append(f"--telo-m {self.config.telomere_motif}")
-        
-        # 物种特异参数
+            cmd_parts.extend(['--telo-m', self.config.telomere_motif])
+
+        # 物种特异参数|Species-specific parameters
         if self.config.species_type == "haploid":
-            cmd_parts.append("--hom-cov auto")
-        
-        # 相似度阈值调整
-        cmd_parts.append(f"-s {self.config.similarity_threshold}")
-        
-        # 添加HiFi reads文件
+            cmd_parts.extend(['--hom-cov', 'auto'])
+
+        # 相似度阈值调整|Similarity threshold
+        cmd_parts.extend(['-s', str(self.config.similarity_threshold)])
+
+        # 添加HiFi reads文件|Add HiFi reads file
         cmd_parts.append(self.config.hifi_reads)
-        
-        return " ".join(cmd_parts)
+
+        return cmd_parts
     
     def _check_assembly_outputs(self) -> Dict[str, List[str]]:
         """检查组装输出文件|Check assembly output files"""
@@ -192,8 +192,8 @@ class HifiasmAssembler:
                     fasta_name = Path(fasta_file).name
                     f.write(f"文件|File: {fasta_name}\n")
                     
-                    # 获取统计信息
-                    stats = get_file_stats(fasta_file, self.logger)
+                    # 获取统计信息|Get statistics
+                    stats = get_file_stats(fasta_file, self.logger, self.config.seqkit_path)
                     if stats:
                         f.write(f"  序列数|Sequences: {stats.get('num', 'N/A')}\n")
                         f.write(f"  总长度|Total length: {stats.get('sum_len', 'N/A')}\n")

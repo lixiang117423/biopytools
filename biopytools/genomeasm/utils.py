@@ -10,6 +10,8 @@ import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from ..common.conda_runner import build_conda_command, check_tools
+
 class AssemblyLogger:
     """基因组组装日志管理器|Genome Assembly Logger Manager"""
     
@@ -47,38 +49,52 @@ class CommandRunner:
         self.commands_log = working_dir / "logs" / "commands.log"
         self.commands_log.parent.mkdir(parents=True, exist_ok=True)
     
-    def run(self, cmd: str, description: str = "", timeout: Optional[int] = None) -> bool:
-        """执行命令|Execute command"""
+    def run(self, cmd, description: str = "", timeout: Optional[int] = None) -> bool:
+        """执行命令|Execute command
+
+        cmd 可为列表(裸命令 [tool_path, args...], 经 build_conda_command 包装后 shell=False)
+        或字符串(已构建好的管道/重定向命令, shell=True)
+        |cmd may be a list ([tool_path, args...], wrapped via build_conda_command, shell=False)
+        or a pre-built pipeline/redirect string (shell=True)
+        """
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
-        
-        self.logger.info(f" 命令|Command: {cmd}")
+
+        use_shell = not isinstance(cmd, (list, tuple))
+        if use_shell:
+            display = str(cmd)
+        else:
+            # 列表命令经build_conda_command包装(自动检测conda环境)|Wrap list via build_conda_command (auto conda detection)
+            cmd = build_conda_command(cmd[0], list(cmd[1:]))
+            display = ' '.join(str(c) for c in cmd)
+
+        self.logger.info(f" 命令|Command: {display}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
-        
-        # 记录命令到日志文件
+
+        # 记录命令到日志文件|Record command to log file
         with open(self.commands_log, 'a', encoding='utf-8') as f:
             f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {description}\n")
             f.write(f"Directory: {self.working_dir}\n")
-            f.write(f"Command: {cmd}\n\n")
-        
+            f.write(f"Command: {display}\n\n")
+
         try:
             result = subprocess.run(
-                cmd, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
+                cmd,
+                shell=use_shell,
+                capture_output=True,
+                text=True,
                 check=True,
                 cwd=self.working_dir,
                 timeout=timeout
             )
-            
+
             self.logger.info(f" 命令执行成功|Command executed successfully: {description}")
-            
+
             if result.stdout:
                 self.logger.debug(f" 标准输出|Stdout: {result.stdout[:500]}...")
-            
+
             return True
-            
+
         except subprocess.CalledProcessError as e:
             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
             self.logger.error(f" 错误代码|Error code: {e.returncode}")
@@ -161,79 +177,51 @@ class CommandRunner:
 def check_dependencies(config, logger) -> Dict[str, bool]:
     """检查依赖软件|Check dependencies"""
     logger.info(" 检查依赖软件|Checking dependencies")
-    
+
     # 确保detected_data_types不为None
     if not hasattr(config, 'detected_data_types') or config.detected_data_types is None:
         config.detected_data_types = ['HiFi']  # 默认假设有HiFi
         logger.warning(" 数据类型检测异常，假设存在HiFi数据|Data type detection failed, assuming HiFi data exists")
-    
-    dependencies = {
-        'hifiasm': config.hifiasm_path,
-        'bwa': config.bwa_path,
-        'samtools': config.samtools_path,
-        'seqkit': 'seqkit',
-        'fastqc': 'fastqc',
-    }
-    
-    # Hi-C相关工具检查 - 添加安全检查
+
+    # 标准conda工具统一依赖检查|Standard conda tools via unified check_tools
+    dependencies = [
+        (config.hifiasm_path, 'hifiasm', ['--version']),
+        (config.bwa_path, 'bwa', [], True),  # bwa无参数打印用法, 非零返回码视为可用|bwa prints usage with no args, accept non-zero
+        (config.samtools_path, 'samtools', ['--version']),
+        (config.seqkit_path, 'seqkit', ['version']),
+        (config.fastqc_path, 'fastqc', ['--version']),
+    ]
+    missing = check_tools(dependencies, logger)
+
+    all_names = ['hifiasm', 'bwa', 'samtools', 'seqkit', 'fastqc']
+
+    # Hi-C相关工具检查(非conda脚本/jar, 保持特殊检查)|Hi-C tools (non-conda script/jar, keep special checks)
     if 'Hi-C' in config.detected_data_types:
         if config.hic_strategy == "complete_juicer":
-            dependencies['juicer'] = config.juicer_path
-            dependencies['juicer_tools'] = config.juicer_tools
+            all_names.extend(['juicer', 'juicer_tools'])
+            if not _check_juicer(config.juicer_path, logger):
+                missing.append('juicer')
+            if not _check_juicer_tools(config.juicer_tools, logger):
+                missing.append('juicer_tools')
         elif config.hic_strategy == "standard_3ddna":
-            dependencies['3d-dna'] = config.pipeline_3ddna
-            dependencies['juicer_tools'] = config.juicer_tools
+            all_names.extend(['3d-dna', 'juicer_tools'])
+            if not (os.path.exists(config.pipeline_3ddna) and os.access(config.pipeline_3ddna, os.X_OK)):
+                missing.append('3d-dna')
+            if not _check_juicer_tools(config.juicer_tools, logger):
+                missing.append('juicer_tools')
         elif config.hic_strategy == "simplified_salsa2":
-            dependencies['salsa2'] = config.salsa2_path
-    
-    results = {}
-    missing_deps = []
-    
-    for name, cmd in dependencies.items():
-        try:
-            if name == 'juicer_tools':
-                # Java jar文件特殊处理
-                success = _check_juicer_tools(cmd, logger)
-                results[name] = success
-                if success:
-                    logger.info(f" {name} 可用|available")
-                else:
-                    missing_deps.append(name)
-            elif name == '3d-dna':
-                # 检查脚本文件是否存在且可执行
-                if os.path.exists(cmd) and os.access(cmd, os.X_OK):
-                    results[name] = True
-                    logger.info(f" {name} 可用|available")
-                else:
-                    results[name] = False
-                    missing_deps.append(name)
-            elif name == 'juicer':
-                # Juicer特殊检查
-                success = _check_juicer(cmd, logger)
-                results[name] = success
-                if success:
-                    logger.info(f" {name} 可用|available")
-                else:
-                    missing_deps.append(name)
-            else:
-                # 标准命令检查 - 改进版本
-                success = _check_standard_command(name, cmd, logger)
-                results[name] = success
-                if success:
-                    logger.info(f" {name} 可用|available")
-                else:
-                    missing_deps.append(name)
-        except Exception as e:
-            logger.warning(f" 检查 {name} 时出错|Error checking {name}: {e}")
-            results[name] = False
-            missing_deps.append(name)
-    
-    if missing_deps:
-        error_msg = f" 缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"
+            all_names.append('salsa2')
+            if not os.path.exists(config.salsa2_path):
+                missing.append('salsa2')
+
+    results = {name: name not in missing for name in all_names}
+
+    if missing:
+        error_msg = f" 缺少依赖软件|Missing dependencies: {', '.join(missing)}"
         logger.error(error_msg)
         logger.info(" 请检查软件安装和PATH设置|Please check software installation and PATH settings")
         logger.info(" 或使用以下参数指定软件路径|Or use following parameters to specify tool paths:")
-        for dep in missing_deps:
+        for dep in missing:
             if dep == 'bwa':
                 logger.info(f"   --bwa-path /path/to/bwa")
             elif dep == 'seqkit':
@@ -242,42 +230,13 @@ def check_dependencies(config, logger) -> Dict[str, bool]:
                 logger.info(f"   --juicer-path /path/to/juicer.sh")
             elif dep == 'juicer_tools':
                 logger.info(f"   --juicer-tools /path/to/juicer_tools.jar")
-        
+
         # 提供跳过选项的建议
         logger.info(" 如需跳过依赖检查，请添加 --skip-dependency-check 参数|To skip dependency check, add --skip-dependency-check parameter")
         raise RuntimeError(error_msg)
-    
+
     logger.info(" 所有依赖软件检查通过|All dependencies check passed")
     return results
-
-def _check_standard_command(name: str, cmd: str, logger) -> bool:
-    """检查标准命令|Check standard command"""
-    # 不同软件的测试参数
-    test_params = {
-        'bwa': ['-h', '--help', ''],  # bwa直接调用显示帮助
-        'seqkit': ['-h', '--help', ''],  # seqkit直接调用显示帮助
-        'samtools': ['--version', '--help'],
-        'hifiasm': ['--version', '-h'],
-        'fastqc': ['--version', '--help']
-    }
-    
-    params_to_try = test_params.get(name, ['--version', '--help', '-h'])
-    
-    for param in params_to_try:
-        try:
-            if param == '':
-                # 直接调用命令（某些软件直接调用会显示帮助）
-                result = subprocess.run([cmd], capture_output=True, text=True, timeout=10)
-            else:
-                result = subprocess.run([cmd, param], capture_output=True, text=True, timeout=10)
-            
-            # 对于某些软件，返回码不为0也可能是正常的（如显示帮助信息）
-            if result.returncode == 0 or (param in ['', '-h', '--help'] and result.stderr):
-                return True
-        except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
-            continue
-    
-    return False
 
 def _check_juicer(juicer_cmd: str, logger) -> bool:
     """检查Juicer软件|Check Juicer software"""
@@ -354,11 +313,12 @@ def _check_juicer_tools(juicer_tools_path: str, logger) -> bool:
     
     return False
 
-def get_file_stats(file_path: str, logger) -> Dict[str, str]:
+def get_file_stats(file_path: str, logger, seqkit_path: str = 'seqkit') -> Dict[str, str]:
     """获取文件统计信息|Get file statistics"""
     try:
-        cmd = f"seqkit stats {file_path}"
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+        cmd = build_conda_command(seqkit_path, ['stats', file_path])
+        logger.info(f" 命令|Command: {' '.join(cmd)}")
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         
         # 解析seqkit输出
         lines = result.stdout.strip().split('\n')
@@ -373,11 +333,11 @@ def get_file_stats(file_path: str, logger) -> Dict[str, str]:
         logger.warning(f" 无法获取文件统计|Cannot get file stats: {file_path}")
         return {}
 
-def estimate_genome_coverage(reads_file: str, genome_size: str, logger) -> float:
+def estimate_genome_coverage(reads_file: str, genome_size: str, logger, seqkit_path: str = 'seqkit') -> float:
     """估算基因组覆盖度|Estimate genome coverage"""
     try:
         # 获取总碱基数
-        stats = get_file_stats(reads_file, logger)
+        stats = get_file_stats(reads_file, logger, seqkit_path)
         if 'sum_len' not in stats:
             return 0.0
         

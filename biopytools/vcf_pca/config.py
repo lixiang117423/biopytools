@@ -3,9 +3,11 @@ VCF PCA分析配置管理模块|VCF PCA Analysis Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class PCAConfig:
@@ -29,9 +31,12 @@ class PCAConfig:
     plot: bool = False
     group_column: Optional[str] = None
     
-    # 工具路径|Tool paths
-    plink_path: str = 'plink'
-    bcftools_path: str = 'bcftools'
+    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    plink_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plink', 'plink', 'PLINK_PATH'))
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
     
     # 内部属性|Internal attributes
     base_name: str = 'vcf_pca'
@@ -47,6 +52,14 @@ class PCAConfig:
         
         if self.sample_info_file:
             self.sample_info_file = os.path.normpath(os.path.abspath(self.sample_info_file))
+
+        # 展开工具路径|Expand tool paths
+        self.plink_path = expand_path(self.plink_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.plink_path = expand_path(self.plink_path)
+        self.bcftools_path = expand_path(self.bcftools_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

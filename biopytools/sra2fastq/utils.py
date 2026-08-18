@@ -5,8 +5,9 @@ SRA转换工具函数模块|SRA Conversion Utility Functions Module
 import logging
 import subprocess
 import sys
-import shutil
 from pathlib import Path
+
+from ..common.conda_runner import check_tools
 
 
 def format_number(num: int) -> str:
@@ -59,17 +60,23 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()
     
-    def run(self, cmd: str, description: str = "") -> bool:
-        """执行命令|Execute command"""
+    def run(self, cmd, description: str = "") -> bool:
+        """执行命令|Execute command (支持列表shell=False与字符串shell=True)"""
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
-        
-        self.logger.info(f"命令|Command: {cmd}")
+
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f"命令|Command: {display}")
         
         try:
             result = subprocess.run(
                 cmd, 
-                shell=True, 
+                shell=use_shell,
                 capture_output=True, 
                 text=True, 
                 check=True,
@@ -92,40 +99,28 @@ class CommandRunner:
 def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
     logger.info("检查依赖软件|Checking dependencies")
-    
-    # 首先检查parallel-fastq-dump
-    parallel_available = False
-    fastq_dump_available = False
-    
-    try:
-        result = subprocess.run(['parallel-fastq-dump', '-V'], 
-                              capture_output=True, text=True, timeout=10)
-        if result.returncode == 0:
-            logger.info(f"parallel-fastq-dump 可用 (推荐)|available (recommended)")
-            logger.info(f"   版本|Version: {result.stdout.strip()}")
-            parallel_available = True
-            config.use_parallel = True
-            config.tool_path = 'parallel-fastq-dump'
-    except (subprocess.TimeoutExpired, FileNotFoundError):
-        logger.warning(f"parallel-fastq-dump 未找到|not found")
-    
-    # 检查fastq-dump作为备选
-    try:
-        result = subprocess.run(['fastq-dump', '--version'], 
-                              capture_output=True, text=True, timeout=10)
-        if result.returncode == 0:
-            logger.info(f"fastq-dump 可用 (备选)|available (fallback)")
-            fastq_dump_available = True
-            if not parallel_available:
-                config.use_parallel = False
-                config.tool_path = 'fastq-dump'
-                logger.warning(f"将使用fastq-dump (速度较慢)|Will use fastq-dump (slower)")
-    except (subprocess.TimeoutExpired, FileNotFoundError):
-        logger.warning(f"fastq-dump 未找到|not found")
-    
-    if not parallel_available and not fastq_dump_available:
+
+    # 统一依赖检查(优先parallel-fastq-dump, 备选fastq-dump)
+    # |Unified dependency check (prefer parallel-fastq-dump, fallback fastq-dump)
+    deps = [
+        (config.tool_path, "parallel-fastq-dump", ['-V']),
+        (config.fastq_dump_path, "fastq-dump", ['--version']),
+    ]
+    missing = check_tools(deps, logger)
+
+    parallel_missing = "parallel-fastq-dump" in missing
+    fastq_missing = "fastq-dump" in missing
+
+    if not parallel_missing:
+        config.use_parallel = True
+        logger.info("parallel-fastq-dump 可用 (推荐)|parallel-fastq-dump available (recommended)")
+    elif not fastq_missing:
+        config.use_parallel = False
+        config.tool_path = config.fastq_dump_path
+        logger.warning("将使用fastq-dump (速度较慢)|Will use fastq-dump (slower)")
+    else:
         error_msg = "缺少必需软件: 需要 parallel-fastq-dump 或 fastq-dump|Missing required software: need parallel-fastq-dump or fastq-dump"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
-    
+
     return True

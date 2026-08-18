@@ -8,6 +8,7 @@ from collections import Counter
 from typing import Dict, List, Set, Tuple
 from .config import NCBITaxoConfig
 from .utils import CommandRunner, detect_input_type, parse_lineage, format_number
+from ..common.conda_runner import build_pipeline_command
 
 
 class BlastTaxonomyProcessor:
@@ -110,6 +111,7 @@ class BlastTaxonomyProcessor:
         temp_acc_file = self.accessions_file
 
         # 构建zgrep命令|Build zgrep command
+        # 方案B(§13.2.2): zgrep/cut均为系统工具, 无需conda run|Solution B: zgrep/cut are system tools, no conda run needed
         cmd = f"zgrep -F -f {temp_acc_file} {self.config.taxid_db} | cut -f2,3"
 
         success, output = self.cmd_runner.run(
@@ -172,7 +174,12 @@ class BlastTaxonomyProcessor:
         # 使用-R显示rank，-n显示name，-t显示taxid（tab分隔）
         # 输出格式：accession\ttaxid\ttaxid;taxid;...\tname;name;...\trank;rank;...
         # 我们使用taxonkit lineage -R来同时获取rank和name信息
-        cmd = f"cat {self.acc2taxid_file} | taxonkit lineage -i 2 -t -R -n"
+        # 方案B(§13.2.2): 管道中直接调用工具, 严禁 conda run | conda run
+        # |Solution B: call tools directly in pipeline, no conda run in pipes
+        cmd = build_pipeline_command([
+            ['cat', self.acc2taxid_file],
+            [self.config.taxonkit_path, 'lineage', '-i', '2', '-t', '-R', '-n'],
+        ])
 
         success, output = self.cmd_runner.run(
             cmd,

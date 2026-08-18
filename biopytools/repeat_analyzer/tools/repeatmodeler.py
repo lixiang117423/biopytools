@@ -4,6 +4,8 @@ RepeatModeler工具包装器|RepeatModeler Tool Wrapper
 
 import os
 from pathlib import Path
+from ...common.conda_runner import build_conda_command
+from ...common.conda_runner import build_conda_command
 
 class RepeatModelerRunner:
     """ RepeatModeler运行器|RepeatModeler Runner"""
@@ -35,7 +37,8 @@ class RepeatModelerRunner:
         """ 构建RepeatModeler数据库|Build RepeatModeler database"""
         db_name = f"{self.config.base_name}_db"
         
-        cmd = f"BuildDatabase -name {db_name} {self.config.genome_file}"
+        # conda 域环境自动包装|Auto conda wrap
+        cmd = build_conda_command(self.config.build_database_path, ["-name", db_name, self.config.genome_file])
         
         success = self.cmd_runner.run(
             cmd, 
@@ -103,7 +106,8 @@ class RepeatModelerRunner:
             self.logger.error(" 数据库未创建，无法运行RepeatModeler|Database not created, cannot run RepeatModeler")
             return False
         
-        cmd = f"{self.config.repeatmodeler_path} -database {self.db_name} -threads {self.config.threads}"
+        # conda 域环境自动包装|Auto conda wrap
+        cmd = build_conda_command(self.config.repeatmodeler_path, ["-database", self.db_name, "-threads", str(self.config.threads)])
         
         success = self.cmd_runner.run(
             cmd,

@@ -7,6 +7,10 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class PipelineInfoGenerator:
     """流程信息生成器|Pipeline Information Generator"""
@@ -33,8 +37,11 @@ class PipelineInfoGenerator:
 
         # 获取bowtie2版本|Get bowtie2 version
         try:
+            bowtie2_cmd = build_conda_command(
+                self.config.bowtie2_path, ["--version"])
+            self.logger.info(f"命令|Command: {' '.join(bowtie2_cmd)}")
             result = subprocess.run(
-                [self.config.bowtie2_path, "--version"],
+                bowtie2_cmd,
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -47,8 +54,11 @@ class PipelineInfoGenerator:
 
         # 获取samtools版本|Get samtools version
         try:
+            samtools_cmd = build_conda_command(
+                self.config.samtools_path, ["--version"])
+            self.logger.info(f"命令|Command: {' '.join(samtools_cmd)}")
             result = subprocess.run(
-                [self.config.samtools_path, "--version"],
+                samtools_cmd,
                 capture_output=True,
                 text=True,
                 timeout=10

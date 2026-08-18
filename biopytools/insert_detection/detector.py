@@ -8,6 +8,10 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 # 正则表达式用于解析CIGAR字符串|Regex for parsing CIGAR strings
 _SOFT_START = re.compile(r"^(\d+)S")
@@ -131,16 +135,22 @@ class InsertDetector:
                 self.logger.info(f"构建bowtie2索引|Building bowtie2 index: {index_prefix}")
                 try:
                     # 不捕获输出，让进度信息能够显示|Don't capture output to show progress
-                    subprocess.run(
-                        ["bowtie2-build", self.config.genome, index_prefix],
-                        check=True
+                    build_cmd = build_conda_command(
+                        self.config.bowtie2_build_path,
+                        [self.config.genome, index_prefix]
                     )
+                    self.logger.info(f"命令|Command: {' '.join(build_cmd)}")
+                    subprocess.run(build_cmd, check=True)
                     self.logger.info(f"索引构建完成|Index build completed")
                 except subprocess.CalledProcessError as e:
                     self.logger.error(f"索引构建失败|Index build failed: {e}")
                     raise
 
         # 构建bowtie2命令|Build bowtie2 command
+        # 方案B(§13.2.2): 管道内工具直接调用域环境二进制(config路径解析后的完整路径),
+        # 严禁 conda run | conda run
+        # |Solution B: pipe segments call domain-env binaries directly (config-resolved
+        # full paths); conda run in pipes is forbidden
         cmd = [
             self.config.bowtie2_path,
             "-x", index_prefix,
@@ -152,7 +162,7 @@ class InsertDetector:
         ]
 
         cmd_str = " ".join(cmd)
-        self.logger.debug(f"运行|Running: {cmd_str}")
+        self.logger.info(f"命令|Command: {cmd_str}")
         self.logger.info(f"开始比对（可能需要较长时间）|Starting alignment (may take a while)...")
 
         try:
@@ -161,10 +171,10 @@ class InsertDetector:
 
             # 索引BAM文件|Index BAM file
             self.logger.info(f"建立BAM索引|Building BAM index...")
-            subprocess.run(
-                [self.config.samtools_path, "index", str(bam_path)],
-                check=True
-            )
+            index_cmd = build_conda_command(
+                self.config.samtools_path, ["index", str(bam_path)])
+            self.logger.info(f"命令|Command: {' '.join(index_cmd)}")
+            subprocess.run(index_cmd, check=True)
 
             self.logger.info(f"比对完成|Alignment completed: {sample_id}")
             return bam_path
@@ -211,6 +221,8 @@ class InsertDetector:
 
         # 提取soft-clipped reads到SAM|Extract soft-clipped reads to SAM
         sam_file = tmp_dir / f"{sample_id}.softclip.sam"
+        # 方案B(§13.2.2): 管道内samtools直接调用域环境二进制, awk为系统工具保持裸名
+        # |Solution B: samtools in pipe calls domain-env binary; awk stays bare
         cmd1 = f"{self.config.samtools_path} view {bam_file} | awk '$6 ~ /S/' > {sam_file}"
 
         # 从SAM提取soft-clipped序列到FASTQ|Extract soft-clipped sequences to FASTQ
@@ -259,6 +271,7 @@ for line in sys.stdin:
         try:
             # 使用samtools提取soft-clipped reads|Extract soft-clipped reads using samtools
             # 不捕获输出，让进度信息能够显示|Don't capture output to show progress
+            self.logger.info(f"命令|Command: {cmd1}")
             subprocess.run(cmd1, shell=True, check=True)
 
             # 提取soft-clipped序列|Extract soft-clipped sequences
@@ -267,15 +280,15 @@ for line in sys.stdin:
             # 将soft-clipped序列转换为BAM并索引，供IGV查看|Convert soft-clipped to BAM for IGV
             output_bam = output_dir / f"{sample_id}.softclip.bam"
             self.logger.info(f"转换soft-clipped BAM用于IGV查看|Converting soft-clipped BAM for IGV...")
-            subprocess.run(
-                f"{self.config.samtools_path} view -h {bam_file} -S {sam_file} -b | {self.config.samtools_path} sort -o {output_bam} -",
-                shell=True,
-                check=True
-            )
-            subprocess.run(
-                [self.config.samtools_path, "index", str(output_bam)],
-                check=True
-            )
+            # 方案B(§13.2.2): 管道内samtools直接调用域环境二进制, 严禁 conda run | conda run
+            # |Solution B: samtools in pipe calls domain-env binary; conda run in pipes is forbidden
+            bam_pipe_cmd = f"{self.config.samtools_path} view -h {bam_file} -S {sam_file} -b | {self.config.samtools_path} sort -o {output_bam} -"
+            self.logger.info(f"命令|Command: {bam_pipe_cmd}")
+            subprocess.run(bam_pipe_cmd, shell=True, check=True)
+            index_cmd = build_conda_command(
+                self.config.samtools_path, ["index", str(output_bam)])
+            self.logger.info(f"命令|Command: {' '.join(index_cmd)}")
+            subprocess.run(index_cmd, check=True)
 
             self.logger.info(f"soft-clipped序列提取完成|Soft-clipped extraction completed: {sample_id}")
             return output_fq
@@ -376,10 +389,12 @@ for line in sys.stdin:
         if not all(f.exists() for f in index_files):
             self.logger.info(f"构建插入序列bowtie2索引|Building insert sequence bowtie2 index: {index_prefix}")
             try:
-                subprocess.run(
-                    ["bowtie2-build", self.config.insert_sequence, index_prefix],
-                    check=True
+                build_cmd = build_conda_command(
+                    self.config.bowtie2_build_path,
+                    [self.config.insert_sequence, index_prefix]
                 )
+                self.logger.info(f"命令|Command: {' '.join(build_cmd)}")
+                subprocess.run(build_cmd, check=True)
                 self.logger.info(f"索引构建完成|Index build completed")
             except subprocess.CalledProcessError as e:
                 self.logger.error(f"索引构建失败|Index build failed: {e}")
@@ -389,18 +404,21 @@ for line in sys.stdin:
 
         # 第一步：使用--local模式比对，同时生成SAM和BAM|Step 1: Align with --local mode, generate both SAM and BAM
         output_bam = output_dir / f"{sample_id}.tdna.bam"
+        # 方案B(§13.2.2): 管道内bowtie2/samtools直接调用域环境二进制, awk/tee为系统工具保持裸名
+        # |Solution B: bowtie2/samtools in pipe call domain-env binaries; awk/tee stay bare
         cmd1 = f"{self.config.bowtie2_path} -x {index_prefix} -U {softclip_fq} -L 10 --local -p {self.config.threads} | awk '$3!=\"*\"' | tee {output_sam} | {self.config.samtools_path} view -S - -b | {self.config.samtools_path} sort -o {output_bam} -"
 
         try:
             # 不捕获输出，让进度信息能够显示|Don't capture output to show progress
+            self.logger.info(f"命令|Command: {cmd1}")
             subprocess.run(cmd1, shell=True, check=True)
 
             # 索引BAM文件|Index BAM file for IGV
             self.logger.info(f"建立T-DNA BAM索引|Building T-DNA BAM index for IGV...")
-            subprocess.run(
-                [self.config.samtools_path, "index", str(output_bam)],
-                check=True
-            )
+            index_cmd = build_conda_command(
+                self.config.samtools_path, ["index", str(output_bam)])
+            self.logger.info(f"命令|Command: {' '.join(index_cmd)}")
+            subprocess.run(index_cmd, check=True)
 
             self.logger.info(f"插入序列比对完成|Insert alignment completed: {sample_id}")
 
@@ -451,8 +469,11 @@ for line in sys.stdin:
         # 使用samtools读取比对结果|Use samtools to read alignments
         import subprocess
         try:
+            view_cmd = build_conda_command(
+                self.config.samtools_path, ["view", str(tdna_bam)])
+            self.logger.info(f"命令|Command: {' '.join(view_cmd)}")
             result = subprocess.run(
-                [self.config.samtools_path, "view", str(tdna_bam)],
+                view_cmd,
                 capture_output=True, text=True, check=True
             )
             lines = result.stdout.split('\n')

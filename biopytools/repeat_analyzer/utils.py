@@ -10,6 +10,10 @@ import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from ..common.conda_runner import build_conda_command, check_tools
+
+from ..common.conda_runner import build_conda_command, check_tools
+
 class RepeatLogger:
     """ 重复序列分析日志管理器|Repeat Analysis Logger Manager"""
     
@@ -44,12 +48,19 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()
     
-    def run(self, cmd: str, description: str = "", timeout: Optional[int] = None) -> bool:
+    def run(self, cmd, description: str = "", timeout: Optional[int] = None) -> bool:
         """ 执行命令|Execute command"""
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-        self.logger.info(f" 命令|Command: {cmd}")
+        # 列表命令用 shell=False, 字符串命令用 shell=True|List -> shell=False, string -> shell=True
+        if isinstance(cmd, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in cmd)
+        else:
+            use_shell = True
+            display = str(cmd)
+        self.logger.info(f" 命令|Command: {display}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
         start_time = time.time()
@@ -57,7 +68,7 @@ class CommandRunner:
         try:
             result = subprocess.run(
                 cmd, 
-                shell=True, 
+                shell=use_shell,
                 capture_output=True, 
                 text=True, 
                 check=True,
@@ -117,74 +128,32 @@ class ProgressTracker:
 
 def check_dependencies(config, logger):
     """ 检查依赖软件|Check dependencies"""
-    logger.info(" 检查依赖软件|Checking dependencies")
-    
     dependencies = []
     
     if not config.skip_modeler:
-        dependencies.append((config.repeatmodeler_path, "RepeatModeler"))
+        dependencies.append((config.repeatmodeler_path, "RepeatModeler", ["-h"], True))
+        dependencies.append((config.build_database_path, "BuildDatabase", ["-h"], True))
     
     if not config.skip_ltr:
         dependencies.extend([
-            (config.ltr_finder_path, "LTR_FINDER"),
-            (config.ltrharvest_path, "LTRharvest (GenomeTools)"),
-            (config.ltr_retriever_path, "LTR_retriever")
+            (config.ltr_finder_path, "LTR_FINDER", ["-h"], True),
+            (config.ltrharvest_path, "LTRharvest (GenomeTools)", ["ltrharvest", "--help"], True),
+            (config.ltr_retriever_path, "LTR_retriever", ["-h"], True)
         ])
     
     dependencies.extend([
-        (config.repeatmasker_path, "RepeatMasker"),
-        (config.tesorter_path, "TEsorter")
+        (config.repeatmasker_path, "RepeatMasker", ["-v"], True),
+        (config.tesorter_path, "TEsorter", ["-h"], True)
     ])
     
-    missing_deps = []
-    available_deps = []
-    
-    for cmd, name in dependencies:
-        # try:
-        #     # 对于复合命令，只检查第一个命令
-        #     check_cmd = cmd.split()[0]
-        #     # result = subprocess.run([check_cmd, "--version"], 
-        #     #                       capture_output=True, text=True, timeout=10)
-        #     result = subprocess.run([check_cmd, "--help"], 
-        #                           capture_output=True, text=True, timeout=10)
-        #     if result.returncode == 0:
-        #         available_deps.append(name)
-        #         logger.info(f" {name} 可用|available")
-        #     else:
-        try:
-            check_cmd = cmd.split()[0]  # 获取主命令
-            
-            # 特殊处理复合命令
-            if cmd.startswith('gt ltrharvest'):
-                # 检查gt命令和ltrharvest子命令
-                result = subprocess.run(['gt', 'ltrharvest', '--help'], 
-                                    capture_output=True, text=True, timeout=10)
-            elif 'ltrharvest' in name.lower():
-                result = subprocess.run([check_cmd, 'ltrharvest', '--help'], 
-                                    capture_output=True, text=True, timeout=10)
-            else:
-                result = subprocess.run([check_cmd, "--version"], 
-                                    capture_output=True, text=True, timeout=10)
-        except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.CalledProcessError):
-            # 特殊处理某些工具的版本检查
-            try:
-                result = subprocess.run([check_cmd, "-h"], 
-                                      capture_output=True, text=True, timeout=10)
-                if result.returncode == 0 or "usage" in result.stdout.lower() or "usage" in result.stderr.lower():
-                    available_deps.append(name)
-                    logger.info(f" {name} 可用|available")
-                else:
-                    missing_deps.append(name)
-            except:
-                missing_deps.append(name)
+    missing_deps = check_tools(dependencies, logger)
     
     if missing_deps:
         error_msg = f" 缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"
         logger.error(error_msg)
-        logger.info(f" 提示|Tip: 可用的依赖|Available dependencies: {', '.join(available_deps)}")
         raise RuntimeError(error_msg)
     
-    logger.info(f" 所有依赖软件检查通过|All dependencies check passed: {len(available_deps)} tools")
+    logger.info(" 所有依赖软件检查通过|All dependencies check passed")
     return True
 
 def get_genome_stats(genome_file: str, logger) -> Dict[str, any]:

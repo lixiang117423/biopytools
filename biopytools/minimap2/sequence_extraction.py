@@ -4,6 +4,10 @@
 
 import os
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class SequenceExtractor:
     """序列提取器|Sequence Extractor"""
@@ -32,10 +36,16 @@ class SequenceExtractor:
         # 创建临时序列文件|Create temporary sequence file
         temp_fasta = unmapped_fasta + ".tmp"
         
-        # 使用seqkit subseq提取序列|Use seqkit subseq to extract sequences
-        command = f"{seqkit_path} subseq --bed {bed_file} {query_genome} > {temp_fasta}"
+        # 使用seqkit subseq提取序列(conda环境自动包装, 输出重定向到文件)
+        # |Use seqkit subseq (auto conda wrap, redirect stdout to file)
+        args = ["subseq", "--bed", bed_file, query_genome]
+        command = build_conda_command(seqkit_path, args)
         
-        success = self.cmd_runner.run(command, "seqkit提取未比对序列|seqkit extract unmapped sequences")
+        success, _, _ = self.cmd_runner.run(
+            command,
+            "seqkit提取未比对序列|seqkit extract unmapped sequences",
+            output_file=temp_fasta,
+        )
         
         if not success:
             return False
@@ -112,9 +122,14 @@ class SequenceExtractor:
             if sequences_written > 0:
                 self.logger.info("格式化序列长度为60bp每行|Formatting sequence length to 60bp per line")
                 seqkit_path = self.config.seqkit_path
-                format_command = f"{seqkit_path} seq -w 60 {intermediate_fasta} > {final_fasta}"
+                format_args = ["seq", "-w", "60", intermediate_fasta]
+                format_command = build_conda_command(seqkit_path, format_args)
                 
-                success = self.cmd_runner.run(format_command, "格式化序列长度|Format sequence length")
+                success, _, _ = self.cmd_runner.run(
+                    format_command,
+                    "格式化序列长度|Format sequence length",
+                    output_file=final_fasta,
+                )
                 if not success:
                     self.logger.warning("序列格式化失败，使用原始文件|Sequence formatting failed, using original file")
                     # 如果格式化失败，直接复制中间文件|If formatting fails, copy intermediate file

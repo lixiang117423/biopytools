@@ -4,6 +4,8 @@
 
 from pathlib import Path
 from .utils import CommandRunner, check_file_exists
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class BWAAligner:
     """BWA比对器|BWA Aligner"""
@@ -28,22 +30,19 @@ class BWAAligner:
             self.logger.info("跳过比对步骤（文件已存在）| Skipping alignment (file exists)")
             return sam_file
         
-        # 构建BWA命令|Build BWA command
+        # 构建BWA命令(conda环境自动包装, SAM输出重定向到文件)
+        # |Build BWA command (auto conda wrap, redirect SAM to file)
+        args = ["mem", "-t", str(self.config.threads),
+                "-R", read_group, self.config.reference]
         if sample['seq_type'] == "双端测序|Paired-end":
-            cmd = (f"{self.config.bwa_path} mem "
-                   f"-t {self.config.threads} "
-                   f"-R '{read_group}' "
-                   f"{self.config.reference} "
-                   f"{sample['r1']} {sample['r2']} "
-                   f"> {sam_file}")
+            args += [sample['r1'], sample['r2']]
         else:
-            cmd = (f"{self.config.bwa_path} mem "
-                   f"-t {self.config.threads} "
-                   f"-R '{read_group}' "
-                   f"{self.config.reference} "
-                   f"{sample['r1']} "
-                   f"> {sam_file}")
+            args += [sample['r1']]
+        cmd = build_conda_command(self.config.bwa_path, args)
         
-        self.cmd_runner.run(cmd, f"BWA比对|BWA alignment: {sample_name}")
+        # 用公共执行器重定向输出|Redirect output via common runner
+        success, _, _ = self.cmd_runner.run(
+            cmd, f"BWA比对|BWA alignment: {sample_name}", output_file=str(sam_file)
+        )
         
         return sam_file

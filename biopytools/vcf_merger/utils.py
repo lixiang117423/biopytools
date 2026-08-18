@@ -10,6 +10,14 @@ from pathlib import Path
 from typing import List, Optional, Dict
 from collections import defaultdict
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class VCFMergerLogger:
     """VCF合并工具日志管理器|VCF Merger Logger Manager"""
@@ -179,19 +187,24 @@ class BCFToolsChecker:
     """bcftools可用性检查器|BCFTools Availability Checker"""
 
     @staticmethod
-    def check_bcftools(logger: logging.Logger) -> bool:
+    def check_bcftools(logger: logging.Logger, bcftools_path: str) -> bool:
         """
         检查bcftools是否可用|Check if bcftools is available
 
         Args:
             logger: 日志对象|Logger object
+            bcftools_path: bcftools路径|bcftools path
 
         Returns:
             bcftools是否可用|Whether bcftools is available
         """
+        # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+        cmd = build_conda_command(bcftools_path, ["--version"])
+        logger.info(f"命令|Command: {' '.join(cmd)}")
+
         try:
             result = subprocess.run(
-                ["bcftools", "--version"],
+                cmd,
                 capture_output=True,
                 text=True,
                 check=False
@@ -220,7 +233,8 @@ class VCFMerger:
         vcf_list: List[Path],
         output_file: Path,
         threads: int,
-        logger: logging.Logger
+        logger: logging.Logger,
+        bcftools_path: str,
     ) -> bool:
         """
         使用bcftools concat合并VCF文件|Merge VCF files using bcftools concat
@@ -230,6 +244,7 @@ class VCFMerger:
             output_file: 输出文件路径|Output file path
             threads: 线程数|Number of threads
             logger: 日志对象|Logger object
+            bcftools_path: bcftools路径|bcftools path
 
         Returns:
             是否成功合并|Whether merge was successful
@@ -247,17 +262,20 @@ class VCFMerger:
                 f.write(f"{vcf}\n")
 
         try:
-            # bcftools concat命令|bcftools concat command
-            cmd = [
-                "bcftools",
-                "concat",
-                "-f", str(input_list_file),
-                "-O", "z",  # 输出压缩的VCF|Output compressed VCF
-                "-o", str(output_file),
-                "--threads", str(threads)
-            ]
+            # bcftools concat命令(conda环境自动包装)
+            # |bcftools concat command (auto conda wrap)
+            cmd = build_conda_command(
+                bcftools_path,
+                [
+                    "concat",
+                    "-f", str(input_list_file),
+                    "-O", "z",  # 输出压缩的VCF|Output compressed VCF
+                    "-o", str(output_file),
+                    "--threads", str(threads),
+                ],
+            )
 
-            logger.debug(f"执行命令|Executing command: {' '.join(cmd)}")
+            logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -286,13 +304,14 @@ class VCFIndexer:
     """VCF索引创建器|VCF Index Creator using bcftools"""
 
     @staticmethod
-    def index_vcf_file(vcf_file: Path, logger: logging.Logger) -> bool:
+    def index_vcf_file(vcf_file: Path, logger: logging.Logger, bcftools_path: str) -> bool:
         """
         使用bcftools index创建索引|Create index using bcftools index
 
         Args:
             vcf_file: VCF文件路径|VCF file path
             logger: 日志对象|Logger object
+            bcftools_path: bcftools路径|bcftools path
 
         Returns:
             是否成功创建索引|Whether index creation was successful
@@ -300,7 +319,9 @@ class VCFIndexer:
         logger.info(f"正在创建索引|Creating index for: {vcf_file.name}")
 
         try:
-            cmd = ["bcftools", "index", str(vcf_file)]
+            # 构建命令(conda环境自动包装)|Build command (auto conda wrap)
+            cmd = build_conda_command(bcftools_path, ["index", str(vcf_file)])
+            logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
             result = subprocess.run(
                 cmd,
                 capture_output=True,

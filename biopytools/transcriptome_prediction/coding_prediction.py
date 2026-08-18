@@ -4,6 +4,8 @@
 
 from pathlib import Path
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class TransDecoderPredictor:
     """ TransDecoder编码区预测器|TransDecoder Coding Region Predictor"""
@@ -54,17 +56,15 @@ class TransDecoderPredictor:
         """ 提取长ORF|Extract long ORFs"""
         self.logger.info(" 提取长ORF|Extracting long ORFs")
         
-        # 构建TransDecoder.LongOrfs命令|Build TransDecoder.LongOrfs command
-        cmd = (
-            f"{self.config.transdecoder_longorfs_path} "
-            f"-t {transcripts_file} "
-            f"-m {self.config.transdecoder_min_protein_len} "
-            f"--genetic_code {self.config.transdecoder_genetic_code}"
-        )
+        # 构建TransDecoder.LongOrfs命令(conda 域环境自动包装)|Build TransDecoder.LongOrfs command (auto conda wrap)
+        cmd = build_conda_command(self.config.transdecoder_longorfs_path, [
+            "-t", str(transcripts_file), "-m", str(self.config.transdecoder_min_protein_len),
+            "--genetic_code", self.config.transdecoder_genetic_code,
+        ])
         
         # 添加可选参数|Add optional parameters
         if self.config.transdecoder_complete_orfs_only:
-            cmd += " --complete_orfs_only"
+            cmd.append("--complete_orfs_only")
         
         # 切换到输出目录|Change to output directory
         original_working_dir = self.cmd_runner.working_dir
@@ -93,16 +93,14 @@ class TransDecoderPredictor:
         """ 预测编码区域|Predict coding regions"""
         self.logger.info(" 预测编码区域|Predicting coding regions")
         
-        # 构建TransDecoder.Predict命令|Build TransDecoder.Predict command
-        cmd = (
-            f"{self.config.transdecoder_predict_path} "
-            f"-t {transcripts_file} "
-            f"--genetic_code {self.config.transdecoder_genetic_code}"
-        )
+        # 构建TransDecoder.Predict命令(conda 域环境自动包装)|Build TransDecoder.Predict command (auto conda wrap)
+        cmd = build_conda_command(self.config.transdecoder_predict_path, [
+            "-t", str(transcripts_file), "--genetic_code", self.config.transdecoder_genetic_code,
+        ])
         
         # 添加可选参数|Add optional parameters
         if self.config.transdecoder_complete_orfs_only:
-            cmd += " --single_best_only"
+            cmd.append("--single_best_only")
         
         # 切换到输出目录|Change to output directory
         original_working_dir = self.cmd_runner.working_dir

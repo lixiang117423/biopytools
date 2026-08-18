@@ -6,9 +6,13 @@ VCF重命名工具类|VCF Renamer Utility Classes
 import logging
 import sys
 import os
+import shutil
 import subprocess
 from typing import List
 from pathlib import Path
+
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
 
 
 class VCFRenamerLogger:
@@ -73,6 +77,8 @@ class VCFRenamerChecker:
             logger: 日志对象|Logger object
         """
         self.logger = logger
+        # bcftools路径(功能域环境自动解析)|bcftools path (auto domain env)
+        self.bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
 
     def check_bcftools(self) -> bool:
         """
@@ -81,7 +87,7 @@ class VCFRenamerChecker:
         Returns:
             bcftools是否可用|Whether bcftools is available
         """
-        if subprocess.run(['which', 'bcftools'], capture_output=True).returncode != 0:
+        if not shutil.which(self.bcftools_path):
             self.logger.error("未找到bcftools命令|bcftools command not found")
             self.logger.error("请先安装bcftools|Please install bcftools first:")
             self.logger.error("  conda install -c bioconda bcftools")
@@ -101,8 +107,11 @@ class VCFRenamerChecker:
         self.logger.info("正在提取样品名称...|Extracting sample names...")
 
         try:
+            cmd = build_conda_command(self.bcftools_path, ['query', '-l', vcf_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
-                ['bcftools', 'query', '-l', vcf_file],
+                cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True
@@ -125,8 +134,11 @@ class VCFRenamerChecker:
             是否有效|Whether valid
         """
         try:
+            cmd = build_conda_command(self.bcftools_path, ['index', '-i', vcf_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(
-                ['bcftools', 'index', '-i', vcf_file],
+                cmd,
+                shell=False,
                 capture_output=True,
                 text=True
             )
@@ -147,6 +159,10 @@ class VCFRenamerProcessor:
             logger: 日志对象|Logger object
         """
         self.logger = logger
+        # bcftools路径(功能域环境自动解析)|bcftools path (auto domain env)
+        self.bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+        # bcftools路径(功能域环境自动解析)|bcftools path (auto domain env)
+        self.bcftools_path = get_domain_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
 
     def generate_mapping(self, samples: List[str], prefix: str, mapping_file: str) -> bool:
         """
@@ -189,8 +205,12 @@ class VCFRenamerProcessor:
         self.logger.info("正在重命名样品...|Renaming samples...")
 
         try:
+            cmd = build_conda_command(self.bcftools_path,
+                                      ['reheader', '-s', mapping_file, '-o', output_vcf, input_vcf])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             subprocess.run(
-                ['bcftools', 'reheader', '-s', mapping_file, '-o', output_vcf, input_vcf],
+                cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True
@@ -214,8 +234,11 @@ class VCFRenamerProcessor:
         self.logger.info("正在创建VCF索引...|Creating VCF index...")
 
         try:
+            cmd = build_conda_command(self.bcftools_path, ['index', '-t', vcf_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
             subprocess.run(
-                ['bcftools', 'index', '-t', vcf_file],
+                cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True

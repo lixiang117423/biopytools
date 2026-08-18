@@ -5,9 +5,11 @@
 import os
 import re
 import glob
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Union
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class DepthConfig:
@@ -23,7 +25,8 @@ class DepthConfig:
     threads: int = 88        # 线程数|Number of threads
     
     # samtools参数|samtools parameters
-    samtools_path: str = 'samtools'
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
     quality_threshold: int = 0   # 最小质量值|Minimum quality score
     mapping_quality: int = 0     # 最小比对质量|Minimum mapping quality
     
@@ -51,6 +54,12 @@ class DepthConfig:
         output_dir = Path(self.output_file).parent
         output_dir.mkdir(parents=True, exist_ok=True)
         
+        # 展开工具路径|Expand tool path
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool path
+        self.samtools_path = expand_path(self.samtools_path)
+
         # 解析区间信息|Parse region information
         self.start_pos = None
         self.end_pos = None

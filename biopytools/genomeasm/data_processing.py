@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Tuple
 from .utils import CommandRunner, get_file_stats, estimate_genome_coverage
+from ..common.conda_runner import build_pipeline_command
 
 class DataQualityController:
     """数据质量控制器|Data Quality Controller"""
@@ -53,13 +54,14 @@ class DataQualityController:
         self.logger.info(" 检查HiFi数据质量|Checking HiFi data quality")
         
         # 基本统计
-        stats = get_file_stats(self.config.hifi_reads, self.logger)
+        stats = get_file_stats(self.config.hifi_reads, self.logger, self.config.seqkit_path)
         
         # 估算覆盖度
         coverage = estimate_genome_coverage(
             self.config.hifi_reads, 
             self.config.genome_size, 
-            self.logger
+            self.logger,
+            self.config.seqkit_path
         )
         
         # 读长分布分析
@@ -113,7 +115,12 @@ class DataQualityController:
             if not self.config.skip_fastqc:
                 self.logger.info(f" 运行FastQC质量检查: Hi-C {read_type}")
                 fastqc_output = self.qc_dir / f"hic_{read_type.lower()}_fastqc"
-                cmd = f"fastqc -t {min(self.config.threads, 8)} -o {self.qc_dir} {file_path}"
+                cmd = [
+                    self.config.fastqc_path,
+                    '-t', str(min(self.config.threads, 8)),
+                    '-o', str(self.qc_dir),
+                    file_path,
+                ]
                 self.cmd_runner.run(cmd, f"Hi-C {read_type} FastQC质量检查")
                 
                 results[read_type.lower()] = {
@@ -128,7 +135,7 @@ class DataQualityController:
                 }
             
             # 基本统计（总是运行，速度很快）
-            stats = get_file_stats(file_path, self.logger)
+            stats = get_file_stats(file_path, self.logger, self.config.seqkit_path)
             results[read_type.lower()]['stats'] = stats
         
         # 估算Hi-C覆盖度
@@ -152,13 +159,14 @@ class DataQualityController:
         self.logger.info(" 检查ONT数据质量|Checking ONT data quality")
         
         # 基本统计
-        stats = get_file_stats(self.config.ont_reads, self.logger)
+        stats = get_file_stats(self.config.ont_reads, self.logger, self.config.seqkit_path)
         
         # 估算覆盖度
         coverage = estimate_genome_coverage(
             self.config.ont_reads,
             self.config.genome_size,
-            self.logger
+            self.logger,
+            self.config.seqkit_path
         )
         
         # 读长分布分析
@@ -191,13 +199,18 @@ class DataQualityController:
                 # 条件性运行FastQC质量检查
                 if not self.config.skip_fastqc:
                     self.logger.info(f" 运行FastQC质量检查: NGS {read_type}")
-                    cmd = f"fastqc -t {min(self.config.threads, 8)} -o {self.qc_dir} {file_path}"
+                    cmd = [
+                        self.config.fastqc_path,
+                        '-t', str(min(self.config.threads, 8)),
+                        '-o', str(self.qc_dir),
+                        file_path,
+                    ]
                     self.cmd_runner.run(cmd, f"NGS {read_type} FastQC质量检查")
                 else:
                     self.logger.info(f" 跳过FastQC检查: NGS {read_type} (节省时间)")
                 
                 # 基本统计（总是运行）
-                stats = get_file_stats(file_path, self.logger)
+                stats = get_file_stats(file_path, self.logger, self.config.seqkit_path)
                 results[read_type.lower()] = {
                     'file': file_path,
                     'stats': stats,
@@ -209,7 +222,14 @@ class DataQualityController:
     def _analyze_read_lengths(self, reads_file: str) -> Dict[str, float]:
         """分析读长分布|Analyze read length distribution"""
         try:
-            cmd = f"seqkit fx2tab -l {reads_file}|cut -f2|sort -n"
+            # 方案B: seqkit经build_conda_command解析为域环境二进制, cut/sort保持裸名, 严禁 conda run | conda run
+            # |Solution B: seqkit resolved to domain env binary, cut/sort stay bare; conda run in pipes forbidden
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'fx2tab', '-l', reads_file],
+                ['cut', '-f2'],
+                ['sort', '-n'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             
             lengths = [int(x) for x in result.stdout.strip().split('\n') if x.strip()]

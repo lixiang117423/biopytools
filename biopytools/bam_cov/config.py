@@ -3,9 +3,11 @@ BAM覆盖度统计配置管理模块|BAM Coverage Statistics Configuration Manag
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -41,6 +43,10 @@ class BAMCoverageConfig:
     quiet: bool = False
     dry_run: bool = False
     threads: int = 64  # 线程数|Number of threads
+
+    # 工具路径|Tool paths
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -111,6 +117,12 @@ class BAMCoverageConfig:
 
         if self.min_baseq < 0 or self.min_baseq > 93:
             raise ValueError(f"最小碱基质量必须在0-93之间|Min base quality must be between 0-93: {self.min_baseq}")
+
+        # 展开工具路径|Expand tool path
+        self.samtools_path = expand_path(self.samtools_path)
+
+        # 展开工具路径|Expand tool path
+        self.samtools_path = expand_path(self.samtools_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

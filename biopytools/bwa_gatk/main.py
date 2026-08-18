@@ -162,7 +162,7 @@ def main():
     qc_opts = parser.add_argument_group('质控选项|Quality control options')
     qc_opts.add_argument('--skip-qc', action='store_true',
                         help='跳过质控步骤，直接使用输入数据|Skip QC step, use input data directly')
-    qc_opts.add_argument('--fastp-path', default='fastp',
+    qc_opts.add_argument('--fastp-path', default=None,
                         help='fastp可执行文件路径|fastp executable path')
     qc_opts.add_argument('--qc-threads', type=int, default=12,
                         help='质控线程数|QC threads')
@@ -183,17 +183,19 @@ def main():
 
     # 工具路径|Tool paths (optional)
     tools = parser.add_argument_group('工具路径|Tool paths (optional)')
-    tools.add_argument('--bwa-path', default='bwa',
+    tools.add_argument('--bwa-path', default=None,
                       help='BWA路径|BWA path')
-    tools.add_argument('--samtools-path', default='samtools',
+    tools.add_argument('--samtools-path', default=None,
                       help='SAMtools路径|SAMtools path')
-    tools.add_argument('--gatk-path', default='gatk',
+    tools.add_argument('--gatk-path', default=None,
                       help='GATK路径|GATK path')
     
     args = parser.parse_args()
 
     # 创建并运行流程|Create and run pipeline
-    pipeline = BWAGATKPipeline(
+    # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+    # |Tool paths use config domain-env defaults when not explicitly given
+    pipeline_kwargs = dict(
         reference=args.genome,
         input_path=args.input_path,
         output_dir=args.output_dir,
@@ -204,15 +206,11 @@ def main():
         force_restart=args.force_restart,
         dry_run=args.dry_run,
         verbose=args.verbose,
-        bwa_path=args.bwa_path,
-        samtools_path=args.samtools_path,
-        gatk_path=args.gatk_path,
         snp_qd=args.snp_qd,
         snp_fs=args.snp_fs,
         indel_qd=args.indel_qd,
         # 质控参数|QC parameters
         skip_qc=args.skip_qc,
-        fastp_path=args.fastp_path,
         qc_threads=args.qc_threads,
         qc_quality_threshold=args.qc_quality_threshold,
         qc_min_length=args.qc_min_length,
@@ -222,6 +220,16 @@ def main():
         qc_read2_suffix=args.qc_read2_suffix,
         qc_single_end=args.qc_single_end
     )
+    if args.fastp_path is not None:
+        pipeline_kwargs['fastp_path'] = args.fastp_path
+    if args.bwa_path is not None:
+        pipeline_kwargs['bwa_path'] = args.bwa_path
+    if args.samtools_path is not None:
+        pipeline_kwargs['samtools_path'] = args.samtools_path
+    if args.gatk_path is not None:
+        pipeline_kwargs['gatk_path'] = args.gatk_path
+
+    pipeline = BWAGATKPipeline(**pipeline_kwargs)
     
     pipeline.run()
 

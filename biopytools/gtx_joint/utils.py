@@ -11,6 +11,10 @@ import subprocess
 from pathlib import Path
 from typing import List, Optional
 
+from ..common.conda_runner import build_conda_command
+
+from ..common.conda_runner import build_conda_command
+
 
 class GTXJointLogger:
     """GTX Joint Calling日志管理器|GTX Joint Calling Logger Manager"""
@@ -60,14 +64,16 @@ class GTXJointLogger:
 class GTXJointScanner:
     """GTX Joint Calling文件扫描器|GTX Joint Calling File Scanner"""
 
-    def __init__(self, logger):
+    def __init__(self, logger, config=None):
         """
         初始化扫描器|Initialize scanner
 
         Args:
             logger: 日志对象|Logger object
+            config: 配置对象(提供工具路径)|Config object (provides tool paths)
         """
         self.logger = logger
+        self.config = config
 
     def scan_gvcf_files(self, gvcf_dir: str) -> List[str]:
         """
@@ -129,24 +135,33 @@ class GTXJointScanner:
         """
         return shutil.which('faketime') is not None
 
-    def run_command(self, command: str, description: str = None) -> bool:
+    def run_command(self, command, description: str = None) -> bool:
         """
         执行命令并记录日志|Execute command and log output
 
         Args:
-            command: 要执行的命令|Command to execute
+            command: 要执行的命令(列表或字符串)|Command to execute (list or string)
             description: 命令描述|Command description
 
         Returns:
             是否成功|Whether successful
         """
         if description:
-            self.logger.info(f"{description}|{description}")
+            self.logger.info(f"执行步骤|Executing step: {description}")
+
+        # 列表命令用 shell=False, 字符串命令用 shell=True|List -> shell=False, string -> shell=True
+        if isinstance(command, (list, tuple)):
+            use_shell = False
+            display = ' '.join(str(c) for c in command)
+        else:
+            use_shell = True
+            display = str(command)
+        self.logger.info(f"命令|Command: {display}")
 
         try:
             result = subprocess.run(
                 command,
-                shell=True,
+                shell=use_shell,
                 capture_output=True,
                 text=True,
                 check=True
@@ -182,7 +197,8 @@ class GTXJointScanner:
         self.logger.warning(f"参考基因组索引不存在|Reference index not found: {fai_file}")
         self.logger.info(f"正在创建索引...|Creating index...")
 
-        command = f"samtools faidx {reference}"
+        samtools_path = self.config.samtools_path if self.config else 'samtools'
+        command = build_conda_command(samtools_path, ['faidx', reference])
         if self.run_command(command, f"运行 samtools faidx|Running samtools faidx"):
             self.logger.info(f"索引创建成功|Index created successfully: {fai_file}")
             return True
@@ -236,7 +252,8 @@ class GTXJointScanner:
         Returns:
             是否成功|Whether successful
         """
-        command = f"tabix -p vcf {vcf_file}"
+        tabix_path = self.config.tabix_path if self.config else 'tabix'
+        command = build_conda_command(tabix_path, ['-p', 'vcf', vcf_file])
         if self.run_command(command, f"重建VCF索引|Rebuilding VCF index"):
             self.logger.info(f"索引重建成功|Index rebuilt successfully: {vcf_file}.tbi")
             return True

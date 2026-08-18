@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from .utils import CommandRunner, get_file_stats, format_size
+from ..common.conda_runner import build_conda_command, build_pipeline_command
 
 class AssemblyQualityAssessor:
     """组装质量评估器|Assembly Quality Assessor"""
@@ -57,7 +58,7 @@ class AssemblyQualityAssessor:
                 self.logger.info(f" 分析{assembly_type}组装: {assembly_name}|Analyzing {assembly_type} assembly: {assembly_name}")
                 
                 # 基本统计信息
-                basic_stats = get_file_stats(fasta_file, self.logger)
+                basic_stats = get_file_stats(fasta_file, self.logger, self.config.seqkit_path)
                 
                 # 详细连续性分析
                 continuity_stats = self._calculate_continuity_metrics(fasta_file)
@@ -93,7 +94,7 @@ class AssemblyQualityAssessor:
                     continue
                 
                 # 基本统计
-                basic_stats = get_file_stats(scaffold_file, self.logger)
+                basic_stats = get_file_stats(scaffold_file, self.logger, self.config.seqkit_path)
                 
                 # 挂载质量分析
                 scaffolding_metrics = self._calculate_scaffolding_metrics(scaffold_file)
@@ -115,7 +116,12 @@ class AssemblyQualityAssessor:
         """计算连续性指标|Calculate continuity metrics"""
         try:
             # 获取所有序列长度
-            cmd = f"seqkit fx2tab -l {fasta_file}|cut -f2|sort -nr"
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'fx2tab', '-l', fasta_file],
+                ['cut', '-f2'],
+                ['sort', '-nr'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             
             lengths = [int(x) for x in result.stdout.strip().split('\n') if x.strip()]
@@ -173,7 +179,7 @@ class AssemblyQualityAssessor:
         
         try:
             # 基本完整性指标
-            stats = get_file_stats(fasta_file, self.logger)
+            stats = get_file_stats(fasta_file, self.logger, self.config.seqkit_path)
             if stats and 'sum_len' in stats:
                 assembly_size = int(stats['sum_len'].replace(',', ''))
                 expected_size = self._parse_genome_size_bp(self.config.genome_size)
@@ -229,8 +235,9 @@ class AssemblyQualityAssessor:
         
         try:
             # 获取序列长度信息
-            cmd = f"seqkit fx2tab -l {scaffold_file}"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            cmd = build_conda_command(self.config.seqkit_path, ['fx2tab', '-l', scaffold_file])
+            self.logger.info(f" 命令|Command: {' '.join(cmd)}")
+            result = subprocess.run(cmd, capture_output=True, text=True)
             
             sequences = []
             for line in result.stdout.strip().split('\n'):
@@ -268,14 +275,26 @@ class AssemblyQualityAssessor:
         
         try:
             # 计算N的数量和分布
-            cmd = f"seqkit fx2tab {scaffold_file}|cut -f2|tr -cd 'N'|wc -c"
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'fx2tab', scaffold_file],
+                ['cut', '-f2'],
+                ['tr', '-cd', 'N'],
+                ['wc', '-c'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             total_ns = int(result.stdout.strip()) if result.stdout.strip() else 0
             
             gap_info['total_ns'] = total_ns
             
-            # 计算N区域的数量
-            cmd = f"seqkit fx2tab {scaffold_file}|cut -f2|grep -o 'N\\+'|wc -l"
+            # 计算N区域的数量|Count N regions
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'fx2tab', scaffold_file],
+                ['cut', '-f2'],
+                ['grep', '-o', 'N\\+'],
+                ['wc', '-l'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             gap_regions = int(result.stdout.strip()) if result.stdout.strip() else 0
             
@@ -319,7 +338,10 @@ class AssemblyQualityAssessor:
         
         # 检查BUSCO是否可用
         try:
-            result = subprocess.run(['busco', '--version'], capture_output=True, text=True, timeout=10)
+            result = subprocess.run(
+                build_conda_command(self.config.busco_path, ['--version']),
+                capture_output=True, text=True, timeout=10
+            )
             if result.returncode != 0:
                 self.logger.warning(" BUSCO不可用，跳过BUSCO评估|BUSCO not available, skipping BUSCO assessment")
                 return {}
@@ -359,24 +381,22 @@ class AssemblyQualityAssessor:
         busco_dir = self.qc_dir / "busco" / name
         busco_dir.mkdir(parents=True, exist_ok=True)
         
-        # 构建BUSCO命令
+        # 构建BUSCO命令|Build BUSCO command
         cmd_parts = [
-            'busco',
-            f'-i {fasta_file}',
-            f'-o {name}',
-            '-m genome',
-            f'--out_path {busco_dir.parent}',
-            f'-c {min(self.config.threads, 16)}'  # 限制BUSCO线程数
+            self.config.busco_path,
+            '-i', fasta_file,
+            '-o', name,
+            '-m', 'genome',
+            '--out_path', str(busco_dir.parent),
+            '-c', str(min(self.config.threads, 16)),  # 限制BUSCO线程数|limit BUSCO threads
         ]
         
-        # 添加lineage参数
+        # 添加lineage参数|Add lineage parameter
         if self.config.busco_lineage and self.config.busco_lineage != "auto":
-            cmd_parts.append(f'-l {self.config.busco_lineage}')
+            cmd_parts.extend(['-l', self.config.busco_lineage])
         
-        cmd = " ".join(cmd_parts)
-        
-        # 运行BUSCO (设置较长超时时间)
-        success = self.cmd_runner.run(cmd, f"BUSCO评估 - {name}", timeout=7200)
+        # 运行BUSCO (设置较长超时时间)|Run BUSCO (long timeout)
+        success = self.cmd_runner.run(cmd_parts, f"BUSCO评估 - {name}", timeout=7200)
         
         if not success:
             self.logger.warning(f" BUSCO评估失败: {name}|BUSCO assessment failed: {name}")
@@ -455,12 +475,23 @@ class AssemblyQualityAssessor:
     def _calculate_n_content(self, fasta_file: str) -> float:
         """计算N含量百分比|Calculate N content percentage"""
         try:
-            # 获取总长度和N的数量
-            cmd = f"seqkit stats {fasta_file} -T|tail -n1|cut -f5"
+            # 获取总长度和N的数量|Get total length and N count
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'stats', fasta_file, '-T'],
+                ['tail', '-n1'],
+                ['cut', '-f5'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             total_length = int(result.stdout.strip().replace(',', ''))
             
-            cmd = f"seqkit fx2tab {fasta_file}|cut -f2|tr -cd 'N'|wc -c"
+            cmd = build_pipeline_command([
+                [self.config.seqkit_path, 'fx2tab', fasta_file],
+                ['cut', '-f2'],
+                ['tr', '-cd', 'N'],
+                ['wc', '-c'],
+            ])
+            self.logger.info(f" 命令|Command: {cmd}")
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             n_count = int(result.stdout.strip())
             

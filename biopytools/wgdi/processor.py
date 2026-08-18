@@ -5,6 +5,8 @@ WGDI核心处理器模块|WGDI Core Processor Module
 from pathlib import Path
 from .config import WGDIConfig, DotPlotConfig, CollinearityConfig, CalKsConfig
 from .utils import WGDILogger, CommandRunner, WGDIConfGenerator
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 
 class WGDIProcessor:
@@ -60,8 +62,8 @@ class WGDIProcessor:
 
         self.logger.info(f"配置文件已生成|Configuration file generated: {conf_file}")
 
-        # 构建WGDI命令|Build WGDI command
-        cmd = f"{self.config.wgdi_path} -d {conf_file}"
+        # 构建WGDI命令(conda 域环境自动包装)|Build WGDI command (auto conda domain wrap)
+        cmd = build_conda_command(self.config.wgdi_path, ["-d", str(conf_file)])
 
         # 执行命令|Execute command
         success = self.cmd_runner.run(cmd, "DotPlot分析|DotPlot analysis")
@@ -96,8 +98,8 @@ class WGDIProcessor:
 
         self.logger.info(f"配置文件已生成|Configuration file generated: {conf_file}")
 
-        # 构建WGDI命令|Build WGDI command
-        cmd = f"{self.config.wgdi_path} -icl {conf_file}"
+        # 构建WGDI命令(conda 域环境自动包装)|Build WGDI command (auto conda domain wrap)
+        cmd = build_conda_command(self.config.wgdi_path, ["-icl", str(conf_file)])
 
         # 执行命令|Execute command
         success = self.cmd_runner.run(cmd, "Collinearity分析|Collinearity analysis")
@@ -132,8 +134,8 @@ class WGDIProcessor:
 
         self.logger.info(f"配置文件已生成|Configuration file generated: {conf_file}")
 
-        # 构建WGDI命令|Build WGDI command
-        cmd = f"{self.config.wgdi_path} -ks {conf_file}"
+        # 构建WGDI命令(conda 域环境自动包装)|Build WGDI command (auto conda domain wrap)
+        cmd = build_conda_command(self.config.wgdi_path, ["-ks", str(conf_file)])
 
         # 执行命令|Execute command
         success = self.cmd_runner.run(cmd, "CalKs分析|CalKs analysis")

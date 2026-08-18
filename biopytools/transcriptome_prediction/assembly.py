@@ -4,6 +4,8 @@
 
 from pathlib import Path
 from .utils import CommandRunner, SequencingTypeDetector
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command
 
 class StringTieAssembler:
     """ StringTie转录本重构器|StringTie Transcript Reconstructor"""
@@ -31,21 +33,17 @@ class StringTieAssembler:
             
             self.logger.info(f" 重构转录本|Reconstructing transcripts: {sample_name}")
             
-            # 构建StringTie命令|Build StringTie command
-            cmd = (
-                f"{self.config.stringtie_path} "
-                f"{bam_file} "
-                f"-o {gtf_file} "
-                f"-p {self.config.threads} "
-                f"-m {self.config.stringtie_min_length} "
-                f"-c {self.config.stringtie_min_coverage} "
-                f"-f {self.config.stringtie_min_iso} "
-                f"-l {sample_name}"
-            )
+            # 构建StringTie命令(conda 域环境自动包装)|Build StringTie command (auto conda wrap)
+            cmd = build_conda_command(self.config.stringtie_path, [
+                str(bam_file), "-o", str(gtf_file), "-p", str(self.config.threads),
+                "-m", str(self.config.stringtie_min_length),
+                "-c", str(self.config.stringtie_min_coverage),
+                "-f", str(self.config.stringtie_min_iso), "-l", sample_name,
+            ])
             
             # 添加可选参数|Add optional parameters
             if self.config.stringtie_conservative:
-                cmd += " --conservative"
+                cmd.append("--conservative")
             
             if not self.cmd_runner.run(cmd, f" StringTie转录本重构|StringTie transcript reconstruction: {sample_name}"):
                 return False
@@ -74,15 +72,13 @@ class StringTieAssembler:
         
         self.logger.info(" 合并转录本|Merging transcripts")
         
-        # 构建StringTie merge命令|Build StringTie merge command
-        cmd = (
-            f"{self.config.stringtie_path} --merge "
-            f"{gtf_list_file} "
-            f"-o {merged_gtf} "
-            f"-m {self.config.stringtie_min_length} "
-            f"-c {self.config.stringtie_min_coverage} "
-            f"-F {self.config.stringtie_min_fpkm}"
-        )
+        # 构建StringTie merge命令(conda 域环境自动包装)|Build StringTie merge command (auto conda wrap)
+        cmd = build_conda_command(self.config.stringtie_path, [
+            "--merge", str(gtf_list_file), "-o", str(merged_gtf),
+            "-m", str(self.config.stringtie_min_length),
+            "-c", str(self.config.stringtie_min_coverage),
+            "-F", str(self.config.stringtie_min_fpkm),
+        ])
         
         if not self.cmd_runner.run(cmd, " StringTie转录本合并|StringTie transcript merging"):
             return False

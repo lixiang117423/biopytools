@@ -6,6 +6,14 @@ import os
 from pathlib import Path
 from typing import Optional
 
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
+from ..common.paths import get_domain_tool_path, expand_path
+
 
 class VCFMergerConfig:
     """VCF合并工具配置类|VCF Merger Configuration Class"""
@@ -45,6 +53,26 @@ class VCFMergerConfig:
         self.log_level = log_level
         self.quiet = quiet
         self.verbose = verbose
+
+        # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+        # |Tool path (auto domain env, fallback to bare name via PATH)
+        self.bcftools_path = expand_path(get_domain_tool_path(
+            'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
+
+        # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+        # |Tool path (auto domain env, fallback to bare name via PATH)
+        self.bcftools_path = expand_path(get_domain_tool_path(
+            'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
+
+        # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+        # |Tool path (auto domain env, fallback to bare name via PATH)
+        self.bcftools_path = expand_path(get_domain_tool_path(
+            'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
+
+        # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+        # |Tool path (auto domain env, fallback to bare name via PATH)
+        self.bcftools_path = expand_path(get_domain_tool_path(
+            'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
 
     def validate(self):
         """

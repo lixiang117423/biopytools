@@ -13,6 +13,8 @@ import tempfile
 from pathlib import Path
 from typing import Tuple, Optional, List
 
+from ..common.conda_runner import build_conda_command, run_pipeline
+
 
 class GenomeAnalysisLogger:
     """基因组分析日志管理器|Genome Analysis Logger Manager"""
@@ -70,14 +72,16 @@ class GenomeAnalysisLogger:
 class GenomeScopeRunner:
     """GenomeScope运行器|GenomeScope Runner"""
 
-    def __init__(self, logger):
+    def __init__(self, logger, config):
         """
         初始化运行器|Initialize runner
 
         Args:
             logger: 日志对象|Logger object
+            config: 配置对象|Configuration object
         """
         self.logger = logger
+        self.config = config
 
     def run_jellyfish_count(self, fastq_files: list, output_prefix: str,
                            kmer_size: int, hash_size: str, threads: int) -> bool:
@@ -117,33 +121,34 @@ class GenomeScopeRunner:
             plain_files = [f for f in fastq_files if not f.endswith('.gz')]
 
             if gzip_files:
-                self.logger.info("检测到压缩文件，使用zcat解压缩")
-                cmd = f"zcat {' '.join(gzip_files)} {' '.join(plain_files)}|" \
-                      f"jellyfish count -C -m {kmer_size} -s {hash_size} -t {threads} " \
-                      f"-o {jf_output} /dev/fd/0"
-                self.logger.info(f"命令: {cmd}")
-
-                process = subprocess.Popen(
-                    cmd,
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE
+                self.logger.info("检测到压缩文件，使用zcat解压缩|Detected compressed files, using zcat to decompress")
+                # 方案B(§13.2.2): 管道内禁用 conda run; zcat(系统工具)保持裸名,
+                # jellyfish(域环境二进制)直接调用, 由 run_pipeline 提取实际命令
+                # |Solution B: no conda run in pipeline; zcat (system tool) stays bare,
+                # jellyfish (domain binary) called directly via run_pipeline extraction
+                segments = [
+                    ['zcat'] + gzip_files + plain_files,
+                    [self.config.jellyfish_path, 'count', '-C',
+                     '-m', str(kmer_size),
+                     '-s', hash_size,
+                     '-t', str(threads),
+                     '-o', jf_output,
+                     '/dev/fd/0'],
+                ]
+                success, err = run_pipeline(
+                    segments, self.logger,
+                    "Jellyfish count (压缩输入)|Jellyfish count (gzip input)"
                 )
-                stdout, stderr = process.communicate()
-
-                if process.returncode != 0:
-                    self.logger.error(f"Jellyfish count失败: {stderr.decode('utf-8')}")
+                if not success:
+                    self.logger.error(f"Jellyfish count失败|Jellyfish count failed: {err}")
                     return False
             else:
-                cmd = [
-                    'jellyfish', 'count',
-                    '-C',
-                    '-m', str(kmer_size),
-                    '-s', hash_size,
-                    '-t', str(threads),
-                    '-o', jf_output
-                ] + fastq_files
-                self.logger.info(f"命令: {' '.join(cmd)}")
+                cmd = build_conda_command(
+                    self.config.jellyfish_path,
+                    ['count', '-C', '-m', str(kmer_size), '-s', hash_size,
+                     '-t', str(threads), '-o', jf_output] + fastq_files
+                )
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
                 result = subprocess.run(
                     cmd,
@@ -152,7 +157,7 @@ class GenomeScopeRunner:
                 )
 
                 if result.returncode != 0:
-                    self.logger.error(f"Jellyfish count失败: {result.stderr}")
+                    self.logger.error(f"Jellyfish count失败|Jellyfish count failed: {result.stderr}")
                     return False
 
             self.logger.info("Jellyfish count步骤成功完成")
@@ -187,12 +192,11 @@ class GenomeScopeRunner:
             return True
 
         try:
-            cmd = [
-                'jellyfish', 'histo',
-                '-t', str(threads),
-                jf_file
-            ]
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            cmd = build_conda_command(
+                self.config.jellyfish_path,
+                ['histo', '-t', str(threads), jf_file]
+            )
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             with open(histo_file, 'w') as f:
                 result = subprocess.run(
@@ -203,7 +207,7 @@ class GenomeScopeRunner:
                 )
 
             if result.returncode != 0:
-                self.logger.error(f"Jellyfish histo失败: {result.stderr}")
+                self.logger.error(f"Jellyfish histo失败|Jellyfish histo failed: {result.stderr}")
                 return False
 
             self.logger.info("Jellyfish histo步骤成功完成")
@@ -251,19 +255,12 @@ class GenomeScopeRunner:
                 self.logger.warning("已有结果中未能提取kcov值")
 
         try:
-            # 检查genomescope2命令是否可用|Check if genomescope2 command is available
-            genomescope2_cmd = self._find_genomescope2()
-            if not genomescope2_cmd:
-                self.logger.error("未找到genomescope2命令|genomescope2 command not found")
-                self.logger.error("请安装: conda create -n genomescope2_v.2.1.0 -c conda-forge genomescope2")
-                return None
-
             self.logger.info(f"Histogram文件|Histogram file: {histo_file_abs}")
             self.logger.info(f"输出目录|Output directory: {output_dir_abs}")
 
-            # 构建genomescope2命令|Build genomescope2 command
-            cmd = [
-                genomescope2_cmd,
+            # 构建genomescope2命令(经build_conda_command包装, 自动检测conda环境)
+            # |Build genomescope2 command (wrapped via build_conda_command)
+            args = [
                 '-i', histo_file_abs,
                 '-o', output_dir_abs,
                 '-k', str(kmer_size),
@@ -272,11 +269,13 @@ class GenomeScopeRunner:
 
             # 添加可选参数|Add optional parameters
             if max_kmer_cov > 0:
-                cmd.extend(['-m', str(max_kmer_cov)])
+                args.extend(['-m', str(max_kmer_cov)])
+
+            cmd = build_conda_command(self.config.genomescope2_path, args)
 
             self.logger.info(f"GenomeScope 2.0分析|GenomeScope 2.0 analyzing: {histo_file_abs}")
             self.logger.info(f"参数|Parameters: k={kmer_size}, p={ploidy}, outdir={output_dir_abs}")
-            self.logger.debug(f"命令|Command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -307,33 +306,6 @@ class GenomeScopeRunner:
         except Exception as e:
             self.logger.error(f"运行GenomeScope时出错|Error running GenomeScope: {str(e)}", exc_info=True)
             return None
-
-    def _find_genomescope2(self) -> Optional[str]:
-        """
-        查找genomescope2命令|Find genomescope2 command
-
-        Returns:
-            genomescope2命令路径或None|genomescope2 command path or None
-        """
-        # 方法1: 直接使用genomescope2命令|Method 1: Use genomescope2 command directly
-        try:
-            result = subprocess.run(['which', 'genomescope2'], capture_output=True, text=True, check=True)
-            if result.stdout.strip():
-                return 'genomescope2'
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            pass
-
-        # 方法2: 检查conda环境|Method 2: Check conda environment
-        conda_envs = [
-            os.path.expanduser('~/miniforge3/envs/genomescope2_v.2.1.0'),
-        ]
-
-        for env_path in conda_envs:
-            genomescope2_path = os.path.join(env_path, 'bin', 'genomescope2')
-            if os.path.exists(genomescope2_path):
-                return genomescope2_path
-
-        return None
 
     def _extract_kcov(self, output_dir: str) -> Optional[float]:
         """
@@ -397,14 +369,16 @@ class GenomeScopeRunner:
 class SmudgeplotRunner:
     """Smudgeplot运行器|Smudgeplot Runner"""
 
-    def __init__(self, logger):
+    def __init__(self, logger, config):
         """
         初始化运行器|Initialize runner
 
         Args:
             logger: 日志对象|Logger object
+            config: 配置对象|Configuration object
         """
         self.logger = logger
+        self.config = config
 
     def run_fastk(self, fastq_files: list, fastk_table: str,
                   kmer_size: int, threads: int, memory: str = "16G",
@@ -459,7 +433,9 @@ class SmudgeplotRunner:
                 if fastq_file.endswith('.gz'):
                     # 解压到临时目录|Decompress to temp directory
                     decompressed_file = os.path.join(temp_base_dir, os.path.basename(fastq_file[:-3]))
-                    self.logger.info(f"解压文件到临时目录: {fastq_file} -> {decompressed_file}")
+                    self.logger.info(f"解压文件到临时目录|Decompress to temp dir: {fastq_file} -> {decompressed_file}")
+                    # zcat为系统工具, 保持裸名(非conda工具)|zcat is a system tool, keep bare name
+                    self.logger.info(f"命令|Command: zcat {fastq_file}")
                     with open(decompressed_file, 'wb') as f_out:
                         result = subprocess.run(
                             ['zcat', fastq_file],
@@ -467,7 +443,7 @@ class SmudgeplotRunner:
                             stderr=subprocess.PIPE
                         )
                         if result.returncode != 0:
-                            self.logger.error(f"解压失败: {result.stderr.decode()}")
+                            self.logger.error(f"解压失败|Decompress failed: {result.stderr.decode()}")
                             return False
                     decompressed_files.append(decompressed_file)
                 else:
@@ -476,19 +452,17 @@ class SmudgeplotRunner:
             # 使用解压后的文件（如果有）|Use decompressed files (if any)
             fastq_files_to_use = decompressed_files if decompressed_files else fastq_files
 
-            # 构建FastK命令
+            # 构建FastK命令(经build_conda_command包装, 自动检测conda环境)
+            # |Build FastK command (wrapped via build_conda_command)
             # FastK的参数格式：-t threads -k kmer_size -M memory -T threads
             # 参数和值需要连在一起，如 -t12 -k21 -M16 -T12
-            cmd = [
-                'FastK',
-                '-v',
-                f'-t{threads}',
-                f'-k{kmer_size}',
-                f'-M{memory_int}',
-                f'-T{threads}',
-            ] + fastq_files_to_use + [f'-N{fastk_table}']
+            cmd = build_conda_command(
+                self.config.fastk_path,
+                ['-v', f'-t{threads}', f'-k{kmer_size}', f'-M{memory_int}', f'-T{threads}']
+                + fastq_files_to_use + [f'-N{fastk_table}']
+            )
 
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -497,7 +471,7 @@ class SmudgeplotRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"FastK失败: {result.stderr}")
+                self.logger.error(f"FastK失败|FastK failed: {result.stderr}")
                 # 清理临时文件|Clean up temp files
                 shutil.rmtree(temp_base_dir, ignore_errors=True)
                 return False
@@ -594,16 +568,20 @@ class SmudgeplotRunner:
             self.logger.info("如需重新运行，请删除现有文件")
         else:
             try:
-                # 步骤1: 运行smudgeplot hetmers
-                cmd = [
-                    'smudgeplot', 'hetmers',
-                    '-L', str(threshold),  # 使用kcov的50%作为错误k-mer下限阈值
-                    '-t', str(threads),
-                    '-o', hetmers_output,
-                    '--verbose',
-                    fastk_table
-                ]
-                self.logger.info(f"命令: {' '.join(cmd)}")
+                # 步骤1: 运行smudgeplot hetmers(经build_conda_command包装)
+                # |Step 1: run smudgeplot hetmers (wrapped via build_conda_command)
+                cmd = build_conda_command(
+                    self.config.smudgeplot_path,
+                    [
+                        'hetmers',
+                        '-L', str(threshold),  # 使用kcov的50%作为错误k-mer下限阈值
+                        '-t', str(threads),
+                        '-o', hetmers_output,
+                        '--verbose',
+                        fastk_table
+                    ]
+                )
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
                 result = subprocess.run(
                     cmd,
@@ -612,7 +590,7 @@ class SmudgeplotRunner:
                 )
 
                 if result.returncode != 0:
-                    self.logger.error(f"Smudgeplot hetmers失败: {result.stderr}")
+                    self.logger.error(f"Smudgeplot hetmers失败|Smudgeplot hetmers failed: {result.stderr}")
                     return False
 
                 # 记录命令输出|Log command output
@@ -653,13 +631,16 @@ class SmudgeplotRunner:
             return True
 
         try:
-            cmd = [
-                'smudgeplot', 'all',
-                '-o', plot_output_prefix,
-                '-cov', str(kcov),  # 使用从GenomeScope提取的kcov值
-                smu_file
-            ]
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            cmd = build_conda_command(
+                self.config.smudgeplot_path,
+                [
+                    'all',
+                    '-o', plot_output_prefix,
+                    '-cov', str(kcov),  # 使用从GenomeScope提取的kcov值
+                    smu_file
+                ]
+            )
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -668,7 +649,7 @@ class SmudgeplotRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"Smudgeplot all失败: {result.stderr}")
+                self.logger.error(f"Smudgeplot all失败|Smudgeplot all failed: {result.stderr}")
                 return False
 
             self.logger.info("Smudgeplot分析成功完成")

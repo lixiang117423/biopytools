@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Optional, List
 from .utils import CommandRunner, DependencyChecker
+from ..common.conda_runner import build_conda_command, check_tools
 
 
 class TranscriptomeAssembler:
@@ -35,19 +36,22 @@ class TranscriptomeAssembler:
         """检查依赖软件|Check dependency software"""
         self.logger.info("检查依赖软件|Checking dependency software")
 
-        # Java必需|Java is required
+        # Java必需|Java is required (系统工具|system tool)
         if not self.dep_checker.check_java():
             raise RuntimeError("Java未安装，请安装Java 11或17|Java is not installed. Please install Java 11 or 17")
 
+        # minimap2必需, ntCard可选|minimap2 required, ntCard optional
+        missing = check_tools([
+            (self.config.minimap2_path, 'minimap2', ['--version']),
+            (self.config.ntcard_path, 'ntCard', ['--version']),
+        ], self.logger)
+
         # minimap2必需|minimap2 is required
-        if not self.dep_checker.check_minimap2():
+        if 'minimap2' in missing:
             raise RuntimeError(
                 "minimap2未安装，请安装: conda install -c bioconda minimap2|"
                 "minimap2 is not installed. Please install: conda install -c bioconda minimap2"
             )
-
-        # ntCard可选|ntCard is optional
-        self.dep_checker.check_ntcard()
 
     def _locate_rnabloom_jar(self) -> str:
         """定位RNA-Bloom JAR文件|Locate RNA-Bloom JAR file
@@ -179,7 +183,7 @@ class TranscriptomeAssembler:
         # 执行RNA-Bloom|Execute RNA-Bloom
         if self.rnabloom_jar == "rnabloom":
             # 使用conda安装的rnabloom命令|Use conda-installed rnabloom command
-            cmd = "rnabloom " + " ".join(args)
+            cmd = build_conda_command(self.config.rnabloom_path, args)
             success = self.cmd_runner.run(cmd, "转录组组装|Transcriptome assembly")
         else:
             # 使用JAR文件|Use JAR file

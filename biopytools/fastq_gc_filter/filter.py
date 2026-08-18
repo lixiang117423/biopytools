@@ -9,6 +9,8 @@ import os
 from pathlib import Path
 from typing import Tuple
 
+from ..common.conda_runner import build_conda_command, run_pipeline
+
 
 class FastqFilter:
     """FASTQ文件过滤器|FASTQ File Filter"""
@@ -95,43 +97,25 @@ class FastqFilter:
         try:
             # 步骤1: 使用seqkit提取read名称、GC含量和长度|Step 1: Extract read names, GC content and length using seqkit
             self.logger.info(f"步骤1: 提取GC含量和序列长度|Step 1: Extracting GC content and sequence length")
-
-            cmd_seqkit = [
-                'seqkit', 'fx2tab',
-                '-n',  # 只输出名称和序列|Only output name and sequence
-                '-l',  # 输出序列长度|Output sequence length
-                '-g',  # 输出GC含量|Output GC content
-                self.config.input_file
-            ]
-
-            # 步骤2: 使用awk过滤符合条件的read名称|Step 2: Use awk to filter read names
             self.logger.info(f"步骤2: 过滤符合条件的reads|Step 2: Filtering qualified reads")
 
             awk_filter = self._build_awk_filter()
 
-            # 执行seqkit + awk,生成read名称列表|Execute seqkit + awk, generate read name list
-            with open(tmp_list_path, 'w') as f_out:
-                proc1 = subprocess.Popen(cmd_seqkit, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                proc2 = subprocess.Popen(
+            # 执行seqkit + awk管道,生成read名称列表|Execute seqkit + awk pipeline to generate read name list
+            # 方案B: seqkit经build_conda_command解析为域环境二进制, awk保持裸名, 严禁 conda run | conda run
+            # |Solution B: seqkit resolved to domain env binary, awk stays bare; conda run in pipes is forbidden
+            success, err = run_pipeline(
+                [
+                    [self.config.seqkit_path, 'fx2tab', '-n', '-l', '-g', self.config.input_file],
                     ['awk', awk_filter],
-                    stdin=proc1.stdout,
-                    stdout=f_out,
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
-
-                # 等待命令完成|Wait for commands to complete
-                proc1.stdout.close()
-                _, stderr1 = proc1.communicate()
-                _, stderr2 = proc2.communicate()
-
-                if proc1.returncode != 0:
-                    self.logger.error(f"seqkit执行失败|seqkit execution failed: {stderr1.decode()}")
-                    return 0, 0
-
-                if proc2.returncode != 0:
-                    self.logger.error(f"awk执行失败|awk execution failed: {stderr2}")
-                    return 0, 0
+                ],
+                self.logger,
+                "seqkit提取GC含量+awk过滤|seqkit GC extraction + awk filtering",
+                output_file=tmp_list_path,
+            )
+            if not success:
+                self.logger.error(f"seqkit|awk管道执行失败|seqkit|awk pipeline failed: {err}")
+                return 0, 0
 
             # 统计通过筛选的read数量|Count passed reads
             with open(tmp_list_path, 'r') as f:
@@ -140,20 +124,22 @@ class FastqFilter:
             self.logger.info(f"步骤3: 提取序列(使用多线程加速)|Step 3: Extracting sequences (multi-threaded)")
 
             # 步骤3: 使用seqkit grep根据read名称列表提取序列|Step 3: Use seqkit grep to extract sequences by read name list
-            cmd_extract = [
-                'seqkit', 'grep',
+            cmd_extract = build_conda_command(self.config.seqkit_path, [
+                'grep',
                 '-f', tmp_list_path,  # 从文件读取read名称列表|Read read name list from file
                 '-n',  # 只匹配序列名称行|Only match sequence name lines
                 '-j', '24',  # 使用24线程加速|Use 24 threads for acceleration
-                self.config.input_file
-            ]
+                self.config.input_file,
+            ])
 
             # 如果输出文件是gzip格式,添加-o参数|If output is gzip format, add -o parameter
             if self.config.output_file.endswith('.gz'):
                 cmd_extract.extend(['-o', self.config.output_file])
+                self.logger.info(f"命令|Command: {' '.join(cmd_extract)}")
                 result = subprocess.run(cmd_extract, capture_output=True, text=True)
             else:
                 # 直接输出到文件|Output directly to file
+                self.logger.info(f"命令|Command: {' '.join(cmd_extract)}")
                 with open(self.config.output_file, 'w') as f_out:
                     result = subprocess.run(cmd_extract, stdout=f_out, stderr=subprocess.PIPE, text=True)
 
@@ -162,7 +148,8 @@ class FastqFilter:
                 return 0, 0
 
             # 获取总reads数(使用seqkit stats)|Get total reads count (using seqkit stats)
-            cmd_stats = ['seqkit', 'stats', self.config.input_file]
+            cmd_stats = build_conda_command(self.config.seqkit_path, ['stats', self.config.input_file])
+            self.logger.info(f"命令|Command: {' '.join(cmd_stats)}")
             result_stats = subprocess.run(cmd_stats, capture_output=True, text=True, check=True)
 
             # 解析输出获取total reads|Parse output to get total reads

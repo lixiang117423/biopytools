@@ -11,6 +11,8 @@ import glob
 from .config import Fastq2VcfGTXConfig
 from .utils import CommandRunner, FileManager, CheckpointManager, Fastq2VcfGTXLogger
 from ..common.paths import resolve_legacy_path
+from ..common.conda_runner import build_pipeline_command
+from ..common.conda_runner import build_pipeline_command
 
 
 def _checkpoint_manager(config, logger) -> CheckpointManager:
@@ -773,8 +775,13 @@ class VariantFilter:
             for vcf_file in FileManager.find_files(self.config.filter_dir, "*.vcf.gz"):
                 if os.path.exists(vcf_file):
                     try:
+                        # 管道按方案B处理(bcftools 域环境二进制 + 系统工具 wc)|Pipeline solution B (bcftools domain binary + system tool wc)
+                        pipeline = build_pipeline_command([
+                            [self.config.bcftools_path, "view", "-H", vcf_file],
+                            ["wc", "-l"],
+                        ])
                         count = subprocess.check_output(
-                            f"bcftools view -H {vcf_file}|wc -l",
+                            pipeline,
                             shell=True,
                             text=True
                         ).strip()

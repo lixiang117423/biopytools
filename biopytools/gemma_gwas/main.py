@@ -148,7 +148,9 @@ def step2_filter_common_samples(config: AnalysisConfig,
         pheno_with_header,
         "genotype",
         config.threads,
-        logger
+        logger,
+        bcftools_path=config.bcftools_path,
+        plink_path=config.plink_path,
     )
 
     # 恢复原工作目录
@@ -192,12 +194,13 @@ def step3_quality_control(config: AnalysisConfig,
         os.chdir(original_dir)
         return True
 
-    # 构建质控命令
-    qc_args = ' '.join(config.get_plink_qc_args())
-    cmd = f"plink --bfile genotype " \
-          f"--allow-extra-chr {qc_args} " \
-          f"--make-bed --out genotype_qc " \
-          f"--threads {config.threads}"
+    # 构建质控命令|Build quality control command
+    qc_tokens = []
+    for a in config.get_plink_qc_args():
+        qc_tokens.extend(a.split())
+    args = ["--bfile", "genotype", "--allow-extra-chr"] + qc_tokens + \
+           ["--make-bed", "--out", "genotype_qc", "--threads", str(config.threads)]
+    cmd = [config.plink_path] + args
 
     log_file = "plink_qc.log"
     success, error = utils.run_command(cmd, log_file, logger)
@@ -296,10 +299,10 @@ def step4_pca_analysis(config: AnalysisConfig,
     original_dir = os.getcwd()
     os.chdir(config.outdir)
 
-    cmd = f"plink --bfile genotype " \
-          f"--pca {config.n_pca} " \
-          f"--out pca --allow-extra-chr " \
-          f"--threads {config.threads}"
+    cmd = [config.plink_path, "--bfile", "genotype",
+           "--pca", str(config.n_pca),
+           "--out", "pca", "--allow-extra-chr",
+           "--threads", str(config.threads)]
 
     log_file = "plink_pca.log"
     success, error = utils.run_command(cmd, log_file, logger)
@@ -389,13 +392,13 @@ def step5_kinship_matrix(config: AnalysisConfig,
     os.chdir(config.outdir)
 
     # 构建GEMMA命令（GEMMA会自动创建output目录）
-    qc_args = ' '.join(config.get_gemma_qc_args())
-    cmd = f"{config.gemma_path} -bfile genotype " \
-          f"-gk {config.gemma.gk_method} " \
-          f"{qc_args} " \
-          f"-o kinship"
-
-    logger.info(f"Running command: {cmd}")
+    # |Build GEMMA command (GEMMA auto-creates output dir)
+    qc_tokens = []
+    for a in config.get_gemma_qc_args():
+        qc_tokens.extend(a.split())
+    args = ["-bfile", "genotype",
+            "-gk", str(config.gemma.gk_method)] + qc_tokens + ["-o", "kinship"]
+    cmd = [config.gemma_path] + args
 
     log_file = "gemma_kinship.log"
     success, error = utils.run_command(cmd, log_file, logger)
@@ -458,19 +461,21 @@ def step6_gwas_analysis(config: AnalysisConfig,
 
         logger.info(f"Analyzing phenotype {i}/{n_phenotypes}: {pheno_name}")
 
-        # 构建GEMMA LMM命令
-        qc_args = ' '.join(config.get_gemma_qc_args())
-        notsnp_arg = "-notsnp" if config.gemma.notsnp else ""
+        # 构建GEMMA LMM命令|Build GEMMA LMM command
+        qc_tokens = []
+        for a in config.get_gemma_qc_args():
+            qc_tokens.extend(a.split())
 
-        cmd = f"{config.gemma_path} -bfile genotype " \
-              f"-k output/kinship.cXX.txt " \
-              f"-lmm {config.gemma.lmm_method} " \
-              f"-p {pheno_no_header} " \
-              f"-n {pheno_col} " \
-              f"-c {covariate_file} " \
-              f"{qc_args} " \
-              f"{notsnp_arg} " \
-              f"-o {pheno_name}_lmm"
+        args = ["-bfile", "genotype",
+                "-k", "output/kinship.cXX.txt",
+                "-lmm", str(config.gemma.lmm_method),
+                "-p", pheno_no_header,
+                "-n", str(pheno_col),
+                "-c", covariate_file] + qc_tokens
+        if config.gemma.notsnp:
+            args.append("-notsnp")
+        args += ["-o", f"{pheno_name}_lmm"]
+        cmd = [config.gemma_path] + args
 
         log_file = f"gemma_{pheno_name}.log"
         success, error = utils.run_command(cmd, log_file, logger)
@@ -583,15 +588,18 @@ def main():
     logger.info("Version: 1.0.0")
     logger.info("=" * 60)
 
-    # 创建配置
-    config = AnalysisConfig(
+    # 创建配置(工具路径默认None时不传, 保持配置默认值)
+    # |Create config (None tool path keeps config default)
+    config_kwargs = dict(
         vcf=args.input,
         pheno=args.pheno,
         outdir=args.output_dir,
         n_pca=args.n_pca,
         threads=args.threads,
-        gemma_path=args.gemma
     )
+    if args.gemma is not None:
+        config_kwargs['gemma_path'] = args.gemma
+    config = AnalysisConfig(**config_kwargs)
 
     # 设置质控参数
     if args.no_qc:
@@ -647,7 +655,7 @@ def main():
             sys.exit(1)
 
         # 检查依赖
-        deps_ok, missing = utils.check_dependencies(logger)
+        deps_ok, missing = utils.check_dependencies(config, logger)
         if not deps_ok:
             logger.critical(f"Missing dependencies: {missing}")
             sys.exit(1)
@@ -745,7 +753,7 @@ def parse_arguments():
     optional.add_argument('--threads', type=int, default=12,
                          help='线程数|Number of threads')
     optional.add_argument('--gemma',
-                         default='~/.local/bin/gemma',
+                         default=None,
                          help='GEMMA程序路径|GEMMA program path')
 
     # PLINK质控参数|PLINK quality control parameters

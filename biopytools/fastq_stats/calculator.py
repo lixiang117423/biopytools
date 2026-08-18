@@ -7,6 +7,7 @@ import os
 import subprocess
 import tempfile
 from typing import Dict, List, Optional
+from ..common.conda_runner import build_conda_command
 from .utils import format_number, format_size, get_file_size
 
 
@@ -40,10 +41,14 @@ class FastqStatsCalculator:
             tmp_file = tmp.name
 
         try:
-            # 构建seqkit命令|Build seqkit command
-            cmd = ['seqkit', 'stats'] + files + ['-T', '-j', str(self.config.threads)]
+            # 构建seqkit命令(conda环境自动包装)|Build seqkit command (auto conda wrap)
+            cmd = build_conda_command(
+                self.config.seqkit_path,
+                ['stats'] + files + ['-T', '-j', str(self.config.threads)],
+            )
 
             self.logger.info(f"运行seqkit命令|Running seqkit command with {len(files)} files")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             # 运行seqkit|Run seqkit
             with open(tmp_file, 'w') as f:

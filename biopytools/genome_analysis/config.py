@@ -4,53 +4,60 @@ Genome Analysis Configuration
 """
 
 import os
+from dataclasses import dataclass, field
+from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
+@dataclass
 class GenomeAnalysisConfig:
     """基因组分析配置类|Genome Analysis Configuration Class"""
 
-    def __init__(
-        self,
-        input_dir: str,
-        output_dir: str,
-        read_length: int = 150,
-        kmer_size: int = 21,
-        threads: int = 64,
-        hash_size: str = "10G",
-        max_kmer_cov: int = 1000,
-        read1_suffix: str = "*_1.clean.fq.gz",
-        skip_smudgeplot: bool = False,
-        ploidy: int = 2
-    ):
-        """
-        初始化配置|Initialize configuration
+    # 必需参数|Required parameters
+    input_dir: str
+    output_dir: str
 
-        Args:
-            input_dir: 输入FASTQ文件目录|Input FASTQ directory
-            output_dir: 输出目录|Output directory
-            read_length: 测序读长 (默认: 150)|Read length (default: 150)
-            kmer_size: K-mer大小 (默认: 21)|K-mer size (default: 21)
-            threads: 线程数 (默认: 64)|Number of threads (default: 64)
-            hash_size: Jellyfish哈希表大小 (默认: 10G)|Jellyfish hash size (default: 10G)
-            max_kmer_cov: GenomeScope最大覆盖度 (默认: 1000)|Max k-mer coverage (default: 1000)
-            read1_suffix: Read1文件后缀模式 (默认: *_1.clean.fq.gz)|Read1 file suffix pattern (default: *_1.clean.fq.gz)
-            skip_smudgeplot: 跳过Smudgeplot倍性分析 (默认: False)|Skip Smudgeplot ploidy analysis (default: False)
-            ploidy: 基因组倍性 1-6 (默认: 2)|Genome ploidy level 1-6 (default: 2)
-        """
-        self.input_dir = input_dir
-        self.output_dir = output_dir
-        self.read_length = read_length
-        self.kmer_size = kmer_size
-        self.threads = threads
-        self.hash_size = hash_size
-        self.max_kmer_cov = max_kmer_cov
-        self.read1_suffix = read1_suffix
-        self.skip_smudgeplot = skip_smudgeplot
-        self.ploidy = ploidy  # 用户指定的倍性（1-6），如果为None则由Smudgeplot推断
+    # 可选参数|Optional parameters
+    read_length: int = 150
+    kmer_size: int = 21
+    threads: int = 64
+    hash_size: str = "10G"
+    max_kmer_cov: int = 1000
+    read1_suffix: str = "*_1.clean.fq.gz"
+    skip_smudgeplot: bool = False
+    ploidy: int = 2
 
-        # 运行时变量|Runtime variables
-        self.kcov = None  # GenomeScope计算得到的k-mer coverage
-        self.inferred_ploidy = None  # Smudgeplot推断的倍性（如果未指定）
+    # 工具路径|Tool paths
+    # 域环境映射见 biopytools/common/env_map.py (jellyfish/genomescope2 归 asm 域;
+    # FastK/smudgeplot 不在映射表, 保持裸命令名作为 legacy 回退)
+    # |Domain mapping in common/env_map.py (jellyfish/genomescope2 -> asm; FastK/
+    # smudgeplot not mapped, keep bare command name as legacy fallback)
+    jellyfish_path: str = field(
+        default_factory=lambda: get_domain_tool_path('jellyfish', 'jellyfish', 'JELLYFISH_PATH')
+    )
+    genomescope2_path: str = field(
+        default_factory=lambda: get_domain_tool_path('genomescope2', 'genomescope2', 'GENOMESCOPE2_PATH')
+    )
+    fastk_path: str = field(
+        default_factory=lambda: get_domain_tool_path('FastK', 'FastK', 'FASTK_PATH')
+    )
+    smudgeplot_path: str = field(
+        default_factory=lambda: get_domain_tool_path('smudgeplot', 'smudgeplot', 'SMUDGEPLOT_PATH')
+    )
+
+    # 运行时变量|Runtime variables
+    kcov: Optional[float] = field(default=None, init=False)
+    inferred_ploidy: Optional[int] = field(default=None, init=False)
+
+    def __post_init__(self):
+        """初始化后处理|Post-initialization processing"""
+        # 展开所有工具路径(含~的域环境路径展开为绝对路径; 裸命令名保持原样)
+        # |Expand tool paths (~ -> absolute; bare command names stay as-is)
+        self.jellyfish_path = expand_path(self.jellyfish_path)
+        self.genomescope2_path = expand_path(self.genomescope2_path)
+        self.fastk_path = expand_path(self.fastk_path)
+        self.smudgeplot_path = expand_path(self.smudgeplot_path)
 
     def validate(self):
         """

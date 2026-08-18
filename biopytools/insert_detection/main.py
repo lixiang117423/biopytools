@@ -75,14 +75,14 @@ def parse_arguments():
     # 工具路径|Tool paths
     parser.add_argument(
         '--bowtie2-path',
-        default='bowtie2',
-        help='Bowtie2可执行文件路径|Bowtie2 executable path'
+        default=None,
+        help='Bowtie2可执行文件路径(默认域环境自动解析)|Bowtie2 executable path (default: auto domain env)'
     )
 
     parser.add_argument(
         '--samtools-path',
-        default='samtools',
-        help='samtools可执行文件路径|samtools executable path'
+        default=None,
+        help='samtools可执行文件路径(默认域环境自动解析)|samtools executable path (default: auto domain env)'
     )
 
     # FASTQ文件模式|FASTQ file patterns
@@ -126,7 +126,9 @@ def main():
 
     try:
         # 创建配置|Create configuration
-        config = InsertDetectionConfig(
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        config_kwargs = dict(
             genome=args.genome,
             insert_sequence=args.insert,
             fastq_dir=args.fastq_dir,
@@ -136,11 +138,15 @@ def main():
             min_clip=args.min_clip,
             min_support=args.min_support,
             score_threshold=args.score_threshold,
-            bowtie2_path=args.bowtie2_path,
-            samtools_path=args.samtools_path,
             read1_suffix=args.read1_suffix,
             read2_suffix=args.read2_suffix
         )
+        if args.bowtie2_path is not None:
+            config_kwargs['bowtie2_path'] = args.bowtie2_path
+        if args.samtools_path is not None:
+            config_kwargs['samtools_path'] = args.samtools_path
+
+        config = InsertDetectionConfig(**config_kwargs)
 
         # 验证配置|Validate configuration
         config.validate()

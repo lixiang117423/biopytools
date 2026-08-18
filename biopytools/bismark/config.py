@@ -6,6 +6,8 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from ..common.paths import get_domain_tool_path, expand_path
+
 @dataclass
 class BismarkConfig:
     """Bismark流程配置类|Bismark Pipeline Configuration Class"""
@@ -19,10 +21,16 @@ class BismarkConfig:
     no_overlap: bool = True
     pattern: str = '_1_clean.fq.gz'
     
-    bismark_path: str = 'bismark'
-    bismark_genome_preparation_path: str = 'bismark_genome_preparation'
-    bowtie2_path: str = 'bowtie2'
-    bismark_methylation_extractor_path: str = 'bismark_methylation_extractor'
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    bismark_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bismark', 'bismark', 'BISMARK_PATH'))
+    bismark_genome_preparation_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bismark_genome_preparation', 'bismark_genome_preparation', 'BISMARK_GENOME_PREPARATION_PATH'))
+    bowtie2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bowtie2', 'bowtie2', 'BOWTIE2_PATH'))
+    bismark_methylation_extractor_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bismark_methylation_extractor', 'bismark_methylation_extractor', 'BISMARK_METHYLATION_EXTRACTOR_PATH'))
     
     genome_dir: str = field(init=False) 
     mapping_dir: str = field(init=False)
@@ -38,6 +46,12 @@ class BismarkConfig:
         self.mapping_dir = os.path.join(self.output_dir, "mapping")
         self.result_dir = os.path.join(self.output_dir, "result")
         self.tmp_dir = os.path.join(self.output_dir, "tmp")
+
+        # 展开工具路径|Expand tool paths
+        self.bismark_path = expand_path(self.bismark_path)
+        self.bismark_genome_preparation_path = expand_path(self.bismark_genome_preparation_path)
+        self.bowtie2_path = expand_path(self.bowtie2_path)
+        self.bismark_methylation_extractor_path = expand_path(self.bismark_methylation_extractor_path)
     
     def validate(self):
         errors = []

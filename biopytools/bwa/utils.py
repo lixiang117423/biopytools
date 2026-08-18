@@ -3,12 +3,13 @@ BWA比对工具函数模块|BWA Alignment Utility Functions Module
 """
 
 import logging
-import subprocess
 import sys
 import os
 import glob
 from pathlib import Path
 from typing import List, Tuple
+
+from ..common.conda_runner import CommandRunner, check_tools
 
 class AlignLogger:
     """比对分析日志管理器|Alignment Analysis Logger Manager"""
@@ -55,65 +56,13 @@ class AlignLogger:
         """获取日志器|Get logger"""
         return self.logger
 
-class CommandRunner:
-    """命令执行器|Command Runner"""
-    
-    def __init__(self, logger, working_dir: Path):
-        self.logger = logger
-        self.working_dir = working_dir.resolve()
-    
-    def run(self, cmd: str, description: str = "") -> bool:
-        """执行命令|Execute command"""
-        if description:
-            self.logger.info(f"执行步骤|Executing step: {description}")
-
-        self.logger.info(f"命令|Command: {cmd}")
-
-        try:
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=True,
-                cwd=self.working_dir
-            )
-
-            self.logger.info(f"命令执行成功|Command executed successfully")
-
-            if result.stdout:
-                self.logger.debug(f"标准输出|Stdout: {result.stdout}")
-
-            return True
-
-        except subprocess.CalledProcessError as e:
-            self.logger.error(f"命令执行失败|Command execution failed")
-            self.logger.error(f"错误代码|Error code: {e.returncode}")
-            self.logger.error(f"错误信息|Error message: {e.stderr}")
-            return False
-
 def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
-    logger.info("检查依赖软件|Checking dependencies")
-
-    dependencies = [
-        (config.bwa_path, "BWA"),
-        (config.samtools_path, "SAMtools")
-    ]
-
-    missing_deps = []
-
-    for cmd, name in dependencies:
-        try:
-            result = subprocess.run([cmd, "--version"],
-                                  capture_output=True, text=True, timeout=10)
-            if result.returncode == 0 or name == "BWA":  # BWA returns non-zero for --version
-                version_info = result.stdout.strip() or result.stderr.strip()
-                logger.info(f"{name} 可用|{name} available: {version_info.split()[0] if version_info else 'installed'}")
-            else:
-                missing_deps.append(name)
-        except (subprocess.TimeoutExpired, FileNotFoundError):
-            missing_deps.append(name)
+    missing_deps = check_tools([
+        # BWA --version 返回非零, 视为可用|BWA --version exits non-zero, treat as OK
+        (config.bwa_path, "BWA", ["--version"], True),
+        (config.samtools_path, "SAMtools", ["--version"]),
+    ], logger)
 
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"

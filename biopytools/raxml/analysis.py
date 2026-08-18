@@ -8,6 +8,7 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from .utils import CommandRunner
+from ..common.conda_runner import build_conda_command
 
 class RAxMLAnalyzer:
     """RAxML分析器|RAxML Analyzer"""
@@ -22,16 +23,17 @@ class RAxMLAnalyzer:
         self.logger.info(" 检查序列文件格式|Checking sequence file format")
         
         # 使用RAxML的-f c选项来检查文件|Use RAxML -f c option to check file
-        cmd = (
-            f"{self.config.raxml_path} -f c "
-            f"-s {self.config.sequence_file} "
-            f"-m {self.config.model} "
-            f"-n check_alignment"
-        )
-        
+        args = [
+            "-f", "c",
+            "-s", self.config.sequence_file,
+            "-m", self.config.model,
+            "-n", "check_alignment",
+        ]
+
         if self.config.silent:
-            cmd += " --silent"
-        
+            args.append("--silent")
+
+        cmd = build_conda_command(self.config.raxml_path, args)
         success = self.cmd_runner.run(cmd, "序列文件格式验证|Sequence file format validation")
         
         # 清理临时文件|Clean up temporary files
@@ -71,52 +73,52 @@ class RAxMLAnalyzer:
                 self.config.rapid_bootstrap_seed is not None or
                 self.runs != "1" and self.runs not in ["autoFC", "autoMR", "autoMRE", "autoMRE_IGN"])
     
-    def build_raxml_command(self) -> str:
-        """构建RAxML命令|Build RAxML command"""
+    def build_raxml_command(self) -> List[str]:
+        """构建RAxML命令参数列表(不含 raxml 路径, 由调用方用 build_conda_command 包装)
+        |Build RAxML argument list (without binary path, wrapped by build_conda_command at call site)"""
         self.logger.info(" 构建RAxML命令|Building RAxML command")
         
-        # 基础命令|Basic command
+        # 基础参数|Basic arguments
         cmd = [
-            self.config.raxml_path,
-            f"-s {self.config.sequence_file}",
-            f"-n {self.config.output_name}",
-            f"-m {self.config.model}",
-            f"-w {self.config.output_path.resolve()}"
+            "-s", self.config.sequence_file,
+            "-n", self.config.output_name,
+            "-m", self.config.model,
+            "-w", str(self.config.output_path.resolve()),
         ]
         
         # 算法选择|Algorithm selection
-        cmd.append(f"-f {self.config.algorithm}")
+        cmd += ["-f", self.config.algorithm]
         
         # 添加种子|Add seeds
         parsimony_seed, bootstrap_seed = self.generate_random_seeds()
-        cmd.append(f"-p {parsimony_seed}")
+        cmd += ["-p", str(parsimony_seed)]
         
         # Bootstrap参数|Bootstrap parameters
         if bootstrap_seed:
-            cmd.append(f"-b {bootstrap_seed}")
+            cmd += ["-b", str(bootstrap_seed)]
         
         if self.config.rapid_bootstrap_seed:
-            cmd.append(f"-x {self.config.rapid_bootstrap_seed}")
+            cmd += ["-x", str(self.config.rapid_bootstrap_seed)]
         
         # 运行次数|Number of runs
-        cmd.append(f"-# {self.config.runs}")
+        cmd += ["-#", self.config.runs]
         
         # 线程数|Number of threads
         if "PTHREADS" in self.config.raxml_path.upper():
-            cmd.append(f"-T {self.config.threads}")
+            cmd += ["-T", str(self.config.threads)]
         
         # 树参数|Tree parameters
         if self.config.starting_tree:
-            cmd.append(f"-t {self.config.starting_tree}")
+            cmd += ["-t", self.config.starting_tree]
         
         if self.config.constraint_tree:
-            cmd.append(f"-g {self.config.constraint_tree}")
+            cmd += ["-g", self.config.constraint_tree]
         
         if self.config.outgroup:
-            cmd.append(f"-o {self.config.outgroup}")
+            cmd += ["-o", self.config.outgroup]
         
         # 模型参数|Model parameters
-        cmd.append(f"-c {self.config.categories}")
+        cmd += ["-c", str(self.config.categories)]
         
         if not self.config.rate_het_model:
             cmd.append("-V")
@@ -126,16 +128,16 @@ class RAxMLAnalyzer:
         
         # Bootstrap参数|Bootstrap parameters
         if self.config.bootstrap_convergence:
-            cmd.append(f"-I {self.config.bootstrap_convergence}")
+            cmd += ["-I", self.config.bootstrap_convergence]
         
-        cmd.append(f"-B {self.config.bootstop_threshold}")
+        cmd += ["-B", str(self.config.bootstop_threshold)]
         cmd.append(f"--bootstop-perms={self.config.bootstop_perms}")
         
         if self.config.print_bootstrap_trees:
             cmd.append("-k")
         
         # 性能优化参数|Performance optimization parameters
-        cmd.append(f"-e {self.config.likelihood_epsilon}")
+        cmd += ["-e", str(self.config.likelihood_epsilon)]
         
         if self.config.ml_search_convergence:
             cmd.append("-D")
@@ -156,14 +158,15 @@ class RAxMLAnalyzer:
         if self.config.silent:
             cmd.append("--silent")
         
-        return " ".join(cmd)
+        return cmd
     
     def run_raxml_analysis(self) -> bool:
         """运行RAxML分析|Run RAxML analysis"""
         self.logger.info(" 开始RAxML系统发育分析|Starting RAxML phylogenetic analysis")
         
         # 构建命令|Build command
-        cmd = self.build_raxml_command()
+        args = self.build_raxml_command()
+        cmd = build_conda_command(self.config.raxml_path, args)
         
         # 估算运行时间|Estimate runtime
         self.estimate_runtime()

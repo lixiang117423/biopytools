@@ -7,6 +7,8 @@ OcBSA - BSA候选区域引物设计|OcBSA - BSA Candidate Region Primer Design
 import os
 import subprocess
 
+from ..common.conda_runner import build_conda_command
+
 
 class BsaPrimerDesigner:
     """BSA引物设计器|BSA Primer Designer"""
@@ -76,15 +78,21 @@ class BsaPrimerDesigner:
         genome_db = os.path.join(db_dir, os.path.basename(cfg.genome))
         blast_out = os.path.join(cfg.output_dir, 'indel_genome.blast')
 
-        # makeblastdb
-        cmd_makedb = ['makeblastdb', '-in', cfg.genome, '-dbtype', 'nucl', '-parse_seqids', '-out', genome_db]
+        # makeblastdb (功能域环境自动包装|auto domain env wrapping)
+        cmd_makedb = build_conda_command(
+            cfg.makeblastdb_path,
+            ['-in', cfg.genome, '-dbtype', 'nucl', '-parse_seqids', '-out', genome_db]
+        )
         self.logger.info(f"执行|Executing: 构建BLAST数据库|Build BLAST database")
         self.logger.info(f"命令|Command: {' '.join(cmd_makedb)}")
         subprocess.run(cmd_makedb, capture_output=True)
 
-        # blastn
-        cmd_blast = ['blastn', '-num_threads', '30', '-outfmt', '6', '-evalue', '1e-5',
-                      '-db', genome_db, '-query', indel_fasta, '-out', blast_out]
+        # blastn (功能域环境自动包装|auto domain env wrapping)
+        cmd_blast = build_conda_command(
+            cfg.blastn_path,
+            ['-num_threads', '30', '-outfmt', '6', '-evalue', '1e-5',
+             '-db', genome_db, '-query', indel_fasta, '-out', blast_out]
+        )
         self.logger.info(f"执行|Executing: BLAST比对|BLAST alignment")
         self.logger.info(f"命令|Command: {' '.join(cmd_blast)}")
         subprocess.run(cmd_blast, capture_output=True)

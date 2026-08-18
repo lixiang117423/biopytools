@@ -9,6 +9,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from ..common.conda_runner import check_tools
+
+from ..common.conda_runner import check_tools
+
 
 class CoverageFilterLogger:
     """覆盖度过滤日志管理器|Coverage Filter Logger Manager"""
@@ -52,19 +56,14 @@ class CoverageFilterLogger:
         return self.logger
 
 
-def check_dependencies(logger):
+def check_dependencies(config, logger):
     """检查依赖软件|Check dependencies"""
-    dependencies = ['samtools', 'seqtk', 'seqkit']
-    missing = []
-
-    for cmd in dependencies:
-        # 使用 shutil.which 查找命令|Use shutil.which to find command
-        cmd_path = shutil.which(cmd)
-        if cmd_path:
-            logger.debug(f"依赖检查通过|Dependency check passed: {cmd} ({cmd_path})")
-        else:
-            logger.error(f"依赖软件未找到|Dependency not found: {cmd}")
-            missing.append(cmd)
+    missing = check_tools([
+        (config.samtools_path, 'samtools', ['--version']),
+        # seqtk无版本参数, 运行无参即退出非0, 视为可用|seqtk has no version flag, treat non-zero as OK
+        (config.seqtk_path, 'seqtk', [], True),
+        (config.seqkit_path, 'seqkit', ['version']),
+    ], logger)
 
     if missing:
         logger.error(f"缺少依赖|Missing dependencies: {', '.join(missing)}")
@@ -80,7 +79,7 @@ def run_command(cmd: str, logger, description: str = "") -> bool:
     if description:
         logger.info(f"执行步骤|Executing step: {description}")
 
-    logger.debug(f"命令|Command: {cmd}")
+    logger.info(f"命令|Command: {cmd}")
 
     try:
         result = subprocess.run(

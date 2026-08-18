@@ -34,7 +34,7 @@ class NCBITaxoAnnotator:
         try:
             # 检查依赖|Check dependencies
             self.logger.info("检查必需工具|Checking required tools")
-            check_dependencies()
+            check_dependencies(self.config.taxonkit_path, self.logger)
             self.logger.info("所有依赖检查通过|All dependencies checked")
 
             # 运行处理流程|Run processing pipeline

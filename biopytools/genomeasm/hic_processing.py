@@ -4,9 +4,11 @@ Hi-C数据处理模块|Hi-C Data Processing Module
 
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from .utils import CommandRunner, get_file_stats
+from ..common.conda_runner import build_conda_command, build_pipeline_command, run_pipeline
 
 class HiCProcessor:
     """Hi-C数据处理器|Hi-C Data Processor"""
@@ -191,26 +193,35 @@ class HiCProcessor:
         """使用BWA比对Hi-C数据|Align Hi-C data with BWA"""
         self.logger.info(f" BWA比对Hi-C数据: {assembly_name}|BWA aligning Hi-C data: {assembly_name}")
         
-        # BWA索引
-        index_cmd = f"{self.config.bwa_path} index {fasta_file}"
-        if not self.cmd_runner.run(index_cmd, f"BWA索引 - {assembly_name}"):
+        # BWA索引|BWA index
+        if not self.cmd_runner.run(
+            [self.config.bwa_path, 'index', str(fasta_file)],
+            f"BWA索引 - {assembly_name}"
+        ):
             return None
         
-        # BWA比对
+        # BWA比对 (bwa mem | samtools view | samtools sort, 二进制BAM流经run_pipeline, 不用text模式)
+        # |BWA alignment (bwa mem | samtools view | samtools sort, binary BAM via run_pipeline, no text mode)
         bam_file = work_dir / f"{assembly_name}_hic_aligned.bam"
-        align_cmd = (
-            f"{self.config.bwa_path} mem -t {self.config.threads} -B 8 {fasta_file} "
-            f"{self.config.hic_r1} {self.config.hic_r2}|"
-            f"{self.config.samtools_path} view -@ {self.config.threads//4} -bS -|"
-            f"{self.config.samtools_path} sort -@ {self.config.threads//4} -o {bam_file} -"
+        success, err = run_pipeline(
+            [
+                [self.config.bwa_path, 'mem', '-t', str(self.config.threads), '-B', '8',
+                 str(fasta_file), self.config.hic_r1, self.config.hic_r2],
+                [self.config.samtools_path, 'view', '-@', str(self.config.threads // 4), '-bS', '-'],
+                [self.config.samtools_path, 'sort', '-@', str(self.config.threads // 4), '-o', str(bam_file), '-'],
+            ],
+            self.logger,
+            f"BWA比对 - {assembly_name}",
         )
-        
-        if not self.cmd_runner.run(align_cmd, f"BWA比对 - {assembly_name}", timeout=7200):
+        if not success:
+            self.logger.error(f" BWA比对失败|BWA alignment failed: {err}")
             return None
         
-        # 索引BAM文件
-        index_cmd = f"{self.config.samtools_path} index {bam_file}"
-        if not self.cmd_runner.run(index_cmd, f"BAM索引 - {assembly_name}"):
+        # 索引BAM文件|Index BAM file
+        if not self.cmd_runner.run(
+            [self.config.samtools_path, 'index', str(bam_file)],
+            f"BAM索引 - {assembly_name}"
+        ):
             return None
         
         # 检查比对质量
@@ -228,16 +239,26 @@ class HiCProcessor:
         
         # 使用pairtools进行转换 (如果可用)
         try:
-            # pairtools parse
+            # pairtools parse (单工具, 经build_conda_command包装, 用-o指定输出避免重定向)
+            # |pairtools parse (single tool, wrapped via build_conda_command, -o avoids redirect)
             pairs_file = work_dir / f"{assembly_name}.pairs"
-            parse_cmd = f"pairtools parse -c {work_dir / 'chrom.sizes'} {bam_file} > {pairs_file}"
+            parse_cmd = [
+                self.config.pairtools_path, 'parse',
+                '-c', str(work_dir / 'chrom.sizes'),
+                '-o', str(pairs_file),
+                str(bam_file),
+            ]
             
             if not self.cmd_runner.run(parse_cmd, f"解析pairs - {assembly_name}"):
                 # 回退方案：简单格式转换
                 return self._simple_bam_conversion(bam_file, merged_nodups, assembly_name)
             
-            # pairtools sort and dedup
-            dedup_cmd = f"pairtools sort --nproc {self.config.threads//4} {pairs_file}|pairtools dedup --output {merged_nodups}"
+            # pairtools sort | dedup (管道, 方案B提取实际命令, 严禁 conda run | conda run)
+            # |pairtools sort | dedup (pipeline, solution B extracts actual commands)
+            dedup_cmd = build_pipeline_command([
+                [self.config.pairtools_path, 'sort', '--nproc', str(self.config.threads // 4), str(pairs_file)],
+                [self.config.pairtools_path, 'dedup', '--output', str(merged_nodups)],
+            ])
             
             if not self.cmd_runner.run(dedup_cmd, f"去重pairs - {assembly_name}"):
                 return self._simple_bam_conversion(bam_file, merged_nodups, assembly_name)
@@ -324,10 +345,12 @@ class HiCProcessor:
         """运行SALSA2 pipeline|Run SALSA2 pipeline"""
         self.logger.info(f" 运行SALSA2 pipeline: {assembly_name}|Running SALSA2 pipeline: {assembly_name}")
         
-        # 准备SALSA2输入
+        # 准备SALSA2输入|Prepare SALSA2 input
         fai_file = f"{fasta_file}.fai"
-        cmd = f"{self.config.samtools_path} faidx {fasta_file}"
-        if not self.cmd_runner.run(cmd, f"生成fai文件 - {assembly_name}"):
+        if not self.cmd_runner.run(
+            [self.config.samtools_path, 'faidx', str(fasta_file)],
+            f"生成fai文件 - {assembly_name}"
+        ):
             return None
         
         # 运行SALSA2
@@ -388,9 +411,12 @@ class HiCProcessor:
     
     def _create_chrom_sizes(self, fasta_file: Path, output_file: Path):
         """创建染色体大小文件|Create chromosome sizes file"""
-        cmd = f"{self.config.samtools_path} faidx {fasta_file}"
-        self.cmd_runner.run(cmd, "生成fasta索引")
+        self.cmd_runner.run(
+            [self.config.samtools_path, 'faidx', str(fasta_file)],
+            "生成fasta索引"
+        )
         
+        # cut为系统工具, 保持裸名|cut is a system tool, keep bare name
         cmd = f"cut -f1,2 {fasta_file}.fai > {output_file}"
         self.cmd_runner.run(cmd, "生成染色体大小文件")
     
@@ -416,8 +442,12 @@ class HiCProcessor:
     def _check_alignment_quality(self, bam_file: str, assembly_name: str):
         """检查比对质量|Check alignment quality"""
         stats_file = Path(bam_file).parent / f"{assembly_name}_alignment_stats.txt"
-        cmd = f"{self.config.samtools_path} flagstat {bam_file} > {stats_file}"
-        self.cmd_runner.run(cmd, f"生成比对统计 - {assembly_name}")
+        # 单工具stdout重定向到文件, 用subprocess stdout=open替代shell重定向
+        # |Single tool stdout redirected to file via subprocess stdout=open
+        cmd = build_conda_command(self.config.samtools_path, ['flagstat', str(bam_file)])
+        self.logger.info(f" 命令|Command: {' '.join(cmd)} > {stats_file}")
+        with open(stats_file, 'w') as f_out:
+            subprocess.run(cmd, stdout=f_out, stderr=subprocess.PIPE, text=True)
         
         # 读取映射率
         try:

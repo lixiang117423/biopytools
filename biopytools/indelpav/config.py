@@ -3,9 +3,11 @@ INDEL PAV分析配置管理模块|INDEL PAV Analysis Configuration Management Mo
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 @dataclass
 class PAVConfig:
@@ -29,8 +31,10 @@ class PAVConfig:
     include_complex: bool = False  # 是否包含复杂变异|Include complex variants
     compress_output: bool = False  # 是否压缩输出|Compress output
     
-    # 工具路径|Tool paths
-    bcftools_path: str = 'bcftools'
+    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool path (auto domain env, fallback to bare name via PATH)
+    bcftools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'bcftools', 'bcftools', 'BCFTOOLS_PATH'))
     
     # 内部属性|Internal attributes
     base_name: str = 'indel_pav'
@@ -43,6 +47,12 @@ class PAVConfig:
         # 标准化路径|Normalize paths
         self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
         self.output_file = os.path.normpath(os.path.abspath(self.output_file))
+
+        # 展开工具路径|Expand tool paths
+        self.bcftools_path = expand_path(self.bcftools_path)
+
+        # 展开工具路径|Expand tool paths
+        self.bcftools_path = expand_path(self.bcftools_path)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

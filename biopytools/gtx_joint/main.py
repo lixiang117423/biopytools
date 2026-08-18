@@ -33,7 +33,7 @@ class GTXJointGenerator:
         self.logger = self.logger_manager.get_logger()
 
         # 初始化工具类|Initialize utility classes
-        self.scanner = GTXJointScanner(self.logger)
+        self.scanner = GTXJointScanner(self.logger, self.config)
         self.writer = GTXJointWriter(self.logger)
 
     def generate_commands(self):

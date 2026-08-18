@@ -9,6 +9,12 @@ import subprocess
 from collections import defaultdict
 from typing import Dict, Set, Tuple, Optional
 
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+
+from ..common.paths import get_domain_tool_path, expand_path
+from ..common.conda_runner import build_conda_command
+
 try:
     import pysam
     PYSAM_AVAILABLE = True
@@ -72,13 +78,15 @@ class VCFSamplerCore:
         self.logger.info(f"文件|File: {vcf_file}")
 
         try:
-            # 使用tabix创建索引|Use tabix to create index
-            cmd = ['tabix', '-p', 'vcf', vcf_file]
+            # 使用tabix创建索引(conda环境自动包装)|Use tabix to create index (auto conda wrap)
+            tabix_path = get_domain_tool_path('tabix', 'tabix', 'TABIX_PATH')
+            cmd = build_conda_command(tabix_path, ['-p', 'vcf', vcf_file])
 
-            self.logger.debug(f"执行命令|Running command: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
+                shell=False,
                 capture_output=True,
                 text=True,
                 timeout=600  # 10分钟超时|10 minutes timeout

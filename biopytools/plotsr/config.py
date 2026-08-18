@@ -3,9 +3,11 @@ PlotSR配置管理模块|PlotSR Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional
+
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -51,6 +53,50 @@ class PlotSRConfig:
     # 染色体过滤参数|Chromosome filtering parameters
     chromosomes: Optional[List[str]] = None  # 指定要显示的染色体（数字或名称）|Specific chromosomes to display (numbers or names)
 
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    syri_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'syri', 'syri', 'SYRI_PATH'))
+    plotsr_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plotsr', 'plotsr', 'PLOTSR_PATH'))
+
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    syri_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'syri', 'syri', 'SYRI_PATH'))
+    plotsr_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plotsr', 'plotsr', 'PLOTSR_PATH'))
+
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    syri_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'syri', 'syri', 'SYRI_PATH'))
+    plotsr_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plotsr', 'plotsr', 'PLOTSR_PATH'))
+
+    # 工具路径|Tool paths (功能域环境自动解析, 回退裸命令名靠PATH)
+    # |Tool paths (auto domain env, fallback to bare name via PATH)
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'minimap2', 'minimap2', 'MINIMAP2_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'samtools', 'samtools', 'SAMTOOLS_PATH'))
+    syri_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'syri', 'syri', 'SYRI_PATH'))
+    plotsr_path: str = field(default_factory=lambda: get_domain_tool_path(
+        'plotsr', 'plotsr', 'PLOTSR_PATH'))
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 规范化路径|Normalize paths
@@ -69,6 +115,30 @@ class PlotSRConfig:
         # 验证基因组数量|Validate genome count
         if len(self.genomes) < 2:
             raise ValueError(f"至少需要2个基因组|At least 2 genomes required: {len(self.genomes)}")
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.syri_path = expand_path(self.syri_path)
+        self.plotsr_path = expand_path(self.plotsr_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.syri_path = expand_path(self.syri_path)
+        self.plotsr_path = expand_path(self.plotsr_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.syri_path = expand_path(self.syri_path)
+        self.plotsr_path = expand_path(self.plotsr_path)
+
+        # 展开工具路径|Expand tool paths
+        self.minimap2_path = expand_path(self.minimap2_path)
+        self.samtools_path = expand_path(self.samtools_path)
+        self.syri_path = expand_path(self.syri_path)
+        self.plotsr_path = expand_path(self.plotsr_path)
 
     def _extract_names_from_paths(self) -> List[str]:
         """

@@ -477,20 +477,20 @@ def main():
                        help=' TransDecoder只保留完整ORF|TransDecoder keep only complete ORFs')
     
     # 工具路径|Tool paths
-    parser.add_argument('--hisat2-path', default='hisat2',
-                       help=' HISAT2可执行文件路径 (默认: hisat2)|HISAT2 executable path (default: hisat2)')
-    parser.add_argument('--stringtie-path', default='stringtie',
-                       help=' StringTie可执行文件路径 (默认: stringtie)|StringTie executable path (default: stringtie)')
-    parser.add_argument('--trinity-path', default='Trinity',
-                       help=' Trinity可执行文件路径 (默认: Trinity)|Trinity executable path (default: Trinity)')
-    parser.add_argument('--pasa-path', default='Launch_PASA_pipeline.pl',
-                       help=' PASA可执行文件路径 (默认: Launch_PASA_pipeline.pl)|PASA executable path (default: Launch_PASA_pipeline.pl)')
-    parser.add_argument('--transdecoder-longorfs-path', default='TransDecoder.LongOrfs',
+    parser.add_argument('--hisat2-path', default=None,
+                       help=' HISAT2可执行文件路径|HISAT2 executable path')
+    parser.add_argument('--stringtie-path', default=None,
+                       help=' StringTie可执行文件路径|StringTie executable path')
+    parser.add_argument('--trinity-path', default=None,
+                       help=' Trinity可执行文件路径|Trinity executable path')
+    parser.add_argument('--pasa-path', default=None,
+                       help=' PASA可执行文件路径|PASA executable path')
+    parser.add_argument('--transdecoder-longorfs-path', default=None,
                        help=' TransDecoder.LongOrfs可执行文件路径|TransDecoder.LongOrfs executable path')
-    parser.add_argument('--transdecoder-predict-path', default='TransDecoder.Predict',
+    parser.add_argument('--transdecoder-predict-path', default=None,
                        help=' TransDecoder.Predict可执行文件路径|TransDecoder.Predict executable path')
-    parser.add_argument('--samtools-path', default='samtools',
-                       help=' SAMtools可执行文件路径 (默认: samtools)|SAMtools executable path (default: samtools)')
+    parser.add_argument('--samtools-path', default=None,
+                       help=' SAMtools可执行文件路径|SAMtools executable path')
     
     args = parser.parse_args()
     
@@ -508,6 +508,21 @@ def main():
     resume_mode = not getattr(args, 'no_resume', False)  # 默认启用断点续传
     skip_trinity = getattr(args, 'skip_trinity', False)  # 默认不跳过Trinity
     step = getattr(args, 'step', None)  # 默认运行所有步骤
+
+    # 工具路径为 None 时不传入, 使用 config 默认域环境解析|Tool paths None -> use config domain env resolution
+    extra_kwargs = {}
+    for kw, attr in [
+        ('hisat2_path', 'hisat2_path'),
+        ('stringtie_path', 'stringtie_path'),
+        ('trinity_path', 'trinity_path'),
+        ('pasa_path', 'pasa_path'),
+        ('transdecoder_longorfs_path', 'transdecoder_longorfs_path'),
+        ('transdecoder_predict_path', 'transdecoder_predict_path'),
+        ('samtools_path', 'samtools_path'),
+    ]:
+        val = getattr(args, attr, None)
+        if val is not None:
+            extra_kwargs[kw] = val
         
     # 创建分析器并运行|Create analyzer and run
     analyzer = TranscriptomeAnalyzer(
@@ -539,13 +554,7 @@ def main():
         transdecoder_min_protein_len=args.transdecoder_min_protein_len,
         transdecoder_genetic_code=args.transdecoder_genetic_code,
         transdecoder_complete_orfs_only=args.transdecoder_complete_orfs_only,
-        hisat2_path=args.hisat2_path,
-        stringtie_path=args.stringtie_path,
-        trinity_path=args.trinity_path,
-        pasa_path=args.pasa_path,
-        transdecoder_longorfs_path=args.transdecoder_longorfs_path,
-        transdecoder_predict_path=args.transdecoder_predict_path,
-        samtools_path=args.samtools_path
+        **extra_kwargs
     )
     
     step = getattr(args, 'step', None)

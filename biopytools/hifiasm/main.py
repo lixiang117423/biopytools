@@ -394,11 +394,11 @@ def create_argument_parser():
     system.add_argument('--resume', action='store_true', help='恢复中断的分析|Resume interrupted analysis')
 
     tools = parser.add_argument_group('工具路径参数|Tool paths parameters')
-    tools.add_argument('--hifiasm-path', default='hifiasm', help='HiFiasm软件路径|HiFiasm software path')
-    tools.add_argument('--busco-path', default='busco', help='BUSCO软件路径|BUSCO software path')
-    tools.add_argument('--quast-path', default='quast', help='QUAST软件路径|QUAST software path')
+    tools.add_argument('--hifiasm-path', default=None, help='HiFiasm软件路径(默认域环境自动解析)|HiFiasm software path (default: auto domain env)')
+    tools.add_argument('--busco-path', default=None, help='BUSCO软件路径(默认域环境自动解析)|BUSCO software path (default: auto domain env)')
+    tools.add_argument('--quast-path', default=None, help='QUAST软件路径(默认域环境自动解析)|QUAST software path (default: auto domain env)')
     tools.add_argument('--python-path', default='python3', help='Python解释器路径|Python interpreter path')
-    tools.add_argument('--samtools-path', default='samtools', help='Samtools软件路径|Samtools software path')
+    tools.add_argument('--samtools-path', default=None, help='Samtools软件路径(默认域环境自动解析)|Samtools software path (default: auto domain env)')
 
     databases = parser.add_argument_group('数据库路径参数|Database paths parameters')
     databases.add_argument('--busco-db-path', help='BUSCO数据库路径|BUSCO database path')
@@ -453,7 +453,13 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     try:
-        analyzer = HifiasmAnalyzer(**vars(args))
+        # 工具路径未显式指定时不传入, 使用配置默认的域环境自动解析
+        # |Tool paths use config domain-env defaults when not explicitly given
+        analyzer_kwargs = vars(args)
+        for key in ['hifiasm_path', 'busco_path', 'quast_path', 'samtools_path']:
+            if analyzer_kwargs.get(key) is None:
+                del analyzer_kwargs[key]
+        analyzer = HifiasmAnalyzer(**analyzer_kwargs)
         success = analyzer.run_analysis()
 
         if success:
