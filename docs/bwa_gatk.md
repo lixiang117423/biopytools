@@ -211,7 +211,7 @@ output/
 | `--dry-run` | — | store_true | 干运行模式，仅显示命令不执行｜Dry-run mode, show commands without execution |
 | `-v, --verbose` | — | store_true | 详细日志模式｜Verbose logging mode |
 | `--skip-qc` | — | store_true | 跳过质控步骤，直接使用输入数据｜Skip QC step, use input data directly |
-| `--fastp-path` | `fastp` |  | fastp可执行文件路径｜fastp executable path |
+| `--fastp-path` | — |  | fastp可执行文件路径｜fastp executable path |
 | `--qc-threads` | `12` | int | 质控线程数｜QC threads |
 | `--qc-quality-threshold` | `20` | int | 质控质量阈值｜QC quality threshold |
 | `--qc-min-length` | `50` | int | 质控最小长度｜QC minimum length |
@@ -220,9 +220,9 @@ output/
 | `--qc-read1-suffix` | — |  | R1文件后缀｜R1 file suffix |
 | `--qc-read2-suffix` | — |  | R2文件后缀｜R2 file suffix |
 | `--qc-single-end` | — | store_true | 单末端测序模式｜Single-end sequencing mode |
-| `--bwa-path` | `bwa` |  | BWA路径｜BWA path |
-| `--samtools-path` | `samtools` |  | SAMtools路径｜SAMtools path |
-| `--gatk-path` | `gatk` |  | GATK路径｜GATK path |
+| `--bwa-path` | — |  | BWA路径｜BWA path |
+| `--samtools-path` | — |  | SAMtools路径｜SAMtools path |
+| `--gatk-path` | — |  | GATK路径｜GATK path |
 
 <!-- END PARAMS:auto -->
 

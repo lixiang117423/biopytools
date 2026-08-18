@@ -141,7 +141,7 @@ bcftools filter(--include 质量表达式)
 | `-s, --start` | — | int | 起始位置｜Start position |
 | `-e, --end` | — | int | 结束位置｜End position |
 | `--convert-format` | — | store_true | 使用PLINK进行格式转换｜Use PLINK for format conversion |
-| `--plink-path` | `plink` |  | PLINK可执行文件路径｜PLINK executable path |
+| `--plink-path` | — |  | PLINK可执行文件路径｜PLINK executable path |
 | `--allow-extra-chr` | `True` | store_true | 允许额外染色体｜Allow extra chromosomes |
 | `--maf` | — | float | 最小等位基因频率｜Minimum allele frequency |
 | `--max-missing` | — | float | 最大缺失率｜Maximum missing rate |

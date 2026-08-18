@@ -169,8 +169,8 @@ pca_output/
 | `-g, --group-column` | — |  | 分组列名(配合-s样本信息文件,按分组着色)｜Column name for grouping (with sample info file) |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--vcf2pca-path` | — |  | VCF2PCACluster路径｜VCF2PCACluster path |
-| `--plink-path` | `plink` |  | PLINK软件路径｜PLINK software path |
-| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+| `--plink-path` | — |  | PLINK软件路径｜PLINK software path |
+| `--bcftools-path` | — |  | BCFtools软件路径｜BCFtools software path |
 
 <!-- END PARAMS:auto -->
 

@@ -146,8 +146,8 @@ results/
 | `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
 | `--query-type` | `auto` | dna/protein/auto | 查询序列类型（默认：auto自动检测）｜Query sequence type (default: auto for auto-detection) |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
-| `--minimap2-path` | `minimap2` |  | Minimap2工具路径｜Minimap2 tool path (default: minimap2) |
-| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path (default: miniprot) |
+| `--minimap2-path` | — |  | Minimap2工具路径(默认域环境自动解析)｜Minimap2 tool path (default: auto domain env) |
+| `--miniprot-path` | — |  | Miniprot工具路径(默认域环境自动解析)｜Miniprot tool path (default: auto domain env) |
 | `--no-gff3` | — | store_false | 不导出GFF3格式｜Do not export GFF3 format |
 | `--no-bed` | — | store_false | 不导出BED格式｜Do not export BED format |
 | `--no-statistics` | — | store_false | 不生成统计报告｜Do not generate statistics report |

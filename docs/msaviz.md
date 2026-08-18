@@ -149,7 +149,7 @@ matplotlib 绘制彩色方块矩阵 → 保存图像
 | `-i, --infile` | 必填 |  | 输入序列文件或MSA文件｜Input sequences or MSA file |
 | `-o, --outfile` | 必填 |  | 输出可视化文件｜Output visualization file (*.png｜*.jpg｜*.svg｜*.pdf) |
 | `--skip-align` | — | store_true | 跳过MAFFT比对（输入已是比对结果）｜Skip MAFFT alignment (input is already aligned) |
-| `--mafft-path` | `mafft` |  | MAFFT可执行文件路径｜MAFFT executable path (default: mafft) |
+| `--mafft-path` | — |  | MAFFT可执行文件路径(默认域环境自动解析)｜MAFFT executable path (default: auto domain env) |
 | `--mafft-params` | `--auto --preservecase` |  | MAFFT参数｜MAFFT parameters (default: --auto --preservecase) |
 | `--threads` | `4` | int | MAFFT线程数｜MAFFT threads (default: 4) |
 | `--keep-alignment` | `True` | store_true | 保留比对结果文件｜Keep alignment result file (default: True) |

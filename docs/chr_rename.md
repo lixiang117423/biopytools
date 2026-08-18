@@ -173,7 +173,7 @@ output/
 | `-r, --ref` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
 | `-q, --query` | 必填 |  | 待重命名的基因组FASTA文件｜Query genome FASTA file to rename |
 | `-o, --output-dir` | `./chr_rename_output` |  | 输出目录｜Output directory |
-| `-a, --minimap2-path` | `minimap2` |  | minimap2软件路径｜minimap2 software path |
+| `-a, --minimap2-path` | — |  | minimap2软件路径(默认域环境自动解析)｜minimap2 software path (default: auto domain env) |
 | `-x, --preset` | `asm5` | asm5/asm10/asm20 | minimap2预设模式｜minimap2 preset mode (asm5/asm10/asm20) |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `-i, --min-identity` | `0.9` | float | 最小序列一致性阈值(0-1)｜Minimum identity threshold (0-1) |

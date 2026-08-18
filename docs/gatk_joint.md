@@ -173,8 +173,8 @@ output/
 | `--indel-fs` | `200.0` | float | INDEL FS阈值｜INDEL FS threshold |
 | `--indel-rprs` | `-20.0` | float | INDEL ReadPosRankSum阈值｜INDEL ReadPosRankSum threshold |
 | `--indel-sor` | `10.0` | float | INDEL SOR阈值｜INDEL SOR threshold |
-| `--gatk-path` | `gatk` |  | GATK软件路径｜GATK software path |
-| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+| `--gatk-path` | — |  | GATK软件路径｜GATK software path |
+| `--bcftools-path` | — |  | BCFtools软件路径｜BCFtools software path |
 
 <!-- END PARAMS:auto -->
 

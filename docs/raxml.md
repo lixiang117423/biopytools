@@ -210,7 +210,7 @@ raxml_output/
 | `-u, --gamma-median` | — | store_true | 使用GAMMA模型中位数｜Use median for GAMMA model |
 | `-H, --disable-pattern-compression` | — | store_true | 禁用模式压缩｜Disable pattern compression |
 | `-w, --output-dir` | `./raxml_output` |  | 输出目录｜Output directory |
-| `--raxml-path` | `raxmlHPC-PTHREADS` |  | RAxML程序路径｜RAxML program path |
+| `--raxml-path` | — |  | RAxML程序路径(默认域环境自动解析)｜RAxML program path (default: auto domain env) |
 | `--no-seq-check` | — | store_true | 跳过序列检查｜Skip sequence checking |
 | `--silent` | — | store_true | 静默模式｜Silent mode |
 

@@ -166,8 +166,8 @@ output_dir/
 | `--max-intron` | `100000` | int | 最大intron长度，默认: 100000｜Maximum intron length, default: 100000 |
 | `--min-mapq` | `20` | int | 最小mapping quality，默认: 20｜Minimum mapping quality, default: 20 |
 | `--no-secondary` | — | store_true | 不输出次优比对｜Do not output secondary alignments |
-| `--minimap2-path` | `minimap2` |  | minimap2可执行文件路径 (默认: minimap2)｜minimap2 executable path (default: minimap2) |
-| `--samtools-path` | `samtools` |  | samtools可执行文件路径 (默认: samtools)｜samtools executable path (default: samtools) |
+| `--minimap2-path` | — |  | minimap2可执行文件路径 (默认域环境自动解析)｜minimap2 executable path (default: auto domain env) |
+| `--samtools-path` | — |  | samtools可执行文件路径 (默认域环境自动解析)｜samtools executable path (default: auto domain env) |
 | `--version` | — | version |  |
 
 <!-- END PARAMS:auto -->

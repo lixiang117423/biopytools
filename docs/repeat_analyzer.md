@@ -180,12 +180,12 @@ TTGCAAGCTAGCATCGATC...
 | `-t, --threads` | `88` | int | 线程数｜Number of threads |
 | `--skip-modeler` | — | store_true | 跳过RepeatModeler步骤｜Skip RepeatModeler step |
 | `--skip-ltr` | — | store_true | 跳过LTR分析步骤｜Skip LTR analysis step |
-| `--repeatmodeler-path` | `RepeatModeler` |  | RepeatModeler程序路径｜RepeatModeler program path |
-| `--ltr-finder-path` | `ltr_finder` |  | LTR_FINDER程序路径｜LTR_FINDER program path |
-| `--ltrharvest-path` | `gt ltrharvest` |  | LTRharvest程序路径｜LTRharvest program path |
-| `--ltr-retriever-path` | `LTR_retriever` |  | LTR_retriever程序路径｜LTR_retriever program path |
-| `--repeatmasker-path` | `RepeatMasker` |  | RepeatMasker程序路径｜RepeatMasker program path |
-| `--tesorter-path` | `TEsorter` |  | TEsorter程序路径｜TEsorter program path |
+| `--repeatmodeler-path` | — |  | RepeatModeler程序路径｜RepeatModeler program path |
+| `--ltr-finder-path` | — |  | LTR_FINDER程序路径｜LTR_FINDER program path |
+| `--ltrharvest-path` | — |  | GenomeTools gt二进制路径｜GenomeTools gt binary path |
+| `--ltr-retriever-path` | — |  | LTR_retriever程序路径｜LTR_retriever program path |
+| `--repeatmasker-path` | — |  | RepeatMasker程序路径｜RepeatMasker program path |
+| `--tesorter-path` | — |  | TEsorter程序路径｜TEsorter program path |
 
 <!-- END PARAMS:auto -->
 

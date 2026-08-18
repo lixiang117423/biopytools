@@ -138,7 +138,7 @@ results/
 | `--protein` | 必填 |  | 蛋白质FASTA文件｜Protein FASTA file |
 | `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
-| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path (default: miniprot) |
+| `--miniprot-path` | — |  | Miniprot工具路径(默认域环境自动解析)｜Miniprot tool path (default: auto domain env) |
 | `--no-gff3` | — | store_false | 不导出GFF3格式｜Do not export GFF3 format |
 | `--no-bed` | — | store_false | 不导出BED格式｜Do not export BED format |
 | `--no-statistics` | — | store_false | 不生成统计报告｜Do not generate statistics report |

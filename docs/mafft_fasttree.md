@@ -136,8 +136,8 @@ output_dir/
 | `--seq-type` | — | protein/nucleotide | 序列类型 (不指定则自动检测)｜Sequence type (auto-detect if not specified) |
 | `--mafft-params` | `--auto` |  | MAFFT额外参数｜Additional MAFFT parameters |
 | `--fasttree-params` | `` |  | FastTree额外参数｜Additional FastTree parameters |
-| `--mafft-path` | `mafft` |  | MAFFT软件路径｜MAFFT software path |
-| `--fasttree-path` | `fasttree` |  | FastTree软件路径｜FastTree software path |
+| `--mafft-path` | — |  | MAFFT软件路径(默认域环境自动解析)｜MAFFT software path (default: auto domain env) |
+| `--fasttree-path` | — |  | FastTree软件路径(默认域环境自动解析)｜FastTree software path (default: auto domain env) |
 
 <!-- END PARAMS:auto -->
 

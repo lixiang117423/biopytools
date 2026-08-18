@@ -154,8 +154,8 @@ output_dir/
 | `-t, --threads` | `88` | int | MAFFT 线程数｜MAFFT threads (default: 88) |
 | `--mafft-params` | `--auto` |  | MAFFT 额外参数｜Additional MAFFT parameters (default: --auto) |
 | `--fasttree-params` | `` |  | FastTree 额外参数｜Additional FastTree parameters |
-| `--mafft-path` | `mafft` |  | MAFFT 路径｜MAFFT path (default: mafft) |
-| `--fasttree-path` | `fasttree` |  | FastTree 路径｜FastTree path (default: fasttree) |
+| `--mafft-path` | — |  | MAFFT 路径(默认域环境自动解析)｜MAFFT path (default: auto domain env) |
+| `--fasttree-path` | — |  | FastTree 路径(默认域环境自动解析)｜FastTree path (default: auto domain env) |
 | `--sample-name` | — |  | 输出文件名前缀｜Output filename prefix (default: 输入 basename｜input basename) |
 | `--log-file` | — |  | 日志文件路径｜Log file path |
 | `-v, --verbose` | — | store_true | 详细输出｜Verbose output |

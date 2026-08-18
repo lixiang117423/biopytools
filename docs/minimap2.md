@@ -140,8 +140,8 @@ results/
 | `-m, --min-match` | `1000` | int | 最小匹配长度阈值｜Minimum match length threshold |
 | `-u, --min-unmapped` | `1000` | int | 最小未比对区间长度阈值｜Minimum unmapped region length threshold |
 | `--tp-type` | `P` | S/P/SP | 保留的tp类型｜tp type to keep: S(secondary), P(primary), SP(both) - 默认P｜default P |
-| `-M, --minimap2-path` | `minimap2` |  | minimap2可执行文件路径｜minimap2 executable path |
-| `-S, --seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
+| `-M, --minimap2-path` | — |  | minimap2可执行文件路径(默认域环境自动解析)｜minimap2 executable path (default: auto domain env) |
+| `-S, --seqkit-path` | — |  | seqkit可执行文件路径(默认域环境自动解析)｜seqkit executable path (default: auto domain env) |
 
 <!-- END PARAMS:auto -->
 

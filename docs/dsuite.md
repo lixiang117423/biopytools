@@ -162,11 +162,11 @@ output_dir/
 | `-s, --sets` | 必填 |  | [FILE] SETS分组文件路径｜SETS file path |
 | `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
 | `-p, --prefix` | `dsuite` |  | [STR] 输出文件前缀｜Output file prefix |
-| `--dsuite-bin` | `~/software/Dsuite/Build/Dsuite` |  | [FILE] Dsuite可执行文件路径｜Dsuite binary path |
+| `--dsuite-bin` | — |  | [FILE] Dsuite可执行文件路径｜Dsuite binary path |
 | `--min-alleles` | `2` | int | [INT] 最小等位基因数｜Min number of alleles |
 | `--max-alleles` | `2` | int | [INT] 最大等位基因数｜Max number of alleles |
 | `--variant-type` | `snps` | snps/indels/both/none | [STR] 变异类型｜Variant type |
-| `--bcftools` | `bcftools` |  | [CMD] bcftools命令路径｜bcftools command path |
+| `--bcftools` | — |  | [CMD] bcftools命令路径｜bcftools command path |
 | `--collect-stats` | — | store_true | [FLAG] 是否收集VCF统计信息｜Whether to collect VCF statistics |
 
 <!-- END PARAMS:auto -->

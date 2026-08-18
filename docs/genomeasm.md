@@ -224,13 +224,13 @@ results/
 | `--min-hic-coverage` | `50` | int | 最小Hi-C覆盖度｜Minimum Hi-C coverage |
 | `--min-mapping-rate` | `0.7` | float | 最小映射率｜Minimum mapping rate |
 | `--busco-lineage` | `auto` |  | BUSCO谱系数据库｜BUSCO lineage database |
-| `--hifiasm-path` | `hifiasm` |  | Hifiasm程序路径｜Hifiasm program path |
-| `--bwa-path` | `bwa` |  | BWA程序路径｜BWA program path |
-| `--samtools-path` | `samtools` |  | Samtools程序路径｜Samtools program path |
-| `--juicer-path` | `juicer.sh` |  | Juicer脚本路径｜Juicer script path |
-| `--pipeline-3ddna` | `3d-dna/run-asm-pipeline.sh` |  | 3D-DNA pipeline路径｜3D-DNA pipeline path |
-| `--juicer-tools` | `juicer_tools.jar` |  | Juicer tools JAR路径｜Juicer tools JAR path |
-| `--salsa2-path` | `run_pipeline.py` |  | SALSA2脚本路径｜SALSA2 script path |
+| `--hifiasm-path` | — |  | Hifiasm程序路径｜Hifiasm program path |
+| `--bwa-path` | — |  | BWA程序路径｜BWA program path |
+| `--samtools-path` | — |  | Samtools程序路径｜Samtools program path |
+| `--juicer-path` | — |  | Juicer脚本路径｜Juicer script path |
+| `--pipeline-3ddna` | — |  | 3D-DNA pipeline路径｜3D-DNA pipeline path |
+| `--juicer-tools` | — |  | Juicer tools JAR路径｜Juicer tools JAR path |
+| `--salsa2-path` | — |  | SALSA2脚本路径｜SALSA2 script path |
 | `--skip-dependency-check` | — | store_true | 跳过依赖软件检查｜Skip dependency check |
 
 <!-- END PARAMS:auto -->

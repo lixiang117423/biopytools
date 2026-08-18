@@ -138,7 +138,7 @@ depth_analysis.log                    # 运行日志
 | `-t, --threads` | `88` | int | 线程数｜Number of threads |
 | `-q, --quality` | `0` | int | 最小碱基质量阈值｜Minimum base quality threshold |
 | `-Q, --mapping-quality` | `0` | int | 最小比对质量阈值｜Minimum mapping quality threshold |
-| `--samtools-path` | `samtools` |  | samtools软件路径｜samtools software path |
+| `--samtools-path` | — |  | samtools软件路径(默认域环境自动解析)｜samtools software path (default: auto domain env) |
 | `--output-format` | `txt` | txt | 输出格式｜Output format |
 | `--compress` | — | store_true | 压缩输出文件｜Compress output file |
 | `--enable-windows` | — | store_true | 启用滑窗分析｜Enable sliding window analysis |

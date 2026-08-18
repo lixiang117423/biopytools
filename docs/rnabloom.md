@@ -189,7 +189,7 @@ output_dir/
 | `--cell-list` | — |  | 单细胞列表文件｜Single-cell list file (pooled assembly) |
 | `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
-| `--rnabloom-path` | `rnabloom` |  | RNA-Bloom工具路径｜RNA-Bloom tool path (default: rnabloom) |
+| `--rnabloom-path` | — |  | RNA-Bloom工具路径｜RNA-Bloom tool path (default: 自动解析｜auto-detected) |
 | `--mem` | — | float | Bloom filter总大小(GB)｜Total Bloom filter size in GB |
 | `--fpr` | — | float | 假阳性率｜False positive rate (0-1) |
 | `--nk, --num-kmers` | — | int | 唯一k-mer数量｜Number of unique kmers |

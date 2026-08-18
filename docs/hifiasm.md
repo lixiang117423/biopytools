@@ -200,11 +200,11 @@ hifiasm_output/
 | `--tmp-dir` | — |  | 临时目录(默认 output_dir/tmp)｜Temporary directory (defaults to output_dir/tmp) |
 | `--max-runtime` | `48` | int | 最大运行时间(小时)｜Maximum runtime (hours) |
 | `--resume` | — | store_true | 恢复中断的分析｜Resume interrupted analysis |
-| `--hifiasm-path` | `hifiasm` |  | HiFiasm软件路径｜HiFiasm software path |
-| `--busco-path` | `busco` |  | BUSCO软件路径｜BUSCO software path |
-| `--quast-path` | `quast` |  | QUAST软件路径｜QUAST software path |
+| `--hifiasm-path` | — |  | HiFiasm软件路径(默认域环境自动解析)｜HiFiasm software path (default: auto domain env) |
+| `--busco-path` | — |  | BUSCO软件路径(默认域环境自动解析)｜BUSCO software path (default: auto domain env) |
+| `--quast-path` | — |  | QUAST软件路径(默认域环境自动解析)｜QUAST software path (default: auto domain env) |
 | `--python-path` | `python3` |  | Python解释器路径｜Python interpreter path |
-| `--samtools-path` | `samtools` |  | Samtools软件路径｜Samtools software path |
+| `--samtools-path` | — |  | Samtools软件路径(默认域环境自动解析)｜Samtools software path (default: auto domain env) |
 | `--busco-db-path` | — |  | BUSCO数据库路径｜BUSCO database path |
 | `--busco-download-path` | — |  | BUSCO数据集下载路径｜BUSCO dataset download path |
 | `--debug` | — | store_true | 启用调试模式｜Enable debug mode |

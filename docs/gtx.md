@@ -170,7 +170,7 @@ results/
 | `-r, --reference` | 必填 |  | 参考基因组文件路径｜Reference genome file path |
 | `--force-rebuild-index` | — | store_true | 强制重新构建参考基因组索引｜Force rebuild reference genome index |
 | `-t, --threads` | `88` | int | 线程数｜Number of threads |
-| `--gtx-path` | `~/software/gtx/GTX.CAT_2.2.1/bin/gtx` |  | GTX程序路径｜GTX program path |
+| `--gtx-path` | — |  | GTX程序路径｜GTX program path |
 | `--tmp-dir` | — |  | 临时目录路径｜Temporary directory path |
 | `--enable-joint` | — | store_true | 启用Joint Calling｜Enable Joint Calling |
 | `--joint-output` | `merged_gtx.vcf.gz` |  | Joint calling输出文件名｜Joint calling output filename |

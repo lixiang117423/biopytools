@@ -143,7 +143,7 @@ GEMMA 关联结果，一行一个 SNP。核心列：位点 ID、染色体(chr)�
 | `-o, --output-dir` | `gemma_results` |  | 输出目录｜Output directory |
 | `--n-pca` | `10` | int | PCA主成分数｜Number of PCA components |
 | `--threads` | `12` | int | 线程数｜Number of threads |
-| `--gemma` | `~/.local/bin/gemma` |  | GEMMA程序路径｜GEMMA program path |
+| `--gemma` | — |  | GEMMA程序路径｜GEMMA program path |
 | `--maf` | — | float | 最小等位基因频率阈值｜Minor allele frequency threshold |
 | `--geno` | — | float | SNP缺失率阈值｜SNP missing rate threshold |
 | `--mind` | — | float | 样本缺失率阈值｜Sample missing rate threshold |

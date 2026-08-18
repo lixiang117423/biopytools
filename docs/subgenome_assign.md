@@ -155,8 +155,8 @@ subgenome_assign_output/
 | `--min-conf` | `0.65` | float | 置信度阈值，低于此值标记 LOW_CONFIDENCE｜Confidence threshold for LOW_CONFIDENCE flag |
 | `--no-split` | — | store_true | 不输出拆分的 FASTA｜Do not output split FASTAs |
 | `--no-keep-unassigned` | — | store_true | 不输出未归属染色体的 FASTA｜Do not output unassigned FASTA |
-| `--minimap2-path` | `~/miniforge3/envs/align/bin/minimap2` |  | minimap2 二进制路径｜minimap2 binary path |
-| `--samtools-path` | `~/.local/bin/samtools` |  | samtools 二进制路径｜samtools binary path |
+| `--minimap2-path` | — |  | minimap2 二进制路径(默认域环境自动解析)｜minimap2 binary path (default: auto domain env) |
+| `--samtools-path` | — |  | samtools 二进制路径(默认域环境自动解析)｜samtools binary path (default: auto domain env) |
 
 <!-- END PARAMS:auto -->
 

@@ -167,8 +167,8 @@ output.log                # 运行日志
 | `-r, --right` | `0` | int | SNP下游距离（bp）｜Downstream distance from SNP (bp) |
 | `-p, --promoter` | `2000` | int | 启动子区域距离（bp）｜Promoter region distance (bp) |
 | `-o, --output` | `./snp_region_output` |  | 输出文件前缀｜Output file prefix |
-| `--gffread-path` | `gffread` |  | gffread程序路径｜gffread program path |
-| `--seqkit-path` | `seqkit` |  | seqkit程序路径｜seqkit program path |
+| `--gffread-path` | — |  | gffread可执行文件路径(默认域环境自动解析)｜gffread executable path (default: auto domain env) |
+| `--seqkit-path` | — |  | seqkit可执行文件路径(默认域环境自动解析)｜seqkit executable path (default: auto domain env) |
 | `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
 
 <!-- END PARAMS:auto -->

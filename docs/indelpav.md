@@ -150,7 +150,7 @@ Chr1          200      201    A      AT     insertion     0          1 ...
 | `--max-missing` | `0.8` | float | 最大缺失率 (0-1)｜Maximum missing rate (0-1) |
 | `--include-complex` | — | store_true | 包含复杂变异｜Include complex variants |
 | `--compress` | — | store_true | 压缩输出文件｜Compress output file |
-| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+| `--bcftools-path` | — |  | BCFtools软件路径｜BCFtools software path |
 
 <!-- END PARAMS:auto -->
 

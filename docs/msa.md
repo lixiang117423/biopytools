@@ -138,10 +138,10 @@ MSTNPKPQRKTKRS
 | `--mafft-maxiterate` | `1000` | int | MAFFT最大迭代次数｜MAFFT max iterations |
 | `--clustalo-iterations` | `0` | int | Clustal Omega迭代次数｜Clustal Omega iterations |
 | `--muscle-maxiters` | `16` | int | MUSCLE最大迭代次数｜MUSCLE max iterations |
-| `--mafft-path` | `mafft` |  | MAFFT路径｜MAFFT path |
-| `--clustalo-path` | `clustalo` |  | Clustal Omega路径｜Clustal Omega path |
-| `--muscle-path` | `muscle` |  | MUSCLE路径｜MUSCLE path |
-| `--tcoffee-path` | `t_coffee` |  | T-Coffee路径｜T-Coffee path |
+| `--mafft-path` | — |  | MAFFT路径(默认域环境自动解析)｜MAFFT path (default: auto domain env) |
+| `--clustalo-path` | — |  | Clustal Omega路径(默认域环境自动解析)｜Clustal Omega path (default: auto domain env) |
+| `--muscle-path` | — |  | MUSCLE路径(默认域环境自动解析)｜MUSCLE path (default: auto domain env) |
+| `--tcoffee-path` | — |  | T-Coffee路径(默认域环境自动解析)｜T-Coffee path (default: auto domain env) |
 
 <!-- END PARAMS:auto -->
 

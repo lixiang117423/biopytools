@@ -183,8 +183,8 @@ output/
 | `--min-clip` | `20` | int | 最小soft-clip长度｜Minimum soft-clip length (default: 20) |
 | `--min-support` | `5` | int | 最小支持reads数｜Minimum supporting reads (default: 5) |
 | `--score-threshold` | `1000` | int | 得分阈值｜Score threshold (default: 1000) |
-| `--bowtie2-path` | `bowtie2` |  | Bowtie2可执行文件路径｜Bowtie2 executable path |
-| `--samtools-path` | `samtools` |  | samtools可执行文件路径｜samtools executable path |
+| `--bowtie2-path` | — |  | Bowtie2可执行文件路径(默认域环境自动解析)｜Bowtie2 executable path (default: auto domain env) |
+| `--samtools-path` | — |  | samtools可执行文件路径(默认域环境自动解析)｜samtools executable path (default: auto domain env) |
 | `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀（包含扩展名，默认匹配fastp输出）｜Read 1 file suffix with extension (default: _1.clean.fq.gz, matches fastp output) |
 | `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀（包含扩展名，默认匹配fastp输出）｜Read 2 file suffix with extension (default: _2.clean.fq.gz, matches fastp output) |
 | `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |

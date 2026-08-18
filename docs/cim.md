@@ -377,6 +377,7 @@ Chr01_6422855    LG12   23.697
 | `--local-hotspot-score` | `1` | int | 软评分删除线｜Soft-score deletion cutoff |
 | `--local-hotspot-relative` | `0.0` | float | 相对判据系数(0=关)｜Relative criterion factor (0=off) |
 | `--min-phys-gap` | `0` | int | 最小相邻物理距离bp(0=关)｜Min physical gap bp (0=off) |
+| `--keep-fragment-lgs` | `False` |  | 保留碎片LG进CIM(默认每染色体仅保留最大LG)｜Keep fragment LGs in CIM (default: largest LG per chromosome) |
 | `--n-marcovar` | `10` | int | 协因子数量｜Number of marker covariates |
 | `--window` | `10.0` | float | 窗口大小(cM)｜Window size in cM |
 | `--method` | `hk` | hk/em/imp | 扫描方法｜Scanning method |
@@ -412,6 +413,7 @@ Chr01_6422855    LG12   23.697
 | `--local-hotspot-score` | `1` | int | 软评分删除线(默认1)｜Soft-score deletion cutoff (default: 1) |
 | `--local-hotspot-relative` | `0.0` | float | 相对判据系数(0=只用绝对阈值)｜Relative criterion factor, 0=absolute only (default: 0) |
 | `--min-phys-gap` | `0` | int | 最小相邻物理距离bp, 0=关闭(默认)｜Min physical gap in bp, 0=off (default: 0) |
+| `--keep-fragment-lgs` | `False` | store_true | 保留碎片LG进CIM(默认每染色体仅保留最大LG)｜Keep fragment LGs in CIM (default: largest LG per chromosome only) |
 | `--n-marcovar` | `10` | int | 协因子数量｜Number of marker covariates (default: 10) |
 | `--window` | `10.0` | float | 窗口大小(cM)｜Window size in cM (default: 10) |
 | `--method` | `hk` | hk/em/imp | 扫描方法｜Scanning method (default: hk) |
