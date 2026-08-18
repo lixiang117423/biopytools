@@ -1,3 +1,13 @@
+## [1.34.0] - 2026-08-18
+
+### Changed
+- `admixture`: HWE 过滤默认关闭(`--hwe` 1e-6 → 1.0——混合群体偏离 HWE 属预期, 过滤会误删群体分化位点; <1 才启用); 移除 `--mind` 个体缺失率过滤(只做位点层面 `--geno`, 保留全部样品); LD 剪枝默认改经典保守组合(`--ld-window` 3000kb→50, `--ld-step` 1→10, `--ld-r2` 0.2→0.1); 模块版本 1.1.0
+- 27 份模块文档参数表同步: 工具路径默认值改为域环境自动解析(`--`), 与域环境重构后代码一致; `cim` 补 `--keep-fragment-lgs` 参数行
+
+### Fixed
+- `admixture`: `--cv` 改等号写法(`--cv=N`)——ADMIXTURE 只认等号形式, 空格分隔会把折数当多余位置参数致 exit 255(analysis.py 与 dry-run 预览同步修正)
+- `admixture`: utils.py 删除本地 `get_conda_env`/`build_conda_command` 复制实现, 改走 `common/conda_runner` 公共层(修复 Mac 端无 align 环境时 conda 包装检测失败)
+
 ## [1.33.0] - 2026-08-18
 
 ### Added
