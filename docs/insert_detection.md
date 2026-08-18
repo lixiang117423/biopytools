@@ -63,7 +63,7 @@ fastq_output/
 
 ### 工具路径 | Tool paths
 
-**通俗理解|In plain words:** --bowtie2-path、--samtools-path 指定软件路径，默认直接用 PATH 里的 bowtie2、samtools。一般不用动，除非软件不在 PATH。
+**通俗理解|In plain words:** --bowtie2-path、--samtools-path 指定软件路径，默认自动解析功能域环境，缺失时回退 PATH 里的 bowtie2、samtools。一般不用动，除非软件不在 PATH。
 
 ### FASTQ 命名与流程控制 | File pattern & control
 
@@ -196,8 +196,9 @@ output/
 ## 依赖 | Dependencies
 
 - Python 3（需 pandas、numpy）
-- bowtie2（bowtie2、bowtie2-build，默认从 PATH 调用）
-- samtools（默认从 PATH 调用）
+- bowtie2（bowtie2、bowtie2-build，无对应功能域环境，默认从 PATH 调用，可用 --bowtie2-path 或环境变量 BOWTIE2_PATH / BOWTIE2_BUILD_PATH 覆盖）
+- samtools（自动解析 align 域环境并经 conda run 调用，可用 --samtools-path 或环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- minimap2（可选，用于长序列；自动解析 align 域环境，可用环境变量 MINIMAP2_PATH 覆盖）
 
 ## 常见问题 | FAQ
 

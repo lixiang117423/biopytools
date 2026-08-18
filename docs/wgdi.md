@@ -153,7 +153,7 @@ output_dir/
 
 ## 依赖 | Dependencies { #dependencies }
 
-- WGDI 软件（默认路径 `~/miniforge3/envs/phylo/bin/wgdi`，通过 `--wgdi-path` 可改）
+- WGDI 软件（自动解析 phylo 域环境并经 conda run 调用，可用 --wgdi-path 或环境变量 WGDI_PATH 覆盖；域环境缺失时回退旧默认路径 `~/miniforge3/envs/phylo/bin/wgdi`）
 
 ## 常见问题 | FAQ { #faq }
 

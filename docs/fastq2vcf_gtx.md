@@ -211,7 +211,7 @@ output/
 
 - GTX（默认 ~/software/gtx/bin/gtx，可用 --gtx-bin 覆盖）
 - fastp（质控）
-- samtools、bcftools（必需，预检查会校验）
+- samtools、bcftools（必需，预检查会校验；bcftools 自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖，域环境缺失时回退 PATH 直接调用）
 - biopytools（本工具自身，预检查会校验）
 - faketime（**必需**：GTX 所有命令靠它绕过 license 时间校验）
 - Python 3

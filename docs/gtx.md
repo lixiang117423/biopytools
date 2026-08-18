@@ -186,9 +186,9 @@ results/
 
 ## 依赖 | Dependencies { #dependencies }
 
-- GTX(核心变异检测工具，默认路径 `~/software/gtx/GTX.CAT_2.2.1/bin/gtx`)
-- bwa(参考基因组索引构建)
-- samtools(参考基因组索引构建)
+- GTX(核心变异检测工具，默认路径 `~/software/gtx/GTX.CAT_2.2.1/bin/gtx`，可用 --gtx-path 覆盖；无对应功能域环境)
+- bwa(参考基因组索引构建，自动解析 align 域环境并经 conda run 调用，可用环境变量 BWA_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
+- samtools(参考基因组索引构建，自动解析 align 域环境并经 conda run 调用，可用环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
 - faketime(必须能在 PATH 中找到，GTX 命令依赖它绕过 license 时间校验)
 
 ## 常见问题 | FAQ { #faq }

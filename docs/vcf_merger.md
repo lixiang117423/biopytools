@@ -144,7 +144,7 @@ output/
 ## 依赖 | Dependencies { #dependencies }
 
 - Python 3
-- bcftools（外部命令行工具，通过系统 PATH 直接调用；未安装会报错并提示 `conda install -c bioconda bcftools`）
+- bcftools（自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ { #faq }
 

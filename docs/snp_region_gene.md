@@ -74,7 +74,7 @@ Chr01	source	exon	1000	1500	.	+	.	Parent=Gene001.1
 
 ### 输出与工具路径 | Output & tool paths
 
-**通俗理解|In plain words:** `-o` 是输出文件前缀（不是目录，三个结果文件都挂在这个前缀后面）；`--gffread-path`/`--seqkit-path` 只在系统 PATH 里找不到这两个软件、或想指定特定版本时才需要改；`--keep-temp` 用于排查问题时保留中间临时文件，平时不用开。
+**通俗理解|In plain words:** `-o` 是输出文件前缀（不是目录，三个结果文件都挂在这个前缀后面）；`--gffread-path`/`--seqkit-path` 只在功能域环境缺失、系统 PATH 里也找不到这两个软件、或想指定特定版本时才需要改；`--keep-temp` 用于排查问题时保留中间临时文件，平时不用开。
 
 相关参数：`-o/--output`（默认 `./snp_region_output`）、`--gffread-path`（默认 `gffread`）、`--seqkit-path`（默认 `seqkit`）、`--keep-temp`。
 
@@ -175,8 +175,8 @@ output.log                # 运行日志
 
 ## 依赖 | Dependencies { #dependencies }
 
-- gffread（默认调用 `gffread`，可用 `--gffread-path` 指定；推荐 conda 环境 `rna`）
-- seqkit（默认调用 `seqkit`，可用 `--seqkit-path` 指定；推荐 conda 环境 `misc`）
+- gffread（自动解析 rna 域环境并经 conda run 调用，可用 `--gffread-path` 或环境变量 GFFREAD_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- seqkit（自动解析 misc 域环境并经 conda run 调用，可用 `--seqkit-path` 或环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - Python 3 标准库
 
 ## 常见问题 | FAQ { #faq }

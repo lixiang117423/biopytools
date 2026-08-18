@@ -51,7 +51,7 @@ biopytools minimap2 -t target_genome.fasta -q query_genome.fasta -o results/
 
 ### 工具路径参数 | Tool paths
 
-**通俗理解|In plain words:** -M 是 minimap2 可执行文件，-S 是 seqkit 可执行文件；默认直接调用系统 PATH 里的 minimap2/seqkit，装了别名或用其他路径时才需要指定。
+**通俗理解|In plain words:** -M 是 minimap2 可执行文件，-S 是 seqkit 可执行文件；默认自动解析功能域环境（align/misc），域环境缺失时回退 PATH 直接调用，装了别名或用其他路径时才需要显式指定。
 
 ## 分析流程 | Pipeline
 
@@ -147,8 +147,8 @@ results/
 
 ## 依赖 | Dependencies
 
-- minimap2（默认调用 PATH 中的 minimap2，可用 -M 指定路径）
-- seqkit（默认调用 PATH 中的 seqkit，可用 -S 指定路径）
+- minimap2（自动解析 align 域环境并经 conda run 调用；可用 -M 或环境变量 MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- seqkit（自动解析 misc 域环境并经 conda run 调用；可用 -S 或环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - Python 库：pandas（读 PAF）、biopython（seqkit 替代路径，实际提取由 seqkit 完成）
 
 ## 常见问题 | FAQ

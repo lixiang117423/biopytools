@@ -129,7 +129,7 @@ fastq_output/
 
 ## 依赖 | Dependencies
 
-- `parallel-fastq-dump`（推荐，多线程）或 `fastq-dump`（SRA Toolkit，备选），两者至少其一
+- `parallel-fastq-dump`（推荐，多线程）或 `fastq-dump`（SRA Toolkit，备选），两者至少其一；经 conda run 自动检测包装，可用环境变量 PARALLEL_FASTQ_DUMP_PATH / FASTQ_DUMP_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用
 - 程序启动时自动检测：有 `parallel-fastq-dump` 优先用它，否则回退 `fastq-dump`
 
 ## 常见问题 | FAQ

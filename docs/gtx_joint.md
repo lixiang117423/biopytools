@@ -169,8 +169,8 @@ bcftools concat -o Chr01.merged.vcf.gz output/Chr01_*.joint.vcf.gz
 ## 依赖 | Dependencies { #dependencies }
 
 - GTX(生成的脚本会调用它，`-g` 指定)
-- samtools(参考基因组索引构建)
-- tabix(GVCF 索引重建)
+- samtools(参考基因组索引构建，自动解析 align 域环境并经 conda run 调用，可用环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
+- tabix(GVCF 索引重建，自动解析 align 域环境并经 conda run 调用，可用环境变量 TABIX_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
 - faketime(可选，检测到才使用；GTX 的 license 校验依赖它)
 
 ## 常见问题 | FAQ { #faq }

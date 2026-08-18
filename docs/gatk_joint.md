@@ -180,8 +180,8 @@ output/
 
 ## 依赖 | Dependencies { #dependencies }
 
-- GATK（gatk，GenomicsDBImport/GenotypeGVCFs/SelectVariants/VariantFiltration/CreateSequenceDictionary）
-- bcftools（bcftools，合并/索引/统计）
+- GATK（gatk，GenomicsDBImport/GenotypeGVCFs/SelectVariants/VariantFiltration/CreateSequenceDictionary；自动解析 align 域环境并经 conda run 调用，可用 --gatk-path 覆盖；域环境缺失时回退 PATH 直接调用）
+- bcftools（bcftools，合并/索引/统计；自动解析 align 域环境并经 conda run 调用，可用 --bcftools-path 覆盖；域环境缺失时回退 PATH 直接调用）
 - samtools（自动创建 .fai 索引时用到）
 - Python 3
 

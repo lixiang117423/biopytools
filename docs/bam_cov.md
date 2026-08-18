@@ -150,7 +150,7 @@ bam_coverage_YYYYMMDD_HHMMSS.log   # 运行日志
 
 ## 依赖 | Dependencies
 
-- `samtools`（PATH 中直接调用，版本要求 `samtools depth` 子命令）
+- `samtools`（自动解析 align 域环境并经 conda run 调用；可用环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用，要求支持 `samtools depth` 子命令）
 
 ## 常见问题 | FAQ
 

@@ -56,7 +56,7 @@ MSTNPKPQRKTKRS
 
 ### MAFFT / FastTree 与性能 | MAFFT / FastTree & performance
 
-**通俗理解|In plain words:** `-t`（默认 88）管 MAFFT 线程；`--mafft-params`（默认 `--auto`）、`--fasttree-params`（默认空）是透传给底层软件的参数，**一般不用动**；`--mafft-path`/`--fasttree-path` 指定软件路径，默认在 PATH 里找。
+**通俗理解|In plain words:** `-t`（默认 88）管 MAFFT 线程；`--mafft-params`（默认 `--auto`）、`--fasttree-params`（默认空）是透传给底层软件的参数，**一般不用动**；`--mafft-path`/`--fasttree-path` 指定软件路径，默认自动解析功能域环境，缺失时回退 PATH 查找。
 
 ## 分析流程 | Pipeline { #pipeline }
 
@@ -164,9 +164,9 @@ output_dir/
 
 ## 依赖 | Dependencies { #dependencies }
 
-- MAFFT（默认 `mafft`，PATH 中查找；`--mafft-path` 指定）
-- FastTree（默认 `fasttree`，PATH 中查找；`--fasttree-path` 指定）
-- trimAl（默认路径 `~/miniforge3/envs/phylo/bin/trimal`，conda 环境 `phylo`，可用 `TRIMAL_PATH` 覆盖）
+- MAFFT（自动解析 phylo 域环境并经 conda run 调用；`--mafft-path` 或环境变量 MAFFT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- FastTree（无对应功能域环境，默认 `fasttree`；`--fasttree-path` 或环境变量 FASTTREE_PATH 覆盖，回退 PATH 直接调用）
+- trimAl（默认路径 `~/miniforge3/envs/phylo/bin/trimal`，自动解析 phylo 域环境并经 conda run 调用，可用 `TRIMAL_PATH` 覆盖）
 - Python 3（biopytools 运行环境）
 
 ## 常见问题 | FAQ { #faq }

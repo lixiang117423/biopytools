@@ -162,8 +162,8 @@ subgenome_assign_output/
 
 ## 依赖 | Dependencies
 
-- minimap2（默认 `~/miniforge3/envs/align/bin/minimap2`，MINIMAP2_PATH 覆盖）
-- samtools（默认 `~/.local/bin/samtools`，SAMTOOLS_PATH 覆盖）
+- minimap2（自动解析 align 域环境并经 conda run 调用；可用 --minimap2-path 或环境变量 MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- samtools（自动解析 align 域环境并经 conda run 调用；可用 --samtools-path 或环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

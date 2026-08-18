@@ -162,7 +162,7 @@ biopytools bam-stats -i ./bam_dir -o result.summary.tsv --bed-file targets.bed
 
 ## 依赖 | Dependencies
 
-- `samtools`、`bedtools`（通过路径管理自动定位，可用环境变量 `SAMTOOLS_PATH` / `BEDTOOLS_PATH` 覆盖）
+- `samtools`、`bedtools`（自动解析 align 域环境：单命令经 conda run 调用，管道命令按规范以域环境二进制直调；可用环境变量 `SAMTOOLS_PATH` / `BEDTOOLS_PATH` 覆盖）
 - Python 库：`pandas`、`openpyxl`、`tqdm`（缺任一会在启动时提示）
 
 ## 常见问题 | FAQ

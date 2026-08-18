@@ -162,8 +162,8 @@ bcftools filter(--include 质量表达式)
 
 ## 依赖 | Dependencies { #dependencies }
 
-- bcftools（必需，核心引擎）
-- tabix（可选，.gz 输入建索引时用；推荐 conda 环境 `align`）
+- bcftools（必需，核心引擎；自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- tabix（可选，.gz 输入建索引时用；自动解析 align 域环境并经 conda run 调用，可用环境变量 TABIX_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - bgzip（可选）
 - Python 3 标准库
 

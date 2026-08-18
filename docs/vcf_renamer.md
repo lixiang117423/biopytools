@@ -124,7 +124,7 @@ biopytools vcf-renamer -i input.vcf.gz -o output.vcf.gz
 ## 依赖 | Dependencies { #dependencies }
 
 - Python 3
-- bcftools（外部命令行工具，通过 `which bcftools` 检查是否在 PATH 中）
+- bcftools（外部命令行工具，自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ { #faq }
 

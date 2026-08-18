@@ -131,10 +131,8 @@ CSV 列（Excel 顺序略有调整）：
 
 ## 依赖 | Dependencies
 
-- seqkit（`seqkit stats`、`seqkit version`）
+- seqkit（`seqkit stats`、`seqkit version`；自动解析 misc 域环境并经 conda run 调用，可用环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - pandas + openpyxl（仅 `-o *.xlsx` 时）
-
-无固定 conda 环境名；seqkit 直接通过 PATH 查找（`conda install -c bioconda seqkit` 可安装）。
 
 ## 常见问题 | FAQ
 

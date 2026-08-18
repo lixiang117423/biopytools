@@ -192,9 +192,11 @@ workflow_output/
 本工作流复用以下模块与软件：
 
 - hifi_hic 模块（依赖 hifiasm `asm`、seqkit `misc`、samtools `align`）
-- HapHiC（`--haphic-bin`，默认 `haphic`）、bwa、samtools（Hi-C 比对与挂载）
-- minimap2（染色体重命名时与参考比对）
+- HapHiC（`--haphic-bin`，默认 `haphic`；hic 域）、bwa、samtools（Hi-C 比对与挂载，align 域）
+- minimap2（染色体重命名时与参考比对，align 域）
 - HiC-Pro（默认路径 `~/software/HiC-Pro_v3.1.0/.../HiC-Pro`）、PlotHiC（conda 环境 `plothic_v.1.0.0`）
+
+本工作流自有 conda 工具（haphic、bwa、samtools、minimap2）自动解析功能域环境并经 conda run 调用，可用环境变量 HAPHIC_BIN / BWA_BIN / SAMTOOLS_BIN / MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用。
 
 ## 常见问题 | FAQ
 

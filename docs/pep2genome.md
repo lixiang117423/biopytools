@@ -52,7 +52,7 @@ MAAQ...
 
 ### 计算资源 | Compute { #parameters-compute }
 
-**通俗理解|In plain words:** `--threads` 控制比对的并行度，越大越快（受机器 CPU 核数限制），一般不用动。`--miniprot-path` 是 miniprot 程序的位置，默认从系统 PATH 里找，只有把 miniprot 装在非标准位置时才需要手动指定。
+**通俗理解|In plain words:** `--threads` 控制比对的并行度，越大越快（受机器 CPU 核数限制），一般不用动。`--miniprot-path` 是 miniprot 程序的位置，默认自动解析 annot 功能域环境，缺失时回退系统 PATH 查找，只有把 miniprot 装在非标准位置时才需要手动指定。
 
 ### 输出开关 | Output toggles { #parameters-output }
 
@@ -148,8 +148,8 @@ results/
 
 ## 依赖 | Dependencies { #dependencies }
 
-- miniprot：蛋白质到基因组比对核心，从系统 PATH 调用，默认命令名 `miniprot`
-- seqkit：按 BED 提取基因组序列，默认命令名 `seqkit`
+- miniprot：蛋白质到基因组比对核心，自动解析 annot 域环境并经 conda run 调用，可用 --miniprot-path 或环境变量 MINIPROT_PATH 覆盖；域环境缺失时回退 PATH 直接调用
+- seqkit：按 BED 提取基因组序列，自动解析 misc 域环境并经 conda run 调用，可用环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用
 - Python 3 + numpy：统计计算
 
 ## 常见问题 | FAQ { #faq }

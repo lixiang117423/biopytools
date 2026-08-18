@@ -201,7 +201,7 @@ output/
 ## 依赖 | Dependencies
 
 - Python 库：numpy、matplotlib（绘图）
-- BLAST（`makeblastdb` / `blastn`，仅 `primer` 子命令需要，需在 PATH 中）
+- BLAST（`makeblastdb` / `blastn`，仅 `primer` 子命令需要；自动解析 annot 域环境并经 conda run 调用，可用环境变量 MAKEBLASTDB_PATH / BLASTN_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - primer3-py（仅 `primer` 子命令需要）
 
 ## 常见问题 | FAQ

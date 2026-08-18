@@ -217,12 +217,13 @@ hifiasm_output/
 
 ## 依赖 | Dependencies
 
-以下软件需能在 PATH 中直接调用（默认用裸命令名，可用 `--*-path` 参数覆盖）：
+以下 conda 软件自动解析功能域环境并经 conda run 调用（默认用裸命令名，可用 `--*-path` 参数覆盖；域环境缺失时回退 PATH 直接调用）：
 
-- hifiasm（组装）
-- BUSCO（完整性评估，可 `--skip-busco` 跳过）
-- QUAST（连续性评估，可 `--skip-quast` 跳过）
-- python3、samtools（统计/索引）
+- hifiasm（组装，asm 域）
+- BUSCO（完整性评估，busco 域，可 `--skip-busco` 跳过）
+- QUAST（连续性评估，无对应功能域环境，可 `--skip-quast` 跳过）
+- samtools（统计/索引，align 域）
+- python3（系统自带）
 - pandas、matplotlib/seaborn（统计表与绘图，缺省时跳过对应产物）
 
 ## 常见问题 | FAQ

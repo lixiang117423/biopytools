@@ -162,7 +162,7 @@ XP_003456
 
 ## 依赖 | Dependencies { #dependencies }
 
-- taxonkit（须在 PATH 中，conda 可装：`conda install -c bioconda taxonkit`）
+- taxonkit（经 conda run 自动检测包装，可用环境变量 TAXONKIT_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用；conda 可装：`conda install -c bioconda taxonkit`）
 - zgrep、zcat（系统自带，用于读压缩数据库）
 - 本地 TaxID 数据库（默认 `~/database/ncbi_taxonomy/nucl_gb.accession2taxid.gz`，需提前下载）
 - 可选：edirect + BioPython（仅 `--fetch-titles` 联网抓描述时需要）

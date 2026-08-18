@@ -234,7 +234,7 @@ output/
 - fastp（通过 biopytools fastp 子命令调用做质控）
 - Python 3
 
-以上软件均可通过 --*-path 参数或系统 PATH 指定；conda 环境中的软件会被自动包装调用。
+以上软件默认自动解析功能域环境（bwa/samtools/gatk → align，fastp → rna）并经 conda run 调用；可通过 --*-path 参数或环境变量（BWA_PATH / SAMTOOLS_PATH / GATK_PATH / FASTP_PATH）覆盖；域环境缺失时回退 PATH 直接调用。
 
 ## 常见问题 | FAQ { #faq }
 

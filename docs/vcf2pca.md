@@ -176,9 +176,9 @@ pca_output/
 
 ## 依赖 | Dependencies
 
-- PLINK(默认 `plink`，可 `--plink-path` 覆盖)
-- bcftools(默认 `bcftools`)
-- VCF2PCACluster(仅 v2p 后端，默认 `~/software/VCF2PCACluster-1.42/bin/VCF2PCACluster`)
+- PLINK(自动解析 pop 域环境并经 conda run 调用，可 --plink-path 或环境变量 PLINK_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
+- bcftools(自动解析 align 域环境并经 conda run 调用，可 --bcftools-path 或环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用)
+- VCF2PCACluster(仅 v2p 后端，默认 `~/software/VCF2PCACluster-1.42/bin/VCF2PCACluster`，可 --vcf2pca-path 或环境变量 VCF2PCA_PATH 覆盖)
 - matplotlib/seaborn(生成可视化图时)
 
 ## 常见问题 | FAQ

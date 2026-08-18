@@ -211,8 +211,7 @@ bwa_output/
 
 ## 依赖 | Dependencies
 
-- `bwa`（BWA-MEM，PATH 中直接调用）
-- `samtools`（view/sort/index/markdup/flagstat/stats/depth，PATH 中直接调用）
+- `bwa`、`samtools`（自动解析 align 域环境并经 conda run 调用；可用环境变量 BWA_PATH / SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

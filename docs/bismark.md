@@ -157,11 +157,7 @@ bismark_results/
 
 ## 依赖 | Dependencies
 
-- bismark（需在 PATH 中）
-- bismark_genome_preparation（需在 PATH 中）
-- bowtie2（需在 PATH 中，索引构建时自动定位其目录）
-- bismark_methylation_extractor（需在 PATH 中）
-- 无内置 conda 环境名，所有 Bismark 相关命令依赖调用环境 PATH
+- bismark、bismark_genome_preparation、bowtie2、bismark_methylation_extractor（无对应功能域环境，经 conda run 自动检测包装；可用环境变量 BISMARK_PATH / BISMARK_GENOME_PREPARATION_PATH / BOWTIE2_PATH / BISMARK_METHYLATION_EXTRACTOR_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

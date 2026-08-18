@@ -187,12 +187,12 @@ output/
 ## 依赖 | Dependencies
 
 - Python 3
-- minimap2（比对）
-- samtools（建索引、提取染色体长度）
-- syri（结构注释）
-- plotsr（绘图）
+- minimap2（比对，align 域环境）
+- samtools（建索引、提取染色体长度，align 域环境）
+- syri（结构注释，可用环境变量 SYRI_PATH 覆盖）
+- plotsr（绘图，可用环境变量 PLOTSR_PATH 覆盖）
 
-> 这些工具需在 PATH 中可用（程序用 `which` 检查）。
+> 工具路径自动解析功能域环境（`~/miniforge3/envs/<域>/bin/<工具>`）并经 conda run 调用；域环境缺失时回退 PATH（程序用 `which` 检查）。`minimap2 | samtools sort` 管道按规范以域环境二进制直调（管道中禁用 conda run）。
 
 ## 常见问题 | FAQ
 

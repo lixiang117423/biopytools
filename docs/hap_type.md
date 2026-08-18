@@ -152,7 +152,7 @@ BED 批量模式：每个区间生成如上的一组文件（前缀为 `chr_star
 - Python 3
 - cyvcf2（读取 VCF，按区间随机访问）
 - openpyxl（写 xlsx 文件）
-- 可选：bcftools（tabix 索引缺失时加速；无索引也可运行）
+- 可选：bcftools（tabix 索引缺失时加速；无索引也可运行；自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

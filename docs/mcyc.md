@@ -152,13 +152,13 @@ Diamond 比对(perl MCycDB_FunctionProfiler.PL，已有结果则跳过)
 
 ## 依赖 | Dependencies { #dependencies }
 
-- diamond（蛋白比对，需在 PATH 中）
-- seqkit（reads 统计，需在 PATH 中）
-- perl（运行 MCycDB_FunctionProfiler.PL，需在 PATH 中）
+- diamond（蛋白比对，自动解析 annot 域环境并经 conda run 调用，可用环境变量 DIAMOND_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- seqkit（reads 统计，自动解析 misc 域环境并经 conda run 调用，可用环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- perl（运行 MCycDB_FunctionProfiler.PL，需在 PATH 中；无对应功能域环境）
 - MCycDB 数据库（默认 `~/software/MCycDB/MCycDB-main`，含 MCycDB_2021.faa / id2gene.map / MCycDB_2021.dmnd）
 - Python 包：pandas、numpy（矩阵计算）
 
-> 说明：本模块的 diamond/seqkit/perl 通过 `shutil.which` 在 PATH 中查找并直接调用（shell 执行），**不走 conda run**。
+> 说明：本模块的 diamond/seqkit 经 conda run 自动解析功能域环境（annot/misc）调用；perl 通过 PATH 查找并直接调用。
 
 ## 常见问题 | FAQ { #faq }
 

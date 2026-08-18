@@ -204,7 +204,7 @@ project/
 
 - Parabricks（GPU 比对/变异检测，需 NVIDIA GPU）
 - GTX（默认 ~/software/gtx/bin/gtx，联合检测；可用 --gtx-bin 覆盖）
-- BWA、SAMtools、bcftools、GATK（预检查会校验）
+- BWA、SAMtools、bcftools、GATK（预检查会校验；自动解析 align 域环境并经 conda run 调用，可用环境变量 BWA_PATH / SAMTOOLS_PATH / BCFTOOLS_PATH / GATK_PATH 覆盖，域环境缺失时回退 PATH 直接调用）
 - fastp（质控）
 - biopytools（自身，预检查会校验）
 - Python 3

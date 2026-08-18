@@ -145,11 +145,11 @@ biopytools coverage-filter -i sample.bam -f genome.fa -o filtered
 
 ## 依赖 | Dependencies
 
-- samtools（`samtools coverage`）
-- seqtk（`seqtk subseq`）
-- seqkit（`seqkit stats`）
+- samtools（`samtools coverage`，自动解析 align 域环境）
+- seqkit（`seqkit stats`，自动解析 misc 域环境）
+- seqtk（`seqtk subseq`，无对应功能域环境）
 
-三个软件直接通过 `PATH` 查找（`shutil.which`），无固定 conda 环境名，安装并加入 PATH 即可。
+三个软件经 conda run 自动检测包装；可用环境变量 SAMTOOLS_PATH / SEQKIT_PATH / SEQTK_PATH 覆盖；域环境缺失时回退 PATH 直接调用。
 
 ## 常见问题 | FAQ
 

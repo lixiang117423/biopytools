@@ -121,10 +121,8 @@ filtered.fastq.gz     # 过滤后保留的 reads(格式随输出后缀)
 
 ## 依赖 | Dependencies
 
-- seqkit（`seqkit fx2tab`、`seqkit grep`、`seqkit stats`）
+- seqkit（`seqkit fx2tab`、`seqkit grep`、`seqkit stats`；自动解析 misc 域环境并经 conda run 调用，可用环境变量 SEQKIT_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - awk（Linux 自带）
-
-无固定 conda 环境名；seqkit 直接通过 PATH 查找。
 
 ## 常见问题 | FAQ
 

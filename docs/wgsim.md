@@ -141,7 +141,7 @@ output_dir/
 
 ## 依赖 | Dependencies
 
-- wgsim（默认路径 `~/miniforge3/envs/align/bin/wgsim`，可用环境变量 `WGSIM_PATH` 或配置文件覆盖）
+- wgsim（自动解析 align 域环境并经 conda run 调用，可用环境变量 `WGSIM_PATH` 或配置文件覆盖；域环境缺失时回退旧默认路径 `~/miniforge3/envs/align/bin/wgsim`）
 - gzip（系统自带，用于压缩输出）
 
 ## 常见问题 | FAQ

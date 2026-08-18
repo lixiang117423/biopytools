@@ -116,7 +116,7 @@ biopytools vcf-sampler -i input.vcf.gz -o output.vcf.gz
 
 - Python 3
 - pysam（可选，用于加速；未安装时自动退回 Python 逐行处理，会变慢）
-- tabix / htslib（输入无索引时自动创建索引用；缺失时退回 Python 模式）
+- tabix / htslib（输入无索引时自动创建索引用；tabix 自动解析 align 域环境并经 conda run 调用，可用环境变量 TABIX_PATH 覆盖，域环境缺失时回退 PATH 直接调用；缺失时退回 Python 模式）
 
 ## 常见问题 | FAQ { #faq }
 

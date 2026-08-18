@@ -65,7 +65,7 @@ TTGCAACG...
 
 ### 输出与软件路径 | Output & software path
 
-**通俗理解|In plain words:** -o 决定结果放哪，一般不用动；-a 是 minimap2 的路径，如果系统 PATH 里已经有 minimap2 就用默认值，装了但没进 PATH 才需要指定完整路径。
+**通俗理解|In plain words:** -o 决定结果放哪，一般不用动；-a 是 minimap2 的路径，默认自动解析 align 功能域环境，缺失时回退 PATH 直接调用，装了但没进 PATH 才需要指定完整路径。
 
 ### 比对参数 | Alignment parameters
 
@@ -182,8 +182,7 @@ output/
 <!-- END PARAMS:auto -->
 ## 依赖 | Dependencies
 
-- minimap2（默认从 PATH 调用，或用 -a/--minimap2-path 指定完整路径）
-- 无 conda 环境要求、无其他外部依赖
+- minimap2（自动解析 align 域环境并经 conda run 调用；可用 -a/--minimap2-path 或环境变量 MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

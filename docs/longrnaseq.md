@@ -65,10 +65,10 @@ biopytools longrnaseq -i input.bam -r genome.fa -o output_dir
 
 ### 运行参数 | Runtime
 
-**通俗理解|In plain words:** `-t/--threads` 是线程数，长读段比对较吃 CPU，机器核多可调大。`--minimap2-path`、`--samtools-path` 是软件路径，**装好并在 PATH 里就不用动**。
+**通俗理解|In plain words:** `-t/--threads` 是线程数，长读段比对较吃 CPU，机器核多可调大。`--minimap2-path`、`--samtools-path` 是软件路径，默认自动解析功能域环境，缺失时回退 PATH，**装好并进 PATH 就不用动**。
 
 - `-t/--threads`：线程数（默认 12）
-- `--minimap2-path`：minimap2 路径（默认 `minimap2`，从 PATH 查找）
+- `--minimap2-path`：minimap2 路径（默认自动解析 align 功能域环境，缺失时回退 PATH 查找）
 - `--samtools-path`：samtools 路径（默认 `samtools`）
 
 ## 分析流程 | Pipeline
@@ -174,9 +174,8 @@ output_dir/
 
 ## 依赖 | Dependencies
 
-- minimap2
-- samtools
-- 均通过 `--minimap2-path`/`--samtools-path` 指定，或直接用 PATH 里的系统版本（本模块不做 conda 环境自动包装，工具需能直接调用）
+- minimap2（自动解析 align 域环境并经 conda run 调用，可用 `--minimap2-path` 或环境变量 MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- samtools（自动解析 align 域环境并经 conda run 调用，可用 `--samtools-path` 或环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

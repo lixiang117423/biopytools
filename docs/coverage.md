@@ -56,7 +56,7 @@ biopytools coverage -i sample1.bam sample2.bam -o results.txt -t 16
 
 ### 其他 | Others
 
-**通俗理解|In plain words:** `--samtools-path` 指定 samtools 位置（默认 PATH 里的 `samtools`）；`--output-format` 目前只支持 `txt`；`--compress` 参数已声明但当前版本未实际压缩输出（见 FAQ）。一般都不用动。
+**通俗理解|In plain words:** `--samtools-path` 指定 samtools 位置（默认自动解析 align 功能域环境，缺失时回退 PATH 里的 `samtools`）；`--output-format` 目前只支持 `txt`；`--compress` 参数已声明但当前版本未实际压缩输出（见 FAQ）。一般都不用动。
 
 ## 分析流程 | Pipeline
 
@@ -149,7 +149,7 @@ depth_analysis.log                    # 运行日志
 
 ## 依赖 | Dependencies
 
-- `samtools`（通过 `--samtools-path` 指定，默认 PATH 中的 `samtools`）
+- `samtools`（自动解析 align 域环境并经 conda run 调用；可用 `--samtools-path` 或环境变量 SAMTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 
 ## 常见问题 | FAQ
 

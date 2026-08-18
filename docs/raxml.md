@@ -77,7 +77,7 @@ seq5   ACGTACGTACGTACGTACGT...
 
 ### 输出与工具 | Output and tool path
 
-**通俗理解|In plain words:** `-w/--output-dir` 指定结果目录。`--raxml-path` 指定 RAxML 程序路径(默认 `raxmlHPC-PTHREADS`，需在 PATH 里)。`--no-seq-check` 跳过输入检查、`--silent` 静默输出，**一般不用动**。
+**通俗理解|In plain words:** `-w/--output-dir` 指定结果目录。`--raxml-path` 指定 RAxML 程序路径(默认 `raxmlHPC-PTHREADS`，自动解析，缺失时回退 PATH)。`--no-seq-check` 跳过输入检查、`--silent` 静默输出，**一般不用动**。
 
 ## 分析流程 | Pipeline
 
@@ -220,9 +220,9 @@ raxml_output/
 
 | 软件<br>Software | 说明<br>Description |
 |------|------|
-| raxmlHPC-PTHREADS | RAxML 经典版(多线程 PTHREADS 编译)，默认直接调用，需在 PATH 中；可用 `--raxml-path` 指定完整路径 |
+| raxmlHPC-PTHREADS | RAxML 经典版(多线程 PTHREADS 编译)，经 conda run 自动检测包装，可用 `--raxml-path` 或环境变量 RAXML_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用 |
 
-无 conda 环境依赖(直接调用系统 PATH 中的 RAxML)。
+无对应功能域环境(回退 PATH 直接调用 RAxML)。
 
 ## 常见问题 | FAQ
 

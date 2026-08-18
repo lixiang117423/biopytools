@@ -150,8 +150,8 @@ output_dir/
 
 ## 依赖 | Dependencies
 
-- RagTag（通过命令行 `ragtag.py` 调用，需在 PATH 中，未绑定 conda 环境）
-- 比对器：`minimap2`（默认）/ `unimap` / `nucmer`，需在 PATH 中
+- RagTag（通过命令行 `ragtag.py` 调用，经 conda run 自动检测包装，可用环境变量 RAGTAG_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用）
+- 比对器：`minimap2`（默认）/ `unimap` / `nucmer`，由 RagTag 内部调用，需在 RagTag 所在环境/PATH 中
 
 ## 常见问题 | FAQ
 

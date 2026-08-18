@@ -164,8 +164,8 @@ GEMMA 关联结果，一行一个 SNP。核心列：位点 ID、染色体(chr)�
 ## 依赖 | Dependencies
 
 - GEMMA（默认 ~/.local/bin/gemma，可用 --gemma 指定）
-- PLINK（VCF 转 bed、PCA、质控）
-- bcftools（样本交集提取）
+- PLINK（VCF 转 bed、PCA、质控；自动解析 pop 域环境并经 conda run 调用，可用环境变量 PLINK_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- bcftools（样本交集提取；自动解析 align 域环境并经 conda run 调用，可用环境变量 BCFTOOLS_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
 - awk（表型文件处理）
 - Python 3
 

@@ -73,7 +73,7 @@ raw_data/
 
 ### 工具路径 | Tool paths
 
-**通俗理解|In plain words:** 各软件的路径，默认用 PATH 里的命令名。只有软件装在不常见位置时才需要显式指定。
+**通俗理解|In plain words:** 各软件的路径，默认自动解析功能域环境，缺失时回退 PATH 里的命令名。只有软件装在不常见位置时才需要显式指定。
 
 ## 分析流程 | Pipeline
 
@@ -236,10 +236,12 @@ results/
 <!-- END PARAMS:auto -->
 ## 依赖 | Dependencies
 
-- 基础：hifiasm、bwa、samtools、seqkit、fastqc
-- Hi-C（按策略）：complete_juicer 需 juicer + juicer_tools + 3d-dna；standard_3ddna 需 bwa + pairtools + 3d-dna + juicer_tools；simplified_salsa2 需 bwa + samtools + SALSA2（run_pipeline.py）
-- 质量评估：BUSCO（可选，装不上会自动跳过 BUSCO 步骤）
+- 基础：hifiasm（asm 域）、bwa、samtools（align 域）、seqkit（misc 域）、fastqc
+- Hi-C（按策略）：complete_juicer 需 juicer + juicer_tools + 3d-dna；standard_3ddna 需 bwa + pairtools（hic 域）+ 3d-dna + juicer_tools；simplified_salsa2 需 bwa + samtools + SALSA2（run_pipeline.py）
+- 质量评估：BUSCO（busco 域，可选，装不上会自动跳过 BUSCO 步骤）
 - Java（用于 juicer_tools）
+
+conda 工具自动解析功能域环境并经 conda run 调用（环境变量 HIFIASM_PATH / BWA_PATH / SAMTOOLS_PATH / SEQKIT_PATH / PAIRTOOLS_PATH / BUSCO_PATH 或 --*-path 参数覆盖）；域环境缺失时回退 PATH 直接调用。fastqc、juicer、3d-dna、juicer_tools、SALSA2 无对应功能域环境，保持旧默认值（PATH 直接调用，环境变量 FASTQC_PATH / JUICER_PATH / PIPELINE_3DDNA_PATH / JUICER_TOOLS_PATH / SALSA2_PATH 覆盖）。
 
 ## 常见问题 | FAQ
 

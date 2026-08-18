@@ -208,9 +208,9 @@ output_dir/
 ## 依赖 | Dependencies
 
 - Java 11 或 17（运行 RNA-Bloom JAR 必需）
-- RNA-Bloom（`conda install -c bioconda rnabloom`）
-- minimap2（长读段组装时必需）
-- ntCard（可选，用于 k-mer 计数）
+- RNA-Bloom（经 conda run 自动检测包装，可用 --rnabloom-path 或环境变量 RNABLOOM_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用）
+- minimap2（长读段组装时必需；自动解析 align 域环境并经 conda run 调用，可用环境变量 MINIMAP2_PATH 覆盖；域环境缺失时回退 PATH 直接调用）
+- ntCard（可选，用于 k-mer 计数；无对应功能域环境，可用环境变量 NTCARD_PATH 覆盖）
 
 ## 常见问题 | FAQ
 

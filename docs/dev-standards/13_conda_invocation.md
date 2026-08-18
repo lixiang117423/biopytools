@@ -87,6 +87,14 @@ samtools_cmd = [self.samtools_path, "view", "-b", "-o", "output.bam"]
 
 ## 3. 完整实现|Full Implementation
 
+> 📌 **2026-08 更新|Update:** 以下实现的权威版本已下沉到公共层
+> **biopytools/common/conda_runner.py**（get_conda_env / build_conda_command /
+> build_pipeline_command / run_pipeline / CommandRunner / check_tools）。
+> 新代码直接 "from ..common.conda_runner import ..." 导入，**禁止在各模块
+> utils.py 中复制实现**；此处保留代码仅供理解算法。
+> The canonical implementations now live in biopytools/common/conda_runner.py;
+> import from there instead of copying per module.
+
 ### 3.1 环境检测函数|Environment Detection Function
 
 ```python
