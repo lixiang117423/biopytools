@@ -217,6 +217,7 @@ nav:
           - subgenome-assign: subgenome_assign.md
           - subphaser: subphaser.md
       - 系统发育:
+          - genome2tree: genome2tree.md
           - iqtree: iqtree.md
           - kaks: kaks.md
           - mafft-fasttree: mafft_fasttree.md

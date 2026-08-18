@@ -233,6 +233,7 @@ COMMAND_REGISTRY = [
     ('vcf2pav', 'vcf2pav', 'VCF转PAV(Presence/Absence)矩阵|VCF to PAV (Presence/Absence) matrix'),
     ('selective_sweep', 'selective-sweep', '选择性扫荡检测|Selective sweep detection'),
     ('mixrace', 'mixrace', 'WGS混合小种检测|WGS mixed-race detection'),
+    ('genome2tree', 'genome2tree', '基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster)'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
