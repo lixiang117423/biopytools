@@ -33,8 +33,8 @@ bash scripts/build_domains.sh
 
 ## 域清单|Domain List
 
-| 域|Domain | 吸收的旧环境|Absorbed Old Envs | 特殊渠道|Special Channels | 备注|Note |
-|---|---|---|---|---|
+| 域<br>Domain | 吸收的旧环境<br>Absorbed Old Envs | 特殊渠道<br>Special Channels | 备注<br>Note |
+|---|---|---|---|
 | align | GATK_v.4.6.2.0, bcftools_v.1.22, sv_calling, freebayes, Genome_dedup | - | jdk17 钉版 |
 | pop | Population_genetics, selective_sweep, adamixture_v.1.0.2, treemix_v.1.13, pixy_v.2.0.0, poplddecay_v.3.43 | - | gctb 自编译, 不入 env |
 | asm | canu_v.2.3, hifiasm_v.0.25.0, kmc_v.3.2.4, K-mer, merqury_v.1.3, purge_dups_v.1.2.6, genomescope_v.2.0.1, genomescope2_v.2.1.0, tidk_v.0.2.65, getorganelle_v.1.7.71, spades_v.4.3.0 | - | 包名 `purge_dups`(下划线) |
@@ -111,8 +111,8 @@ $M run -n busco  busco --version
 > 三个授权软件在超算上的 tarball 位置已核实（2026-08-16），注册命令可直接照抄。
 > 机制：predector 渠道的包装包 + `*-register <tarball>` 把授权内容解进环境。
 
-| 软件|Tool | tarball 路径|Tarball Path | 注册命令|Register Command |
-|---|---|---|---|
+| 软件<br>Tool | tarball 路径<br>Tarball Path | 注册命令<br>Register Command |
+|---|---|---|
 | SignalP6 | `~/software/SignalP_v.6.0/signalp-6.0i.fast.tar.gz`（6.0i fast 模型，与旧环境一致） | `conda run -n protein signalp6-register ~/software/SignalP_v.6.0/signalp-6.0i.fast.tar.gz` |
 | Phobius | `~/software/Phobius/phobius101_linux.tgz` | `conda run -n protein phobius-register ~/software/Phobius/phobius101_linux.tgz` |
 | TMHMM | `~/software/tmhmm/tmhmm-2.0c.Linux.tar.gz` | `conda run -n protein tmhmm2-register ~/software/tmhmm/tmhmm-2.0c.Linux.tar.gz` |
@@ -141,8 +141,8 @@ $M run -n busco  busco --version
 
 ## 建环境踩坑实录|Build Pitfalls（2026-08-16 实测）
 
-| # | 坑|Pitfall | 解决|Fix |
-|---|---|---|---|
+| # | 坑<br>Pitfall | 解决<br>Fix |
+|---|---|---|
 | 1 | annot 域被 `pasa`/老 `genometools` 包拖入 python2.7 生态（augustus 退到 3.2.2、orthofinder 退到 2.5.4、scipy 1.2.0） | pasa 留在旧 pasa_v.2.5.3 环境；genometools 包名改为 `genometools-genometools`（老包名是 py2.7 版） |
 | 2 | asm 域 `jellyfish` 解到 conda-forge 的 1.2.1（python 字符串库，无 CLI） | 装 `jellyfish=2.2.10`（bioconda），命令需 bioconda 渠道在前：`mamba install -n asm -c bioconda -c conda-forge jellyfish=2.2.10` |
 | 3 | pan 域缺 `minigraph`（yml 漏写） | 补装：`mamba install -n pan -c conda-forge -c bioconda minigraph` |

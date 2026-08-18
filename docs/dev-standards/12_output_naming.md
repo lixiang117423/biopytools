@@ -177,16 +177,16 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 
 ### genomescope 模块改进对照表|genomescope Module Improvement
 
-| 组件|Component | 当前|Current | 改进|Improved | 说明|Notes |
-|-----|-----------|-----------|-----------|------|--------|
-| **目录结构**|Directory | `jellyfish/` | `01_jellyfish/` | 添加序号前缀|Add number prefix |
-| | | `genomescope_output/` | `02_genomescope/` | 简化+序号|Simplify + number |
-| | | `smudgeplot_output/` | `03_smudgeplot/` | 简化+序号|Simplify + number |
-| **文件命名**|File Names | `genome_analysis.jf` | `R0590-6.jellyfish.jf` | 样本名.工具名|Sample.tool |
-| | | `genome_analysis.histo` | `R0590-6.jellyfish.histo` | 样本名.工具名|Sample.tool |
-| | | `model.txt` | `R0590-6.genomescope.model.txt` | 明确文件类型|Specify file type |
-| | | `plot.png` | `R0590-6.genomescope.linear.png` | 明确比例尺|Specify scale |
-| | | `smudgeplot_smudgeplot.png` | `R0590-6.smudgeplot.linear.png` | 去除重复|Remove duplicate |
-| **临时文件**|Temp Files | `fastk/*.fq` (68GB) | `<output>/tmp/*.fq` (运行结束清理) | output_dir/tmp子目录|Use output/tmp |
-| **版本信息**|Version Info | ❌ 无|Missing | `software_versions.yml` | 添加版本文件|Add version file |
-| **日志管理**|Log Management | 散落各处|Scattered | `99_logs/pipeline.log` | 集中管理|Centralize |
+| 组件<br>Component | 当前<br>Current | 改进<br>Improved | 说明<br>Notes |
+|---|---|---|---|
+| **目录结构**<br>Directory | `jellyfish/` | `01_jellyfish/` | 添加序号前缀<br>Add number prefix |
+| | | `genomescope_output/` | `02_genomescope/` | 简化+序号<br>Simplify + number |
+| | | `smudgeplot_output/` | `03_smudgeplot/` | 简化+序号<br>Simplify + number |
+| **文件命名**<br>File Names | `genome_analysis.jf` | `R0590-6.jellyfish.jf` | 样本名.工具名<br>Sample.tool |
+| | | `genome_analysis.histo` | `R0590-6.jellyfish.histo` | 样本名.工具名<br>Sample.tool |
+| | | `model.txt` | `R0590-6.genomescope.model.txt` | 明确文件类型<br>Specify file type |
+| | | `plot.png` | `R0590-6.genomescope.linear.png` | 明确比例尺<br>Specify scale |
+| | | `smudgeplot_smudgeplot.png` | `R0590-6.smudgeplot.linear.png` | 去除重复<br>Remove duplicate |
+| **临时文件**<br>Temp Files | `fastk/*.fq` (68GB) | `<output>/tmp/*.fq` (运行结束清理) | output_dir/tmp子目录<br>Use output/tmp |
+| **版本信息**<br>Version Info | ❌ 无<br>Missing | `software_versions.yml` | 添加版本文件<br>Add version file |
+| **日志管理**<br>Log Management | 散落各处<br>Scattered | `99_logs/pipeline.log` | 集中管理<br>Centralize |

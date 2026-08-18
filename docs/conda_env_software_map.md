@@ -21,8 +21,8 @@
 conda run -n align <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `bcftools` | `bedtools` | `bgzip` |
 | `bwa` | `freebayes` | `gatk` |
 | `minimap2` | `samtools` | `tabix` |
@@ -34,8 +34,8 @@ conda run -n align <工具> --no-capture-output
 conda run -n pop <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `PopLDdecay` | `RAiSD` | `admixture` |
 | `pixy` | `plink` | `poplddecay` |
 | `treemix` | `vcftools` | `xpclr` |
@@ -46,8 +46,8 @@ conda run -n pop <工具> --no-capture-output
 conda run -n asm <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `canu` | `genomescope2` | `get_organelle_from_reads.py` |
 | `hifiasm` | `jellyfish` | `kmc` |
 | `kmc_tools` | `merqury` | `meryl` |
@@ -60,8 +60,8 @@ conda run -n asm <工具> --no-capture-output
 conda run -n hic <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `filter_bam` | `haphic` | `juicer` |
 | `matlock` | `pairtools` | `samblaster` |
 | `yahs` |  |  |
@@ -72,8 +72,8 @@ conda run -n hic <工具> --no-capture-output
 conda run -n annot <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `TransDecoder.LongOrfs` | `TransDecoder.Predict` | `agat_convert_sp_gxf2gxf.pl` |
 | `augustus` | `bam2hints` | `blastn` |
 | `blastp` | `diamond` | `emapper.py` |
@@ -88,8 +88,8 @@ conda run -n annot <工具> --no-capture-output
 conda run -n repeat <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `BuildDatabase` | `LTR_retriever` | `RepeatMasker` |
 | `RepeatModeler` | `ltr_finder_parallel` | `ltr_harvest_parallel` |
 
@@ -99,8 +99,8 @@ conda run -n repeat <工具> --no-capture-output
 conda run -n rna <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `extract_exons.py` | `extract_splice_sites.py` | `fastp` |
 | `gffread` | `hisat2` | `hisat2-build` |
 | `infer_experiment.py` | `stringtie` |  |
@@ -111,8 +111,8 @@ conda run -n rna <工具> --no-capture-output
 conda run -n protein <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `embossversion` | `hmmsearch` | `meme` |
 | `needle` | `needleall` | `phobius.pl` |
 | `resistify` | `signalp` | `signalp6` |
@@ -124,8 +124,8 @@ conda run -n protein <工具> --no-capture-output
 conda run -n phylo <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `KaKs_Calculator` | `iqtree` | `iqtree2` |
 | `mafft` | `nw_display` | `nw_reroot` |
 | `raxml-ng` | `trimal` | `wgdi` |
@@ -136,8 +136,8 @@ conda run -n phylo <工具> --no-capture-output
 conda run -n pan <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `delta-filter` | `kmindex` | `kmtricks` |
 | `minigraph` | `nucmer` | `panman` |
 | `pggb` | `show-coords` | `vg` |
@@ -148,8 +148,8 @@ conda run -n pan <工具> --no-capture-output
 conda run -n viz <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `pycirclize` | `samplot` |  |
 
 ### misc — 杂项工具|Misc utilities
@@ -158,8 +158,8 @@ conda run -n viz <工具> --no-capture-output
 conda run -n misc <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `axel` | `bbmap.sh` | `fasterq-dump` |
 | `iseq` | `pigz` | `prefetch` |
 | `primer3_core` | `repair.sh` | `seqkit` |
@@ -171,9 +171,9 @@ conda run -n misc <工具> --no-capture-output
 conda run -n r <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
-| `mstmap` | `ggtree`(R包,进化树可视化)| `ape`(R包,树处理)| `ggplot2`(R包,画图) |
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
+| `mstmap` | `ggtree`(R包,进化树可视化)<br>`ape`(R包,树处理)<br>`ggplot2`(R包,画图) |
 
 ### busco — BUSCO 评估|BUSCO assessment
 
@@ -181,16 +181,16 @@ conda run -n r <工具> --no-capture-output
 conda run -n busco <工具> --no-capture-output
 ```
 
-| 工具|Tool | 工具|Tool | 工具|Tool |
-|---|---|---|---|
+| 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
+|---|---|---|
 | `busco` |  |  |
 
 ---
 
 ## 第二部分: 保留的独立环境(强依赖)|Part 2: Kept Standalone Envs
 
-| 环境|Env | 关键软件|Key software |
-|---|---|---|
+| 环境<br>Env | 关键软件<br>Key software |
+|---|---|
 | Augustus_v.3.5.0 | (见 backup yaml) |
 | BUSCO_v.6.0.0 | (见 backup yaml) |
 | Blast_v.2.16.0 | (见 backup yaml) |
@@ -254,7 +254,7 @@ conda run -n busco <工具> --no-capture-output
 
 ## 第三部分: 项目运行环境|Part 3: Project Runtime Env
 
-| 环境|Env | 内容|Content |
+| 环境<br>Env | 内容<br>Content |
 |---|---|
 | biopytools | 项目 CLI(pip 装 biopytools) + kmtricks/rocksdb/modelscope — 用户日常命令行入口 |
 | base | conda 基础环境(conda/mamba 本体) |

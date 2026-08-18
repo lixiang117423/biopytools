@@ -44,7 +44,7 @@ AI 在新模块/新代码中需要调用外部软件时, 按以下顺序决定:
 代码调用方式统一为: `get_domain_tool_path(工具名, 旧默认, 环境变量) + build_conda_command`
 缺失安装目标为所属域环境(`conda install -n <域> <工具>`)。
 
-| 域环境<br>Domain | 工具|Tools |
+| 域环境<br>Domain | 工具<br>Tools |
 |---|---|
 | **align** | gatk, bcftools, bgzip, tabix, samtools, bwa, freebayes, bedtools, wgsim, minimap2 |
 | **pop** | plink, vcftools, admixture, treemix, pixy, PopLDdecay, poplddecay, RAiSD, xpclr |

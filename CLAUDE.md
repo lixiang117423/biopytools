@@ -644,8 +644,8 @@ result = subprocess.run(cmd, shell=False, ...)
 
 > 以下文档**按需读取**（任务相关时再 Read，不主动全读）。核心规则已在本文件全部覆盖。
 
-| 触发场景|Trigger | 参考文档|Reference |
-|---------|---------|---------|
+| 触发场景<br>Trigger | 参考文档<br>Reference |
+|---|---|
 | 新建模块、写 config/utils/calculator/main | [docs/dev-standards/01_module_template.md](docs/dev-standards/01_module_template.md) |
 | 配置超算 stdout/stderr/file 日志分离 | [docs/dev-standards/02_logging_detail.md](docs/dev-standards/02_logging_detail.md) |
 | 改路径管理、迁移旧代码、查 paths.py 实现 | [docs/dev-standards/11_path_management.md](docs/dev-standards/11_path_management.md) |
@@ -657,8 +657,8 @@ result = subprocess.run(cmd, shell=False, ...)
 
 ## 版本历史
 
-| 版本 | 日期 | 主要变更|Major Changes |
-|------|------|----------|
+| 版本 | 日期 | 主要变更<br>Major Changes |
+|---|---|---|
 | 2.22 | 2026-08-18 | §13.5 新增规则0：AI 调软件的完整决策树指向 docs/dev-standards/14_tool_invocation_policy.md（从哪调/缺了装哪/何时新建环境）；公共层 common/conda_runner.py 落地 |
 | 2.21 | 2026-08-17 | 新增 §14「模块文档规范」：每模块必须配 `docs/<module>.md`（固定12节模板+通俗化写作要求+参数表自动生成禁止手写，审查不通过条款）；模板示例 docs/cim.md |
 | 2.20 | 2026-08-16 | 新增 §10.1.1「Mac↔超算↔GitHub 三角工作流」：两循环+两铁律(单边改码/跨边先清对侧) |

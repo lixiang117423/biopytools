@@ -197,6 +197,6 @@ class MyConfig:
 
 ## 更新日志|Changelog
 
-| 版本|Version | 日期|Date | 说明|Description |
-|------|------|------|------|
-| 1.0 | 2026-03-02 | 初始版本|Initial version |
+| 版本<br>Version | 日期<br>Date | 说明<br>Description |
+|---|---|---|
+| 1.0 | 2026-03-02 | 初始版本<br>Initial version |
