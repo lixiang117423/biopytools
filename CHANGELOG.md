@@ -1,3 +1,16 @@
+## [1.33.0] - 2026-08-18
+
+### Added
+- `common`: 新增 `biopytools/common/conda_runner.py` 公共层(`build_conda_command`/`build_pipeline_command`/`run_pipeline`/`CommandRunner`/`check_tools`), 统一外部软件 conda 域环境调用(自动环境检测 + 强制 `--no-capture-output` + 管道方案B); 配套 23 项 mock 单元测试
+
+### Changed
+- 57 个模块统一为域环境调用: 工具路径默认值改 `get_domain_tool_path`(`~/miniforge3/envs/<域>/bin/<工具>`, 存在才用/缺失回退旧默认), 命令改列表 + `build_conda_command`(shell=False), 管道按方案B直调域环境二进制, 依赖检查统一 `check_tools`; 同步 43 份模块文档依赖段
+- 12 个特殊模块保持直调不动: 容器(singularity/apptainer), `~/software` 第三方, java -jar, wget/ascp, python/perl/R 脚本
+
+### Fixed
+- `gtx`: joint 命令 `-o 文件` 与 `--ploidy` 之间缺空格(列表化时自然修复)
+- `vcf2pca`: config 中错误的 `from common.paths` 改为相对导入 `from ..common.paths`
+
 
 ## [1.32.6] - 2026-08-15
 
