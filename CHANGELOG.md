@@ -1,3 +1,14 @@
+## [1.35.0] - 2026-08-18
+
+### Added
+- `raxml`: VCF 文件直接输入(`.vcf`/`.vcf.gz` 自动检测, 复用 `vcf2phylip` 模块转换为 PHYLIP 矩阵后建树, 转换断点续传); FASTA 输入放行(RAxML 原生支持直通); 新增 `--input-format`/`--min-samples-locus`/`--resolve-iupac` 参数(argparse 与 Click 层同步); 37 项单元测试
+
+### Fixed
+- `raxml`: `is_bootstrap_analysis` 误用 `self.runs`(应为 `self.config.runs`)致启动即崩 `'RAxMLAnalyzer' object has no attribute 'runs'`(2026-08-18 417 样本作业死因)
+- `raxml`: `-B`/`--bootstop-perms` 不再无条件追加——RAxML 8.2.12 普通运行会拒绝; `--bootstrap-convergence` 的 auto* 值翻译到 `-#` 槽位(8.2.12 语义, `-I` 不接收 auto*)
+- `raxml`: 用户指定 `-x` 时不再自动补 `-b`(RAxML 禁止两 bootstrap 种子同用); `-f a` 未给种子时自动生成 `-x`
+- `raxml`: 相对 `-w` 输出目录时转换产物以绝对路径传给 `-s`(RAxML 只认绝对路径, `__post_init__` 路径规范化顺序修正)
+
 ## [1.34.0] - 2026-08-18
 
 ### Changed
