@@ -34,7 +34,7 @@ align  pop  asm  hic  annot  repeat  rna
 protein  phylo  pan  viz  misc  r  busco
 ```
 
-| 资料|Resource | 说明|Note |
+| 资料<br>Resource | 说明<br>Note |
 |---|---|---|
 | [envs/README.md](envs/README.md) | 14 个域环境定义（envs/*.yml）、一键建环境脚本、授权软件注册、冒烟测试 |
 | [docs/env_migration_map.md](docs/env_migration_map.md) | 旧环境 → 新域环境的完整对应关系（debug 用） |
