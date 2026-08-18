@@ -1,7 +1,7 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.21
-## 日期: 2026-08-17
+## 版本: 2.22
+## 日期: 2026-08-18
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 > 📐 **文档结构说明|Doc Structure:** 本文件只保留**核心规则与检查清单**(每次会话全量加载)。
@@ -579,6 +579,7 @@ result = subprocess.run(cmd, shell=False, ...)
 > [docs/conda_env_software_map.md](docs/conda_env_software_map.md)
 
 核心规则|Core rules:
+0. **AI 写代码调软件的完整决策树（从哪调/缺了装哪/何时新建环境）见 [docs/dev-standards/14_tool_invocation_policy.md](docs/dev-standards/14_tool_invocation_policy.md)**
 1. **优先**使用 14 个功能域环境（align/pop/asm/hic/annot/repeat/rna/protein/phylo/pan/viz/misc/r/busco）
 2. 域环境没有的软件 → 查速查表第二部分的保留独立环境（legacy 强依赖）
 3. **禁止**使用 scripts/delete_list.txt 中 154 个待退役环境，新模块也不得依赖它们
@@ -659,6 +660,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.22 | 2026-08-18 | §13.5 新增规则0：AI 调软件的完整决策树指向 docs/dev-standards/14_tool_invocation_policy.md（从哪调/缺了装哪/何时新建环境）；公共层 common/conda_runner.py 落地 |
 | 2.21 | 2026-08-17 | 新增 §14「模块文档规范」：每模块必须配 `docs/<module>.md`（固定12节模板+通俗化写作要求+参数表自动生成禁止手写，审查不通过条款）；模板示例 docs/cim.md |
 | 2.20 | 2026-08-16 | 新增 §10.1.1「Mac↔超算↔GitHub 三角工作流」：两循环+两铁律(单边改码/跨边先清对侧) |
 | 2.19 | 2026-08-16 | 新增 §13.5「软件→环境速查表」引用（docs/conda_env_software_map.md）：超算找现成软件优先 14 域环境、禁用手工废弃环境 |
