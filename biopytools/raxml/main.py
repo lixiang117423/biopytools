@@ -7,6 +7,7 @@ import sys
 from .config import RAxMLConfig
 from .utils import RAxMLLogger, CommandRunner, check_dependencies
 from .preprocessing import SequenceProcessor
+from .format_converter import FormatConverter
 from .analysis import RAxMLAnalyzer
 from .results import ResultsManager
 
@@ -26,6 +27,7 @@ class RAxMLPhylogeneticAnalyzer:
         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
         # 初始化各个处理器|Initialize processors
+        self.format_converter = FormatConverter(self.config, self.logger)
         self.sequence_processor = SequenceProcessor(self.config, self.logger, self.cmd_runner)
         self.raxml_analyzer = RAxMLAnalyzer(self.config, self.logger, self.cmd_runner)
         self.results_manager = ResultsManager(self.config, self.logger)
@@ -53,7 +55,12 @@ class RAxMLPhylogeneticAnalyzer:
             self.logger.info("-" * 50)
             self.logger.info(" 步骤1: 序列文件预处理|Step 1: Sequence file preprocessing")
             self.logger.info("-" * 50)
-            
+
+            # VCF输入先转换为RAxML可用的PHYLIP矩阵, 后续步骤面向转换产物
+            # |VCF input is first converted to a RAxML-ready PHYLIP matrix;
+            # subsequent steps operate on the converted file
+            self.config.sequence_file = self.format_converter.prepare_alignment()
+
             if not self.sequence_processor.validate_sequence_format():
                 raise RuntimeError("序列文件格式验证失败|Sequence file format validation failed")
             
@@ -113,9 +120,23 @@ def create_parser():
     # 必需参数|Required arguments
     required = parser.add_argument_group('必需参数|Required arguments')
     required.add_argument('-s', '--sequence-file', required=True,
-                         help='输入序列文件(PHYLIP格式)|Input sequence file (PHYLIP format)')
+                         help='输入序列文件(PHYLIP/FASTA/VCF, 默认自动检测)'
+                         '|Input sequence file (PHYLIP/FASTA/VCF, auto-detected by default)')
     required.add_argument('-n', '--output-name', required=True,
                          help='输出文件名称|Output file name')
+
+    # 输入格式参数|Input format parameters
+    input_group = parser.add_argument_group(' 输入格式参数|Input format parameters')
+    input_group.add_argument('--input-format', choices=['auto', 'phylip', 'fasta', 'vcf'],
+                            default='auto',
+                            help='输入格式(默认auto自动检测, VCF会先转换为PHYLIP再建树)'
+                            '|Input format (default auto-detect; VCF is converted to PHYLIP before tree building)')
+    input_group.add_argument('--min-samples-locus', type=int, default=4,
+                            help='VCF转PHYLIP时每位点最少检出样本数'
+                            '|Min called samples per locus for VCF to PHYLIP')
+    input_group.add_argument('--resolve-iupac', action='store_true',
+                            help='VCF转换时随机解析杂合子为单一碱基'
+                            '|Randomly resolve heterozygotes to single bases in VCF conversion')
     
     # 模型参数|Model parameters
     model_group = parser.add_argument_group(' 模型参数|Model parameters')
@@ -210,6 +231,9 @@ def main():
         analyzer_kwargs = dict(
             sequence_file=args.sequence_file,
             output_name=args.output_name,
+            input_format=args.input_format,
+            min_samples_locus=args.min_samples_locus,
+            resolve_iupac=args.resolve_iupac,
             model=args.model,
             output_dir=args.output_dir,
             algorithm=args.algorithm,

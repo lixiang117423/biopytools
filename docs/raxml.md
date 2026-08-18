@@ -1,10 +1,11 @@
 # RAxML - 最大似然法建树 | RAxML Maximum Likelihood Phylogeny
 
-一句话理解：**从一份多序列比对(PHYLIP 格式)出发，用「最大似然法」自动找一棵最合理的进化树，并可选做 bootstrap 给每个分叉打上「可信度分数」。**
+一句话理解：**从一份多序列比对或群体 VCF 出发，用「最大似然法」自动找一棵最合理的进化树，并可选做 bootstrap 给每个分叉打上「可信度分数」。**
 
 ## 功能概述 | Overview
 
-- 经典 RAxML 最大似然(ML)建树，输入 PHYLIP 格式的多序列比对
+- 经典 RAxML 最大似然(ML)建树，输入 PHYLIP / FASTA 比对或 **VCF 变异文件(自动转换为 PHYLIP 再建树)**
+- 输入格式自动检测(后缀 + 文件头)，也可用 `--input-format` 显式指定
 - 默认 GTRGAMMA 替换模型(核酸)、25 个速率类别，适合绝大多数 DNA 数据
 - 支持多种算法：`-f d`(默认,快速爬山法)到 `-f a`(rapid bootstrap)等
 - 支持 bootstrap 收敛自动停止(autoFC / autoMR / autoMRE 等)
@@ -14,10 +15,10 @@
 ## 快速开始 | Quick Start
 
 ```bash
-biopytools raxml -s alignment.phy -n my_tree
+biopytools raxml -s variants.vcf -n my_tree
 ```
 
-最小输入：一个 PHYLIP 格式比对(`-s`)，一个输出后缀名(`-n`)。结果默认写到 `./raxml_output/`。
+最小输入：一个比对文件或 VCF 文件(`-s`，格式自动检测)，一个输出后缀名(`-n`)。结果默认写到 `./raxml_output/`。
 
 ## 零基础概念速览 | Concepts in plain words
 
@@ -33,6 +34,14 @@ biopytools raxml -s alignment.phy -n my_tree
 
 ## 输入 | Input
 
+### VCF 变异文件(自动转换 | auto-converted)
+
+**群体 SNP 的 VCF 可以直接输入**(`.vcf` / `.vcf.gz`)：程序会先调用内置的 vcf2phylip 转换器把基因型变成 PHYLIP 矩阵(双等位 SNP、杂合子按 IUPAC 模糊码编码，如 A/G 杂合记为 `R`)，再自动接着建树。转换产物为 `输出目录/<输出名>_converted.min<m>.phy`，重跑时若该文件已存在会**跳过转换直接建树**。
+
+- 位点会按「最少检出样本数」过滤(默认 4，可用 `--min-samples-locus` 调整)：一个位点至少要有 m 个样本有基因型才保留
+- `--resolve-iupac` 可把杂合子随机解析成单一碱基(默认保留 IUPAC 模糊码，RAxML 原生支持)
+- InDel 和多等位位点会被跳过，只保留双等位 SNP
+
 ### PHYLIP 比对文件
 
 RAxML 经典版要求 **PHYLIP(宽松 relaxed)格式**，首行是两个整数：`序列条数 序列长度`，之后每行一条序列。
@@ -46,14 +55,23 @@ seq4   ACGTACGTACGTACGTACGT...
 seq5   ACGTACGTACGTACGTACGT...
 ```
 
-- 序列名通常占前 10 个字符，后接序列；本工具用首行两个整数判断格式
-- **FASTA 格式会被拒绝**(程序会提示需要 PHYLIP)，需先用转换工具转成 PHYLIP 再跑
+### FASTA 比对文件
+
+对齐好的 **FASTA 也可以直接输入**（`>` 开头），RAxML 原生支持，程序直接透传使用。
+
+### 格式自动检测
+
+程序按「文件后缀 → 文件首行」自动判断：`.vcf`/`.vcf.gz` 按 VCF 处理；首行 `>` 按 FASTA；首行两个整数按 PHYLIP。判断不符合预期时可用 `--input-format phylip|fasta|vcf` 显式指定。
 
 ## 参数说明 | Parameters
 
 ### 必需参数 | Required
 
-**通俗理解|In plain words:** 就两个必填项：`-s` 告诉程序「比对文件在哪」，`-n` 给输出文件起个「后缀名」(不是路径，只是一个名字片段，所有结果文件都会带这个后缀)。
+**通俗理解|In plain words:** 就两个必填项：`-s` 告诉程序「比对文件或 VCF 在哪」(格式自动检测)，`-n` 给输出文件起个「后缀名」(不是路径，只是一个名字片段，所有结果文件都会带这个后缀)。
+
+### 输入格式 | Input format
+
+**通俗理解|In plain words:** 这组参数只在「输入是 VCF」或「格式识别不对」时才需要关心。`--input-format` 强制指定输入格式(默认 auto 自动检测，**一般不用动**)；`--min-samples-locus` 是 VCF 转换时「一个位点至少几个样本有基因型才保留」的门槛，样本少(如 <10)可降到 2~3，否则默认 4 即可；`--resolve-iupac` 把杂合子随机拆成纯合，一般保持关闭(RAxML 能直接处理 IUPAC 码)。
 
 ### 替换模型 | Substitution model
 
@@ -65,7 +83,7 @@ seq5   ACGTACGTACGTACGTACGT...
 
 ### Bootstrap | Bootstrap
 
-**通俗理解|In plain words:** 这组参数控制「可信度评估」。**关键点：默认算法 `-f d` 是不做 bootstrap 的**——要拿到支持值，必须显式给 `-x`(rapid bootstrap 种子)并配合 `-N` 重复数和 `-f a`。`-I/--bootstrap-convergence` 是「自动判断 bootstrap 次数是否够」的省时开关，一般不用动。
+**通俗理解|In plain words:** 这组参数控制「可信度评估」。**关键点：默认算法 `-f d` 是不做 bootstrap 的**——要拿到支持值，用 `-f a -x <种子> -N <重复数>`(`-f a` 忘给 `-x` 时程序会自动生成一个)。给了 `-x` 就不要再给 `-b`(两种 bootstrap 种子互斥)。`-I/--bootstrap-convergence` 是「自动判断 bootstrap 次数是否够」的省时开关，程序会把它翻译成 RAxML 的 `-# autoXXX` 写法，一般不用动。
 
 ### 树选项 | Tree options
 
@@ -82,10 +100,10 @@ seq5   ACGTACGTACGTACGTACGT...
 ## 分析流程 | Pipeline
 
 ```text
-PHYLIP 比对文件
+比对文件(PHYLIP/FASTA)或 VCF
     │
     ▼
-步骤1: 校验序列格式(PHYLIP) + 统计序列条数/长度
+步骤1: 检测输入格式(VCF 则先转换为 PHYLIP 矩阵, 已转换过则跳过) + 统计序列条数/长度
     │
     ▼
 步骤2: 复制序列/起始树/约束树到输出目录
@@ -111,7 +129,8 @@ raxml_output/
 ├── RAxML_result.my_tree                # 结果树
 ├── my_tree_summary.txt                 # 总结报告(本工具生成)
 ├── raxml_analysis.log                  # 本工具的运行日志
-└── alignment.phy                       # 复制到工作目录的输入比对
+├── alignment.phy                       # 复制到工作目录的输入比对
+└── my_tree_converted.min4.phy          # VCF 输入时自动生成的 PHYLIP 矩阵(仅 VCF 输入)
 ```
 
 以上文件名中的 `my_tree` 即 `-n` 指定的输出后缀名。
@@ -137,6 +156,7 @@ raxml_output/
 ## 参数选择建议 | Parameter Guidance
 
 - **核酸数据**：`-m GTRGAMMA`(默认)即可；**蛋白质数据**改用 `-m PROTGAMMAWAG` 等蛋白模型
+- **群体 VCF 建树**：直接 `-s xxx.vcf.gz`，程序自动转 PHYLIP；样本少时加 `--min-samples-locus 2` 避免位点被过滤太多
 - **只要一棵树**：默认 `-f d`(最快)；**要支持值**：`-f a -x <种子> -N 1000`(1000 次 rapid bootstrap 是常用精度)
 - **样本多、想让 bootstrap 自动省时**：加 `-I autoMRE` 让程序自己判断 bootstrap 次数是否足够
 - **大比对内存吃紧**：加 `-U` 开内存节省模式
@@ -152,8 +172,11 @@ raxml_output/
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `--sequence-file, -s` | 必填 |  | 输入序列文件(PHYLIP格式)｜Input sequence file (PHYLIP format) |
+| `--sequence-file, -s` | 必填 |  | 输入序列文件(PHYLIP/FASTA/VCF, 默认自动检测)｜Input sequence file (PHYLIP/FASTA/VCF, auto-detected by default) |
 | `--output-name, -n` | 必填 | str | 输出文件名称｜Output file name |
+| `--input-format` | `auto` | auto/phylip/fasta/vcf | 输入格式(auto=自动检测, VCF会先转换为PHYLIP再建树)｜Input format (auto=auto-detect; VCF is converted to PHYLIP before tree building) |
+| `--min-samples-locus` | `4` | int | VCF转PHYLIP时每位点最少检出样本数｜Min called samples per locus for VCF to PHYLIP |
+| `--resolve-iupac` | `False` |  | VCF转换时随机解析杂合子为单一碱基｜Randomly resolve heterozygotes to single bases in VCF conversion |
 | `--model, -m` | `GTRGAMMA` | str | 替换模型｜Substitution model (GTRGAMMA, PROTGAMMAWAG, etc.) |
 | `--categories, -c` | `25` | int | 速率异质性类别数｜Number of rate heterogeneity categories |
 | `--likelihood-epsilon, -e` | `0.1` | float | 似然优化精度｜Likelihood optimization precision |
@@ -185,8 +208,11 @@ raxml_output/
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `-s, --sequence-file` | 必填 |  | 输入序列文件(PHYLIP格式)｜Input sequence file (PHYLIP format) |
+| `-s, --sequence-file` | 必填 |  | 输入序列文件(PHYLIP/FASTA/VCF, 默认自动检测)｜Input sequence file (PHYLIP/FASTA/VCF, auto-detected by default) |
 | `-n, --output-name` | 必填 |  | 输出文件名称｜Output file name |
+| `--input-format` | `auto` | auto/phylip/fasta/vcf | 输入格式(默认auto自动检测, VCF会先转换为PHYLIP再建树)｜Input format (default auto-detect; VCF is converted to PHYLIP before tree building) |
+| `--min-samples-locus` | `4` | int | VCF转PHYLIP时每位点最少检出样本数｜Min called samples per locus for VCF to PHYLIP |
+| `--resolve-iupac` | — | store_true | VCF转换时随机解析杂合子为单一碱基｜Randomly resolve heterozygotes to single bases in VCF conversion |
 | `-m, --model` | `GTRGAMMA` |  | 替换模型｜Substitution model (GTRGAMMA, PROTGAMMAWAG, etc.) |
 | `-c, --categories` | `25` | int | 速率异质性类别数｜Number of rate heterogeneity categories |
 | `-e, --likelihood-epsilon` | `0.1` | float | 似然优化精度｜Likelihood optimization precision |
@@ -226,17 +252,17 @@ raxml_output/
 
 ## 常见问题 | FAQ
 
-### 1. 我给了 FASTA 文件，报错说需要 PHYLIP？
+### 1. 我给 FASTA 文件可以吗？VCF 可以直接喂吗？
 
-RAxML 经典版本工具只接受 PHYLIP 格式。请先用转换工具(或自己写个小脚本)把 FASTA 转成 PHYLIP 格式，首行为「条数 长度」。
+都可以。FASTA 是 RAxML 原生支持的输入，直接透传使用；VCF(`.vcf`/`.vcf.gz`)会自动转换为 PHYLIP 矩阵后再建树，转换产物 `<输出名>_converted.min<m>.phy` 留在输出目录里可复用。
 
 ### 2. 跑完没有 RAxML_bipartitions 文件？
 
-因为默认算法 `-f d` 是快速爬山法，**不做 bootstrap**，自然没有支持值树。要支持值请用 `-f a -x <种子> -N <重复数>`。
+因为默认算法 `-f d` 是快速爬山法，**不做 bootstrap**，自然没有支持值树。要支持值请用 `-f a -x <种子> -N <重复数>`(忘给 `-x` 程序会自动生成)。
 
 ### 3. 会断点续传吗？
 
-**不会。** 本工具每次运行都会重新执行 RAxML 并覆盖输出目录里的同名文件(启动时还会清空日志)。中断后重跑需从头再来；建议大数据在计算节点一次性跑完。
+**部分支持。** VCF→PHYLIP 转换有断点续传：转换产物已存在时跳过转换直接建树。RAxML 建树本身每次运行都会重新执行并覆盖同名文件；大数据建议在计算节点一次性跑完。
 
 ### 4. 报「找不到 RAxML」？
 

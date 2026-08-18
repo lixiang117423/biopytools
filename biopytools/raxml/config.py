@@ -20,6 +20,13 @@ class RAxMLConfig:
     
     # 输出设置|Output settings
     output_dir: str = './raxml_output'
+
+    # 输入格式设置|Input format settings
+    input_format: Optional[str] = None  # None/auto=自动检测, phylip/fasta/vcf
+    # |None/auto=auto-detect, phylip/fasta/vcf
+    min_samples_locus: int = 4  # VCF转PHYLIP时每位点最少检出样本数
+    # |Min called samples per locus for VCF to PHYLIP
+    resolve_iupac: bool = False  # VCF转换时随机解析杂合子|Randomly resolve heterozygotes in VCF conversion
     
     # 算法参数|Algorithm parameters
     algorithm: str = "d"  # -f parameter (default: rapid hill-climbing)
@@ -66,12 +73,13 @@ class RAxMLConfig:
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # 标准化路径(output_dir先转绝对再建output_path, RAxML的-s/-w只认绝对路径)
+        # |Normalize paths (make output_dir absolute before building output_path;
+        # RAxML -s/-w only accept absolute paths)
+        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+        self.sequence_file = os.path.normpath(os.path.abspath(self.sequence_file))
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
-        
-        # 标准化路径|Normalize paths
-        self.sequence_file = os.path.normpath(os.path.abspath(self.sequence_file))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         
         if self.starting_tree:
             self.starting_tree = os.path.normpath(os.path.abspath(self.starting_tree))
@@ -99,6 +107,18 @@ class RAxMLConfig:
             errors.append(f"约束树文件不存在|Constraint tree file does not exist: {self.constraint_tree}")
         
         # 检查参数范围|Check parameter ranges
+        if self.input_format not in (None, 'auto', 'phylip', 'fasta', 'vcf'):
+            errors.append(
+                f"输入格式必须为auto/phylip/fasta/vcf"
+                f"|Input format must be auto/phylip/fasta/vcf: {self.input_format}"
+            )
+
+        if self.min_samples_locus <= 0:
+            errors.append(
+                f"最小样本数必须为正整数|Min samples per locus must be positive:"
+                f" {self.min_samples_locus}"
+            )
+
         if self.categories <= 0:
             errors.append(f"分类数量必须为正整数|Number of categories must be positive: {self.categories}")
         

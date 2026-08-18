@@ -58,20 +58,43 @@ class RAxMLAnalyzer:
         else:
             parsimony_seed = self.config.parsimony_seed
             self.logger.info(f" 使用指定parsimony种子|Using specified parsimony seed: {parsimony_seed}")
-        
-        if self.config.bootstrap_seed is None and self.is_bootstrap_analysis():
+
+        # -f a(rapid bootstrap)必须配-x种子; 其余bootstrap场景缺种子时自动补-b。
+        # 已有-x时禁止再补-b(RAxML拒绝-x与-b同用)
+        # |-f a (rapid bootstrap) requires -x; other bootstrap contexts auto-add -b.
+        # Never auto-add -b when -x is present (RAxML rejects -x together with -b)
+        if (self.config.algorithm == 'a' and self.config.bootstrap_seed is None
+                and self.config.rapid_bootstrap_seed is None):
+            self.config.rapid_bootstrap_seed = random.randint(1, 1000000)
+            self.logger.info(
+                f" 生成rapid bootstrap随机种子|Generated rapid bootstrap random seed:"
+                f" {self.config.rapid_bootstrap_seed}"
+            )
+
+        if (self.config.bootstrap_seed is None and self.config.rapid_bootstrap_seed is None
+                and self.is_bootstrap_analysis()):
             bootstrap_seed = random.randint(1, 1000000)
             self.logger.info(f" 生成bootstrap随机种子|Generated bootstrap random seed: {bootstrap_seed}")
         else:
             bootstrap_seed = self.config.bootstrap_seed
-        
+
         return parsimony_seed, bootstrap_seed
-    
+
     def is_bootstrap_analysis(self) -> bool:
         """检查是否是bootstrap分析|Check if bootstrap analysis"""
-        return (self.config.bootstrap_seed is not None or 
+        # RAxML 8.2.12中bootstopping标准(auto*)走-#槽位, 故此处同样视为bootstrap;
+        # -f a本身就是rapid bootstrap流程
+        # |In RAxML 8.2.12 bootstopping criteria (auto*) go via the -# slot, so they count;
+        # -f a is itself the rapid bootstrap pipeline
+        try:
+            runs_is_bootstrap = int(self.config.runs) != 1
+        except (TypeError, ValueError):
+            runs_is_bootstrap = False
+        return (self.config.bootstrap_seed is not None or
                 self.config.rapid_bootstrap_seed is not None or
-                self.runs != "1" and self.runs not in ["autoFC", "autoMR", "autoMRE", "autoMRE_IGN"])
+                self.config.bootstrap_convergence is not None or
+                self.config.algorithm == 'a' or
+                runs_is_bootstrap)
     
     def build_raxml_command(self) -> List[str]:
         """构建RAxML命令参数列表(不含 raxml 路径, 由调用方用 build_conda_command 包装)
@@ -100,8 +123,9 @@ class RAxMLAnalyzer:
         if self.config.rapid_bootstrap_seed:
             cmd += ["-x", str(self.config.rapid_bootstrap_seed)]
         
-        # 运行次数|Number of runs
-        cmd += ["-#", self.config.runs]
+        # 运行次数/bootstopping标准(RAxML 8.2.12中auto*值须走-#而非-I)
+        # |Number of runs / bootstopping criterion (auto* values go via -# not -I in RAxML 8.2.12)
+        cmd += ["-#", self.config.bootstrap_convergence or self.config.runs]
         
         # 线程数|Number of threads
         if "PTHREADS" in self.config.raxml_path.upper():
@@ -126,13 +150,14 @@ class RAxMLAnalyzer:
         if self.config.gamma_median:
             cmd.append("-u")
         
-        # Bootstrap参数|Bootstrap parameters
+        # Bootstrap参数: -B/--bootstop-perms仅在bootstopping(-# auto*)时有效,
+        # 普通运行无条件追加会被RAxML 8.2.12拒绝
+        # |-B/--bootstop-perms are only valid with bootstopping (-# auto*);
+        # unconditional appending is rejected by RAxML 8.2.12 in plain runs
         if self.config.bootstrap_convergence:
-            cmd += ["-I", self.config.bootstrap_convergence]
-        
-        cmd += ["-B", str(self.config.bootstop_threshold)]
-        cmd.append(f"--bootstop-perms={self.config.bootstop_perms}")
-        
+            cmd += ["-B", str(self.config.bootstop_threshold)]
+            cmd.append(f"--bootstop-perms={self.config.bootstop_perms}")
+
         if self.config.print_bootstrap_trees:
             cmd.append("-k")
         

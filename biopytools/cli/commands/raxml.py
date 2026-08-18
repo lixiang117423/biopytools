@@ -39,11 +39,29 @@ def _validate_file_exists(file_path):
 @click.option('--sequence-file', '-s',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
-              help='输入序列文件(PHYLIP格式)|Input sequence file (PHYLIP format)')
+              help='输入序列文件(PHYLIP/FASTA/VCF, 默认自动检测)'
+              '|Input sequence file (PHYLIP/FASTA/VCF, auto-detected by default)')
 @click.option('--output-name', '-n',
               required=True,
               type=str,
               help='输出文件名称|Output file name')
+@click.option('--input-format',
+              type=click.Choice(['auto', 'phylip', 'fasta', 'vcf']),
+              default='auto',
+              show_default=True,
+              help='输入格式(auto=自动检测, VCF会先转换为PHYLIP再建树)'
+              '|Input format (auto=auto-detect; VCF is converted to PHYLIP before tree building)')
+@click.option('--min-samples-locus',
+              type=int,
+              default=4,
+              show_default=True,
+              help='VCF转PHYLIP时每位点最少检出样本数'
+              '|Min called samples per locus for VCF to PHYLIP')
+@click.option('--resolve-iupac',
+              is_flag=True,
+              default=False,
+              help='VCF转换时随机解析杂合子为单一碱基'
+              '|Randomly resolve heterozygotes to single bases in VCF conversion')
 @click.option('--model', '-m',
               default='GTRGAMMA',
               type=str,
@@ -142,7 +160,8 @@ def _validate_file_exists(file_path):
 @click.option('--silent',
               is_flag=True,
               help='静默模式|Silent mode')
-def raxml(sequence_file, output_name, model, categories, likelihood_epsilon,
+def raxml(sequence_file, output_name, input_format, min_samples_locus, resolve_iupac,
+          model, categories, likelihood_epsilon,
           algorithm, parsimony_seed, runs, bootstrap_seed, rapid_bootstrap_seed,
           bootstrap_convergence, bootstop_threshold, bootstop_perms, print_bootstrap_trees,
           starting_tree, constraint_tree, outgroup, threads, memory_saving,
@@ -166,6 +185,16 @@ def raxml(sequence_file, output_name, model, categories, likelihood_epsilon,
     # 必需参数|Required parameters
     args.extend(['-s', sequence_file])
     args.extend(['-n', output_name])
+
+    # 输入格式参数|Input format parameters
+    if input_format != 'auto':
+        args.extend(['--input-format', input_format])
+
+    if min_samples_locus != 4:
+        args.extend(['--min-samples-locus', str(min_samples_locus)])
+
+    if resolve_iupac:
+        args.append('--resolve-iupac')
 
     # 可选参数(仅在非默认时添加)|Optional parameters (add only when non-default)
     if model != 'GTRGAMMA':

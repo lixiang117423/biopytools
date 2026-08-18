@@ -37,9 +37,8 @@ class SequenceProcessor:
                 
                 # 检查是否是FASTA格式|Check if it's FASTA format
                 if first_line.startswith('>'):
-                    self.logger.info(" 检测到FASTA格式|Detected FASTA format")
-                    self.logger.warning(" RAxML需要PHYLIP格式，请转换序列格式|RAxML requires PHYLIP format, please convert sequence format")
-                    return False
+                    self.logger.info(" 检测到FASTA格式(RAxML原生支持)|Detected FASTA format (RAxML-native)")
+                    return True
                 
                 self.logger.error(" 无法识别序列文件格式|Cannot recognize sequence file format")
                 return False
