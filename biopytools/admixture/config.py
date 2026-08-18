@@ -41,14 +41,14 @@ class AdmixtureConfig:
 
     # 质控参数|Quality control parameters
     maf: float = 0.05
-    missing_rate: float = 0.1
-    hwe_pvalue: float = 1e-6
+    missing_rate: float = 0.1   # 仅用于位点层面--geno;不删个体(无--mind)|site-level --geno only, never --mind
+    hwe_pvalue: float = 1.0     # 1=关闭(混合群体HWE偏离属预期,过滤误删分化位点);<1才启用|1=off; <1 enables
 
     # LD剪枝参数|LD pruning parameters
     ld_prune: bool = True
-    ld_window: str = "3000kb"   # 窗口，支持kb或SNP数|window in kb or SNP count
-    ld_step: int = 1            # 步长|step size
-    ld_r2: float = 0.2          # r2阈值|r2 threshold
+    ld_window: str = "50"       # 窗口,支持kb或SNP数|window in kb or SNP count (经典50SNP窗口|classic 50-SNP window)
+    ld_step: int = 10           # 步长|step size
+    ld_r2: float = 0.1          # r2阈值|r2 threshold
 
     # 处理选项|Processing options
     skip_preprocessing: bool = False
@@ -115,6 +115,9 @@ class AdmixtureConfig:
 
         if not 0 <= self.missing_rate <= 1:
             errors.append(f"缺失率应在0-1之间|Missing rate should be between 0-1: {self.missing_rate}")
+
+        if not 0 < self.hwe_pvalue <= 1:
+            errors.append(f"HWE p值应在(0,1]之间,1表示关闭|HWE p-value should be in (0,1], 1 means disabled: {self.hwe_pvalue}")
 
         # 检查LD剪枝参数|Check LD pruning parameters
         if not 0 < self.ld_r2 < 1:

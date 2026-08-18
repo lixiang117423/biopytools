@@ -15,7 +15,7 @@ from .analysis import AdmixtureAnalyzer as CoreAnalyzer, ResultsProcessor
 from .results import CovariateGenerator, PlotGenerator, SummaryGenerator
 
 # 版本信息|Version information
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 
 class AdmixtureAnalyzer:
@@ -139,10 +139,12 @@ class AdmixtureAnalyzer:
 
         # PLINK 质控|PLINK QC
         if not self.config.skip_preprocessing:
-            cmd_qc = build_conda_command(self.config.plink_path,
-                ['--bfile', raw, '--maf', str(self.config.maf), '--hwe', str(self.config.hwe_pvalue),
-                 '--geno', str(self.config.missing_rate), '--mind', str(self.config.missing_rate),
-                 '--make-bed', '--out', qc_prefix, '--allow-extra-chr'])
+            qc_args = ['--bfile', raw, '--maf', str(self.config.maf)]
+            if self.config.hwe_pvalue < 1:
+                qc_args += ['--hwe', str(self.config.hwe_pvalue)]
+            qc_args += ['--geno', str(self.config.missing_rate),
+                        '--make-bed', '--out', qc_prefix, '--allow-extra-chr']
+            cmd_qc = build_conda_command(self.config.plink_path, qc_args)
             self.logger.info(f"[STEP 3 预览|preview] 命令|Command: {' '.join(cmd_qc)}")
 
         # LD剪枝|LD pruning
@@ -156,8 +158,9 @@ class AdmixtureAnalyzer:
                 cmd_k = build_conda_command(self.config.adamixture_path,
                     ['--k', str(k), '--data_path', bed, '--save_dir', self.config.admixture_dir])
             else:
+                # --cv必须等号写法(与analysis.py一致, ADMIXTURE exit 255坑)|must use --cv=N form
                 cmd_k = build_conda_command(self.config.admixture_path,
-                    ['--cv', str(self.config.cv_folds), '-j' + str(self.config.threads), bed, str(k)])
+                    [f'--cv={self.config.cv_folds}', '-j' + str(self.config.threads), bed, str(k)])
             self.logger.info(f"[STEP 4 预览|preview] K={k} 命令|Command: {' '.join(cmd_k)}")
 
         self.logger.info("模拟运行结束(实际未执行任何命令)|Dry run finished (no commands actually executed)")
@@ -307,18 +310,18 @@ def main():
     parser.add_argument("-m", "--maf", type=float, default=0.05,
                        help="MAF阈值|MAF threshold")
     parser.add_argument("-M", "--missing", type=float, default=0.1,
-                       help="缺失率阈值|Missing rate threshold")
-    parser.add_argument("-H", "--hwe", type=float, default=1e-6,
-                       help="HWE p值阈值|HWE p-value threshold")
+                       help="位点缺失率阈值(--geno,不删个体)|Site-level missing threshold (--geno, never drops samples)")
+    parser.add_argument("-H", "--hwe", type=float, default=1.0,
+                       help="HWE p值阈值,1=关闭(混合群体默认不过滤)|HWE p-value threshold, 1=disabled (default for admixed panels)")
 
     # LD剪枝参数|LD pruning parameters
     parser.add_argument("--no-ld-prune", action="store_true",
                        help="关闭LD剪枝(默认开启)|Disable LD pruning (on by default)")
-    parser.add_argument("--ld-window", default="3000kb",
+    parser.add_argument("--ld-window", default="50",
                        help="LD剪枝窗口(kb或SNP数)|LD pruning window (kb or SNP count)")
-    parser.add_argument("--ld-step", type=int, default=1,
+    parser.add_argument("--ld-step", type=int, default=10,
                        help="LD剪枝步长|LD pruning step size")
-    parser.add_argument("--ld-r2", type=float, default=0.2,
+    parser.add_argument("--ld-r2", type=float, default=0.1,
                        help="LD剪枝r2阈值|LD pruning r2 threshold")
 
     # 处理选项|Processing options

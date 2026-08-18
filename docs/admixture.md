@@ -6,7 +6,7 @@
 
 - 封装 ADMIXTURE 或 ADAMIXTURE 两种方法(最大似然估计祖先成分)
 - 自动跑 K=min_k 到 max_k 每个值，用交叉验证(CV)误差选出最优 K
-- 自动 VCF 预处理：双等位+SNP 过滤、质控(MAF/缺失/HWE)、LD 剪枝
+- 自动 VCF 预处理：双等位+SNP 过滤、质控(MAF/位点缺失,可选HWE)、LD 剪枝；**只做位点层面过滤,保留全部样品**(不删个体)
 - 输出每个个体的祖先成分(Q)、各祖先等位基因频率(P)、CV 误差、最优 K
 - 顺带生成 GWAS 协变量文件、可视化堆叠图与总结报告
 - 支持断点续传与 `--force` 强制重算
@@ -44,7 +44,7 @@ VCF
 步骤2: 转 PLINK 格式(.bed/.bim/.fam)
   │
   ▼
-步骤3: 质控(MAF/缺失/HWE，可 --skip-preprocessing 跳过)
+步骤3: 质控(MAF/位点缺失;HWE默认关闭,可 --skip-preprocessing 跳过)
   │
   ▼
 LD 剪枝(默认开) → 修复染色体编号
@@ -95,8 +95,8 @@ admixture_results/
 
 - **K 范围**：`-k`/`-K` 决定假设祖先数范围；先跑宽范围(如 2-10)，看 CV 曲线再收窄
 - **`--method`**：默认 `admixture`；数据量大/想更快可试 `adamixture`(随机梯度下降版，参数 `--adamixture-*` 一般不用动)
-- **质控阈值**：`--maf 0.05`/`--missing 0.1`/`--hwe 1e-6` **一般不用动**；要跳过全部质控用 `--skip-preprocessing`
-- **LD 剪枝**：默认开启(ADMIXTURE 假设位点独立)，窗口 `--ld-window 3000kb`/`--ld-r2 0.2` **一般不用动**
+- **质控阈值**：`--maf 0.05`/`--missing 0.1`(位点缺失率,`--geno`) **一般不用动**；样品少位点丢得多可放宽 `--missing 0.2`。**HWE 默认关闭**——混合群体偏离 HWE 属预期,过滤反而会误删群体分化位点;确需启用传 `-H 1e-6`。个体缺失率(`--mind`)已移除,保证不删样品；要跳过全部质控用 `--skip-preprocessing`
+- **LD 剪枝**：默认开启(ADMIXTURE 假设位点独立)，`--ld-window 50`/`--ld-step 10`/`--ld-r2 0.1`(经典保守组合) **一般不用动**；过滤后 SNP 偏多(>5万)可收紧 r²,SNP 偏少(<1000)可放宽到 `100 10 0.2`
 - **`--keep-intermediate`**：加它保留中间 PLINK/VCF 文件，排查问题或复用
 
 
@@ -118,12 +118,12 @@ admixture_results/
 | `--cv-folds, -c` | `5` | int | 交叉验证折数｜Cross-validation folds (仅ADMIXTURE｜ADMIXTURE only) |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--maf, -m` | `0.05` | float | 最小等位基因频率阈值｜MAF threshold |
-| `--missing, -M` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
-| `--hwe, -H` | `1e-06` | float | HWE p值阈值｜HWE p-value threshold |
+| `--missing, -M` | `0.1` | float | 位点缺失率阈值(--geno,不删个体)｜Site-level missing threshold (--geno, never drops samples) |
+| `--hwe, -H` | `1.0` | float | HWE p值阈值,1=关闭(混合群体默认不过滤)｜HWE p-value threshold, 1=disabled (default for admixed panels) |
 | `--ld-prune/--no-ld-prune` | `True` |  | LD剪枝(默认开启,ADMIXTURE假设位点独立)｜LD pruning (on by default; ADMIXTURE assumes unlinked sites) |
-| `--ld-window` | `3000kb` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
-| `--ld-step` | `1` | int | LD剪枝步长｜LD pruning step size |
-| `--ld-r2` | `0.2` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
+| `--ld-window` | `50` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
+| `--ld-step` | `10` | int | LD剪枝步长｜LD pruning step size |
+| `--ld-r2` | `0.1` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
 | `--skip-preprocessing, -s` | — |  | 跳过VCF预处理｜Skip VCF preprocessing |
 | `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
 | `--verbose, -v` | — |  | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
@@ -157,12 +157,12 @@ admixture_results/
 | `--adamixture-max-iter` | `1500` | int | ADAMIXTURE最大迭代次数｜ADAMIXTURE maximum iterations |
 | `--adamixture-seed` | `42` | int | ADAMIXTURE随机种子｜ADAMIXTURE random seed |
 | `-m, --maf` | `0.05` | float | MAF阈值｜MAF threshold |
-| `-M, --missing` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
-| `-H, --hwe` | `1e-06` | float | HWE p值阈值｜HWE p-value threshold |
+| `-M, --missing` | `0.1` | float | 位点缺失率阈值(--geno,不删个体)｜Site-level missing threshold (--geno, never drops samples) |
+| `-H, --hwe` | `1.0` | float | HWE p值阈值,1=关闭(混合群体默认不过滤)｜HWE p-value threshold, 1=disabled (default for admixed panels) |
 | `--no-ld-prune` | — | store_true | 关闭LD剪枝(默认开启)｜Disable LD pruning (on by default) |
-| `--ld-window` | `3000kb` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
-| `--ld-step` | `1` | int | LD剪枝步长｜LD pruning step size |
-| `--ld-r2` | `0.2` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
+| `--ld-window` | `50` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
+| `--ld-step` | `10` | int | LD剪枝步长｜LD pruning step size |
+| `--ld-r2` | `0.1` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
 | `-s, --skip-preprocessing` | — | store_true | 跳过VCF预处理和质控｜Skip VCF preprocessing and QC |
 | `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
 | `--verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |

@@ -77,28 +77,28 @@ def _validate_file_exists(file_path):
               type=float,
               default=0.1,
               show_default=True,
-              help='缺失率阈值|Missing rate threshold')
+              help='位点缺失率阈值(--geno,不删个体)|Site-level missing threshold (--geno, never drops samples)')
 @click.option('--hwe', '-H',
               type=float,
-              default=1e-6,
+              default=1.0,
               show_default=True,
-              help='HWE p值阈值|HWE p-value threshold')
+              help='HWE p值阈值,1=关闭(混合群体默认不过滤)|HWE p-value threshold, 1=disabled (default for admixed panels)')
 @click.option('--ld-prune/--no-ld-prune',
               default=True,
               show_default=True,
               help='LD剪枝(默认开启,ADMIXTURE假设位点独立)|LD pruning (on by default; ADMIXTURE assumes unlinked sites)')
 @click.option('--ld-window',
-              default='3000kb',
+              default='50',
               show_default=True,
               help='LD剪枝窗口(kb或SNP数)|LD pruning window (kb or SNP count)')
 @click.option('--ld-step',
               type=int,
-              default=1,
+              default=10,
               show_default=True,
               help='LD剪枝步长|LD pruning step size')
 @click.option('--ld-r2',
               type=float,
-              default=0.2,
+              default=0.1,
               show_default=True,
               help='LD剪枝r2阈值|LD pruning r2 threshold')
 @click.option('--skip-preprocessing', '-s',
@@ -222,17 +222,17 @@ def admixture(vcf, output, method, min_k, max_k, cv_folds, threads, maf, missing
     if missing != 0.1:
         args.extend(['-M', str(missing)])
 
-    if hwe != 1e-6:
+    if hwe != 1.0:
         args.extend(['-H', str(hwe)])
 
     # LD剪枝参数|LD pruning parameters
     if not ld_prune:
         args.append('--no-ld-prune')
-    if ld_window != '3000kb':
+    if ld_window != '50':
         args.extend(['--ld-window', ld_window])
-    if ld_step != 1:
+    if ld_step != 10:
         args.extend(['--ld-step', str(ld_step)])
-    if ld_r2 != 0.2:
+    if ld_r2 != 0.1:
         args.extend(['--ld-r2', str(ld_r2)])
 
     # 布尔选项|Boolean options

@@ -72,8 +72,10 @@ class AdmixtureAnalyzer:
         log_file = os.path.join(self.config.admixture_dir, f"log_{k}.out")
 
         # 使用conda wrapper构建命令(传完整admixture路径)|Build cmd with full tool path
+        # 注意: ADMIXTURE的--cv只认等号写法, 空格分隔会把折数变成多余位置参数致exit 255
+        # |Note: ADMIXTURE only accepts --cv=N; space form makes folds a stray positional (exit 255)
         args = [
-            '--cv', str(self.config.cv_folds),
+            f'--cv={self.config.cv_folds}',
             '-j' + str(self.config.threads),
             bed_file,   # 绝对路径;ADMIXTURE按basename命名输出,写cwd|absolute path
             str(k),

@@ -292,30 +292,41 @@ class PlinkProcessor:
         ])
         self.cmd_runner.run(cmd_maf, "MAF过滤|MAF filtering")
 
-        #  HWE过滤|HWE filtering
+        #  HWE过滤(默认关闭: 混合群体HWE偏离属预期,过滤会误删群体分化位点;仅hwe_pvalue<1时执行)
+        #  |HWE filter (off by default: HWE deviation is expected in admixed panels and the
+        #  filter would remove differentiation SNPs; only runs when hwe_pvalue < 1)
         hwe_prefix = f"{output_prefix}_hwe"
-        cmd_hwe = build_conda_command(self.config.plink_path, [
-            "--bfile", maf_prefix, "--hwe", str(self.config.hwe_pvalue),
-            "--make-bed", "--out", hwe_prefix,
-            "--allow-extra-chr", "--threads", str(self.config.threads),
-        ])
-        self.cmd_runner.run(cmd_hwe, "HWE过滤|HWE filtering")
+        step_input = maf_prefix
+        if self.config.hwe_pvalue < 1:
+            cmd_hwe = build_conda_command(self.config.plink_path, [
+                "--bfile", maf_prefix, "--hwe", str(self.config.hwe_pvalue),
+                "--make-bed", "--out", hwe_prefix,
+                "--allow-extra-chr", "--threads", str(self.config.threads),
+            ])
+            self.cmd_runner.run(cmd_hwe, "HWE过滤|HWE filtering")
+            step_input = hwe_prefix
+        else:
+            self.logger.info("HWE过滤已关闭(hwe=1),跳过|HWE filtering disabled (hwe=1), skipping")
 
-        #  缺失率过滤|Missing rate filtering
+        #  位点缺失率过滤(仅--geno位点层面;禁止--mind删个体,保留全部样品,2026-08-18要求)
+        #  |Site-level missing filter (--geno only; --mind forbidden so all samples are kept)
         cmd_missing = build_conda_command(self.config.plink_path, [
-            "--bfile", hwe_prefix,
-            "--geno", str(self.config.missing_rate), "--mind", str(self.config.missing_rate),
+            "--bfile", step_input,
+            "--geno", str(self.config.missing_rate),
             "--make-bed", "--out", output_prefix,
             "--allow-extra-chr", "--threads", str(self.config.threads),
         ])
-        self.cmd_runner.run(cmd_missing, "缺失率过滤|Missing rate filtering")
+        self.cmd_runner.run(cmd_missing, "位点缺失率过滤|Site-level missing rate filtering")
 
         #  记录质控后统计信息
         self._log_qc_stats(output_prefix, "质控后 (After QC)")
 
         #  清理中间文件
         if not self.config.keep_intermediate:
-            self._cleanup_intermediate_files([maf_prefix, hwe_prefix])
+            intermediates = [maf_prefix]
+            if self.config.hwe_pvalue < 1:
+                intermediates.append(hwe_prefix)
+            self._cleanup_intermediate_files(intermediates)
 
         return output_prefix
 
