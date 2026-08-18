@@ -8,6 +8,7 @@ VCF转FASTA转换器|VCF to FASTA Converter
 import gzip
 import os
 from array import array
+from itertools import compress
 
 
 # IUPAC核酸模糊代码字典|IUPAC nucleotide ambiguity code dictionary
@@ -68,6 +69,33 @@ def get_iupac_code(ref: str, alt: str, genotype: str) -> str:
 
     # 杂合→IUPAC编码|Heterozygous→IUPAC code
     return IUPAC_CODES.get(bases_sorted, "N")
+
+
+def _informative_site_mask(seqs, chunk_size=10000):
+    """返回信息位点掩码(True=保留)|Return informative-site mask (True=keep)
+
+    IQ-TREE把IUPAC简并码当缺失: 一个位点只有在"明确碱基(ACGT)≥2种"时才对
+    似然有贡献。仅靠杂合变异(R/Y/S/W等)才"变异"的位点在IQ-TREE眼中是恒定位点,
+    IQ-TREE 3.x对+ASC含恒定位点直接报错, 且这些位点对建树零信息。
+    |IQ-TREE treats IUPAC ambiguity as missing: a site contributes likelihood only
+    if it has >=2 unambiguous bases (ACGT). Sites "variable" only via heterozygous
+    calls are invariant to IQ-TREE; IQ-TREE 3.x hard-errors on +ASC with invariant
+    sites present, and such sites carry zero tree information.
+
+    实现: 分块转置(zip)避免整矩阵物化; 每列join+encode+count均为C速度。
+    |Implementation: chunked transposition (zip) avoids materializing the whole
+    matrix; per-column join/encode/count run at C speed.
+    """
+    n_sites = len(seqs[0])
+    kept = [False] * n_sites
+    for start in range(0, n_sites, chunk_size):
+        stop = min(start + chunk_size, n_sites)
+        for offset, col in enumerate(zip(*(s[start:stop] for s in seqs))):
+            b = ''.join(col).encode('ascii')
+            n_states = ((b.count(b'A') > 0) + (b.count(b'C') > 0)
+                        + (b.count(b'G') > 0) + (b.count(b'T') > 0))
+            kept[start + offset] = n_states >= 2
+    return kept
 
 
 class VcfToFastaConverter:
@@ -197,10 +225,37 @@ class VcfToFastaConverter:
             )
             return False
 
+        # 转为字符串|Convert to strings
+        seqs = [sequences[name].tounicode() for name in sample_names]
+
+        # 移除仅杂合变异位点|Remove heterozygote-only sites
+        # IQ-TREE把IUPAC简并码当缺失: 仅靠0/1杂合才"变异"的位点对其是恒定位点,
+        # 对似然零贡献; IQ-TREE 3.x对+ASC含恒定位点直接报错(2026-08-18实测3.1.3,
+        # 147693位点中26639个此类位点)。移除无科学损失且使+ASC语义成立。
+        # |IQ-TREE treats IUPAC ambiguity as missing: sites "variable" only via
+        # heterozygous calls are invariant to it and contribute zero likelihood;
+        # IQ-TREE 3.x hard-errors on +ASC with invariant sites (verified 3.1.3,
+        # 2026-08-18: 26639 of 147693 sites). Removal loses nothing scientifically
+        # and makes +ASC semantically valid.
+        kept = _informative_site_mask(seqs)
+        removed_invariant = len(seqs[0]) - sum(kept)
+        if removed_invariant:
+            seqs = [''.join(compress(s, kept)) for s in seqs]
+            self.logger.info(
+                f"移除仅杂合变异位点|Removed heterozygote-only sites "
+                f"(invariant under IUPAC-as-missing): {removed_invariant}"
+            )
+
+        # 检查过滤后是否仍有位点|Check if any sites remain after filtering
+        if len(seqs[0]) == 0:
+            self.logger.error(
+                "过滤后无信息位点|No informative sites after filtering"
+            )
+            return False
+
         # 写入FASTA文件|Write FASTA file
         with open(self.config.snps_fa, 'w') as f:
-            for name in sample_names:
-                seq = sequences[name].tounicode()
+            for name, seq in zip(sample_names, seqs):
                 if len(seq) > 0:
                     f.write(f">{name}\n")
                     # 每行最多80字符|Max 80 chars per line
@@ -219,7 +274,7 @@ class VcfToFastaConverter:
         self.logger.info(
             f"跳过样本不足位点|Skipped insufficient samples: {skipped_missing}"
         )
-        self.logger.info(f"FASTA对齐长度(bp)|FASTA alignment length (bp): {accepted_snps}")
+        self.logger.info(f"FASTA对齐长度(bp)|FASTA alignment length (bp): {len(seqs[0])}")
         self.logger.info(f"FASTA文件|FASTA file: {self.config.snps_fa}")
 
         return True
