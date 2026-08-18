@@ -71,6 +71,9 @@ def _validate_path_exists(path):
               help='相对判据系数(0=关)|Relative criterion factor (0=off)')
 @click.option('--min-phys-gap', type=int, default=0, show_default=True,
               help='最小相邻物理距离bp(0=关)|Min physical gap bp (0=off)')
+@click.option('--keep-fragment-lgs', is_flag=True, default=False, show_default=True,
+              help='保留碎片LG进CIM(默认每染色体仅保留最大LG)|'
+                   'Keep fragment LGs in CIM (default: largest LG per chromosome)')
 @click.option('--n-marcovar', type=int, default=10, show_default=True,
               help='协因子数量|Number of marker covariates')
 @click.option('--window', type=float, default=10.0, show_default=True,
@@ -103,7 +106,7 @@ def cim(input, pheno, output, cross_type, map_mode, maf, missing,
          max_het_rate, max_mean_rf, rf_knn, enable_local_hotspot,
          local_hotspot_dist, local_hotspot_rf, local_hotspot_hard_rf,
          local_hotspot_score_cut, local_hotspot_relative, min_phys_gap,
-         n_marcovar, window, method, step, n_perm,
+         keep_fragment_lgs, n_marcovar, window, method, step, n_perm,
          ld_window, ld_step, ld_r2, skip_ld, mstmap_pvalue, mstmap_distfun, r_env):
     """R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM)
 
@@ -138,6 +141,8 @@ def cim(input, pheno, output, cross_type, map_mode, maf, missing,
     args.extend(['--local-hotspot-score', str(local_hotspot_score_cut)])
     args.extend(['--local-hotspot-relative', str(local_hotspot_relative)])
     args.extend(['--min-phys-gap', str(min_phys_gap)])
+    if keep_fragment_lgs:
+        args.append('--keep-fragment-lgs')
     args.extend(['--n-marcovar', str(n_marcovar)])
     args.extend(['--window', str(window)])
     args.extend(['--method', method])

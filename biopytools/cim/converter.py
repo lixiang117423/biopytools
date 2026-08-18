@@ -1144,20 +1144,28 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
     # Fragment LGs are sparse and trigger numerically unstable hk LOD artifacts (see
     # _filter_largest_lg_per_chr docstring); write only the largest LG per chromosome
     # to the root dir for the R script. Per-iteration subdirs keep the raw clustering.
-    filtered_rows, keep_lgs = _filter_largest_lg_per_chr(accepted_rows, marker_info)
-    all_lgs_final = set(row[1] for row in accepted_rows)
-    n_dropped_lgs = len(all_lgs_final) - len(keep_lgs)
-    if n_dropped_lgs > 0:
-        logger.warning(f"MSTmap碎片LG过滤|Fragment LG filtering: "
-                       f"每染色体仅保留最大LG进CIM|keeping only the largest LG per "
-                       f"chromosome: 剔除|dropped {n_dropped_lgs}个碎片LG|fragment "
-                       f"LGs ({len(accepted_rows) - len(filtered_rows)}个标记|markers), "
-                       f"保留|kept {len(keep_lgs)}个LG|LGs")
-    if not filtered_rows:
-        logger.error(f"MSTmap碎片LG过滤后无标记|No markers left after fragment LG "
-                     f"filtering. 请检查标记信息|Check marker info")
-        sys.exit(1)
-    _save_map_outputs(filtered_rows, genotype_matrix, marker_info,
+    if config.keep_fragment_lgs:
+        all_lgs_final = set(row[1] for row in accepted_rows)
+        logger.info(f"MSTmap碎片LG保留|Fragment LGs kept: --keep-fragment-lgs 已开启|"
+                    f"enabled, 全部{len(all_lgs_final)}个LG进CIM|all LGs enter CIM "
+                    f"(稀疏碎片LG可能产生hk数值伪峰|sparse fragments may produce "
+                    f"hk numerical artifacts)")
+        final_rows = accepted_rows
+    else:
+        final_rows, keep_lgs = _filter_largest_lg_per_chr(accepted_rows, marker_info)
+        all_lgs_final = set(row[1] for row in accepted_rows)
+        n_dropped_lgs = len(all_lgs_final) - len(keep_lgs)
+        if n_dropped_lgs > 0:
+            logger.warning(f"MSTmap碎片LG过滤|Fragment LG filtering: "
+                           f"每染色体仅保留最大LG进CIM|keeping only the largest LG per "
+                           f"chromosome: 剔除|dropped {n_dropped_lgs}个碎片LG|fragment "
+                           f"LGs ({len(accepted_rows) - len(final_rows)}个标记|markers), "
+                           f"保留|kept {len(keep_lgs)}个LG|LGs")
+        if not final_rows:
+            logger.error(f"MSTmap碎片LG过滤后无标记|No markers left after fragment LG "
+                         f"filtering. 请检查标记信息|Check marker info")
+            sys.exit(1)
+    _save_map_outputs(final_rows, genotype_matrix, marker_info,
                       samples, pheno_values, output_dir)
 
     lg_sizes_final = Counter(row[1] for row in accepted_rows)
@@ -1658,6 +1666,15 @@ def generate_r_cim_script(config: CIMConfig, tidy_files: Dict[str, str],
             'the final result and the mstmap block only for cross-checking peak locations\\n")',
             '',
         ])
+        if config.keep_fragment_lgs:
+            lines.extend([
+                'cat("WARNING: 碎片LG已保留(keep-fragment-lgs), 稀疏碎片LG上可能出现',
+                'hk数值伪峰(极高LOD但标记与表型无关联), 解读时以physical块为准|',
+                'fragment LGs kept (keep-fragment-lgs); sparse fragments may show hk',
+                'numerical artifacts (extreme LOD with no marker-level association);',
+                'trust the physical block\\n")',
+                '',
+            ])
         lines.extend(_build_cim_block(config, "mstmap", output_dir))
 
         # 峰值物理坐标标注|Annotate MSTmap peaks with physical positions

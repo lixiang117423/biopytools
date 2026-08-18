@@ -64,6 +64,9 @@ class CIMConfig:
     # 物理距离降采样|Physical distance thinning
     min_phys_gap: int = 0               # 最小相邻物理距离bp; 0=关闭|Min physical gap bp; 0=off
 
+    # MSTmap碎片LG|MSTmap fragment LGs
+    keep_fragment_lgs: bool = False     # 保留碎片LG进CIM(默认剔除)|Keep fragment LGs in CIM (default: drop)
+
     # LD pruning参数|LD pruning parameters
     ld_window: int = 50  # LD计算窗口(SNP数)|LD window size (SNP count)
     ld_step: int = 5  # LD计算步长(SNP数)|LD step size (SNP count)

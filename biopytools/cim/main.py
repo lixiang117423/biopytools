@@ -159,6 +159,11 @@ def parse_arguments():
     parser.add_argument('--min-phys-gap', type=int, default=0,
                         help='最小相邻物理距离bp, 0=关闭(默认)|Min physical gap in bp, 0=off (default: 0)')
 
+    # MSTmap碎片LG|MSTmap fragment LGs
+    parser.add_argument('--keep-fragment-lgs', action='store_true', default=False,
+                        help='保留碎片LG进CIM(默认每染色体仅保留最大LG)|'
+                             'Keep fragment LGs in CIM (default: largest LG per chromosome only)')
+
     # CIM参数|CIM parameters
     parser.add_argument('--n-marcovar', type=int, default=10,
                         help='协因子数量|Number of marker covariates (default: 10)')
@@ -240,6 +245,7 @@ def main():
             local_hotspot_score_cut=args.local_hotspot_score_cut,
             local_hotspot_relative=args.local_hotspot_relative,
             min_phys_gap=args.min_phys_gap,
+            keep_fragment_lgs=args.keep_fragment_lgs,
         )
         config.validate()
 
