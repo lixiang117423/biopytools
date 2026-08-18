@@ -1,6 +1,6 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.22
+## 版本: 2.23
 ## 日期: 2026-08-18
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
@@ -357,6 +357,20 @@ git pull --ff-only origin main
 **开工检查|Start-of-day:** Mac `git status -sb`（干净且与 GitHub 同步）；超算 `git status --short` 干净后 `git pull --ff-only origin main`。
 **收工|End-of-day:** 超算改过代码就 `copybiopytools`，回 Mac 上 `git diff` → commit → push，不留跨夜未提交状态。
 
+#### 10.1.2 版本发布规范|Release Conventions
+
+> ⚠️ **minor 版本(新增能力)必须打 tag + 创建 GitHub Release**；纯修 bug 的 patch 版本可选。
+
+```bash
+# 升版本 commit 推送后|After the version-bump commit is pushed:
+git tag -a v1.35.0 <release提交hash> -m "v1.35.0: <一句话变更>"
+git push origin v1.35.0
+# 推 tag 会触发 .github/workflows/release.yml 自动建 Release(占位 body),
+# 随后用 CHANGELOG 对应段填充说明|then fill notes from the matching CHANGELOG section:
+gh release edit v1.35.0 --title "v1.35.0 <一句话变更>" \
+  --notes "$(awk '/^## \[1.35.0\]/{f=1;next} /^## \[1.34.0\]/{f=0} f' CHANGELOG.md)"
+```
+
 ### 10.2 断点续传规范|Checkpoint Resume
 
 **所有多步骤流程必须支持断点续传**——已完成的步骤重新运行时自动跳过：
@@ -660,6 +674,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更<br>Major Changes |
 |---|---|---|
+| 2.23 | 2026-08-18 | §10.1 新增 10.1.2「版本发布规范」：minor 版本必须打 tag + GitHub Release（release.yml 自动建 Release 后需用 CHANGELOG 段填充说明） |
 | 2.22 | 2026-08-18 | §13.5 新增规则0：AI 调软件的完整决策树指向 docs/dev-standards/14_tool_invocation_policy.md（从哪调/缺了装哪/何时新建环境）；公共层 common/conda_runner.py 落地 |
 | 2.21 | 2026-08-17 | 新增 §14「模块文档规范」：每模块必须配 `docs/<module>.md`（固定12节模板+通俗化写作要求+参数表自动生成禁止手写，审查不通过条款）；模板示例 docs/cim.md |
 | 2.20 | 2026-08-16 | 新增 §10.1.1「Mac↔超算↔GitHub 三角工作流」：两循环+两铁律(单边改码/跨边先清对侧) |
