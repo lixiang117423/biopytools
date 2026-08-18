@@ -6,8 +6,8 @@ VCF转系统发育树工具包|VCF to Phylogenetic Tree Toolkit
   Direct phylogenetic tree construction from VCF SNP data, supporting FastTree and IQ-TREE backends
 
 作者|Author: Claude
-版本|Version: v1.0.0
-日期|Date: 2026-08-07
+版本|Version: v1.0.1
+日期|Date: 2026-08-18
 
 使用示例|Usage Examples:
     from biopytools.vcf2tree import Vcf2TreeRunner, Vcf2TreeConfig
@@ -30,7 +30,7 @@ VCF转系统发育树工具包|VCF to Phylogenetic Tree Toolkit
     runner.run_pipeline()
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Claude"
 
 from .main import Vcf2TreeRunner

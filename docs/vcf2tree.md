@@ -193,3 +193,9 @@ FastTree 快但**没有 ASC 校正**，SNP 数据下分支长度会低估；IQ-T
 ### 5. 为什么我的位点被过滤了？
 
 VCF 转 FASTA 阶段只保留二等位单碱基 SNP，多等位、InDel、样本数不足(`--min-samples-locus`)的位点会被跳过，日志里会打印各类过滤统计。
+
+### 6. IQ-TREE 3 报 "Unknown sequence type" 是怎么回事？
+
+这是 IQ-TREE 3.x 的行为变化：IQ-TREE 2 能自动把含大量简并碱基(R/Y/S/W 等)和缺失(N)的比对识别为 DNA；IQ-TREE 3.1.x 的自动识别严格得多——**全比对里非 A/C/G/T 字符占比约 10% 以上时，它放弃识别**并报 `Unknown sequence type`。VCF 转来的比对天然富含简并码和缺失，很容易触发(尤其含许多公共数据样本时)。
+
+本工具自 v1.0.1 起在 IQ-TREE 后端**显式传 `-st DNA`**，正常使用不会再遇到此问题。如果你手动跑 iqtree 撞上这个报错，命令里加 `-st DNA` 即可。

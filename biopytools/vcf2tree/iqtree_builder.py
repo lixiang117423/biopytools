@@ -41,6 +41,18 @@ class IqtreeBuilder:
             '-T', str(self.config.threads),
         ]
 
+        # 显式指定序列类型DNA|Explicitly specify DNA sequence type
+        # IQ-TREE 3.x自动检测对VCF来源的简并码/缺失富集比对误报
+        # "Unknown sequence type"(全比对非ACGT字符≥10%即失败, 2026-08-18实测3.1.3
+        # 后崩溃), IQ-TREE 2无此问题。输入必为VCF转来的DNA比对, -st DNA在
+        # IQ-TREE 2/3均合法, 故无条件添加。
+        # |IQ-TREE 3.x auto-detection misreports "Unknown sequence type" for
+        # ambiguity/N-rich VCF-derived alignments (>=10% non-ACGT chars alignment-wide;
+        # reproduced on 3.1.3, 2026-08-18); IQ-TREE 2 was unaffected. Input is always
+        # a VCF-derived DNA alignment and -st DNA is valid in IQ-TREE 2 and 3, so it
+        # is added unconditionally.
+        args.extend(['-st', 'DNA'])
+
         # 保持静默|Keep quiet
         args.append('--quiet')
 
