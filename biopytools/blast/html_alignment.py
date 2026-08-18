@@ -7,8 +7,13 @@ from datetime import datetime
 from typing import Dict, List
 from .html_templates import (
     get_css_style, get_javascript,
-    get_index_template, get_sample_template
+    get_index_template, get_sample_template,
+    get_tab_css, get_merged_javascript, get_merged_template
 )
+
+# 合并单文件名(旧模式遗留文件清理时排除自身)|Merged single-file name
+# (excluded from stale-file cleanup so it never deletes itself)
+MERGED_HTML_FILENAME = "blast_alignments.html"
 
 class HTMLAlignmentGenerator:
     """HTML比对可视化生成器|HTML alignment visualization generator"""
@@ -23,6 +28,16 @@ class HTMLAlignmentGenerator:
         """生成所有样品的HTML比对文件|Generate HTML alignment files for all samples"""
         self.logger.info("生成HTML格式比对可视化|Generating HTML format alignment visualizations...")
 
+        # 合并模式:输出单个自包含文件,便于分享|Merged mode: single self-contained file for easy sharing
+        if self.config.merge_html:
+            merged_file = self._generate_merged_page(alignments_data)
+            self.logger.info(f"HTML合并文件已生成|Merged HTML file generated: {self.output_dir}")
+            self.logger.info(f"浏览器打开|Open in browser: {merged_file}")
+            return [], merged_file
+
+        # 旧模式:index页+分样品页|Legacy mode: index page + per-sample pages
+        self._remove_stale_merged_file()
+
         sample_files = []
 
         for sample_name, sample_data in alignments_data.items():
@@ -35,7 +50,145 @@ class HTMLAlignmentGenerator:
         self.logger.info(f"浏览器打开|Open in browser: {index_file}")
 
         return sample_files, index_file
-    
+
+    def _generate_merged_page(self, alignments_data: Dict) -> str:
+        """生成合并单页HTML(概览tab+每样品tab)|Generate merged single-page HTML (overview + per-sample tabs)"""
+        # 清理旧模式遗留文件,避免同目录两套HTML并存|Remove stale legacy files first
+        self._remove_stale_legacy_files()
+
+        output_file = self.output_dir / MERGED_HTML_FILENAME
+        total_alignments = sum(len(data['alignments']) for data in alignments_data.values())
+
+        # tab按钮和样品面板:样品名排序与概览列表一致|tab buttons/panels in the same sorted order as the list
+        tab_buttons = ['<button class="tab-btn active" onclick="switchTab(0)">概览|Overview</button>']
+        tab_indices = {}
+        sample_panels = []
+        for i, (sample_name, sample_data) in enumerate(sorted(alignments_data.items()), start=1):
+            tab_indices[sample_name] = i
+            tab_buttons.append(f'<button class="tab-btn" onclick="switchTab({i})">{sample_name}</button>')
+            sample_panels.append(self._generate_sample_panel(sample_name, sample_data, i))
+
+        overview_html = self._generate_merged_overview_html(alignments_data, tab_indices)
+
+        template = get_merged_template()
+        html_content = template.format(
+            css_content=get_css_style(self.config.html_theme),
+            tab_css_content=get_tab_css(),
+            js_content=get_merged_javascript(),
+            analysis_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            blast_type=self.config.blast_type.upper(),
+            sample_count=len(alignments_data),
+            total_alignments=total_alignments,
+            tab_buttons_html='\n            '.join(tab_buttons),
+            overview_html=overview_html,
+            sample_panels_html='\n'.join(sample_panels)
+        )
+
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        return str(output_file)
+
+    def _generate_merged_overview_html(self, alignments_data: Dict, tab_indices: Dict) -> str:
+        """生成合并页概览tab内容|Generate merged page overview tab content"""
+        sample_list_html = self._generate_sample_list_html(alignments_data, tab_indices)
+
+        all_alignments = [a for data in alignments_data.values() for a in data['alignments']]
+        avg_identity = sum(a['identity'] for a in all_alignments) / len(all_alignments) if all_alignments else 0
+        avg_coverage = sum(a['coverage'] for a in all_alignments) / len(all_alignments) if all_alignments else 0
+
+        statistics_html = f"""
+        <div class="metrics">
+            <div class="metric"><strong>平均相似度:</strong> {avg_identity:.2f}%</div>
+            <div class="metric"><strong>平均覆盖度:</strong> {avg_coverage:.2f}%</div>
+            <div class="metric"><strong>高质量比对 (≥90%):</strong> {sum(1 for a in all_alignments if a['identity'] >= 90)}</div>
+        </div>
+        """
+
+        return f"""
+            <section class="search-filter">
+                <input type="text" id="search-0" class="filter-search" placeholder="搜索样品名称|Search samples...">
+                <select id="identity-filter-0" class="filter-identity">
+                    <option value="0">所有相似度</option>
+                    <option value="70">≥ 70%</option>
+                    <option value="80">≥ 80%</option>
+                    <option value="90">≥ 90%</option>
+                    <option value="95">≥ 95%</option>
+                </select>
+                <button onclick="applyFilters()">应用筛选</button>
+            </section>
+
+            <section class="sample-list">
+                <h2>样品列表</h2>
+                {sample_list_html}
+            </section>
+
+            <section class="statistics">
+                <h2>快速统计|Quick Statistics</h2>
+                {statistics_html}
+            </section>
+        """
+
+    def _generate_sample_panel(self, sample_name: str, sample_data: Dict, tab_index: int) -> str:
+        """生成单个样品的tab面板内容|Generate one sample's tab panel content"""
+        alignments = sample_data['alignments']
+        avg_identity = sum(a['identity'] for a in alignments) / len(alignments) if alignments else 0
+
+        # 比对ID加tab索引前缀,避免跨样品ID冲突|tab-index prefix avoids cross-sample ID collisions
+        alignments_html = self._generate_alignments_html(alignments, id_prefix=str(tab_index))
+
+        return f"""
+        <div class="tab-panel" id="tab-panel-{tab_index}">
+            <section class="sample-detail-header">
+                <h2>{sample_name} - Sequence Alignments</h2>
+                <div class="detail-metrics">
+                    <span>输入文件|Input: {sample_data['file_name']}</span>
+                    <span>比对数量|Alignments: {len(alignments)}</span>
+                    <span>平均相似度|Avg identity: {avg_identity:.2f}%</span>
+                </div>
+            </section>
+
+            <section class="search-filter">
+                <input type="text" id="search-{tab_index}" class="filter-search" placeholder="搜索目标序列ID|Search subject IDs...">
+                <select id="identity-filter-{tab_index}" class="filter-identity">
+                    <option value="0">所有相似度</option>
+                    <option value="70">≥ 70%</option>
+                    <option value="80">≥ 80%</option>
+                    <option value="90">≥ 90%</option>
+                    <option value="95">≥ 95%</option>
+                </select>
+                <button onclick="applyFilters()">应用筛选</button>
+                <button onclick="expandAll()" class="btn-secondary">展开全部</button>
+                <button onclick="collapseAll()" class="btn-secondary">折叠全部</button>
+            </section>
+
+            <section class="alignment-list">
+                {alignments_html}
+            </section>
+        </div>
+        """
+
+    def _remove_stale_legacy_files(self):
+        """清理旧模式遗留的index.html和分样品页(排除合并文件自身)|Remove stale legacy files"""
+        if not self.output_dir.exists():
+            return
+        stale_files = [self.output_dir / "index.html"]
+        stale_files.extend(
+            p for p in self.output_dir.glob("*_alignments.html")
+            if p.name != MERGED_HTML_FILENAME
+        )
+        for path in stale_files:
+            if path.exists():
+                path.unlink()
+                self.logger.info(f"清理遗留HTML文件|Removed stale HTML file: {path.name}")
+
+    def _remove_stale_merged_file(self):
+        """清理合并模式遗留的合并文件|Remove stale merged file"""
+        merged_file = self.output_dir / MERGED_HTML_FILENAME
+        if merged_file.exists():
+            merged_file.unlink()
+            self.logger.info(f"清理遗留合并HTML文件|Removed stale merged HTML file: {merged_file.name}")
+
     def _generate_index_page(self, alignments_data: Dict) -> str:
         """生成主入口页面|Generate index page"""
         output_file = self.output_dir / "index.html"
@@ -74,15 +227,15 @@ class HTMLAlignmentGenerator:
         
         return str(output_file)
     
-    def _generate_sample_list_html(self, alignments_data: Dict) -> str:
-        """生成样品列表HTML"""
+    def _generate_sample_list_html(self, alignments_data: Dict, tab_indices: Dict = None) -> str:
+        """生成样品列表HTML(合并模式下详情按钮切换tab)|Generate sample list HTML"""
         items = []
-        
+
         for sample_name, sample_data in sorted(alignments_data.items()):
             alignments = sample_data['alignments']
             alignment_count = len(alignments)
             avg_identity = sum(a['identity'] for a in alignments) / alignment_count if alignments else 0
-            
+
             # 相似度颜色标记
             if avg_identity >= 90:
                 identity_class = 'identity-high'
@@ -90,12 +243,18 @@ class HTMLAlignmentGenerator:
                 identity_class = 'identity-medium'
             else:
                 identity_class = 'identity-low'
-            
+
+            # 合并模式切tab,旧模式跳转分页面|switch tab in merged mode, link in legacy mode
+            if tab_indices is not None:
+                detail_button = f'<button class="btn btn-primary" onclick="switchTab({tab_indices[sample_name]})">查看详情</button>'
+            else:
+                detail_button = f'<a href="{sample_name}_alignments.html" class="btn btn-primary">查看详情</a>'
+
             item_html = f"""
             <div class="sample-item" data-sample-name="{sample_name}" data-identity="{avg_identity:.2f}">
                 <div class="sample-header">
                     <h3>{sample_name}</h3>
-                    <a href="{sample_name}_alignments.html" class="btn btn-primary">查看详情</a>
+                    {detail_button}
                 </div>
                 <div class="metrics">
                     <div class="metric"><strong>比对数:</strong> {alignment_count}</div>
@@ -105,7 +264,7 @@ class HTMLAlignmentGenerator:
             </div>
             """
             items.append(item_html)
-        
+
         return '\n'.join(items)
     
     def _generate_sample_page(self, sample_name: str, sample_data: Dict) -> str:
@@ -137,12 +296,12 @@ class HTMLAlignmentGenerator:
         self.logger.info(f"  样品|Sample {sample_name}: {len(alignments)} 比对|alignments")
         return str(output_file)
     
-    def _generate_alignments_html(self, alignments: List[Dict]) -> str:
-        """生成比对列表HTML"""
+    def _generate_alignments_html(self, alignments: List[Dict], id_prefix: str = "") -> str:
+        """生成比对列表HTML(id_prefix用于合并模式跨样品去重)|Generate alignment list HTML"""
         items = []
-        
+
         for idx, alignment in enumerate(alignments, 1):
-            alignment_id = f"alignment_{idx}"
+            alignment_id = f"alignment_{id_prefix}_{idx}" if id_prefix else f"alignment_{idx}"
             
             # 相似度颜色
             identity = alignment['identity']

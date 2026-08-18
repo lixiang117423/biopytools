@@ -411,10 +411,10 @@ def get_sample_template():
                 <span> 平均相似度: {avg_identity:.2f}%</span>
             </div>
         </header>
-        
+
         <main>
             <a href="index.html" class="back-link">← 返回主页</a>
-            
+
             <section class="search-filter">
                 <input type="text" id="search" placeholder=" 搜索目标序列ID...">
                 <select id="identity-filter">
@@ -428,13 +428,202 @@ def get_sample_template():
                 <button onclick="expandAll()" class="btn-secondary">展开全部</button>
                 <button onclick="collapseAll()" class="btn-secondary">折叠全部</button>
             </section>
-            
+
             <section class="alignment-list">
                 {alignments_html}
             </section>
         </main>
     </div>
-    
+
+    <script>
+{js_content}
+    </script>
+</body>
+</html>
+"""
+
+
+def get_tab_css():
+    """获取tab切换样式|Get tab switching styles"""
+    return """
+        .tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            background: #f8f9fa;
+            padding: 10px 30px 0;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            border-radius: 6px 6px 0 0;
+            transition: background 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: #eef1f5;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .sample-detail-header {
+            margin-bottom: 20px;
+        }
+
+        .sample-detail-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .sample-detail-header .detail-metrics {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: #666;
+        }
+    """
+
+
+def get_merged_javascript():
+    """获取合并页面JavaScript代码|Get merged page JavaScript code"""
+    return """
+    function switchTab(tabIndex) {
+        document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === tabIndex);
+        });
+        document.querySelectorAll('.tab-panel').forEach((panel, i) => {
+            panel.classList.toggle('active', i === tabIndex);
+        });
+    }
+
+    function applyFilters() {
+        // 只过滤当前激活面板内的条目,输入框按class定位避免ID冲突
+        // |Filter items within the active panel only; class-scoped inputs avoid ID collisions
+        const panel = document.querySelector('.tab-panel.active');
+        if (!panel) return;
+        const searchTerm = panel.querySelector('.filter-search')?.value.toLowerCase() || '';
+        const minIdentity = parseFloat(panel.querySelector('.filter-identity')?.value || 0);
+
+        panel.querySelectorAll('.sample-item, .alignment-item').forEach(item => {
+            const name = (item.dataset.sampleName || item.dataset.alignmentName || '').toLowerCase();
+            const identity = parseFloat(item.dataset.identity || 100);
+
+            const matchesSearch = name.includes(searchTerm);
+            const matchesIdentity = identity >= minIdentity;
+
+            item.style.display = (matchesSearch && matchesIdentity) ? 'block' : 'none';
+        });
+    }
+
+    function toggleAlignment(alignmentId) {
+        const content = document.getElementById(alignmentId);
+        if (content) {
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+
+    function expandAll() {
+        const panel = document.querySelector('.tab-panel.active');
+        panel?.querySelectorAll('.alignment-content').forEach(el => {
+            el.style.display = 'block';
+        });
+    }
+
+    function collapseAll() {
+        const panel = document.querySelector('.tab-panel.active');
+        panel?.querySelectorAll('.alignment-content').forEach(el => {
+            el.style.display = 'none';
+        });
+    }
+
+    function copySequence(alignmentId) {
+        const content = document.getElementById(alignmentId);
+        if (content) {
+            const text = content.querySelector('.alignment-view')?.innerText || '';
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification(' 已复制到剪贴板');
+            }).catch(err => {
+                console.error('复制失败:', err);
+                showNotification(' 复制失败');
+            });
+        }
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #333; color: white; padding: 15px 20px; border-radius: 4px; z-index: 1000; animation: slideIn 0.3s ease;';
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }
+
+    // 实时搜索:按class绑定所有面板输入框|Live search: bind all panel inputs by class
+    document.querySelectorAll('.filter-search, .filter-identity').forEach(el => {
+        el.addEventListener('input', applyFilters);
+    });
+    """
+
+
+def get_merged_template():
+    """获取合并单页模板|Get merged single-page template"""
+    return """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAST Alignment Visualization Report</title>
+    <style>
+{css_content}
+{tab_css_content}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> BLAST Alignment Visualization Report</h1>
+            <div class="analysis-info">
+                <span>分析日期|Date: {analysis_date}</span>
+                <span> BLAST类型: {blast_type}</span>
+                <span> 样品数: {sample_count}</span>
+                <span> 总比对数: {total_alignments}</span>
+            </div>
+        </header>
+
+        <nav class="tab-bar">
+            {tab_buttons_html}
+        </nav>
+
+        <main>
+            <div class="tab-panel active" id="tab-panel-0">
+                {overview_html}
+            </div>
+            {sample_panels_html}
+        </main>
+    </div>
+
     <script>
 {js_content}
     </script>

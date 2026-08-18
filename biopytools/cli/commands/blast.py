@@ -170,6 +170,9 @@ def _validate_file_exists(file_path):
               show_default=True,
               type=click.Choice(['modern', 'classic', 'dark']),
               help='HTML主题样式|HTML theme style')
+@click.option('--merge-html/--no-merge-html',
+              default=True,
+              help='HTML输出合并为单个文件(默认)|Merge HTML output into a single file (default)')
 @click.option('--verbose', '-v',
               count=True,
               help='详细输出模式|Verbose output mode')
@@ -199,7 +202,7 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
           sample_name_pattern, sample_name, makeblastdb_path, blastn_path, blastp_path,
           blastx_path, tblastn_path, tblastx_path, alignment_output,
           alignment_width, alignment_min_identity, alignment_min_coverage,
-          alignment_max_per_sample, html_theme, verbose, quiet,
+          alignment_max_per_sample, html_theme, merge_html, verbose, quiet,
           log_level, log_file, force, dry_run):
     """
     BLAST序列比对分析工具|BLAST Sequence Alignment Analysis Tool
@@ -310,6 +313,11 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
 
     if html_theme != 'modern':
         args.extend(['--html-theme', html_theme])
+
+    # merge_html默认为True(argparse也是True),只在关闭时才传--no-merge-html
+    # |merge_html defaults to True (same as argparse), only forward --no-merge-html when off
+    if not merge_html:
+        args.append('--no-merge-html')
 
     # 处理verbose (count)|Handle verbose (count)
     if verbose > 0:

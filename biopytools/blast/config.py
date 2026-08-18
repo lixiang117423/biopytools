@@ -52,7 +52,8 @@ class BLASTConfig(BaseConfig):
         alignment_min_identity: float = 0.0,
         alignment_min_coverage: float = 0.0,
         alignment_max_per_sample: int = 100,
-        html_theme: str = "modern"
+        html_theme: str = "modern",
+        merge_html: bool = True
     ):
         """
         初始化BLAST配置|Initialize BLAST configuration
@@ -91,6 +92,7 @@ class BLASTConfig(BaseConfig):
             alignment_min_coverage: 比对可视化最小覆盖度过滤|Minimum coverage for alignment visualization
             alignment_max_per_sample: 每个样品最多显示的比对数|Maximum alignments to display per sample
             html_theme: HTML主题样式|HTML theme style
+            merge_html: HTML输出合并为单个文件|Merge HTML output into a single file
         """
         super().__init__()
 
@@ -137,6 +139,7 @@ class BLASTConfig(BaseConfig):
         self.alignment_min_coverage = self.validate_quality(alignment_min_coverage, 0, 100)
         self.alignment_max_per_sample = alignment_max_per_sample
         self.html_theme = self._validate_html_theme(html_theme)
+        self.merge_html = merge_html
 
         # 设置默认输出路径|Set default output path
         if self.output is None:
@@ -407,7 +410,10 @@ class BLASTConfig(BaseConfig):
             str: 输出路径|Output path
         """
         if output_type == "html":
-            return os.path.join(self.alignments_dir, "html", "index.html")
+            # 合并模式入口文件为blast_alignments.html,旧模式为index.html
+            # |Merged mode entry is blast_alignments.html; legacy mode is index.html
+            file_name = "blast_alignments.html" if self.merge_html else "index.html"
+            return os.path.join(self.alignments_dir, "html", file_name)
         elif output_type == "text":
             return os.path.join(self.alignments_dir, "text", "all_samples_alignments.txt")
         else:

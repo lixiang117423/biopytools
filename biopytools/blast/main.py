@@ -959,6 +959,10 @@ def main():
     parser.add_argument('--html-theme', default='modern',
                        choices=['modern', 'classic', 'dark'],
                        help='HTML主题样式|HTML theme style')
+    parser.add_argument('--merge-html', dest='merge_html', action='store_true', default=True,
+                       help='HTML输出合并为单个文件(默认)|Merge HTML output into a single file (default)')
+    parser.add_argument('--no-merge-html', dest='merge_html', action='store_false',
+                       help='关闭HTML合并,输出index和分样品多文件|Disable merging (legacy multi-file output)')
 
     # 日志与执行控制|Logging and execution control
     parser.add_argument('-v', '--verbose', action='count', default=0,
@@ -1017,6 +1021,7 @@ def main():
         alignment_min_coverage=args.alignment_min_coverage,
         alignment_max_per_sample=args.alignment_max_per_sample,
         html_theme=args.html_theme,
+        merge_html=args.merge_html,
         log_level=args.log_level,
         log_file=args.log_file,
         force=args.force,

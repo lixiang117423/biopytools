@@ -61,7 +61,7 @@ biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
 
 ### 比对可视化 | Alignment visualization
 
-**通俗理解|In plain words:** `--alignment-output`（默认 `both`）控制是否生成比对可视化（`none/text/html/both`）。`--alignment-width` 是每行显示的字符数，`--alignment-max-per-sample` 限制每个样品最多画几条，`--html-theme` 换 HTML 配色。**只想拿表格结果时设 `--alignment-output none` 可跳过可视化，更快。**
+**通俗理解|In plain words:** `--alignment-output`（默认 `both`）控制是否生成比对可视化（`none/text/html/both`）。`--alignment-width` 是每行显示的字符数，`--alignment-max-per-sample` 限制每个样品最多画几条，`--html-theme` 换 HTML 配色。`--merge-html`（默认开启）把 HTML 合并成**单个自包含文件**（概览 + 每样品一个 tab），一个文件就能发给别人看；`--no-merge-html` 恢复旧的 index + 分样品多文件。**只想拿表格结果时设 `--alignment-output none` 可跳过可视化，更快。**
 
 ## 分析流程 | Pipeline
 
@@ -93,10 +93,12 @@ blast_output/
 │   ├── blast_statistics.txt                  # 统计报告
 │   └── blast_results.xlsx                    # 多sheet Excel(软依赖, 缺失则跳过)
 ├── 03_alignments/
-│   ├── html/index.html                       # HTML 可视化索引
+│   ├── html/blast_alignments.html            # HTML 可视化(合并单文件, 默认; 概览+每样品tab)
 │   └── text/all_samples_alignments.txt       # 文本比对摘要
 └── 99_logs/                                  # 运行日志
 ~~~
+
+> 旧模式（`--no-merge-html`）下 `html/` 目录为 `index.html` + 各样品 `{sample}_alignments.html`。合并文件是自包含的（样式/脚本/序列全部内联），分享给他人只发这一个文件即可。
 
 - `blast_summary_results.tsv` 列（16 列）：样品名称 / 查询序列ID / 目标序列ID / 序列相似度(%) / 比对长度 / 错配数 / Gap数 / 查询起止 / 目标起止 / E-value / Bit_Score / 目标序列长度 / 目标序列覆盖度(%) / 查询序列 / 目标序列
 
@@ -115,6 +117,7 @@ blast_output/
 - **只想要顶级命中**：收紧 `--high-quality-evalue 1e-30 --min-identity 90 --min-coverage 80`
 - **核酸 vs 蛋白不确定**：交给自动检测；确认时用 `--blast-type` 显式指定
 - **只要表格、不要图**：`--alignment-output none`
+- **结果要分享给同事**：默认产出的 `03_alignments/html/blast_alignments.html` 就是单个自包含文件，直接发送即可；需要旧的多文件结构时加 `--no-merge-html`
 - **重跑并覆盖旧结果**：加 `--force`
 
 <!-- BEGIN PARAMS:auto -->
@@ -156,6 +159,7 @@ blast_output/
 | `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度｜Minimum coverage for alignment visualization |
 | `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
 | `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
+| `--merge-html/--no-merge-html` | `True` |  | HTML输出合并为单个文件(默认)｜Merge HTML output into a single file (default) |
 | `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
 | `--quiet` | — |  | 静默模式｜Quiet mode |
 | `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
@@ -197,6 +201,8 @@ blast_output/
 | `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度过滤｜Minimum coverage for alignment visualization |
 | `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
 | `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
+| `--merge-html` | `True` | store_true | HTML输出合并为单个文件(默认)｜Merge HTML output into a single file (default) |
+| `--no-merge-html` | — | store_false | 关闭HTML合并,输出index和分样品多文件｜Disable merging (legacy multi-file output) |
 | `-v, --verbose` | `0` | count | 详细输出(-vv更详细)｜Verbose output (-vv for more) |
 | `--quiet` | — | store_true | 静默模式｜Quiet mode |
 | `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
@@ -228,3 +234,6 @@ blast_output/
 
 **Q5：Excel 没生成？**
 Excel 是软依赖，需要 `pandas` + `openpyxl`；没装会自动跳过（TSV 结果不受影响）。装了仍失败可能是某 sheet 超 Excel 行数上限，会被跳过并提示。
+
+**Q6：之前跑的结果是 index.html + 分样品两个文件，怎么重新合并成单文件？**
+不用重跑 BLAST：用相同参数（同一个 `-o`）重新运行一次即可。断点续传会跳过建库和比对步骤，只重新生成可视化，默认即产出合并单文件 `blast_alignments.html`；若想保留旧的多文件格式，加 `--no-merge-html`。
