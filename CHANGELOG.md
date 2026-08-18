@@ -1,3 +1,11 @@
+## [1.36.0] - 2026-08-18
+
+### Added
+- `genome2tree`（新模块，CLI `genome2tree`）：基因组目录免比对构建物种树——ASTER 包 waster（k-mer 找 SNP → CASTER coalescent 建模），支持 fasta/fastq/.gz 输入、外群有根树（`--root`）、同种多个体映射（`--samples-map`）、可选枝长（`--branch-length`，waster_branchlength）、断点续传、software_versions.yml 与 ASTER git commit 记录；waster 为 `~/software` 独立 C++ 二进制直调（不走 conda run）；配套 53 项 mock 单测；文档已登记 docs 导航
+
+### Fixed
+- `vcf2tree`：IQ-TREE 后端无条件加 `-st DNA`——IQ-TREE 3.x 自动类型检测对 VCF 来源的简并码/缺失富集比对误报 "Unknown sequence type"（3.1.3 实测崩溃；IQ-TREE 2 无此问题）；版本 1.0.1
+
 ## [1.35.0] - 2026-08-18
 
 ### Added
