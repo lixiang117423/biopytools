@@ -1,3 +1,11 @@
+## [1.38.0] - 2026-08-19
+
+### Added
+- `pi`: `-g` 参考基因组不再强制要求 `.fai`——缺失时自动用 samtools faidx 补建（align 域环境，1h 超时）；建索引失败（目录只读/无 samtools）自动降级为纯 Python 解析 FASTA 拿染色体长度，流程照常、结果不受影响；版本 2.1.0
+
+### Changed
+- `pi`: utils.py 删除本地 `get_conda_env`/`build_conda_command` 复制实现改走 `common/conda_runner` 公共层（旧实现还违反 §13.2.3 提取命令名丢完整路径）
+
 ## [1.37.0] - 2026-08-19
 
 ### Added
