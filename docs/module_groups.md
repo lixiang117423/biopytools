@@ -174,10 +174,11 @@
 | subgenome_assign | subgenome-assign | 基于亲本比对的亚基因组归属|Subgenome assignment via parental alignment |
 | subphaser | subphaser | SubPhaser异源多倍体亚基因组分离|SubPhaser subgenome phasing of allopolyploids |
 
-## 系统发育|Phylogeny(14)|14 modules
+## 系统发育|Phylogeny(15)|15 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
+| easyhap | easyhap | 区域单倍型分析(EasyHap)|Regional haplotype analysis (EasyHap) |
 | genome2tree | genome2tree | 基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster) |
 | iqtree | iqtree | IQ-TREE系统发育树分析工具|IQ-TREE phylogenetic tree analysis tool |
 | kaks | kaks | Ka/Ks计算|Ka/Ks calculation |

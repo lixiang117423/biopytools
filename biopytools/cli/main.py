@@ -49,6 +49,7 @@ COMMAND_REGISTRY = [
     ('deepbsa', 'deepbsa', 'DeepBSA批量分析工具|DeepBSA batch analysis tool'),
     ('dual_rnaseq', 'dual-rnaseq', '互作转录组分析|Dual RNA-seq Analysis'),
     ('dsuite', 'dsuite', 'Dsuite D统计量分析工具|Dsuite D-statistics analysis tool'),
+    ('easyhap', 'easyhap', '区域单倍型分析(EasyHap)|Regional haplotype analysis (EasyHap)'),
     ('edta', 'edta', 'EDTA转座子注释|EDTA TE annotation'),
     ('panedta', 'panedta', 'PanEDTA泛基因组转座子注释|PanEDTA Pan-genome TE annotation'),
     ('egapx_batch', 'egapx-batch', 'EGAPx批量运行配置生成工具|EGAPx batch run configuration generator'),

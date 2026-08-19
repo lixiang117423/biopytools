@@ -37,6 +37,7 @@ TOOL_DOMAIN_MAP = {
     "poplddecay": "pop",
     "RAiSD": "pop",
     "xpclr": "pop",
+    "easyhap": "pop",
     # ===== asm 组装 =====
     "canu": "asm",
     "hifiasm": "asm",

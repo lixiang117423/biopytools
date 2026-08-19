@@ -34,11 +34,14 @@ conda run -n align <工具> --no-capture-output
 conda run -n pop <工具> --no-capture-output
 ```
 
+> easyhap: 纯 Python pip 安装(上游 Guangqi-He/EasyHap v1.0)
+
 | 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
 |---|---|---|
 | `PopLDdecay` | `RAiSD` | `admixture` |
 | `pixy` | `plink` | `poplddecay` |
 | `treemix` | `vcftools` | `xpclr` |
+| `easyhap` |  |  |
 
 ### asm — 基因组组装|Genome assembly
 
