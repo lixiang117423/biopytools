@@ -1,3 +1,9 @@
+## [1.37.0] - 2026-08-19
+
+### Added
+- `admixture`: 新增 `05_plot_files/` 目录——自动收集下游 R 绘图包输入（`admixture_ready.fam` + 全部 K 的 `.Q`，复制保留 02/03 断点续传依据，最优 K 判定失败也照常收集）；版本 1.2.0
+- `easyhap`（新模块，CLI `easyhap`）：phased VCF 区域单倍型分析封装——上游 EasyHap v1.0（纯 Python pip 装于 pop 域环境），inbred/hybrid 双模式、Fisher 过滤、相似度聚类、FASTA/NEXUS/PHYLIP 导出、基因结构/热图/饼图/性状箱线图；逐区域调用（done-marker 断点续传 + 单区域失败容错，退出码 1 保留成功产出）；by-step 输出（01_haplotypes/00_pipeline_info/99_logs）；配套 42 项 mock 单测；文档已登记 docs 导航
+
 ## [1.36.1] - 2026-08-18
 
 ### Fixed
