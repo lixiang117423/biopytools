@@ -9,12 +9,39 @@ import sys
 import argparse
 from datetime import datetime
 from pathlib import Path
+from typing import Dict
 
-from ..common.paths import expand_path
+from ..common.paths import expand_path, get_tool_path
 from .config import PiConfig
-from .utils import PiLogger, parse_population_file, get_software_version, ensure_tabix_index, parse_fai_file
+from .utils import (
+    PiLogger, parse_population_file, get_software_version, ensure_tabix_index,
+    parse_fai_file, parse_fasta_lengths, ensure_fai_index,
+)
 from .vcftools_pi import VcftoolsPiCalculator
 from .results_merger import PiResultsMerger
+
+
+def load_chrom_lengths(genome_fai: str, genome_fasta: str, logger) -> Dict[str, int]:
+    """
+    加载染色体长度：优先读.fai，缺失时降级为纯Python解析FASTA
+    Load chromosome lengths: prefer .fai, fall back to pure-Python FASTA parsing
+
+    Args:
+        genome_fai: .fai索引路径|.fai index path
+        genome_fasta: FASTA文件路径|FASTA file path
+        logger: 日志器|Logger
+
+    Returns:
+        {染色体名: 碱基长度}|{chromosome_name: base_length}
+    """
+    if os.path.exists(genome_fai):
+        return parse_fai_file(genome_fai)
+
+    logger.warning(
+        f"fai索引缺失，降级为直接解析FASTA|fai index missing, "
+        f"falling back to direct FASTA parsing: {genome_fasta}"
+    )
+    return parse_fasta_lengths(genome_fasta)
 
 
 class PiAnalyzer:
@@ -37,9 +64,15 @@ class PiAnalyzer:
         vcftools_path: str = None
     ):
         """初始化Pi分析器|Initialize Pi Analyzer"""
-        # 解析genome参数：支持直接传入.fai或.fasta/.fa（自动找.fai）
-        # Parse genome param: accept .fai or .fasta/.fa (auto-find .fai)
+        # 初始化日志（先于fai解析，索引创建过程可记录日志）
+        # Initialize logger (before fai resolution so indexing is logged)
+        self.logger_manager = PiLogger(Path(expand_path(output_dir)))
+        self.logger = self.logger_manager.get_logger()
+
+        # 解析genome参数：支持直接传入.fai或.fasta/.fa，缺.fai时自动创建索引
+        # Parse genome param: accept .fai or .fasta/.fa; auto-create .fai if missing
         genome_fai = self._resolve_fai_path(genome)
+        genome_fasta = genome_fai[:-4] if genome_fai.endswith('.fai') else genome_fai
 
         # 构建配置|Build config
         config_kwargs = {
@@ -47,6 +80,7 @@ class PiAnalyzer:
             'pop_file': pop_file,
             'output_dir': output_dir,
             'genome_fai': genome_fai,
+            'genome_fasta': genome_fasta,
             'window_size': window_size,
             'window_step': window_step,
             'default_window_size': default_window_size,
@@ -63,33 +97,50 @@ class PiAnalyzer:
         self.config = PiConfig(**config_kwargs)
         self.config.validate()
 
-        # 初始化日志|Initialize logger
-        self.logger_manager = PiLogger(self.config.output_path)
-        self.logger = self.logger_manager.get_logger()
-
-    @staticmethod
-    def _resolve_fai_path(genome: str) -> str:
+    def _resolve_fai_path(self, genome: str, samtools_path: str = None) -> str:
         """
-        解析基因组路径，返回.fai文件路径
-        Resolve genome path, return .fai file path
+        解析基因组路径，返回.fai文件路径；索引缺失时自动用samtools faidx创建
+        Resolve genome path, return .fai path; auto-create with samtools faidx if missing
 
         Args:
             genome: 参考基因组fasta路径或.fai路径|Reference genome fasta path or .fai path
+            samtools_path: samtools路径（默认走路径管理系统）|samtools path (default from path management)
 
         Returns:
             .fai文件路径|.fai file path
         """
         genome = expand_path(genome)
         if genome.endswith('.fai'):
-            return genome
-        # 尝试同目录下的.fai文件|Try .fai file in same directory
-        fai_path = genome + '.fai'
+            fasta_path = genome[:-4]
+            fai_path = genome
+        else:
+            fasta_path = genome
+            fai_path = genome + '.fai'
+
         if os.path.exists(fai_path):
+            self.logger.info(f"fai索引已存在|fai index already exists: {fai_path}")
             return fai_path
-        raise FileNotFoundError(
-            f"未找到.fai索引文件|Failed to find .fai index file: {fai_path}，"
-            f"请先用samtools faidx生成|Please generate with samtools faidx first"
+
+        if not os.path.exists(fasta_path):
+            raise FileNotFoundError(
+                f"参考基因组文件不存在|Reference genome fasta not found: {fasta_path}"
+            )
+
+        if samtools_path is None:
+            samtools_path = get_tool_path(
+                'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'
+            )
+
+        if ensure_fai_index(fasta_path, samtools_path, self.logger):
+            return fai_path
+
+        # faidx失败降级：直接解析FASTA染色体长度，流程照常继续
+        # Fallback when faidx fails: parse FASTA lengths directly, pipeline continues
+        self.logger.warning(
+            f"fai索引创建失败，降级为直接解析FASTA染色体长度|"
+            f"fai index creation failed, falling back to direct FASTA length parsing: {fasta_path}"
         )
+        return fai_path
 
     def run(self):
         """
@@ -104,8 +155,10 @@ class PiAnalyzer:
         # 打印配置信息|Print configuration
         self._print_config()
 
-        # 读取染色体长度|Read chromosome lengths
-        chrom_lengths = parse_fai_file(self.config.genome_fai)
+        # 读取染色体长度（fai优先，缺失降级解析FASTA）|Read chromosome lengths (fai preferred, fallback to FASTA parsing)
+        chrom_lengths = load_chrom_lengths(
+            self.config.genome_fai, self.config.genome_fasta, self.logger
+        )
         total_bases = sum(chrom_lengths.values())
         self.logger.info(
             f"参考基因组|Reference genome: {len(chrom_lengths)}条染色体|chromosomes, "
@@ -273,7 +326,7 @@ def parse_arguments():
     parser.add_argument('-p', '--pop-file', required=True,
                         help='群体文件路径（样本ID 群体名）|Population file path (sample_id population_name)')
     parser.add_argument('-g', '--genome', required=True,
-                        help='参考基因组fasta文件路径（需有.fai索引）|Reference genome fasta path (requires .fai index)')
+                        help='参考基因组fasta文件路径（无.fai索引时自动创建）|Reference genome fasta path (.fai index auto-created if missing)')
     parser.add_argument('-o', '--output-dir', default='./pi_output',
                         help='输出目录|Output directory')
 

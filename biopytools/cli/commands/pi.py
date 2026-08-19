@@ -45,7 +45,7 @@ def _validate_file_exists(file_path):
 @click.option('-g', '--genome',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
-              help='参考基因组fasta文件路径（需有.fai索引）|Reference genome fasta path (requires .fai index)')
+              help='参考基因组fasta文件路径（无.fai索引时自动创建）|Reference genome fasta path (.fai index auto-created if missing)')
 @click.option('-o', '--output-dir',
               default='./pi_output',
               show_default=True,

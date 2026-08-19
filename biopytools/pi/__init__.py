@@ -3,8 +3,8 @@
 功能: 使用vcftools计算群体内核苷酸多样性(pi)，输出汇总表|
 Features: Calculate within-population nucleotide diversity (pi) using vcftools, output summary table
 作者|Author: Xiang LI
-版本|Version: 2.0.0
-日期|Date: 2026-04-13
+版本|Version: 2.1.0
+日期|Date: 2026-08-19
 
 使用示例|Usage Examples:
     from biopytools.pi import PiAnalyzer, PiConfig
@@ -21,7 +21,7 @@ Features: Calculate within-population nucleotide diversity (pi) using vcftools, 
     analyzer.run()
 """
 
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 __author__ = "Xiang LI"
 
 from .main import PiAnalyzer

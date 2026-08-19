@@ -8,7 +8,7 @@
 - 全基因组模式（默认）：输出每条染色体 + 全基因组整体的 π
 - 滑窗模式（`-w`）：输出逐窗口 π，看多样性沿染色体的分布
 - 全基因组模式下还会同步跑一份 100kb 滑窗结果（写到 `03_windowed/`）
-- 自动建 VCF 的 tabix 索引、读 `.fai` 得染色体长度
+- 自动建 VCF 的 tabix 索引和基因组的 `.fai` 索引；建 `.fai` 失败（如目录只读）时降级为直接解析 FASTA，结果不受影响
 - 断点续传：每个群体已算好的结果自动跳过
 
 ## 快速开始 | Quick Start
@@ -17,7 +17,7 @@
 biopytools pi -i variants.vcf.gz -p populations.txt -g reference.fasta -o pi_output
 ```
 
-最小输入：一个 bgzip 压缩的 VCF + 群体文件 + 参考基因组（需已有 `.fai` 索引）。
+最小输入：一个 bgzip 压缩的 VCF + 群体文件 + 参考基因组（`.fai` 索引缺失时自动补建）。
 
 ## 零基础概念速览 | Concepts in plain words
 
@@ -26,7 +26,7 @@ biopytools pi -i variants.vcf.gz -p populations.txt -g reference.fasta -o pi_out
 | π（核苷酸多样性） | 群体里随机挑两个个体，平均每多少个碱基就有一个不一样；越大=多样性越高 |
 | 群体 | 一组同来源的样本，程序对每个群体单独算一个 π |
 | 滑窗 | 把染色体切成固定大小的「格子」分别算 π，看多样性在哪些区域偏高/偏低 |
-| .fai 索引 | 记录每条染色体长度的索引文件，用 `samtools faidx` 生成 |
+| .fai 索引 | 记录每条染色体长度的索引文件；程序会在缺失时用 `samtools faidx` 自动补建 |
 | tabix 索引 | 让程序能按位置快速随机读取压缩 VCF 的索引（`.tbi`） |
 
 ## 输入 | Input
@@ -47,7 +47,7 @@ sample3    cultivated
 
 ### 参考基因组
 
-FASTA（`.fa` / `.fasta`）或直接给 `.fai`；传 FASTA 时会自动找同目录的 `.fai`，找不到则报错提示先用 `samtools faidx` 生成。
+FASTA（`.fa` / `.fasta`）或直接给 `.fai`；传 FASTA 时会自动找同目录的 `.fai`，找不到则用 `samtools faidx` 自动补建；若建索引失败（如目录只读），会降级为直接解析 FASTA 拿染色体长度，结果不受影响。
 
 ## 分析流程 | Pipeline
 
@@ -55,7 +55,7 @@ FASTA（`.fa` / `.fasta`）或直接给 `.fai`；传 FASTA 时会自动找同目
 输入 VCF + 群体文件 + 参考基因组
     │
     ▼
-解析群体、读 .fai 得染色体长度、补建 tabix 索引
+解析群体、补建 .fai/tabix 索引、读染色体长度
     │
     ▼
 对每个群体运行 vcftools：
@@ -107,14 +107,15 @@ pi_output/
 ## 依赖 | Dependencies
 
 - vcftools（默认 conda 环境 pop 的 `~/miniforge3/envs/pop/bin/vcftools`，可用 `VCFTOOLS_PATH` 环境变量或 `--vcftools-path` 覆盖）
+- samtools（默认 conda 环境 align 的 `~/miniforge3/envs/align/bin/samtools`，可用 `SAMTOOLS_PATH` 覆盖；仅用于自动补建 `.fai` 索引）
 
 ## 常见问题 | FAQ
 
 **Q1：换参数（如 `--maf`）重跑，结果没变？**
 断点续传按每群体的 `.sites.pi` / `.windowed.pi` 是否存在判断。换质控参数后需删除 `01_vcftools/`（和 `03_windowed/`）里的旧结果，否则会复用。
 
-**Q2：报「未找到 .fai 索引文件」？**
-参考基因组缺少索引。先运行 `samtools faidx reference.fasta` 生成 `.fai`，再重跑。
+**Q2：参考基因组目录只读，建不了 `.fai` 索引怎么办？**
+程序会自动尝试用 `samtools faidx` 补建索引；若失败（目录只读/无权限），会记录 WARNING 并降级为直接解析 FASTA 拿染色体长度，流程照常继续、结果不受影响。
 
 **Q3：VCF 需要什么格式？**
 必须是 bgzip 压缩的 `.vcf.gz`；普通 gzip 或未压缩 VCF 无法用 tabix 随机读取。缺失 `.tbi` 索引时程序会尝试自动补建。
@@ -134,7 +135,7 @@ pi_output/
 |------|--------|------|------|
 | `-i, --vcf-file` | 必填 |  | VCF文件路径（bgzip压缩+tabix索引）｜VCF file path (bgzip-compressed + tabix-indexed) |
 | `-p, --pop-file` | 必填 |  | 群体文件路径（样本ID 群体名）｜Population file path (sample_id population_name) |
-| `-g, --genome` | 必填 |  | 参考基因组fasta文件路径（需有.fai索引）｜Reference genome fasta path (requires .fai index) |
+| `-g, --genome` | 必填 |  | 参考基因组fasta文件路径（无.fai索引时自动创建）｜Reference genome fasta path (.fai index auto-created if missing) |
 | `-o, --output-dir` | `./pi_output` | Path | 输出目录｜Output directory |
 | `-w, --window-size` | — | int | 窗口大小bp（不设置则全基因组计算）｜Window size in bp (omit for genome-wide) |
 | `--window-step` | — | int | 窗口步长bp（默认等于窗口大小，无重叠）｜Window step in bp (default=window_size, no overlap) |
@@ -152,7 +153,7 @@ pi_output/
 |------|--------|------|------|
 | `-i, --vcf-file` | 必填 |  | VCF文件路径（bgzip压缩+tabix索引）｜VCF file path (bgzip-compressed + tabix-indexed) |
 | `-p, --pop-file` | 必填 |  | 群体文件路径（样本ID 群体名）｜Population file path (sample_id population_name) |
-| `-g, --genome` | 必填 |  | 参考基因组fasta文件路径（需有.fai索引）｜Reference genome fasta path (requires .fai index) |
+| `-g, --genome` | 必填 |  | 参考基因组fasta文件路径（无.fai索引时自动创建）｜Reference genome fasta path (.fai index auto-created if missing) |
 | `-o, --output-dir` | `./pi_output` |  | 输出目录｜Output directory |
 | `-w, --window-size` | — | int | 窗口大小bp（不设置则全基因组计算）｜Window size in bp (omit for genome-wide) |
 | `--window-step` | — | int | 窗口步长bp（默认等于窗口大小）｜Window step in bp (default=window_size) |

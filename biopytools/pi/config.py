@@ -19,6 +19,7 @@ class PiConfig:
     pop_file: str
     output_dir: str
     genome_fai: str
+    genome_fasta: str
 
     # 窗口参数|Window parameters
     window_size: Optional[int] = None  # None表示全基因组模式|None means genome-wide mode
@@ -47,6 +48,14 @@ class PiConfig:
             'VCFTOOLS_PATH'
         )
     )
+    # samtools来自align域环境（pop环境无samtools）|samtools from align domain env (pop env lacks it)
+    samtools_path: str = field(
+        default_factory=lambda: get_tool_path(
+            'samtools',
+            '~/miniforge3/envs/align/bin/samtools',
+            'SAMTOOLS_PATH'
+        )
+    )
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -55,7 +64,9 @@ class PiConfig:
         self.pop_file = expand_path(self.pop_file)
         self.output_dir = expand_path(self.output_dir)
         self.genome_fai = expand_path(self.genome_fai)
+        self.genome_fasta = expand_path(self.genome_fasta)
         self.vcftools_path = expand_path(self.vcftools_path)
+        self.samtools_path = expand_path(self.samtools_path)
 
         # 创建输出目录|Create output directories
         self.output_path = Path(self.output_dir).resolve()
@@ -77,8 +88,11 @@ class PiConfig:
         if not os.path.exists(self.pop_file):
             errors.append(f"群体文件不存在|Population file does not exist: {self.pop_file}")
 
-        if not os.path.exists(self.genome_fai):
-            errors.append(f"基因组fai文件不存在|Genome fai file does not exist: {self.genome_fai}")
+        if not os.path.exists(self.genome_fai) and not os.path.exists(self.genome_fasta):
+            errors.append(
+                f"基因组fai和fasta文件均不存在|Neither genome fai nor fasta exists: "
+                f"{self.genome_fai} / {self.genome_fasta}"
+            )
 
         # 检查工具路径|Check tool paths
         if not os.path.exists(self.vcftools_path):

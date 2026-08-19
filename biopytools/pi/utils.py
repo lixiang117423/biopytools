@@ -4,8 +4,6 @@ Pi计算工具函数模块|Pi Calculation Utility Functions Module
 
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -73,58 +71,9 @@ class PiLogger:
         return self.logger
 
 
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, return environment name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 如果传入的是完整路径，直接从路径提取
-    # Method 2: If full path is passed, extract directly from path
-    if os.path.exists(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件
-    Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # 使用conda run调用，添加--no-capture-output避免内存问题
-        # Use conda run with --no-capture-output to avoid memory issues
-        cmd_name = Path(command).name
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', cmd_name] + args
-    else:
-        # 非conda环境，直接调用|Non-conda environment, call directly
-        full_cmd = [command] + args
-
-    return full_cmd
+# conda包装统一走公共层(规范:模块内禁止复制实现, §13.2.3传完整路径)
+# |conda wrapping via common layer (no local copies; full paths, §13.2.3)
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 
 class CommandRunner:
@@ -269,6 +218,34 @@ def parse_fai_file(fai_file: str) -> Dict[str, int]:
     return chrom_lengths
 
 
+def parse_fasta_lengths(fasta_file: str) -> Dict[str, int]:
+    """
+    纯Python解析FASTA文件获取各染色体长度（降级路径，不依赖samtools）
+    Parse FASTA in pure Python to get chromosome lengths (fallback, no samtools)
+
+    Args:
+        fasta_file: FASTA文件路径|FASTA file path
+
+    Returns:
+        {染色体名: 碱基长度}|{chromosome_name: base_length}
+    """
+    chrom_lengths: Dict[str, int] = {}
+    current_chrom = None
+
+    with open(fasta_file, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith('>'):
+                current_chrom = line[1:].split()[0]
+                chrom_lengths[current_chrom] = 0
+            elif current_chrom is not None:
+                chrom_lengths[current_chrom] += len(line)
+
+    return chrom_lengths
+
+
 def format_number(num: float) -> str:
     """格式化数字|Format number"""
     return f"{num:.6f}"
@@ -334,4 +311,60 @@ def ensure_tabix_index(vcf_file: str, vcftools_path: str, logger) -> bool:
         return False
     except subprocess.TimeoutExpired:
         logger.error(f"创建VCF索引超时|VCF index creation timeout")
+        return False
+
+
+def ensure_fai_index(fasta_path: str, samtools_path: str, logger) -> bool:
+    """
+    检查FASTA的.fai索引(.fai)是否存在，不存在则用samtools faidx自动创建
+    Check if FASTA .fai index exists, auto-create with samtools faidx if missing
+
+    Args:
+        fasta_path: FASTA文件路径|FASTA file path
+        samtools_path: samtools路径|samtools path
+        logger: 日志器|Logger
+
+    Returns:
+        True if index exists or was created successfully, False otherwise
+    """
+    fai_file = fasta_path + '.fai'
+
+    if os.path.exists(fai_file):
+        logger.info(f"fai索引已存在|fai index already exists: {fai_file}")
+        return True
+
+    logger.info(f"fai索引不存在，正在创建|fai index not found, creating: {fai_file}")
+
+    cmd = build_conda_command(samtools_path, ['faidx', fasta_path])
+    # 记录完整命令（INFO级别）|Log complete command (INFO level)
+    logger.info(f"命令|Command: {' '.join(cmd)}")
+
+    try:
+        subprocess.run(
+            cmd,
+            shell=False,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=3600  # 大基因组建索引可能较慢|Large genomes may take longer
+        )
+
+        if os.path.exists(fai_file):
+            logger.info(f"fai索引创建成功|fai index created successfully: {fai_file}")
+            return True
+        else:
+            logger.error(f"samtools faidx执行成功但索引文件未生成|samtools faidx succeeded but index file not created")
+            return False
+
+    except FileNotFoundError as e:
+        logger.warning(f"samtools不存在，无法创建fai索引|samtools not found, cannot create fai index: {e.filename}")
+        return False
+    except subprocess.CalledProcessError as e:
+        logger.warning(f"创建fai索引失败|Failed to create fai index")
+        logger.warning(f"错误代码|Error code: {e.returncode}")
+        if e.stderr:
+            logger.warning(f"错误信息|Error message: {e.stderr[:1000]}")
+        return False
+    except subprocess.TimeoutExpired:
+        logger.warning(f"创建fai索引超时|fai index creation timeout")
         return False
