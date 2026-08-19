@@ -87,6 +87,7 @@ class AdmixtureConfig:
         self.plink_dir = os.path.join(self.output_dir, "02_plink")
         self.admixture_dir = os.path.join(self.output_dir, "03_admixture")
         self.results_dir = os.path.join(self.output_dir, "04_results")
+        self.plot_files_dir = os.path.join(self.output_dir, "05_plot_files")
         self.logs_dir = os.path.join(self.output_dir, "99_logs")
 
     def validate(self):

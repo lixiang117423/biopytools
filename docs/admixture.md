@@ -78,6 +78,9 @@ admixture_results/
 │   ├── gwas_covariates.txt                  # GWAS 协变量文件
 │   ├── analysis_summary.txt                 # 分析总结报告
 │   └── *.pdf                                # 个体堆叠图/可视化
+├── 05_plot_files/                           # 下游 R 绘图包输入
+│   ├── admixture_ready.fam                  # 样品表(从 02_plink 复制改名)
+│   └── <前缀>.<K>.Q                         # 全部 K 的祖先成分(从 03_admixture 复制)
 └── 99_logs/admixture_analysis.log           # 运行日志
 ```
 
@@ -90,6 +93,7 @@ admixture_results/
 - **admixture_statistics.txt**：高度混合个体(max 成分 < 0.7)、纯合个体(max 成分 > 0.9)的数量，辅助判断混合程度
 - **堆叠图(*.pdf)**：每个个体一根竖条，用颜色段表示各祖先成分比例，一眼看出分群
 - **gwas_covariates.txt**：把祖先成分转成协变量，可直接喂给 GWAS 软件控制群体分层
+- **05_plot_files/**：下游 R 绘图包的输入目录，`admixture_ready.fam` + 所有 K 的 `.Q` 文件，直接把这个目录指给 R 包即可
 
 ## 参数选择建议 | Parameter Guidance
 

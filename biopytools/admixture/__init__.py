@@ -5,8 +5,8 @@ ADMIXTURE群体结构分析工具包|ADMIXTURE Population Structure Analysis Too
 Features: Complete pipeline from VCF to ADMIXTURE analysis, supporting population structure analysis and covariate generation
 
 作者|Author: Xiang LI
-版本|Version: 1.0.0
-日期|Date: 2024-12-30
+版本|Version: 1.2.0
+日期|Date: 2026-08-19
 
 使用示例|Usage Examples:
     from biopytools.admixture import AdmixtureAnalyzer, AdmixtureConfig
@@ -26,7 +26,7 @@ Features: Complete pipeline from VCF to ADMIXTURE analysis, supporting populatio
     python -m admixture.main -v input.vcf -o results -k 2 -K 10
 """
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 __author__ = "Xiang LI"
 
 from .main import AdmixtureAnalyzer

@@ -12,10 +12,10 @@ from .config import AdmixtureConfig
 from .utils import AdmixtureLogger, CommandRunner, SoftwareChecker, build_conda_command
 from .data_processing import VCFProcessor, PlinkProcessor
 from .analysis import AdmixtureAnalyzer as CoreAnalyzer, ResultsProcessor
-from .results import CovariateGenerator, PlotGenerator, SummaryGenerator
+from .results import CovariateGenerator, PlotGenerator, PlotFilesCollector, SummaryGenerator
 
 # 版本信息|Version information
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 
 class AdmixtureAnalyzer:
@@ -52,6 +52,7 @@ class AdmixtureAnalyzer:
         self.admixture_analyzer = CoreAnalyzer(self.config, self.logger, self.cmd_runner)
         self.results_processor = ResultsProcessor(self.config, self.logger)
         self.covariate_generator = CovariateGenerator(self.config, self.logger)
+        self.plot_files_collector = PlotFilesCollector(self.config, self.logger)
         self.plot_generator = PlotGenerator(self.config, self.logger)
         self.summary_generator = SummaryGenerator(self.config, self.logger)
 
@@ -59,7 +60,8 @@ class AdmixtureAnalyzer:
         """创建所有分层输出目录(§12.2)|Create all layered output directories"""
         for d in (self.config.pipeline_info_dir, self.config.preprocessing_dir,
                   self.config.plink_dir, self.config.admixture_dir,
-                  self.config.results_dir, self.config.logs_dir):
+                  self.config.results_dir, self.config.plot_files_dir,
+                  self.config.logs_dir):
             os.makedirs(d, exist_ok=True)
 
     def _step(self, num, desc: str):
@@ -163,6 +165,10 @@ class AdmixtureAnalyzer:
                     [f'--cv={self.config.cv_folds}', '-j' + str(self.config.threads), bed, str(k)])
             self.logger.info(f"[STEP 4 预览|preview] K={k} 命令|Command: {' '.join(cmd_k)}")
 
+        # 绘图文件收集|Plot files collection
+        self.logger.info("[STEP PLOT_FILES 预览|preview] 复制|copy: 02_plink/admixture_chr_fixed.fam "
+                         "-> 05_plot_files/admixture_ready.fam; 03_admixture/*.Q -> 05_plot_files/")
+
         self.logger.info("模拟运行结束(实际未执行任何命令)|Dry run finished (no commands actually executed)")
 
     def run_analysis(self):
@@ -220,6 +226,11 @@ class AdmixtureAnalyzer:
             self._step(4, "ADMIXTURE分析|ADMIXTURE analysis")
             best_k = self.admixture_analyzer.run_admixture_analysis(fixed_prefix)
 
+            # STEP: 整理绘图输入文件(供下游R绘图包)|Collect plotting inputs (for downstream R plotting)
+            # 放在best_k判定之前: 即使最优K判定失败,已产出的Q也收集(能输出多少输出多少)
+            self._step("PLOT_FILES", "整理绘图输入文件|Collect plotting input files")
+            self.plot_files_collector.collect()
+
             if best_k is None:
                 self.logger.warning("未确定最优K值,跳过结果处理|Best K undetermined, skipping results")
                 return False
@@ -252,6 +263,7 @@ class AdmixtureAnalyzer:
             self.logger.info("  - 03_admixture/cv_results.csv: 交叉验证结果|Cross-validation results")
             self.logger.info("  - 04_results/*.pdf: 可视化图表|Visualization plots")
             self.logger.info("  - 04_results/analysis_summary.txt: 分析总结报告|Analysis summary report")
+            self.logger.info("  - 05_plot_files/: 下游R绘图输入(fam+Q)|Downstream R plotting inputs (fam + Q files)")
             return True
 
         except Exception as e:

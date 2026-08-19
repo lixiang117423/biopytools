@@ -5,7 +5,9 @@
 读取Q/P从03_admixture/、fam从02_plink/。R脚本不自动装包(超算无网)。
 """
 
+import glob
 import os
+import shutil
 import subprocess
 from shutil import which
 import pandas as pd
@@ -53,6 +55,63 @@ class CovariateGenerator:
         self.logger.info("在PLINK中使用|Use in PLINK: --covar gwas_covariates.txt --covar-name PC1,PC2,...")
 
         return covar_file
+
+
+class PlotFilesCollector:
+    """ 绘图文件收集器|Plot files collector (写05_plot_files/,供下游R绘图包)
+
+    收拢下游R绘图包的两个输入:
+    - 02_plink/{base}.fam -> 05_plot_files/admixture_ready.fam (复制改名,R包固定文件名)
+    - 03_admixture/*.Q -> 05_plot_files/ (按原名复制,覆盖所有K)
+    复制而非移动: 02/03 目录文件是断点续传依据; 文件极小,每次运行刷新,
+    保证重新跑更宽K范围后新Q也会进目录。
+    """
+
+    # 下游R包要求的fam文件名|fam filename expected by downstream R package
+    FAM_DST_NAME = "admixture_ready.fam"
+
+    def __init__(self, config, logger):
+        self.config = config
+        self.logger = logger
+
+    def collect(self) -> dict:
+        """ 复制fam与Q文件到05_plot_files/|Copy fam and Q files into 05_plot_files/
+
+        Returns:
+            dict: {'fam': 目标fam路径|dest fam path, 'q_files': 目标Q路径列表|dest Q paths}
+        """
+        # dry_run: 不创建目录不复制|dry-run: create nothing, copy nothing
+        if self.config.dry_run:
+            self.logger.info(
+                "模拟运行: 跳过绘图文件收集|Dry run: skipping plot files collection")
+            return {'fam': os.path.join(self.config.plot_files_dir, self.FAM_DST_NAME),
+                    'q_files': []}
+
+        os.makedirs(self.config.plot_files_dir, exist_ok=True)
+
+        # fam: 复制并改名|fam: copy and rename
+        fam_src = os.path.join(self.config.plink_dir, f"{self.config.base_name}.fam")
+        if not os.path.exists(fam_src):
+            raise FileNotFoundError(f"FAM文件不存在|FAM file not found: {fam_src}")
+        fam_dst = os.path.join(self.config.plot_files_dir, self.FAM_DST_NAME)
+        shutil.copy2(fam_src, fam_dst)
+        self.logger.info(f"FAM文件已复制|FAM file copied: {fam_src} -> {fam_dst}")
+
+        # Q: 按原名复制全部K|Q: copy all K as-is
+        q_srcs = sorted(glob.glob(os.path.join(self.config.admixture_dir, "*.Q")))
+        q_dsts = []
+        if not q_srcs:
+            self.logger.warning(
+                "未找到Q文件|No .Q files in 03_admixture/ (ADMIXTURE可能未产出任何K|analysis may have produced no K)")
+        for q_src in q_srcs:
+            q_dst = os.path.join(self.config.plot_files_dir, os.path.basename(q_src))
+            shutil.copy2(q_src, q_dst)
+            q_dsts.append(q_dst)
+        if q_srcs:
+            self.logger.info(
+                f"Q文件已复制|Q files copied: {len(q_srcs)} 个到|files to {self.config.plot_files_dir}")
+
+        return {'fam': fam_dst, 'q_files': q_dsts}
 
 
 class PlotGenerator:
@@ -238,6 +297,7 @@ class SummaryGenerator:
             f.write(f"  -  交叉验证结果|Cross-validation results: 03_admixture/cv_results.csv\n")
             f.write(f"  -  可视化图表|Visualization plots: 04_results/*.pdf\n")
             f.write(f"  -  分析总结|Analysis summary: 04_results/analysis_summary.txt\n")
+            f.write(f"  -  下游R绘图输入|Downstream R plotting inputs: 05_plot_files/\n")
             f.write(f"  -  软件版本|Software versions: 00_pipeline_info/software_versions.yml\n")
             f.write(f"输出目录|Output directory: {self.config.output_dir}\n")
 
