@@ -54,6 +54,13 @@ def _validate_file(path):
 @click.option('--repeat-bed', default=None,
               callback=lambda ctx, param, value: _validate_file(value) if value else None,
               help='重复/低复杂度区域BED(可选)|Repeat/low-complexity BED (optional)')
+@click.option('--host-genome', default=None,
+              callback=lambda ctx, param, value: _validate_file(value) if value else None,
+              help='寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)'
+              '|Host genome FASTA (deplete host reads, report host rate)')
+@click.option('--min-mapq', type=int, default=20, show_default=True,
+              help='比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)'
+              '|Min MAPQ: host calling + pathogen BAM filter + stats (0=off)')
 @click.option('--threads', '-t', type=int, default=12, show_default=True, help='线程数|Threads')
 @click.option('--kmer-size', '-k', type=int, default=21, show_default=True, help='K-mer大小|K-mer size')
 @click.option('--read-length', '-l', type=int, default=150, show_default=True, help='测序读长|Read length')
@@ -72,9 +79,9 @@ def _validate_file(path):
               help='已知纯样品(逗号分隔,校准het阈值)|Known-pure samples (comma-sep, calibrate)')
 @click.option('--skip-tree', is_flag=True, default=False,
               help='跳过系统发育树|Skip phylogenetic tree')
-def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, threads, kmer_size,
-            read_length, step, no_checkpoint, dry_run, min_qual, min_dp, min_alt_reads,
-            min_coverage, min_alt_fraction, pure_samples, skip_tree):
+def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome, min_mapq,
+            threads, kmer_size, read_length, step, no_checkpoint, dry_run, min_qual, min_dp,
+            min_alt_reads, min_coverage, min_alt_fraction, pure_samples, skip_tree):
     """
     WGS混合小种检测(单倍体)|WGS mixed-race detection (haploid).
 
@@ -94,6 +101,10 @@ def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, threads, kme
     args.extend(['-g', genome, '-o', output_dir])
     if repeat_bed:
         args.extend(['--repeat-bed', repeat_bed])
+    if host_genome:
+        args.extend(['--host-genome', host_genome])
+    if min_mapq != 20:
+        args.extend(['--min-mapq', str(min_mapq)])
     if threads != 12:
         args.extend(['-t', str(threads)])
     if kmer_size != 21:

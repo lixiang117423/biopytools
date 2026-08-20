@@ -27,12 +27,16 @@ biopytools mixrace -i fastq_dir -g ref.fa -o out_dir/
 | 测序深度(depth) | 每个位置平均被读了**几遍**。像数人数时每个人被点了几次名；≥50x 才可靠 |
 | 系统发育树 | 按基因组相似度给样品「排家谱」：分支越近越像 |
 | VAF | 某个位置少数碱基的读数占比 |
+| 寄主剔除(host depletion) | 测序时混进了寄主(植物)DNA。像"回收站"先把寄主 reads 整对挑出来扔掉，剩下干净的病原数据再往下分析 |
+| MAPQ | 比对质量分，代表"这条 read 到底放在哪个位置"的可信度。分数越高越可信；默认只信 ≥20 的比对 |
 
 ## 输入 | Input
 
 - `-i` 原始 fastq 目录(自动配对 `_1/_2`、`_R1/_R2`)或 `--clean-fastq-dir` 已清洗 fastq(二选一)。
 - `-g` 参考基因组 FASTA(如 e3)。
 - 可选 `--repeat-bed`：重复/低复杂度区域 BED，给出则过滤时排除，不给则跳过(不影响流程)。
+- 可选 `--host-genome`：**寄主基因组 FASTA**(如十字花科植物基因组)。给则先把 clean 数据比对寄主、**整对剔除寄主 reads**，下游比对/k-mer 都改用剔除后的 fastq，并在报告里给出寄主占比。
+- 可选 `--min-mapq`：比对质量阈值(默认 20)。寄主判定、病原最终 BAM 过滤、统计口径统一用它；`0` = 不做 MAPQ 过滤。
 - 可选 `--pure-samples`：已知纯样品，逗号分隔(如 `--pure-samples P1,P2`)，用于自动校准杂合率判读阈值。
 
 ## 参数说明 | Parameters
@@ -46,6 +50,8 @@ biopytools mixrace -i fastq_dir -g ref.fa -o out_dir/
 | `-g/--genome` | 必填 | 参考基因组 |
 | `-o/--output-dir` | `mixrace_out` | 输出目录 |
 | `--repeat-bed` | 无 | 重复区 BED(可选) |
+| `--host-genome` | 无 | 寄主基因组 FASTA(可选，给则剔除寄主 reads 并报告寄主占比) |
+| `--min-mapq` | 20 | 比对质量阈值(寄主判定+病原 BAM 过滤+统计口径，0=不过滤) |
 | `-t/--threads` | 12 | 线程数 |
 | `-k/--kmer-size` | 21 | k-mer 大小(smudgescope) |
 | `-l/--read-length` | 150 | 读长 |
@@ -79,7 +85,10 @@ fastp(可跳)       sort-n→fixmate→      AF 用 AO/RO)          保留多等
 out_dir/
 ├── 00_pipeline_info/   software_versions.yml, checkpoints/, index/
 ├── 01_qc/              clean fastq(raw 输入时)
-├── 02_alignment/       {sample}.sorted.markdup.bam
+├── 02_alignment/       {sample}.sorted.markdup.bam(按 --min-mapq 过滤后),
+│                       {sample}.mapq_stats.tsv(总reads/达标mapped计数)
+├── host_filter/        (给 --host-genome 时){sample}_1/2.nohost.fq.gz(剔除寄主后),
+│                       {sample}.host_filter.tsv/{sample}.host_stats.tsv(寄主占比等)
 ├── 03_variants/        {sample}.raw.vcf.gz(freebayes)
 ├── 04_filtered/        {sample}.filtered.vcf.gz, filter_stats.tsv
 ├── 05_vaf/             {sample}.vaf.tsv, {sample}.vaf_histogram.png
@@ -96,6 +105,8 @@ out_dir/
 ## 结果解读 | Interpreting Results
 
 - **看 `summary/mixrace_report.html`**：第一节汇总表一眼看全部样品判读；点开每个样品看依据和三张图。
+- **寄主占比(host_rate)**：比对上寄主基因组的 reads 比例。高(如 >10%)说明样品里植物 DNA 多，剔除后病原数据变浅；**病原 mapping 率**低或**覆盖广度**低时结论要打折。
+- **未归属占比(unassigned_rate)**：既不属于寄主也不属于病原的 reads 比例。过高提示样品里还有其他微生物(如细菌污染)或低质量 reads。
 - **杂合率**是最主要的判据：<0.01% 纯；0.01–0.1% 需排查(repeat 误比对/旁系同源/轻微污染)；0.1–1% 可疑；>1% 不纯。
 - **AFS 直方图**：峰贴在两头=纯；中间有峰=有混合；从 0 到 1 糊成一片=多基因型大杂烩。
 - **系统发育树**：分支越近基因组越像；叶名格式 `编号[判读]杂合率`(如 `Pb5 [纯] 0.0005%`)。注意混合样品可能表现为**长枝**——因为它同时带多个基因型的信号。
@@ -108,6 +119,8 @@ out_dir/
 | 常规分析 | 全部默认 |
 | 手上有已知纯样品 | `--pure-samples P1,P2` 自动校准 het 阈值 |
 | 怀疑稀有基因型被漏 | `--min-alt-fraction 0.02`(默认已保留 2%)可再降 |
+| 样品里混了寄主(植物)DNA | 给 `--host-genome` 寄主基因组，自动剔除并报告寄主占比 |
+| 比对质量要求更严/更松 | 调 `--min-mapq`(默认 20；严一点 30，完全不过滤 0) |
 | 样品数 <4 或不要树 | `--skip-tree` |
 | 中途失败重跑 | 直接重跑原命令(断点续传自动跳过已完成步骤；树注解变化会自动重画) |
 
@@ -126,6 +139,8 @@ out_dir/
 | `--genome, -g` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
 | `--output-dir, -o` | `mixrace_out` |  | 输出目录｜Output directory |
 | `--repeat-bed` | — |  | 重复/低复杂度区域BED(可选)｜Repeat/low-complexity BED (optional) |
+| `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜Host genome FASTA (deplete host reads, report host rate) |
+| `--min-mapq` | `20` | int | 比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)｜Min MAPQ: host calling + pathogen BAM filter + stats (0=off) |
 | `--threads, -t` | `12` | int | 线程数｜Threads |
 | `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
 | `--read-length, -l` | `150` | int | 测序读长｜Read length |
@@ -149,6 +164,8 @@ out_dir/
 | `-g, --genome` | 必填 |  |  |
 | `-o, --output-dir` | `mixrace_out` |  |  |
 | `--repeat-bed` | — |  |  |
+| `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜host genome FASTA (deplete host reads, report host rate) |
+| `--min-mapq` | `20` | int | 比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)｜min MAPQ for host calling / pathogen BAM filter / stats (0=off) |
 | `-t, --threads` | `12` | int |  |
 | `-k, --kmer-size` | `21` | int |  |
 | `-l, --read-length` | `150` | int |  |

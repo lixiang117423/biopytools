@@ -14,6 +14,8 @@ from typing import Dict, List
 _R1_R2_PAIRS = [
     ("_1.clean.fq.gz", "_2.clean.fq.gz"),
     ("_R1.clean.fq.gz", "_R2.clean.fq.gz"),
+    # 寄主剔除产物|host-depleted outputs
+    ("_1.nohost.fq.gz", "_2.nohost.fq.gz"),
     ("_1.fastq.gz", "_2.fastq.gz"),
     ("_R1.fastq.gz", "_R2.fastq.gz"),
     ("_1.fq.gz", "_2.fq.gz"),

@@ -22,6 +22,9 @@ class MixraceConfig:
     genome: str = ""
     output_dir: str = "mixrace_out"
     repeat_bed: Optional[str] = None
+    # 寄主剔除|host depletion
+    host_genome: Optional[str] = None    # 给则 clean 后比对寄主并整对剔除|deplete host reads if set
+    min_mapq: int = 20                   # 「比对上」判定阈值;病原最终BAM同按此过滤|MAPQ threshold
     # 执行|Execution
     threads: int = 12
     kmer_size: int = 21
@@ -75,6 +78,8 @@ class MixraceConfig:
             self.output_dir = expand_path(self.output_dir)
         if self.repeat_bed:
             self.repeat_bed = expand_path(self.repeat_bed)
+        if self.host_genome:
+            self.host_genome = expand_path(self.host_genome)
 
     def validate(self):
         """校验配置,错误一次性抛出|validate config, raise all errors at once."""
@@ -91,6 +96,10 @@ class MixraceConfig:
             errors.append("线程数必须为正|Threads must be positive")
         if self.repeat_bed and not os.path.isfile(self.repeat_bed):
             errors.append(f"repeat bed不存在|Repeat bed not found: {self.repeat_bed}")
+        if self.host_genome and not os.path.isfile(self.host_genome):
+            errors.append(f"寄主基因组不存在|Host genome not found: {self.host_genome}")
+        if self.min_mapq < 0:
+            errors.append("min_mapq不能为负|min_mapq must be >= 0")
         if self.step is not None and not (1 <= self.step <= 7):
             errors.append("step须为1-7|step must be 1-7")
         if errors:

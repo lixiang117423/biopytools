@@ -10,7 +10,8 @@ from pathlib import Path
 from typing import Tuple
 
 _SUMMARY_COLS = ["sample", "verdict", "confidence", "het_rate", "afs_shape",
-                 "dominant_proportion", "mean_depth"]
+                 "dominant_proportion", "mean_depth", "host_rate", "pathogen_map_rate",
+                 "breadth_1x", "unassigned_rate"]
 
 
 def parse_genomescope_summary(text: str) -> dict:
@@ -135,6 +136,10 @@ _METRIC_EXPLAIN = {
     "dominant_proportion": "优势株占比:若为混合,最主要菌株大约占群体的百分比(基于各位点主碱基频率)。仅判为混合/可疑时显示;纯样品杂合位点太少(多为噪声),该占比无统计意义,显示为—。",
     "maf": "次等位频率(MAF):次要碱基的平均出现频率。纯样品接近 0;混合样品明显升高。",
     "mean_depth": "平均测序深度:每个位置平均被测了多少遍。≥50x 结论可靠;<50x 需谨慎(可能漏检低频信号)。",
+    "host_rate": "寄主reads占比:比对上寄主基因组(达到质量阈值)的reads 占总reads 的比例,代表样品里寄主污染程度。",
+    "pathogen_map_rate": "病原mapping率:剔除寄主后,剩余reads 里比对上病原基因组(达到质量阈值)的比例,代表病原数据质量。",
+    "breadth_1x": "覆盖广度(≥1x):病原基因组至少被测到1次的碱基占比,和平均深度互补——广度低说明有大片区域没测到。",
+    "unassigned_rate": "未归属reads占比:既没比对上寄主、也没比对上病原基因组的reads 占总reads 的比例,可能来自其他微生物或低质量reads。",
     "heterozygosity": "GenomeScope k-mer 杂合度:独立于比对的另一视角,从 k-mer 频谱估计的基因组杂合度。",
     "genome_size": "GenomeScope 估计的基因组大小(bp)。",
     "ploidy": "Smudgeplot 推断的倍性(根肿菌预期单倍体=1)。",
@@ -237,6 +242,10 @@ def _fmt(key, val):
         return f"{val*100:.4f}%" if val < 0.01 else f"{val*100:.2f}%"
     if key in ("dominant_proportion", "maf"):
         return f"{val*100:.1f}%"
+    if key in ("host_rate", "pathogen_map_rate", "unassigned_rate"):
+        return f"{val*100:.2f}%"
+    if key == "breadth_1x":
+        return f"{val:.2f}%"
     if key == "mean_depth":
         return f"{val:.1f}x"
     if isinstance(val, float):
@@ -267,7 +276,11 @@ def build_html_report(title: str, samples_data: list, tree_png: str = None) -> s
             f'<td>{s.get("confidence","")}</td><td>{_fmt("het_rate", s.get("het_rate"))}</td>'
             f'<td>{_shape_cn(s.get("afs_shape",""))}</td>'
             f'<td>{_fmt("dominant_proportion", s.get("dominant_proportion"))}</td>'
-            f'<td>{_fmt("mean_depth", s.get("mean_depth"))}</td></tr>')
+            f'<td>{_fmt("mean_depth", s.get("mean_depth"))}</td>'
+            f'<td>{_fmt("host_rate", s.get("host_rate"))}</td>'
+            f'<td>{_fmt("pathogen_map_rate", s.get("pathogen_map_rate"))}</td>'
+            f'<td>{_fmt("breadth_1x", s.get("breadth_1x"))}</td>'
+            f'<td>{_fmt("unassigned_rate", s.get("unassigned_rate"))}</td></tr>')
 
     parts = []
     parts.append("<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'>")
@@ -276,7 +289,8 @@ def build_html_report(title: str, samples_data: list, tree_png: str = None) -> s
     # 汇总表|summary table
     parts.append("<h2>一、各样品判读汇总</h2>")
     parts.append("<table class='sum'><tr><th>样品</th><th>判读结论</th><th>置信</th>"
-                 "<th>杂合率</th><th>频率谱形态</th><th>优势株占比</th><th>平均深度</th></tr>")
+                 "<th>杂合率</th><th>频率谱形态</th><th>优势株占比</th><th>平均深度</th>"
+                 "<th>寄主占比</th><th>病原mapping率</th><th>覆盖广度≥1x</th><th>未归属占比</th></tr>")
     parts.extend(rows_html)
     parts.append("</table>")
 

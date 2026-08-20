@@ -1,23 +1,27 @@
 """mixrace 工具函数|mixrace utilities
 
 日志管理器、conda 包装、命令执行器、断点续传、版本信息。
-组合自 genome2sv(ModuleLogger/get_conda_env/build_conda_command/write_software_versions)、
-cim(CommandRunner SIGTERM 进程组管理)、rnaseq2vcf(CheckpointManager + 路径串优先的 env 探测)。
+组合自 genome2sv(ModuleLogger/write_software_versions)、
+cim(CommandRunner SIGTERM 进程组管理)、rnaseq2vcf(CheckpointManager);
+conda 包装(get_conda_env/build_conda_command)统一走 common/conda_runner 公共层。
 |Logger, conda wrapping, command runner, checkpoints, version info.
-Assembled from genome2sv/cim/rnaseq2vcf sibling modules.
+Assembled from genome2sv/cim/rnaseq2vcf sibling modules; conda wrapping via
+the common/conda_runner layer.
 """
 import glob
 import logging
 import os
-import re
 import shlex
-import shutil
 import signal
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Tuple
+
+# conda 包装统一走公共层(规范:模块内禁止复制实现;§13.2.3 传完整路径)
+# |conda wrapping via common layer (no local copies; full paths, §13.2.3)
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 LOG_FORMAT = "%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s"
 LOG_DATEFMT = "%Y-%m-%d %H:%M:%S"
@@ -51,41 +55,6 @@ class ModuleLogger:
     def get_logger(self) -> logging.Logger:
         """返回 logger|Return logger."""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所在 conda 环境|Detect conda env of a command.
-
-    优先从路径串的 /envs/<name>/ 解析(确定性,不依赖 which),否则 shutil.which 兜底,
-    最后搜索 CONDA_EXE 下所有 env。|Parse /envs/<name>/ from path string first
-    (deterministic), else shutil.which, else search all envs under CONDA_EXE.
-    """
-    m = re.search(r"/envs/([^/]+)/", command)
-    if m:
-        return m.group(1)
-    resolved = shutil.which(command)
-    if resolved:
-        m2 = re.search(r"/envs/([^/]+)/", resolved)
-        if m2:
-            return m2.group(1)
-    # 不做"搜索所有 env"兜底:对绝对路径会误判(os.path.join 塌缩到该路径),
-    # 且 mixrace 总是传完整工具路径,/envs/<name>/ 正则已能确定性命中。
-    # |No "search all envs" fallback: it misfires on absolute paths (os.path.join
-    # collapses to the path) and mixrace always passes full tool paths, so the
-    # /envs/<name>/ regex already matches deterministically.
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建 conda run 命令(必带 --no-capture-output)|Build conda run command.
-
-    传完整 tool 路径(勿 basename);非 conda 工具原样直调。|Pass full tool path
-    (never basename); non-conda tools called directly.
-    """
-    env = get_conda_env(command)
-    if env:
-        return ["conda", "run", "-n", env, "--no-capture-output", command] + args
-    return [command] + args
 
 
 class CommandRunner:
@@ -259,9 +228,10 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
     param_keys = ["threads", "kmer_size", "read_length", "min_qual", "min_dp",
                   "min_alt_reads", "freebayes_min_coverage",
                   "freebayes_min_alternate_fraction", "het_pure", "het_suspicious",
-                  "het_impure", "min_depth", "repeat_bed", "skip_tree"]
+                  "het_impure", "min_depth", "repeat_bed", "skip_tree",
+                  "host_genome", "min_mapq"]
     info = {
-        "pipeline": {"name": "biopytools mixrace", "version": "0.1.0"},
+        "pipeline": {"name": "biopytools mixrace", "version": "0.2.0"},
         "tools": versions,
         "parameters": {k: getattr(config, k, None) for k in param_keys},
     }

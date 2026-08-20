@@ -16,6 +16,7 @@ from .samples import discover_samples
 from .pipeline import (run_index, run_qc, run_align, run_call_freebayes, run_filter,
                        run_depth, read_cached_depth, run_kmer, run_tree,
                        parse_genomescope_model)
+from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
 from .vaf_analysis import parse_freebayes, compute_afs
 from .verdict import judge, calibrate_thresholds
 from .reporter import (generate_vaf_histogram_r, build_sample_report, build_summary_table,
@@ -46,6 +47,12 @@ def _argv_to_config() -> MixraceConfig:
     p.add_argument("-g", "--genome", required=True)
     p.add_argument("-o", "--output-dir", dest="output_dir", default="mixrace_out")
     p.add_argument("--repeat-bed", dest="repeat_bed", default=None)
+    p.add_argument("--host-genome", dest="host_genome", default=None,
+                   help="寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)"
+                        "|host genome FASTA (deplete host reads, report host rate)")
+    p.add_argument("--min-mapq", dest="min_mapq", type=int, default=20,
+                   help="比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)"
+                        "|min MAPQ for host calling / pathogen BAM filter / stats (0=off)")
     p.add_argument("-t", "--threads", type=int, default=12)
     p.add_argument("-k", "--kmer-size", type=int, default=21)
     p.add_argument("-l", "--read-length", type=int, default=150)
@@ -67,6 +74,7 @@ def _argv_to_config() -> MixraceConfig:
     return MixraceConfig(
         fastq_dir=a.fastq_dir or "", clean_fastq_dir=a.clean_fastq_dir,
         genome=a.genome, output_dir=a.output_dir, repeat_bed=a.repeat_bed,
+        host_genome=a.host_genome, min_mapq=a.min_mapq,
         threads=a.threads, kmer_size=a.kmer_size, read_length=a.read_length,
         step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run,
         min_qual=a.min_qual, min_dp=a.min_dp, min_alt_reads=a.min_alt_reads,
@@ -117,16 +125,48 @@ def run_pipeline(config, runner, ckpt, logger):
                      else Path(config.output_dir) / "01_qc")
 
     samples = []
-    if step in (None, 2, 3, 4, 5, 7):
+    if step in (None, 1, 2, 3, 4, 5, 7):
         src = str(clean_dir) if Path(str(clean_dir)).is_dir() else config.fastq_dir
         samples = discover_samples(src) if src and os.path.isdir(src) else []
         logger.info(f"检测到 {len(samples)} 个样本|{len(samples)} samples detected")
+
+    # 01b 寄主剔除(--host-genome;step1 内执行,下游比对/k-mer 改用 nohost fastq)
+    # |host depletion inside step1; downstream align/k-mer switch to nohost fastq
+    host_failed = set()
+    kmer_src = clean_dir
+    if config.host_genome:
+        host_dir = Path(config.output_dir) / "host_filter"
+        if step in (None, 1):
+            host_idx = run_host_index(config, runner, ckpt)
+            for s in samples:
+                res = run_host_filter(config, runner, ckpt, s["sample"],
+                                      s["r1"], s["r2"], str(host_idx))
+                if res:
+                    s["r1"], s["r2"] = res["nohost_r1"], res["nohost_r2"]
+                else:
+                    host_failed.add(s["sample"])
+            kmer_src = host_dir
+        elif host_dir.is_dir():
+            # step>=2 单独重跑:从 nohost 产物重新发现样本|rediscover from nohost outputs
+            samples = discover_samples(str(host_dir))
+            logger.info(f"寄主剔除目录发现 {len(samples)} 个样本|{len(samples)} samples "
+                        f"from host_filter dir")
+            kmer_src = host_dir
+        else:
+            # 无剔除产物:下游 k-mer 沿用 clean fastq(与警告语义一致,勿读空目录)
+            # |no host outputs: k-mer keeps clean fastq (matches the warning below)
+            logger.warning("启用了寄主剔除但 host_filter/ 不存在(先跑 --step 1),"
+                           "下游沿用 clean fastq|host_filter/ missing, using clean fastq")
 
     fa = str(Path(str(idx_dir)) / os.path.basename(config.genome))
     afs = {}
     # 02-05 逐样本:比对→freebayes→过滤→AFS|per-sample align→freebayes→filter→AFS
     for s in samples:
         sample = s["sample"]
+        if sample in host_failed:
+            logger.error(f"{sample}: 寄主剔除失败,跳过下游步骤|host filter failed, "
+                         f"downstream skipped")
+            continue
         if step in (None, 2):
             bam = run_align(config, runner, ckpt, sample, s["r1"], s["r2"], str(idx_dir))
         else:
@@ -146,9 +186,9 @@ def run_pipeline(config, runner, ckpt, logger):
             script = generate_vaf_histogram_r(str(vaf_tsv), str(png), config.rscript_path)
             runner.run_conda(config.rscript_path, [script], f"AFS直方图|AFS histogram {sample}")
 
-    # 06 k-mer 谱(smudgescope,读 clean fastq)|k-mer spectrum via smudgescope
+    # 06 k-mer 谱(smudgescope,读 nohost/clean fastq)|k-mer spectrum via smudgescope
     if step in (None, 6):
-        run_kmer(config, runner, ckpt, str(clean_dir))
+        run_kmer(config, runner, ckpt, str(kmer_src))
 
     # 07 判读 + 报告|verdict + report
     if step in (None, 7):
@@ -170,6 +210,16 @@ def _read_heterozygosity(config, sample: str):
     if model.exists():
         return parse_genomescope_model(model.read_text()).get("heterozygosity")
     return None
+
+
+def _fmt_rate(v):
+    """0-1 比率 → 百分比字符串(None → —)|ratio to percent string."""
+    return f"{v*100:.2f}%" if v is not None else "—"
+
+
+def _fmt_pct(v):
+    """已是百分数的值 → 字符串(None → —)|already-percent value to string."""
+    return f"{v:.2f}%" if v is not None else "—"
 
 
 def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_size):
@@ -208,13 +258,26 @@ def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_
         if depth is None and bam.exists():
             depth = run_depth(runner, config, sample, str(bam), genome_size)
         het = _read_heterozygosity(config, sample)
+        mean_depth_v = depth if depth is not None else 0.0
+        # 比对统计(寄主率/mapping率/覆盖广度/未归属;自动合并 host_filter 阶段表)
+        # |align stats (host rate / map rate / breadth / unassigned), merged with host stage
+        try:
+            hstats = pathogen_alignment_stats(config, runner, sample, str(bam), genome_size,
+                                              mean_depth=mean_depth_v)
+        except Exception as e:
+            logger.warning(f"{sample}: 比对统计失败,相关列置空|align stats failed: {e}")
+            hstats = None
         metrics = {
             "het_rate": a.get("het_rate", 0.0), "het_sites": a.get("het_sites", 0),
             "afs_shape": a.get("afs_shape", "monoclonal"),
             "dominant_proportion": a.get("dominant_proportion"),
             "maf": a.get("maf"),
-            "mean_depth": depth if depth is not None else 0.0,
+            "mean_depth": mean_depth_v,
             "heterozygosity": het,
+            "host_rate": hstats.get("host_rate") if hstats else None,
+            "pathogen_map_rate": hstats.get("pathogen_map_rate") if hstats else None,
+            "breadth_1x": hstats.get("breadth_1x") if hstats else None,
+            "unassigned_rate": hstats.get("unassigned_rate") if hstats else None,
         }
         v = judge({**metrics, "no_data": no_data}, thr)
         # 纯样品不显示优势株占比(杂合位点太少,占比无统计意义)|hide dominant for pure samples
@@ -231,6 +294,10 @@ def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_
             "afs_shape": metrics["afs_shape"],
             "dominant_proportion": f"{show_dom*100:.1f}%" if show_dom is not None else "—",
             "mean_depth": round(metrics["mean_depth"], 1),
+            "host_rate": _fmt_rate(metrics["host_rate"]),
+            "pathogen_map_rate": _fmt_rate(metrics["pathogen_map_rate"]),
+            "breadth_1x": _fmt_pct(metrics["breadth_1x"]),
+            "unassigned_rate": _fmt_rate(metrics["unassigned_rate"]),
         })
         # 合并 HTML 报告用的完整数据(含图片绝对路径)|full data + image paths for merged HTML
         samples_data.append({
@@ -238,6 +305,10 @@ def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_
             "rationale": v["rationale"],
             "het_rate": metrics["het_rate"], "afs_shape": metrics["afs_shape"],
             "dominant_proportion": show_dom, "mean_depth": metrics["mean_depth"],
+            "host_rate": metrics["host_rate"],
+            "pathogen_map_rate": metrics["pathogen_map_rate"],
+            "breadth_1x": metrics["breadth_1x"],
+            "unassigned_rate": metrics["unassigned_rate"],
             "metrics": metrics_disp,
             "images": {
                 "afs": str(filt_base / "05_vaf" / f"{sample}.vaf_histogram.png"),

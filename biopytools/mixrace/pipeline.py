@@ -66,9 +66,24 @@ def run_qc(config, runner, ckpt) -> Optional[Path]:
     return clean_dir
 
 
+def _count_bam(runner, samtools_path: str, bam, excl_flags: str,
+               min_mapq: Optional[int] = None) -> Optional[int]:
+    """samtools view -c 计数(失败 None)|count records (None on failure)."""
+    args = ["view", "-c", "-F", excl_flags]
+    if min_mapq:
+        args += ["-q", str(min_mapq)]
+    args.append(str(bam))
+    ok, out, _ = runner.run_conda(samtools_path, args, f"计数|count {os.path.basename(str(bam))}")
+    if ok and out.strip().isdigit():
+        return int(out.strip())
+    return None
+
+
 def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: str) -> Path:
-    """step02: bwa-mem2 比对 + 正确 markdup(name-sort→fixmate -m→sort→markdup→index)+ flagstat/stats。
-    |bwa-mem2 align + correct markdup + QC. Landmine: fixmate -m required before markdup."""
+    """step02: bwa-mem2 比对 + 正确 markdup(name-sort→fixmate -m→sort→markdup→index)
+    + MAPQ 过滤(min_mapq>0 时最终BAM只留置信比对)+ 计数表 mapq_stats.tsv。
+    |bwa-mem2 align + correct markdup + MAPQ filter + read-count table.
+    Landmine: fixmate -m required before markdup."""
     out = Path(config.output_dir) / "02_alignment"
     out.mkdir(parents=True, exist_ok=True)
     fa = str(Path(index_dir) / os.path.basename(config.genome))
@@ -77,6 +92,11 @@ def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: st
     fm_bam = out / f"{sample}.fixmate.bam"
     coord_bam = out / f"{sample}.sorted.bam"
     md_bam = out / f"{sample}.sorted.markdup.bam"
+    # MAPQ 过滤:markdup 先落临时文件,view -q 后写最终BAM(过滤后不含 unmapped/低质量)|
+    # MAPQ filter: markdup to temp, then view -q into final BAM (no unmapped/low-MAPQ kept)
+    q = config.min_mapq
+    pre_md = out / f"{sample}.markdup.premapq.bam" if q > 0 else None
+    markdup_out = str(pre_md) if pre_md else str(md_bam)
     if config.enable_checkpoint and _done(ckpt, f"align_{sample}", md_bam):
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: align_{sample}")
         return md_bam
@@ -102,11 +122,19 @@ def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: st
                                   f"fixmate|fixmate {sample}"), "samtools fixmate"),
         (lambda: runner.run_conda(st, ["sort", "-o", str(coord_bam), str(fm_bam)],
                                   f"坐标排序|coord sort {sample}"), "samtools sort"),
-        (lambda: runner.run_conda(st, ["markdup", "-@", str(t), str(coord_bam), str(md_bam)],
+        (lambda: runner.run_conda(st, ["markdup", "-@", str(t), str(coord_bam), markdup_out],
                                   f"去重|markdup {sample}"), "samtools markdup"),
-        (lambda: runner.run_conda(st, ["index", str(md_bam)], f"索引|index {sample}"),
-         "samtools index"),
     ]
+    if pre_md:
+        # -F 0x904 排除 unmapped+secondary+supplementary;-q 只留达标比对(需求:质量达标才留下)
+        # |-F 0x904 drops unmapped/secondary/supplementary; -q keeps qualified alignments only
+        steps.append(
+            (lambda: runner.run_conda(
+                st, ["view", "-b", "-F", "0x904", "-q", str(q), "-o", str(md_bam), str(pre_md)],
+                f"MAPQ过滤|MAPQ filter {sample} (q>={q})"), "samtools view -q"))
+    steps.append(
+        (lambda: runner.run_conda(st, ["index", str(md_bam)], f"索引|index {sample}"),
+         "samtools index"))
     bam_ok = True
     for fn, step_name in steps:
         ok, _, _ = fn()
@@ -118,11 +146,27 @@ def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: st
             bam_ok = False
             break
     # 清理中间 bam(省空间,by_step 目录整洁)|clean intermediate bams
-    for tmp in (aln, name_bam, fm_bam, coord_bam):
+    for tmp in (aln, name_bam, fm_bam, coord_bam, pre_md):
+        if tmp is None:
+            continue
         try:
             tmp.unlink()
         except OSError:
             pass
+    # 计数表(总primary含unmapped / 达标mapped),供 step7 统计;失败仅告警不影响比对结果
+    # |read-count table for step7 stats; count failure only warns, alignment unaffected
+    if bam_ok:
+        # 总数含 unmapped(q>0 从过滤前 tmp 取,q=0 最终BAM本就含);mapped 恒用 0x904 排 unmapped
+        # |total incl unmapped (q>0 from pre-filter tmp); mapped always excludes unmapped
+        total_src = pre_md if pre_md else md_bam
+        total = _count_bam(runner, st, total_src, "0x900")
+        mapped = _count_bam(runner, st, md_bam, "0x904")
+        if total is not None and mapped is not None:
+            (out / f"{sample}.mapq_stats.tsv").write_text(
+                f"field\tvalue\ntotal_primary_reads\t{total}\nmapped_q_reads\t{mapped}\n",
+                encoding="utf-8")
+        else:
+            runner.logger.warning(f"{sample}: reads 计数失败,未写 mapq_stats.tsv|count failed")
     if config.enable_checkpoint and bam_ok:
         ckpt.create(f"align_{sample}")
     elif config.enable_checkpoint:
