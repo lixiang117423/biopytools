@@ -1,3 +1,15 @@
+## [1.39.0] - 2026-08-20
+
+### Added
+- `mixrace`: 新增寄主剔除(`--host-genome`)——clean 数据先比对寄主基因组,置信寄主(MAPQ≥min_mapq)read 整对剔除,下游比对/k-mer 自动改用 nohost fastq;新增 `--min-mapq`(默认 20)统一寄主判定、病原最终 BAM 过滤与统计口径(0=不过滤);报告汇总新增寄主占比/病原 mapping 率/覆盖广度(≥1x)/未归属占比四列;版本 0.2.0
+
+### Changed
+- `mixrace`: utils.py 删除本地 `get_conda_env`/`build_conda_command` 复制实现改走 `common/conda_runner` 公共层;host_filter 管道内工具改完整路径调用(§13.2.3)
+
+### Fixed
+- `mixrace`: fastq 整对剔除改用 zip_longest 检测 R1/R2 条数不等(原 zip 静默截断丢 reads);`--step 6` 单独重跑且 host_filter/ 缺失时 k-mer 回退 clean fastq(原读不存在的目录)
+- `ocbsa`: f1/f2 滑窗平滑遇空标记列表 `loop_value[-1]` 索引越界 IndexError,现直接返回空结果;f2 跳过深度/基因型过滤后无有效标记的染色体并日志提示;版本 1.0.1
+
 ## [1.38.0] - 2026-08-19
 
 ### Added
