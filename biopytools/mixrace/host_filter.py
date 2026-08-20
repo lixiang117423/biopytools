@@ -264,6 +264,11 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
         res = filter_fastq_pairs(r1, r2, str(nohost_r1), str(nohost_r2), host_names)
     except (OSError, ValueError) as e:
         runner.logger.error(f"fastq 过滤失败|fastq filtering failed {sample}: {e}")
+        for p in (nohost_r1, nohost_r2):   # 清残留半成品|drop partial outputs
+            try:
+                p.unlink()
+            except OSError:
+                pass
         return None
     # ⑤ 清理临时文件(省空间)|clean temp
     for p in (host_bam, names_file):

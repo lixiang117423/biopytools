@@ -231,7 +231,7 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
                   "het_impure", "min_depth", "repeat_bed", "skip_tree",
                   "host_genome", "min_mapq"]
     info = {
-        "pipeline": {"name": "biopytools mixrace", "version": "0.2.0"},
+        "pipeline": {"name": "biopytools mixrace", "version": "0.2.1"},
         "tools": versions,
         "parameters": {k: getattr(config, k, None) for k in param_keys},
     }
