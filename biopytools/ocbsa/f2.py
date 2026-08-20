@@ -149,6 +149,9 @@ class F2bsaCalculator:
     @staticmethod
     def cal_dis_func(key, win_size, loop_value):
         """滑窗平滑计算(F2)|Sliding window smoothing for F2"""
+        # 空标记列表直接返回,避免 loop_value[-1] 索引越界|Empty list returns early to avoid IndexError
+        if not loop_value:
+            return [key, []]
         step = win_size / 10
         win_list = [0, win_size]
         total_list = []
@@ -253,6 +256,9 @@ class F2bsaCalculator:
 
         for result in results:
             chr_list = result.get()
+            if not chr_list[1]:
+                self.logger.info(f"跳过无有效标记的染色体|Skipping chromosome with no valid markers: {chr_list[0]}")
+                continue
             chr_geno_dict_filter[chr_list[0]] = chr_list[1]
 
         # 输出中间文件|Output intermediate file

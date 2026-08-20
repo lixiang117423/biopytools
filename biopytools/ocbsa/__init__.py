@@ -4,7 +4,7 @@ OcBSA - BSA分析工具套件|OcBSA - BSA Analysis Tool Suite
 F1群体DHHP分析、F2/RILs群体SNP-index/ED分析、BSA结果可视化、候选区域引物设计
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __all__ = ['OcbsaCalculator', 'OcbsaConfig']
 
 

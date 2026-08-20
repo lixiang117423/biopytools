@@ -196,6 +196,9 @@ class OcbsaCalculator:
     @staticmethod
     def cal_dis_func(key, win_size, loop_value):
         """滑窗平滑计算|Sliding window smoothing calculation"""
+        # 空标记列表直接返回,避免 loop_value[-1] 索引越界|Empty list returns early to avoid IndexError
+        if not loop_value:
+            return [key, []]
         step = win_size / 10
         win_list = [0, win_size]
         total_list = []
