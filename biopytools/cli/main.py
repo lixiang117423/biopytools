@@ -235,6 +235,7 @@ COMMAND_REGISTRY = [
     ('selective_sweep', 'selective-sweep', '选择性扫荡检测|Selective sweep detection'),
     ('mixrace', 'mixrace', 'WGS混合小种检测|WGS mixed-race detection'),
     ('genome2tree', 'genome2tree', '基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster)'),
+    ('xpclr', 'xpclr', 'XP-CLR跨群体选择信号扫描|XP-CLR cross-population selection scan'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

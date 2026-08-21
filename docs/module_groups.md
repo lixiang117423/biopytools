@@ -2,9 +2,9 @@
 
 > Phase 3 分组草案,**待确认**。边界与归属可调整;确认后用于首页分类表与 mkdocs.yml 导航。
 
-> 范围:仅 CLI 注册的 207 个模块;非 CLI 模块不写文档。
+> 范围:仅 CLI 注册的 210 个模块;非 CLI 模块不写文档。
 
-## 群体遗传|Population(28)|28 modules
+## 群体遗传|Population(29)|29 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -36,6 +36,7 @@
 | treemix | treemix | TreeMix群体历史与基因流分析|TreeMix Population History & Gene Flow Analysis |
 | vcf2gwas | vcf2gwas | vcf2gwas GWAS分析工具|vcf2gwas GWAS Analysis Tool |
 | vcf2pca | vcf2pca | VCF主成分分析 (PCA, 默认PLINK后端支持SNP/INDEL)|VCF PCA (default PLINK backend, SNP/INDEL) |
+| xpclr | xpclr | XP-CLR跨群体选择信号扫描|XP-CLR Cross-Population Selection Scan |
 
 ## 基因组组装|Assembly(24)|24 modules
 

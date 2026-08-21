@@ -103,6 +103,7 @@ nav:
           - treemix: treemix.md
           - vcf2gwas: vcf2gwas.md
           - vcf2pca: vcf2pca.md
+          - xpclr: xpclr.md
       - 基因组组装:
           - agp2table: agp2table.md
           - assembly2agp: assembly2agp.md

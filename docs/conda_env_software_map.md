@@ -40,7 +40,7 @@ conda run -n pop <工具> --no-capture-output
 |---|---|---|
 | `PopLDdecay` | `RAiSD` | `admixture` |
 | `pixy` | `plink` | `poplddecay` |
-| `treemix` | `vcftools` | `xpclr` |
+| `treemix` | `vcftools` |  |
 | `easyhap` |  |  |
 
 ### asm — 基因组组装|Genome assembly
@@ -252,6 +252,7 @@ conda run -n busco <工具> --no-capture-output
 | treemix_v.1.13 | (见 backup yaml) |
 | vcf2gwas_v.0.8.9 | (见 backup yaml) |
 | vg_v.1.7.0 | (见 backup yaml) |
+| selective_sweep | xpclr 1.1.2(已打 scipy/numpy 兼容补丁,补丁源码 ~/software/xpclr;pop 域环境内同名包为坏版本,勿用) |
 
 ---
 
