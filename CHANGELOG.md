@@ -1,3 +1,8 @@
+## [1.41.1] - 2026-08-21
+
+### Fixed
+- `mixrace`: 长表解析对列数不足的截断行容错(原 IndexError 中断整个解析);NJ 树样品<3 时跳过(原 biopython 对单叶异常);rows 组装改 dict 查找(原 O(n²) 且重名歧义);subtag 改英文枚举(mild)+显示层中文映射;HTML 判读口径文案改按 config 阈值动态生成(防阈值可配后漂移);mix_proportion 注明基于杂合位点 ALT 频率中位数的启发式近似
+
 ## [1.41.0] - 2026-08-21
 
 ### Added
