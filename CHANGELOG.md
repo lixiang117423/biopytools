@@ -1,3 +1,8 @@
+## [1.41.2] - 2026-08-21
+
+### Fixed
+- `mixrace`: 汇总表 TSV 的 verdict 列恢复机器可读原始键(pure/divergent/contaminated/uncertain),中文显示名仅在 HTML;无热点时不画"排除前后"对比热图(原与第一张内容重复)
+
 ## [1.41.1] - 2026-08-21
 
 ### Fixed
