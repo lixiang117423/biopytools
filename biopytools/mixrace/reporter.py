@@ -76,8 +76,9 @@ def build_summary_table(rows: list) -> Tuple[str, str]:
                   "mean_depth", "breadth_1x"):
             if k in d:
                 d[k] = _fmt(k, d[k])
-        d["verdict"] = f"{_VERDICT_CN.get(r.get('verdict'), r.get('verdict', ''))}" \
-                       f"{_SUBTAG_CN.get(r.get('subtag', ''), r.get('subtag', ''))}"
+        # TSV 保留机器可读原始键;中文显示名仅给 HTML|TSV keeps raw keys; CN only for HTML
+        d["verdict_cn"] = f"{_VERDICT_CN.get(r.get('verdict'), r.get('verdict', ''))}" \
+                          f"{_SUBTAG_CN.get(r.get('subtag', ''), r.get('subtag', ''))}"
         disp.append(d)
     tsv = "\t".join(_SUMMARY_COLS) + "\n"
     for d in disp:
@@ -99,7 +100,8 @@ def build_summary_table(rows: list) -> Tuple[str, str]:
         cells = []
         for ci, c in enumerate(_SUMMARY_COLS):
             style = f' style="color:{color};font-weight:bold"' if ci == v_idx else ""
-            cells.append(f"<td{style}>{_html_escape(str(d.get(c, '')))}</td>")
+            val = d.get("verdict_cn") if c == "verdict" else d.get(c, '')
+            cells.append(f"<td{style}>{_html_escape(str(val))}</td>")
         html += "<tr>" + "".join(cells) + "</tr>"
     html += "</table>"
     return tsv, html

@@ -288,9 +288,15 @@ def build_figures(config, logger, out_dir, payloads: dict) -> List[Path]:
     eval_dir = payloads.get("het_eval_dir")
     hotspot_mask = _hotspot_mask(eval_dir)
     plan = [
-        ("het_heatmap_100kb.png", lambda: fig_heatmap(eval_dir, rows, out / "het_heatmap_100kb.png")),
-        ("het_heatmap_excl_hotspots.png", lambda: fig_heatmap(
-            eval_dir, rows, out / "het_heatmap_excl_hotspots.png", exclude_mask=hotspot_mask)),
+        ("het_heatmap_100kb.png", lambda: fig_heatmap(eval_dir, rows, out / "het_heatmap_100kb.png"))]
+    if hotspot_mask is not None:
+        # 无热点时不画"排除前后"对比图(与第一张内容重复)
+        # |no hotspots -> skip the before/after panel (duplicate of the first)
+        plan.append(
+            ("het_heatmap_excl_hotspots.png", lambda: fig_heatmap(
+                eval_dir, rows, out / "het_heatmap_excl_hotspots.png",
+                exclude_mask=hotspot_mask)))
+    plan += [
         ("het_genome_overview.png", lambda: fig_manhattan_grid(
             eval_dir, rows, out / "het_genome_overview.png")),
         ("manhattan_grid.png", lambda: fig_manhattan_grid(
