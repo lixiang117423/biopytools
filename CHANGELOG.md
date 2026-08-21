@@ -1,3 +1,15 @@
+## [1.41.0] - 2026-08-21
+
+### Added
+- `mixrace`(v0.3, 破坏性重构): calling 后端换 `fastq2vcf-gtx`(GTX 联合分型),判读换三分支——纯菌(杂合率<0.1%,可保存)/优势菌株·参考差异型(可保存,可强制纯合化)/混杂菌株(强混合伴侣,需再分离纯化+成分推断);新增导师 v4 四层杂合评估(L1 AD/DP 排错+DP 检验 → L2 shared/private ALT+混合伴侣矩阵(ALT携带率+伴侣纯合1/1占比双阈值,Pb9-Pb22 模式量化) → L3 100kb 窗口 → L4 共享热点自动识别+排除)+群体结构(SNP 距离/PCA/NJ 树/分群);k-mer(genomescope+smudgeplot)改用 mapped reads;reads 账本报告寄主占比/病原mapping率/污染reads;全套 9 图(matplotlib,中文字体自动回退);报告新增实验建议列与证据链;`--step` 1-5 新语义;新增 7 个阈值参数(--pure-het-threshold/--partner-alt-rate/--partner-hom-rate/--min-sites/--window-size/--hotspot-fold/--hotspot-min-median)
+- `mixrace`: bcftools query 长表无表头兼容(真实数据踩坑);samtools coverage 加 -q 统一 MAPQ 口径
+
+### Changed
+- `mixrace`: 删除 freebayes/bwa-mem2 比对与 markdup 路径、VAF(AO/RO)分析、IQ-TREE 树、R 绘图;`--repeat-bed` 语义改为 L4 额外排除区域;conda 工具探测表精简;输出目录改为 01_qc/02_gtx/03_het_eval/04_kmer/05_figures/06_report(v0.2 目录不兼容,请换新目录重跑);输出文件名统一英文(原中文名违反机器友好命名,§12.1)
+
+### Fixed
+- `mixrace`: 新增阈值参数补 validate 校验(partner_alt_min/partner_hom_min/hotspot_fold/hotspot_min_median);dp_ratio 纯合深度为 0 时除零保护;热点窗口宽度改走 `--window-size`(原相邻 start 差推断跨染色体/空隙出错,且与 hotspots.bed 口径不一致);het_eval 断点补"读"端(原只写不读,--step 3 重跑不跳过);figures 中文字体检测兼容带空格字体名(Noto Sans CJK SC)并补 PingFang;距离热图 NaN 配对不再整图失败;report 表头改 <br> 分隔并补中文对照;utils 版本记录改引用模块 `__version__` 并更新参数清单;gtx 管道内工具改完整路径(§13.2.3)
+
 ## [1.40.0] - 2026-08-21
 
 ### Added
