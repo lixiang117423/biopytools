@@ -15,6 +15,8 @@ _SUMMARY_COLS = ["sample", "verdict", "advice", "het_rate", "robust_rate",
 _VERDICT_CN = {"pure": "纯菌", "divergent": "优势菌株/参考差异型",
                "contaminated": "混杂菌株", "uncertain": "不确定"}
 
+_SUBTAG_CN = {"mild": "轻度"}   # subtag 枚举值→显示名|subtag enum -> display label
+
 _METRIC_EXPLAIN = {
     "het_rate": "总杂合率:单倍体每个位点本该纯合,出现杂合=混合或错误。这是判读的主指标,像混合比例的指纹。",
     "robust_rate": "稳健杂合率:只统计 altAD>=5 且 altfrac>=0.2 的杂合位点(排除低深度测序错误)后的杂合率。",
@@ -75,7 +77,7 @@ def build_summary_table(rows: list) -> Tuple[str, str]:
             if k in d:
                 d[k] = _fmt(k, d[k])
         d["verdict"] = f"{_VERDICT_CN.get(r.get('verdict'), r.get('verdict', ''))}" \
-                       f"{r.get('subtag', '')}"
+                       f"{_SUBTAG_CN.get(r.get('subtag', ''), r.get('subtag', ''))}"
         disp.append(d)
     tsv = "\t".join(_SUMMARY_COLS) + "\n"
     for d in disp:
@@ -108,7 +110,7 @@ def build_sample_report(sample: str, row: dict, figures: dict) -> str:
     verdict = str(row.get("verdict", "uncertain"))
     md = [f"# {sample} 混杂评估报告|{sample} contamination report", ""]
     md.append(f"**判读|Verdict: {_VERDICT_CN.get(verdict, verdict)}"
-              f"{row.get('subtag', '') or ''}**")
+              f"{_SUBTAG_CN.get(row.get('subtag', ''), row.get('subtag', '') or '')}**")
     md.append("")
     md.append(f"**{row.get('advice', '')}**")
     md.append("")
@@ -142,8 +144,13 @@ def _embed_image(path: str):
         return None
 
 
-def build_html_report(title: str, rows: list, figures: dict) -> str:
-    """自包含 HTML(判读表+关键图内嵌+逐样品证据链折叠)|self-contained HTML report."""
+def build_html_report(title: str, rows: list, figures: dict,
+                         verdict_note: str = "") -> str:
+    """自包含 HTML(判读表+关键图内嵌+逐样品证据链折叠)|self-contained HTML report.
+
+    verdict_note: 判读口径文案(阈值可配,由调用方按 config 生成防漂移)
+    |verdict_note: threshold note built from config by the caller (no drift).
+    """
     _, table_html = build_summary_table(rows)
     parts = [f"<html><head><meta charset='utf-8'><title>{_html_escape(title)}</title>",
              "<style>body{font-family:sans-serif;margin:24px}"
@@ -151,10 +158,10 @@ def build_html_report(title: str, rows: list, figures: dict) -> str:
              "td,th{border:1px solid #999;padding:4px 8px;text-align:left}"
              "details{margin:8px 0}img{max-width:100%}"
              "</style></head><body>",
-             f"<h1>{_html_escape(title)}</h1>",
-             f"<p>判读口径: 杂合率&lt;0.1% 纯菌;强混合伴侣(ALT携带≥80%且纯合1/1≥50%)=混杂菌株;其余=优势菌株/参考差异型。"
-             f"建议列为实验操作指引(可保存/需再分离纯化)。</p>",
-             table_html]
+             f"<h1>{_html_escape(title)}</h1>"]
+    if verdict_note:
+        parts.append(f"<p>{_html_escape(verdict_note)}</p>")
+    parts.append(table_html)
     for stem in _KEY_FIGURES:
         b64 = _embed_image(figures.get(stem, "")) if figures.get(stem) else None
         if b64:

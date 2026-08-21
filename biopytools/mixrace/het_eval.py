@@ -75,7 +75,10 @@ def load_gt_ad_dp(tsv_path: str, samples: Optional[List[str]] = None) -> HetData
             pos.append(int(p[1]))
             row = []
             for i in range(len(names)):
-                gt, ad, dp = p[4 + i*3], p[5 + i*3], p[6 + i*3]
+                try:
+                    gt, ad, dp = p[4 + i*3], p[5 + i*3], p[6 + i*3]
+                except IndexError:
+                    break   # 列数不足的截断行:丢弃|truncated row: drop
                 adp = ad.split(",")
                 ref = int(adp[0]) if adp[0] not in (".", "") else 0
                 alt = int(adp[1]) if len(adp) > 1 and adp[1] not in (".", "") else 0
@@ -85,6 +88,8 @@ def load_gt_ad_dp(tsv_path: str, samples: Optional[List[str]] = None) -> HetData
                     d = ref + alt   # DP 坏值回退 ref+alt|fallback
                 g = _enc_gt(gt) if gt not in (".", "./.", ".|.") else -1
                 row.append((g, ref, alt, d))
+            if len(row) != len(names):
+                continue   # 截断行|truncated row
             cols.append(row)
     samples = names
     arr = (np.array(cols, dtype=np.int32) if cols
@@ -321,6 +326,10 @@ def nj_newick(dist: np.ndarray, samples: List[str]) -> str:
     from Bio.Phylo.TreeConstruction import DistanceMatrix, DistanceTreeConstructor
     from Bio import Phylo
     n = len(samples)
+    if n < 3:
+        # 样品不足 3 个无法建树:返回空(调用方跳过写文件,fig_tree 自动降级)
+        # |fewer than 3 samples: no tree; caller skips the file
+        return ""
     dm = np.array(dist, dtype=float)
     finite = dm[np.isfinite(dm)]
     fill = float(finite.mean()) if finite.size else 0.0
@@ -528,6 +537,8 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
     coords, explained = pca_coords(d)
     nwk = nj_newick(dist, d.samples)
     groups = cluster_groups(dist)
+    if nwk:
+        (out_dir / "nj_tree.nwk").write_text(nwk, encoding="utf-8")
     write_tsv(out_dir / "distance_matrix.tsv",
               [{"sample": d.samples[i],
                 **{d.samples[j]: round(float(dist[i, j]), 4) for j in range(n)}}
@@ -537,13 +548,13 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
                 **{f"PC{k+1}": round(float(coords[i, k]), 4) for k in range(coords.shape[1])},
                 "explained": ";".join(f"{e:.4f}" for e in explained)}
                for i in range(n)])
-    (out_dir / "nj_tree.nwk").write_text(nwk, encoding="utf-8")
 
     # ⑤ 三分支判读|three-branch verdicts
     jparams = {"pure_het": config.pure_het_threshold,
                "partner_alt_min": config.partner_alt_min,
                "partner_hom_min": config.partner_hom_min,
                "min_sites": config.min_sites}
+    sp_by_sample = {row["sample"]: row for row in sp["rows"]}
     rows = []
     for r in l1:
         v = judge(r, sp["partner_alt_rate"], sp["partner_hom_rate"],
@@ -555,7 +566,7 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
                      "subtag": v["subtag"],
                      "het_rate": r["het_rate"], "robust_rate": r["robust_rate"],
                      "n_sites": r["n_sites"], "n_het": r["n_het"],
-                     "shared_only_rate": sp["rows"][d.samples.index(r["sample"])]["shared_only_rate"],
+                     "shared_only_rate": sp_by_sample[r["sample"]]["shared_only_rate"],
                      **_top_partner(d.samples.index(r["sample"]), d.samples,
                                     sp["partner_alt_rate"], sp["partner_hom_rate"]),
                      "median_altfrac": r["median_altfrac"],

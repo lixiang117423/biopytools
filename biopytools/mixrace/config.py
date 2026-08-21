@@ -26,7 +26,8 @@ class MixraceConfig:
     host_genome: Optional[str] = None    # 给则 clean 后比对寄主并整对剔除|deplete host reads if set
     min_mapq: int = 20                   # 「比对上」判定阈值+mapped reads提取过滤|MAPQ threshold
     # 三分支判读阈值(v0.3)|three-branch verdict thresholds
-    pure_het_threshold: float = 0.001    # 总杂合率<0.1% 判纯|pure threshold
+    pure_het_threshold: float = 0.001    # 总杂合率<0.1% 判纯;同作 L4 热点候选筛选口径(双语义)
+                                         # |pure verdict threshold; also the L4 hotspot-candidate filter
     partner_alt_min: float = 0.8         # 伴侣携带ALT率阈值|partner ALT-carrier min
     partner_hom_min: float = 0.5         # 伴侣纯合1/1占比阈值|partner homozygous min
     min_sites: int = 1000                # 最低有GT位点数|min called sites

@@ -49,7 +49,10 @@ def judge(row: dict, partner_alt: np.ndarray, partner_hom: np.ndarray,
             partner = samples[j]
             mix = row.get("median_altfrac")
             mix = float(mix) if mix is not None and np.isfinite(mix) else None
+            # 成分比例基于杂合位点 ALT 频率中位数,为启发式近似(混合比偏离 1:1 时仅供参考)
+            # |proportion from median het-site altfrac; heuristic approximation
             comp = (f"≈{mix*100:.0f}% {partner}型 + {(1-mix)*100:.0f}% 参考型"
+                    f"(基于杂合位点ALT频率中位数推断)"
                     if mix is not None else "成分比例未知(无杂合 altfrac)")
             return {**base, "verdict": "contaminated", "partner": partner,
                     "mix_proportion": mix,
@@ -58,7 +61,7 @@ def judge(row: dict, partner_alt: np.ndarray, partner_hom: np.ndarray,
                                   f"(其中 {hom_row[j]*100:.1f}% 为纯合1/1),"
                                   f"成分推断 {comp};符合 Pb9-Pb22 型混合模式"
                                   f"|partner-carrier pattern")}
-    subtag = "轻度" if row.get("robust_rate", 1.0) < pure_het else ""
+    subtag = "mild" if row.get("robust_rate", 1.0) < pure_het else ""
     note = "杂合多为低深度错误特征" if subtag else "存在真实杂合信号(见稳健杂合率)"
     return {**base, "verdict": "divergent", "subtag": subtag,
             "advice": "建议: 可保存;高精度下游可强制纯合化(取altfrac>0.5优势等位)"

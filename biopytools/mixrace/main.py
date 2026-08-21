@@ -153,8 +153,15 @@ def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
         (rep_dir / f"{row['sample']}.report.md").write_text(
             build_sample_report(row["sample"], row, figures), encoding="utf-8")
     # 自包含 HTML|self-contained HTML
+    # 判读口径文案按 config 阈值动态生成(防阈值可配后文案漂移)
+    # |verdict note built from config thresholds (no drift)
+    verdict_note = (f"判读口径: 杂合率<{config.pure_het_threshold*100:.1f}% 纯菌;"
+                    f"强混合伴侣(ALT携带≥{config.partner_alt_min*100:.0f}%且纯合1/1≥"
+                    f"{config.partner_hom_min*100:.0f}%)=混杂菌株;其余=优势菌株/参考差异型。"
+                    f"建议列为实验操作指引(可保存/需再分离纯化)。")
     (summ_dir / "mixrace_report.html").write_text(
-        build_html_report("根肿菌样本混杂评估报告", rows, figures), encoding="utf-8")
+        build_html_report("根肿菌样本混杂评估报告", rows, figures, verdict_note),
+        encoding="utf-8")
     logger.info(f"汇总表已写|summary written: {summ_dir / 'verdict_summary.tsv'}")
 
 
