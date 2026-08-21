@@ -1,128 +1,143 @@
-# mixrace — WGS 混合小种检测 | WGS Mixed-race Detection
+# mixrace — WGS 混合小种检测(三分支判读)
 
-一句话理解：**输入一堆重测序数据和一个参考基因组，自动判断每个样品是「只有一个菌株」还是「多个菌株混在一起」，并给出一份能直接发给人看的判读报告**。
+一句话:对一群**单倍体病原菌样品**(如油菜根肿菌)的重测序数据做"纯不纯"体检——谁是可以直接保存的纯菌、谁是还能用的优势菌株、谁是必须重新分离纯化的混杂菌株,并给出证据和实验建议。
 
 ## 功能概述 | Overview
 
-- 面向**单倍体病原**(如根肿菌 *Plasmodiophora brassicae*，静息孢子 n=20)——它们无法纯培养，一个田间编号常是多个基因型(小种)的混合
-- 全流程：bwa-mem2 比对 → samtools markdup → **freebayes 单倍体 calling**(-p 1，保留 2% 低频等位)→ 过滤 → 等位频率谱(AFS)分析 → smudgescope k-mer 谱 → 判读 + 报告 + 系统发育树
-- 核心产出：`summary/mixrace_report.html`(**单文件可分享**，图全部内嵌)，含每样品判读(疑似纯/疑似混合/不确定)、依据、指标通俗解释、样品聚类树
+- **GTX 联合 calling 后端**:fastp QC →(可选寄主剔除)→ `fastq2vcf-gtx` 一步比对+联合分型,全群体共用一张 VCF
+- **四层杂合评估**(导师 v4 方法学):L1 AD/DP 排测序错误 → L2 shared/private ALT + **混合伴侣分析** → L3 100kb 窗口分布 → L4 共享热点排除
+- **三分支判读 + 实验建议**:纯菌(可保存)/ 优势菌株·参考差异型(可保存,可强制纯合化)/ 混杂菌株(需再分离纯化,附成分推断)
+- **reads 账本**:寄主占比、病原 mapping 率、**污染 reads**(两步都没比对上)全程可追溯
+- **k-mer 分析只用比对上的 reads**:genomescope 基因组估计 + smudgeplot 不被污染 reads 干扰
+- **群体结构 + 全套图**:SNP 距离矩阵、PCA、NJ 树、杂合热图、Manhattan、三面板评估等 9 图
 
 ## 快速开始 | Quick Start
 
-```bash
-biopytools mixrace -i fastq_dir -g ref.fa -o out_dir/
-```
-
-(已做过 QC 的 clean 数据用 `--clean-fastq-dir` 替代 `-i`，可跳过 fastp。)
+示例|Examples: biopytools mixrace -i fastq_dir -g ref.fa --host-genome host.fa -o out_dir/
 
 ## 零基础概念速览 | Concepts in plain words
 
-| 术语 | 通俗解释 |
+| 术语<br>Term | 通俗解释<br>In plain words |
 |---|---|
-| 单倍体(haploid) | 每个位置只有一份遗传信息。像一个班级里每个学生只举**一只手**——同时出现两只手(两种碱基)就是「混进了别的班的人」 |
-| 杂合率(het_rate) | 「两只手同时举」的位置占整个基因组的比例。越低越纯；<0.01% 基本纯，>1% 明显不纯 |
-| 等位频率谱(AFS) | 把所有「两只手」位置的少数派比例画成直方图。像看一个聚会的人数构成：只有一类人(纯)、两伙人各半(0.5 峰)、一主一从、大杂烩 |
-| 优势株占比 | 若为混合，最大那伙人约占总人数的百分比 |
-| 测序深度(depth) | 每个位置平均被读了**几遍**。像数人数时每个人被点了几次名；≥50x 才可靠 |
-| 系统发育树 | 按基因组相似度给样品「排家谱」：分支越近越像 |
-| VAF | 某个位置少数碱基的读数占比 |
-| 寄主剔除(host depletion) | 测序时混进了寄主(植物)DNA。像"回收站"先把寄主 reads 整对挑出来扔掉，剩下干净的病原数据再往下分析 |
-| MAPQ | 比对质量分，代表"这条 read 到底放在哪个位置"的可信度。分数越高越可信；默认只信 ≥20 的比对 |
+| 杂合率 (het_rate) | 根肿菌是单倍体,每个位置只该有一种碱基;出现两种(0/1)就像"一个人的体检报告里出现了两个人的指标"——杂合率就是混入"另一份基因组的指纹"的比例 |
+| 稳健杂合率 (robust) | 只数"两种碱基都有相当数量reads支持"(altAD≥5 且 altfrac≥0.2)的杂合位点,把低深度的测序假信号剔除后的杂合率 |
+| shared/private ALT | 你的杂合位点上的变异碱基,别的样品里也能看到(shared)还是只有你有(private)。private 的多半是错误或无关污染,不算数 |
+| 混合伴侣分析 | 在群体里找"与你共享变异的另一份基因组":我的杂合位点上,某个样品大量携带 ALT 甚至纯合(1/1),说明我 ≈ 它 + 参考型的混合。像 Pb9 ≈ 88% Pb22 型 + 12% 参考型 |
+| 伴侣 1/1 占比 | 区分两种情况的关键:伴侣在我的杂合位点是**纯合**(我是"它+参考"的混合,即 Pb9-Pb22 模式)还是**杂合**(它自己也是同群混合) |
+| 热点区域 | 所有混杂样品一致偏高的窗口——是远缘菌株与参考基因组的系统性差异区,不是样品特异的混杂信号,评估时可剔除 |
+| DP 检验 (dp_ratio) | 杂合位点的深度 ÷ 纯合位点深度。>1.5 说明杂合位点反而测得更深——真混合,不是低覆盖错误 |
+| 污染 reads | 既没比对上寄主基因组、也没比对上病原基因组的 reads——可能来自其他微生物或低质量 |
+| 强制纯合化 | 对判"可保存但有杂合"的样品,取每个位点占多数的碱基当纯合用,适合高精度下游 |
 
 ## 输入 | Input
 
-- `-i` 原始 fastq 目录(自动配对 `_1/_2`、`_R1/_R2`)或 `--clean-fastq-dir` 已清洗 fastq(二选一)。
-- `-g` 参考基因组 FASTA(如 e3)。
-- 可选 `--repeat-bed`：重复/低复杂度区域 BED，给出则过滤时排除，不给则跳过(不影响流程)。
-- 可选 `--host-genome`：**寄主基因组 FASTA**(如十字花科植物基因组)。给则先把 clean 数据比对寄主、**整对剔除寄主 reads**，下游比对/k-mer 都改用剔除后的 fastq，并在报告里给出寄主占比。
-- 可选 `--min-mapq`：比对质量阈值(默认 20)。寄主判定、病原最终 BAM 过滤、统计口径统一用它；`0` = 不做 MAPQ 过滤。
-- 可选 `--pure-samples`：已知纯样品，逗号分隔(如 `--pure-samples P1,P2`)，用于自动校准杂合率判读阈值。
+| 输入<br>Input | 要求<br>Requirement |
+|---|---|
+| `-i` 原始 fastq 目录 | 配对 R1/R2,支持 `_1/_2`、`_R1/_R2`、`.clean.` 等命名;跑 fastp QC |
+| `--clean-fastq-dir` | 已清洗 fastq(与 `-i` 二选一,跳过 QC) |
+| `-g` 病原参考基因组 | FASTA;GTX 比对与联合 calling 的参考 |
+| `--host-genome` 寄主基因组(可选) | 给则先剔除寄主 reads 再进主流程 |
+| 样品数 | 建议 ≥4(伴侣分析与群体结构依赖多样本;单样品仍可跑但只有 L1) |
 
 ## 参数说明 | Parameters
 
-**通俗理解|In plain words:** 绝大多数参数**一般不用动**——默认值是针对本类分析调好的。只有判读阈值(想严一点/松一点)和 `--pure-samples`(手上有已知纯样品)才需要考虑。
+**寄主剔除与 reads 口径**
 
-| 参数 | 默认 | 说明 |
+**通俗理解|In plain words:** 寄主剔除管"把混进来的植物 DNA 扔掉再分析";`--min-mapq` 是"什么算真的比对上"的统一门槛,一般不用动。
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
 |---|---|---|
-| `-i/--input` | — | 原始 fastq 目录(与 `--clean-fastq-dir` 二选一) |
-| `--clean-fastq-dir` | — | 已清洗 fastq(跳过 QC) |
-| `-g/--genome` | 必填 | 参考基因组 |
-| `-o/--output-dir` | `mixrace_out` | 输出目录 |
-| `--repeat-bed` | 无 | 重复区 BED(可选) |
-| `--host-genome` | 无 | 寄主基因组 FASTA(可选，给则剔除寄主 reads 并报告寄主占比) |
-| `--min-mapq` | 20 | 比对质量阈值(寄主判定+病原 BAM 过滤+统计口径，0=不过滤) |
+| `--host-genome` | 无(关) | 寄主基因组 FASTA;给则整对剔除寄主 reads 并报告寄主占比 |
+| `--min-mapq` | 20 | 比对质量阈值:寄主判定 + mapped reads 提取 + 统计口径;0=不过滤 |
+
+**三分支判读阈值**
+
+**通俗理解|In plain words:** 这三个数决定"多杂算杂"。导师口径:杂合率 0.1% 分纯/不纯;伴侣同时满足"携带 ALT≥80%"和"其中纯合 1/1≥50%"才判混杂(Pb9-Pb22 模式)。没把握就不动,真实数据校验后可调。
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
+|---|---|---|
+| `--pure-het-threshold` | 0.001 | 总杂合率低于此值(0.1%)判纯菌 |
+| `--partner-alt-rate` | 0.8 | 混合伴侣:我的杂合位点上伴侣携带 ALT 的比例阈值 |
+| `--partner-hom-rate` | 0.5 | 混合伴侣:伴侣携带中纯合 1/1 的占比阈值 |
+| `--min-sites` | 1000 | 有 GT 位点低于此数判 uncertain(数据不足) |
+
+**热点识别(L4)**
+
+**通俗理解|In plain words:** 自动找"所有混杂样品一起偏高"的基因组窗口并剔除,让杂合率不被参考差异区虚抬。窗口大小、几倍算偏高都有默认,一般不用动。
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
+|---|---|---|
+| `--window-size` | 100000 | 窗口大小 bp(100kb) |
+| `--hotspot-fold` | 2.0 | 窗口杂合率 > 该倍数×自身全基因组率算偏高 |
+| `--hotspot-min-median` | 0.10 | 窗口在候选样品中的中位杂合率下限 |
+| `--repeat-bed` | 无 | 手动追加排除区域 BED(与自动热点取并集) |
+
+**执行**
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
+|---|---|---|
 | `-t/--threads` | 12 | 线程数 |
-| `-k/--kmer-size` | 21 | k-mer 大小(smudgescope) |
-| `-l/--read-length` | 150 | 读长 |
-| `--step` | 全跑 | 只跑 1-7 某一步(断点续传友好) |
-| `--min-qual` | 30 | 变异位点质量下限 |
-| `--min-dp` | 15 | 位点深度下限 |
-| `--min-alt-reads` | 3 | ALT 最少支持读条数 |
-| `--min-coverage` | 30 | freebayes 最小覆盖 |
-| `--min-alt-fraction` | 0.02 | freebayes 保留 2% 低频等位 |
-| `--pure-samples` | 无 | 已知纯样品(逗号分隔)，自动按 mean+2SD 校准 het 阈值 |
-| `--skip-tree` | 关 | 跳过系统发育树 |
+| `--step` | 全跑 | 1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 |
 | `--no-checkpoint` / `--dry-run` | 关 | 禁用断点 / 只打印命令 |
+| `-k/--kmer-size`、`-l/--read-length` | 21 / 150 | smudgescope 参数 |
 
 ## 分析流程 | Pipeline
 
-```text
-01 索引+QC        02 比对+markdup       03 freebayes -p 1     04 过滤
-bwa-mem2 index    bwa-mem2 mem→        (单倍体,保低频,        QUAL/DP/去repeat
-fastp(可跳)       sort-n→fixmate→      AF 用 AO/RO)          保留多等位
-                  sort→markdup→index
-                                                                    ↓
-07 判读+报告 ←── 06 smudgescope ←────────────── 05 AFS 分析
-(het率+AFS形态   (k-mer 谱)                (杂合率+形态+优势株占比
- +优势株+深度                                    +VAF 直方图)
- +系统发育树)
+```
+raw fastq ─fastp→ clean ─[寄主剔除]→ nohost fastq
+   │                                      │
+   │              ①寄主占比(host_rate)    ▼
+   │                          ②GTX 比对+联合calling → joint VCF + per-sample BAM
+   │                                      │
+   │                     ③污染reads = 总-寄主-mapped
+   │                                      ▼
+   │   bcftools query GT/AD/DP 长表 → L1排错 → L2伴侣 → L3窗口 → L4热点
+   │                                      │
+   │                        群体: 距离矩阵+PCA+NJ → 三分支判读+实验建议
+   │                                      ▼
+   └────────────────→ ④mapped reads → smudgescope(genomescope+smudgeplot)
+                                          ▼
+                          ⑤全套图 + 判读汇总 + 单样品报告 + HTML
 ```
 
 ## 输出 | Output
 
-```text
-out_dir/
-├── 00_pipeline_info/   software_versions.yml, checkpoints/, index/
-├── 01_qc/              clean fastq(raw 输入时)
-├── 02_alignment/       {sample}.sorted.markdup.bam(按 --min-mapq 过滤后),
-│                       {sample}.mapq_stats.tsv(总reads/达标mapped计数)
-├── host_filter/        (给 --host-genome 时){sample}_1/2.nohost.fq.gz(剔除寄主后),
-│                       {sample}.host_filter.tsv/{sample}.host_stats.tsv(寄主占比等)
-├── 03_variants/        {sample}.raw.vcf.gz(freebayes)
-├── 04_filtered/        {sample}.filtered.vcf.gz, filter_stats.tsv
-├── 05_vaf/             {sample}.vaf.tsv, {sample}.vaf_histogram.png
-├── 06_kmer/{sample}/   smudgescope(02_genomescope/, 03_smudgeplot/)
-├── 07_report/          {sample}.report.md
-├── 08_tree/            tree.png(ggtree 静态树,叶名=样品[判读]杂合率),
-│                       tree.R/tree.ann.tsv(画树脚本与注解), merged.vcf.gz,
-│                       vcf2tree/(IQ-TREE2 输出,含 .nwk)
-├── alignment_qc/       {sample}.stats.txt(平均深度)
-├── summary/            mixrace_report.html(单文件报告), verdict_summary.tsv/.html
-└── 99_logs/            mixrace.log
+```
+out/
+├── 00_pipeline_info/   index_host/ checkpoints/ software_versions.yml(含全部阈值)
+├── 01_qc/              fastp 产物
+├── host_filter/        {sample}_1/2.nohost.fq.gz · host_filter.tsv · host_stats.tsv(reads账本)
+├── 02_gtx/             03_mapping/bam/{sample}.bam · 04_joint_calling/gtx_joint_raw.vcf.gz
+├── 03_het_eval/        gt_ad_dp.tsv · L1_杂合统计 · L2_shared_private · L2_shared_only评估
+│                       混合伴侣矩阵 · 混合伴侣top · L3_窗口杂合率 · L4_共享热点窗口
+│                       hotspots.bed · L4_排除热点前后对比 · 距离矩阵 · PCA坐标 · nj_tree.nwk
+│                       verdict_table.tsv(判读+证据链+建议)
+├── 04_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
+├── 05_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
+├── 06_report/          {sample}.report.md(证据链)
+├── summary/            verdict_summary.tsv · mixrace_report.html(自包含)
+└── 99_logs/
 ```
 
 ## 结果解读 | Interpreting Results
 
-- **看 `summary/mixrace_report.html`**：第一节汇总表一眼看全部样品判读；点开每个样品看依据和三张图。
-- **寄主占比(host_rate)**：比对上寄主基因组的 reads 比例。高(如 >10%)说明样品里植物 DNA 多，剔除后病原数据变浅；**病原 mapping 率**低或**覆盖广度**低时结论要打折。
-- **未归属占比(unassigned_rate)**：既不属于寄主也不属于病原的 reads 比例。过高提示样品里还有其他微生物(如细菌污染)或低质量 reads。
-- **杂合率**是最主要的判据：<0.01% 纯；0.01–0.1% 需排查(repeat 误比对/旁系同源/轻微污染)；0.1–1% 可疑；>1% 不纯。
-- **AFS 直方图**：峰贴在两头=纯；中间有峰=有混合；从 0 到 1 糊成一片=多基因型大杂烩。
-- **系统发育树**：分支越近基因组越像；叶名格式 `编号[判读]杂合率`(如 `Pb5 [纯] 0.0005%`)。注意混合样品可能表现为**长枝**——因为它同时带多个基因型的信号。
-- **判读是参考不是定论**：阈值默认值基于经验，建议用 `--pure-samples` 提供已知纯样品校准，或在汇总表里读纯样品的背景基线自己定界。
+**看 `summary/verdict_summary.tsv`(或 HTML)的 verdict + advice 两列:**
+
+| 判读<br>Verdict | 含义<br>Meaning | 建议(给做实验的同学)<br>Advice | 关键证据<br>Key evidence |
+|---|---|---|---|
+| **pure 纯菌** | 杂合率 <0.1% | **可保存** | het_rate、robust_rate 都极低 |
+| **divergent 优势菌株/参考差异型** | 有杂合但无强伴侣 | **可保存**;高精度下游可强制纯合化 | shared% 高、伴侣多为 0/1、排除热点后仍稳;`轻度`=robust<0.1% |
+| **contaminated 混杂菌株** | 强混合伴侣(Pb9-Pb22 模式) | **需再分离纯化** | top_partner 两率超阈值;mix_proportion 给成分(如 88% B型+12% 参考型) |
+| uncertain | 位点不足 | 补数据 | n_sites < min_sites |
+
+**辅助判据:** `dp_ratio`>1.5(杂合位点反而更深=真混合);`排除热点后杂合率`仍高=证据坚实;`host_rate/污染reads占比`高=样品制备问题。
 
 ## 参数选择建议 | Parameter Guidance
 
-| 场景 | 建议 |
-|---|---|
-| 常规分析 | 全部默认 |
-| 手上有已知纯样品 | `--pure-samples P1,P2` 自动校准 het 阈值 |
-| 怀疑稀有基因型被漏 | `--min-alt-fraction 0.02`(默认已保留 2%)可再降 |
-| 样品里混了寄主(植物)DNA | 给 `--host-genome` 寄主基因组，自动剔除并报告寄主占比 |
-| 比对质量要求更严/更松 | 调 `--min-mapq`(默认 20；严一点 30，完全不过滤 0) |
-| 样品数 <4 或不要树 | `--skip-tree` |
-| 中途失败重跑 | 直接重跑原命令(断点续传自动跳过已完成步骤；树注解变化会自动重画) |
+- **默认阈值即导师 v4 口径**,先用默认跑;判读边界样品(如恰在 0.1% 附近)再结合证据链人工复核
+- 样品只有 2-3 个:伴侣分析统计力弱,判读以 L1/热点为主(报告会显示证据不足)
+- 寄主污染重的样品务必给 `--host-genome`——寄主 reads 会同时虚抬"污染reads"并干扰 k-mer 基因组估计
+- 想看"不剔除热点"的原始杂合率:对比 `l4_hotspot_excluded_compare.tsv` 两列即可,无需重跑
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -138,22 +153,22 @@ out_dir/
 | `--clean-fastq-dir` | — |  | 已清洗FASTQ目录(给则跳过QC)｜Clean FASTQ dir (skip QC) |
 | `--genome, -g` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
 | `--output-dir, -o` | `mixrace_out` |  | 输出目录｜Output directory |
-| `--repeat-bed` | — |  | 重复/低复杂度区域BED(可选)｜Repeat/low-complexity BED (optional) |
+| `--repeat-bed` | — |  | 额外排除区域BED(与自动热点并集)｜Extra exclude BED (merged with hotspots) |
 | `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜Host genome FASTA (deplete host reads, report host rate) |
-| `--min-mapq` | `20` | int | 比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)｜Min MAPQ: host calling + pathogen BAM filter + stats (0=off) |
+| `--min-mapq` | `20` | int | 比对质量阈值:mapped reads提取+统计口径(0=不过滤)｜Min MAPQ: mapped-read extraction + stats (0=off) |
 | `--threads, -t` | `12` | int | 线程数｜Threads |
 | `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
 | `--read-length, -l` | `150` | int | 测序读长｜Read length |
-| `--step` | — | int | 只跑指定步骤1-7(默认全跑)｜Run single step 1-7 (default all) |
+| `--step` | — | int | 只跑指定步骤1-5(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告)｜Run single step 1-5 (default all) |
 | `--no-checkpoint` | `False` |  | 禁用断点续传｜Disable checkpoint |
 | `--dry-run` | `False` |  | 只打印命令不执行｜Print commands only |
-| `--min-qual` | `30` | int | 变异QUAL下限｜Min QUAL |
-| `--min-dp` | `15` | int | 位点深度下限｜Min DP |
-| `--min-alt-reads` | `3` | int | ALT支持reads下限｜Min ALT reads |
-| `--min-coverage` | `30` | int | freebayes --min-coverage(默认30)｜freebayes min-coverage (default 30) |
-| `--min-alt-fraction` | `0.02` | float | freebayes --min-alternate-fraction(默认0.02)｜freebayes min-alternate-fraction (default 0.02) |
-| `--pure-samples` | — |  | 已知纯样品(逗号分隔,校准het阈值)｜Known-pure samples (comma-sep, calibrate) |
-| `--skip-tree` | `False` |  | 跳过系统发育树｜Skip phylogenetic tree |
+| `--pure-het-threshold` | `0.001` | float | 总杂合率低于此值判纯菌(0.001=0.1%)｜Pure threshold |
+| `--partner-alt-rate` | `0.8` | float | 混合伴侣:ALT携带率阈值｜Partner ALT-carrier threshold |
+| `--partner-hom-rate` | `0.5` | float | 混合伴侣:伴侣纯合1/1占比阈值｜Partner homozygous threshold |
+| `--min-sites` | `1000` | int | 最低有GT位点数,低于判uncertain｜Min called sites |
+| `--window-size` | `100000` | int | 热点窗口大小bp｜Hotspot window size |
+| `--hotspot-fold` | `2.0` | float | 热点:窗口杂合率>该倍数x自身全基因组率｜Hotspot fold |
+| `--hotspot-min-median` | `0.1` | float | 热点:窗口候选中位杂合率下限｜Hotspot min median rate |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -163,32 +178,38 @@ out_dir/
 | `--clean-fastq-dir` | — |  |  |
 | `-g, --genome` | 必填 |  |  |
 | `-o, --output-dir` | `mixrace_out` |  |  |
-| `--repeat-bed` | — |  |  |
+| `--repeat-bed` | — |  | 额外排除区域BED(与自动热点并集)｜extra exclude BED (merged with hotspots) |
 | `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜host genome FASTA (deplete host reads, report host rate) |
-| `--min-mapq` | `20` | int | 比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)｜min MAPQ for host calling / pathogen BAM filter / stats (0=off) |
+| `--min-mapq` | `20` | int | 比对质量阈值:mapped reads提取+统计口径(0=不过滤)｜min MAPQ for mapped-read extraction + stats (0=off) |
 | `-t, --threads` | `12` | int |  |
 | `-k, --kmer-size` | `21` | int |  |
 | `-l, --read-length` | `150` | int |  |
 | `--step` | — | int |  |
 | `--no-checkpoint` | — | store_false |  |
 | `--dry-run` | — | store_true |  |
-| `--min-qual` | `30` | int |  |
-| `--min-dp` | `15` | int |  |
-| `--min-alt-reads` | `3` | int |  |
-| `--min-coverage` | `30` | int | freebayes --min-coverage(默认30) |
-| `--min-alt-fraction` | `0.02` | float | freebayes --min-alternate-fraction(默认0.02,保低频等位) |
-| `--pure-samples` | — |  | 已知纯样品(逗号分隔,校准het阈值)｜known-pure samples (calibrate) |
-| `--skip-tree` | — | store_true | 跳过系统发育树｜skip phylogenetic tree |
+| `--pure-het-threshold` | `0.001` | float | 总杂合率低于此值判纯菌(默认0.001=0.1%%)｜pure threshold |
+| `--partner-alt-rate` | `0.8` | float | 混合伴侣:ALT携带率阈值(默认0.8)｜partner ALT-carrier threshold |
+| `--partner-hom-rate` | `0.5` | float | 混合伴侣:伴侣纯合1/1占比阈值(默认0.5)｜partner homozygous threshold |
+| `--min-sites` | `1000` | int | 最低有GT位点数,低于判uncertain(默认1000)｜min called sites |
+| `--window-size` | `100000` | int | 热点窗口大小bp(默认100kb)｜hotspot window size |
+| `--hotspot-fold` | `2.0` | float | 热点:窗口杂合率>该倍数×自身全基因组率(默认2)｜hotspot fold |
+| `--hotspot-min-median` | `0.1` | float | 热点:窗口在候选中的中位杂合率下限(默认0.1)｜hotspot min median rate |
 
 <!-- END PARAMS:auto -->
 
 ## 依赖 | Dependencies
 
-- bwa-mem2(`cphasing`)、samtools/bcftools/bedtools/freebayes(`align`)、R+ggplot2(`WGCNA_v.1.73`)、**R+ggtree(`r`，画树)**、smudgescope 自带 envs
+| 工具/库<br>Tool/Lib | 用途<br>Purpose | 环境<br>Env |
+|---|---|---|
+| fastq2vcf-gtx(biopytools 模块) | 比对+gVCF+联合 calling | `~/software/gtx`(第三方二进制,直调) |
+| bwa-mem2 / samtools / bcftools | 寄主索引 / 提取计数 / query | cphasing / align 域环境 |
+| smudgescope(biopytools 模块) | genomescope + smudgeplot | smudgescope 环境 |
+| numpy / matplotlib / biopython | 评估引擎 / 全套图 / NJ 树 | biopytools env |
 
 ## 常见问题 | FAQ
 
-- **Q：为什么所有样品都判「混合」？** 检查 mean_depth——深度 <50x 时低频信号不可靠；或参考基因组本身来自混合孢子(群体多样性)会抬高背景杂合率。
-- **Q：树上的样品名和表格对不上？** 树叶名是 `编号[判读]杂合率`，与汇总表同源；若刚改过阈值重跑，树会自动重画(注解比对守卫)。
-- **Q：为什么没有树？** 样品 <4、filtered VCF 缺失、`--skip-tree`、或 IQ-TREE/vcf2tree 失败(见日志)。
-- **Q：报告能发给别人看吗？** `mixrace_report.html` 是单文件，所有图内嵌，直接发送即可。
+- **Pb9 那种样品会怎么判?** contaminated,partner=Pb22,报告写明"≈88% Pb22型+12% 参考型",建议再分离纯化
+- **群2/群3 那种 4-5% 杂合的近缘样品呢?** divergent(伴侣互为 0/1,纯合占比不过线)→ 可保存,需要高精度时强制纯合化
+- **旧 v0.2 输出目录能接着跑吗?** 不能,目录结构与后端都变了(02_alignment/03_variants 已不存在),换新目录重跑
+- **`--step 3` 要重跑但 GTX 太慢?** GTX 有断点;VCF 已在 `02_gtx/` 就直接 `--step 3`,秒级起评估
+- **图里中文变方框?** 系统无中文字体时模块自动退英文标签,不影响数据

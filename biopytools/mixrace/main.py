@@ -1,26 +1,21 @@
-"""mixrace 主入口与编排(单倍体 freebayes 后端)|mixrace main (haploid freebayes backend).
+"""mixrace 主入口与编排(v0.3 GTX 后端)|mixrace main (GTX backend, three-branch verdict).
 
-解析参数 → 按 --step 调度:01 索引+QC / 02 比对+markdup / 03 freebayes -p 1 / 04 过滤 /
-05 AFS(杂合率+形态+优势株占比) / 06 k-mer(smudgescope) / 07 判读+报告。逐样本。
-|argparse -> --step dispatch over 7 per-sample steps (bwa-mem2+markdup, freebayes -p 1,
-AFS analysis, smudgescope, verdict). Advisor methodology v2.
+解析参数 → 按 --step 调度:01 QC+寄主剔除 / 02 GTX 比对+联合calling /
+03 杂合评估+三分支判读 / 04 mapped-reads k-mer / 05 图+报告。
+|argparse -> --step dispatch: QC+host depletion / GTX / het-eval verdicts /
+mapped-read k-mer / figures+report. Mentor methodology v4.
 """
 import argparse
 import os
-import sys
 from pathlib import Path
 
 from .config import MixraceConfig
 from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_software_versions
 from .samples import discover_samples
-from .pipeline import (run_index, run_qc, run_align, run_call_freebayes, run_filter,
-                       run_depth, read_cached_depth, run_kmer, run_tree,
-                       parse_genomescope_model)
+from .pipeline import run_index, run_qc, run_depth, read_cached_depth, run_kmer
 from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
-from .vaf_analysis import parse_freebayes, compute_afs
-from .verdict import judge, calibrate_thresholds
-from .reporter import (generate_vaf_histogram_r, build_sample_report, build_summary_table,
-                       build_html_report)
+from .gtx_backend import run_gtx, extract_mapped_fastq, count_mapped
+from .het_eval import run_het_eval, write_tsv
 
 
 def _genome_size(fa_path: str) -> int:
@@ -41,99 +36,151 @@ def _genome_size(fa_path: str) -> int:
 
 def _argv_to_config() -> MixraceConfig:
     p = argparse.ArgumentParser(prog="mixrace",
-                                description="WGS混合小种检测(单倍体)|WGS mixed-race detection (haploid)")
+                                description="WGS混合小种检测(三分支判读)|WGS mixed-race detection")
     p.add_argument("-i", "--input", dest="fastq_dir", default=None)
     p.add_argument("--clean-fastq-dir", dest="clean_fastq_dir", default=None)
     p.add_argument("-g", "--genome", required=True)
     p.add_argument("-o", "--output-dir", dest="output_dir", default="mixrace_out")
-    p.add_argument("--repeat-bed", dest="repeat_bed", default=None)
+    p.add_argument("--repeat-bed", dest="repeat_bed", default=None,
+                   help="额外排除区域BED(与自动热点并集)|extra exclude BED (merged with hotspots)")
     p.add_argument("--host-genome", dest="host_genome", default=None,
                    help="寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)"
                         "|host genome FASTA (deplete host reads, report host rate)")
     p.add_argument("--min-mapq", dest="min_mapq", type=int, default=20,
-                   help="比对质量阈值:寄主判定+病原最终BAM过滤+统计口径(0=不过滤)"
-                        "|min MAPQ for host calling / pathogen BAM filter / stats (0=off)")
+                   help="比对质量阈值:mapped reads提取+统计口径(0=不过滤)"
+                        "|min MAPQ for mapped-read extraction + stats (0=off)")
     p.add_argument("-t", "--threads", type=int, default=12)
     p.add_argument("-k", "--kmer-size", type=int, default=21)
     p.add_argument("-l", "--read-length", type=int, default=150)
     p.add_argument("--step", type=int, default=None)
     p.add_argument("--no-checkpoint", dest="enable_checkpoint", action="store_false")
     p.add_argument("--dry-run", dest="dry_run", action="store_true")
-    p.add_argument("--min-qual", type=int, default=30)
-    p.add_argument("--min-dp", type=int, default=15)
-    p.add_argument("--min-alt-reads", type=int, default=3)
-    p.add_argument("--min-coverage", type=int, default=30, help="freebayes --min-coverage(默认30)")
-    p.add_argument("--min-alt-fraction", type=float, default=0.02,
-                   help="freebayes --min-alternate-fraction(默认0.02,保低频等位)")
-    p.add_argument("--pure-samples", dest="pure_samples", default=None,
-                   help="已知纯样品(逗号分隔,校准het阈值)|known-pure samples (calibrate)")
-    p.add_argument("--skip-tree", dest="skip_tree", action="store_true",
-                   help="跳过系统发育树|skip phylogenetic tree")
+    # 三分支判读阈值|three-branch verdict thresholds
+    p.add_argument("--pure-het-threshold", dest="pure_het_threshold", type=float, default=0.001,
+                   help="总杂合率低于此值判纯菌(默认0.001=0.1%%)|pure threshold")
+    p.add_argument("--partner-alt-rate", dest="partner_alt_min", type=float, default=0.8,
+                   help="混合伴侣:ALT携带率阈值(默认0.8)|partner ALT-carrier threshold")
+    p.add_argument("--partner-hom-rate", dest="partner_hom_min", type=float, default=0.5,
+                   help="混合伴侣:伴侣纯合1/1占比阈值(默认0.5)|partner homozygous threshold")
+    p.add_argument("--min-sites", dest="min_sites", type=int, default=1000,
+                   help="最低有GT位点数,低于判uncertain(默认1000)|min called sites")
+    p.add_argument("--window-size", dest="window_size", type=int, default=100000,
+                   help="热点窗口大小bp(默认100kb)|hotspot window size")
+    p.add_argument("--hotspot-fold", dest="hotspot_fold", type=float, default=2.0,
+                   help="热点:窗口杂合率>该倍数×自身全基因组率(默认2)|hotspot fold")
+    p.add_argument("--hotspot-min-median", dest="hotspot_min_median", type=float, default=0.10,
+                   help="热点:窗口在候选中的中位杂合率下限(默认0.1)|hotspot min median rate")
     a = p.parse_args()
-    pure = a.pure_samples.split(",") if a.pure_samples else None
     return MixraceConfig(
         fastq_dir=a.fastq_dir or "", clean_fastq_dir=a.clean_fastq_dir,
         genome=a.genome, output_dir=a.output_dir, repeat_bed=a.repeat_bed,
         host_genome=a.host_genome, min_mapq=a.min_mapq,
+        pure_het_threshold=a.pure_het_threshold, partner_alt_min=a.partner_alt_min,
+        partner_hom_min=a.partner_hom_min, min_sites=a.min_sites,
+        window_size=a.window_size, hotspot_fold=a.hotspot_fold,
+        hotspot_min_median=a.hotspot_min_median,
         threads=a.threads, kmer_size=a.kmer_size, read_length=a.read_length,
-        step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run,
-        min_qual=a.min_qual, min_dp=a.min_dp, min_alt_reads=a.min_alt_reads,
-        freebayes_min_coverage=a.min_coverage,
-        freebayes_min_alternate_fraction=a.min_alt_fraction, pure_samples=pure,
-        skip_tree=a.skip_tree)
+        step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run)
 
 
-def _sample_afs(config, runner, sample: str, filt_vcf: str, genome_size: int):
-    """从 freebayes VCF 查 AO/RO → 杂合率/AFS形态/优势株占比;写 vaf.tsv。
-    |query AO/RO from freebayes VCF -> het_rate/AFS/dominant; write vaf.tsv."""
-    ok, qtxt, _ = runner.run_conda(
-        config.bcftools_path,
-        ["query", "-f", "%CHROM\t%POS\t%REF\t%ALT\t[%RO]\t[%AO]\n", str(filt_vcf)],
-        f"query AO/RO|query AO/RO {sample}")
-    recs = parse_freebayes(qtxt) if ok else []
-    afs = compute_afs(recs, config.min_alt_reads, genome_size)
-    # 写 vaf.tsv(每位点 RO/AO/VAF)|write per-site RO/AO/VAF
-    vaf_dir = Path(config.output_dir) / "05_vaf"
-    vaf_dir.mkdir(parents=True, exist_ok=True)
-    vaf_tsv = vaf_dir / f"{sample}.vaf.tsv"
-    with open(vaf_tsv, "w") as fh:
-        fh.write("chrom\tpos\tref\talts\tro\taos\tvafs\n")
-        for r in recs:
-            tot = (r["ro"] + sum(r["aos"])) or 1
-            fh.write("\t".join([
-                r["chrom"], str(r["pos"]), r["ref"], ",".join(r["alts"]),
-                str(r["ro"]), ",".join(str(x) for x in r["aos"]),
-                ",".join(f"{a/tot:.4f}" for a in r["aos"])]) + "\n")
-    return afs
+def _read_verdict_table(config) -> list:
+    """--step 4/5 重跑:读已判读表(实现在 het_eval)|reread verdict table (impl in het_eval)."""
+    from .het_eval import read_verdict_table
+    return read_verdict_table(config)
+
+
+def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
+    """step3b: 逐样本 reads 账本(host/mapping/污染)+深度+覆盖广度。
+    |per-sample reads accounting (host/map/contamination) + depth + breadth."""
+    eval_dir = Path(config.output_dir) / "03_het_eval"
+    eval_dir.mkdir(parents=True, exist_ok=True)
+    stats_by_sample = {}
+    for row in rows:
+        sample = row["sample"]
+        bam = str(Path(bam_dir) / f"{sample}.bam")
+        bam_exists = Path(bam).exists()
+        # 计数表(供 pathogen_alignment_stats 读)|counts file for pathogen stats
+        if bam_exists and not (eval_dir / f"{sample}.mapq_stats.tsv").exists():
+            total, mapped = count_mapped(runner, config, bam)
+            if total is not None and mapped is not None:
+                (eval_dir / f"{sample}.mapq_stats.tsv").write_text(
+                    f"field\tvalue\ntotal_primary_reads\t{total}\n"
+                    f"mapped_q_reads\t{mapped}\n", encoding="utf-8")
+        stats_file = Path(config.output_dir) / "alignment_qc" / f"{sample}.stats.txt"
+        depth = read_cached_depth(stats_file, genome_size)
+        if depth is None and bam_exists:
+            depth = run_depth(runner, config, sample, bam, genome_size)
+        row["mean_depth"] = depth if depth is not None else 0.0
+        try:
+            hs = pathogen_alignment_stats(config, runner, sample, bam, genome_size,
+                                          mean_depth=row["mean_depth"])
+        except Exception as e:
+            runner.logger.warning(f"{sample}: reads统计失败|reads stats failed: {e}")
+            hs = None
+        if hs:
+            row["host_rate"] = hs.get("host_rate")
+            row["pathogen_map_rate"] = hs.get("pathogen_map_rate")
+            row["contamination_rate"] = hs.get("unassigned_rate")
+            row["breadth_1x"] = hs.get("breadth_1x")
+        stats_by_sample[sample] = hs
+    return stats_by_sample
+
+
+def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
+    """step5: 全套图 + 判读汇总表 + 单样本报告 + HTML|figures + reports."""
+    from .reporter import build_sample_report, build_summary_table, build_html_report
+    rep_dir = Path(config.output_dir) / "06_report"
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    summ_dir = Path(config.output_dir) / "summary"
+    summ_dir.mkdir(parents=True, exist_ok=True)
+    # 图(失败降级,不阻断报告)|figures (degrade gracefully)
+    figures = {}
+    try:
+        from .figures import build_figures
+        fig_dir = Path(config.output_dir) / "05_figures"
+        payloads = {"rows": rows,
+                    "het_eval_dir": Path(config.output_dir) / "03_het_eval"}
+        paths = build_figures(config, logger, fig_dir, payloads)
+        figures = {p.stem: str(p) for p in paths}
+    except Exception as e:
+        logger.warning(f"绘图失败(报告继续)|figure generation failed: {e}")
+    # 汇总表|summary table
+    tsv, html = build_summary_table(rows)
+    (summ_dir / "verdict_summary.tsv").write_text(tsv, encoding="utf-8")
+    (summ_dir / "verdict_summary.html").write_text(html, encoding="utf-8")
+    # 单样本 md|per-sample markdown
+    for row in rows:
+        (rep_dir / f"{row['sample']}.report.md").write_text(
+            build_sample_report(row["sample"], row, figures), encoding="utf-8")
+    # 自包含 HTML|self-contained HTML
+    (summ_dir / "mixrace_report.html").write_text(
+        build_html_report("根肿菌样本混杂评估报告", rows, figures), encoding="utf-8")
+    logger.info(f"汇总表已写|summary written: {summ_dir / 'verdict_summary.tsv'}")
 
 
 def run_pipeline(config, runner, ckpt, logger):
-    """7 步编排(单倍体,逐样本)|orchestrate 7 per-sample steps by --step."""
+    """5 步编排|orchestrate 5 steps by --step."""
     step = config.step
-    thr = {"het_pure": config.het_pure, "het_suspicious": config.het_suspicious,
-           "het_impure": config.het_impure, "min_depth": config.min_depth}
     genome_size = _genome_size(config.genome)
     logger.info(f"基因组大小|genome size: {genome_size} bp")
 
-    # 01 索引 + QC|index + QC
+    # 01 QC + 寄主剔除|QC + host depletion
     if step in (None, 1):
-        idx_dir = run_index(config, runner, ckpt)
+        run_index(config, runner, ckpt)
         clean_dir = run_qc(config, runner, ckpt)
     else:
-        idx_dir = Path(config.output_dir) / "00_pipeline_info" / "index"
         clean_dir = (Path(config.clean_fastq_dir) if config.clean_fastq_dir
                      else Path(config.output_dir) / "01_qc")
 
     samples = []
-    if step in (None, 1, 2, 3, 4, 5, 7):
+    if step in (None, 1, 2, 4):
         src = str(clean_dir) if Path(str(clean_dir)).is_dir() else config.fastq_dir
         samples = discover_samples(src) if src and os.path.isdir(src) else []
         logger.info(f"检测到 {len(samples)} 个样本|{len(samples)} samples detected")
 
-    # 01b 寄主剔除(--host-genome;step1 内执行,下游比对/k-mer 改用 nohost fastq)
-    # |host depletion inside step1; downstream align/k-mer switch to nohost fastq
+    # 01b 寄主剔除(--host-genome)|host depletion
     host_failed = set()
-    kmer_src = clean_dir
+    depleted_dir = clean_dir
     if config.host_genome:
         host_dir = Path(config.output_dir) / "host_filter"
         if step in (None, 1):
@@ -145,191 +192,61 @@ def run_pipeline(config, runner, ckpt, logger):
                     s["r1"], s["r2"] = res["nohost_r1"], res["nohost_r2"]
                 else:
                     host_failed.add(s["sample"])
-            kmer_src = host_dir
+            depleted_dir = host_dir   # 真实 run_host_filter 已建目录|dir created by host filter
         elif host_dir.is_dir():
             # step>=2 单独重跑:从 nohost 产物重新发现样本|rediscover from nohost outputs
             samples = discover_samples(str(host_dir))
+            depleted_dir = host_dir
             logger.info(f"寄主剔除目录发现 {len(samples)} 个样本|{len(samples)} samples "
                         f"from host_filter dir")
-            kmer_src = host_dir
         else:
-            # 无剔除产物:下游 k-mer 沿用 clean fastq(与警告语义一致,勿读空目录)
-            # |no host outputs: k-mer keeps clean fastq (matches the warning below)
             logger.warning("启用了寄主剔除但 host_filter/ 不存在(先跑 --step 1),"
                            "下游沿用 clean fastq|host_filter/ missing, using clean fastq")
 
-    fa = str(Path(str(idx_dir)) / os.path.basename(config.genome))
-    afs = {}
-    # 02-05 逐样本:比对→freebayes→过滤→AFS|per-sample align→freebayes→filter→AFS
-    for s in samples:
-        sample = s["sample"]
-        if sample in host_failed:
-            logger.error(f"{sample}: 寄主剔除失败,跳过下游步骤|host filter failed, "
-                         f"downstream skipped")
-            continue
-        if step in (None, 2):
-            bam = run_align(config, runner, ckpt, sample, s["r1"], s["r2"], str(idx_dir))
-        else:
-            bam = Path(config.output_dir) / "02_alignment" / f"{sample}.sorted.markdup.bam"
-        if step in (None, 3):
-            vcf = run_call_freebayes(config, runner, ckpt, sample, str(bam), fa)
-        else:
-            vcf = Path(config.output_dir) / "03_variants" / f"{sample}.raw.vcf.gz"
-        if step in (None, 4):
-            filt = run_filter(config, runner, ckpt, sample, str(vcf))
-        else:
-            filt = Path(config.output_dir) / "04_filtered" / f"{sample}.filtered.vcf.gz"
-        if step in (None, 5):
-            afs[sample] = _sample_afs(config, runner, sample, str(filt), genome_size)
-            vaf_tsv = Path(config.output_dir) / "05_vaf" / f"{sample}.vaf.tsv"
-            png = Path(config.output_dir) / "05_vaf" / f"{sample}.vaf_histogram.png"
-            script = generate_vaf_histogram_r(str(vaf_tsv), str(png), config.rscript_path)
-            runner.run_conda(config.rscript_path, [script], f"AFS直方图|AFS histogram {sample}")
+    # 02 GTX 比对+联合calling|GTX mapping + joint calling
+    bam_dir = str(Path(config.output_dir) / "02_gtx" / "03_mapping" / "bam")
+    vcf = str(Path(config.output_dir) / "02_gtx" / "04_joint_calling" /
+              "gtx_joint_raw.vcf.gz")
+    if step in (None, 2):
+        bam_dir, vcf = run_gtx(config, runner, ckpt, str(depleted_dir))
+        if vcf is None:
+            logger.error("GTX 失败,后续步骤中止|GTX failed, downstream aborted")
+            write_software_versions(
+                config, logger,
+                str(Path(config.output_dir) / "00_pipeline_info" / "software_versions.yml"))
+            return
 
-    # 06 k-mer 谱(smudgescope,读 nohost/clean fastq)|k-mer spectrum via smudgescope
-    if step in (None, 6):
-        run_kmer(config, runner, ckpt, str(kmer_src))
+    # 03 杂合评估+判读+reads账本|het eval + verdicts + reads accounting
+    if step in (None, 3):
+        rows = run_het_eval(config, runner, ckpt, vcf)
+        if rows:
+            _reads_accounting(config, runner, rows, bam_dir, genome_size)
+    else:
+        rows = _read_verdict_table(config)
+        if step == 5:
+            _reads_accounting(config, runner, rows, bam_dir, genome_size)
 
-    # 07 判读 + 报告|verdict + report
-    if step in (None, 7):
-        rows = _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_size)
-        summ_dir = Path(config.output_dir) / "summary"
-        summ_dir.mkdir(parents=True, exist_ok=True)
-        tsv, html = build_summary_table(rows)
-        (summ_dir / "verdict_summary.tsv").write_text(tsv)
-        (summ_dir / "verdict_summary.html").write_text(html)
-        logger.info(f"汇总表已写|summary written: {summ_dir / 'verdict_summary.tsv'}")
+    # 04 mapped reads 提取 + k-mer|mapped reads + smudgescope
+    if step in (None, 4):
+        mapped_dir = Path(config.output_dir) / "04_kmer" / "mapped_fastq"
+        names = [r["sample"] for r in rows] or [s["sample"] for s in samples]
+        for name in names:
+            if name in host_failed:
+                continue
+            bam = str(Path(bam_dir) / f"{name}.bam")
+            if not Path(bam).exists() and not runner.dry_run:
+                logger.warning(f"{name}: BAM 缺失,跳过 k-mer 输入|BAM missing, k-mer skipped")
+                continue
+            extract_mapped_fastq(config, runner, ckpt, name, bam)
+        run_kmer(config, runner, ckpt, str(mapped_dir))
+
+    # 05 图+报告|figures + report
+    if step in (None, 5) and rows:
+        _figures_and_report(config, runner, ckpt, logger, rows, genome_size)
 
     write_software_versions(
         config, logger,
         str(Path(config.output_dir) / "00_pipeline_info" / "software_versions.yml"))
-
-
-def _read_heterozygosity(config, sample: str):
-    model = Path(config.output_dir) / "06_kmer" / sample / "02_genomescope" / "model.txt"
-    if model.exists():
-        return parse_genomescope_model(model.read_text()).get("heterozygosity")
-    return None
-
-
-def _fmt_rate(v):
-    """0-1 比率 → 百分比字符串(None → —)|ratio to percent string."""
-    return f"{v*100:.2f}%" if v is not None else "—"
-
-
-def _fmt_pct(v):
-    """已是百分数的值 → 字符串(None → —)|already-percent value to string."""
-    return f"{v:.2f}%" if v is not None else "—"
-
-
-def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_size):
-    """step07: 逐样品判读 + 报告(支持单独重跑:缺 AFS 则从已过滤 VCF 重算)。|step07 verdict+report."""
-    filt_base = Path(config.output_dir)
-    for sample in [s["sample"] for s in samples]:
-        if sample not in afs:
-            filt = filt_base / "04_filtered" / f"{sample}.filtered.vcf.gz"
-            if filt.exists():
-                afs[sample] = _sample_afs(config, runner, sample, str(filt), genome_size)
-
-    if config.pure_samples:
-        pure_rows = [afs[p] for p in config.pure_samples if p in afs]
-        if len(pure_rows) >= 2:
-            cal = calibrate_thresholds(pure_rows)
-            if cal.get("het_pure") is not None:
-                thr["het_pure"] = cal["het_pure"]
-            logger.info(f"het 阈值已用 {len(pure_rows)} 个纯样品校准|het threshold calibrated")
-
-    rows = []
-    samples_data = []
-    for s in samples:
-        sample = s["sample"]
-        a = afs.get(sample, {})
-        # 数据缺失(VCF缺/query失败/0变异)≠真纯,交 judge() no_data 走 uncertain|
-        # Missing data (no VCF/query failed/0 variants) != pure; judge() no_data -> uncertain.
-        no_data = (not a) or a.get("total_variant", 0) == 0
-        if no_data:
-            logger.warning(f"{sample}: 未获取到变异数据,判读 uncertain(先跑 --step 5)"
-                           f"|No variant data, verdict uncertain (run --step 5 first)")
-        bam = filt_base / "02_alignment" / f"{sample}.sorted.markdup.bam"
-        # 深度优先读缓存 stats.txt(--step 7 重跑不重算 samtools stats,省 ~40min);
-        # 缓存缺失才跑 samtools stats|prefer cached stats.txt (step-7 rerun skips stats);
-        stats_file = filt_base / "alignment_qc" / f"{sample}.stats.txt"
-        depth = read_cached_depth(stats_file, genome_size)
-        if depth is None and bam.exists():
-            depth = run_depth(runner, config, sample, str(bam), genome_size)
-        het = _read_heterozygosity(config, sample)
-        mean_depth_v = depth if depth is not None else 0.0
-        # 比对统计(寄主率/mapping率/覆盖广度/未归属;自动合并 host_filter 阶段表)
-        # |align stats (host rate / map rate / breadth / unassigned), merged with host stage
-        try:
-            hstats = pathogen_alignment_stats(config, runner, sample, str(bam), genome_size,
-                                              mean_depth=mean_depth_v)
-        except Exception as e:
-            logger.warning(f"{sample}: 比对统计失败,相关列置空|align stats failed: {e}")
-            hstats = None
-        metrics = {
-            "het_rate": a.get("het_rate", 0.0), "het_sites": a.get("het_sites", 0),
-            "afs_shape": a.get("afs_shape", "monoclonal"),
-            "dominant_proportion": a.get("dominant_proportion"),
-            "maf": a.get("maf"),
-            "mean_depth": mean_depth_v,
-            "heterozygosity": het,
-            "host_rate": hstats.get("host_rate") if hstats else None,
-            "pathogen_map_rate": hstats.get("pathogen_map_rate") if hstats else None,
-            "breadth_1x": hstats.get("breadth_1x") if hstats else None,
-            "unassigned_rate": hstats.get("unassigned_rate") if hstats else None,
-        }
-        v = judge({**metrics, "no_data": no_data}, thr)
-        # 纯样品不显示优势株占比(杂合位点太少,占比无统计意义)|hide dominant for pure samples
-        show_dom = None if v["verdict"] == "single_genotype" else metrics["dominant_proportion"]
-        metrics_disp = {**metrics, "dominant_proportion": show_dom}
-        rep_dir = Path(config.output_dir) / "07_report"
-        rep_dir.mkdir(parents=True, exist_ok=True)
-        paths = {"afs_histogram": f"../05_vaf/{sample}.vaf_histogram.png",
-                 "genomescope": f"../06_kmer/{sample}/02_genomescope/linear_plot.png"}
-        (rep_dir / f"{sample}.report.md").write_text(build_sample_report(sample, metrics_disp, v, paths))
-        rows.append({
-            "sample": sample, "verdict": v["verdict"], "confidence": v["confidence"],
-            "het_rate": f"{metrics['het_rate']*100:.4f}%",
-            "afs_shape": metrics["afs_shape"],
-            "dominant_proportion": f"{show_dom*100:.1f}%" if show_dom is not None else "—",
-            "mean_depth": round(metrics["mean_depth"], 1),
-            "host_rate": _fmt_rate(metrics["host_rate"]),
-            "pathogen_map_rate": _fmt_rate(metrics["pathogen_map_rate"]),
-            "breadth_1x": _fmt_pct(metrics["breadth_1x"]),
-            "unassigned_rate": _fmt_rate(metrics["unassigned_rate"]),
-        })
-        # 合并 HTML 报告用的完整数据(含图片绝对路径)|full data + image paths for merged HTML
-        samples_data.append({
-            "sample": sample, "verdict": v["verdict"], "confidence": v["confidence"],
-            "rationale": v["rationale"],
-            "het_rate": metrics["het_rate"], "afs_shape": metrics["afs_shape"],
-            "dominant_proportion": show_dom, "mean_depth": metrics["mean_depth"],
-            "host_rate": metrics["host_rate"],
-            "pathogen_map_rate": metrics["pathogen_map_rate"],
-            "breadth_1x": metrics["breadth_1x"],
-            "unassigned_rate": metrics["unassigned_rate"],
-            "metrics": metrics_disp,
-            "images": {
-                "afs": str(filt_base / "05_vaf" / f"{sample}.vaf_histogram.png"),
-                "genomescope": str(filt_base / "06_kmer" / sample / "02_genomescope" / "linear_plot.png"),
-                "smudgeplot": str(filt_base / "06_kmer" / sample / "03_smudgeplot" / f"{sample}_smudgeplot.png"),
-            },
-        })
-        logger.info(f"{sample}: {v['verdict']} (置信|confidence {v['confidence']}) "
-                    f"het={metrics['het_rate']*100:.4f}% shape={metrics['afs_shape']}")
-    # 系统发育树(判读后建;叶标签标注 样品+判读+杂合率;样品<4/缺VCF/--skip-tree 跳过)
-    # |phylogenetic tree after verdicts (tips = sample[verdict]het); auto-skip if <4
-    annotations = {d["sample"]: {"verdict": d["verdict"], "het_rate": d.get("het_rate")}
-                   for d in samples_data}
-    tree_png = run_tree(config, runner, ckpt, samples, annotations)
-    # 合并 HTML 报告(单文件,图片内嵌)|merged self-contained HTML report
-    html_path = Path(config.output_dir) / "summary" / "mixrace_report.html"
-    html_path.parent.mkdir(parents=True, exist_ok=True)
-    html_path.write_text(build_html_report("根肿菌混合小种检测报告", samples_data, tree_png),
-                         encoding="utf-8")
-    logger.info(f"HTML 报告已写|HTML report written: {html_path}")
-    return rows
 
 
 def main():
@@ -337,7 +254,8 @@ def main():
     config.validate()
     log_file = str(Path(config.output_dir) / "99_logs" / "mixrace.log")
     logger = ModuleLogger(log_file=log_file).get_logger()
-    logger.info(f"mixrace 启动|mixrace start (step={config.step}, clean_fastq_dir={config.clean_fastq_dir})")
+    logger.info(f"mixrace 启动|mixrace start (step={config.step}, "
+                f"host_genome={'yes' if config.host_genome else 'no'})")
     runner = CommandRunner(logger, dry_run=config.dry_run)
     ckpt = CheckpointManager(str(Path(config.output_dir) / "00_pipeline_info" / "checkpoints"), logger)
     try:

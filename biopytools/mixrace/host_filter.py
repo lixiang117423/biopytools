@@ -1,9 +1,9 @@
 """mixrace 寄主剔除|mixrace host-read depletion.
 
 clean fastq → bwa-mem2 比对寄主 → 置信寄主(MAPQ≥Q)read 名单 → 整对剔除 → nohost fastq;
-病原比对后合并统计(寄主率/mapping率/覆盖度/未归属reads)。
+病原比对后合并统计(寄主率/mapping率/覆盖度/污染reads,即两步都未比对上的reads)。
 |clean fastq -> align to host -> confident host names (MAPQ>=Q) -> drop whole pairs
--> nohost fastq; merge pathogen stats (host rate / map rate / breadth / unassigned).
+-> nohost fastq; merge pathogen stats (host / map / breadth / contamination reads).
 """
 import gzip
 import os
@@ -13,8 +13,22 @@ from itertools import zip_longest
 from pathlib import Path
 from typing import Optional
 
-from .pipeline import _count_bam, _done
+from .pipeline import _done
 from .utils import format_number, get_conda_env
+
+
+def _count_bam(runner, samtools_path: str, bam, excl_flags: str,
+               min_mapq: Optional[int] = None) -> Optional[int]:
+    """samtools view -c 计数(失败 None)|count records (None on failure)."""
+    args = ["view", "-c", "-F", excl_flags]
+    if min_mapq:
+        args += ["-q", str(min_mapq)]
+    args.append(str(bam))
+    ok, out, _ = runner.run_conda(samtools_path, args,
+                                  f"计数|count {os.path.basename(str(bam))}")
+    if ok and out.strip().isdigit():
+        return int(out.strip())
+    return None
 
 # samtools 过滤旗标|samtools exclude flags
 _EXCL_MAPPED = "0x904"    # 排除 unmapped(0x4)+secondary(0x100)+supplementary(0x800)
@@ -175,8 +189,16 @@ def _read_field_tsv(path) -> dict:
 
 
 def read_mapq_stats(config, sample: str) -> dict:
-    """读 align 阶段计数表(02_alignment/{sample}.mapq_stats.tsv)|read align-stage counts."""
-    return _read_field_tsv(Path(config.output_dir) / "02_alignment" / f"{sample}.mapq_stats.tsv")
+    """读比对阶段计数表|read align-stage counts.
+
+    v0.3 写在 03_het_eval/{sample}.mapq_stats.tsv;02_alignment 为 v0.2 遗留回退。
+    |v0.3 path first; 02_alignment kept as v0.2 legacy fallback.
+    """
+    for sub in ("03_het_eval", "02_alignment"):
+        d = _read_field_tsv(Path(config.output_dir) / sub / f"{sample}.mapq_stats.tsv")
+        if d:
+            return d
+    return {}
 
 
 def run_host_index(config, runner, ckpt) -> Path:
@@ -320,8 +342,12 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
         pathogen_mapped = _count_bam(runner, config.samtools_path, bam, _EXCL_MAPPED) or 0
         if total_reads is None:
             total_reads = pathogen_mapped
-    # 覆盖广度(≥1x)|breadth >=1x
-    ok_cov, cov_text, _ = runner.run_conda(config.samtools_path, ["coverage", bam],
+    # 覆盖广度(≥1x;samtools coverage -q 与 MAPQ 统一口径)|breadth >=1x with min-MQ
+    cov_args = ["coverage"]
+    if getattr(config, "min_mapq", 0) > 0:
+        cov_args += ["-q", str(config.min_mapq)]
+    cov_args.append(bam)
+    ok_cov, cov_text, _ = runner.run_conda(config.samtools_path, cov_args,
                                            f"覆盖广度|breadth {sample}")
     cov = parse_samtools_coverage(cov_text if ok_cov else "")
     breadth = cov["covbases_total"] / genome_size * 100 if genome_size else 0.0
@@ -332,6 +358,6 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
     runner.logger.info(
         f"{sample}: 病原mapping率|pathogen map rate: {stats['pathogen_map_rate'] * 100:.2f}%, "
         f"覆盖广度|breadth>=1x: {breadth:.2f}%, "
-        f"未归属reads|unassigned: {format_number(stats['unassigned_reads'])} "
+        f"污染reads|contamination: {format_number(stats['unassigned_reads'])} "
         f"({stats['unassigned_rate'] * 100:.2f}%)")
     return stats

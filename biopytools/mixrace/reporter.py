@@ -1,154 +1,140 @@
-"""mixrace 报告生成|mixrace report generation.
+"""mixrace 报告层(v0.3 三分支)|mixrace reporting (three-branch verdict).
 
-step07 判读配套:VAF 直方图 R 脚本生成、per-sample md 报告、跨样品对比表(tsv+html)、
-合并自包含 HTML 报告(图片 base64 内嵌)、genomescope summary 解析。
-|Verdict-stage reporting: VAF histogram R script, per-sample markdown report,
-cross-sample comparison table (tsv+html), merged self-contained HTML, genomescope parsing.
+判读汇总表(TSV/HTML)、单样本 md 报告(证据链+实验建议)、自包含 HTML(关键图内嵌)。
+|Summary tables, per-sample evidence-chain reports, self-contained HTML.
 """
-from html import escape as _html_escape
-from pathlib import Path
+import base64
+import html as _html
 from typing import Tuple
 
-_SUMMARY_COLS = ["sample", "verdict", "confidence", "het_rate", "afs_shape",
-                 "dominant_proportion", "mean_depth", "host_rate", "pathogen_map_rate",
-                 "breadth_1x", "unassigned_rate"]
+_SUMMARY_COLS = ["sample", "verdict", "advice", "het_rate", "robust_rate",
+                 "shared_only_rate", "top_partner", "mix_proportion",
+                 "het_rate_after_hotspot", "dp_ratio", "host_rate",
+                 "pathogen_map_rate", "contamination_rate", "mean_depth", "breadth_1x"]
+
+_VERDICT_CN = {"pure": "纯菌", "divergent": "优势菌株/参考差异型",
+               "contaminated": "混杂菌株", "uncertain": "不确定"}
+
+_METRIC_EXPLAIN = {
+    "het_rate": "总杂合率:单倍体每个位点本该纯合,出现杂合=混合或错误。这是判读的主指标,像混合比例的指纹。",
+    "robust_rate": "稳健杂合率:只统计 altAD>=5 且 altfrac>=0.2 的杂合位点(排除低深度测序错误)后的杂合率。",
+    "shared_only_rate": "shared-only 杂合率:只统计 ALT 在其他样品也出现的杂合位点(排除样品特异噪声)。",
+    "top_partner": "混合伴侣:在我的杂合位点上携带 ALT 最多的样品——相当于在群体里找与你共享变异的『另一半』。",
+    "mix_proportion": "成分推断:若判混杂,样品约等于 该比例x伴侣型 + 余量x参考型 的混合。",
+    "het_rate_after_hotspot": "排除热点后杂合率:剔除所有混杂样品共享的高差异窗口后剩下的杂合率,仍高则混杂证据坚实。",
+    "dp_ratio": "DP检验:杂合位点深度/纯合位点深度。>1.5 说明杂合位点深度反而更高,是真实混合信号而非低覆盖错误。",
+    "host_rate": "寄主reads占比:比对上寄主基因组的reads比例,代表样品里植物DNA污染程度。",
+    "pathogen_map_rate": "病原mapping率:剔除寄主后比对上病原基因组的reads比例,代表病原数据质量。",
+    "contamination_rate": "污染reads占比:既没比对上寄主、也没比对上病原基因组的reads比例,可能来自其他微生物或低质量reads。",
+    "mean_depth": "平均测序深度:每个位置平均被测了多少遍。",
+    "breadth_1x": "覆盖广度:基因组至少被测到1次的碱基占比;广度低说明有大片区域没测到。",
+}
+
+_EVIDENCE_KEYS = ["het_rate", "robust_rate", "shared_only_rate", "top_partner",
+                  "mix_proportion", "het_rate_after_hotspot", "dp_ratio",
+                  "host_rate", "pathogen_map_rate", "contamination_rate",
+                  "mean_depth", "breadth_1x"]
+
+_KEY_FIGURES = ["het_heatmap_100kb", "pca_3view", "nj_tree", "eval_3panel", "manhattan_grid"]
 
 
-def parse_genomescope_summary(text: str) -> dict:
-    """解析 genomescope2 summary.txt(基因组大小/杂合度)|parse summary.txt.
-
-    容错 tab/:/= 与空格分隔;归一化 genome_size 键。|Tolerates tab/:/= and whitespace;
-    normalizes a genome_size key.
-    """
-    s = {}
-    if not text:
-        return s
-    for line in text.splitlines():
-        k = v = None
-        for sep in ("\t", ":", "="):
-            if sep in line:
-                k, v = line.split(sep, 1)
-                break
-        if k is None:
-            parts = line.split(None, 1)
-            if len(parts) < 2:
-                continue
-            k, v = parts[0], parts[1]
-        v = v.replace("%%", "").replace("%", "").replace(",", "").strip()
-        try:
-            s[k.strip()] = float(v)
-        except ValueError:
-            pass
-    for k, val in list(s.items()):
-        kl = k.lower()
-        if ("haploid length" in kl or "genome size" in kl) and "genome_size" not in s:
-            s["genome_size"] = val
-    return s
+def _html_escape(text: str) -> str:
+    return _html.escape(str(text))
 
 
-def generate_vaf_histogram_r(vaf_tsv: str, png_out: str, rscript_path: str) -> str:
-    """生成 VAF 直方图 R 脚本(返回脚本路径,由 main 用 build_conda_command 执行)
-    |generate the VAF-histogram R script; main runs it via build_conda_command.
-
-    vaf_tsv 须含 vafs 列(逗号分隔的 VAF)|vaf_tsv must have a vafs column (comma-joined VAFs).
-    """
-    script_path = str(Path(png_out).with_suffix(".R"))
-    rcode = f'''#!/usr/bin/env Rscript
-library(ggplot2)
-d <- read.delim("{vaf_tsv}")
-vafs <- as.numeric(unlist(strsplit(as.character(d$vafs), ",")))
-vafs <- vafs[!is.na(vafs)]
-ggplot(data.frame(vafs = vafs), aes(vafs)) +
-  geom_histogram(binwidth = 0.02, fill = "#4C78A8", color = "white") +
-  xlim(0, 1) +
-  labs(x = "VAF", y = "Site count", title = "VAF distribution") +
-  theme_minimal()
-ggsave("{png_out}", width = 6, height = 4)
-'''
-    Path(script_path).write_text(rcode)
-    return script_path
-
-
-def build_sample_report(sample: str, metrics: dict, verdict: dict, paths: dict) -> str:
-    """生成单样品 markdown 报告|build per-sample markdown report.
-
-    Args:
-        sample: 样本名|sample name
-        metrics: 指标 dict(het_rate/het_sites/afs_shape/dominant_proportion/maf/mean_depth/heterozygosity?)
-        verdict: judge() 返回(verdict/confidence/rationale)
-        paths: {label: 相对图路径} 嵌入报告|{label: relative image path}
-    """
-    md = [f"# {sample} 混合小种检测报告|{sample} mixed-race report", ""]
-    md.append(f"**判读|Verdict: {verdict['verdict']}**"
-              f"（置信|confidence: {verdict.get('confidence', 'n/a')}）")
-    md.append("")
-    md.append("## 依据|Rationale")
-    md.append("")
-    md.append(verdict.get("rationale", ""))
-    md.append("")
-    md.append("## 指标|Metrics")
-    md.append("")
-    md.append("| 指标|Metric | 值|Value |")
-    md.append("|---|---|")
-    for k, v in metrics.items():
-        md.append(f"| {k} | {_fmt(k, v)} |")
-    md.append("")
-    if paths:
-        md.append("## 图|Figures")
-        md.append("")
-        for label, p in paths.items():
-            md.append(f"![{label}]({p})")
-            md.append("")
-    return "\n".join(md)
+def _fmt(key, val) -> str:
+    """指标值格式化(None→—;比率→百分比)|format metric value."""
+    if val is None or val == "":
+        return "—"
+    if isinstance(val, str):
+        return val
+    if key in ("het_rate", "robust_rate", "shared_only_rate", "het_rate_after_hotspot"):
+        return f"{val*100:.4f}%" if val < 0.01 else f"{val*100:.2f}%"
+    if key in ("host_rate", "pathogen_map_rate", "contamination_rate"):
+        return f"{val*100:.2f}%"
+    if key == "mix_proportion":
+        return f"{val*100:.0f}%"
+    if key == "dp_ratio":
+        return f"{val:.2f}"
+    if key == "mean_depth":
+        return f"{val:.1f}x"
+    if key == "breadth_1x":
+        return f"{val:.2f}%"
+    return str(val)
 
 
 def build_summary_table(rows: list) -> Tuple[str, str]:
-    """跨样品对比表|build cross-sample comparison table.
-
-    Returns:
-        (tsv_text, html_text)
-    """
+    """判读汇总表(TSV+HTML)|verdict summary table (tsv + html)."""
+    disp = []
+    for r in rows:
+        d = dict(r)
+        for k in ("het_rate", "robust_rate", "shared_only_rate",
+                  "het_rate_after_hotspot", "host_rate", "pathogen_map_rate",
+                  "contamination_rate", "mix_proportion", "dp_ratio",
+                  "mean_depth", "breadth_1x"):
+            if k in d:
+                d[k] = _fmt(k, d[k])
+        d["verdict"] = f"{_VERDICT_CN.get(r.get('verdict'), r.get('verdict', ''))}" \
+                       f"{r.get('subtag', '')}"
+        disp.append(d)
     tsv = "\t".join(_SUMMARY_COLS) + "\n"
-    for r in rows:
-        tsv += "\t".join(str(r.get(c, "")) for c in _SUMMARY_COLS) + "\n"
-    html = '<table border=1><tr>' + "".join(f"<th>{c}</th>" for c in _SUMMARY_COLS) + "</tr>"
-    for r in rows:
-        # 单元格转义防 HTML 注入(样名/文本含 <>&)|escape cells (names/text may contain <>&)
-        html += "<tr>" + "".join(
-            f"<td>{_html_escape(str(r.get(c, '')))}</td>" for c in _SUMMARY_COLS) + "</tr>"
+    for d in disp:
+        tsv += "\t".join(str(d.get(c, "")) for c in _SUMMARY_COLS) + "\n"
+    v_idx = _SUMMARY_COLS.index("verdict")
+    _COLS_CN = {"sample": "样品", "verdict": "判读", "advice": "建议",
+                "het_rate": "总杂合率", "robust_rate": "稳健杂合率",
+                "shared_only_rate": "shared-only杂合率", "top_partner": "混合伴侣",
+                "mix_proportion": "成分推断", "het_rate_after_hotspot": "排除热点后杂合率",
+                "dp_ratio": "DP检验", "host_rate": "寄主占比",
+                "pathogen_map_rate": "病原mapping率", "contamination_rate": "污染reads",
+                "mean_depth": "平均深度", "breadth_1x": "覆盖广度"}
+    html = '<table border=1><tr>' + "".join(
+        f"<th>{_COLS_CN.get(c, c)}<br>{c}</th>" for c in _SUMMARY_COLS) + "</tr>"
+    for d, r in zip(disp, rows):
+        color = {"pure": "#2e7d32", "divergent": "#ef6c00",
+                 "contaminated": "#c62828", "uncertain": "#9e9e9e"}.get(
+                     str(r.get("verdict", "")), "#333")
+        cells = []
+        for ci, c in enumerate(_SUMMARY_COLS):
+            style = f' style="color:{color};font-weight:bold"' if ci == v_idx else ""
+            cells.append(f"<td{style}>{_html_escape(str(d.get(c, '')))}</td>")
+        html += "<tr>" + "".join(cells) + "</tr>"
     html += "</table>"
     return tsv, html
 
 
-# ---------- 合并 HTML 报告(单文件,图片内嵌)|merged self-contained HTML report ----------
-
-_VERDICT_STYLE = {
-    "single_genotype": ("疑似纯 · 单一基因型", "#2e7d32"),
-    "mixed_genotype": ("疑似混合 · 多基因型", "#c62828"),
-    "uncertain": ("不确定 · 需进一步排查", "#f57f17"),
-}
-
-# 指标通俗解释(给无生信基础的研究员)|plain-language metric explanations
-_METRIC_EXPLAIN = {
-    "het_rate": "全基因组杂合率:同时测到两种碱基的位点占整个基因组的比例。根肿菌是单倍体(每个位点本该只有一种碱基),所以越低越纯。<0.01% 基本纯,0.1–1% 可疑,>1% 明显不纯。",
-    "het_sites": "出现两种碱基共存的位点个数(即上面杂合率的绝对计数)。",
-    "afs_shape": "等位频率谱形态:把所有变异位点的次要碱基频率画成分布图的形状。单峰贴在两头=纯;中间有峰=存在混合。",
-    "dominant_proportion": "优势株占比:若为混合,最主要菌株大约占群体的百分比(基于各位点主碱基频率)。仅判为混合/可疑时显示;纯样品杂合位点太少(多为噪声),该占比无统计意义,显示为—。",
-    "maf": "次等位频率(MAF):次要碱基的平均出现频率。纯样品接近 0;混合样品明显升高。",
-    "mean_depth": "平均测序深度:每个位置平均被测了多少遍。≥50x 结论可靠;<50x 需谨慎(可能漏检低频信号)。",
-    "host_rate": "寄主reads占比:比对上寄主基因组(达到质量阈值)的reads 占总reads 的比例,代表样品里寄主污染程度。",
-    "pathogen_map_rate": "病原mapping率:剔除寄主后,剩余reads 里比对上病原基因组(达到质量阈值)的比例,代表病原数据质量。",
-    "breadth_1x": "覆盖广度(≥1x):病原基因组至少被测到1次的碱基占比,和平均深度互补——广度低说明有大片区域没测到。",
-    "unassigned_rate": "未归属reads占比:既没比对上寄主、也没比对上病原基因组的reads 占总reads 的比例,可能来自其他微生物或低质量reads。",
-    "heterozygosity": "GenomeScope k-mer 杂合度:独立于比对的另一视角,从 k-mer 频谱估计的基因组杂合度。",
-    "genome_size": "GenomeScope 估计的基因组大小(bp)。",
-    "ploidy": "Smudgeplot 推断的倍性(根肿菌预期单倍体=1)。",
-}
+def build_sample_report(sample: str, row: dict, figures: dict) -> str:
+    """单样本 md 报告(证据链+建议+图)|per-sample markdown (evidence + advice + figures)."""
+    verdict = str(row.get("verdict", "uncertain"))
+    md = [f"# {sample} 混杂评估报告|{sample} contamination report", ""]
+    md.append(f"**判读|Verdict: {_VERDICT_CN.get(verdict, verdict)}"
+              f"{row.get('subtag', '') or ''}**")
+    md.append("")
+    md.append(f"**{row.get('advice', '')}**")
+    md.append("")
+    md.append("## 依据|Rationale")
+    md.append("")
+    md.append(str(row.get("rationale", "")))
+    md.append("")
+    md.append("## 证据链|Evidence")
+    md.append("")
+    md.append("| 指标<br>Metric | 值<br>Value | 通俗解释<br>Plain words |")
+    md.append("|---|---|---|")
+    for k in _EVIDENCE_KEYS:
+        if k in row:
+            md.append(f"| {k} | {_fmt(k, row.get(k))} | {_METRIC_EXPLAIN.get(k, '')} |")
+    md.append("")
+    if figures:
+        md.append("## 图|Figures")
+        md.append("")
+        for stem, p in figures.items():
+            md.append(f"![{stem}]({p})")
+            md.append("")
+    return "\n".join(md)
 
 
 def _embed_image(path: str):
-    """读 PNG → base64(嵌入 HTML,单文件可分享)|read PNG as base64 for inline embed."""
-    import base64
+    """PNG → base64(单文件HTML内嵌)|PNG to base64 for self-contained HTML."""
     try:
         with open(path, "rb") as fh:
             return base64.b64encode(fh.read()).decode("ascii")
@@ -156,264 +142,37 @@ def _embed_image(path: str):
         return None
 
 
-# 判读中文短标签(用于树叶名)|verdict short label for tree tips
-_TREE_VERDICT_CN = {"single_genotype": "纯", "mixed_genotype": "混合",
-                    "uncertain": "不确定"}
-
-
-def build_annotations_tsv(annotations: dict) -> str:
-    """生成树注解 TSV 文本(sample/verdict/het;het 为空写 '-',避免叶标签尾空格)。
-    |build annotation TSV text (het empty -> '-', avoids trailing space in tip label)."""
-    lines = ["sample\tverdict\thet"]
-    for sample in sorted(annotations):
-        a = annotations[sample]
-        cn = _TREE_VERDICT_CN.get(a.get("verdict", ""), "")
-        het = a.get("het_rate")
-        het_s = f"{het*100:.4f}%" if het is not None else "-"
-        lines.append(f"{sample}\t{cn}\t{het_s}")
-    return "\n".join(lines) + "\n"
-
-
-def generate_tree_png_r(nwk_path: str, png_path: str, annotations: dict) -> str:
-    """生成 ggtree 静态树 PNG 的 R 脚本;叶标签 = 样品编号 + 判读 + 杂合率。
-    |generate ggtree static-tree R script; tip label = sample + verdict + het rate.
-
-    annotations: {sample: {"verdict": str, "het_rate": float}}
-    注解写到 <png>.ann.tsv,R 里按样名 join(ape read.tree 已解析引号样名)。
-    |annotations written to <png>.ann.tsv; joined by tip label in R.
-    """
-    script_path = str(Path(png_path).with_suffix(".R"))
-    ann_path = str(Path(png_path).with_suffix(".ann.tsv"))
-    Path(ann_path).write_text(build_annotations_tsv(annotations), encoding="utf-8")
-    rcode = f'''#!/usr/bin/env Rscript
-try(Sys.setlocale("LC_ALL", "C.UTF-8"), silent = TRUE)   # C locale 下中文防乱码|avoid mojibake
-library(ape)
-library(ggtree)
-library(ggplot2)
-tree <- read.tree("{nwk_path}")
-# 叶标签 = 编号[判读]杂合率(由 ann.tsv join,见下)。严禁对 x 轴设上限:
-# 树深是 root→tip 各段枝长之和,天然就是 max_edge 的数倍,任何 max_edge*N 的上限都
-# 可能小于"树深+offset+文字宽度";ggplot 的 xlim 是硬性丢弃超范围数据(实测整树
-# Removed 25 rows,标签全灭)。不设 xlim 时 geom_tiplab 的 x 参与坐标训练,面板
-# 自动扩到标签处。offset 用相对量(绝对 0.003 会比 ~1e-4 的枝长宽几十倍)。
-# |tips carry sample[verdict]het joined from ann.tsv. NEVER cap the x-axis: root-to-tip depth is a path
-# SUM, several times max_edge, so any max_edge*N cap can fall below depth+offset+
-# text width; ggplot xlim hard-drops out-of-range rows (observed: Removed 25 rows,
-# all labels gone). Without xlim the tiplab x trains the scale and the panel
-# auto-extends. offset stays relative (absolute 0.003 dwarfed ~1e-4 edges).
-max_edge <- max(tree$edge.length, na.rm = TRUE)
-ann <- read.delim("{ann_path}", sep = "\t", header = TRUE, colClasses = "character",
-                  encoding = "UTF-8", check.names = FALSE)
-# 叶标签 = 编号[判读]杂合率(het 为 '-' 只留判读,避免尾空格)|tip = id[verdict]het
-# |tip label = id[verdict]het ('-' het keeps no trailing space)
-ann$tiplab <- ifelse(ann$het == "-", paste0(ann$sample, " [", ann$verdict, "]"),
-                     paste0(ann$sample, " [", ann$verdict, "] ", ann$het))
-p <- ggtree(tree) %<+% ann
-p <- p + geom_tiplab(aes(label = tiplab), size = 3.2,
-                     offset = max_edge * 0.25, align = TRUE)
-# 标签锚点参与坐标训练,但文字渲染宽度不参与——向右溢出面板右缘会被 clip 裁字
-# (实测贴边 9px,末字符被切)。用 expansion 给右侧留 1/3 面板:它是扩面板不是 limit,
-# 不丢数据行(与 xlim 相反);预留宽恒大于最长标签(~5.5cm << 面板 1/3)。
-# |the tiplab x trains the scale but rendered text width does not — overflow gets
-# clipped at the panel edge (observed 9px margin, last chars cut). expansion()
-# reserves 1/3 panel for text: it widens the panel, never drops rows (unlike xlim);
-# the reserve always exceeds the longest label.
-p <- p + scale_x_continuous(expand = expansion(mult = c(0, 0.5)))
-has_support <- !is.null(tree$node.label) && any(nzchar(tree$node.label))
-if (has_support) {{
-  p <- p + geom_text(aes(label = label),
-                     data = function(d) d[!d$isTip & d$label != "", , drop = FALSE],
-                     hjust = -0.3, size = 2.5, color = "#777777")
-}}
-p <- p + labs(title = "样品聚类(系统发育树)|Sample clustering") +
-  theme_tree2() + theme(plot.title = element_text(hjust = 0.5))
-ggsave("{png_path}", p, width = 14, height = max(5, 0.3 * ape::Ntip(tree)),
-       dpi = 150, limitsize = FALSE, device = png, type = "cairo")
-'''
-    Path(script_path).write_text(rcode, encoding="utf-8")
-    return script_path
-
-
-def _fmt(key, val):
-    """指标值格式化(百分比/小数)|format metric value."""
-    if val is None:
-        return "—"
-    if key in ("het_rate", "heterozygosity"):
-        return f"{val*100:.4f}%" if val < 0.01 else f"{val*100:.2f}%"
-    if key in ("dominant_proportion", "maf"):
-        return f"{val*100:.1f}%"
-    if key in ("host_rate", "pathogen_map_rate", "unassigned_rate"):
-        return f"{val*100:.2f}%"
-    if key == "breadth_1x":
-        return f"{val:.2f}%"
-    if key == "mean_depth":
-        return f"{val:.1f}x"
-    if isinstance(val, float):
-        return f"{val:.4f}"
-    return str(val)
-
-
-def _shape_cn(shape: str) -> str:
-    return {
-        "monoclonal": "单克隆(纯):频率集中在 0 或 1,几乎无中间值",
-        "two_clone_50_50": "两个基因型约各占一半:中间频率集中在 0.5 附近",
-        "dominant_minor": "一个优势株 + 少量其他:主峰偏高,伴次要峰",
-        "smeared": "多个基因型混杂:频率从 0 到 1 连续分布,无明显主峰",
-    }.get(shape, shape)
-
-
-def build_html_report(title: str, samples_data: list, tree_png: str = None) -> str:
-    """生成合并的自包含 HTML 报告(所有样品、图片 base64 内嵌、中文通俗解释;可选进化树)。
-    |build merged self-contained HTML (all samples, base64 images, Chinese explanations;
-    optional tree)."""
-    rows_html = []
-    for s in samples_data:
-        v = s.get("verdict", "uncertain")
-        label, color = _VERDICT_STYLE.get(v, _VERDICT_STYLE["uncertain"])
-        rows_html.append(
-            f'<tr><td>{_html_escape(str(s["sample"]))}</td>'
-            f'<td style="color:{color};font-weight:bold">{label}</td>'
-            f'<td>{s.get("confidence","")}</td><td>{_fmt("het_rate", s.get("het_rate"))}</td>'
-            f'<td>{_shape_cn(s.get("afs_shape",""))}</td>'
-            f'<td>{_fmt("dominant_proportion", s.get("dominant_proportion"))}</td>'
-            f'<td>{_fmt("mean_depth", s.get("mean_depth"))}</td>'
-            f'<td>{_fmt("host_rate", s.get("host_rate"))}</td>'
-            f'<td>{_fmt("pathogen_map_rate", s.get("pathogen_map_rate"))}</td>'
-            f'<td>{_fmt("breadth_1x", s.get("breadth_1x"))}</td>'
-            f'<td>{_fmt("unassigned_rate", s.get("unassigned_rate"))}</td></tr>')
-
-    parts = []
-    parts.append("<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'>")
-    parts.append(f"<title>{title}</title><style>{_CSS()}</style></head><body>")
-    parts.append(f"<h1>{title}</h1>")
-    # 汇总表|summary table
-    parts.append("<h2>一、各样品判读汇总</h2>")
-    parts.append("<table class='sum'><tr><th>样品</th><th>判读结论</th><th>置信</th>"
-                 "<th>杂合率</th><th>频率谱形态</th><th>优势株占比</th><th>平均深度</th>"
-                 "<th>寄主占比</th><th>病原mapping率</th><th>覆盖广度≥1x</th><th>未归属占比</th></tr>")
-    parts.extend(rows_html)
-    parts.append("</table>")
-
-    # 指标说明|metric legend
-    parts.append("<h2>二、指标含义(通俗版)</h2><dl class='legend'>")
-    for k, expl in _METRIC_EXPLAIN.items():
-        parts.append(f"<dt>{k}</dt><dd>{expl}</dd>")
-    parts.append("</dl>")
-
-    # 样品聚类树(可选,静态 PNG 内嵌;有树才占"三")|clustering tree (optional static PNG)
-    has_tree = False
-    if tree_png:
-        b64 = _embed_image(tree_png)
+def build_html_report(title: str, rows: list, figures: dict) -> str:
+    """自包含 HTML(判读表+关键图内嵌+逐样品证据链折叠)|self-contained HTML report."""
+    _, table_html = build_summary_table(rows)
+    parts = [f"<html><head><meta charset='utf-8'><title>{_html_escape(title)}</title>",
+             "<style>body{font-family:sans-serif;margin:24px}"
+             "table{border-collapse:collapse;width:100%;margin:12px 0;font-size:0.9em}"
+             "td,th{border:1px solid #999;padding:4px 8px;text-align:left}"
+             "details{margin:8px 0}img{max-width:100%}"
+             "</style></head><body>",
+             f"<h1>{_html_escape(title)}</h1>",
+             f"<p>判读口径: 杂合率&lt;0.1% 纯菌;强混合伴侣(ALT携带≥80%且纯合1/1≥50%)=混杂菌株;其余=优势菌株/参考差异型。"
+             f"建议列为实验操作指引(可保存/需再分离纯化)。</p>",
+             table_html]
+    for stem in _KEY_FIGURES:
+        b64 = _embed_image(figures.get(stem, "")) if figures.get(stem) else None
         if b64:
-            parts.append("<h2>三、样品聚类(系统发育树)</h2>")
-            parts.append("<p class='muted'>用全部样品的 SNP 变异构建的聚类树:分支越近的编号,"
-                         "基因组越相似。叶名格式为 样品编号[判读]杂合率(如 Pb5 [纯] 0.0005%);"
-                         "节点数值为统计支持值(越高越可靠)。注意:树基于各位置的主碱基型,"
-                         "混合样品可能表现为较长的分支。</p>")
-            parts.append(f"<div class='tree'><img src='data:image/png;base64,{b64}'></div>")
-            has_tree = True
-
-    # 各样品详情(折叠,点击展开;动态编号防跳号)|per-sample details (dynamic numbering)
-    details_num = "四" if has_tree else "三"
-    parts.append(f"<h2>{details_num}、各样品详细结果（点击样品行展开/收起）</h2>")
-    parts.append("<div class='toggle-bar'>"
-                 "<button onclick=\"document.querySelectorAll('details.sample').forEach(d=>d.open=true)\">展开全部</button> "
-                 "<button onclick=\"document.querySelectorAll('details.sample').forEach(d=>d.open=false)\">收起全部</button>"
-                 "</div>")
-    for s in samples_data:
-        parts.append(_sample_section(s))
+            parts.append(f"<h2>{_html_escape(stem)}</h2>"
+                         f"<img src='data:image/png;base64,{b64}'>")
+    parts.append("<h2>逐样品证据链|Per-sample evidence</h2>")
+    for r in rows:
+        verdict = str(r.get("verdict", "uncertain"))
+        parts.append(f"<details><summary><b>{_html_escape(str(r.get('sample', '')))}</b> "
+                     f"— {_VERDICT_CN.get(verdict, verdict)} "
+                     f"{_html_escape(str(r.get('subtag', '') or ''))}</summary>"
+                     f"<p>{_html_escape(str(r.get('advice', '')))}</p>"
+                     f"<p>{_html_escape(str(r.get('rationale', '')))}</p>")
+        parts.append("<table border=1><tr><th>指标</th><th>值</th><th>解释</th></tr>")
+        for k in _EVIDENCE_KEYS:
+            if k in r:
+                parts.append(f"<tr><td>{k}</td><td>{_html_escape(_fmt(k, r.get(k)))}</td>"
+                             f"<td>{_html_escape(_METRIC_EXPLAIN.get(k, ''))}</td></tr>")
+        parts.append("</table></details>")
     parts.append("</body></html>")
-    return "\n".join(parts)
-
-
-def _sample_section(s: dict) -> str:
-    sample = _html_escape(str(s.get("sample", "")))
-    v = s.get("verdict", "uncertain")
-    label, color = _VERDICT_STYLE.get(v, _VERDICT_STYLE["uncertain"])
-    m = s.get("metrics", {})
-    dom = s.get("dominant_proportion")
-    # rationale 含 < 等字符(如阈值 <0.010%),必须转义否则被浏览器当标签吞掉|
-    # rationale contains < (e.g. threshold <0.010%); escape or the browser eats it as a tag.
-    rationale = _html_escape(str(s.get("rationale", "")))
-    # summary 行(始终可见,点击展开/收起)|always-visible clickable summary row
-    sumrow = (
-        f"<summary class='sumrow' style='border-left:6px solid {color}'>"
-        f"<span class='sname'>{sample}</span>"
-        f"<span class='sverdict' style='color:{color}'>● {label}</span>"
-        f"<span class='smeta'>杂合率 {_fmt('het_rate', s.get('het_rate'))}</span>"
-        f"<span class='smeta'>优势株占比 {_fmt('dominant_proportion', dom)}</span>"
-        f"<span class='smeta'>平均深度 {_fmt('mean_depth', s.get('mean_depth'))}</span>"
-        f"<span class='conf'>置信度:{s.get('confidence','')}</span>"
-        f"</summary>")
-    # 展开内容:依据 + 指标表 + 图|expanded body: rationale + metrics table + figures
-    order = ["het_rate", "het_sites", "afs_shape", "dominant_proportion", "maf",
-             "mean_depth", "heterozygosity", "ploidy"]
-    rows = []
-    for k in order:
-        if k not in m and k not in s:
-            continue
-        val = m.get(k, s.get(k))
-        disp = _shape_cn(val) if k == "afs_shape" else _fmt(k, val)
-        rows.append(f"<tr><td class='k'>{k}</td><td class='v'>{disp}</td>"
-                    f"<td class='e'>{_METRIC_EXPLAIN.get(k,'')}</td></tr>")
-    imgs = []
-    for label_cn, key in [("等位频率谱(VAF/AFS)直方图", "afs"),
-                          ("GenomeScope k-mer 基因组评估", "genomescope"),
-                          ("Smudgeplot 倍性/杂合云图", "smudgeplot")]:
-        p = s.get("images", {}).get(key)
-        b64 = _embed_image(p) if p else None
-        imgs.append(
-            f"<figure><figcaption>{label_cn}</figcaption>"
-            + (f"<img src='data:image/png;base64,{b64}'>" if b64
-               else "<div class='noimg'>（无图:相应步骤未产出或被跳过）</div>")
-            + "</figure>")
-    return (
-        f"<details class='sample' id='{sample}'>{sumrow}"
-        f"<div class='sample-body'>"
-        f"<p class='rationale'>{rationale}</p>"
-        f"<table class='metrics'><tr><th>指标</th><th>数值</th><th>通俗解释</th></tr>{''.join(rows)}</table>"
-        f"<div class='figs'>{''.join(imgs)}</div>"
-        f"</div></details>")
-
-
-
-def _CSS() -> str:
-    return """
-    body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;max-width:1100px;margin:24px auto;
-         padding:0 16px;color:#222;line-height:1.6}
-    h1{color:#1a237e;border-bottom:3px solid #1a237e;padding-bottom:8px}
-    h2{color:#283593;margin-top:36px;border-left:5px solid #283593;padding-left:10px}
-    .muted{color:#666;font-size:0.92em}
-    table{border-collapse:collapse;width:100%;margin:12px 0;font-size:0.95em}
-    th,td{border:1px solid #ccc;padding:7px 10px;text-align:left;vertical-align:top}
-    th{background:#e8eaf6}
-    table.sum td:nth-child(2){font-weight:bold}
-    .legend dt{font-weight:bold;color:#1a237e;margin-top:10px}
-    .legend dd{margin:4px 0 0 0;color:#444}
-    details.sample{margin:14px 0;border:1px solid #ddd;border-radius:6px;overflow:hidden}
-    summary.sumrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;
-                   cursor:pointer;font-size:1.02em;background:#fafafa;list-style:none}
-    summary.sumrow::-webkit-details-marker{display:none}
-    details.sample > summary.sumrow::before{content:'▶ ';color:#888;font-size:0.85em}
-    details.sample[open] > summary.sumrow::before{content:'▼ '}
-    .sumrow .sname{font-weight:bold;font-size:1.15em;min-width:70px}
-    .sumrow .sverdict{font-weight:bold}
-    .sumrow .smeta{color:#555;font-size:0.92em}
-    .sumrow .conf{margin-left:auto;color:#777;font-size:0.88em}
-    .sample-body{padding:4px 16px 16px}
-    .toggle-bar{margin:12px 0}
-    .toggle-bar button{padding:6px 14px;margin-right:8px;border:1px solid #1a237e;background:#1a237e;
-                       color:#fff;border-radius:4px;cursor:pointer;font-size:0.9em}
-    .toggle-bar button:hover{background:#283593}
-    .rationale{background:#fafafa;padding:10px 14px;border-radius:4px;margin:10px 0}
-    .metrics td.k{font-weight:bold;color:#283593;width:16%}
-    .metrics td.v{width:16%;font-family:monospace}
-    .metrics td.e{color:#555}
-    .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-    figure{margin:0;text-align:center;background:#fafafa;padding:8px;border-radius:6px;border:1px solid #eee;min-width:0}
-    figcaption{font-size:0.85em;color:#555;margin-bottom:6px}
-    figure img{max-width:100%;width:100%;height:auto;border:1px solid #ddd;display:block}
-    .noimg{color:#aaa;font-size:0.85em;padding:40px 20px}
-    .tree{margin:14px 0;text-align:center}
-    .tree img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:6px}
-    """
+    return "".join(parts)

@@ -204,15 +204,14 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
                             start_time: Optional[datetime] = None) -> None:
     """生成 software_versions.yml|Generate software_versions.yml.
 
-    探测 mixrace 工具链版本(samtools/bcftools/bedtools/Rscript)+ 记录参数与运行时间。
+    探测 mixrace 工具链版本(samtools/bcftools)+ 记录参数与运行时间。
     |Probe mixrace tool versions + record parameters/runtime.
     """
     import yaml
     tools = {
         "samtools": (config.samtools_path, ["--version"]),
         "bcftools": (config.bcftools_path, ["--version"]),
-        "bedtools": (config.bedtools_path, ["--version"]),
-        "Rscript": (config.rscript_path, ["--version"]),
+        "gtx(fastq2vcf-gtx)": ("biopytools", ["fastq2vcf-gtx", "--help"]),
     }
     versions = {}
     for name, (path, args) in tools.items():
@@ -225,13 +224,13 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
         except Exception as e:
             logger.warning(f"版本探测失败|Version probe failed [{name}]: {e}")
             versions[name] = {"version": "unknown", "path": path}
-    param_keys = ["threads", "kmer_size", "read_length", "min_qual", "min_dp",
-                  "min_alt_reads", "freebayes_min_coverage",
-                  "freebayes_min_alternate_fraction", "het_pure", "het_suspicious",
-                  "het_impure", "min_depth", "repeat_bed", "skip_tree",
-                  "host_genome", "min_mapq"]
+    param_keys = ["threads", "kmer_size", "read_length", "repeat_bed",
+                  "host_genome", "min_mapq", "pure_het_threshold",
+                  "partner_alt_min", "partner_hom_min", "min_sites",
+                  "window_size", "hotspot_fold", "hotspot_min_median"]
+    from . import __version__
     info = {
-        "pipeline": {"name": "biopytools mixrace", "version": "0.2.1"},
+        "pipeline": {"name": "biopytools mixrace", "version": __version__},
         "tools": versions,
         "parameters": {k: getattr(config, k, None) for k in param_keys},
     }

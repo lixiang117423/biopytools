@@ -18,54 +18,39 @@ class MixraceConfig:
 
     # 输入|Input
     fastq_dir: str = ""
-    clean_fastq_dir: Optional[str] = None   # 已 clean 的 fastq(给则跳过 QC,freebayes calling 与 smudgescope 都基于它)
+    clean_fastq_dir: Optional[str] = None   # 已 clean 的 fastq(给则跳过 QC)|clean fastq (skip QC)
     genome: str = ""
     output_dir: str = "mixrace_out"
-    repeat_bed: Optional[str] = None
+    repeat_bed: Optional[str] = None     # L4 额外排除区域BED(与自动热点并集)|extra exclude regions
     # 寄主剔除|host depletion
     host_genome: Optional[str] = None    # 给则 clean 后比对寄主并整对剔除|deplete host reads if set
-    min_mapq: int = 20                   # 「比对上」判定阈值;病原最终BAM同按此过滤|MAPQ threshold
+    min_mapq: int = 20                   # 「比对上」判定阈值+mapped reads提取过滤|MAPQ threshold
+    # 三分支判读阈值(v0.3)|three-branch verdict thresholds
+    pure_het_threshold: float = 0.001    # 总杂合率<0.1% 判纯|pure threshold
+    partner_alt_min: float = 0.8         # 伴侣携带ALT率阈值|partner ALT-carrier min
+    partner_hom_min: float = 0.5         # 伴侣纯合1/1占比阈值|partner homozygous min
+    min_sites: int = 1000                # 最低有GT位点数|min called sites
+    # 热点|hotspots
+    window_size: int = 100000
+    hotspot_fold: float = 2.0
+    hotspot_min_median: float = 0.10
     # 执行|Execution
     threads: int = 12
     kmer_size: int = 21
     read_length: int = 150
-    step: Optional[int] = None        # None=全跑|None=all steps, 1..7=单步|single step
+    step: Optional[int] = None        # None=全跑|None=all steps, 1..5=单步|single step
     enable_checkpoint: bool = True
     dry_run: bool = False
     # 工具路径(默认~, __post_init__ 展开)|Tool paths (default ~, expanded in __post_init__)
     bwa_mem2_path: str = "~/miniforge3/envs/cphasing/bin/bwa-mem2"
     samtools_path: str = "~/miniforge3/envs/align/bin/samtools"
     bcftools_path: str = "~/miniforge3/envs/align/bin/bcftools"
-    bedtools_path: str = "~/miniforge3/envs/align/bin/bedtools"
-    rscript_path: str = "~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"
-    rscript_ggtree_path: str = "~/miniforge3/envs/r/bin/Rscript"   # 含 ggtree(画树)|has ggtree (tree plot)
-    freebayes_path: str = "~/miniforge3/envs/align/bin/freebayes"
-    # freebayes 单倍体 calling 参数(约定: -p 1 --min-alternate-fraction 0.02 --min-coverage 30)
-    freebayes_min_alternate_fraction: float = 0.02
-    freebayes_min_coverage: int = 30
-    # 过滤|filtering
-    min_qual: int = 30
-    min_dp: int = 15
-    min_alt_reads: int = 3
-    # 杂合率判读阈值(单倍体)|het-rate verdict thresholds (haploid)
-    het_pure: float = 0.0001         # <0.01% 纯|pure
-    het_suspicious: float = 0.001    # 0.1% 可疑|suspicious
-    het_impure: float = 0.01         # 1% 不纯|impure
-    min_depth: float = 50.0          # 建议严格过滤需 >=50x|recommended >=50x for strict filtering
-    # 校准(已知纯样品)|calibration (known-pure samples)
-    pure_samples: Optional[List[str]] = None
-    # step07 系统发育树(样品聚类)|phylogenetic tree
-    skip_tree: bool = False
 
     def __post_init__(self):
         # 展开工具路径(支持环境变量覆盖)|expand tool paths (env var override supported)
         self.bwa_mem2_path = get_tool_path("bwa-mem2", self.bwa_mem2_path, "BWA_MEM2_PATH")
-        self.freebayes_path = get_tool_path("freebayes", self.freebayes_path, "FREEBAYES_PATH")
         self.samtools_path = get_tool_path("samtools", self.samtools_path, "SAMTOOLS_PATH")
         self.bcftools_path = get_tool_path("bcftools", self.bcftools_path, "BCFTOOLS_PATH")
-        self.bedtools_path = get_tool_path("bedtools", self.bedtools_path, "BEDTOOLS_PATH")
-        self.rscript_path = get_tool_path("Rscript", self.rscript_path, "RSCRIPT_PATH")
-        self.rscript_ggtree_path = get_tool_path("Rscript-ggtree", self.rscript_ggtree_path, "RSCRIPT_GGTREE_PATH")
         # 用户输入路径统一用 expand_path(同时展开 ~ 和 $VAR;裸 expanduser 漏 $VAR)
         # |User paths via expand_path (expands ~ AND $VAR; bare expanduser misses $VAR)
         if self.fastq_dir:
@@ -100,7 +85,21 @@ class MixraceConfig:
             errors.append(f"寄主基因组不存在|Host genome not found: {self.host_genome}")
         if self.min_mapq < 0:
             errors.append("min_mapq不能为负|min_mapq must be >= 0")
-        if self.step is not None and not (1 <= self.step <= 7):
-            errors.append("step须为1-7|step must be 1-7")
+        if self.pure_het_threshold <= 0 or self.pure_het_threshold >= 1:
+            errors.append("pure_het_threshold须在(0,1)|pure_het_threshold must be in (0,1)")
+        if self.min_sites <= 0:
+            errors.append("min_sites必须为正|min_sites must be positive")
+        if self.window_size <= 0:
+            errors.append("window_size必须为正|window_size must be positive")
+        if not 0 <= self.partner_alt_min <= 1:
+            errors.append("partner_alt_min须在[0,1]|partner_alt_min must be in [0,1]")
+        if not 0 <= self.partner_hom_min <= 1:
+            errors.append("partner_hom_min须在[0,1]|partner_hom_min must be in [0,1]")
+        if self.hotspot_fold < 1:
+            errors.append("hotspot_fold必须>=1|hotspot_fold must be >= 1")
+        if not 0 <= self.hotspot_min_median <= 1:
+            errors.append("hotspot_min_median须在[0,1]|hotspot_min_median must be in [0,1]")
+        if self.step is not None and not (1 <= self.step <= 5):
+            errors.append("step须为1-5|step must be 1-5")
         if errors:
             raise ValueError("\n".join(errors))

@@ -1,77 +1,69 @@
-"""mixrace 判读引擎(单倍体)|mixrace verdict engine (haploid).
+"""mixrace 三分支判读|mixrace three-branch verdict.
 
-指标:杂合率 het_rate(主指标,<0.01%/0.1%/1% 阈值)+ AFS 形态 + 优势株占比 + 平均深度。
-输出 single_genotype/mixed_genotype/uncertain + 置信 + 人话依据。Fws 已弃用(疟原虫二倍体指标)。
-|Metrics: het_rate (primary) + AFS shape + dominant proportion + depth.
-Fws dropped (malaria diploid metric, invalid here).
+分支(导师 v4 报告口径):
+  pure 纯菌(杂合率<阈值,可保存) / divergent 优势菌株·参考差异型(可保存) /
+  contaminated 混杂菌株(强混合伴侣信号,需再分离纯化) / uncertain(位点不足)。
+  Pb9-pattern 判据:存在样本B,A 的杂合位点上 B 携带ALT 比例≥阈值 且其中 B 纯合
+  1/1 占比≥阈值(区分「B型+参考型混合」与「群内互为杂合」)。
+  |pure (keep) / divergent (keep) / contaminated (re-isolate) / uncertain.
 """
-from typing import Optional
+from typing import List, Optional
+
+import numpy as np
 
 
-def judge(metrics: dict, thr: dict) -> dict:
-    """判读|judge pure vs mixed genotype (haploid).
+def judge(row: dict, partner_alt: np.ndarray, partner_hom: np.ndarray,
+          samples: List[str], params: dict) -> dict:
+    """三分支判读|three-branch verdict.
 
     Args:
-        metrics: {het_rate, afs_shape, dominant_proportion?, mean_depth, heterozygosity?, no_data?}
-        thr: {het_pure, het_suspicious, het_impure, min_depth}
+        row: L1 统计行(sample/n_sites/n_het/het_rate/robust_rate/median_altfrac...)
+        partner_alt/partner_hom: N×N 伴侣矩阵(het_eval.compute_shared_partner)
+        samples: 与矩阵索引对应的样本名
+        params: {pure_het, partner_alt_min, partner_hom_min, min_sites}
     """
-    if metrics.get("no_data"):
-        # 无变异数据 ≠ 纯:数据缺失与真纯必须可区分,方向性判错不可接受|
-        # No variant data != pure: missing data must be distinguishable from truly pure.
-        return {"verdict": "uncertain", "confidence": "low",
-                "rationale": "未获取到变异数据(过滤后VCF缺失或查询失败),无法判读;"
-                             "请先完成 --step 5|No variant data (filtered VCF missing or "
-                             "query failed); run --step 5 first."}
-    het = metrics["het_rate"]
-    shape = metrics.get("afs_shape", "monoclonal")
-    dom = metrics.get("dominant_proportion")
-    depth = metrics["mean_depth"]
+    pure_het = params.get("pure_het", 0.001)
+    alt_min = params.get("partner_alt_min", 0.8)
+    hom_min = params.get("partner_hom_min", 0.5)
+    min_sites = params.get("min_sites", 1000)
+    i = samples.index(row["sample"])
+    base = {"partner": None, "mix_proportion": None, "subtag": ""}
 
-    # 杂合率为主要判据;AFS 形态辅助细化灰色区。
-    # |het_rate is the primary criterion; AFS shape refines the gray zone.
-    if het < thr["het_pure"]:
-        verdict = "single_genotype"        # 杂合率极低 → 基本纯(少量中频位点算噪声)|near-zero het -> pure
-    elif het >= thr["het_impure"]:
-        verdict = "mixed_genotype"         # >1% 不纯|impure
-    elif het >= thr["het_suspicious"]:     # 0.1%–1% 可疑|suspicious
-        verdict = "mixed_genotype" if shape != "monoclonal" else "uncertain"
-    else:                                  # 0.01%–0.1% 排查区|investigate
-        verdict = "uncertain"
+    if row.get("n_sites", 0) < min_sites:
+        return {**base, "verdict": "uncertain",
+                "advice": "位点不足,建议加深测序或检查数据|insufficient sites",
+                "rationale": f"有GT位点仅 {row.get('n_sites', 0)} < {min_sites},"
+                             f"统计不稳定|called sites below minimum"}
+    if row["het_rate"] < pure_het:
+        return {**base, "verdict": "pure",
+                "advice": "建议: 可保存|Advice: safe to keep",
+                "rationale": f"总杂合率 {row['het_rate']*100:.4f}% < {pure_het*100:.1f}%,"
+                             f"单倍体背景下无混杂信号|het rate below purity threshold"}
 
-    low_depth = depth < thr["min_depth"]
-    confidence = "low" if low_depth else "high"
-    return {"verdict": verdict, "confidence": confidence,
-            "rationale": _rationale(verdict, metrics, thr, low_depth, dom)}
-
-
-def _rationale(verdict: str, m: dict, thr: dict, low_depth: bool, dom: Optional[float]) -> str:
-    label = {"single_genotype": "疑似纯(单克隆)", "mixed_genotype": "疑似混合",
-             "uncertain": "不确定(灰色区,需排查 repeat/旁系同源/污染)"}[verdict]
-    parts = [f"{label}|{verdict}"]   # 勿带尾冒号,join("；")已分隔|no trailing colon (join adds ；)
-    parts.append(
-        f"全基因组杂合率 {m['het_rate']*100:.4f}%（判定标准 <{thr['het_pure']*100:.3f}%纯 / "
-        f">{thr['het_impure']*100:.0f}%不纯），共 {m.get('het_sites', 0)} 个杂合位点")
-    parts.append(f"AFS 形态|AFS shape: {m.get('afs_shape','monoclonal')}")
-    if dom is not None and verdict != "single_genotype":
-        # 仅混合/可疑时报优势株占比;纯样品杂合位点太少(多为噪声),占比无意义
-        # |report dominant only for mixed/uncertain; pure samples have too few (noisy) het sites
-        parts.append(f"优势株占比 ≈ {dom*100:.1f}%（混合位点主等位频率中位数,方法B）")
-    if low_depth:
-        parts.append(f"平均深度 {m['mean_depth']:.1f}x（< {thr['min_depth']:.0f}x,建议≥50x 以保证结果可靠,置信降级）")
-    else:
-        parts.append(f"平均深度 {m['mean_depth']:.1f}x（充足）")
-    if m.get("heterozygosity") is not None:
-        parts.append(f"GenomeScope 杂合度 {m['heterozygosity']*100:.2f}%")
-    return "；".join(parts) + "。"
-
-
-def calibrate_thresholds(pure_metrics: list) -> dict:
-    """用已知纯样品按 mean+2SD 校准 het 阈值|calibrate het thresholds (mean+2SD of pure samples)."""
-    import statistics as st
-    def _ms(key):
-        xs = [p[key] for p in pure_metrics if key in p]
-        if len(xs) < 2:
-            return None
-        return st.mean(xs) + 2 * st.pstdev(xs)
-    cal = _ms("het_rate")
-    return {"het_pure": cal} if cal is not None else {}
+    # 混合伴侣:取 ALT 携带率最高的样本 B|best partner by ALT-carrier rate
+    alt_row = np.asarray(partner_alt[i], dtype=float)
+    hom_row = np.asarray(partner_hom[i], dtype=float)
+    if alt_row.size:
+        j = int(np.argmax(alt_row))
+        if alt_row[j] >= alt_min and hom_row[j] >= hom_min:
+            partner = samples[j]
+            mix = row.get("median_altfrac")
+            mix = float(mix) if mix is not None and np.isfinite(mix) else None
+            comp = (f"≈{mix*100:.0f}% {partner}型 + {(1-mix)*100:.0f}% 参考型"
+                    if mix is not None else "成分比例未知(无杂合 altfrac)")
+            return {**base, "verdict": "contaminated", "partner": partner,
+                    "mix_proportion": mix,
+                    "advice": "建议: 需再分离纯化|Advice: re-isolate to purify",
+                    "rationale": (f"杂合位点 {alt_row[j]*100:.1f}% 被 {partner} 携带ALT"
+                                  f"(其中 {hom_row[j]*100:.1f}% 为纯合1/1),"
+                                  f"成分推断 {comp};符合 Pb9-Pb22 型混合模式"
+                                  f"|partner-carrier pattern")}
+    subtag = "轻度" if row.get("robust_rate", 1.0) < pure_het else ""
+    note = "杂合多为低深度错误特征" if subtag else "存在真实杂合信号(见稳健杂合率)"
+    return {**base, "verdict": "divergent", "subtag": subtag,
+            "advice": "建议: 可保存;高精度下游可强制纯合化(取altfrac>0.5优势等位)"
+                      "|Advice: keep; force-homozygose if needed",
+            "rationale": (f"总杂合率 {row['het_rate']*100:.2f}% ≥ {pure_het*100:.1f}% "
+                          f"但无强混合伴侣(最高携带率 "
+                          f"{float(np.nanmax(alt_row))*100:.1f}% 或纯合占比不足),{note},"
+                          f"判为优势菌株/参考差异型|divergent-lineage pattern")}
