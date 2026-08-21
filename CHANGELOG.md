@@ -1,3 +1,8 @@
+## [1.40.0] - 2026-08-21
+
+### Added
+- `xpclr`(新模块,CLI `xpclr`): XP-CLR 跨群体选择信号扫描——bgzip VCF + 两份群体样本名单,逐染色体调用 xpclr(断点续传+单染色体失败容错不拖垮整体),合并全基因组合并按 `xpclr_norm` 排 Top 候选窗口;样本重叠/幽灵样本/索引缺失一次性校验;xpclr 装在 `selective_sweep` 独立环境(scipy/numpy 兼容补丁,pop 域环境内同名包为坏版本,env_map 已注明勿用);配套 41 项 mock 单测;CLI 注册+文档导航+模块文档齐备
+
 ## [1.39.1] - 2026-08-20
 
 ### Fixed
