@@ -191,10 +191,10 @@ def _read_field_tsv(path) -> dict:
 def read_mapq_stats(config, sample: str) -> dict:
     """读比对阶段计数表|read align-stage counts.
 
-    v0.3 写在 03_het_eval/{sample}.mapq_stats.tsv;02_alignment 为 v0.2 遗留回退。
+    v0.3 写在 04_het_eval/{sample}.mapq_stats.tsv;02_alignment 为 v0.2 遗留回退。
     |v0.3 path first; 02_alignment kept as v0.2 legacy fallback.
     """
-    for sub in ("03_het_eval", "02_alignment"):
+    for sub in ("04_het_eval", "02_alignment"):
         d = _read_field_tsv(Path(config.output_dir) / sub / f"{sample}.mapq_stats.tsv")
         if d:
             return d
@@ -225,7 +225,7 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
                     host_index_dir: str) -> Optional[dict]:
     """逐样本寄主剔除:比对→名单→整对剔除→nohost fastq+阶段统计表。
     |per-sample host depletion: align -> names -> pair-drop -> nohost fastq + stage stats."""
-    out_dir = Path(config.output_dir) / "host_filter"
+    out_dir = Path(config.output_dir) / "02_host_filter"
     tmp_dir = Path(config.output_dir) / "tmp"
     out_dir.mkdir(parents=True, exist_ok=True)
     tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -315,14 +315,14 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
 
 def pathogen_alignment_stats(config, runner, sample: str, bam: str,
                              genome_size: int, mean_depth=None) -> dict:
-    """合并寄主阶段+病原比对统计,写全量表 host_filter/{sample}.host_stats.tsv。
+    """合并寄主阶段+病原比对统计,写全量表 02_host_filter/{sample}.host_stats.tsv。
 
     寄主率来自 host_filter 阶段表;病原 mapped/总数来自 align 阶段 mapq_stats.tsv
     (缺失时对最终 BAM 现场计数,过滤后 BAM 无 unmapped,总数退化为 mapped 并告警)。
     |merge host-stage + pathogen-align stats into full table. Pathogen counts from
     align-stage mapq_stats.tsv; fallback = live counts on final BAM (degraded, warned).
     """
-    out_dir = Path(config.output_dir) / "host_filter"
+    out_dir = Path(config.output_dir) / "02_host_filter"
     out_dir.mkdir(parents=True, exist_ok=True)
     host = _read_field_tsv(out_dir / f"{sample}.host_filter.tsv")
     counts = read_mapq_stats(config, sample)

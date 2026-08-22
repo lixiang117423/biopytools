@@ -2,7 +2,7 @@
 
 step01 run_index/run_qc(bwa-mem2 寄主索引由 host_filter 负责;病原索引保留给
 fastq2vcf-gtx 复用场景)+ fastp QC;比对与联合 calling 走 gtx_backend;
-run_kmer 调 smudgescope;k-mer 谱由 04_kmer/mapped_fastq 输入。
+run_kmer 调 smudgescope;k-mer 谱由 05_kmer/mapped_fastq 输入。
 |Steps kept here: genome index + fastp QC + depth cache + smudgescope k-mer.
 Mapping/joint calling lives in gtx_backend (fastq2vcf-gtx).
 """
@@ -83,9 +83,9 @@ def _parse_sn(stats_text: str, key: str) -> Optional[int]:
 
 
 def run_depth(runner, config, sample: str, bam: str, genome_size: int):
-    """samtools stats → alignment_qc/{sample}.stats.txt;平均深度 = bases_mapped / genome_size。
+    """samtools stats → 04_het_eval/alignment_qc/{sample}.stats.txt;平均深度 = bases_mapped / genome_size。
     |samtools stats -> stats.txt; mean depth = bases_mapped / genome_size."""
-    qc_dir = Path(config.output_dir) / "alignment_qc"
+    qc_dir = Path(config.output_dir) / "04_het_eval" / "alignment_qc"
     qc_dir.mkdir(parents=True, exist_ok=True)
     ok, stats_txt, _ = runner.run_conda(config.samtools_path, ["stats", str(bam)],
                                         f"samtools stats {sample}")
@@ -113,7 +113,7 @@ def read_cached_depth(stats_file, genome_size: int):
 
 def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     """step04b: k-mer 谱(smudgescope,读 mapped fastq)|k-mer spectrum via smudgescope."""
-    kmer_root = Path(config.output_dir) / "04_kmer"
+    kmer_root = Path(config.output_dir) / "05_kmer"
     if config.enable_checkpoint and _done(ckpt, "kmer", kmer_root):
         runner.logger.info("跳过已完成步骤|Skipping completed step: kmer")
         return kmer_root

@@ -103,19 +103,21 @@ raw fastq ─fastp→ clean ─[寄主剔除]→ nohost fastq
 ## 输出 | Output
 
 ```
-out/
+out/                          # by-step:所有样本共享编号步骤目录,文件名用 {sample}_ 前缀区分
 ├── 00_pipeline_info/   index_host/ checkpoints/ software_versions.yml(含全部阈值)
 ├── 01_qc/              fastp 产物
-├── host_filter/        {sample}_1/2.nohost.fq.gz · host_filter.tsv · host_stats.tsv(reads账本)
-├── 02_gtx/             03_mapping/bam/{sample}.bam · 04_joint_calling/gtx_joint_raw.vcf.gz
-├── 03_het_eval/        gt_ad_dp.tsv · L1_杂合统计 · L2_shared_private · L2_shared_only评估
+├── 02_host_filter/     (仅给 --host-genome 时存在){sample}_1/2.nohost.fq.gz · host_filter.tsv · host_stats.tsv(reads账本)
+├── 03_gtx/             03_mapping/bam/{sample}.bam · 04_joint_calling/gtx_joint_raw.vcf.gz
+├── 04_het_eval/        gt_ad_dp.tsv · L1_杂合统计 · L2_shared_private · L2_shared_only评估
 │                       混合伴侣矩阵 · 混合伴侣top · L3_窗口杂合率 · L4_共享热点窗口
 │                       hotspots.bed · L4_排除热点前后对比 · 距离矩阵 · PCA坐标 · nj_tree.nwk
-│                       verdict_table.tsv(判读+证据链+建议)
-├── 04_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
-├── 05_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
-├── 06_report/          {sample}.report.md(证据链)
+│                       verdict_table.tsv(判读+证据链+建议) ·
+│                       alignment_qc/{sample}.stats.txt(深度缓存)
+├── 05_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
+├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
+├── 07_report/          {sample}.report.md(证据链)
 ├── summary/            verdict_summary.tsv · mixrace_report.html(自包含)
+├── tmp/                临时文件(运行中,结束清理)
 └── 99_logs/
 ```
 
@@ -211,5 +213,5 @@ out/
 - **Pb9 那种样品会怎么判?** contaminated,partner=Pb22,报告写明"≈88% Pb22型+12% 参考型",建议再分离纯化
 - **群2/群3 那种 4-5% 杂合的近缘样品呢?** divergent(伴侣互为 0/1,纯合占比不过线)→ 可保存,需要高精度时强制纯合化
 - **旧 v0.2 输出目录能接着跑吗?** 不能,目录结构与后端都变了(02_alignment/03_variants 已不存在),换新目录重跑
-- **`--step 3` 要重跑但 GTX 太慢?** GTX 有断点;VCF 已在 `02_gtx/` 就直接 `--step 3`,秒级起评估
+- **`--step 3` 要重跑但 GTX 太慢?** GTX 有断点;VCF 已在 `03_gtx/` 就直接 `--step 3`,秒级起评估
 - **图里中文变方框?** 系统无中文字体时模块自动退英文标签,不影响数据

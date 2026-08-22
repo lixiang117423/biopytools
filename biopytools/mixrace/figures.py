@@ -1,6 +1,6 @@
 """mixrace 全套图(matplotlib)|mixrace figure suite.
 
-从 03_het_eval/ 的 TSV 表产图;单图失败仅告警不阻断(graceful degradation)。
+从 04_het_eval/ 的 TSV 表产图;单图失败仅告警不阻断(graceful degradation)。
 中文字体优先注册 Noto Sans CJK/WenQuanYi,缺失则标签退英文(禁豆腐块)。
 |Figures from het_eval tables; per-figure failures degrade gracefully.
 """

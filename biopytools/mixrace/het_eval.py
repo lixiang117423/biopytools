@@ -413,7 +413,7 @@ def _top_partner(i: int, samples: List[str], par_alt, par_hom):
 def read_verdict_table(config) -> list:
     """读已判读表(step4/5 重跑与断点跳过共用)|read verdict table (reruns + checkpoint)."""
     from pathlib import Path as _P
-    path = _P(config.output_dir) / "03_het_eval" / "verdict_table.tsv"
+    path = _P(config.output_dir) / "04_het_eval" / "verdict_table.tsv"
     if not path.exists():
         return []
     lines = [l.split("\t") for l in path.read_text(encoding="utf-8").splitlines()]
@@ -447,7 +447,7 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
     from pathlib import Path
     from .pipeline import _done
     from .verdict import judge
-    out_dir = Path(config.output_dir) / "03_het_eval"
+    out_dir = Path(config.output_dir) / "04_het_eval"
     out_dir.mkdir(parents=True, exist_ok=True)
     tsv = out_dir / "gt_ad_dp.tsv"
 

@@ -23,7 +23,7 @@ def run_gtx(config, runner, ckpt, fastq_dir: str) -> Tuple[Optional[str], Option
     Returns:
         (bam_dir, joint_vcf);失败 (None, None) 不建断点。|(None, None) on failure.
     """
-    out = Path(config.output_dir) / "02_gtx"
+    out = Path(config.output_dir) / "03_gtx"
     joint_vcf = out / "04_joint_calling" / "gtx_joint_raw.vcf.gz"
     bam_dir = out / "03_mapping" / "bam"
     if config.enable_checkpoint and _done(ckpt, "gtx", joint_vcf):
@@ -50,9 +50,9 @@ def extract_mapped_fastq(config, runner, ckpt, sample: str,
     """step4 前置:从 BAM 提取达标 mapped reads 成对 fastq|mapped-read pair extraction.
 
     samtools view -F 0x904 [-q Q] 过滤后 samtools fastq;输出
-    04_kmer/mapped_fastq/{sample}_1/2.mapped.fq.gz。
+    05_kmer/mapped_fastq/{sample}_1/2.mapped.fq.gz。
     """
-    out_dir = Path(config.output_dir) / "04_kmer" / "mapped_fastq"
+    out_dir = Path(config.output_dir) / "05_kmer" / "mapped_fastq"
     out_dir.mkdir(parents=True, exist_ok=True)
     r1 = out_dir / f"{sample}_1.mapped.fq.gz"
     r2 = out_dir / f"{sample}_2.mapped.fq.gz"

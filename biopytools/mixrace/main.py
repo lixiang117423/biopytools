@@ -92,7 +92,7 @@ def _read_verdict_table(config) -> list:
 def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
     """step3b: 逐样本 reads 账本(host/mapping/污染)+深度+覆盖广度。
     |per-sample reads accounting (host/map/contamination) + depth + breadth."""
-    eval_dir = Path(config.output_dir) / "03_het_eval"
+    eval_dir = Path(config.output_dir) / "04_het_eval"
     eval_dir.mkdir(parents=True, exist_ok=True)
     stats_by_sample = {}
     for row in rows:
@@ -106,7 +106,7 @@ def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
                 (eval_dir / f"{sample}.mapq_stats.tsv").write_text(
                     f"field\tvalue\ntotal_primary_reads\t{total}\n"
                     f"mapped_q_reads\t{mapped}\n", encoding="utf-8")
-        stats_file = Path(config.output_dir) / "alignment_qc" / f"{sample}.stats.txt"
+        stats_file = Path(config.output_dir) / "04_het_eval" / "alignment_qc" / f"{sample}.stats.txt"
         depth = read_cached_depth(stats_file, genome_size)
         if depth is None and bam_exists:
             depth = run_depth(runner, config, sample, bam, genome_size)
@@ -129,7 +129,7 @@ def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
 def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
     """step5: 全套图 + 判读汇总表 + 单样本报告 + HTML|figures + reports."""
     from .reporter import build_sample_report, build_summary_table, build_html_report
-    rep_dir = Path(config.output_dir) / "06_report"
+    rep_dir = Path(config.output_dir) / "07_report"
     rep_dir.mkdir(parents=True, exist_ok=True)
     summ_dir = Path(config.output_dir) / "summary"
     summ_dir.mkdir(parents=True, exist_ok=True)
@@ -137,9 +137,9 @@ def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
     figures = {}
     try:
         from .figures import build_figures
-        fig_dir = Path(config.output_dir) / "05_figures"
+        fig_dir = Path(config.output_dir) / "06_figures"
         payloads = {"rows": rows,
-                    "het_eval_dir": Path(config.output_dir) / "03_het_eval"}
+                    "het_eval_dir": Path(config.output_dir) / "04_het_eval"}
         paths = build_figures(config, logger, fig_dir, payloads)
         figures = {p.stem: str(p) for p in paths}
     except Exception as e:
@@ -189,7 +189,7 @@ def run_pipeline(config, runner, ckpt, logger):
     host_failed = set()
     depleted_dir = clean_dir
     if config.host_genome:
-        host_dir = Path(config.output_dir) / "host_filter"
+        host_dir = Path(config.output_dir) / "02_host_filter"
         if step in (None, 1):
             host_idx = run_host_index(config, runner, ckpt)
             for s in samples:
@@ -205,14 +205,14 @@ def run_pipeline(config, runner, ckpt, logger):
             samples = discover_samples(str(host_dir))
             depleted_dir = host_dir
             logger.info(f"寄主剔除目录发现 {len(samples)} 个样本|{len(samples)} samples "
-                        f"from host_filter dir")
+                        f"from 02_host_filter dir")
         else:
-            logger.warning("启用了寄主剔除但 host_filter/ 不存在(先跑 --step 1),"
-                           "下游沿用 clean fastq|host_filter/ missing, using clean fastq")
+            logger.warning("启用了寄主剔除但 02_host_filter/ 不存在(先跑 --step 1),"
+                           "下游沿用 clean fastq|02_host_filter/ missing, using clean fastq")
 
     # 02 GTX 比对+联合calling|GTX mapping + joint calling
-    bam_dir = str(Path(config.output_dir) / "02_gtx" / "03_mapping" / "bam")
-    vcf = str(Path(config.output_dir) / "02_gtx" / "04_joint_calling" /
+    bam_dir = str(Path(config.output_dir) / "03_gtx" / "03_mapping" / "bam")
+    vcf = str(Path(config.output_dir) / "03_gtx" / "04_joint_calling" /
               "gtx_joint_raw.vcf.gz")
     if step in (None, 2):
         bam_dir, vcf = run_gtx(config, runner, ckpt, str(depleted_dir))
@@ -235,7 +235,7 @@ def run_pipeline(config, runner, ckpt, logger):
 
     # 04 mapped reads 提取 + k-mer|mapped reads + smudgescope
     if step in (None, 4):
-        mapped_dir = Path(config.output_dir) / "04_kmer" / "mapped_fastq"
+        mapped_dir = Path(config.output_dir) / "05_kmer" / "mapped_fastq"
         names = [r["sample"] for r in rows] or [s["sample"] for s in samples]
         for name in names:
             if name in host_failed:
