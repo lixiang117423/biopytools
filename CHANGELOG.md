@@ -1,3 +1,8 @@
+## [1.41.3] - 2026-08-22
+
+### Changed
+- `mixrace`: 输出目录严格全编号(by-step,每步骤都有数字前缀)——`host_filter`→`02_host_filter`,GTX/评估/k-mer/图/报告顺延为 `03_gtx/04_het_eval/05_kmer/06_figures/07_report`;深度缓存 `alignment_qc/` 并入 `04_het_eval/alignment_qc/`;`summary/`、`tmp/` 按规范保持无编号。旧输出目录需 `mv host_filter 02_host_filter` 后续跑(断点不依赖目录名)
+
 ## [1.41.2] - 2026-08-21
 
 ### Fixed
