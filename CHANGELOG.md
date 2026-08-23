@@ -1,3 +1,8 @@
+## [1.42.0] - 2026-08-23
+
+### Added
+- `xpclr`: 新增 xpclrs(Rust 高速版)后端并设为默认,`--backend xpclr` 切回 python 经典版做交叉验证;新增 `--xpclrs-path` 与 `-t/--threads`;xpclrs 输出自动补 id 列对齐 schema;software_versions.yml 记录 backend 与所用工具版本
+
 ## [1.41.3] - 2026-08-22
 
 ### Changed
