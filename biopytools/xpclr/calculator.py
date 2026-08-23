@@ -17,7 +17,7 @@ import pandas as pd
 from ..common.conda_runner import CommandRunner, build_conda_command
 from . import __version__
 from .config import XpclrConfig
-from .utils import detect_xpclr_version, format_number
+from .utils import detect_xpclr_version, detect_xpclrs_version, format_number
 
 # ##contig=<ID=xxx,...> 提取 ID|extract contig ID
 _CONTIG_RE = re.compile(r"##contig=.*?<ID=([^,>]+)")
@@ -102,8 +102,34 @@ class XpclrCalculator:
         """单染色体输出路径|Per-chrom output path."""
         return Path(self.config.output_dir) / "01_xpclr" / f"{chrom}.xpclr.tsv"
 
+    def _tool_path(self) -> str:
+        """当前后端工具路径|Active backend's tool path."""
+        if self.config.backend == "xpclrs":
+            return self.config.xpclrs_path
+        return self.config.xpclr_path
+
     def _build_args(self, chrom: str, out_tsv: Path) -> List[str]:
-        """拼 xpclr CLI 参数|Build xpclr CLI args."""
+        """拼 CLI 参数(双后端)|Build CLI args (both backends)."""
+        if self.config.backend == "xpclrs":
+            # Rust 版默认 tsv(免 --format);--out 为基名,工具落盘 {基名}.{chrom}.xpclr
+            # |Rust defaults to tsv (no --format); --out is a base → .{chrom}.xpclr
+            args = [
+                "--input", self.config.input_vcf,
+                "--samplesA", self.config.samples_a,
+                "--samplesB", self.config.samples_b,
+                "--chr", chrom,
+                "--out", str(out_tsv.parent / chrom),
+                "--size", str(self.config.size),
+                "--step", str(self.config.step),
+                "--maxsnps", str(self.config.maxsnps),
+                "--minsnps", str(self.config.minsnps),
+                "--ld", str(self.config.ld),
+                "--rrate", str(self.config.rrate),
+                "-t", str(self.config.threads),
+            ]
+            if self.config.phased:
+                args.append("--phased")
+            return args
         args = [
             "--format", "vcf",
             "--input", self.config.input_vcf,
@@ -122,15 +148,47 @@ class XpclrCalculator:
             args.append("--phased")
         return args
 
+    def _raw_output(self, chrom: str) -> Path:
+        """xpclrs 工具实际落盘路径|xpclrs raw output path."""
+        return Path(self.config.output_dir) / "01_xpclr" / f"{chrom}.{chrom}.xpclr"
+
+    def _finalize_xpclrs_output(self, chrom: str, out_tsv: Path) -> bool:
+        """Rust 输出收尾:改名 + 补 id 列(对齐 python 版 schema)|Finalize rust output.
+
+        xpclrs 无 id 列且 --out 是基名;这里把 {chrom}.{chrom}.xpclr 改名为
+        {chrom}.xpclr.tsv,并补 id={chrom}_{start:08d}_{stop:08d}。
+        |No id column and base-name output in xpclrs; rename + insert id column.
+        """
+        raw = self._raw_output(chrom)
+        try:
+            raw.rename(out_tsv)
+            df = pd.read_csv(out_tsv, sep="\t")
+            if "id" not in df.columns:
+                df.insert(0, "id", df.apply(
+                    lambda r: f"{r.chrom}_{int(r.start):08d}_{int(r.stop):08d}",
+                    axis=1))
+            df.to_csv(out_tsv, sep="\t", index=False)
+            return True
+        except (OSError, ValueError, KeyError, pd.errors.EmptyDataError) as e:
+            self.logger.warning(
+                f"xpclrs 输出收尾失败|xpclrs output finalize failed: {e}")
+            try:
+                out_tsv.unlink()
+            except OSError:
+                pass
+            return False
+
     def run_chrom(self, chrom: str, runner: CommandRunner) -> bool:
         """单染色体:断点续传 + 失败 WARNING 继续|Checkpoint + warn-and-continue."""
         out_tsv = self.chrom_output(chrom)
         if out_tsv.exists() and out_tsv.stat().st_size > 0:
             self.logger.info(f"跳过已完成染色体|Skipping completed chrom: {chrom}")
             return True
-        cmd = build_conda_command(self.config.xpclr_path,
+        cmd = build_conda_command(self._tool_path(),
                                   self._build_args(chrom, out_tsv))
         ok, _, stderr = runner.run(cmd, f"XP-CLR 染色体|XP-CLR chrom {chrom}")
+        if ok and self.config.backend == "xpclrs":
+            ok = self._finalize_xpclrs_output(chrom, out_tsv)
         if not ok or not out_tsv.exists() or out_tsv.stat().st_size == 0:
             # 失败清理残留半成品,防止重跑被"非空即完成"误跳过丢数据
             # |drop partial output on failure so the checkpoint check won't skip it
@@ -191,10 +249,24 @@ class XpclrCalculator:
         import yaml
         out_dir = Path(self.config.output_dir) / "00_pipeline_info"
         out_dir.mkdir(parents=True, exist_ok=True)
+        if self.config.backend == "xpclrs":
+            tool_info = {
+                "xpclrs": {
+                    "version": detect_xpclrs_version(self.config.xpclrs_path),
+                    "path": self.config.xpclrs_path,
+                },
+            }
+        else:
+            tool_info = {
+                "xpclr": {
+                    "version": detect_xpclr_version(self.config.xpclr_path),
+                    "path": self.config.xpclr_path,
+                },
+            }
         info = {
             "biopytools_xpclr": {"version": __version__},
-            "xpclr": {"version": detect_xpclr_version(self.config.xpclr_path),
-                      "path": self.config.xpclr_path},
+            "backend": self.config.backend,
+            **tool_info,
             "parameters": {
                 "input_vcf": self.config.input_vcf,
                 "label": self.config.label,
@@ -206,6 +278,7 @@ class XpclrCalculator:
                 "phased": self.config.phased,
                 "rrate": self.config.rrate,
                 "top_n": self.config.top_n,
+                "threads": self.config.threads,
             },
         }
         (out_dir / "software_versions.yml").write_text(

@@ -49,9 +49,16 @@ def build_parser() -> argparse.ArgumentParser:
                      help="每碱基重组率|Recombination rate per base (default: 1e-8)")
     psr.add_argument("--top-n", type=int, default=50,
                      help="Top候选窗口数|Top candidate windows (default: 50)")
+    psr.add_argument("--backend", choices=["xpclrs", "xpclr"], default="xpclrs",
+                     help="底层工具:xpclrs=Rust高速版(默认)|xpclrs=Rust fast (default), "
+                          "xpclr=python")
     psr.add_argument("--xpclr-path",
                      default="~/miniforge3/envs/selective_sweep/bin/xpclr",
-                     help="xpclr可执行路径|xpclr executable path")
+                     help="xpclr(python后端)可执行路径|xpclr (python backend) executable path")
+    psr.add_argument("--xpclrs-path", default="~/software/xpclrs/bin/xpclrs",
+                     help="xpclrs(Rust后端)可执行路径|xpclrs (Rust backend) executable path")
+    psr.add_argument("-t", "--threads", type=int, default=12,
+                     help="线程数(仅xpclrs后端)|Threads, xpclrs backend only (default: 12)")
     psr.add_argument("--log-level", default="INFO",
                      help="日志级别|Log level (default: INFO)")
     return psr
@@ -68,7 +75,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         chroms=[c.strip() for c in args.chroms.split(",")] if args.chroms else None,
         size=args.size, step=args.step, maxsnps=args.maxsnps, minsnps=args.minsnps,
         ld=args.ld, phased=args.phased, rrate=args.rrate, top_n=args.top_n,
+        backend=args.backend,
         xpclr_path=args.xpclr_path,
+        xpclrs_path=args.xpclrs_path,
+        threads=args.threads,
     )
     try:
         config.validate()

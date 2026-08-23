@@ -6,6 +6,7 @@
 
 - 输入一张 VCF 变异表 + 两份样本名单（群体A=疑似受选择的群体，群体B=参照群体），输出全基因组每个窗口的**选择信号分数**和一张**Top 候选区域排行榜**
 - 全流程：读 VCF 头部校验样本 → **逐染色体**调用 xpclr 计算（支持断点续传、单条染色体失败不拖垮整体）→ 合并成全基因组表 → 按分数排出 Top 候选窗口 → 记录软件版本
+- **双后端**：默认调用 **xpclrs**（Rust 重实现，结果与经典版近乎一致、速度快一个量级、支持多线程）；`--backend xpclr` 可切回 python 经典版（结果互为验证）
 - XP-CLR 是选择信号分析的经典方法（Chen et al. 2010），特别适合**两个亲缘群体**（如驯化种 vs 野生种、抗病品系 vs 感病品系）之间的受选择区域定位
 - 核心产出：`02_merged/*.xpclr.genome.tsv`（全基因组逐窗口分数表）和 `03_top/*.xpclr.top50.tsv`（最值得优先关注的候选窗口）
 
@@ -58,7 +59,7 @@ SAMPLE_03
 
 **模型组|Model：** 管"打分时对重复信息的态度"。`--ld` 是 LD 截断，越接近 1 越"宽容"地保留重复信息；`--phased` 只在数据已做单倍型定相时打开（r2 估计更准）；`--rrate` 是每碱基重组率，动它的情况极少。默认值即文献常规用法。
 
-**汇总与运行组|Summary & runtime：** `--top-n` 决定候选排行榜取前几名（默认 50）；`--xpclr-path`/`--log-level` 属于环境调试项，除非换环境或排查问题，一般不动。
+**汇总与运行组|Summary & runtime：** `--top-n` 决定候选排行榜取前几名（默认 50）；`--backend` 选底层工具（默认 xpclrs=Rust 高速版，`--backend xpclr` 切 python 经典版做交叉验证）；`-t/--threads` 只在 xpclrs 后端生效（多线程加速）；`--xpclr-path`/`--xpclrs-path`/`--log-level` 属于环境调试项，除非换环境或排查问题，一般不动。
 
 完整参数速查表见下方自动生成区块|Full parameter reference: see the auto-generated block below.
 
@@ -155,7 +156,10 @@ out_dir/
 | `--phased` | `False` |  | 数据已phased(更精确r2)｜Data phased |
 | `--rrate` | `1e-08` | float | 每碱基重组率｜Recombination rate per base |
 | `--top-n` | `50` | int | Top候选窗口数｜Top candidate windows |
-| `--xpclr-path` | `~/miniforge3/envs/selective_sweep/bin/xpclr` |  | xpclr可执行路径｜xpclr executable path |
+| `--backend` | `xpclrs` | xpclrs/xpclr | 底层工具:xpclrs=Rust高速版(默认),xpclr=python｜xpclrs=Rust fast (default), xpclr=python |
+| `--xpclr-path` | `~/miniforge3/envs/selective_sweep/bin/xpclr` |  | xpclr(python后端)可执行路径｜xpclr (python backend) path |
+| `--xpclrs-path` | `~/software/xpclrs/bin/xpclrs` |  | xpclrs(Rust后端)可执行路径｜xpclrs (Rust backend) path |
+| `--threads, -t` | `12` | int | 线程数(仅xpclrs后端)｜Threads, xpclrs backend only |
 | `--log-level` | `INFO` |  | 日志级别(DEBUG/INFO/WARNING/ERROR)｜Log level |
 
 ### 模块直调参数 | Direct invocation options
@@ -176,15 +180,19 @@ out_dir/
 | `--phased` | `False` | store_true | 数据已phased(更精确r2)｜Data phased (more precise r2) |
 | `--rrate` | `1e-08` | float | 每碱基重组率｜Recombination rate per base (default: 1e-8) |
 | `--top-n` | `50` | int | Top候选窗口数｜Top candidate windows (default: 50) |
-| `--xpclr-path` | `~/miniforge3/envs/selective_sweep/bin/xpclr` |  | xpclr可执行路径｜xpclr executable path |
+| `--backend` | `xpclrs` | xpclrs/xpclr | 底层工具:xpclrs=Rust高速版(默认)｜xpclrs=Rust fast (default), xpclr=python |
+| `--xpclr-path` | `~/miniforge3/envs/selective_sweep/bin/xpclr` |  | xpclr(python后端)可执行路径｜xpclr (python backend) executable path |
+| `--xpclrs-path` | `~/software/xpclrs/bin/xpclrs` |  | xpclrs(Rust后端)可执行路径｜xpclrs (Rust backend) executable path |
+| `-t, --threads` | `12` | int | 线程数(仅xpclrs后端)｜Threads, xpclrs backend only (default: 12) |
 | `--log-level` | `INFO` |  | 日志级别｜Log level (default: INFO) |
 
 <!-- END PARAMS:auto -->
 
 ## 依赖 | Dependencies
 
-- **xpclr 1.1.2**（python-xpclr 发行包）：安装在 conda 环境 `selective_sweep`；因上游包与 scipy 1.18/numpy 2.x 不兼容，环境内已打兼容补丁（romberg backport、quad 结果 `.item()` 包装、size-1 数组强转），**补丁源码持久化在 `~/software/xpclr`**，重建环境时须重做补丁
-- conda（工具通过 `conda run` 包装调用，自动检测环境）
+- **xpclrs 1.0.3**（Rust 重实现，默认后端）：独立编译二进制，位于 `~/software/xpclrs/bin/xpclrs`；无 conda 依赖、支持多线程（`-t`），运行期仅需系统 glibc/bzip2
+- **xpclr 1.1.2**（python-xpclr 发行包，可选后端）：安装在 conda 环境 `selective_sweep`；因上游包与 scipy 1.18/numpy 2.x 不兼容，环境内已打兼容补丁（romberg backport、quad 结果 `.item()` 包装、size-1 数组强转），**补丁源码持久化在 `~/software/xpclr`**，重建环境时须重做补丁
+- conda（python 后端通过 `conda run` 包装调用，自动检测环境；Rust 后端直调）
 - pandas / PyYAML（biopytools 侧表格合并与版本记录）
 
 ## 常见问题 | FAQ

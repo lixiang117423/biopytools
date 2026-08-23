@@ -35,6 +35,10 @@ class XpclrConfig:
     top_n: int = 50               # Top 候选窗口数|Top candidate windows
     # 工具路径|Tool path
     xpclr_path: str = "~/miniforge3/envs/selective_sweep/bin/xpclr"
+    # 后端|Backend
+    backend: str = "xpclrs"          # xpclrs=Rust高速版(默认)|xpclrs=Rust fast (default); xpclr=python
+    xpclrs_path: str = "~/software/xpclrs/bin/xpclrs"   # Rust 二进制|Rust binary
+    threads: int = 12                # 线程数(仅 xpclrs 后端)|Threads (xpclrs backend only)
 
     def __post_init__(self):
         self.input_vcf = expand_path(self.input_vcf)
@@ -44,6 +48,7 @@ class XpclrConfig:
         # |expand_path skips bare names; force abspath for a stable output root
         self.output_dir = os.path.abspath(expand_path(self.output_dir))
         self.xpclr_path = get_tool_path("xpclr", self.xpclr_path, "XPCLR_PATH")
+        self.xpclrs_path = get_tool_path("xpclrs", self.xpclrs_path, "XPCLRS_PATH")
 
     def validate(self) -> bool:
         """收集全部错误后一次性抛出|Collect all errors then raise once (§六)."""
@@ -81,8 +86,15 @@ class XpclrConfig:
             errors.append(f"top_n 必须为正|top_n must be positive: {self.top_n}")
         if not self.label or "/" in self.label:
             errors.append(f"label 不能为空且不能含斜杠|label must be non-empty, no slashes: {self.label!r}")
-        if not os.path.isfile(self.xpclr_path):
-            errors.append(f"xpclr 可执行不存在|xpclr executable not found: {self.xpclr_path}")
+        if self.backend not in ("xpclrs", "xpclr"):
+            errors.append(f"backend 必须是 xpclrs 或 xpclr|backend must be xpclrs or xpclr: {self.backend!r}")
+        if self.threads <= 0:
+            errors.append(f"threads 必须为正|threads must be positive: {self.threads}")
+        # 只校验当前后端工具存在|validate only the active backend's tool
+        tool = self.xpclrs_path if self.backend == "xpclrs" else self.xpclr_path
+        if not os.path.isfile(tool):
+            errors.append(
+                f"{self.backend} 可执行不存在|{self.backend} executable not found: {tool}")
         if errors:
             raise ValueError("\n".join(errors))
         return True

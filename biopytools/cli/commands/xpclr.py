@@ -62,12 +62,21 @@ def _validate_file(path):
               help='每碱基重组率|Recombination rate per base')
 @click.option('--top-n', type=int, default=50, show_default=True,
               help='Top候选窗口数|Top candidate windows')
+@click.option('--backend', type=click.Choice(['xpclrs', 'xpclr']), default='xpclrs',
+              show_default=True,
+              help='底层工具:xpclrs=Rust高速版(默认),xpclr=python|xpclrs=Rust fast '
+                   '(default), xpclr=python')
 @click.option('--xpclr-path', default='~/miniforge3/envs/selective_sweep/bin/xpclr',
-              show_default=True, help='xpclr可执行路径|xpclr executable path')
+              show_default=True, help='xpclr(python后端)可执行路径|xpclr (python backend) path')
+@click.option('--xpclrs-path', default='~/software/xpclrs/bin/xpclrs',
+              show_default=True, help='xpclrs(Rust后端)可执行路径|xpclrs (Rust backend) path')
+@click.option('--threads', '-t', type=int, default=12, show_default=True,
+              help='线程数(仅xpclrs后端)|Threads, xpclrs backend only')
 @click.option('--log-level', default='INFO', show_default=True,
               help='日志级别(DEBUG/INFO/WARNING/ERROR)|Log level')
 def xpclr(input, samples_a, samples_b, output_dir, label, chroms, size, step,
-          maxsnps, minsnps, ld, phased, rrate, top_n, xpclr_path, log_level):
+          maxsnps, minsnps, ld, phased, rrate, top_n, backend, xpclr_path,
+          xpclrs_path, threads, log_level):
     """
     XP-CLR 跨群体选择信号扫描|XP-CLR cross-population selection scan.
 
@@ -101,8 +110,14 @@ def xpclr(input, samples_a, samples_b, output_dir, label, chroms, size, step,
         args.extend(['--rrate', str(rrate)])
     if top_n != 50:
         args.extend(['--top-n', str(top_n)])
+    if backend != 'xpclrs':
+        args.extend(['--backend', backend])
     if xpclr_path != '~/miniforge3/envs/selective_sweep/bin/xpclr':
         args.extend(['--xpclr-path', xpclr_path])
+    if xpclrs_path != '~/software/xpclrs/bin/xpclrs':
+        args.extend(['--xpclrs-path', xpclrs_path])
+    if threads != 12:
+        args.extend(['--threads', str(threads)])
     if log_level != 'INFO':
         args.extend(['--log-level', log_level])
 

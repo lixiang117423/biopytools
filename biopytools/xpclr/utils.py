@@ -11,6 +11,7 @@ import glob
 import logging
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Optional
@@ -74,3 +75,18 @@ def detect_xpclr_version(xpclr_path: str) -> str:
         except OSError:
             continue
     return "unknown"
+
+
+def detect_xpclrs_version(xpclrs_path: str) -> str:
+    """跑 xpclrs -V 读版本号|Read version via `xpclrs -V`.
+
+    Rust 版输出形如 "xpclr 1.0.3";失败返回 unknown(不抛错,不阻塞流程)。
+    |Rust binary prints "xpclr 1.0.3"; "unknown" on failure.
+    """
+    try:
+        r = subprocess.run([xpclrs_path, "-V"], capture_output=True,
+                           text=True, timeout=30)
+        m = re.search(r"(\d+\.\d+\.\d+)", (r.stdout or "") + (r.stderr or ""))
+        return m.group(1) if m else "unknown"
+    except Exception:
+        return "unknown"
