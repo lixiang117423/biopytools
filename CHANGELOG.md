@@ -1,7 +1,21 @@
+## [1.44.0] - 2026-08-24
+
+### Added
+- `genome2sv`: 新增 SV 序列输出——`05_sv_sequences/pan_sv.sequences.fa` 每条 SV 一条代表序列(INS 取 ALT 剥 anchor、DEL 取 REF 字段、INV 取 ALT 即 revcomp、DUP/DUP:TANDEM/DUP:INT 按参考 [POS,END] 提取重复单元;BND 无区间跳过并计数;符号化等位基因自动回退坐标提取);header 含坐标/长度/来源/支持样本
+- `genome2sv`: 新增 PAV 矩阵——`04_stats/pav_matrix.tsv`(sv_id/chrom/pos/end/svtype/svlen + 样本 0/1)与 `04_stats/pav_binary.tsv`(纯 0/1,R 可直接 as.matrix);GT 含 allele 1 记 1、`./.` 记 0;sv_id 与序列 FASTA 共用自增编号(pan_sv.INS.00001)便于交叉引用(SURVIVOR 合并后原 VCF ID 可能重复,不可直接用)
+
+### Fixed
+- `genome2sv`: SURVIVOR merge 补断点续传——merged VCF 已存在时跳过重合并;旧结果目录重跑只补新输出(比对/调用/合并全保留);模块版本 1.1.0
+
 ## [1.43.0] - 2026-08-24
 
 ### Added
 - `nlr-annotator`: 新增被包含冗余调用过滤(默认开启,`--no-filter-contained` 可关)——剔除同序列上被完整基因完全包含的冗余短片段调用(如 TIR-only 片段嵌套于 TIR-NBARC-LRR 完整基因内部,系 NLR-Annotator motif 链接算法在密集/串联位点的已知冗余行为);链式包含只留最外层,同坐标重复留靠前一条;被剔除记录留档 `{sample}.nlr_annotator.removed.tsv`(含 contained_by 列);过滤幂等,断点续传跳过 java 的旧结果重跑同命令即可原地补过滤;java 重跑前自动清理陈旧留档
+
+## [1.42.3] - 2026-08-24
+
+### Fixed
+- `mixrace`: 修复 GTX 后 reads 统计与 k-mer 提取全部静默失败——GTX 实际产出 `{sample}.sorted.bam`,代码按 `{sample}.bam` 找导致 50 次计数/覆盖失败(汇总表 mapping率/深度/覆盖全 0,污染reads虚高)且 mapped 提取 todo 全空(smudgescope 报 mapped_fastq 路径不存在);新增 `resolve_gtx_bam`(sorted 优先/裸名回退)统一三处调用;todo 空时兜底建目录给出可诊断失败;版本 0.3.4
 
 ## [1.42.2] - 2026-08-24
 
