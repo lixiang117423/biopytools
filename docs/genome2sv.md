@@ -7,7 +7,8 @@
 - 输入一个样本清单(fof)，指定一个参考样本，其余样本作为查询逐一分析
 - 每个查询样本：minimap2 比对到参考(asm5/asm10/asm20 预设) → svim-asm 检测结构变异(SV) → SURVIVOR 把各样本的 SV 合并
 - 合并后的群体 SV 清单输出为 `pan_sv.survivor.vcf`，并生成每样本 SV 类型统计表 `sv_summary.tsv`
-- 全程断点续传：比对和 SV 调用已完成的样本重跑时自动跳过
+- 同时输出每条 SV 的代表序列 `pan_sv.sequences.fa` 和样本×SV 的 PAV 矩阵(`pav_matrix.tsv` / `pav_binary.tsv`)
+- 全程断点续传：比对、SV 调用、SURVIVOR 合并已完成的步骤重跑时自动跳过
 - 六个依赖工具(minimap2 / samtools / svim-asm / bcftools / bedtools / SURVIVOR)统一在 `sv_calling` conda 环境中调用
 
 ## 快速开始 | Quick Start { #quick-start }
@@ -90,7 +91,10 @@ sampleB /data/genomes/sampleB.fa
 步骤4: SURVIVOR 合并 + bcftools stats + SV 类型统计表
     |
     ▼
-输出 pan_sv.survivor.vcf + sv_summary.tsv
+步骤5: SV 序列提取 + PAV 矩阵(从合并 VCF 生成)
+    |
+    ▼
+输出 pan_sv.survivor.vcf + pan_sv.sequences.fa + pav_matrix.tsv + sv_summary.tsv
 ```
 
 ## 输出 | Output { #output }
@@ -108,7 +112,11 @@ results/
 │   └── pan_sv.survivor.vcf     # 合并后的群体 SV 清单(核心结果)
 ├── 04_stats/
 │   ├── sv_summary.tsv          # 每样本(含 merged)的 SV 类型统计表
-│   └── pan_sv.survivor.stats   # bcftools stats 输出
+│   ├── pan_sv.survivor.stats   # bcftools stats 输出
+│   ├── pav_matrix.tsv          # PAV 矩阵(SV 元数据 + 每样本 0/1)
+│   └── pav_binary.tsv          # 纯 0/1 PAV 矩阵(R 可直接 as.matrix)
+├── 05_sv_sequences/
+│   └── pan_sv.sequences.fa     # 每条 SV 一条代表序列(FASTA)
 ├── 00_pipeline_info/
 │   └── software_versions.yml   # 软件版本与运行参数
 └── 99_logs/
@@ -137,7 +145,25 @@ merged    150      35     80     15     10     8      2
 - `total` 是该样本(或合并后)检测到的 SV 总数，后面几列是各类型计数，`OTHER` 是其它类型
 - 合并后的 `merged` 行 SV 数一般不少于单个样本，因为汇总了所有样本的 SV
 
-### 3. 好坏判据
+### 3. pan_sv.sequences.fa(SV 序列)
+
+**通俗理解|In plain words:** 把每条 SV 对应的那段 DNA 序列抠出来存成 FASTA，可直接拿去 blast、设计引物或做注释。
+
+- 序列来源按类型：INS 是插入序列本身(来自 ALT 字段)、DEL 是被删除的参考序列(含断点首碱基)、INV 是倒位区序列(反向互补)、DUP 是重复单元参考序列
+- `BND`(易位)没有明确的单一区间，不输出序列(日志会计数)
+- 序列名形如 `pan_sv.INS.00001`,header 里带坐标/长度/来源/支持样本;`sv_id` 与 PAV 矩阵共用，可交叉对照
+- 若与 PAV 矩阵行数对不上，差额就是 BND 或无法提取的记录(日志有"跳过|skipped"计数)
+
+### 4. pav_matrix.tsv / pav_binary.tsv(PAV 矩阵)
+
+**通俗理解|In plain words:** 一张「哪个样本有哪条 SV」的 0/1 表——1 表示有(present)、0 表示没有(absent)，是单倍型/品种间 SV 差异分析的核心输入。
+
+- `pav_matrix.tsv` 带元数据列(sv_id/chrom/pos/end/svtype/svlen),便于按染色体/类型筛选
+- `pav_binary.tsv` 只有 0/1,方便 R 里 `read.table` 后直接 `as.matrix` 做聚类/PCA
+- 判定规则：样本基因型含 allele 1(如 `1/1`、`0/1`)记 1,缺失(`./.`)记 0
+- 行数与合并 VCF 的 SV 总数一致(含 BND);`sv_id` 与序列 FASTA 对应
+
+### 5. 好坏判据
 
 - 合并后 SV 数量合理、各样本统计表都能正常生成，说明流程正常
 - 若某样本 SV 数异常为 0 或极少，检查该样本比对是否失败(看日志)，或它与参考差异是否过大(考虑换 `--preset`)

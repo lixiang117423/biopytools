@@ -5,8 +5,10 @@ import subprocess
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-from .utils import (ModuleLogger, build_conda_command, get_conda_env,
-                    build_survivor_input, format_sv_summary_tsv, parse_svtype_stats)
+from .utils import (FaidxReader, ModuleLogger, build_conda_command,
+                    build_survivor_input, extract_sv_sequence, format_pav_binary,
+                    format_pav_matrix, format_sv_summary_tsv, get_conda_env,
+                    gt_present, parse_info_str, parse_svtype_stats, stable_sv_id)
 
 
 class Genome2SVPipeline:
@@ -154,7 +156,13 @@ class Genome2SVPipeline:
         paths = build_survivor_input(sample_vcf_map, input_txt)
         merged_vcf = str(self.config.merged_dir / "pan_sv.survivor.vcf")
         merge_ok = False
-        if not paths:
+        if os.path.exists(merged_vcf):
+            # 断点续传:合并是确定性输出,已有结果直接复用
+            # |Checkpoint: merge is deterministic; reuse existing result
+            self.logger.info(
+                "跳过已完成 SURVIVOR 合并|Skipping completed SURVIVOR merge")
+            merge_ok = True
+        elif not paths:
             self.logger.warning(
                 "无可用样本 VCF,跳过 SURVIVOR 合并|No sample VCFs; skip SURVIVOR merge")
         else:
@@ -191,6 +199,99 @@ class Genome2SVPipeline:
         except FileNotFoundError as e:
             self.logger.warning(f"bcftools stats 跳过|bcftools stats skipped: {e}")
 
+    # ---------- 步骤 5:SV 序列 + PAV 矩阵|sequences + PAV matrix ----------
+
+    def generate_downstream_outputs(self, merged_vcf: str) -> bool:
+        """从 merged VCF 生成 SV 序列 FASTA + PAV 矩阵|Sequences FASTA + PAV from merged VCF.
+
+        SV 序列:INS 取 ALT(剥 anchor)、DEL 取 REF、INV 取 ALT(已 revcomp)、
+        DUP 按参考 [POS,END] 提取重复单元;BND/无法提取者跳过并计数。
+        PAV:GT 含 1 记 1,./. 记 0;与序列 FASTA 共用自增 sv_id 便于交叉引用。
+        |Sequences: INS from ALT (anchor stripped), DEL from REF, INV from ALT
+        (already revcomp), DUP as reference [POS,END] unit; BND/unextractable
+        skipped with counts. PAV: GT with allele 1 → 1 else 0; shares the
+        auto-increment sv_id with the FASTA for cross-reference.
+        """
+        seq_fa = self.config.sv_seq_dir / "pan_sv.sequences.fa"
+        pav_tsv = self.config.stats_dir / "pav_matrix.tsv"
+        pav_bin = self.config.stats_dir / "pav_binary.tsv"
+        if all(p.exists() for p in (seq_fa, pav_tsv, pav_bin)):
+            self.logger.info(
+                "跳过已完成下游输出|Skipping completed downstream outputs "
+                "(SV sequences + PAV)")
+            return True
+        if not os.path.exists(merged_vcf):
+            self.logger.warning(
+                f"merged VCF 不存在,跳过 SV 序列与 PAV 输出|merged VCF missing; "
+                f"skip SV sequences & PAV: {merged_vcf}")
+            return True
+
+        reader = None
+        try:
+            reader = FaidxReader(self.config.reference_fasta)
+        except (FileNotFoundError, OSError) as e:
+            self.logger.warning(
+                f"参考 fai 不可用,坐标提取(DUP/符号化回退)将跳过|Reference fai "
+                f"unavailable; region extraction (DUP/symbolic fallback) skipped: {e}")
+
+        sample_names: List[str] = []
+        type_counters: dict = {}
+        pav_rows: List[tuple] = []
+        fa_records: List[Tuple[str, str]] = []
+        skipped_seq = 0
+        with open(merged_vcf) as fh:
+            for line in fh:
+                if line.startswith("##"):
+                    continue
+                if line.startswith("#CHROM"):
+                    sample_names = line.rstrip("\n").split("\t")[9:]
+                    continue
+                fields = line.rstrip("\n").split("\t")
+                if len(fields) < 8:
+                    continue
+                chrom, pos = fields[0], int(fields[1])
+                ref, alt = fields[3], fields[4]
+                info = parse_info_str(fields[7])
+                svtype = info.get("SVTYPE", "UNKNOWN")
+                end = info.get("END", pos)
+                svlen = info.get("SVLEN", ".")
+                n = type_counters.get(svtype, 0) + 1
+                type_counters[svtype] = n
+                sv_id = stable_sv_id(svtype, n)
+                pav = [gt_present(f) for f in fields[9:]] if len(fields) > 9 else []
+                pav_rows.append((sv_id, chrom, pos, end, svtype, svlen, pav))
+                result = extract_sv_sequence(svtype, chrom, pos, ref, alt,
+                                             info, reader)
+                if result is None:
+                    skipped_seq += 1
+                    continue
+                seq, source = result
+                support = ",".join(s for s, p in zip(sample_names, pav) if p)
+                header = (f">{sv_id} type={svtype.split(':', 1)[0]} chrom={chrom} "
+                          f"pos={pos} end={end} len={len(seq)} source={source} "
+                          f"samples={support}")
+                fa_records.append((header, seq))
+        if reader is not None:
+            reader.close()
+
+        # FASTA(60 列换行)|FASTA wrapped at 60 columns
+        with open(seq_fa, "w") as out:
+            for header, seq in fa_records:
+                out.write(header + "\n")
+                for i in range(0, len(seq), 60):
+                    out.write(seq[i:i + 60] + "\n")
+        pav_tsv.write_text(format_pav_matrix(pav_rows, sample_names))
+        pav_bin.write_text(format_pav_binary(pav_rows, sample_names))
+
+        self.logger.info(
+            f"SV 序列已生成|SV sequences written: {seq_fa} "
+            f"(提取|extracted {len(fa_records)}, 跳过|skipped {skipped_seq})")
+        for svtype in sorted(type_counters):
+            self.logger.info(
+                f"  {svtype}: {type_counters[svtype]} 条(进 PAV)|records (in PAV)")
+        self.logger.info(f"PAV 矩阵已生成|PAV matrices written: {pav_tsv}, {pav_bin}")
+        return True
+
     # ---------- 主流程|main run ----------
 
     def run(self) -> int:
@@ -218,6 +319,13 @@ class Genome2SVPipeline:
             return 1
 
         self.merge_and_stats(sample_vcf_map)
+        merged_vcf = str(self.config.merged_dir / "pan_sv.survivor.vcf")
+        if os.path.exists(merged_vcf):
+            self.generate_downstream_outputs(merged_vcf)
+        else:
+            self.logger.warning(
+                "无 merged VCF,跳过 SV 序列与 PAV 输出|No merged VCF; "
+                "skip SV sequences & PAV output")
         from .utils import write_software_versions
         write_software_versions(
             self.config, self.logger,

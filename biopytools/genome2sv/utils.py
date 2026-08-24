@@ -181,6 +181,164 @@ def format_sv_summary_tsv(rows: List[Tuple[str, dict]]) -> str:
     return "\n".join(lines) + "\n"
 
 
+# ---------- SV 序列提取 + PAV 矩阵|SV sequence extraction & PAV matrix ----------
+
+_REVCOMP_TABLE = str.maketrans("ACGTacgtNn", "TGCAtgcaNn")
+
+
+def revcomp(seq: str) -> str:
+    """反转互补|Reverse complement."""
+    return seq.translate(_REVCOMP_TABLE)[::-1]
+
+
+class FaidxReader:
+    """基于 .fai 的 FASTA 随机读取器|.fai-backed random-access FASTA reader.
+
+    步骤 0 已为参考建好 .fai;此处纯 Python seek,避免逐条调 samtools faidx。
+    |The reference is faidx-ed in step 0; plain Python seek here avoids one
+    samtools faidx invocation per SV.
+    """
+
+    def __init__(self, fasta_path: str):
+        fai_path = fasta_path + ".fai"
+        if not os.path.exists(fai_path):
+            raise FileNotFoundError(f"fai 索引不存在|fai missing: {fai_path}")
+        self._fh = open(fasta_path, "rb")
+        self._index = {}  # name -> (length, offset, linebases, linewidth)
+        with open(fai_path) as fai:
+            for line in fai:
+                parts = line.rstrip("\n").split("\t")
+                if len(parts) < 5:
+                    continue
+                name, length, offset, linebases, linewidth = parts[:5]
+                self._index[name] = (int(length), int(offset),
+                                     int(linebases), int(linewidth))
+
+    def fetch(self, chrom: str, start1: int, end1: int) -> str:
+        """取 1-based 闭区间序列(end 超长自动截断)|Fetch 1-based closed interval (clamped)."""
+        if chrom not in self._index:
+            raise KeyError(f"染色体不在 fai|chrom missing from fai: {chrom}")
+        length, offset, linebases, linewidth = self._index[chrom]
+        start0 = max(0, start1 - 1)
+        end0 = min(end1, length)
+        if end0 <= start0:
+            return ""
+        # 字节区间:起点行内偏移 + 起始整行偏移;终点同理(含)|byte range via line math
+        byte_start = offset + (start0 // linebases) * linewidth + (start0 % linebases)
+        last0 = end0 - 1
+        byte_end = offset + (last0 // linebases) * linewidth + (last0 % linebases) + 1
+        self._fh.seek(byte_start)
+        raw = self._fh.read(byte_end - byte_start)
+        return raw.decode().replace("\n", "").replace("\r", "").upper()
+
+    def close(self) -> None:
+        """关闭句柄|Close handle."""
+        self._fh.close()
+
+
+def gt_present(gt_field: str) -> int:
+    """GT 字段转 PAV(含 allele 1 → 1,缺失/纯参考 → 0)|GT to PAV 0/1."""
+    gt = gt_field.split(":", 1)[0]
+    alleles = gt.replace("|", "/").split("/")
+    return 1 if any(a == "1" for a in alleles) else 0
+
+
+def stable_sv_id(svtype: str, number: int) -> str:
+    """自增稳定 SV id(DUP 子类型归一)|Stable auto-increment SV id (DUP normalized).
+
+    SURVIVOR 合并后原 VCF ID 可能重复,PAV 矩阵与序列 FASTA 共用此 id 互相对应。
+    |SURVIVOR-merged IDs may collide; PAV matrix and sequence FASTA share this id.
+    """
+    base = svtype.split(":", 1)[0]
+    return f"pan_sv.{base}.{number:05d}"
+
+
+def parse_info_str(info: str) -> dict:
+    """INFO 字符串转 dict|INFO string to dict."""
+    out = {}
+    for entry in info.split(";"):
+        if "=" in entry:
+            key, value = entry.split("=", 1)
+            out[key] = value
+    return out
+
+
+def _is_symbolic(allele: str) -> bool:
+    """判断等位基因是否符号化/占位|Allele symbolic or placeholder."""
+    return allele.startswith("<") or allele == "N" or allele == ""
+
+
+def extract_sv_sequence(svtype: str, chrom: str, pos: int, ref: str, alt: str,
+                        info: dict, reader: Optional["FaidxReader"]
+                        ) -> Optional[Tuple[str, str]]:
+    """按 SV 类型提取序列|Extract sequence for one SV by type.
+
+    策略(与 svim-asm sequence-alleles 输出对齐)|Strategy:
+      INS → ALT 剥 anchor;DEL → REF 字段;INV → ALT(已是 revcomp);
+      DUP* → 参考 [POS,END] 重复单元;符号化时 DEL/INV/DUP 回退坐标提取。
+      |INS→ALT minus anchor; DEL→REF field; INV→ALT (already revcomp);
+      DUP*→reference [POS,END] unit; symbolic alleles fall back to region.
+
+    Returns:
+        (sequence, source) 或 None(无法提取:BND/未知/符号化 INS)|None if not extractable
+    """
+    try:
+        end = int(info.get("END", pos))
+    except (TypeError, ValueError):
+        end = pos   # 畸形 END(逗号列表/非数字)回退起点,序列提取按单碱基跳过
+    base_type = svtype.split(":", 1)[0]
+
+    def from_region(invert: bool = False) -> Optional[Tuple[str, str]]:
+        if reader is None:
+            return None
+        try:
+            seq = reader.fetch(chrom, pos, end)
+        except (KeyError, OSError, ValueError):
+            return None
+        if not seq:
+            return None
+        return (revcomp(seq), "region_revcomp") if invert else (seq, "region")
+
+    if base_type == "INS":
+        if _is_symbolic(alt) or len(alt) <= len(ref):
+            return None  # 参考中没有插入序列,无法回退|no reference source for INS
+        return alt[len(ref):].upper(), "alt"
+    if base_type == "DEL":
+        if not _is_symbolic(ref) and len(ref) > 1:
+            return ref.upper(), "ref"
+        return from_region()
+    if base_type == "INV":
+        if not _is_symbolic(alt):
+            return alt.upper(), "alt"
+        return from_region(invert=True)
+    if base_type == "DUP":
+        return from_region()
+    return None  # BND/未知类型无区间|BND/unknown have no interval
+
+
+def format_pav_matrix(rows: List[Tuple], sample_names: List[str]) -> str:
+    """PAV 主矩阵 TSV(带元数据列)|PAV matrix TSV with metadata columns.
+
+    Args:
+        rows: [(sv_id, chrom, pos, end, svtype, svlen, [0/1,...]), ...]
+    """
+    header = ["sv_id", "chrom", "pos", "end", "svtype", "svlen"] + sample_names
+    lines = ["\t".join(header)]
+    for sv_id, chrom, pos, end, svtype, svlen, pav in rows:
+        cells = [sv_id, chrom, str(pos), str(end), svtype, str(svlen)]
+        cells += [str(p) for p in pav]
+        lines.append("\t".join(cells))
+    return "\n".join(lines) + "\n"
+
+
+def format_pav_binary(rows: List[Tuple], sample_names: List[str]) -> str:
+    """纯 0/1 PAV 矩阵 TSV(R 可直接 as.matrix)|Pure 0/1 PAV matrix TSV."""
+    lines = ["\t".join(["sv_id"] + sample_names)]
+    for row in rows:
+        lines.append("\t".join([row[0]] + [str(p) for p in row[-1]]))
+    return "\n".join(lines) + "\n"
+
+
 def write_software_versions(config, logger: logging.Logger, output_path: str,
                             start_time=None) -> None:
     """生成 software_versions.yml|Generate software_versions.yml.
@@ -214,7 +372,7 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
                   "min_support", "survivor_type", "survivor_strand", "est_dist",
                   "min_sv_length", "svim_min_sv_size"]
     info = {
-        "pipeline": {"name": "biopytools genome2sv", "version": "1.0.0"},
+        "pipeline": {"name": "biopytools genome2sv", "version": "1.1.0"},
         "tools": versions,
         "parameters": {k: getattr(config, k, None) for k in param_keys},
     }

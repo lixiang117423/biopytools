@@ -92,10 +92,12 @@ class Genome2SVConfig:
         self.svim_dir = self.output_path / "02_svim"
         self.merged_dir = self.output_path / "03_merged"
         self.stats_dir = self.output_path / "04_stats"
+        self.sv_seq_dir = self.output_path / "05_sv_sequences"
         self.logs_dir = self.output_path / "99_logs"
         self.info_dir = self.output_path / "00_pipeline_info"
         for d in (self.reference_dir, self.alignment_dir, self.svim_dir,
-                  self.merged_dir, self.stats_dir, self.logs_dir, self.info_dir):
+                  self.merged_dir, self.stats_dir, self.sv_seq_dir,
+                  self.logs_dir, self.info_dir):
             d.mkdir(parents=True, exist_ok=True)
 
         # 解析 fof(文件不存在则留空,交 validate 报错)|parse fof
