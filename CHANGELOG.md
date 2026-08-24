@@ -1,3 +1,8 @@
+## [1.43.0] - 2026-08-24
+
+### Added
+- `nlr-annotator`: 新增被包含冗余调用过滤(默认开启,`--no-filter-contained` 可关)——剔除同序列上被完整基因完全包含的冗余短片段调用(如 TIR-only 片段嵌套于 TIR-NBARC-LRR 完整基因内部,系 NLR-Annotator motif 链接算法在密集/串联位点的已知冗余行为);链式包含只留最外层,同坐标重复留靠前一条;被剔除记录留档 `{sample}.nlr_annotator.removed.tsv`(含 contained_by 列);过滤幂等,断点续传跳过 java 的旧结果重跑同命令即可原地补过滤;java 重跑前自动清理陈旧留档
+
 ## [1.42.2] - 2026-08-24
 
 ### Fixed
