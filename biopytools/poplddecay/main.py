@@ -329,6 +329,10 @@ class PopLDdecayRunner:
         summary_data = []
         for rec in recommendations:
             best = rec['recommended']
+            # 完整衰减表写入日志,让所有候选阈值的可达性与衰减距离可见|Log the full
+            # decay table so every candidate's attainability and decay distance is visible
+            self.logger.info(f"[{rec.get('population', 'Unknown')}] 完整衰减表|Full decay table:")
+            self.logger.info("\n" + rec['decay_table'].to_string(index=False))
             summary_data.append({
                 'Population': rec.get('population', 'Unknown'),
                 'N_Samples': rec.get('n', 'N/A'),

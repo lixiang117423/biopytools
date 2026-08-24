@@ -12,4 +12,4 @@ __all__ = [
     'LDThresholdRecommender',
     'recommend_ld_threshold'
 ]
-__version__ = '1.1.0'
+__version__ = '1.1.1'

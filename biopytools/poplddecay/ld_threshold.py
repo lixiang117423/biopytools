@@ -197,32 +197,40 @@ class LDThresholdRecommender:
         r2_fit = self.hill_weir_formula(dist_seq, self.rho_estimate)
         fit_curve = pd.DataFrame({'dist_kb': dist_seq, 'r2_fit': r2_fit})
 
+        # 曲线最大值在d=0处(公式与rho无关,上限约10/22=0.455)|Curve max sits at d=0
+        # (formula caps at ~10/22=0.455 regardless of rho), so候选0.5等高于它的阈值结构性不可达
+        curve_max = float(np.max(r2_fit))
+
         # 计算每个候选阈值的衰减距离|Calculate decay distance for each threshold
         decay_rows = []
         for thr in sorted(self.candidate_thresholds, reverse=True):
             hit = fit_curve[fit_curve['r2_fit'] <= thr]
             if len(hit) == 0:
                 continue
-            decay_kb = round(hit['dist_kb'].iloc[0], 1)
+            bg_ratio = round(thr / background_r2, 2)
+            if thr >= curve_max:
+                # 高于曲线最大值的阈值在整条曲线上都达不到,无衰减距离|Thresholds above
+                # curve max are never reached, hence no decay distance
+                decay_rows.append({
+                    'threshold': thr,
+                    'decay_kb': np.nan,
+                    'bg_ratio': bg_ratio,
+                    'recommendation': 'not recommended: above fitted curve max',
+                })
+                continue
             decay_rows.append({
                 'threshold': thr,
-                'decay_kb': decay_kb,
-                'bg_ratio': round(thr / background_r2, 2)
+                'decay_kb': round(hit['dist_kb'].iloc[0], 1),
+                'bg_ratio': bg_ratio,
+                'recommendation': (
+                    "not recommended: below background LD" if bg_ratio < 1
+                    else "caution: close to background LD" if bg_ratio < 1.5
+                    else "recommended" if bg_ratio < 4
+                    else "caution: far above background LD"
+                ),
             })
 
-        decay_table = pd.DataFrame(decay_rows)
-
-        # 添加推荐建议|Add recommendation
-        decay_table['recommendation'] = decay_table['bg_ratio'].apply(
-            lambda x: (
-                "not recommended: below background LD" if x < 1
-                else "caution: close to background LD" if x < 1.5
-                else "recommended" if x < 4
-                else "caution: far above background LD"
-            )
-        )
-
-        return decay_table
+        return pd.DataFrame(decay_rows)
 
     def select_best_threshold(self, decay_table: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
         """选择最佳阈值|Select best threshold
@@ -240,14 +248,19 @@ class LDThresholdRecommender:
                 "没有阈值符合推荐标准，返回bg_ratio最接近2的阈值|"
                 "No threshold met recommendation criteria, returning threshold with bg_ratio closest to 2."
             )
-            recommended_rows = decay_table
+            # 回退时避开不可达行(decay_kb为NaN,选了必得0窗口)|Fallback must avoid
+            # unattainable rows (NaN decay_kb) whose GWAS window would degenerate to 0
+            attainable_rows = decay_table[decay_table['decay_kb'].notna()]
+            recommended_rows = attainable_rows if len(attainable_rows) > 0 else decay_table
 
         # 选择bg_ratio最接近2的行|Select row with bg_ratio closest to 2
         best_idx = np.abs(recommended_rows['bg_ratio'] - 2).idxmin()
         best_row = recommended_rows.loc[[best_idx]].reset_index(drop=True)
 
         # 计算GWAS窗口（向上取整到50kb）|Calculate GWAS window (round up to 50kb)
-        gwas_window_kb = int(np.ceil(best_row['decay_kb'].iloc[0] / 50) * 50)
+        # 全部候选都不可达时decay_kb为NaN,窗口记0|When every candidate is unattainable, decay_kb is NaN -> window 0
+        best_decay_kb = best_row['decay_kb'].iloc[0]
+        gwas_window_kb = 0 if pd.isna(best_decay_kb) else int(np.ceil(best_decay_kb / 50) * 50)
 
         return best_row, gwas_window_kb
 
