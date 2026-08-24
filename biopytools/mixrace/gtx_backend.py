@@ -17,6 +17,18 @@ _EXCL = "0x904"          # unmapped+secondary+supplementary
 _EXCL_INCL_UNMAPPED = "0x900"
 
 
+def resolve_gtx_bam(bam_dir: str, sample: str) -> Optional[str]:
+    """解析样本 BAM 路径:GTX 实际产出 {sample}.sorted.bam,裸名为回退。
+
+    |resolve sample BAM: GTX emits {sample}.sorted.bam; bare name as fallback.
+    """
+    for name in (f"{sample}.sorted.bam", f"{sample}.bam"):
+        p = Path(bam_dir) / name
+        if p.exists():
+            return str(p)
+    return None
+
+
 def run_gtx(config, runner, ckpt, fastq_dir: str) -> Tuple[Optional[str], Optional[str]]:
     """step2: fastq2vcf-gtx 一步比对+联合calling|one-step mapping + joint calling.
 

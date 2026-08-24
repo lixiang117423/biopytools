@@ -16,7 +16,7 @@ from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_softwar
 from .samples import discover_samples
 from .pipeline import run_index, run_qc, run_depth, read_cached_depth, run_kmer
 from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
-from .gtx_backend import run_gtx, extract_mapped_fastq, count_mapped
+from .gtx_backend import run_gtx, extract_mapped_fastq, count_mapped, resolve_gtx_bam
 from .het_eval import run_het_eval, write_tsv
 
 
@@ -125,8 +125,8 @@ def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
 
     def _account_one(wcfg, w_runner, row):
         sample = row["sample"]
-        bam = str(Path(bam_dir) / f"{sample}.bam")
-        bam_exists = Path(bam).exists()
+        bam = resolve_gtx_bam(bam_dir, sample) or ""
+        bam_exists = bool(bam)
         # 计数表(供 pathogen_alignment_stats 读)|counts file for pathogen stats
         if bam_exists and not (eval_dir / f"{sample}.mapq_stats.tsv").exists():
             total, mapped = count_mapped(w_runner, wcfg, bam)
@@ -275,15 +275,18 @@ def run_pipeline(config, runner, ckpt, logger):
         mapped_dir = Path(config.output_dir) / "05_kmer" / "mapped_fastq"
         names = [r["sample"] for r in rows] or [s["sample"] for s in samples]
         todo = [n for n in names if n not in host_failed
-                and (runner.dry_run or (Path(bam_dir) / f"{n}.bam").exists())]
+                and (runner.dry_run or resolve_gtx_bam(bam_dir, n))]
         for n in set(names) - set(todo):
             if n not in host_failed:
                 logger.warning(f"{n}: BAM 缺失,跳过 k-mer 输入|BAM missing, k-mer skipped")
 
         def _mapped_one(wcfg, w_runner, name):
-            return extract_mapped_fastq(wcfg, w_runner, ckpt, name,
-                                        str(Path(bam_dir) / f"{name}.bam"))
+            bam = resolve_gtx_bam(bam_dir, name) or str(Path(bam_dir) / f"{name}.bam")
+            return extract_mapped_fastq(wcfg, w_runner, ckpt, name, bam)
         _parallel_map(config, runner, todo, _mapped_one)
+        # 兜底建目录:todo 空也给出可诊断的失败(空目录)而非 click 层路径错
+        # |ensure dir exists so failures read as "0 samples", not a click path error
+        mapped_dir.mkdir(parents=True, exist_ok=True)
         run_kmer(config, runner, ckpt, str(mapped_dir))
 
     # 05 图+报告|figures + report
