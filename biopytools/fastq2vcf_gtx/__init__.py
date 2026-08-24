@@ -8,4 +8,4 @@ Whole genome resequencing variant detection pipeline based on GTX
 from .main import Fastq2VcfGTXProcessor
 
 __all__ = ['Fastq2VcfGTXProcessor']
-__version__ = '1.0.0'
+__version__ = '1.0.1'

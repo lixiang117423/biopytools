@@ -11,7 +11,17 @@ import glob
 from .config import Fastq2VcfGTXConfig
 from .utils import CommandRunner, FileManager, CheckpointManager, Fastq2VcfGTXLogger
 from ..common.paths import resolve_legacy_path
-from ..common.conda_runner import build_pipeline_command
+
+# 输入发现后缀(寄主剔除产物 nohost 需与 clean/raw 同列)|input discovery suffixes
+# |nohost = host-depleted output of biopytools mixrace (02_host_filter)
+R1_PATTERNS_CLEAN = ['*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
+R2_PATTERNS_CLEAN = ['*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
+R1_PATTERNS_SKIP_QC = R1_PATTERNS_CLEAN
+R2_PATTERNS_SKIP_QC = R2_PATTERNS_CLEAN
+R1_PATTERNS_QC = ['*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz']
+R2_PATTERNS_QC = ['*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz']
+R1_STRIP_SUFFIXES = ['_1.clean.fq.gz', '_1.nohost.fq.gz', '_1.fq.gz', '_1.fastq.gz']
+R2_BUILD_SUFFIXES = ['_2.clean.fq.gz', '_2.nohost.fq.gz', '_2.fq.gz', '_2.fastq.gz']
 from ..common.conda_runner import build_pipeline_command
 
 
@@ -263,20 +273,20 @@ class GTXMapper:
             # 用户显式提供 --clean-fastq-dir，从清洁数据目录查找
             # User explicitly provided --clean-fastq-dir, search in clean directory
             search_dir = self.config.clean_fastq_dir
-            r1_patterns = ['*_1.clean.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
-            r2_patterns = ['*_2.clean.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
+            r1_patterns = R1_PATTERNS_CLEAN
+            r2_patterns = R2_PATTERNS_CLEAN
             self.logger.info(f"使用清洁数据目录|Using clean data directory: {search_dir}")
         elif self.config.skip_qc:
             # 跳过质控，从原始目录查找（支持多种文件名格式）|Skip QC, search in raw directory
             search_dir = self.config.raw_fastq_dir
-            r1_patterns = ['*_1.clean.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
-            r2_patterns = ['*_2.clean.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
+            r1_patterns = R1_PATTERNS_SKIP_QC
+            r2_patterns = R2_PATTERNS_SKIP_QC
             self.logger.info(f"跳过质控模式，从原始目录查找FASTQ文件|Skip QC mode, searching for FASTQ files in raw directory: {search_dir}")
         else:
             # 使用质控后的数据|Use cleaned data
             search_dir = self.config.clean_fastq_dir
-            r1_patterns = ['*_1.clean.fq.gz', '*_1.fq.gz']
-            r2_patterns = ['*_2.clean.fq.gz', '*_2.fq.gz']
+            r1_patterns = R1_PATTERNS_QC
+            r2_patterns = R2_PATTERNS_QC
             self.logger.info(f"质控模式，从清洁数据目录查找文件|QC mode, searching for files in clean directory: {search_dir}")
 
         # 查找所有R1文件|Find all R1 files
@@ -304,7 +314,7 @@ class GTXMapper:
             # 提取样品名|Extract sample name
             sample_name = os.path.basename(r1_file)
             # 移除所有可能的R1后缀|Remove all possible R1 suffixes
-            for suffix in ['_1.clean.fq.gz', '_1.fq.gz', '_1.fastq.gz']:
+            for suffix in R1_STRIP_SUFFIXES:
                 if sample_name.endswith(suffix):
                     sample_name = sample_name[:-len(suffix)]
                     break
@@ -313,7 +323,7 @@ class GTXMapper:
             r2_file = None
             # 直接构造R2文件名（不使用通配符）|Construct R2 filename directly (without wildcard)
             # 修复: 避免使用glob.glob()的模糊匹配，防止ER_1匹配到ER_10等文件
-            for r2_suffix in ['_2.clean.fq.gz', '_2.fq.gz', '_2.fastq.gz']:
+            for r2_suffix in R2_BUILD_SUFFIXES:
                 potential_r2_file = os.path.join(search_dir, f"{sample_name}{r2_suffix}")
                 if os.path.exists(potential_r2_file):
                     r2_file = potential_r2_file
