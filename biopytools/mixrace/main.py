@@ -182,6 +182,12 @@ def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
     tsv, html = build_summary_table(rows)
     (summ_dir / "verdict_summary.tsv").write_text(tsv, encoding="utf-8")
     (summ_dir / "verdict_summary.html").write_text(html, encoding="utf-8")
+    # Excel 双 sheet(中文/英文表头;失败降级不阻断报告)|two-sheet Excel; degrade on failure
+    try:
+        from .reporter import write_summary_excel
+        write_summary_excel(rows, str(summ_dir / "verdict_summary.xlsx"))
+    except Exception as e:
+        logger.warning(f"Excel 汇总未生成(报告继续)|Excel summary skipped: {e}")
     # 单样本 md|per-sample markdown
     for row in rows:
         (rep_dir / f"{row['sample']}.report.md").write_text(

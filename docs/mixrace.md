@@ -117,7 +117,7 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 ├── 05_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
 ├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
 ├── 07_report/          {sample}.report.md(证据链)
-├── summary/            verdict_summary.tsv · mixrace_report.html(自包含)
+├── summary/            verdict_summary.tsv · verdict_summary.xlsx(中文/英文双sheet) · mixrace_report.html(自包含)
 ├── tmp/                临时文件(运行中,结束清理)
 └── 99_logs/
 ```

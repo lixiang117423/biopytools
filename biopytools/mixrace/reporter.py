@@ -65,8 +65,17 @@ def _fmt(key, val) -> str:
     return str(val)
 
 
-def build_summary_table(rows: list) -> Tuple[str, str]:
-    """判读汇总表(TSV+HTML)|verdict summary table (tsv + html)."""
+_COLS_CN = {"sample": "样品", "verdict": "判读", "advice": "建议",
+            "het_rate": "总杂合率", "robust_rate": "稳健杂合率",
+            "shared_only_rate": "shared-only杂合率", "top_partner": "混合伴侣",
+            "mix_proportion": "成分推断", "het_rate_after_hotspot": "排除热点后杂合率",
+            "dp_ratio": "DP检验", "host_rate": "寄主占比",
+            "pathogen_map_rate": "病原mapping率", "contamination_rate": "污染reads",
+            "mean_depth": "平均深度", "breadth_1x": "覆盖广度"}
+
+
+def _format_summary_rows(rows: list) -> list:
+    """汇总行格式化(比率→百分比字符串;附 verdict_cn)|format rows (+CN verdict)."""
     disp = []
     for r in rows:
         d = dict(r)
@@ -80,17 +89,16 @@ def build_summary_table(rows: list) -> Tuple[str, str]:
         d["verdict_cn"] = f"{_VERDICT_CN.get(r.get('verdict'), r.get('verdict', ''))}" \
                           f"{_SUBTAG_CN.get(r.get('subtag', ''), r.get('subtag', ''))}"
         disp.append(d)
+    return disp
+
+
+def build_summary_table(rows: list) -> Tuple[str, str]:
+    """判读汇总表(TSV+HTML)|verdict summary table (tsv + html)."""
+    disp = _format_summary_rows(rows)
     tsv = "\t".join(_SUMMARY_COLS) + "\n"
     for d in disp:
         tsv += "\t".join(str(d.get(c, "")) for c in _SUMMARY_COLS) + "\n"
     v_idx = _SUMMARY_COLS.index("verdict")
-    _COLS_CN = {"sample": "样品", "verdict": "判读", "advice": "建议",
-                "het_rate": "总杂合率", "robust_rate": "稳健杂合率",
-                "shared_only_rate": "shared-only杂合率", "top_partner": "混合伴侣",
-                "mix_proportion": "成分推断", "het_rate_after_hotspot": "排除热点后杂合率",
-                "dp_ratio": "DP检验", "host_rate": "寄主占比",
-                "pathogen_map_rate": "病原mapping率", "contamination_rate": "污染reads",
-                "mean_depth": "平均深度", "breadth_1x": "覆盖广度"}
     html = '<table border=1><tr>' + "".join(
         f"<th>{_COLS_CN.get(c, c)}<br>{c}</th>" for c in _SUMMARY_COLS) + "</tr>"
     for d, r in zip(disp, rows):
@@ -185,3 +193,35 @@ def build_html_report(title: str, rows: list, figures: dict,
         parts.append("</table></details>")
     parts.append("</body></html>")
     return "".join(parts)
+
+
+def write_summary_excel(rows: list, path: str) -> None:
+    """判读汇总 Excel:中文表头 sheet + 英文表头 sheet|CN-header + EN-header sheets.
+
+    中文 sheet(判读汇总)表头/判读列用中文显示名;英文 sheet(summary)保留原始
+    机器可读键;两 sheet 数据与格式化一致,表头加粗+冻结首行+自适应列宽。
+    |CN sheet uses display names; EN sheet keeps raw keys; bold frozen headers.
+    """
+    from openpyxl import Workbook
+    from openpyxl.styles import Font
+    disp = _format_summary_rows(rows)
+    wb = Workbook()
+
+    def _fill(ws, headers, verdict_of_row):
+        ws.append(headers)
+        for d in disp:
+            ws.append([verdict_of_row(d) if c == "verdict" else str(d.get(c, ""))
+                       for c in _SUMMARY_COLS])
+        for cell in ws[1]:
+            cell.font = Font(bold=True)
+        ws.freeze_panes = "A2"
+        for j, h in enumerate(headers, start=1):
+            ws.column_dimensions[ws.cell(1, j).column_letter].width = max(10, len(str(h)) * 2.2)
+
+    ws_cn = wb.active
+    ws_cn.title = "判读汇总"
+    _fill(ws_cn, [_COLS_CN.get(c, c) for c in _SUMMARY_COLS],
+          lambda d: str(d.get("verdict_cn", d.get("verdict", ""))))
+    ws_en = wb.create_sheet("summary")
+    _fill(ws_en, list(_SUMMARY_COLS), lambda d: str(d.get("verdict", "")))
+    wb.save(path)
