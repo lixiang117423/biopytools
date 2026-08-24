@@ -8,6 +8,6 @@ Run NLR-Annotator to predict NLR genes from CDS sequences
 from .config import NLRAnnotatorConfig
 from .main import main
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 __all__ = ['NLRAnnotatorConfig', 'main']

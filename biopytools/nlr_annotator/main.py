@@ -16,7 +16,9 @@ from .utils import (
     clean_output,
     collect_input_files,
     collect_result_files,
+    filter_contained_calls,
     generate_summary,
+    removed_tsv_path,
 )
 
 
@@ -74,30 +76,41 @@ def _run_single(config: NLRAnnotatorConfig, input_file: str, sample_name: str,
     sample_output_dir.mkdir(parents=True, exist_ok=True)
     output_file = str(sample_output_dir / f"{sample_name}.nlr_annotator.tsv")
 
-    # 断点续传：检查输出文件是否已存在|Checkpoint resume: check if output already exists
+    # 断点续传：输出已存在则跳过java(冗余包含过滤在下方对新旧结果统一应用)
+    # |Checkpoint resume: skip java if output exists (containment filtering below applies to both fresh & existing results)
     if _is_step_completed(output_file):
         logger.info(f"跳过已完成样本|Skipping completed sample: {sample_name}")
-        return output_file
+    else:
+        # 结果重建前清理陈旧留档,避免与新结果不一致|Purge stale audit file before regenerating results
+        stale_removed = removed_tsv_path(output_file)
+        if os.path.exists(stale_removed):
+            os.remove(stale_removed)
+            logger.info(f"清理陈旧留档|Purged stale audit file: {stale_removed}")
 
-    cmd = build_command(config, input_file, output_file)
-    logger.info(f"处理样本|Processing sample: {sample_name}")
-    logger.info(f"命令|Command: {' '.join(cmd)}")
+        cmd = build_command(config, input_file, output_file)
+        logger.info(f"处理样本|Processing sample: {sample_name}")
+        logger.info(f"命令|Command: {' '.join(cmd)}")
 
-    try:
-        result = subprocess.run(cmd, shell=False, capture_output=True, text=True)
-        if result.returncode != 0:
-            logger.error(f"NLR-Annotator运行失败(退出码{result.returncode})|NLR-Annotator failed (exit {result.returncode})")
-            if result.stderr:
-                logger.error(f"错误信息|Error message: {result.stderr}")
+        try:
+            result = subprocess.run(cmd, shell=False, capture_output=True, text=True)
+            if result.returncode != 0:
+                logger.error(f"NLR-Annotator运行失败(退出码{result.returncode})|NLR-Annotator failed (exit {result.returncode})")
+                if result.stderr:
+                    logger.error(f"错误信息|Error message: {result.stderr}")
+                sys.exit(1)
+        except FileNotFoundError as e:
+            logger.error(f"命令执行失败|Command execution failed: {e}")
             sys.exit(1)
-    except FileNotFoundError as e:
-        logger.error(f"命令执行失败|Command execution failed: {e}")
-        sys.exit(1)
 
-    logger.info(f"样本完成|Sample done: {sample_name}")
+        logger.info(f"样本完成|Sample done: {sample_name}")
 
-    # 清洗输出文件：加表头、去重motif|Clean output: add header, deduplicate motifs
-    clean_output(output_file, logger)
+        # 清洗输出文件：加表头、去重motif|Clean output: add header, deduplicate motifs
+        clean_output(output_file, logger)
+
+    # 冗余包含过滤:幂等,断点旧结果重跑同命令即可原地过滤(无需重跑java)
+    # |Containment filtering: idempotent; rerun the same command to filter checkpointed results in place (no java rerun)
+    if config.filter_contained:
+        filter_contained_calls(output_file, logger)
 
     return output_file
 
@@ -139,6 +152,11 @@ def main():
     parser.add_argument('--merge-only', action='store_true',
                         help='只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator'
                              '|Merge existing result TSVs only, skip NLR-Annotator')
+
+    parser.add_argument('--no-filter-contained', action='store_true',
+                        help='关闭被包含冗余调用过滤(默认开启:剔除同序列上被完整基因完全包含的短片段调用,'
+                             '被剔除记录留档为*.nlr_annotator.removed.tsv)'
+                             '|Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *.removed.tsv)')
 
     parser.add_argument('--jar-path', default='',
                         help='NLR-Annotator JAR文件路径|NLR-Annotator JAR file path')
@@ -207,6 +225,7 @@ def main():
         distance_within_motif_combination=args.distance_within_motif_combination,
         distance_for_elongating=args.distance_for_elongating,
         distance_between_motif_combinations=args.distance_between_motif_combinations,
+        filter_contained=not args.no_filter_contained,
     )
 
     try:

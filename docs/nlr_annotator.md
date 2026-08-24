@@ -7,9 +7,10 @@
 - 封装 NLR-Annotator，从 DNA / CDS 序列预测 NLR（核苷酸结合亮氨酸重复）基因
 - 支持单文件或目录批量处理（目录模式自动按样本名分目录）
 - 输出清洗：自动加表头、去重并排序 motif 列表
+- 冗余过滤（默认开启）：剔除被完整基因完全包含的冗余短片段调用，被剔除记录留档 `*.removed.tsv`
 - 可选输出 GFF / BED / motifs BED / motif 比对 FASTA
 - 目录模式自动生成多样本汇总表 `nlr_annotator_summary.tsv`
-- 断点续传：已完成样本自动跳过；`--merge-only` 可只合并已有结果补汇总
+- 断点续传：已完成样本自动跳过（重跑同命令会对旧结果原地补冗余过滤，无需重跑 Java）；`--merge-only` 可只合并已有结果补汇总
 
 ## 快速开始 | Quick Start
 
@@ -62,9 +63,13 @@ ATGGCTAG...
 
 **通俗理解|In plain words:** 默认只出 TSV 结果表。需要坐标格式就开 `--output-gff` / `--output-bed`；想看每个预测用了哪些 motif 开 `--output-motifs`；想看 motif 的序列比对开 `--output-alignment`。**默认都不开，按需勾选。**
 
+### 结果过滤 | Result filtering
+
+**通俗理解|In plain words:** NLR-Annotator 在密集/串联 NLR 位点常把同一个基因内部的 motif 子集（比如只有 TIR 的一段短片段）单独打包成一条记录，造成「一条 4604 bp 的完整基因里嵌着一条 361 bp 的 TIR-only 小片段」这类冗余。模块默认按坐标完全包含关系自动剔除这些小片段（链式包含只留最外层，坐标相同的重复只留靠前一条），被剔除的记录会留档到 `*.removed.tsv` 以便审计。**一般不用动；想看原始的全部调用就加 `--no-filter-contained`。**
+
 ## 分析流程 | Pipeline
 
-**通俗理解|In plain words:** 先收集输入文件，然后逐个样本调用 NLR-Annotator（Java），最后把各样本结果清洗并合并成汇总表。
+**通俗理解|In plain words:** 先收集输入文件，然后逐个样本调用 NLR-Annotator（Java），每个样本的结果先清洗再加冗余过滤，最后合并成汇总表。
 
 ```text
 输入 DNA/CDS 文件或目录
@@ -76,7 +81,7 @@ ATGGCTAG...
 2. 逐样本运行 NLR-Annotator（java -jar，断点续传跳过已完成）
     │
     ▼
-3. 清洗输出：加表头、去重并排序 motif
+3. 清洗输出：加表头、去重并排序 motif；剔除被完整包含的冗余调用（默认，留档 *.removed.tsv）
     │
     ▼
 4. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv
@@ -88,9 +93,10 @@ ATGGCTAG...
 
 ```text
 output/
-├── {sample}.nlr_annotator.tsv      # 清洗后的 NLR 结果表（核心）
-├── {sample}.gff                    # 仅 --output-gff
-├── {sample}.bed                    # 仅 --output-bed
+├── {sample}.nlr_annotator.tsv           # 清洗+过滤后的 NLR 结果表（核心）
+├── {sample}.nlr_annotator.removed.tsv   # 被剔除的冗余调用留档（仅有剔除时生成）
+├── {sample}.gff                    # 仅 --output-gff（java 原生产物，未参与冗余过滤）
+├── {sample}.bed                    # 仅 --output-bed（同上）
 ├── {sample}_motifs.bed             # 仅 --output-motifs
 ├── {sample}_alignment.fa           # 仅 --output-alignment
 └── 99_logs/
@@ -103,6 +109,7 @@ output/
 output/
 ├── {sample1}/
 │   ├── {sample1}.nlr_annotator.tsv
+│   ├── {sample1}.nlr_annotator.removed.tsv   # 仅有剔除时生成
 │   └── 99_logs/{sample1}.nlr_annotator.log
 ├── {sample2}/
 │   └── ...
@@ -111,7 +118,8 @@ output/
 
 ### 关键文件说明 | Key files
 
-- `{sample}.nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`
+- `{sample}.nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`；默认已剔除被完整包含的冗余调用
+- `{sample}.nlr_annotator.removed.tsv`：被剔除的冗余调用留档，比结果表多一列 `contained_by`（是被哪条完整基因包含），一行一条被剔记录
 - `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录
 
 ## 结果解读 | Interpreting Results
@@ -123,12 +131,15 @@ output/
 - `type`：NLR 类型（如 CNL、TNL、RNL 等）
 - `start / end / strand`：该 NLR 在输入序列上的坐标区间与方向
 - `motifs`：命中的 motif 列表（已去重、排序、去掉 `motif_` 前缀），motif 越多通常结构越完整
+- 一行 = 一个独立 NLR 基因：默认已剔除被其他调用完全包含的冗余片段，若需核对剔除了什么，看同目录 `*.removed.tsv` 的 `contained_by` 列
 
 ## 参数选择建议 | Parameter Guidance
 
 - **单样本预测**：`-i 文件 -o 目录` 即可，默认参数
 - **多基因组批量**：`-i 目录 -o 目录`，程序自动按样本分目录并出汇总表
 - **批量中途被杀、只想补汇总**：`--merge-only -i 结果目录 -o 目录`，跳过 Java 预测直接合并
+- **旧结果补冗余过滤**：重跑同一条命令即可——已完成样本跳过 Java，冗余过滤原地补做（幂等），无需删结果重跑
+- **想保留全部原始调用（不做冗余过滤）**：加 `--no-filter-contained`
 - **Java 用 conda 环境**：`--java-path ~/miniforge3/envs/xxx/bin/java`
 - **距离参数**：除非你对 NLR-Annotator 的判定逻辑很熟悉，否则保持默认
 
@@ -147,6 +158,7 @@ output/
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode |
 | `--merge-only` | — |  | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
+| `--no-filter-contained` | — |  | 关闭被包含冗余调用过滤(默认开启:剔除被完整基因完全包含的短片段调用,留档*.removed.tsv)｜Disable contained-call filtering (default ON) |
 | `--output-gff` | — |  | 输出GFF文件｜Output GFF file |
 | `--output-bed` | — |  | 输出BED文件｜Output BED file |
 | `--output-motifs` | — |  | 输出motifs BED文件｜Output motifs BED file |
@@ -168,6 +180,7 @@ output/
 | `-o, --output-dir` | `./output` |  | 输出目录｜Output directory (default: ./output) |
 | `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode (default: *.fa) |
 | `--merge-only` | — | store_true | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
+| `--no-filter-contained` | — | store_true | 关闭被包含冗余调用过滤(默认开启:剔除同序列上被完整基因完全包含的短片段调用,被剔除记录留档为*.nlr_annotator.removed.tsv)｜Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *.removed.tsv) |
 | `--jar-path` | `` |  | NLR-Annotator JAR文件路径｜NLR-Annotator JAR file path |
 | `--mot-file` | `` |  | mot.txt配置文件路径｜mot.txt config file path |
 | `--store-file` | `` |  | store.txt配置文件路径｜store.txt config file path |
@@ -207,3 +220,6 @@ NLR-Annotator 需要这三件套齐全。检查默认路径 `~/software/NLR-Anno
 
 **Q5：目录模式怎么确认匹配到了哪些文件？**
 程序会按 `--sample-suffix`（默认 `*.fa`）在目录里 glob 匹配并打印「发现 N 个文件」。若你的文件后缀不是 `.fa`，用 `--sample-suffix` 调整，例如 `*.cds.fa`。
+
+**Q6：为什么会出现「完整基因内部嵌着一条 TIR-only 小片段」？结果表里怎么没有了？**
+这是 NLR-Annotator 的已知行为：它先用 meme/mast 扫描全基因组匹配 NLR 保守 motif，再把邻近 motif 按距离阈值链接成基因模型。TIR 结构域内部本身含多个亚 motif，在 TIR 类 NLR 成簇/串联重复区域，这些亚 motif 间距恰好也满足「最小 NLR 判定标准」时，就会被单独打包成一条记录——本质是同一基因的冗余/重复调用，不是独立基因。模块默认按坐标完全包含关系剔除这类小片段（如 `A1091_Chr06_nlr12 [46996597-46996957]` 被完整基因 `nlr11 [46995758-47000361]` 完全包含），留档在 `*.removed.tsv`；想看原始调用加 `--no-filter-contained`。

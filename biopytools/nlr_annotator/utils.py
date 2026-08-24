@@ -13,6 +13,10 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 
+# 结果TSV表头|Result TSV header
+TSV_HEADER = 'gene_id\tnlr_id\ttype\tstart\tend\tstrand\tmotifs'
+
+
 def get_conda_env(command: str) -> Optional[str]:
     """
     检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
@@ -131,7 +135,7 @@ def clean_output(output_file: str, logger: logging.Logger):
     with open(output_file, 'r') as f:
         lines = f.read().strip().split('\n')
 
-    cleaned = ['gene_id\tnlr_id\ttype\tstart\tend\tstrand\tmotifs']
+    cleaned = [TSV_HEADER]
     for line in lines:
         if not line.strip():
             continue
@@ -148,6 +152,104 @@ def clean_output(output_file: str, logger: logging.Logger):
         f.write('\n'.join(cleaned) + '\n')
 
     logger.info(f"输出已清洗(含表头)|Output cleaned (with header): {output_file}")
+
+
+def removed_tsv_path(output_file: str) -> str:
+    """
+    被包含冗余调用留档文件路径|Audit file path for contained-call removals
+
+    Args:
+        output_file: 结果TSV路径|Result TSV path
+    """
+    if output_file.endswith('.tsv'):
+        return output_file[:-len('.tsv')] + '.removed.tsv'
+    return output_file + '.removed.tsv'
+
+
+def filter_contained_calls(output_file: str, logger: logging.Logger) -> Tuple[int, int]:
+    """
+    过滤被完整基因包含的冗余NLR调用|Filter redundant NLR calls fully contained in another call
+
+    NLR-Annotator的motif链接算法在密集/串联NLR位点会把同一基因内部的motif子集
+    (如TIR-only短片段)单独打包成一条记录;本函数按"同序列上坐标完全包含"关系
+    剔除这些冗余调用(链式包含只留最外层,同坐标重复留靠前一条),被剔除记录
+    留档到 *.removed.tsv(含contained_by列)。幂等:重复运行对已过滤文件无副作用
+    |The motif-chaining step of NLR-Annotator can emit sub-calls of the same gene
+    (e.g. TIR-only fragments) at dense/clustered loci; this drops calls whose
+    interval is fully contained in another call on the same sequence (chained
+    containment keeps the outermost; identical intervals keep the first),
+    archiving removals to *.removed.tsv (with a contained_by column). Idempotent.
+
+    Args:
+        output_file: 结果TSV路径|Result TSV path
+        logger: 日志器|Logger
+
+    Returns:
+        (保留行数, 剔除行数)|(kept rows, removed rows)
+    """
+    path = Path(output_file)
+    if not path.exists() or path.stat().st_size == 0:
+        logger.warning(f"结果文件不存在或为空，跳过冗余过滤|Result file missing or empty, skip filtering: {output_file}")
+        return (0, 0)
+
+    lines = path.read_text().strip().split('\n')
+
+    # 解析数据行;畸形行(坐标非整数/倒置/列数不足)保留不过滤|Parse data rows; malformed rows (non-int/inverted/short coords) kept unfiltered
+    records = []  # (line_idx, gene_id, start, end)
+    malformed = 0
+    for idx, line in enumerate(lines):
+        if not line.strip() or line.startswith('gene_id\t'):
+            continue
+        fields = line.split('\t')
+        if len(fields) >= 5:
+            try:
+                start, end = int(fields[3]), int(fields[4])
+            except ValueError:
+                start = end = None
+            if start is not None and start <= end:
+                records.append((idx, fields[0], start, end))
+                continue
+        malformed += 1
+        logger.warning(f"坐标无法解析，该行保留不过滤|Unparseable coordinates, line kept unfiltered: {line[:80]}")
+
+    # 按序列分组,组内按(start升序,end降序)扫描,维护最大end:命中即被完全包含
+    # |Group by sequence; sort (start asc, end desc) and sweep max end: a hit means full containment
+    groups = {}  # gene_id -> [record, ...]
+    for record in records:
+        groups.setdefault(record[1], []).append(record)
+
+    removed_by_container = {}  # line_idx -> container nlr_id
+    for seq_records in groups.values():
+        ordered = sorted(seq_records, key=lambda r: (r[2], -r[3]))
+        max_end = -1
+        container_id = None
+        for idx, _seq, start, end in ordered:
+            if end <= max_end:
+                removed_by_container[idx] = container_id
+            else:
+                max_end = end
+                container_id = lines[idx].split('\t')[1]
+
+    removed_count = len(removed_by_container)
+    if removed_count:
+        kept_lines = [line for idx, line in enumerate(lines) if idx not in removed_by_container]
+        path.write_text('\n'.join(kept_lines) + '\n')
+
+        audit_file = removed_tsv_path(output_file)
+        audit_lines = [TSV_HEADER + '\tcontained_by']
+        for idx, container in sorted(removed_by_container.items()):
+            audit_lines.append(lines[idx] + '\t' + container)
+            removed_id, removed_seq = lines[idx].split('\t')[1], lines[idx].split('\t')[0]
+            logger.info(f"剔除被包含调用|Removed contained call: {removed_id} "
+                        f"contained in {container} ({removed_seq})")
+        with open(audit_file, 'w') as f:
+            f.write('\n'.join(audit_lines) + '\n')
+        logger.info(f"冗余留档已写入|Audit file written: {audit_file}")
+
+    kept_count = len(records) + malformed - removed_count
+    logger.info(f"冗余包含调用过滤|Contained-call filtering: 剔除|removed {removed_count} "
+                f"条|records, 保留|kept {kept_count} 条|records")
+    return (kept_count, removed_count)
 
 
 def extract_sample_name(filename: str, sample_suffix: str) -> str:

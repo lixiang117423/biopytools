@@ -41,6 +41,9 @@ class NLRAnnotatorConfig:
     distance_for_elongating: int = 2500
     distance_between_motif_combinations: int = 50000
 
+    # 结果过滤|Result filtering
+    filter_contained: bool = True  # 剔除被完整基因包含的冗余调用|Drop calls fully contained in another call
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 工具路径：优先使用已设置的值，否则通过get_tool_path获取|Tool paths: use set value first, else get_tool_path
