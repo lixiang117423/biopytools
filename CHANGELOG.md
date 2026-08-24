@@ -1,3 +1,8 @@
+## [1.44.1] - 2026-08-24
+
+### Fixed
+- `poplddecay`: 修复 LD 阈值推荐可选中拟合曲线达不到的阈值——H&W 公式在 0 kb 处上限约 0.455(与 rho 无关)，候选 r²=0.5 结构性不可达，但背景 r² 偏高(>0.2)时其 bg_ratio 最接近 2 反而必被选中，输出衰减距离 0.0 kb / GWAS 窗口 ±0 的无效推荐；现标记为「not recommended: above fitted curve max」(decay_kb 置 NaN)并剔除出推荐，回退路径同样避开不可达行(顺带修复该路径 NaN 转 int 崩溃)；每个群体的完整衰减表(全部候选阈值的衰减距离与推荐标记)写入运行日志；模块版本 1.1.1
+
 ## [1.44.0] - 2026-08-24
 
 ### Added
@@ -15,7 +20,7 @@
 ## [1.42.3] - 2026-08-24
 
 ### Fixed
-- `mixrace`: 修复 GTX 后 reads 统计与 k-mer 提取全部静默失败——GTX 实际产出 `{sample}.sorted.bam`,代码按 `{sample}.bam` 找导致 50 次计数/覆盖失败(汇总表 mapping率/深度/覆盖全 0,污染reads虚高)且 mapped 提取 todo 全空(smudgescope 报 mapped_fastq 路径不存在);新增 `resolve_gtx_bam`(sorted 优先/裸名回退)统一三处调用;todo 空时兜底建目录给出可诊断失败;版本 0.3.4
+- `mixrace`: 修复 GTX 后 reads 统计与 k-mer 提取全部静默失败——GTX 实际产出 `{sample}.sorted.bam`,代码按 `{sample}.bam` 找导致 50 次计数/覆盖失败(汇总表 mapping率/深度/覆盖全 0,污染reads虚高)且 mapped 提取 todo 全空(smudgescope 报 mapped_fastq 路径不存在);新增 `resolve_gtx_bam`(sorted 优先/裸名回退)统一三处调用;todo 空时兜底建目录给出可诊断失败;新增 verdict_summary.xlsx Excel 输出(中文表头sheet「判读汇总」+英文表头sheet「summary」,表头加粗+冻结首行+自适应列宽,失败降级不阻断报告);版本 0.3.4
 
 ## [1.42.2] - 2026-08-24
 
