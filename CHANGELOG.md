@@ -1,3 +1,8 @@
+## [1.42.1] - 2026-08-23
+
+### Added
+- `mixrace`: 新增 `--sample-parallel` 样本级并行(寄主剔除/mapped提取/reads统计同时跑N样本,默认1串行);samtools view/fastq/stats 全流程加 `-@` 多线程;中间 fastq gzip 降为1级压缩提速
+
 ## [1.42.0] - 2026-08-23
 
 ### Added
