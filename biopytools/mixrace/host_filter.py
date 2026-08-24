@@ -18,9 +18,9 @@ from .utils import format_number, get_conda_env
 
 
 def _count_bam(runner, samtools_path: str, bam, excl_flags: str,
-               min_mapq: Optional[int] = None) -> Optional[int]:
+               min_mapq: Optional[int] = None, threads: int = 1) -> Optional[int]:
     """samtools view -c 计数(失败 None)|count records (None on failure)."""
-    args = ["view", "-c", "-F", excl_flags]
+    args = ["view", "-c", "-@", str(threads), "-F", excl_flags]
     if min_mapq:
         args += ["-q", str(min_mapq)]
     args.append(str(bam))
@@ -55,7 +55,9 @@ def _open_reader(path: str):
 
 
 def _open_writer(path: str):
-    return gzip.open(path, "wt") if str(path).endswith(".gz") else open(path, "w")
+    # gzip 1级压缩:中间产物喂下游GTX,速度优先(9级慢3-5x)|level-1 gzip (intermediate, speed first)
+    return (gzip.open(path, "wt", compresslevel=1) if str(path).endswith(".gz")
+            else open(path, "w"))
 
 
 def load_host_names(names_file: str) -> set:
@@ -252,7 +254,7 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
     # ① 寄主比对(临时 BAM,bwa 输出天然按名成对,免排序)|align to host (temp BAM)
     ok_aln, _, _ = runner.run(
         f'conda run -n {env} --no-capture-output bash -c '
-        f'"{bwa_path} mem -t {t} {fa} {r1} {r2} | {st_path} view -b -o {host_bam} -"',
+        f'"{bwa_path} mem -t {t} {fa} {r1} {r2} | {st_path} view -b -@ {t} -o {host_bam} -"',
         f"寄主比对|host align {sample}")
     if not ok_aln:
         runner.logger.error(f"寄主比对失败,中止 host_filter {sample}|host align failed, aborted")
@@ -265,9 +267,10 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
                 "host_rate": 0.0, "nonhost_reads": 0,
                 "nohost_r1": str(nohost_r1), "nohost_r2": str(nohost_r2)}
     # ② 计数(总 primary / 置信寄主 MAPQ≥Q)|counts (total primary / confident host)
-    total_primary = _count_bam(runner, config.samtools_path, str(host_bam), _EXCL_MAPPED)
+    total_primary = _count_bam(runner, config.samtools_path, str(host_bam), _EXCL_MAPPED,
+                               threads=config.threads)
     host_mapped = _count_bam(runner, config.samtools_path, str(host_bam), _EXCL_MAPPED,
-                             min_mapq=q)
+                             min_mapq=q, threads=config.threads)
     if total_primary is None or host_mapped is None:
         runner.logger.error(f"寄主计数失败,中止 host_filter {sample}|host count failed, aborted")
         return None
@@ -275,7 +278,7 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
     st_env = get_conda_env(config.samtools_path)
     ok_names, _, _ = runner.run(
         f'conda run -n {st_env} --no-capture-output bash -c '
-        f"'{st_path} view -F {_EXCL_MAPPED} -q {q} {host_bam} | cut -f1 | sort -u > {names_file}'",
+        f"'{st_path} view -@ {t} -F {_EXCL_MAPPED} -q {q} {host_bam} | cut -f1 | sort -u --parallel={t} > {names_file}'",
         f"提取寄主read名|extract host read names {sample}")
     if not (ok_names and names_file.exists()):
         runner.logger.error(f"寄主名单提取失败,中止 host_filter {sample}|name extraction failed")
@@ -339,7 +342,8 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
         runner.logger.warning(
             f"{sample}: mapq_stats.tsv 缺失,现场计数最终 BAM(过滤后 BAM 无 unmapped,总数退化)"
             f"|mapq_stats.tsv missing, live counts on final BAM (degraded total)")
-        pathogen_mapped = _count_bam(runner, config.samtools_path, bam, _EXCL_MAPPED) or 0
+        pathogen_mapped = _count_bam(runner, config.samtools_path, bam, _EXCL_MAPPED,
+                                     threads=config.threads) or 0
         if total_reads is None:
             total_reads = pathogen_mapped
     # 覆盖广度(≥1x;samtools coverage -q 与 MAPQ 统一口径)|breadth >=1x with min-MQ

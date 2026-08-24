@@ -66,8 +66,8 @@ def extract_mapped_fastq(config, runner, ckpt, sample: str,
     runner.logger.info(f"开始步骤|Starting step: extract mapped reads {sample}")
     ok, _, _ = runner.run(
         f"conda run -n {env} --no-capture-output bash -c "
-        f"'{st_path} view -b -F {_EXCL}{qpart} {bam} - | "
-        f"{st_path} fastq -1 {r1} -2 {r2} -'",
+        f"'{st_path} view -b -@ {config.threads} -F {_EXCL}{qpart} {bam} - | "
+        f"{st_path} fastq -@ {config.threads} -1 {r1} -2 {r2} -'",
         f"提取mapped reads|extract mapped reads {sample} (MAPQ>={q if q > 0 else 0})")
     if not ok:
         runner.logger.error(f"mapped reads 提取失败: {sample}|extraction failed")
@@ -80,9 +80,9 @@ def extract_mapped_fastq(config, runner, ckpt, sample: str,
 def count_mapped(runner, config, bam: str) -> Tuple[Optional[int], Optional[int]]:
     """(总primary含unmapped, 达标mapped) 计数|(total primary, qualified mapped)."""
     st = config.samtools_path
-    ok_t, out_t, _ = runner.run_conda(st, ["view", "-c", "-F", _EXCL_INCL_UNMAPPED, bam],
+    ok_t, out_t, _ = runner.run_conda(st, ["view", "-c", "-@", str(config.threads), "-F", _EXCL_INCL_UNMAPPED, bam],
                                       f"计数total|count total {os.path.basename(bam)}")
-    args_m = ["view", "-c", "-F", _EXCL]
+    args_m = ["view", "-c", "-@", str(config.threads), "-F", _EXCL]
     if config.min_mapq > 0:
         args_m += ["-q", str(config.min_mapq)]
     args_m.append(bam)

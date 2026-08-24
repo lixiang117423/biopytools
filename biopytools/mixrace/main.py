@@ -7,6 +7,8 @@ mapped-read k-mer / figures+report. Mentor methodology v4.
 """
 import argparse
 import os
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import replace as dc_replace
 from pathlib import Path
 
 from .config import MixraceConfig
@@ -16,6 +18,28 @@ from .pipeline import run_index, run_qc, run_depth, read_cached_depth, run_kmer
 from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
 from .gtx_backend import run_gtx, extract_mapped_fastq, count_mapped
 from .het_eval import run_het_eval, write_tsv
+
+
+def _worker_config(config):
+    """样本级并行时每 worker 的线程配额(t/并行数)|per-worker thread quota."""
+    n = getattr(config, "sample_parallel", 1)
+    if n <= 1:
+        return config
+    return dc_replace(config, threads=max(1, config.threads // n))
+
+
+def _parallel_map(config, runner, items, fn):
+    """逐样本并行(默认1=串行);每 worker 独立 CommandRunner(避免 _child_proc 互踩)。
+    |per-sample parallelism; each worker owns its CommandRunner."""
+    n = getattr(config, "sample_parallel", 1)
+    if n <= 1 or len(items) <= 1:
+        return [fn(_worker_config(config), runner, it) for it in items]
+
+    def _one(it):
+        w_runner = CommandRunner(runner.logger, dry_run=runner.dry_run)
+        return fn(_worker_config(config), w_runner, it)
+    with ThreadPoolExecutor(max_workers=n) as ex:
+        return list(ex.map(_one, items))
 
 
 def _genome_size(fa_path: str) -> int:
@@ -50,6 +74,9 @@ def _argv_to_config() -> MixraceConfig:
                    help="比对质量阈值:mapped reads提取+统计口径(0=不过滤)"
                         "|min MAPQ for mapped-read extraction + stats (0=off)")
     p.add_argument("-t", "--threads", type=int, default=12)
+    p.add_argument("--sample-parallel", dest="sample_parallel", type=int, default=1,
+                   help="样本级并行数(寄主剔除/mapped提取/reads统计同时跑N个样本,"
+                        "每worker线程=threads/N;默认1串行)|per-sample parallelism")
     p.add_argument("-k", "--kmer-size", type=int, default=21)
     p.add_argument("-l", "--read-length", type=int, default=150)
     p.add_argument("--step", type=int, default=None)
@@ -79,7 +106,8 @@ def _argv_to_config() -> MixraceConfig:
         partner_hom_min=a.partner_hom_min, min_sites=a.min_sites,
         window_size=a.window_size, hotspot_fold=a.hotspot_fold,
         hotspot_min_median=a.hotspot_min_median,
-        threads=a.threads, kmer_size=a.kmer_size, read_length=a.read_length,
+        threads=a.threads, sample_parallel=a.sample_parallel,
+        kmer_size=a.kmer_size, read_length=a.read_length,
         step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run)
 
 
@@ -94,35 +122,41 @@ def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
     |per-sample reads accounting (host/map/contamination) + depth + breadth."""
     eval_dir = Path(config.output_dir) / "04_het_eval"
     eval_dir.mkdir(parents=True, exist_ok=True)
-    stats_by_sample = {}
-    for row in rows:
+
+    def _account_one(wcfg, w_runner, row):
         sample = row["sample"]
         bam = str(Path(bam_dir) / f"{sample}.bam")
         bam_exists = Path(bam).exists()
         # 计数表(供 pathogen_alignment_stats 读)|counts file for pathogen stats
         if bam_exists and not (eval_dir / f"{sample}.mapq_stats.tsv").exists():
-            total, mapped = count_mapped(runner, config, bam)
+            total, mapped = count_mapped(w_runner, wcfg, bam)
             if total is not None and mapped is not None:
                 (eval_dir / f"{sample}.mapq_stats.tsv").write_text(
                     f"field\tvalue\ntotal_primary_reads\t{total}\n"
                     f"mapped_q_reads\t{mapped}\n", encoding="utf-8")
-        stats_file = Path(config.output_dir) / "04_het_eval" / "alignment_qc" / f"{sample}.stats.txt"
+        stats_file = eval_dir / "alignment_qc" / f"{sample}.stats.txt"
         depth = read_cached_depth(stats_file, genome_size)
         if depth is None and bam_exists:
-            depth = run_depth(runner, config, sample, bam, genome_size)
-        row["mean_depth"] = depth if depth is not None else 0.0
+            depth = run_depth(w_runner, wcfg, sample, bam, genome_size)
+        depth = depth if depth is not None else 0.0
         try:
-            hs = pathogen_alignment_stats(config, runner, sample, bam, genome_size,
-                                          mean_depth=row["mean_depth"])
+            hs = pathogen_alignment_stats(wcfg, w_runner, sample, bam, genome_size,
+                                          mean_depth=depth)
         except Exception as e:
-            runner.logger.warning(f"{sample}: reads统计失败|reads stats failed: {e}")
+            w_runner.logger.warning(f"{sample}: reads统计失败|reads stats failed: {e}")
             hs = None
+        return sample, depth, hs
+
+    stats_by_sample = {}
+    for sample, depth, hs in _parallel_map(config, runner, rows, _account_one):
+        stats_by_sample[sample] = hs
+        row = next(r for r in rows if r["sample"] == sample)
+        row["mean_depth"] = depth
         if hs:
             row["host_rate"] = hs.get("host_rate")
             row["pathogen_map_rate"] = hs.get("pathogen_map_rate")
             row["contamination_rate"] = hs.get("unassigned_rate")
             row["breadth_1x"] = hs.get("breadth_1x")
-        stats_by_sample[sample] = hs
     return stats_by_sample
 
 
@@ -192,9 +226,12 @@ def run_pipeline(config, runner, ckpt, logger):
         host_dir = Path(config.output_dir) / "02_host_filter"
         if step in (None, 1):
             host_idx = run_host_index(config, runner, ckpt)
-            for s in samples:
-                res = run_host_filter(config, runner, ckpt, s["sample"],
-                                      s["r1"], s["r2"], str(host_idx))
+
+            def _host_one(wcfg, w_runner, s):
+                return run_host_filter(wcfg, w_runner, ckpt, s["sample"],
+                                       s["r1"], s["r2"], str(host_idx))
+            results = _parallel_map(config, runner, samples, _host_one)
+            for s, res in zip(samples, results):
                 if res:
                     s["r1"], s["r2"] = res["nohost_r1"], res["nohost_r2"]
                 else:
@@ -237,14 +274,16 @@ def run_pipeline(config, runner, ckpt, logger):
     if step in (None, 4):
         mapped_dir = Path(config.output_dir) / "05_kmer" / "mapped_fastq"
         names = [r["sample"] for r in rows] or [s["sample"] for s in samples]
-        for name in names:
-            if name in host_failed:
-                continue
-            bam = str(Path(bam_dir) / f"{name}.bam")
-            if not Path(bam).exists() and not runner.dry_run:
-                logger.warning(f"{name}: BAM 缺失,跳过 k-mer 输入|BAM missing, k-mer skipped")
-                continue
-            extract_mapped_fastq(config, runner, ckpt, name, bam)
+        todo = [n for n in names if n not in host_failed
+                and (runner.dry_run or (Path(bam_dir) / f"{n}.bam").exists())]
+        for n in set(names) - set(todo):
+            if n not in host_failed:
+                logger.warning(f"{n}: BAM 缺失,跳过 k-mer 输入|BAM missing, k-mer skipped")
+
+        def _mapped_one(wcfg, w_runner, name):
+            return extract_mapped_fastq(wcfg, w_runner, ckpt, name,
+                                        str(Path(bam_dir) / f"{name}.bam"))
+        _parallel_map(config, runner, todo, _mapped_one)
         run_kmer(config, runner, ckpt, str(mapped_dir))
 
     # 05 图+报告|figures + report

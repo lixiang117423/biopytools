@@ -37,6 +37,7 @@ class MixraceConfig:
     hotspot_min_median: float = 0.10
     # 执行|Execution
     threads: int = 12
+    sample_parallel: int = 1        # 样本级并行数(每worker线程=threads/该值)|per-sample workers
     kmer_size: int = 21
     read_length: int = 150
     step: Optional[int] = None        # None=全跑|None=all steps, 1..5=单步|single step
@@ -90,6 +91,8 @@ class MixraceConfig:
             errors.append("pure_het_threshold须在(0,1)|pure_het_threshold must be in (0,1)")
         if self.min_sites <= 0:
             errors.append("min_sites必须为正|min_sites must be positive")
+        if self.sample_parallel < 1:
+            errors.append("sample_parallel须>=1|sample_parallel must be >= 1")
         if self.window_size <= 0:
             errors.append("window_size必须为正|window_size must be positive")
         if not 0 <= self.partner_alt_min <= 1:

@@ -87,7 +87,7 @@ def run_depth(runner, config, sample: str, bam: str, genome_size: int):
     |samtools stats -> stats.txt; mean depth = bases_mapped / genome_size."""
     qc_dir = Path(config.output_dir) / "04_het_eval" / "alignment_qc"
     qc_dir.mkdir(parents=True, exist_ok=True)
-    ok, stats_txt, _ = runner.run_conda(config.samtools_path, ["stats", str(bam)],
+    ok, stats_txt, _ = runner.run_conda(config.samtools_path, ["stats", "-@", str(config.threads), str(bam)],
                                         f"samtools stats {sample}")
     if not (ok and stats_txt):
         return None

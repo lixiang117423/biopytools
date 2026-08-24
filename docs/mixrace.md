@@ -76,7 +76,8 @@
 
 | 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
 |---|---|---|
-| `-t/--threads` | 12 | 线程数 |
+| `-t/--threads` | 12 | 线程数(samtools/bwa/GTX/smudgescope 全部生效) |
+| `--sample-parallel` | 1 | 样本级并行数:寄主剔除/mapped提取/reads统计同时跑 N 个样本,每 worker 线程=threads/N。25 样本推荐 4-8 |
 | `--step` | 全跑 | 1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 |
 | `--no-checkpoint` / `--dry-run` | 关 | 禁用断点 / 只打印命令 |
 | `-k/--kmer-size`、`-l/--read-length` | 21 / 150 | smudgescope 参数 |
@@ -159,6 +160,7 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜Host genome FASTA (deplete host reads, report host rate) |
 | `--min-mapq` | `20` | int | 比对质量阈值:mapped reads提取+统计口径(0=不过滤)｜Min MAPQ: mapped-read extraction + stats (0=off) |
 | `--threads, -t` | `12` | int | 线程数｜Threads |
+| `--sample-parallel` | `1` | int | 样本级并行数(每worker线程=threads/N)｜Per-sample parallelism |
 | `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
 | `--read-length, -l` | `150` | int | 测序读长｜Read length |
 | `--step` | — | int | 只跑指定步骤1-5(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告)｜Run single step 1-5 (default all) |
@@ -184,6 +186,7 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--host-genome` | — |  | 寄主基因组FASTA(给则比对寄主并整对剔除寄主reads,报告寄主占比)｜host genome FASTA (deplete host reads, report host rate) |
 | `--min-mapq` | `20` | int | 比对质量阈值:mapped reads提取+统计口径(0=不过滤)｜min MAPQ for mapped-read extraction + stats (0=off) |
 | `-t, --threads` | `12` | int |  |
+| `--sample-parallel` | `1` | int | 样本级并行数(寄主剔除/mapped提取/reads统计同时跑N个样本,每worker线程=threads/N;默认1串行)｜per-sample parallelism |
 | `-k, --kmer-size` | `21` | int |  |
 | `-l, --read-length` | `150` | int |  |
 | `--step` | — | int |  |

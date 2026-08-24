@@ -62,6 +62,8 @@ def _validate_file(path):
               help='比对质量阈值:mapped reads提取+统计口径(0=不过滤)'
               '|Min MAPQ: mapped-read extraction + stats (0=off)')
 @click.option('--threads', '-t', type=int, default=12, show_default=True, help='线程数|Threads')
+@click.option('--sample-parallel', type=int, default=1, show_default=True,
+              help='样本级并行数(每worker线程=threads/N)|Per-sample parallelism')
 @click.option('--kmer-size', '-k', type=int, default=21, show_default=True, help='K-mer大小|K-mer size')
 @click.option('--read-length', '-l', type=int, default=150, show_default=True, help='测序读长|Read length')
 @click.option('--step', type=int, default=None,
@@ -84,7 +86,7 @@ def _validate_file(path):
 @click.option('--hotspot-min-median', type=float, default=0.10, show_default=True,
               help='热点:窗口候选中位杂合率下限|Hotspot min median rate')
 def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome, min_mapq,
-            threads, kmer_size, read_length, step, no_checkpoint, dry_run,
+            threads, sample_parallel, kmer_size, read_length, step, no_checkpoint, dry_run,
             pure_het_threshold, partner_alt_rate, partner_hom_rate, min_sites,
             window_size, hotspot_fold, hotspot_min_median):
     """
@@ -115,6 +117,8 @@ def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome,
         args.extend(['--min-mapq', str(min_mapq)])
     if threads != 12:
         args.extend(['-t', str(threads)])
+    if sample_parallel != 1:
+        args.extend(['--sample-parallel', str(sample_parallel)])
     if kmer_size != 21:
         args.extend(['-k', str(kmer_size)])
     if read_length != 150:

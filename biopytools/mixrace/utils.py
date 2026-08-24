@@ -224,7 +224,7 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
         except Exception as e:
             logger.warning(f"版本探测失败|Version probe failed [{name}]: {e}")
             versions[name] = {"version": "unknown", "path": path}
-    param_keys = ["threads", "kmer_size", "read_length", "repeat_bed",
+    param_keys = ["threads", "sample_parallel", "kmer_size", "read_length", "repeat_bed",
                   "host_genome", "min_mapq", "pure_het_threshold",
                   "partner_alt_min", "partner_hom_min", "min_sites",
                   "window_size", "hotspot_fold", "hotspot_min_median"]
