@@ -1,3 +1,9 @@
+## [1.42.2] - 2026-08-24
+
+### Fixed
+- `fastq2vcf_gtx`: 输入发现新增 `.nohost.fq.gz` 后缀——mixrace 寄主剔除产物(02_host_filter)可直接被 GTX 消费(原发现逻辑找不到 nohost 文件)
+- `mixrace`: k-mer 的 smudgescope 调用补 `--read1-suffix *_1.mapped.fq.gz`——原默认 clean 后缀找不到 mapped fastq
+
 ## [1.42.1] - 2026-08-23
 
 ### Added
