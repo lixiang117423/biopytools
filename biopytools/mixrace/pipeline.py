@@ -120,7 +120,8 @@ def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     runner.logger.info("开始步骤|Starting step: smudgescope k-mer谱")
     ok, _, _ = runner.run(
         f"biopytools smudgescope -i {clean_dir} -o {kmer_root} "
-        f"-l {config.read_length} -k {config.kmer_size} -t {config.threads}",
+        f"-l {config.read_length} -k {config.kmer_size} -t {config.threads} "
+        f"--read1-suffix *_1.mapped.fq.gz",
         "k-mer谱分析|k-mer spectrum (smudgescope)")
     if config.enable_checkpoint and ok:
         ckpt.create("kmer")
