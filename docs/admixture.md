@@ -74,6 +74,7 @@ admixture_results/
 │   └── <前缀>.<K>.Q / <前缀>.<K>.P          # 各 K 的祖先成分 / 等位基因频率
 ├── 04_results/
 │   ├── admixture_proportions.csv            # 每个个体的祖先成分(核心结果)
+│   ├── cluster_assignment.csv               # 每个 K 下每个样品归属哪个 cluster
 │   ├── admixture_statistics.txt             # 混合程度统计
 │   ├── gwas_covariates.txt                  # GWAS 协变量文件
 │   ├── analysis_summary.txt                 # 分析总结报告
@@ -90,6 +91,7 @@ admixture_results/
 
 - **cv_results.csv**：每行一个 K 值对应一个 CV 误差，误差越小拟合越好；取误差最小(或开始「平台」)的 K 作为最优
 - **admixture_proportions.csv**：列为各祖先成分(K1..Kn)，某个体某成分接近 1 说明它基本「纯」，多个成分都有值说明它是「混血」
+- **cluster_assignment.csv**：直接回答「每个 K 下每个样品属于哪个群」——每行一个样品，每个 K 两列:`K3` = 归属 cluster 编号(该样品祖先成分里占比最大的那个)、`K3_max` = 该占比值(0~1)。占比值低(如 0.4)说明是「混血」硬归的，可自行按 `K*_max < 0.5` 之类筛出高度混合样品。**注意**：不同 K 的 cluster 编号互不对应(K=3 的 1 号群和 K=4 的 1 号群没有关系)，跨 K 追踪同一个群请看 Q 比例的相似性而非编号
 - **admixture_statistics.txt**：高度混合个体(max 成分 < 0.7)、纯合个体(max 成分 > 0.9)的数量，辅助判断混合程度
 - **堆叠图(*.pdf)**：每个个体一根竖条，用颜色段表示各祖先成分比例，一眼看出分群
 - **gwas_covariates.txt**：把祖先成分转成协变量，可直接喂给 GWAS 软件控制群体分层

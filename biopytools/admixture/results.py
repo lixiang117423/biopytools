@@ -114,6 +114,90 @@ class PlotFilesCollector:
         return {'fam': fam_dst, 'q_files': q_dsts}
 
 
+class ClusterAssignmentGenerator:
+    """ 簇归属表生成器|Cluster Assignment Table Generator (写04_results/)
+
+    每个K下逐样品取Q行最大比例的cluster(1-based)作为归属,附该最大比例值;
+    混合样品照常归属,比例值低肉眼可见,阈值由用户自行筛选。
+    注意: ADMIXTURE各K的cluster编号互相独立(K=3的Pop1与K=4的Pop1无对应关系)。
+    |For each K, assign each sample to the cluster (1-based) with the max Q
+    proportion, plus that max value. Admixed samples are still assigned — the
+    low proportion is visible for manual filtering. Cluster numbering is
+    independent across K runs (Pop1@K=3 is unrelated to Pop1@K=4).
+    """
+
+    def __init__(self, config, logger):
+        self.config = config
+        self.logger = logger
+
+    def generate(self):
+        """ 生成簇归属宽表|Generate cluster assignment wide table
+
+        Returns:
+            str | None: 输出CSV路径; 无任何可用K或dry_run时返回None
+        """
+        # dry_run: 不写文件|dry-run: write nothing
+        if self.config.dry_run:
+            self.logger.info(
+                "模拟运行: 跳过簇归属表生成|Dry run: skipping cluster assignment generation")
+            return None
+
+        # fam提供FID/IID(行序=Q行序)|fam provides FID/IID (row order = Q row order)
+        fam_file = os.path.join(self.config.plink_dir, f"{self.config.base_name}.fam")
+        if not os.path.exists(fam_file):
+            raise FileNotFoundError(f"FAM文件不存在|FAM file not found: {fam_file}")
+        fam_data = pd.read_csv(fam_file, sep=r'\s+', header=None)
+
+        table = pd.DataFrame()
+        table['FID'] = fam_data.iloc[:, 0].values
+        table['IID'] = fam_data.iloc[:, 1].values
+
+        found_ks = []
+        for k in range(self.config.min_k, self.config.max_k + 1):
+            q_file = self._locate_q_file(k)
+            if q_file is None:
+                self.logger.warning(
+                    f"K={k} 的Q文件缺失,跳过该K|Q file missing for K={k}, skipping this K")
+                continue
+
+            q_data = pd.read_csv(q_file, sep=r'\s+', header=None)
+            if len(q_data) != len(table):
+                # 行数不齐时FID/IID会错位,必须跳过|misaligned FID/IID hazard, must skip
+                self.logger.warning(
+                    f"K={k} 的Q行数({len(q_data)})与fam行数({len(table)})不一致,跳过该K"
+                    f"|Q rows ({len(q_data)}) != fam rows ({len(table)}), skipping K={k}")
+                continue
+
+            # argmax归属(1-based)+最大比例值|argmax assignment (1-based) + max proportion
+            table[f'K{k}'] = (q_data.idxmax(axis=1) + 1).values
+            table[f'K{k}_max'] = q_data.max(axis=1).values
+            found_ks.append(k)
+
+        if not found_ks:
+            self.logger.warning(
+                "未找到任何可用的Q文件,跳过簇归属表|No usable Q files, skipping cluster assignment table")
+            return None
+
+        out_file = os.path.join(self.config.results_dir, "cluster_assignment.csv")
+        table.to_csv(out_file, index=False)
+        self.logger.info(
+            f"簇归属表已保存|Cluster assignment table saved: {out_file} "
+            f"(覆盖K|covers K: {','.join(str(k) for k in found_ks)})")
+        return out_file
+
+    def _locate_q_file(self, k: int):
+        """ 定位Q文件(03_admixture/,兼容双格式)|Locate Q file (dual-format compatible)
+
+        ADMIXTURE产出{base}.{k}.Q; ADAMIXTURE产出{base}.{k}.{k}.Q。
+        """
+        base = self.config.base_name
+        for name in (f"{base}.{k}.Q", f"{base}.{k}.{k}.Q"):
+            path = os.path.join(self.config.admixture_dir, name)
+            if os.path.exists(path):
+                return path
+        return None
+
+
 class PlotGenerator:
     """ 绘图生成器|Plot Generator"""
 
@@ -293,6 +377,7 @@ class SummaryGenerator:
 
             f.write("输出文件|Output Files:\n")
             f.write(f"  -  个体祖先成分|Individual ancestry proportions: 04_results/admixture_proportions.csv\n")
+            f.write(f"  -  簇归属表(每K每样品)|Cluster assignment (per K per sample): 04_results/cluster_assignment.csv\n")
             f.write(f"  -  GWAS协变量|GWAS covariates: 04_results/gwas_covariates.txt\n")
             f.write(f"  -  交叉验证结果|Cross-validation results: 03_admixture/cv_results.csv\n")
             f.write(f"  -  可视化图表|Visualization plots: 04_results/*.pdf\n")

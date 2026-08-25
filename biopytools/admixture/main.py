@@ -12,10 +12,11 @@ from .config import AdmixtureConfig
 from .utils import AdmixtureLogger, CommandRunner, SoftwareChecker, build_conda_command
 from .data_processing import VCFProcessor, PlinkProcessor
 from .analysis import AdmixtureAnalyzer as CoreAnalyzer, ResultsProcessor
-from .results import CovariateGenerator, PlotGenerator, PlotFilesCollector, SummaryGenerator
+from .results import (ClusterAssignmentGenerator, CovariateGenerator,
+                      PlotGenerator, PlotFilesCollector, SummaryGenerator)
 
 # 版本信息|Version information
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 
 
 class AdmixtureAnalyzer:
@@ -52,6 +53,7 @@ class AdmixtureAnalyzer:
         self.admixture_analyzer = CoreAnalyzer(self.config, self.logger, self.cmd_runner)
         self.results_processor = ResultsProcessor(self.config, self.logger)
         self.covariate_generator = CovariateGenerator(self.config, self.logger)
+        self.cluster_assignment_generator = ClusterAssignmentGenerator(self.config, self.logger)
         self.plot_files_collector = PlotFilesCollector(self.config, self.logger)
         self.plot_generator = PlotGenerator(self.config, self.logger)
         self.summary_generator = SummaryGenerator(self.config, self.logger)
@@ -169,6 +171,10 @@ class AdmixtureAnalyzer:
         self.logger.info("[STEP PLOT_FILES 预览|preview] 复制|copy: 02_plink/admixture_chr_fixed.fam "
                          "-> 05_plot_files/admixture_ready.fam; 03_admixture/*.Q -> 05_plot_files/")
 
+        # 簇归属表|Cluster assignment table
+        self.logger.info("[STEP CLUSTER 预览|preview] 生成簇归属表 04_results/cluster_assignment.csv "
+                         "(每K每样品argmax归属|per-K per-sample argmax assignment)")
+
         self.logger.info("模拟运行结束(实际未执行任何命令)|Dry run finished (no commands actually executed)")
 
     def run_analysis(self):
@@ -231,6 +237,12 @@ class AdmixtureAnalyzer:
             self._step("PLOT_FILES", "整理绘图输入文件|Collect plotting input files")
             self.plot_files_collector.collect()
 
+            # STEP: 簇归属表(每K每样品)|Cluster assignment table (per K per sample)
+            # 与PLOT_FILES同级: best_k判定失败也照常产出(能输出多少输出多少)
+            # |same level as PLOT_FILES: produced even if best-K determination fails
+            self._step("CLUSTER", "生成簇归属表|Generate cluster assignment table")
+            self.cluster_assignment_generator.generate()
+
             if best_k is None:
                 self.logger.warning("未确定最优K值,跳过结果处理|Best K undetermined, skipping results")
                 return False
@@ -259,6 +271,7 @@ class AdmixtureAnalyzer:
             self.logger.info(f"结果目录|Results directory: {self.config.output_dir}")
             self.logger.info("主要输出文件|Main output files:")
             self.logger.info("  - 04_results/admixture_proportions.csv: 个体祖先成分|Individual ancestry proportions")
+            self.logger.info("  - 04_results/cluster_assignment.csv: 每K每样品簇归属|Per-K per-sample cluster assignment")
             self.logger.info("  - 04_results/gwas_covariates.txt: GWAS协变量文件|GWAS covariate file")
             self.logger.info("  - 03_admixture/cv_results.csv: 交叉验证结果|Cross-validation results")
             self.logger.info("  - 04_results/*.pdf: 可视化图表|Visualization plots")
