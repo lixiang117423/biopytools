@@ -1,3 +1,24 @@
+## [1.45.0] - 2026-08-25
+
+### Added
+- `eviann`: 转录组输入全自动整理——`--rnaseq-data` 接受文件/目录(逗号分隔多个),自动识别二代/三代(关键词 + 实验室命名惯例 `*.clean.fq.gz` 三代 / `*_1.clean.fq.gz`+`*_2.clean.fq.gz` 二代双端)、双端自动配对(`_R1/_R2`/`_1/_2`/`.R1.`/`read1/read2`/`_R1_001`)、同一样本多 run 二进制拼接合并、二代/三代样本名前缀匹配自动组成 EviAnn mix 行;生成的样本清单落 `01_inputs/sample_sheet.tsv` 可人工修改
+- `eviann`: `--sample-sheet` 精确清单模式(TSV:sample_id/r1/r2/long_reads/tag,列可空、逗号分隔多文件、tag 省略自动推断 fastq/isoseq/mix/bam/bam_isoseq/bam_mix);`-r` 原生描述文件透传模式保留
+- `eviann`: 规范化输出目录(00_pipeline_info/01_inputs/work/results/99_logs)——基因组软链进 `work/` 保持原文件名(EviAnn 以文件名做输出前缀),结果复制进 `results/`、中间产物留 `work/` 断点续传;结果齐全重跑自动跳过;software_versions.yml 含 EviAnn 版本探测
+
+### Fixed
+- `eviann`: CLI 传 `--cds-gff/--mito-contigs/--extra-gff` 直崩(argparse 无对应参数);Click 与 argparse 全参数对齐,新增 `--min-prot` 透传
+- `eviann`: 删除 utils.py 本地 build_conda_command/get_conda_env 副本,改用 common.conda_runner + common.paths(公共层);日志改独立命名 logger 不污染 root;`-o/--output-dir` 必填,不再把几十个中间文件撒进基因组目录
+- `eviann`: 旧目录扫描把双端 R1/R2 拆成两个独立单端实验(丢失配对信息);模块版本 2.0.0,新增 70 个单元测试(tests/test_eviann)
+
+## [1.44.2] - 2026-08-25
+
+### Fixed
+- `sra2fastq`: 修复 `--no-split` 完全失效——argparse 中 `--split` 与 `--no-split` 写入两个不同 dest（`split`/`split_files`），取值表达式恒取默认为 True 的 `args.split`，不拆分选项被静默忽略（CLI 与模块直调同样中招）；两选项统一 dest 为 `split_files`，提取 `build_parser()` 供测试
+- `sra2fastq`: 修复 `~` 路径不展开——`output_dir`/`input_path`/`tmpdir` 原用 `abspath`（不展开 `~`），`-o ~/tmp/out` 会在 cwd 创建字面量 `~` 目录、`-i ~/x.sra` 误报路径不存在；`__post_init__` 统一先 `expand_path()` 再归一化
+- `sra2fastq`: 修复断点续传前缀误伤——原 glob `{base}*{suffix}` 会让 `SRR12` 误配 `SRR123_1.fq.gz`（resume 时漏转换、重命名误改他人文件）；改为精确文件名 + 锚定 `_pass` 通配；同时补齐未压缩后缀（`.fastq`/`.fq`），`--no-compress` 下断点续传不再失效
+- `sra2fastq`: 有文件转换失败时以退出码 1 结束（原一律退出 0，HPC 上游脚本会误判全部成功）；全部成功含跳过仍为 0
+- `sra2fastq`: 工具路径解析消除全环境扫描漂移——`fastq-dump` 注册 misc 域环境（sra-tools 3.4.1，原会漂到意外环境 `iseq_v.1.9.8`）；`parallel-fastq-dump` 默认锁定其唯一安装环境 `sratoolkit_v.2.5.7`；env_map 删除包名死键 `sra-tools`（键必须是二进制名）；模块版本 2.0.1，新增 32 个单元测试（tests/test_sra2fastq）
+
 ## [1.44.1] - 2026-08-24
 
 ### Fixed
