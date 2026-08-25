@@ -1,3 +1,8 @@
+## [1.46.0] - 2026-08-25
+
+### Added
+- `admixture`: 新增簇归属表 `04_results/cluster_assignment.csv`——每个 K 下每个样品归属哪个 cluster 一张宽表(行=样品 FID/IID,每个 K 两列:`K<n>`=归属 cluster 编号(Q 行 argmax,1-based)、`K<n>_max`=该最大比例值);混合样品照常归属、比例值肉眼可见供用户自行筛阈值;缺某 K 的 Q 告警跳过、Q 行数与 fam 不一致告警跳过(防 FID 错位)、无任何 Q 仅告警不报错;STEP 4 后与 PLOT_FILES 同级生成,best_k 判定失败也照常产出;模块版本 1.3.0,新增 11 个单元测试(tests/test_admixture/test_cluster_assignment.py)
+
 ## [1.45.0] - 2026-08-25
 
 ### Added
