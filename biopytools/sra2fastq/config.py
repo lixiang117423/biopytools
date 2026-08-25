@@ -24,9 +24,13 @@ class ConvertConfig:
     
     # 工具选择|Tool selection
     use_parallel: bool = True  # 优先使用parallel-fastq-dump|Prefer parallel-fastq-dump
-    # 工具路径(功能域环境自动解析, 回退裸命令名靠PATH)|Tool paths (auto domain env, fallback to bare name via PATH)
+    # 工具路径(功能域环境优先; parallel-fastq-dump 仅存在于旧环境, 锁定绝对路径避免
+    # 全环境扫描漂移到意外环境)|Tool paths (domain env first; parallel-fastq-dump
+    # lives only in a legacy env, pinned absolute to avoid full-scan drift)
     tool_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'parallel-fastq-dump', 'parallel-fastq-dump', 'PARALLEL_FASTQ_DUMP_PATH'))
+        'parallel-fastq-dump',
+        '~/miniforge3/envs/sratoolkit_v.2.5.7/bin/parallel-fastq-dump',
+        'PARALLEL_FASTQ_DUMP_PATH'))
     fastq_dump_path: str = field(default_factory=lambda: get_domain_tool_path(
         'fastq-dump', 'fastq-dump', 'FASTQ_DUMP_PATH'))
     
@@ -41,17 +45,24 @@ class ConvertConfig:
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        self.output_path = Path(self.output_dir)
-        self.output_path.mkdir(parents=True, exist_ok=True)
-        
+        # 先展开所有 ~ 路径(abspath 不会展开 ~, 否则会创建字面量 ~ 目录)
+        # |Expand all ~ paths first (abspath never expands ~, would create a literal ~ dir)
+        self.input_path = expand_path(self.input_path)
+        self.output_dir = expand_path(self.output_dir)
+        if self.tmpdir:
+            self.tmpdir = expand_path(self.tmpdir)
+
         # 标准化路径|Normalize paths
         self.input_path = os.path.normpath(os.path.abspath(self.input_path))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
-        
+
+        self.output_path = Path(self.output_dir)
+        self.output_path.mkdir(parents=True, exist_ok=True)
+
         # 如果指定了临时目录，创建它|Create tmpdir if specified
         if self.tmpdir:
             Path(self.tmpdir).mkdir(parents=True, exist_ok=True)
-        
+
         # 展开工具路径|Expand tool paths
         self.tool_path = expand_path(self.tool_path)
         self.fastq_dump_path = expand_path(self.fastq_dump_path)
@@ -59,24 +70,6 @@ class ConvertConfig:
         # 确定输入文件列表|Determine input file list
         self._determine_input_files()
     
-    # def _determine_input_files(self):
-    #     """确定输入文件列表|Determine input file list"""
-    #     input_p = Path(self.input_path)
-        
-    #     if input_p.is_file():
-    #         # 单个文件|Single file
-    #         if input_p.suffix == '.sra':
-    #             self.input_files = [str(input_p)]
-    #         else:
-    #             raise ValueError(f"输入文件必须是.sra格式|Input file must be .sra format: {self.input_path}")
-    #     elif input_p.is_dir():
-    #         # 文件夹，查找所有.sra文件|Folder, find all .sra files
-    #         self.input_files = sorted([str(f) for f in input_p.glob('*.sra')])
-    #         if not self.input_files:
-    #             raise ValueError(f"在目录中未找到.sra文件|No .sra files found in directory: {self.input_path}")
-    #     else:
-    #         raise ValueError(f"输入路径不存在|Input path does not exist: {self.input_path}")
-
     def _determine_input_files(self):
         """确定输入文件列表|Determine input file list"""
         input_p = Path(self.input_path)

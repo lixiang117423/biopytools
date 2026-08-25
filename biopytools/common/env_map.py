@@ -137,7 +137,11 @@ TOOL_DOMAIN_MAP = {
     "bbmap.sh": "misc",
     "repair.sh": "misc",
     "seqkit": "misc",
-    "sra-tools": "misc",
+    # 键必须是二进制名(sra-tools 是包名, 永远匹配不到)|Keys are binary names (sra-tools is a package name, never matches)
+    "fastq-dump": "misc",
+    # parallel-fastq-dump 尚未装入 misc; 装入后自动切域环境, 未装入回退旧默认路径
+    # |parallel-fastq-dump not yet in misc; auto-switch once installed, legacy default until then
+    "parallel-fastq-dump": "misc",
     "fasterq-dump": "misc",
     "prefetch": "misc",
     "axel": "misc",

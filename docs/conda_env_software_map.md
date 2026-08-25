@@ -163,10 +163,10 @@ conda run -n misc <工具> --no-capture-output
 
 | 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
 |---|---|---|
-| `axel` | `bbmap.sh` | `fasterq-dump` |
-| `iseq` | `pigz` | `prefetch` |
-| `primer3_core` | `repair.sh` | `seqkit` |
-| `sra-tools` |  |  |
+| `axel` | `bbmap.sh` | `fastq-dump` |
+| `fasterq-dump` | `iseq` | `pigz` |
+| `prefetch` | `primer3_core` | `repair.sh` |
+| `seqkit` |  |  |
 
 ### r — R 生态|R ecosystem
 

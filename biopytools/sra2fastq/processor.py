@@ -91,6 +91,24 @@ class SRAProcessor:
 
         return args
 
+    # 输出后缀: 压缩与未压缩都覆盖(断点续传对 --no-compress 同样生效)
+    # |Output suffixes: cover both compressed and uncompressed (checkpoint works with --no-compress too)
+    OUTPUT_SUFFIXES = ('.fq.gz', '.fastq.gz', '.fq', '.fastq')
+
+    def _candidate_outputs(self, base_name: str, suffix: str) -> List[str]:
+        """生成候选输出名(精确名 + 锚定 _pass 的 glob)|Generate candidate output names (exact + anchored _pass glob)
+
+        只用精确文件名和紧跟样本名的 _pass 通配, 避免 SRR12 误配 SRR123 的前缀碰撞
+        |Exact names plus _pass wildcard anchored right after the sample name,
+        so SRR12 never collides with SRR123
+        """
+        candidates = [
+            os.path.join(self.config.output_dir, f"{base_name}{suffix}"),
+            os.path.join(self.config.output_dir, f"{base_name}_1{suffix}"),
+            os.path.join(self.config.output_dir, f"{base_name}_2{suffix}"),
+        ]
+        return candidates
+
     def _is_already_converted(self, sra_file: str) -> bool:
         """
         检查SRA文件是否已转换（断点续传）|Check if SRA file already converted (checkpoint resume)
@@ -98,31 +116,22 @@ class SRAProcessor:
         通过检查输出目录中是否存在匹配的fastq文件来判断|Judge by checking for matching fastq files in output dir
         """
         base_name = Path(sra_file).stem
-        output_dir = self.config.output_dir
 
-        # 检查 .fq.gz 和 .fastq.gz 两种后缀|Check both .fq.gz and .fastq.gz suffixes
-        for suffix in ['.fq.gz', '.fastq.gz']:
-            # 单端: SRRxxx.fq.gz / 双端: SRRxxx_1.fq.gz, SRRxxx_2.fq.gz
-            patterns = [
-                os.path.join(output_dir, f"{base_name}{suffix}"),
-                os.path.join(output_dir, f"{base_name}_1{suffix}"),
-                os.path.join(output_dir, f"{base_name}_2{suffix}"),
-                os.path.join(output_dir, f"{base_name}_pass{suffix}"),
-            ]
-            for pattern in patterns:
-                if os.path.exists(pattern):
-                    return True
-                # 也检查 glob 匹配（处理 fastq-dump 可能添加的后缀）|Also check glob (handle suffixes fastq-dump may add)
-                glob_pattern = os.path.join(output_dir, f"{base_name}*{suffix}")
-                matches = glob_module.glob(glob_pattern)
-                if matches:
-                    return True
+        for suffix in self.OUTPUT_SUFFIXES:
+            # 单端: SRRxxx.fq.gz / 双端: SRRxxx_1.fq.gz, SRRxxx_2.fq.gz|Single/paired exact names
+            if any(os.path.exists(p) for p in self._candidate_outputs(base_name, suffix)):
+                return True
+            # 过滤技术读段时的 _pass 变体: SRRxxx_pass_1.fq.gz|_pass variants (skip-technical)
+            pass_pattern = os.path.join(
+                self.config.output_dir, f"{base_name}_pass*{suffix}")
+            if glob_module.glob(pass_pattern):
+                return True
 
         return False
 
     def _rename_fastq_to_fq(self, sra_file: str) -> int:
         """
-        将 .fastq.gz 重命名为 .fq.gz|Rename .fastq.gz to .fq.gz
+        将 .fastq(.gz) 统一重命名为 .fq(.gz)|Rename .fastq(.gz) to unified .fq(.gz)
 
         Returns:
             int: 重命名的文件数|Number of renamed files
@@ -131,13 +140,18 @@ class SRAProcessor:
         output_dir = self.config.output_dir
         renamed_count = 0
 
-        # glob 匹配该样本的所有 .fastq.gz 文件（单端/双端/带_pass等后缀）|Glob all .fastq.gz files for this sample
-        glob_pattern = os.path.join(output_dir, f"{base_name}*.fastq.gz")
-        for src in glob_module.glob(glob_pattern):
-            dst = src.replace('.fastq.gz', '.fq.gz')
-            os.rename(src, dst)
-            self.logger.info(f"重命名|Renamed: {os.path.basename(src)} -> {os.path.basename(dst)}")
-            renamed_count += 1
+        for fastq_suffix, fq_suffix in [('.fastq.gz', '.fq.gz'), ('.fastq', '.fq')]:
+            # 精确名单 + 锚定 _pass 的 glob(避免前缀误伤)|Exact list + anchored _pass glob (no prefix collisions)
+            sources = [p for p in self._candidate_outputs(base_name, fastq_suffix)
+                       if os.path.exists(p)]
+            sources.extend(glob_module.glob(
+                os.path.join(output_dir, f"{base_name}_pass*{fastq_suffix}")))
+
+            for src in sources:
+                dst = src[:-len(fastq_suffix)] + fq_suffix
+                os.rename(src, dst)
+                self.logger.info(f"重命名|Renamed: {os.path.basename(src)} -> {os.path.basename(dst)}")
+                renamed_count += 1
 
         return renamed_count
 

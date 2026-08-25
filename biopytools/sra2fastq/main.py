@@ -80,13 +80,20 @@ class SRAConverter:
             self.logger.info(f"跳过(已完成): {len(results.get('skipped', []))}|Skipped (already done): {len(results.get('skipped', []))}")
             self.logger.info(f"失败: {len(results['failed'])}|Failed: {len(results['failed'])}")
             self.logger.info(f"结果保存在|Results saved in: {self.config.output_dir}")
-            
+
+            # 有失败文件时非零退出, 避免上游脚本误判全部成功
+            # |Exit non-zero when any file failed, so upstream scripts cannot mistake partial success
+            if results['failed']:
+                self.logger.error(
+                    f"存在失败的转换文件, 以退出码 1 结束|"
+                    f"{len(results['failed'])} file(s) failed, exiting with code 1")
+                sys.exit(1)
         except Exception as e:
             self.logger.error(f"转换流程在执行过程中意外终止|Conversion pipeline terminated unexpectedly: {e}")
             sys.exit(1)
 
-def main():
-    """主函数|Main function"""
+def build_parser() -> argparse.ArgumentParser:
+    """构建命令行解析器|Build CLI argument parser"""
     parser = argparse.ArgumentParser(
         description='SRA转FASTQ高速转换工具(parallel-fastq-dump版本)|SRA to FASTQ High-Speed Conversion Tool (parallel-fastq-dump version)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -95,40 +102,48 @@ def main():
   %(prog)s -i sra_dir/ -o fastq_output
         """
     )
-    
+
     # 必需参数|Required arguments
-    parser.add_argument('-i', '--input', required=True, 
+    parser.add_argument('-i', '--input', required=True,
                        help='输入SRA文件或文件夹路径|Input SRA file or folder path')
-    
+
     # 可选参数|Optional arguments
-    parser.add_argument('-o', '--output', default='./fastq_output', 
+    parser.add_argument('-o', '--output', default='./fastq_output',
                        help='输出目录|Output directory')
-    
+
     # 转换参数|Conversion parameters
     parser.add_argument('-t', '--threads', type=int, default=12,
                        help='线程数|Number of threads')
-    
+
     parser.add_argument('-c', '--compress', action='store_true', default=True,
                        help='压缩输出为.gz格式|Compress output to .gz format')
     parser.add_argument('--no-compress', dest='compress', action='store_false',
                        help='不压缩输出|Do not compress output')
-    
-    parser.add_argument('--split', action='store_true', default=True,
+
+    # 两个选项必须共享 dest, 否则 --no-split 写入另一变量被忽略
+    # |Both options must share dest, otherwise --no-split writes elsewhere and is ignored
+    parser.add_argument('--split', dest='split_files', action='store_true', default=True,
                        help='拆分双端测序文件|Split paired-end reads')
     parser.add_argument('--no-split', dest='split_files', action='store_false',
                        help='不拆分文件|Do not split files')
-    
+
     # 高级参数|Advanced parameters
     parser.add_argument('--tmpdir', type=str, default=None,
                        help='临时目录 (可以设置为高速存储以加速)|Temporary directory (can be set to fast storage for acceleration)')
-    
+
     # 过滤参数|Filtering parameters
-    parser.add_argument('--min-len', type=int, default=0, 
+    parser.add_argument('--min-len', type=int, default=0,
                        help='最小读长过滤|Minimum read length filter')
-    
+
     parser.add_argument('--clip', action='store_true',
                        help='剪切adapters|Clip adapters')
-    
+
+    return parser
+
+
+def main():
+    """主函数|Main function"""
+    parser = build_parser()
     args = parser.parse_args()
     
     # 创建转换器并运行|Create converter and run
@@ -137,7 +152,7 @@ def main():
         output_dir=args.output,
         compress=args.compress,
         threads=args.threads,
-        split_files=args.split if hasattr(args, 'split') else args.split_files,
+        split_files=args.split_files,
         skip_technical=True,
         clip=args.clip,
         min_read_len=args.min_len,

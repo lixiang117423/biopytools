@@ -129,13 +129,15 @@ fastq_output/
 
 ## 依赖 | Dependencies
 
-- `parallel-fastq-dump`（推荐，多线程）或 `fastq-dump`（SRA Toolkit，备选），两者至少其一；经 conda run 自动检测包装，可用环境变量 PARALLEL_FASTQ_DUMP_PATH / FASTQ_DUMP_PATH 覆盖；未安装于 conda 环境时回退 PATH 直接调用
-- 程序启动时自动检测：有 `parallel-fastq-dump` 优先用它，否则回退 `fastq-dump`
+- `parallel-fastq-dump`（推荐，多线程）或 `fastq-dump`（SRA Toolkit，备选），两者至少其一
+- `fastq-dump` 从 **misc 域环境**解析（sra-tools 3.4.1）；`parallel-fastq-dump` 目前仅安装于旧环境 `sratoolkit_v.2.5.7`，默认路径锁定到该环境（避免跨环境扫描漂移），将来装入 misc 后自动切换域环境
+- 可用环境变量 `PARALLEL_FASTQ_DUMP_PATH` / `FASTQ_DUMP_PATH` 或 `~/.config/biopytools/config.yml` 覆盖
+- 程序启动时自动检测：有 `parallel-fastq-dump` 优先用它，否则回退 `fastq-dump`（misc 域环境版本）
 
 ## 常见问题 | FAQ
 
 **Q1：支持断点续传吗？**
-支持。转换前检查输出目录是否已有该 SRA 对应的 FASTQ（`{base}.fq.gz` / `{base}_1.fq.gz` / `{base}_2.fq.gz` 等），已存在则跳过。
+支持。转换前检查输出目录是否已有该 SRA 对应的 FASTQ（`{base}.fq.gz` / `{base}_1.fq.gz` / `{base}_2.fq.gz` 及 `_pass` 变体；未压缩的 `.fastq`/`.fq` 同样计入），已存在则跳过。按**精确文件名**匹配，前缀相近的样本（如 `SRR12` 与 `SRR123`）不会互相误判。
 
 **Q2：为什么输出是 `.fq.gz` 而不是 `.fastq.gz`？**
 工具在转换完成后会把 `.fastq.gz` 统一重命名为 `.fq.gz`，保持输出命名一致；两者内容完全一样。
@@ -148,3 +150,6 @@ fastq_output/
 
 **Q5：目录里同时有 `.sra` 和其他文件会怎样？**
 优先只处理 `.sra` 文件；目录里没有 `.sra` 时才会把其他非隐藏文件当作输入。
+
+**Q6：部分文件转换失败时程序的退出码是？**
+非零（1）。只要有文件失败，即使其余全部成功，程序也以退出码 1 结束——方便 HPC 上游脚本判断；全部成功（含跳过）时退出码 0。
