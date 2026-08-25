@@ -3,8 +3,8 @@ EviAnn基因组注释CLI包装器|EviAnn Genome Annotation CLI Wrapper
 """
 
 import click
-import sys
 import os
+import sys
 
 
 def _lazy_import_eviann_main():
@@ -25,32 +25,51 @@ def _is_help_request():
     return any(arg in help_flags for arg in sys.argv)
 
 
-def _validate_path_exists(path):
-    """验证路径存在|Validate path exists"""
-    if not _is_help_request() and path and not os.path.exists(os.path.expanduser(path)):
-        raise click.BadParameter(f"路径不存在|Path does not exist: {path}")
-    return path
+def _validate_rnaseq_data(value):
+    """校验逗号分隔的转录组数据路径|Validate comma-separated data paths"""
+    if not value or _is_help_request():
+        return value
+    for entry in value.split(','):
+        entry = entry.strip()
+        if entry and not os.path.exists(os.path.expanduser(entry)):
+            raise click.BadParameter(
+                f"路径不存在|Path does not exist: {entry}")
+    return value
 
 
 @click.command(short_help='EviAnn基因组注释|EviAnn Genome Annotation',
-               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
+               context_settings=dict(help_option_names=['-h', '--help'],
+                                     max_content_width=120))
 @click.option('-g', '--genome',
               required=True,
               type=click.Path(exists=True),
               help='基因组FASTA文件|Genome FASTA file (required)')
-@click.option('--short-reads',
+@click.option('-o', '--output-dir',
+              required=True,
+              help='输出目录|Output directory (required)')
+@click.option('--rnaseq-data',
+              default=None,
+              callback=lambda ctx, param, value: _validate_rnaseq_data(value),
+              help='转录组数据文件或目录(逗号分隔多个),自动识别二代/三代|'
+                   'RNA-seq file(s) or dir(s), comma-separated')
+@click.option('--sample-sheet',
+              default=None,
               type=click.Path(exists=True),
-              help='二代转录组数据（文件或目录）|Short-read RNA-seq data (file or directory)')
-@click.option('--long-reads',
+              help='样本清单TSV|Sample sheet TSV')
+@click.option('-r', '--rnaseq',
+              default=None,
               type=click.Path(exists=True),
-              help='三代转录组数据（文件或目录）|Long-read RNA-seq data (file or directory)')
+              help='EviAnn原生-r描述文件(透传)|EviAnn native -r file')
 @click.option('-e', '--transcripts',
+              default=None,
               type=click.Path(exists=True),
-              help='转录本FASTA文件|Transcripts FASTA file')
+              help='近缘物种转录本FASTA|Transcripts FASTA')
 @click.option('-p', '--proteins',
+              default=None,
               type=click.Path(exists=True),
-              help='蛋白质FASTA文件|Proteins FASTA file')
+              help='近缘物种蛋白质FASTA|Proteins FASTA')
 @click.option('-s', '--uniprot',
+              default=None,
               type=click.Path(exists=True),
               help='UniProt-SwissProt FASTA|UniProt-SwissProt FASTA')
 @click.option('-t', '--threads',
@@ -59,6 +78,7 @@ def _validate_path_exists(path):
               show_default=True,
               help='线程数|Number of threads')
 @click.option('-m', '--max-intron',
+              default=None,
               type=int,
               help='最大内含子长度|Maximum intron length (default: auto)')
 @click.option('-d', '--ploidy',
@@ -67,45 +87,56 @@ def _validate_path_exists(path):
               show_default=True,
               help='基因组倍性|Genome ploidy')
 @click.option('-c', '--cds-gff',
+              default=None,
               type=click.Path(exists=True),
-              help='现有CDS的GFF文件|GFF file with existing CDS')
+              help='含现有CDS的GFF|GFF with existing CDS')
 @click.option('--lncrna-tpm',
               default=1.0,
               type=float,
               show_default=True,
               help='lncRNA最小TPM|Minimum TPM for lncRNA')
+@click.option('--min-prot',
+              default=None,
+              type=int,
+              help='无同源证据时ab initio ORF最小蛋白长度(aa)|'
+                   'Min protein length for ab initio ORF')
 @click.option('--partial',
               is_flag=True,
               default=False,
               help='包含部分CDS|Include partial CDS')
-@click.option('--functional',
+@click.option('-f', '--functional',
               is_flag=True,
               default=False,
               help='执行功能注释|Perform functional annotation')
 @click.option('--mito-contigs',
+              default=None,
               type=click.Path(exists=True),
-              help='线粒体contig列表|File with mitochondrial contigs')
+              help='线粒体contig列表文件|File with mitochondrial contigs')
 @click.option('--extra-gff',
+              default=None,
               type=click.Path(exists=True),
-              help='额外的GFF特征|Extra features from GFF')
+              help='额外GFF特征|Extra features from external GFF')
 @click.option('--debug',
               is_flag=True,
               default=False,
-              help='调试模式|Debug mode')
+              help='保留中间文件|Keep intermediate files')
 @click.option('--verbose',
               is_flag=True,
               default=False,
               help='详细输出|Verbose output')
-def eviann(genome, short_reads, long_reads, transcripts, proteins, uniprot, threads, max_intron,
-           ploidy, cds_gff, lncrna_tpm, partial, functional, mito_contigs, extra_gff,
-           debug, verbose):
+def eviann(genome, output_dir, rnaseq_data, sample_sheet, rnaseq,
+           transcripts, proteins, uniprot, threads, max_intron, ploidy,
+           cds_gff, lncrna_tpm, min_prot, partial, functional, mito_contigs,
+           extra_gff, debug, verbose):
     """
     EviAnn基因组注释流程|EviAnn Genome Annotation Pipeline
 
-    基于RNA-seq和/或蛋白质比对进行真核生物基因组注释
-    Evidence-based eukaryotic genome annotation using RNA-seq and/or protein alignments
+    基于RNA-seq和/或蛋白质比对的证据驱动真核基因组注释,自动识别
+    二代(双端配对)/三代数据并生成EviAnn输入描述文件
+    |Evidence-based eukaryotic genome annotation; auto-classifies
+    short-read pairs and long-read data into EviAnn input
 
-    示例|Example: biopytools eviann -g genome.fa --long-reads longreads.fq.gz -p proteins.fa -t 12
+    示例|Example: biopytools eviann -g genome.fa --rnaseq-data ./rna_data/ -p proteins.fa -t 12 -o out/
     """
 
     # 延迟加载|Lazy loading
@@ -113,56 +144,42 @@ def eviann(genome, short_reads, long_reads, transcripts, proteins, uniprot, thre
 
     # 构建参数列表|Build argument list
     args = ['eviann.py']
+    args.extend(['-g', genome, '-o', output_dir])
 
-    # 必需参数|Required parameters
-    args.extend(['-g', genome])
-
-    # 可选参数|Optional parameters
-    if short_reads:
-        args.extend(['--short-reads', short_reads])
-
-    if long_reads:
-        args.extend(['--long-reads', long_reads])
-
+    # 数据输入|Data inputs
+    if rnaseq_data:
+        args.extend(['--rnaseq-data', rnaseq_data])
+    if sample_sheet:
+        args.extend(['--sample-sheet', sample_sheet])
+    if rnaseq:
+        args.extend(['-r', rnaseq])
     if transcripts:
         args.extend(['-e', transcripts])
-
     if proteins:
         args.extend(['-p', proteins])
 
+    # 可选参数(默认值显式透传)|Optional args (explicit passthrough)
     if uniprot:
         args.extend(['-s', uniprot])
-
-    if threads != 1:
-        args.extend(['-t', str(threads)])
-
+    args.extend(['-t', str(threads)])
     if max_intron:
         args.extend(['-m', str(max_intron)])
-
-    if ploidy != 2:
-        args.extend(['-d', str(ploidy)])
-
+    args.extend(['-d', str(ploidy)])
     if cds_gff:
         args.extend(['-c', cds_gff])
-
-    if lncrna_tpm != 1.0:
-        args.extend(['--lncrna-tpm', str(lncrna_tpm)])
-
+    args.extend(['--lncrna-tpm', str(lncrna_tpm)])
+    if min_prot:
+        args.extend(['--min-prot', str(min_prot)])
     if partial:
         args.append('--partial')
-
     if functional:
         args.append('--functional')
-
     if mito_contigs:
         args.extend(['--mito-contigs', mito_contigs])
-
     if extra_gff:
         args.extend(['--extra-gff', extra_gff])
-
     if debug:
         args.append('--debug')
-
     if verbose:
         args.append('--verbose')
 

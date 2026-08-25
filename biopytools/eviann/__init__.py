@@ -2,12 +2,12 @@
 EviAnn基因组注释模块|EviAnn Genome Annotation Module
 """
 
-from .main import EviAnnotator
+from .calculator import EviAnnRunner
 from .config import EviAnnConfig
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 
 __all__ = [
-    'EviAnnotator',
+    'EviAnnRunner',
     'EviAnnConfig'
 ]

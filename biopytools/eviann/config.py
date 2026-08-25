@@ -2,10 +2,11 @@
 EviAnn配置模块|EviAnn Configuration Module
 """
 
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Optional
 import os
+from dataclasses import dataclass
+from typing import Optional
+
+from biopytools.common.paths import expand_path
 
 
 @dataclass
@@ -14,11 +15,12 @@ class EviAnnConfig:
 
     # 必需参数|Required parameters
     genome: str
+    output_dir: str
 
-    # 数据输入参数（至少需要一个）|Data input parameters (at least one required)
-    rnaseq: Optional[str] = None  # RNA-seq描述文件（已弃用，建议使用short_reads和long_reads）|RNA-seq description file (deprecated, use short_reads and long_reads)
-    short_reads: Optional[str] = None  # 二代转录组数据文件或目录|Short-read RNA-seq file or directory
-    long_reads: Optional[str] = None  # 三代转录组数据文件或目录|Long-read RNA-seq file or directory
+    # 数据输入(三种模式互斥,至少一种或 -e)|Input modes (exclusive, at least one or -e)
+    rnaseq_data: Optional[str] = None  # 文件/目录(逗号分隔),自动识别|files/dirs, auto-classified
+    sample_sheet: Optional[str] = None  # 样本清单TSV|Sample sheet TSV
+    rnaseq: Optional[str] = None  # EviAnn原生-r描述文件透传|Passthrough -r file
     transcripts: Optional[str] = None
     proteins: Optional[str] = None
 
@@ -29,6 +31,7 @@ class EviAnnConfig:
     ploidy: int = 2
     cds_gff: Optional[str] = None
     lncrna_tpm: float = 1.0
+    min_prot: Optional[int] = None
     partial: bool = False
     functional: bool = False
     mito_contigs: Optional[str] = None
@@ -39,21 +42,21 @@ class EviAnnConfig:
     # 软件路径|Software path
     eviann_path: str = '~/miniforge3/envs/eviann_v.2.0.5'
 
-    # 输出目录|Output directory (使用基因组文件名作为前缀)
-    output_prefix: Optional[str] = None
-
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 展开路径|Expand paths
-        from .utils import expand_path
-        self.eviann_path = expand_path(self.eviann_path)
-        self.genome = os.path.abspath(self.genome)
-
-        # 设置输出前缀|Set output prefix
-        if self.output_prefix is None:
-            # 使用基因组文件名作为前缀|Use genome filename as prefix
-            genome_name = Path(self.genome).name
-            self.output_prefix = genome_name
+        # 展开所有~路径|Expand all ~ paths
+        for attr in ('genome', 'output_dir', 'sample_sheet', 'rnaseq',
+                     'transcripts', 'proteins', 'uniprot', 'cds_gff',
+                     'mito_contigs', 'extra_gff', 'eviann_path'):
+            val = getattr(self, attr)
+            if val:
+                setattr(self, attr, expand_path(val))
+        # rnaseq_data 逗号分隔逐条展开|expand each comma-separated entry
+        if self.rnaseq_data:
+            self.rnaseq_data = ','.join(
+                expand_path(p.strip())
+                for p in self.rnaseq_data.split(',') if p.strip())
+        os.makedirs(self.output_dir, exist_ok=True)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -63,40 +66,42 @@ class EviAnnConfig:
         if not os.path.exists(self.genome):
             errors.append(f"基因组文件不存在|Genome file not found: {self.genome}")
 
-        # 检查至少有一个数据输入|Check at least one data input
-        has_rnaseq = self.rnaseq or self.short_reads or self.long_reads
-        if not has_rnaseq and not self.transcripts:
-            errors.append("必须提供RNA-seq数据(-r/--short-reads/--long-reads)或转录本数据(-e)|Must provide RNA-seq data (-r/--short-reads/--long-reads) or transcripts (-e)")
+        # 输入模式互斥且至少一种(或 -e)|Input modes exclusive, at least one (or -e)
+        n_input = sum(
+            1 for v in (self.rnaseq_data, self.sample_sheet, self.rnaseq)
+            if v)
+        if n_input > 1:
+            errors.append(
+                "输入模式互斥|Input modes are mutually exclusive: "
+                "--rnaseq-data/--sample-sheet/-r 只能用一个|only one allowed")
+        if n_input == 0 and not self.transcripts:
+            errors.append(
+                "必须提供转录组输入(--rnaseq-data/--sample-sheet/-r)或转录本(-e)"
+                "|Must provide RNA-seq input or transcripts (-e)")
 
-        # 检查可选文件是否存在|Check optional files if provided
+        # 检查可选文件|Check optional files
+        for label, attr in [("转录本|Transcripts", "transcripts"),
+                            ("蛋白质|Proteins", "proteins"),
+                            ("UniProt|UniProt", "uniprot"),
+                            ("CDS GFF|CDS GFF", "cds_gff"),
+                            ("线粒体contig|Mito contigs", "mito_contigs"),
+                            ("额外GFF|Extra GFF", "extra_gff")]:
+            val = getattr(self, attr)
+            if val and not os.path.exists(val):
+                errors.append(f"{label}文件不存在|File not found: {val}")
+
+        if self.sample_sheet and not os.path.exists(self.sample_sheet):
+            errors.append(
+                f"样本清单不存在|Sample sheet not found: {self.sample_sheet}")
         if self.rnaseq and not os.path.exists(self.rnaseq):
-            errors.append(f"RNA-seq文件不存在|RNA-seq file not found: {self.rnaseq}")
+            errors.append(
+                f"描述文件不存在|Description file not found: {self.rnaseq}")
+        if self.rnaseq_data:
+            for p in self.rnaseq_data.split(','):
+                if not os.path.exists(p):
+                    errors.append(f"输入不存在|Input not found: {p}")
 
-        if self.short_reads and not os.path.exists(self.short_reads):
-            errors.append(f"二代转录组文件不存在|Short-reads file not found: {self.short_reads}")
-
-        if self.long_reads and not os.path.exists(self.long_reads):
-            errors.append(f"三代转录组文件不存在|Long-reads file not found: {self.long_reads}")
-
-        if self.transcripts and not os.path.exists(self.transcripts):
-            errors.append(f"转录本文件不存在|Transcripts file not found: {self.transcripts}")
-
-        if self.proteins and not os.path.exists(self.proteins):
-            errors.append(f"蛋白质文件不存在|Proteins file not found: {self.proteins}")
-
-        if self.uniprot and not os.path.exists(self.uniprot):
-            errors.append(f"UniProt文件不存在|UniProt file not found: {self.uniprot}")
-
-        if self.cds_gff and not os.path.exists(self.cds_gff):
-            errors.append(f"CDS GFF文件不存在|CDS GFF file not found: {self.cds_gff}")
-
-        if self.mito_contigs and not os.path.exists(self.mito_contigs):
-            errors.append(f"线粒体contig文件不存在|Mito contigs file not found: {self.mito_contigs}")
-
-        if self.extra_gff and not os.path.exists(self.extra_gff):
-            errors.append(f"额外GFF文件不存在|Extra GFF file not found: {self.extra_gff}")
-
-        # 检查EviAnn路径|Check EviAnn path
+        # 检查EviAnn|Check EviAnn
         eviann_sh = os.path.join(self.eviann_path, 'bin', 'eviann.sh')
         if not os.path.exists(eviann_sh):
             errors.append(f"EviAnn未找到|EviAnn not found at: {eviann_sh}")
