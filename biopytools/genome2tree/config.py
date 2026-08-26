@@ -88,7 +88,7 @@ class Genome2TreeConfig:
             stems = [s.stem for s in self.raw_samples]
             if not stems:
                 errors.append(
-                    "输入目录无序列文件(.fa/.fasta/.fna/.fq/.fastq,可.gz)|"
+                    "输入目录无序列文件(.fa/.fasta/.fna/.fas,可.gz)|"
                     "No sequence files found in input dir")
             dups = sorted({x for x in stems if stems.count(x) > 1})
             if dups:

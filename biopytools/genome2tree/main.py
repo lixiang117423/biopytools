@@ -14,8 +14,8 @@ def parse_arguments(argv=None):
         prog="genome2tree",
         description="基因组目录→物种进化树(waster)|Genome dir to species tree (waster)")
     parser.add_argument("-i", "--input", required=True,
-                        help="基因组目录(每样本一个 fasta/fastq,可.gz)|Genome dir "
-                             "(one fasta/fastq per sample, .gz ok)")
+                        help="基因组目录(每样本一个 fasta,可.gz)|Genome dir "
+                             "(one fasta per sample, .gz ok)")
     parser.add_argument("-o", "--output-dir", default="./genome2tree_output",
                         help="输出目录(默认./genome2tree_output)|Output directory")
     parser.add_argument("-t", "--threads", type=int, default=12,

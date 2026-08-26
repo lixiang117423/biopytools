@@ -1,11 +1,11 @@
 # genome2tree:基因组目录直接构建物种进化树 | Alignment-free species tree from genomes
 
-一句话:把一筐基因组(组装 fasta 或测序 fastq,每物种一个文件)丢进一个目录,一条命令
+一句话:把一筐基因组(组装 fasta,每物种一个文件)丢进一个目录,一条命令
 直接产出考虑"不完全谱系分选"的物种进化树——不需要比对、不需要注释、不需要找基因。
 
 ## 功能概述 | Overview
 
-- 输入一个目录,每样本一个 fasta(组装)/fastq(reads) 文件,支持 .gz 压缩
+- 输入一个目录,每样本一个 fasta(组装)文件,支持 .gz 压缩
 - 底层为 ASTER 包的 waster:k-mer 找 SNP → CASTER coalescent 模型建树
 - 输出 Newick 物种树,枝上标注 local bootstrap 支持度(>95 为好)
 - 可选:指定外群出有根树;同种多个体合并;在固定拓扑上补算枝长
@@ -36,12 +36,11 @@ genome_dir/
 ├── Human.fa          # 组装基因组
 ├── Chimp.fasta
 ├── Gorilla.fna.gz    # 支持 .gz(模块自动解压)
-└── sample_D.fq       # 也可混入低覆盖 reads
+└── Orangutan.fas     # 只认 fasta 系后缀,其他文件自动忽略
 ```
 
-- 认的后缀:`.fa/.fasta/.fna/.fq/.fastq`(大小写不敏感,可加 `.gz`)
+- 认的后缀:`.fa/.fasta/.fna/.fas`(大小写不敏感,可加 `.gz`);fastq、txt 等其他文件一律忽略,不报错
 - 同种多个体:准备映射文件(`个体文件名<TAB>物种名` 两列)传 `--samples-map`
-- 警告:pair-end reads 若两端重叠,官方建议先 BBMerge 合并;组装文件无此问题
 
 ## 参数说明 | Parameters
 
@@ -78,7 +77,7 @@ results/
 
 - 物种数 4-10:直接跑,不用调参
 - 物种数 <4:waster 是四聚体方法,不建议;建议凑样本或改用别的工具
-- 基因组只有低覆盖 reads(<5X):照样能跑,这正是 waster 的强项
+- 基因组只有低覆盖组装:照样能跑,这正是 waster 的强项(reads 需先自行组装为 fasta)
 - 想要发表用有根树:加 `--root 外群名`(外群最好选明确外围的近缘种)
 
 <!-- BEGIN PARAMS:auto -->
@@ -91,7 +90,7 @@ results/
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `-i, --input` | 必填 |  | 基因组目录(每样本一个 fasta/fastq,可.gz)｜Genome dir (one fasta/fastq per sample, .gz ok) |
+| `-i, --input` | 必填 |  | 基因组目录(每样本一个 fasta,可.gz)｜Genome dir (one fasta per sample, .gz ok) |
 | `-o, --output-dir` | `./genome2tree_output` |  | 输出目录(默认./genome2tree_output)｜Output directory |
 | `-t, --threads` | `12` | int | 线程数(默认12)｜Threads (default 12) |
 | `--root` | `` |  | 外群物种名(出有根树)｜Outgroup species name (rooted tree) |
@@ -104,7 +103,7 @@ results/
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `-i, --input` | 必填 |  | 基因组目录(每样本一个 fasta/fastq,可.gz)｜Genome dir (one fasta/fastq per sample, .gz ok) |
+| `-i, --input` | 必填 |  | 基因组目录(每样本一个 fasta,可.gz)｜Genome dir (one fasta per sample, .gz ok) |
 | `-o, --output-dir` | `./genome2tree_output` |  | 输出目录(默认./genome2tree_output)｜Output directory |
 | `-t, --threads` | `12` | int | 线程数(默认12)｜Threads (default 12) |
 | `--root` | `` |  | 外群物种名(出有根树)｜Outgroup species name |
@@ -126,8 +125,8 @@ results/
 **Q1: 能不能降内存(比如 16G 服务器)?**
 不能。当前 waster 硬编码 K=9,官方文档里的 `-k 7` 是旧版(waster-old)参数,新版已移除;只能申请 ≥64GB 的计算节点。
 
-**Q2: pair-end reads 两个文件怎么办?**
-若两端重叠:先 BBMerge 合并成一个文件;若不重叠:直接 `cat` 拼成一个文件。**绝不能**把 R1/R2 当两个"样本"传给同种多个体映射。
+**Q2: 能传测序 reads(fastq)吗?**
+不能。模块只认 fasta 系后缀(`.fa/.fasta/.fna/.fas`),fastq 等文件一律忽略。reads 需先组装成 fasta(低覆盖可用拼接或组装流程)再传入;若两端重叠,官方建议先 BBMerge 合并。
 
 **Q3: 什么时候不该用 genome2tree?**
 已有全基因组比对(MAF/多序列比对)→ 用 caster 更准;已有基因家族树 → 用 astral-pro3;物种分歧极远(ANI<80%)→ k-mer 信号衰减,建议传统基因树流程。

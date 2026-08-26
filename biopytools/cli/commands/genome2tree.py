@@ -31,8 +31,8 @@ def _validate_path_exists(path):
                           "Alignment-free species tree from genome dir (waster)")
 @click.option("-i", "--input", "input_dir", required=True,
               callback=lambda c, p, v: _validate_path_exists(v),
-              help="基因组目录(每样本一个 fasta/fastq,可.gz)|"
-                   "Genome dir (one fasta/fastq per sample, .gz ok)")
+              help="基因组目录(每样本一个 fasta,可.gz)|"
+                   "Genome dir (one fasta per sample, .gz ok)")
 @click.option("-o", "--output-dir", default="./genome2tree_output",
               help="输出目录(默认./genome2tree_output)|Output directory")
 @click.option("-t", "--threads", default=12, type=int,

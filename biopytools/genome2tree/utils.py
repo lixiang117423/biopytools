@@ -24,6 +24,7 @@ class ModuleLogger:
             "%Y-%m-%d %H:%M:%S")
         sh = logging.StreamHandler(sys.stdout)   # INFO+ → 超算 .out
         sh.setLevel(logging.INFO)
+        sh.addFilter(lambda r: r.levelno <= logging.INFO)
         sh.setFormatter(fmt)
         self.logger.addHandler(sh)
         eh = logging.StreamHandler(sys.stderr)   # WARNING+ → 超算 .err
@@ -41,39 +42,36 @@ class ModuleLogger:
         return self.logger
 
 
-# 序列文件后缀(小写匹配,大小写不敏感)|Sequence extensions (lowercase match)
-FASTA_EXTS = {".fa", ".fasta", ".fna"}
-FASTQ_EXTS = {".fq", ".fastq"}
+# 序列文件后缀(小写匹配,大小写不敏感;只认 fasta 系)|FASTA extensions (case-insensitive)
+FASTA_EXTS = {".fa", ".fasta", ".fna", ".fas"}
 
 
 @dataclass
 class SampleFile:
-    """单个样本输入文件|One sample input file"""
+    """单个样本输入文件(fasta)|One sample FASTA input file"""
     stem: str        # 样本名(文件名去后缀去.gz)|sample name (filename minus ext minus .gz)
     path: str        # 实际路径(解压后指向解压副本)|actual path (decompressed copy if .gz)
-    seq_type: str    # "fasta"|"fastq"
     is_gz: bool      # 原始文件是否 gz 压缩|whether original file is gzipped
 
 
-def split_sequence_filename(filename: str) -> Optional[Tuple[str, str, bool]]:
+def split_sequence_filename(filename: str) -> Optional[Tuple[str, bool]]:
     """拆序列文件名|Split a sequence filename.
 
-    后缀匹配大小写不敏感;支持 .gz 双后缀。
-    |Case-insensitive extension match; supports .gz double suffix.
+    后缀匹配大小写不敏感;支持 .gz 双后缀;只认 fasta 系后缀(fastq 等一律不认)。
+    |Case-insensitive extension match; .gz double suffix; FASTA extensions only.
 
     Returns:
-        (stem, seq_type, is_gz);非序列文件返回 None。
-        |(stem, seq_type, is_gz); None for non-sequence files.
+        (stem, is_gz);非 fasta 文件返回 None。
+        |(stem, is_gz); None for non-FASTA files.
     """
     lowered = filename.lower()
     is_gz = lowered.endswith(".gz")
     if is_gz:
         lowered = lowered[:-3]
-    for exts, seq_type in ((FASTA_EXTS, "fasta"), (FASTQ_EXTS, "fastq")):
-        for ext in sorted(exts):
-            if lowered.endswith(ext):
-                cut = len(ext) + (3 if is_gz else 0)
-                return filename[:-cut], seq_type, is_gz
+    for ext in sorted(FASTA_EXTS):
+        if lowered.endswith(ext):
+            cut = len(ext) + (3 if is_gz else 0)
+            return filename[:-cut], is_gz
     return None
 
 
@@ -97,9 +95,9 @@ def scan_input_dir(input_dir: str) -> Tuple[List[SampleFile], List[str]]:
         if parsed is None:
             ignored.append(name)
         else:
-            stem, seq_type, is_gz = parsed
+            stem, is_gz = parsed
             samples.append(SampleFile(stem=stem, path=os.path.abspath(path),
-                                      seq_type=seq_type, is_gz=is_gz))
+                                      is_gz=is_gz))
     return samples, ignored
 
 
@@ -120,8 +118,7 @@ def decompress_gz_samples(samples: List[SampleFile], uncompressed_dir: str,
         if not s.is_gz:
             out.append(s)
             continue
-        inner_ext = ".fa" if s.seq_type == "fasta" else ".fq"
-        dst = os.path.join(uncompressed_dir, s.stem + inner_ext)
+        dst = os.path.join(uncompressed_dir, s.stem + ".fa")
         if not os.path.exists(dst):
             if logger:
                 logger.info(f"解压|Decompressing: {s.path} -> {dst}")
