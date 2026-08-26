@@ -302,6 +302,46 @@ def validate_tool_path(path: str, tool_name: str = "") -> bool:
     return True
 
 
+def get_db_path(
+    db_name: str,
+    default_path: str,
+    env_var: Optional[str] = None
+) -> str:
+    """获取数据库路径|Get database path
+
+    优先级|Priority:
+    1. 环境变量|Environment variable
+    2. 用户配置文件 databases 段|User config file databases section
+       (~/.config/biopytools/config.yml)
+    3. 默认路径(展开~)|Default path (expand ~)
+
+    Args:
+        db_name: 数据库名称|Database name, 用于在配置文件的 databases 段查找
+                 |lookup key in the config file's databases section
+        default_path: 默认路径|Default path, 支持~和$VAR|Supports ~ and $VAR
+        env_var: 环境变量名|Environment variable name, 如果指定优先使用|if specified, use first
+
+    Examples:
+        >>> get_db_path('uniprot_sprot',
+        ...             '~/database/uniprot/uniprot_sprot.fasta',
+        ...             'UNIPROT_SPROT_PATH')
+        '/home/user/database/uniprot/uniprot_sprot.fasta'
+    """
+    # 1. 检查环境变量|Check environment variable
+    if env_var:
+        env_path = os.getenv(env_var)
+        if env_path:
+            return expand_path(env_path)
+
+    # 2. 检查用户配置文件 databases 段|Check user config databases section
+    config = load_user_config()
+    if 'databases' in config and db_name in config['databases']:
+        return expand_path(config['databases'][db_name])
+
+    # 3. 使用默认值|Use default
+    return expand_path(default_path)
+
+
 # 常用工具路径快捷方式|Common tool path shortcuts
 # 这些函数提供常用工具的默认路径|These functions provide default paths for common tools
 

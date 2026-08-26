@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from biopytools.common.paths import expand_path
+from biopytools.common.paths import expand_path, get_db_path
 
 
 @dataclass
@@ -44,6 +44,12 @@ class EviAnnConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # UniProt 默认:显式参数 > 环境变量/配置文件 databases 段 > 默认 ~/database
+        # |UniProt default: explicit > env/config databases > ~/database default
+        if not self.uniprot:
+            self.uniprot = get_db_path(
+                'uniprot_sprot', '~/database/uniprot/uniprot_sprot.fasta',
+                'UNIPROT_SPROT_PATH')
         # 展开所有~路径|Expand all ~ paths
         for attr in ('genome', 'output_dir', 'sample_sheet', 'rnaseq',
                      'transcripts', 'proteins', 'uniprot', 'cds_gff',

@@ -74,7 +74,7 @@ S3		/x/S3.clean.fq.gz
 
 - **转录本 FASTA** `-e/--transcripts`：近缘物种的转录本序列，作为直接证据（与 `-r` 至少给一个）
 - **蛋白质 FASTA** `-p/--proteins`：近缘物种蛋白（推荐 10+ 物种、总量约为预期基因数 5-10 倍）
-- **UniProt** `-s/--uniprot`：功能注释用 SwissProt 库
+- **UniProt** `-s/--uniprot`：功能注释用 SwissProt 库。**默认自动使用本地库 `~/database/uniprot/uniprot_sprot.fasta`**(可用环境变量 `UNIPROT_SPROT_PATH` 或 `~/.config/biopytools/config.yml` 的 `databases.uniprot_sprot` 覆盖)——文件不存在会直接报错,不会尝试联网下载(超算无法访问 ftp.uniprot.org)
 
 ## 参数说明 | Parameters { #parameters }
 
