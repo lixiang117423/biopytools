@@ -26,7 +26,7 @@ Features: Complete pipeline from VCF to ADMIXTURE analysis, supporting populatio
     python -m admixture.main -v input.vcf -o results -k 2 -K 10
 """
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 __author__ = "Xiang LI"
 
 from .main import AdmixtureAnalyzer

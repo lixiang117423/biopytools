@@ -10,7 +10,9 @@ import os
 import shutil
 import subprocess
 from shutil import which
+
 import pandas as pd
+from scipy.cluster.hierarchy import fcluster, linkage
 
 
 class CovariateGenerator:
@@ -168,9 +170,10 @@ class ClusterAssignmentGenerator:
                     f"|Q rows ({len(q_data)}) != fam rows ({len(table)}), skipping K={k}")
                 continue
 
-            # argmax归属(1-based)+最大比例值|argmax assignment (1-based) + max proportion
+            # argmax归属(1-based)+最大比例值+构成相似组|argmax assignment + max proportion + composition-similarity group
             table[f'K{k}'] = (q_data.idxmax(axis=1) + 1).values
             table[f'K{k}_max'] = q_data.max(axis=1).values
+            table[f'K{k}_qgroup'] = self._qgroup_labels(q_data, k)
             found_ks.append(k)
 
         if not found_ks:
@@ -184,6 +187,38 @@ class ClusterAssignmentGenerator:
             f"簇归属表已保存|Cluster assignment table saved: {out_file} "
             f"(覆盖K|covers K: {','.join(str(k) for k in found_ks)})")
         return out_file
+
+    def _qgroup_labels(self, q_data: pd.DataFrame, k: int):
+        """ 祖先构成相似组|Ancestry-composition similarity groups
+
+        对Q行(样品的K维构成向量)层次聚类(Euclidean + average linkage,
+        确定性无随机种子),切成至多K组;按组大小降序重编号(1=最大组,
+        并列按首成员序号破平)。注意: qgroup是"构成相似样品分组",
+        与K{n}列的argmax祖先群体归属语义不同——混合个体多的面板里
+        qgroup可能把杂交个体单独成组。
+        |Hierarchical clustering of Q rows (Euclidean + average linkage,
+        deterministic), cut into at most K groups; renumbered by size
+        descending (1=largest, ties by first member index). NOTE: qgroup
+        groups samples by composition similarity — distinct from the argmax
+        ancestral-population assignment in the K{n} column.
+        """
+        n = len(q_data)
+        if n < 2:
+            # 单样品无法聚类,全体归组1|no clustering possible, all group 1
+            return [1] * n
+
+        z = linkage(q_data.values, method='average', metric='euclidean')
+        raw_labels = fcluster(z, t=k, criterion='maxclust')
+
+        # 重编号: 组大小降序,并列按首成员序号|renumber: size desc, ties by first member
+        sizes = {}
+        first_idx = {}
+        for i, lab in enumerate(raw_labels):
+            sizes[lab] = sizes.get(lab, 0) + 1
+            first_idx.setdefault(lab, i)
+        order = sorted(sizes, key=lambda lab: (-sizes[lab], first_idx[lab]))
+        remap = {lab: rank + 1 for rank, lab in enumerate(order)}
+        return [remap[lab] for lab in raw_labels]
 
     def _locate_q_file(self, k: int):
         """ 定位Q文件(03_admixture/,兼容双格式)|Locate Q file (dual-format compatible)

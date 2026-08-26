@@ -16,7 +16,7 @@ from .results import (ClusterAssignmentGenerator, CovariateGenerator,
                       PlotGenerator, PlotFilesCollector, SummaryGenerator)
 
 # 版本信息|Version information
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 
 
 class AdmixtureAnalyzer:
