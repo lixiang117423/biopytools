@@ -13,6 +13,7 @@ dependencies:
   - treemix
   - pixy
   - poplddecay
+  - fastani
   # EasyHap: 纯 Python pip 包(上游 Guangqi-He/EasyHap v1.0), 本地 pip install --no-deps 安装
   # 注意|Note: 上游 v1.0 pyproject.toml 缺 packages 配置(flat-layout 会把 images/ 误认成包致构建失败),
   # 安装前需在本地克隆补两行: [tool.setuptools] / packages = ["easyhap"]

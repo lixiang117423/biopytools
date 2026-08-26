@@ -35,6 +35,7 @@ TOOL_DOMAIN_MAP = {
     "pixy": "pop",
     "PopLDdecay": "pop",
     "poplddecay": "pop",
+    "fastANI": "pop",
     "RAiSD": "pop",
     "xpclr": "pop",
     "easyhap": "pop",
