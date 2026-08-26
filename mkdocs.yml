@@ -80,6 +80,7 @@ nav:
           - cim: cim.md
           - deepbsa: deepbsa.md
           - dsuite: dsuite.md
+          - fastani: fastani.md
           - fst: fst.md
           - gctb: gctb.md
           - gemma-gwas: gemma_gwas.md
@@ -220,6 +221,7 @@ nav:
       - 系统发育:
           - easyhap: easyhap.md
           - genome2tree: genome2tree.md
+          - reads2tree: reads2tree.md
           - iqtree: iqtree.md
           - kaks: kaks.md
           - mafft-fasttree: mafft_fasttree.md
@@ -273,6 +275,7 @@ nav:
           - bwa: bwa.md
           - coverage: coverage.md
           - coverage-filter: coverage_filter.md
+          - ncbi-datasets: ncbi_datasets.md
           - ena-downloader: ena_downloader.md
           - extract-reads: extract_reads.md
           - fastp: fastp.md

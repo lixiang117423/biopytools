@@ -4,7 +4,7 @@
 
 > 范围:仅 CLI 注册的 210 个模块;非 CLI 模块不写文档。
 
-## 群体遗传|Population(29)|29 modules
+## 群体遗传|Population(30)|30 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -13,6 +13,7 @@
 | cim | cim | R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM) Analysis |
 | deepbsa | deepbsa | DeepBSA批量分析工具|DeepBSA batch analysis tool |
 | dsuite | dsuite | Dsuite D统计量分析工具|Dsuite D-statistics analysis tool |
+| fastani | fastani | 全基因组ANI计算(FastANI)|Whole-genome ANI (FastANI) |
 | fst | fst | Fst遗传分化计算工具|Fst genetic differentiation calculation tool |
 | gctb | gctb | GCTB全基因组复杂性状贝叶斯分析|GCTB Genome-wide Complex Trait Bayesian Analysis |
 | gemma_gwas | gemma-gwas | GEMMA GWAS批量分析工具|GEMMA GWAS batch analysis tool |
@@ -175,12 +176,13 @@
 | subgenome_assign | subgenome-assign | 基于亲本比对的亚基因组归属|Subgenome assignment via parental alignment |
 | subphaser | subphaser | SubPhaser异源多倍体亚基因组分离|SubPhaser subgenome phasing of allopolyploids |
 
-## 系统发育|Phylogeny(15)|15 modules
+## 系统发育|Phylogeny(16)|16 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
 | easyhap | easyhap | 区域单倍型分析(EasyHap)|Regional haplotype analysis (EasyHap) |
 | genome2tree | genome2tree | 基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster) |
+| reads2tree | reads2tree | fastq目录免组装物种树(WASTER)|De novo species tree from reads (WASTER) |
 | iqtree | iqtree | IQ-TREE系统发育树分析工具|IQ-TREE phylogenetic tree analysis tool |
 | kaks | kaks | Ka/Ks计算|Ka/Ks calculation |
 | mafft_fasttree | mafft-fasttree | 系统发育树构建工具|Phylogenetic tree construction tool |
@@ -242,7 +244,7 @@
 | picrust2 | picrust2 | PICRUSt2微生物群落功能丰度预测|PICRUSt2 functional abundance prediction |
 | qiime2 | qiime2 | QIIME2微生物组多样性分析|QIIME2 Microbiome Diversity Analysis |
 
-## 工具类|Utilities(32)|32 modules
+## 工具类|Utilities(33)|33 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -254,6 +256,7 @@
 | bwa | bwa | 全基因组比对工具|Whole genome alignment tool |
 | coverage | coverage | BAM覆盖度分析工具|BAM coverage analysis tool |
 | coverage_filter | coverage-filter | 基于覆盖度的序列质量过滤|Sequence quality filtering based on coverage |
+| ncbi_datasets | ncbi-datasets | NCBI taxon基因组批量下载(datasets CLI)|NCBI taxon genome batch download (datasets CLI) |
 | ena_downloader | ena-downloader | ENA数据下载工具|ENA data download tool |
 | extract_reads | extract-reads | 基于contig-reads对应关系提取fastq reads|Extract fastq reads by contig-reads mapping |
 | fastp | fastp | FASTQ数据质量控制|FASTQ data quality control |
@@ -279,4 +282,4 @@
 | subseq | subseq | 序列子集提取工具|Sequence subset extraction tool |
 | wgsim | wgsim | Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation |
 
-总覆盖|Total: 207/207;缺失|Missing: 无;重复|Duplicated: 无
+总覆盖|Total: 213/213;缺失|Missing: 无;重复|Duplicated: 无

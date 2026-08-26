@@ -398,3 +398,6 @@ my_analysis/
 *.zip
 *.7z
 busco_downloads/
+
+# 工作上下文同步副本(omp 等工具生成的 AGENTS/CLAUDE 拷贝)|working-context sync copies
+.omp/
