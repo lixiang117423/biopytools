@@ -1,3 +1,23 @@
+## [1.50.0] - 2026-08-26
+
+### Added
+- `fastani`: 新模块——fastANI v1.34 全基因组 ANI 计算封装(bioconda 装入 pop 域环境,env_map 注册)。双模式互斥:`-i`(目录/列表/单fasta → all-vs-all 对称矩阵)或 `-q`+`-r`(定向 query vs ref);输出 by-step 四目录:`01_fastani/`(原始 .out + phylip 矩阵 fastani.out.matrix + 基因组清单)、`02_results/ani_matrix.tsv`(双向平均同官方 --matrix 语义,<80% 配对记 NA 优雅降级,all-vs-all 对角线 100)与 `nearest_genome.tsv`(每基因组最近邻 + ANI + aligned_fraction,全 NA 行告警排最后);定向模式跨侧同名基因组自比对真实运行(~100%)仅提示;断点续传(fastani.out 存在跳过运行只重算后处理);三 handler 日志分离(.log/.out.log/.err.log);conda 调用走 common/conda_runner 公共层;计算节点 e2e 8 项验收锚点全过(E.coli 复制对 100.0000/合成远缘 NA/断点 mtime 不变);模块版本 1.0.0,新增 56 个单元测试(tests/test_fastani)
+
+## [1.49.0] - 2026-08-26
+
+### Added
+- `reads2tree`: 新增从测序 reads 直接建树的模块(WASTER from raw reads)——输入 fastq 目录自动识别双端(`_R1/_R2`、`_1/_2`、`.R1.`、`read1/read2`、`_R1_001`、`_1.clean.fq.gz` 等,复用 eviann 配对逻辑),同样本多 lane 归组,单端/双端混用;解压 + R1+R2 拼接(`cat`,重叠双端 `--merge` 走 BBMerge)后喂 WASTER 免组装免比对建物种树(local bootstrap 支持度);`--root` 外群定根、`--branch-length` 追加枝长、`--samples-map` 个体→物种映射(复用 genome2tree 工具);断点续传(合并/建树/枝长均跳过已完成);`software_versions.yml` 记录 waster 版本与 ASTER commit;目录扫描支持多级子目录(`raw/`、`clean/`),同一样本跨子目录时报错防原始+质控混拼;模块版本 1.0.0,新增 37 个单元测试(tests/test_reads2tree)
+
+### Fixed
+- `eviann`: UniProt 蛋白库默认解析——新增 `common.paths.get_db_path()`(读 `~/.config/biopytools/config.yml` 的 `databases` 段,与 `get_tool_path` 同级);`uniprot` 未显式指定时默认用 `~/database/uniprot/uniprot_sprot.fasta`(优先级:显式参数 > `UNIPROT_SPROT_PATH` 环境变量 > 配置 databases > 默认),命令自动带 `-s`,不再触发联网下载(超算访问 ftp.uniprot.org 被拒导致 EviAnn 启动即失败);文件缺失时 validate 直接报错;新增 5 个单元测试(tests/test_eviann)
+
+## [1.48.0] - 2026-08-26
+
+### Added
+- `ncbi_datasets`: 新增 NCBI taxon 基因组批量下载模块——输入 taxon 编号,用官方 datasets CLI 下载该 taxon 下所有 assembly 基因组(默认只下 genome 序列,`--include-gff3/--include-protein/--include-cds/--include-seq-report` 按需追加);筛选参数完整(`--assembly-source refseq/genbank`、`--assembly-level complete,chromosome,...`、`--reference`、`--annotated`);先 summary 出清单 `00_pipeline_info/{taxon}.assemblies.tsv` 再下载,`--dry-run` 只出清单;`datasets` 工具缺失时自动 curl 安装到 `~/bin/datasets`(路径走 `DATASETS_PATH`/config/默认三级,无硬编码路径);zip/解压目录断点续传,`software_versions.yml` 记录版本
+- `ncbi_datasets`: 下载后自动整理到 `02_organized/`(软链省空间,`--no-organize` 关闭)——序列统一后缀:基因组 `{accession}.fa`(不保留 NCBI 的 `_genomic.fna` 名)、蛋白 `{accession}.faa`、CDS `{accession}.cds.fa`、GFF `{accession}.gff`,按类型分 `genomes/gff/protein/cds` 子目录;`files.tsv` 索引(accession/type/绝对路径)可直接喂下游 fof;整理幂等且断点续传,不覆盖同名用户文件
+- `ncbi_datasets`: zip 完整性校验(EOCD 签名)——断点续传的「文件存在即跳过」会放过被中断的截断 zip 导致解压失败;现在已存在/刚下载的 zip 都先校验,损坏自动删除重下;模块版本 1.0.0,新增 54 个单元测试(tests/test_ncbi_datasets)
+
 ## [1.47.0] - 2026-08-25
 
 ### Added
