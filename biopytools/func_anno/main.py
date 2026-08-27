@@ -222,7 +222,7 @@ def run_table_phase(cfg: FuncAnnoConfig, annotations: str, logger: logging.Logge
     from .table_builder import build_tables, load_go_dict
     from .kegg_db import KEGGDatabase
 
-    logger.info("加载 GO 映射(内置 go_data)|Loading GO map (built-in go_data)...")
+    logger.info("加载 GO 映射(内置 go_data.json)|Loading GO map (built-in go_data.json)...")
     go_dict = load_go_dict()
     logger.info(f"GO 映射|GO map: {len(go_dict)} 条|entries")
     kegg_db = KEGGDatabase(kegg_map_file=cfg.kegg_map, logger=logger)

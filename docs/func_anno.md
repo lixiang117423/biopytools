@@ -172,7 +172,7 @@ out/
 - InterProScan（`interproscan` 模块调用，默认 `~/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh`）
 - eggNOG-mapper（`eggnog_mapper` 模块调用，emapper.py 默认 `~/miniforge3/envs/annot/bin/emapper.py`，conda 环境 `annot`）
 - eggNOG 数据库（默认 `~/database/eggnog`，环境变量 `EGGNOG_DATA_DIR` 可覆盖）
-- 内置 GO 映射（`interproscan/go_data.py`，无需额外下载）
+- 内置 GO 映射（`interproscan/go_data.json`，无需额外下载）
 
 ## 常见问题 | FAQ { #faq }
 

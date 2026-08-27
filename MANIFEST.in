@@ -26,6 +26,9 @@ recursive-include scripts *.py
 # Include packaged web assets (mixrace phylocanvas.gl tree viewer)
 recursive-include biopytools *.js
 
+# Include packaged GO database JSON (interproscan built-in GO terms)
+include biopytools/interproscan/go_data.json
+
 # Exclude compiled Python files
 global-exclude *.pyc
 global-exclude *.pyo

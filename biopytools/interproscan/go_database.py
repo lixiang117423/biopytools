@@ -10,8 +10,9 @@ from pathlib import Path
 from typing import Dict, Optional
 from threading import Lock
 
-# 导入内置GO数据库|Import built-in GO database
-from .go_data import GO_DATABASE, GO_STATS
+# 内置GO数据库JSON文件名(随包分发,替代原go_data.py巨型字面量)
+# |Built-in GO DB JSON filename (packaged, replaces the former giant go_data.py literal)
+_BUILTIN_JSON = 'go_data.json'
 
 
 class GODatabase:
@@ -55,12 +56,42 @@ class GODatabase:
         else:
             self.logger.warning("未指定GO数据库来源|No GO database source specified")
 
+    @staticmethod
+    def _read_builtin_json() -> Optional[dict]:
+        """读取随包分发的内置GO数据库JSON|Read the packaged built-in GO database JSON
+
+        优先用 importlib.resources(支持 wheel 打包),回退到 __file__ 同目录
+        |Prefer importlib.resources (wheel-friendly), fall back to __file__ sibling
+        """
+        try:
+            from importlib import resources
+            ref = resources.files('biopytools.interproscan').joinpath(_BUILTIN_JSON)
+            text = ref.read_text(encoding='utf-8')
+        except Exception:
+            try:
+                text = Path(__file__).with_name(_BUILTIN_JSON).read_text(encoding='utf-8')
+            except Exception:
+                return None
+        try:
+            return json.loads(text)
+        except Exception:
+            return None
+
     def _load_builtin_database(self):
         """加载内置GO数据库|Load built-in GO database"""
         self.logger.info("使用内置GO数据库|Using built-in GO database")
 
+        data = self._read_builtin_json()
+        if not data:
+            self.logger.error(
+                "内置GO数据库文件缺失或损坏|Built-in GO database file missing or corrupt: "
+                f"{_BUILTIN_JSON}")
+            return
+
+        database = data.get('database', {})
+
         # 转换内置数据格式|Convert built-in data format
-        for go_id, (name, ontology) in GO_DATABASE.items():
+        for go_id, (name, ontology) in database.items():
             # 映射ontology缩写为全称|Map ontology abbreviations to full names
             ontology_map = {
                 'BP': 'Biological Process',

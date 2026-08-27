@@ -248,6 +248,9 @@ output/
 *.jpeg
 *.svg
 
+# 随包分发的数据JSON必须入库(勿忽略)|Packaged data JSON must be tracked (do not ignore)
+!biopytools/interproscan/go_data.json
+
 # 文档站点资源必须入库(§14 MkDocs站点logo/favicon/主题overrides)
 # |Docs site assets must be tracked (logo/favicon/theme overrides)
 !docs/assets/*.png

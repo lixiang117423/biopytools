@@ -12,7 +12,7 @@ KEGG 过滤(去除 eggnog KO 注释误挂的人类/动物通路)|KEGG filtering:
 """
 
 import csv
-import importlib.util
+import json
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -45,17 +45,17 @@ DEFAULT_PLANT_EXCLUDE = (
 
 def load_go_dict() -> Dict[str, Tuple[str, str]]:
     """
-    直接按路径加载 interproscan/go_data.py 的 GO_DATABASE(绕过 interproscan/__init__,
-    避免触发 pandas 等重依赖)|Load GO_DATABASE by path, bypassing interproscan/__init__.
+    直接按路径加载 interproscan/go_data.json 的 GO 数据库(绕过 interproscan/__init__,
+    避免触发 pandas 等重依赖)|Load GO database JSON by path, bypassing interproscan/__init__.
 
     Returns:
         {go_id: (name, ontology_缩写|BP/MF/CC)}
     """
-    go_data_path = Path(__file__).parent.parent / "interproscan" / "go_data.py"
-    spec = importlib.util.spec_from_file_location("_func_anno_go_data", go_data_path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.GO_DATABASE
+    go_json_path = Path(__file__).parent.parent / "interproscan" / "go_data.json"
+    with open(go_json_path, encoding="utf-8") as fh:
+        data = json.load(fh)
+    return {go_id: (name, ontology)
+            for go_id, (name, ontology) in data.get("database", {}).items()}
 
 
 def parse_annotations(path: str) -> Tuple[List[str], List[List[str]]]:
