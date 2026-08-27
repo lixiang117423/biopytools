@@ -1,3 +1,11 @@
+## [1.52.2] - 2026-08-27
+
+### Fixed
+- `splitstree6`: 距离 CSV 去掉首行样本数——纯数字首行无逗号,导致 SplitsTree6 CSVReader.acceptsFirstLine 判为未知格式、距离矩阵无法导入;现在直接写 label+值行(首行含逗号)
+
+### Changed
+- `splitstree6`: `read_vcf_gt_matrix` 由逐样本 Python 循环重写为 numpy 向量化(每位点联合等位编码 3*a1+a2 + 矩阵乘法统计共享/差异位点),结果与旧实现逐位一致(0/1 vs 1/0 相位计差异、缺失配对跳过),大 VCF 显著提速;新增 TestVcfMatrix/TestAllelePhasing 单测
+
 ## [1.52.1] - 2026-08-27
 
 ### Fixed
