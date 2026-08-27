@@ -271,6 +271,7 @@ nav:
           - bam2fastq: bam2fastq.md
           - bam-cov: bam_cov.md
           - bam-stats: bam_stats.md
+          - check-reads: check_reads.md
           - blast: blast.md
           - bwa: bwa.md
           - coverage: coverage.md
