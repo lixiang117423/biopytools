@@ -183,7 +183,7 @@
 | easyhap | easyhap | 区域单倍型分析(EasyHap)|Regional haplotype analysis (EasyHap) |
 | genome2tree | genome2tree | 基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster) |
 | reads2tree | reads2tree | fastq目录免组装物种树(WASTER)|De novo species tree from reads (WASTER) |
-| splitstree6 | splitstree6 | SplitsTree6免比对建网/建树(VCF默认)|SplitsTree6 network/tree (VCF default) |
+| vcf2splitstree | vcf2splitstree | VCF转SplitsTree6距离矩阵|VCF to SplitsTree6 distance matrix |
 | iqtree | iqtree | IQ-TREE系统发育树分析工具|IQ-TREE phylogenetic tree analysis tool |
 | kaks | kaks | Ka/Ks计算|Ka/Ks calculation |
 | mafft_fasttree | mafft-fasttree | 系统发育树构建工具|Phylogenetic tree construction tool |

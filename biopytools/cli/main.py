@@ -132,7 +132,7 @@ COMMAND_REGISTRY = [
     ('ncbi_datasets', 'ncbi-datasets', 'NCBI taxon基因组批量下载(datasets CLI)|NCBI taxon genome batch download (datasets CLI)'),
     ('reads2tree', 'reads2tree', 'fastq目录免组装构建物种树(WASTER)|De novo species tree from reads (WASTER)'),
     ('check_reads', 'check-reads', 'fastq完整性检查(gz/0字节/配对)|FASTQ integrity check (gzip/empty/pairing)'),
-    ('splitstree6', 'splitstree6', 'SplitsTree6建网建树(VCF输入,多格式导出)|SplitsTree6 network/tree (VCF input, multi-format export)'),
+    ('vcf2splitstree', 'vcf2splitstree', 'VCF→SplitsTree6距离矩阵|VCF to SplitsTree6 distance matrix'),
     ('ocbsa', 'ocbsa', 'BSA分析工具套件|BSA Analysis Tool Suite'),
     ('minimap2', 'minimap2', 'Minimap2比对与区域提取|Minimap2 alignment and region extraction'),
     ('msa', 'msa', '多序列比对分析工具|Multiple sequence alignment analysis tool'),

@@ -1,17 +1,14 @@
-"""splitstree6 工具函数|SplitsTree6 utilities
+"""vcf2splitstree 工具函数|vcf2splitstree utilities
 
-日志管理器、Xvfb 虚拟显示管理、VCF→距离矩阵转换(p-distance,numpy 向量化)。
-|Logger manager, Xvfb virtual display management, VCF→distance conversion
-(numpy-vectorized p-distance).
+日志管理器、VCF→p-distance 矩阵转换(numpy 向量化)、SplitsTree6 距离 CSV 写出。
+|Logger manager, VCF→p-distance conversion (numpy vectorized), SplitsTree6 CSV output.
 """
 
 import gzip
 import logging
 import os
-import subprocess
 import sys
-import time
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 
@@ -21,7 +18,7 @@ class ModuleLogger:
 
     def __init__(self, log_file: Optional[str] = None, log_level: str = "INFO"):
         self.log_file = log_file
-        self.logger = logging.getLogger("splitstree6")
+        self.logger = logging.getLogger("vcf2splitstree")
         self.logger.handlers.clear()
         self.logger.propagate = False
         self.logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
@@ -54,15 +51,15 @@ def open_text(path: str):
     return open(path, "rt")
 
 
-def read_vcf_gt_matrix(vcf_path: str, logger=None):
+def read_vcf_gt_matrix(vcf_path: str):
     """从 VCF 读取样本基因型并计算 p-distance 矩阵(numpy 向量化)
     |Read VCF genotypes and compute p-distance matrix (numpy vectorized)
 
     仅处理双等位位点;缺失基因型在配对比较中跳过。
-    向量化:每位点按联合等位 (allele1, allele2) 编码为单个整数 3*a1+a2
-    (取值 0..8),p-distance = 联合等位不同的位点数 / 共享位点数。
-    |Each site encoded as combined genotype 3*a1+a2 (0..8); a site differs
-    when the combined genotypes differ (equivalent to GT string comparison).
+    向量化:每位点按联合基因型 3*a1+a2 编码(取值 0..8,-1=缺失),
+    差异位点数与共享位点数均用矩阵乘法求得。
+    |Biallelic sites only; missing skipped per-pair. Each site is encoded as
+    combined genotype 3*a1+a2; diff/shared counts via matrix multiplication.
 
     Returns:
         (labels, matrix): 样本名列表与 n×n 距离矩阵|labels and n×n distance matrix
@@ -112,7 +109,7 @@ def read_vcf_gt_matrix(vcf_path: str, logger=None):
     miss = np.vstack(miss_rows)                  # m × n
     ok = (~miss)
 
-    # 共享位点数|shared count per pair
+    # 共享位点数|shared count per pair (matrix multiplication)
     shared_counts = ok.astype(np.int64).T @ ok.astype(np.int64)
 
     # 差异位点数:按联合基因型值 0..8 分解,纯矩阵乘法
@@ -131,12 +128,13 @@ def read_vcf_gt_matrix(vcf_path: str, logger=None):
 
 
 def write_distance_csv(labels, matrix, out_path: str) -> None:
-    """写 SplitsTree6 兼容的距离 CSV(不带首行样本数)|Write SplitsTree6-compatible distance CSV
+    """写 SplitsTree6 兼容的距离 CSV|Write SplitsTree6-compatible distance CSV
 
-    关键:SplitsTree6 的 CSVReader.acceptsFirstLine 要求**首行**含 ≥4 个逗号,
-    纯数字的首行(样本数)会被判为未知格式 → 必须省略。
-    |SplitsTree6's CSVReader.acceptsFirstLine requires commas on the FIRST line;
-    a leading sample-count line breaks auto-detection — omit it.
+    不带首行样本数:SplitsTree6 的 CSVReader 要求首行含 ≥4 个逗号(自动探测);
+    每行 label + n 个数值。GUI 打开该 CSV 会自动识别为距离矩阵并跑 NeighborNet。
+    |No leading count line (SplitsTree6 auto-detects by first-line commas);
+    one line per sample: label + n values. SplitsTree6 GUI opens it as a
+    distance matrix and auto-runs NeighborNet.
     """
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     n = len(labels)
@@ -144,64 +142,3 @@ def write_distance_csv(labels, matrix, out_path: str) -> None:
         for i in range(n):
             row = ",".join(f"{v:.6f}" for v in matrix[i])
             fh.write(f"{labels[i]},{row}\n")
-
-
-class XvfbDisplay:
-    """Xvfb 虚拟显示管理器|Xvfb virtual display manager
-
-    SplitsTree6 主类依赖 JavaFX GUI 栈,须有 X DISPLAY 才能启动;
-    用 Xvfb 提供虚拟显示实现 headless 运行。DISPLAY 已存在时直接复用。
-    |SplitsTree6 requires JavaFX (a display); run under Xvfb headlessly,
-    reusing an existing display when present.
-    """
-
-    def __init__(self, xvfb_path: str, display: str = ":99",
-                 screen: str = "1024x768x24", logger=None,
-                 lib_hints: Optional[list] = None):
-        self.xvfb_path = xvfb_path
-        self.display = display
-        self.screen = screen
-        self.logger = logger
-        self.lib_hints = [os.path.expanduser(p) for p in (lib_hints or [])]
-        self.proc = None
-
-    def _env(self) -> dict:
-        """带 LD_LIBRARY_PATH 提示的环境|Environment with lib hints prepended"""
-        env = dict(os.environ)
-        hints = os.pathsep.join(
-            p for p in [*self.lib_hints, env.get("LD_LIBRARY_PATH", "")] if p)
-        if hints:
-            env["LD_LIBRARY_PATH"] = hints
-        return env
-
-    def start(self) -> bool:
-        """启动或复用 Xvfb|Start Xvfb or reuse an existing one"""
-        cmd = [self.xvfb_path, self.display, "-screen", "0", self.screen]
-        if self.logger:
-            self.logger.info(f"命令|Command: {' '.join(cmd)}")
-        try:
-            self.proc = subprocess.Popen(
-                cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                env=self._env())
-        except FileNotFoundError:
-            if self.logger:
-                self.logger.error(f"Xvfb 未找到|Xvfb not found: {self.xvfb_path}")
-            return False
-        time.sleep(2.0)   # 等 Xvfb 完成初始化|let Xvfb finish initializing
-        return True       # 显示不可用时由后续真实运行报错|failures surface downstream
-
-    @property
-    def env(self) -> dict:
-        """带 DISPLAY 的环境变量|Environment dict with DISPLAY set"""
-        env = dict(os.environ)
-        env["DISPLAY"] = self.display
-        return env
-
-    def stop(self) -> None:
-        """停止本次启动的 Xvfb|Stop the Xvfb we started (if any)"""
-        if self.proc and self.proc.poll() is None:
-            self.proc.terminate()
-            try:
-                self.proc.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                self.proc.kill()
