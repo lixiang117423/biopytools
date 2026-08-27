@@ -82,38 +82,47 @@ class MetadataDownloader:
             #  使用所有默认字段|Use all default fields
             return ','.join(sorted(DEFAULT_FIELDS))
     
-    def download_metadata(self) -> Optional[Path]:
-        """ 下载元数据文件|Download metadata file"""
-        self.logger.info(f" 开始下载元数据|Starting metadata download for accession: {self.config.accession}")
-        
+    def download_metadata(self, accession: Optional[str] = None) -> Optional[Path]:
+        """ 下载元数据文件(默认首个编号)|Download metadata file (defaults to first accession)"""
+        accession = accession or self.config.accessions[0]
+        output_file = self.config.output_path / f"{accession}.meta.{self.config.metadata_format}"
+
+        #  断点续传: 元数据已存在且含数据行则跳过|Checkpoint resume: skip when metadata exists with data rows
+        if self._has_data_rows(output_file):
+            self.logger.info(f" 跳过已完成元数据|Skipping completed metadata: {output_file.name}")
+            return output_file
+
+        self.logger.info(f" 开始下载元数据|Starting metadata download for accession: {accession}")
+
         #  准备API参数|Prepare API parameters
         params = {
-            'accession': self.config.accession,
+            'accession': accession,
             'result': 'read_run',
             'format': 'tsv',
             'fields': self._prepare_fields()
         }
-        
-        #  确定输出文件路径|Determine output file path
-        output_file = self.config.output_path / self.config.metadata_file
-        
+
         try:
             #  发送API请求|Send API request
             self.logger.info(f" 正在请求ENA API|Requesting ENA API: {self.config.api_url}")
             response = self.session.get(
-                self.config.api_url, 
-                params=params, 
+                self.config.api_url,
+                params=params,
                 timeout=30
             )
             response.raise_for_status()
-            
+
             #  处理响应内容|Process response content
             file_content = response.text
-            
-            if not file_content.strip():
-                self.logger.error(" API返回空内容|API returned empty content")
+
+            #  ENA对不存在的编号只返回表头行, 表头行不算空内容|ENA returns header-only rows for unknown accessions; a header row is not empty content
+            if not self._tsv_has_data_rows(file_content):
+                self.logger.error(
+                    f" 编号在ENA无数据(请确认编号是否正确且已公开)|No data found in ENA for accession "
+                    f"(verify the accession is correct and public): {accession}"
+                )
                 return None
-            
+
             #  根据格式保存文件|Save file according to format
             if self.config.metadata_format == 'xlsx':
                 output_file = self._save_as_excel(file_content, output_file)
@@ -121,16 +130,34 @@ class MetadataDownloader:
                 output_file = self._save_as_csv(file_content, output_file)
             else:  # tsv
                 output_file = self._save_as_tsv(file_content, output_file)
-            
+
             self.logger.info(f" 元数据文件已保存|Metadata file saved: {output_file}")
             return output_file
-            
+
         except requests.exceptions.RequestException as e:
             self.logger.error(f" 下载元数据失败|Failed to download metadata: {str(e)}")
             return None
         except IOError as e:
             self.logger.error(f" 保存文件失败|Failed to save file: {str(e)}")
             return None
+
+    def _tsv_has_data_rows(self, content: str) -> bool:
+        """ 判断TSV内容是否有数据行|Check whether TSV content has data rows"""
+        lines = [line for line in content.strip().split('\n') if line.strip()]
+        return len(lines) > 1
+
+    def _has_data_rows(self, metadata_file: Path) -> bool:
+        """ 判断已存在的元数据文件是否含数据行(断点续传判据)|Check whether an existing metadata file has data rows (resume criterion)"""
+        if not metadata_file.exists():
+            return False
+        try:
+            content = metadata_file.read_text(encoding='utf-8')
+        except IOError:
+            return False
+        # xlsx为二进制格式, 存在即视为完成|xlsx is binary; its presence counts as completed
+        if self.config.metadata_format == 'xlsx':
+            return True
+        return self._tsv_has_data_rows(content)
     
     def _save_as_tsv(self, content: str, output_file: Path) -> Path:
         """ 保存为TSV格式|Save as TSV format"""

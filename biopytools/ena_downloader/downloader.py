@@ -14,7 +14,7 @@ class FastqDownloader:
         self.logger = logger
         self.cmd_runner = cmd_runner
     
-    def build_download_command(self, link: str) -> str:
+    def build_download_command(self, link: str, accession: str = None) -> str:
         """ 构建下载命令|Build download command"""
         if self.config.protocol == 'ftp':
             return f'wget -c {link} -P {self.config.output_dir}'
@@ -23,12 +23,15 @@ class FastqDownloader:
         else:
             raise ValueError(f" Unsupported protocol: {self.config.protocol}")
     
-    def generate_download_script(self, download_links: List[str]) -> Path:
+    def generate_download_script(self, download_links: List[str], accession: str = None) -> Path:
         """ 生成下载脚本|Generate download script"""
         if not download_links:
             self.logger.warning(" 没有找到下载链接|No download links found")
             return None
-        
+
+        #  编号用于脚本命名与头部注释|Accession used for script naming and header comment
+        accession = accession or self.config.accessions[0]
+
         #  构建下载命令|Build download commands
         commands = []
         for link in download_links:
@@ -43,9 +46,9 @@ class FastqDownloader:
         
         #  确定脚本文件名|Determine script filename
         if self.config.protocol == 'aspera':
-            script_name = f'download_{self.config.accession}_fastq_by_aspera.sh'
+            script_name = f'download_{accession}_fastq_by_aspera.sh'
         else:
-            script_name = f'download_{self.config.accession}_fastq_by_wget.sh'
+            script_name = f'download_{accession}_fastq_by_wget.sh'
         
         script_path = self.config.output_path / script_name
         
@@ -54,7 +57,7 @@ class FastqDownloader:
             with script_path.open('w', newline='\n', encoding='utf-8') as f:
                 f.write('#!/bin/bash\n')
                 f.write(f'#  ENA FASTQ下载脚本|ENA FASTQ Download Script\n')
-                f.write(f'#  项目: {self.config.accession}\n')
+                f.write(f'#  项目: {accession}\n')
                 f.write(f'#  协议: {self.config.protocol}\n')
                 f.write(f'#  生成时间: $(date)\n')
                 f.write('\n')

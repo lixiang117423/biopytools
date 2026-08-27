@@ -4,9 +4,13 @@ ENA下载工具辅助函数模块|ENA Downloader Utilities Module
 
 import os
 import logging
+import re
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
+
+#  ENA编号格式: 大写字母前缀+纯数字, 覆盖 PRJNA/SRR/ERR/DRR/SAMN 等|ENA accession format: uppercase prefix + digits
+ACCESSION_PATTERN = re.compile(r'^[A-Z]{2,6}\d+$')
 
 class DownloadLogger:
     """下载日志管理器|Download Logger Manager"""
@@ -127,3 +131,41 @@ def check_command_exists(command: str) -> bool:
     """检查命令是否存在|Check if command exists"""
     import shutil
     return shutil.which(command) is not None
+
+def is_accession(value: str) -> bool:
+    """判断字符串是否为合法ENA编号格式|Check whether a string looks like a valid ENA accession"""
+    return bool(ACCESSION_PATTERN.match(value))
+
+def classify_accession(accession: str) -> str:
+    """按前缀分类编号层级, 用于日志提示|Classify accession level by prefix for log hints"""
+    prefix = accession[:3]
+    if prefix in ("PRJ", "SRP", "ERP", "DRP"):
+        return "项目级|study"
+    if prefix in ("SRR", "ERR", "DRR"):
+        return "运行级|run"
+    if prefix in ("SRS", "ERS", "DRS") or accession.startswith(("SAMN", "SAME", "SAMD")):
+        return "样本级|sample"
+    return "未知类型|unknown"
+
+def read_id_file(file_path: Path) -> List[str]:
+    """读取ID文件, 每行一个编号, 支持空行和#注释行|Read ID file with one accession per line; blank and # lines skipped"""
+    accessions = []
+    seen = set()
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line_no, line in enumerate(f, 1):
+            entry = line.strip()
+            if not entry or entry.startswith('#'):
+                continue
+            # 同文件内去重, 避免重复下载|Deduplicate within one file to avoid repeated downloads
+            if entry in seen:
+                continue
+            seen.add(entry)
+            accessions.append(entry)
+    return accessions
+
+def expand_input(raw_value: str) -> List[str]:
+    """展开输入为编号列表: 已存在的文件路径按行读取, 否则视为单个编号|Expand input into an accession list: an existing file path is read line by line, otherwise treated as a single accession"""
+    candidate = Path(os.path.expanduser(raw_value))
+    if candidate.is_file():
+        return read_id_file(candidate)
+    return [raw_value]

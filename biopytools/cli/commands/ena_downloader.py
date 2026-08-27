@@ -34,7 +34,7 @@ def _validate_aspera_key(file_path):
                context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--accession', '-a',
               required=True,
-              help='ENA项目编号|ENA accession number')
+              help='ENA编号或ID文件路径(每行一个, 支持#注释)|ENA accession or ID file (one per line, # comments)')
 @click.option('--output-dir', '-o',
               type=click.Path(),
               help='输出目录|Output directory')
@@ -75,7 +75,8 @@ def ena_downloader(accession, output_dir, create_dir, metadata_format, protocol,
     """
     ENA数据下载工具|ENA Data Download Tool
 
-    从ENA数据库下载FASTQ数据及元信息|Download FASTQ data and metadata from ENA database
+    从ENA数据库下载FASTQ数据及元信息, 支持单个编号或ID文件批量下载|
+    Download FASTQ data and metadata from ENA; supports a single accession or an ID file for batch mode
 
     示例|Examples: biopytools ena-download -a PRJNA661210
     """
