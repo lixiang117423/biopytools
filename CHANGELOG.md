@@ -1,3 +1,8 @@
+## [1.52.1] - 2026-08-27
+
+### Fixed
+- `interproscan`/`func_anno`: 内置 GO 术语库由 3.5MB 的 `go_data.py` 巨型字面量改为随包分发 `go_data.json`(importlib.resources 加载,回退 __file__ 同目录)——修复 Python 3.14 下 `pip install -e .` 的 build_py 段错误(exit -11,SIGSEGV)与 interproscan import 崩溃;`func_anno.load_go_dict` 同步改为读 JSON(返回类型不变);新增 `[tool.setuptools.package-data]`(精确到 interproscan,避免 .claude 等杂项 JSON 混入)与 MANIFEST.in、.gitignore 白名单;wheel 体积 6.07MB→5.52MB
+
 ## [1.52.0] - 2026-08-27
 
 ### Added
