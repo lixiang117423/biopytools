@@ -1,3 +1,8 @@
+## [1.55.1] - 2026-08-27
+
+### Fixed
+- `fastani`: iterated 模式 reference 分批——实测 fastANI 会把 reference 列表全部 sketch 驻留内存(线性累积),单独 1-vs-all 对大数据集仍 OOM;新增 `--ref-batch-size`(默认 50,越小内存越低)把 reference 拆批,内存 = 1 个 query + 一批 reference 草图,884 个 ~1GB 基因组可稳定跑完;批次文件命名 `rl_{i}_{j}.txt`/`batch_{i}_{j}.out`,批次粒度断点续传,汇总文件残缺自动重建
+
 ## [1.55.0] - 2026-08-27
 
 ### Added
