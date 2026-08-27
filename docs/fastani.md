@@ -6,7 +6,7 @@
 
 - 一条命令算出全部基因组两两 ANI,输出对称矩阵 + 每个基因组"最像谁"表
 - 支持两种模式:全部互比(all-vs-all)与新基因组 vs 参考集(query-vs-ref)
-- **大数据集内存保护**:all-vs-all 基因组数超过阈值(默认 100)时自动切换逐轮 1-vs-all 遍历(每轮 1 个 query vs 全部),内存友好,断点续传按批次粒度
+- **大数据集内存保护**:all-vs-all 基因组数超过阈值(默认 100)时自动切换逐轮 1-vs-all 遍历 + reference 分批(每轮 1 个 query vs 一批 reference),内存可控,断点续传按批次粒度
 - 速度快(比对-free,MinHash 映射),成百上千基因组可跑
 
 ## 快速开始 | Quick Start
@@ -64,6 +64,7 @@ biopytools fastani -i genome_dir/ -o output_dir/
 | `--min-fraction` | `0.2` | float | 信任ANI的最小共享比例｜Min shared fraction to trust ANI |
 | `--iterated/--no-iterated` | `True` |  | 大数据集自动切换逐轮1-vs-all(默认开)｜Auto switch to iterated 1-vs-all for large sets (default on) |
 | `--iterated-threshold` | `100` | int | 触发遍历的基因组数阈值(默认100)｜Genome count threshold for iterated mode (default 100) |
+| `--ref-batch-size` | `50` | int | 遍历模式 reference 分批大小(默认50,越小内存越低)｜Reference batch size in iterated mode (default 50; smaller = lower memory) |
 | `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
 
 ### 模块直调参数 | Direct invocation options
@@ -81,6 +82,7 @@ biopytools fastani -i genome_dir/ -o output_dir/
 | `--iterated` | `True` | store_true |  |
 | `--no-iterated` | — | store_false | 关闭大数据集自动遍历(强制all-vs-all)｜Disable auto iterated mode (force all-vs-all) |
 | `--iterated-threshold` | `100` | int | 触发遍历的基因组数阈值(默认100)｜Genome count threshold for iterated mode (default 100) |
+| `--ref-batch-size` | `50` | int | 遍历模式 reference 分批大小(默认50,越小内存越低)｜Reference batch size in iterated mode (default 50; smaller = lower memory) |
 | `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
 
 <!-- END PARAMS:auto -->
@@ -130,5 +132,5 @@ output_dir/
 
 - **为什么 (A,B) 和 (B,A) 分数不完全一样?** fastANI 有方向性(query 切片段),矩阵已自动双向平均
 - **为什么有 NA?** ANI < ~80% 工具不报告;请改用蛋白层面比较(AAI)或调整研究问题
-- **多少基因组能跑?** all-vs-all 是平方级。**超过 100 个基因组(默认阈值)模块自动切换为逐轮 1-vs-all 遍历模式**——每轮只把 1 个基因组当 query 与全部比对,内存峰值从"全部基因组草图驻留"降到"单个基因组草图",884 个 ~1GB 基因组 800G 内存即可跑完;可用 `--iterated-threshold` 调整阈值,`--no-iterated` 强制 all-vs-all
+- **多少基因组能跑?** all-vs-all 是平方级。**超过 100 个基因组(默认阈值)模块自动切换为逐轮 1-vs-all 遍历,且 reference 分批(`--ref-batch-size`,默认 50)**——实测 fastANI 会把 reference 列表全部 sketch 驻留内存(线性累积),单独 1-vs-all 仍会 OOM;reference 分批后内存 = 1 个 query + 50 个 reference 草图,884 个 ~1GB 基因组可稳定跑完;`--ref-batch-size` 越小内存越低(如 20),`--iterated-threshold` 调触发阈值,`--no-iterated` 强制 all-vs-all
 - **重跑会重复计算吗?** 不会,`01_fastani/fastani.out` 已存在时自动跳过,只重算后处理

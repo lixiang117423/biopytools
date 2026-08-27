@@ -44,6 +44,10 @@ def parse_arguments(argv=None):
     parser.add_argument('--iterated-threshold', type=int, default=100,
                         help='触发遍历的基因组数阈值(默认100)|Genome count '
                              'threshold for iterated mode (default 100)')
+    parser.add_argument('--ref-batch-size', type=int, default=50,
+                        help='遍历模式 reference 分批大小(默认50,越小内存越低)'
+                             '|Reference batch size in iterated mode (default '
+                             '50; smaller = lower memory)')
     parser.add_argument('--log-level', default='INFO',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
                         help='日志级别|Log level')
@@ -59,7 +63,7 @@ def main():
             output_dir=args.output_dir, threads=args.threads, kmer=args.kmer,
             frag_len=args.frag_len, min_fraction=args.min_fraction,
             iterated=args.iterated, iterated_threshold=args.iterated_threshold,
-            log_level=args.log_level)
+            ref_batch_size=args.ref_batch_size, log_level=args.log_level)
         config.validate()
 
         logs_dir = os.path.join(config.output_dir, '99_logs')

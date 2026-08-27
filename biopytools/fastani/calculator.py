@@ -145,63 +145,83 @@ class FastaniCalculator:
         return True
 
     def _run_iterated(self, query_paths) -> bool:
-        """逐轮 1-vs-all:每个基因组作 query 跑一轮(内存友好,断点续传)
-        |Iterated 1-vs-all: one round per genome as query (low memory, resume)
+        """逐轮 1-vs-all,reference 也分批:内存 = 1 query + 一批 reference 草图
+        |Iterated 1-vs-all with reference batching: memory = 1 query + batch
+        of reference sketches (resume per batch)
+
+        fastANI 会把 reference 列表全部 sketch 驻留内存(线性累积),
+        因此把 reference 拆成小批(默认 50),每轮只加载一批,内存可控。
+        |fastANI keeps all reference sketches in RAM (linear growth), so we
+        split references into small batches (default 50) per round.
 
         Returns:
             bool: 全部批次完成|all batches completed
         """
+        n = len(query_paths)
+        ref_batch = getattr(self.config, 'ref_batch_size', 50)
         self.logger.warning(
-            f"基因组数 {len(query_paths)} > 阈值 {self.config.iterated_threshold},"
-            f"使用逐轮 1-vs-all 模式(内存友好)|{len(query_paths)} genomes over "
-            f"threshold; using iterated 1-vs-all (low memory)")
-        # reference = 全部(写一次)|reference = all genomes (write once)
-        rl_file = os.path.join(self.fastani_dir, 'genome_list_rl.txt')
-        with open(rl_file, 'w', encoding='utf-8') as fh:
-            fh.write('\n'.join(query_paths) + '\n')
-        self._rl_file = rl_file
+            f"基因组数 {n} > 阈值 {self.config.iterated_threshold},"
+            f"使用逐轮 1-vs-all + reference 分批(每批 {ref_batch},内存友好)|"
+            f"{n} genomes over threshold; iterated 1-vs-all with reference "
+            f"batching (batch={ref_batch}, low memory)")
 
-        # 汇总文件|aggregated output
-        self._ql_file = os.path.join(self.fastani_dir, 'genome_list_ql.txt')
-        with open(self._ql_file, 'w', encoding='utf-8') as fh:
-            fh.write('\n'.join(query_paths) + '\n')
+        batch_dir = os.path.join(self.fastani_dir, 'batches')
+        os.makedirs(batch_dir, exist_ok=True)
+
+        # 汇总文件(先存在则整体跳过)|aggregate output (skip if complete)
         if os.path.exists(self.out_file) and os.path.getsize(self.out_file) > 0:
             self.logger.info(
                 f"跳过已完成步骤|Skipping completed step: fastANI "
                 f"({self.out_file} 已存在|exists)")
             return True
+        # 汇总文件存在但可能残缺(上次汇总中断)→ 重建|stale aggregate → rebuild
+        if os.path.exists(self.out_file):
+            os.remove(self.out_file)
 
-        batch_dir = os.path.join(self.fastani_dir, 'batches')
-        os.makedirs(batch_dir, exist_ok=True)
+        total_batches = 0
         done = 0
         for i, q in enumerate(query_paths):
             ql = os.path.join(batch_dir, f'ql_{i:04d}.txt')
             with open(ql, 'w', encoding='utf-8') as fh:
                 fh.write(q + '\n')
-            out_batch = os.path.join(batch_dir, f'batch_{i:04d}.out')
-            if os.path.exists(out_batch) and os.path.getsize(out_batch) > 0:
+            # reference 分批|reference batching
+            for j in range(0, n, ref_batch):
+                refs = query_paths[j:j + ref_batch]
+                rl = os.path.join(batch_dir, f'rl_{i:04d}_{j:04d}.txt')
+                with open(rl, 'w', encoding='utf-8') as fh:
+                    fh.write('\n'.join(refs) + '\n')
+                out_batch = os.path.join(
+                    batch_dir, f'batch_{i:04d}_{j:04d}.out')
+                total_batches += 1
+                if os.path.exists(out_batch) and os.path.getsize(out_batch) > 0:
+                    done += 1
+                    continue
+                if not self._run_single(ql, rl, out_batch):
+                    self.logger.error(
+                        f"批次失败|Batch ({i},{j}) failed: {q}; 重跑将从中断处"
+                        f"继续|rerun resumes from here")
+                    return False
                 done += 1
-                continue
-            if not self._run_single(ql, rl_file, out_batch):
-                self.logger.error(
-                    f"批次失败|Batch {i} failed: {q}; 重跑将从中断处继续|rerun "
-                    f"resumes from here")
-                return False
-            done += 1
-            self.logger.info(
-                f"批次进度|Batch progress: {done}/{len(query_paths)}")
+                if done % max(1, total_batches // 10) == 0 or done == total_batches:
+                    self.logger.info(
+                        f"批次进度|Batch progress: {done}/{total_batches}")
 
         # 汇总所有批次 → fastani.out|aggregate batches
         with open(self.out_file, 'w', encoding='utf-8') as fh:
-            for i in range(len(query_paths)):
-                out_batch = os.path.join(batch_dir, f'batch_{i:04d}.out')
-                if not os.path.exists(out_batch):
-                    self.logger.error(f"批次缺失|Missing batch: {out_batch}")
-                    return False
-                with open(out_batch, encoding='utf-8') as bfh:
-                    fh.write(bfh.read())
-        self.logger.info("遍历完成,已汇总|Iterated runs done, aggregated")
+            for i in range(n):
+                for j in range(0, n, ref_batch):
+                    out_batch = os.path.join(
+                        batch_dir, f'batch_{i:04d}_{j:04d}.out')
+                    if not os.path.exists(out_batch):
+                        self.logger.error(f"批次缺失|Missing batch: {out_batch}")
+                        return False
+                    with open(out_batch, encoding='utf-8') as bfh:
+                        fh.write(bfh.read())
+        self.logger.info(
+            f"遍历完成,已汇总|Iterated runs done, aggregated "
+            f"({done}/{total_batches} batches)")
         return True
+
 
     def run_fastani(self, query_paths: List[str] = None) -> bool:
         """运行fastANI(断点续传)|Run fastANI (checkpoint resume)

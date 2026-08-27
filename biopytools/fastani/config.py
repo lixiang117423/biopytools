@@ -34,6 +34,7 @@ class FastaniConfig:
     # 1-vs-all (one query sketched per round → low memory peak)
     iterated: bool = True
     iterated_threshold: int = 100
+    ref_batch_size: int = 50   # 遍历模式 reference 分批大小|ref batch size in iterated mode
 
     output_dir: str = './fastani_output'
 

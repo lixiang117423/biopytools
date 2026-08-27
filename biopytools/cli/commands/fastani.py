@@ -60,11 +60,16 @@ def _validate_path_exists(path):
 @click.option('--iterated-threshold', default=100, show_default=True, type=int,
               help='触发遍历的基因组数阈值(默认100)|Genome count threshold '
                    'for iterated mode (default 100)')
+@click.option('--ref-batch-size', default=50, show_default=True, type=int,
+              help='遍历模式 reference 分批大小(默认50,越小内存越低)|'
+                   'Reference batch size in iterated mode (default 50; '
+                   'smaller = lower memory)')
 @click.option('--log-level', default='INFO', show_default=True,
               type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR']),
               help='日志级别|Log level')
 def fastani(input, query, reference, output_dir, threads, kmer,
-            frag_len, min_fraction, iterated, iterated_threshold, log_level):
+            frag_len, min_fraction, iterated, iterated_threshold,
+            ref_batch_size, log_level):
     """fastANI全基因组ANI计算,输出矩阵与最近邻表
     |fastANI whole-genome ANI, producing matrix and nearest-neighbor table
 
@@ -87,6 +92,7 @@ def fastani(input, query, reference, output_dir, threads, kmer,
     if not iterated:
         args.append('--no-iterated')
     args.extend(['--iterated-threshold', str(iterated_threshold),
+                 '--ref-batch-size', str(ref_batch_size),
                  '--log-level', log_level])
 
     original_argv = sys.argv
