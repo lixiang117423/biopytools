@@ -1,7 +1,8 @@
 """splitstree6 工具函数|SplitsTree6 utilities
 
-日志管理器、Xvfb 虚拟显示管理、VCF→距离矩阵转换(p-distance)。
-|Logger manager, Xvfb virtual display management, VCF→distance conversion.
+日志管理器、Xvfb 虚拟显示管理、VCF→距离矩阵转换(p-distance,numpy 向量化)。
+|Logger manager, Xvfb virtual display management, VCF→distance conversion
+(numpy-vectorized p-distance).
 """
 
 import gzip
@@ -9,8 +10,9 @@ import logging
 import os
 import subprocess
 import sys
-import time
 from typing import Optional, Tuple
+
+import numpy as np
 
 
 class ModuleLogger:
@@ -51,17 +53,23 @@ def open_text(path: str):
     return open(path, "rt")
 
 
-def read_vcf_gt_matrix(vcf_path: str):
-    """从 VCF 读取样本基因型并计算 p-distance 矩阵|Read VCF genotypes and compute p-distances
+def read_vcf_gt_matrix(vcf_path: str, logger=None):
+    """从 VCF 读取样本基因型并计算 p-distance 矩阵(numpy 向量化)
+    |Read VCF genotypes and compute p-distance matrix (numpy vectorized)
 
     仅处理双等位位点;缺失基因型在配对比较中跳过。
-    |Biallelic sites only; missing genotypes skipped per-pair.
+    向量化:每位点按联合等位 (allele1, allele2) 编码为单个整数 3*a1+a2
+    (取值 0..8),p-distance = 联合等位不同的位点数 / 共享位点数。
+    |Each site encoded as combined genotype 3*a1+a2 (0..8); a site differs
+    when the combined genotypes differ (equivalent to GT string comparison).
 
     Returns:
         (labels, matrix): 样本名列表与 n×n 距离矩阵|labels and n×n distance matrix
     """
     labels = []
-    genotypes = []
+    gt_rows = []
+    miss_rows = []
+
     with open_text(vcf_path) as fh:
         for line in fh:
             if line.startswith("##"):
@@ -70,59 +78,68 @@ def read_vcf_gt_matrix(vcf_path: str):
                 parts = line.rstrip("\n").split("\t")
                 labels = parts[9:]
                 continue
-            parts = line.rstrip("\n").split("\t")
+            parts = line.rstrip("\n").rstrip().split("\t")
             if len(parts) < 10:
                 continue
-            gts = []
-            for field in parts[9:]:
-                gt = field.split(":")[0]
-                alleles = gt.replace("|", "/").split("/")
-                if len(alleles) < 2 or "." in alleles:
-                    gts.append(None)
-                else:
-                    try:
-                        gts.append((int(alleles[0]), int(alleles[1])))
-                    except ValueError:
-                        gts.append(None)
-            genotypes.append(gts)
+            n = len(labels)
+            gt = np.full(n, -1, dtype=np.int16)   # -1 = missing
+            miss = np.zeros(n, dtype=bool)
+            for k, field in enumerate(parts[9:]):
+                g = field.split(":")[0]
+                sep = "/" if "/" in g else ("|" if "|" in g else None)
+                if sep is None:
+                    miss[k] = True
+                    continue
+                x, y = g.split(sep)
+                if x == "." or y == ".":
+                    miss[k] = True
+                    continue
+                try:
+                    gt[k] = 3 * int(x) + int(y)
+                except ValueError:
+                    miss[k] = True
+            gt_rows.append(gt)
+            miss_rows.append(miss)
 
     n = len(labels)
-    matrix = [[0.0] * n for _ in range(n)]
     if n == 0:
         raise ValueError("VCF 中未找到样本|No samples found in VCF header")
+    if not gt_rows:
+        raise ValueError("VCF 中未找到变异位点|No variant sites found in VCF")
 
-    # 配对计算 p-distance|pairwise p-distance computation
-    for i in range(n):
-        matrix[i][i] = 0.0
-        for j in range(i + 1, n):
-            diff = same = 0
-            for gts in genotypes:
-                a, b = gts[i], gts[j]
-                if a is None or b is None:
-                    continue
-                same += 1
-                if a != b:
-                    diff += 1
-            dist = (diff / same) if same else float("nan")
-            matrix[i][j] = dist
-            matrix[j][i] = dist
+    G = np.vstack(gt_rows).astype(np.int32)     # m × n, -1 = missing
+    miss = np.vstack(miss_rows)                  # m × n
+    ok = (~miss)
 
-    # NaN(无共享位点)置 0|NaN (no shared sites) → 0
-    for i in range(n):
-        for j in range(n):
-            if matrix[i][j] != matrix[i][j]:   # NaN check
-                matrix[i][j] = 0.0
-    return labels, matrix
+    # 共享位点数|shared count per pair
+    shared_counts = ok.astype(np.int64).T @ ok.astype(np.int64)
+
+    # 差异位点数:按联合基因型值 0..8 分解,纯矩阵乘法
+    diff_counts = np.zeros((n, n), dtype=np.int64)
+    for v in range(9):
+        v_cnt = (ok & (G == v)).astype(np.int64)
+        other_cnt = (ok & (G != v)).astype(np.int64)
+        diff_counts += v_cnt.T @ other_cnt       # i 为 v 且 j 非 v
+
+    shared_f = shared_counts.astype(np.float64)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        dist = np.where(shared_f > 0, diff_counts / shared_f, np.nan)
+    dist = np.nan_to_num(dist, nan=0.0)
+    np.fill_diagonal(dist, 0.0)
+    return labels, dist
 
 
 def write_distance_csv(labels, matrix, out_path: str) -> None:
-    """写 CSV 变体(a):首行样本数,随后 label + n 个值——SplitsTree6 CSVReader 兼容
-    |Write CSV variant (a): first line sample count, then label + values per row
+    """写 SplitsTree6 兼容的距离 CSV(不带首行样本数)|Write SplitsTree6-compatible distance CSV
+
+    关键:SplitsTree6 的 CSVReader.acceptsFirstLine 要求**首行**含 ≥4 个逗号,
+    纯数字的首行(样本数)会被判为未知格式 → 必须省略。
+    |SplitsTree6's CSVReader.acceptsFirstLine requires commas on the FIRST line;
+    a leading sample-count line breaks auto-detection — omit it.
     """
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     n = len(labels)
     with open(out_path, "w") as fh:
-        fh.write(f"{n}\n")
         for i in range(n):
             row = ",".join(f"{v:.6f}" for v in matrix[i])
             fh.write(f"{labels[i]},{row}\n")
