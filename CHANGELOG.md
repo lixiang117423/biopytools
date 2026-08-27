@@ -1,3 +1,8 @@
+## [1.52.3] - 2026-08-27
+
+### Fixed
+- `splitstree6`: 恢复 `import time`——上一版 numpy 向量化误删该导入,而 `XvfbDisplay.start()` 仍用 `time.sleep(2.0)` 等 Xvfb 初始化,导致真实运行时启动 Xvfb 抛 NameError 崩溃(单测未覆盖 Xvfb.start 故未发现)
+
 ## [1.52.2] - 2026-08-27
 
 ### Fixed
