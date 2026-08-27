@@ -1,3 +1,9 @@
+## [1.52.0] - 2026-08-27
+
+### Added
+- `splitstree6`: 新增 SplitsTree6 免比对建网/建树模块封装——**默认输入 VCF**(自动转 p-distance 距离矩阵 CSV,SplitsTree6 CSVReader 兼容,缺失基因型按位点配对跳过),同样直传 fasta/nexus/phylip/newick 等官方格式;内置 Loader→Hamming→NeighborNet→ShowSplits 官方工作流(`-w` 可换自定义 .stree6);默认导出 Newick+Nexus+GML 三格式(`-e` 可选 PlainText/Phylip/FastA/Clustal);JavaFX 依赖的 DISPLAY 要求由 Xvfb 虚拟显示自动满足(headless 计算;Xvfb 经 conda-forge xorg-x11-server-xvfb-conda 安装);`-n` 指定导出节点、断点续传按导出格式粒度跳过;工具路径走 `SPLITSTREE6_TOOLS_DIR`/配置文件/默认三级解析。注:SplitsTree6 上游无 VCF 导出器,"默认 VCF"指输入侧;输出以 Nexus 信息最全(fit 值看网络拟合度)。模块版本 1.0.0,新增 9 个单元测试(tests/test_splitstree6)
+- `ena_downloader`: 新增批量下载模式——`-a` 接受编号或 ID 文件(每行一个,支持 # 注释、同文件去重),逐编号遍历下载元数据/FASTQ 并各自生成脚本与汇总报告,全部跑完出批总览;输入概要日志(数量/来源/类型 classify_accession);元数据断点续传(存在且含数据行跳过),未知编号只回表头行时正确报"无数据"(原误判为空内容);单编号行为保持不变
+
 ## [1.51.0] - 2026-08-27
 
 ### Added
