@@ -245,7 +245,7 @@
 | picrust2 | picrust2 | PICRUSt2微生物群落功能丰度预测|PICRUSt2 functional abundance prediction |
 | qiime2 | qiime2 | QIIME2微生物组多样性分析|QIIME2 Microbiome Diversity Analysis |
 
-## 工具类|Utilities(34)|34 modules
+## 工具类|Utilities(35)|35 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -254,6 +254,7 @@
 | bam_cov | bam-cov | BAM覆盖度统计|BAM Coverage Statistics |
 | bam_stats | bam-stats | BAM文件批量统计分析|BAM File Batch Statistics Analysis |
 | check_reads | check-reads | fastq完整性检查(gz/0字节/配对)|FASTQ integrity check (gzip/empty/pairing) |
+| phy2fa | phy2fa | Phylip转FASTA|Phylip to FASTA conversion |
 | blast | blast | BLAST序列比对分析|BLAST Sequence Alignment Analysis |
 | bwa | bwa | 全基因组比对工具|Whole genome alignment tool |
 | coverage | coverage | BAM覆盖度分析工具|BAM coverage analysis tool |
@@ -284,4 +285,4 @@
 | subseq | subseq | 序列子集提取工具|Sequence subset extraction tool |
 | wgsim | wgsim | Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation |
 
-总覆盖|Total: 215/215;缺失|Missing: 无;重复|Duplicated: 无
+总覆盖|Total: 216/216;缺失|Missing: 无;重复|Duplicated: 无

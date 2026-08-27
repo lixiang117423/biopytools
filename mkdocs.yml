@@ -273,6 +273,7 @@ nav:
           - bam-cov: bam_cov.md
           - bam-stats: bam_stats.md
           - check-reads: check_reads.md
+          - phy2fa: phy2fa.md
           - blast: blast.md
           - bwa: bwa.md
           - coverage: coverage.md
