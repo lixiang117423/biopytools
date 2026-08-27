@@ -1,3 +1,11 @@
+## [1.53.0] - 2026-08-27
+
+### Added
+- `vcf2splitstree`: 新增 VCF→SplitsTree6 距离矩阵转换模块——读 VCF 变异文件(.vcf/.vcf.gz),numpy 向量化算 p-distance(联合基因型 3*a1+a2 编码 + 矩阵乘法,365 样本约 0.2 秒/千位点,旧纯 Python 慢约 100 倍);缺失基因型 `./.` 按样本对跳过,`0/1` vs `1/0` 正确计为位点差异,相位符 `|` 与 `/` 一视同仁;输出 SplitsTree6 CSVReader 兼容的距离矩阵 CSV(首行含逗号无计数,官方 GUI 实测打开即自动跑 NeighborNet),转换在超算完成、用户在本地 Mac 用 SplitsTree6 GUI 打开收尾,超算无需安装 GUI 软件;断点续传输出存在即跳过;`software_versions.yml` 记录样本数/位点数/耗时;模块版本 1.0.0,新增 8 个单元测试(tests/test_vcf2splitstree)
+
+### Removed
+- `splitstree6`: 移除无头 GUI 封装模块(被 `vcf2splitstree` 取代——只做 VCF→距离矩阵 CSV,由用户在本地 SplitsTree6 GUI 打开,免去 Xvfb/workflow-run/java 的无头运行复杂度与相关兼容性问题)
+
 ## [1.52.3] - 2026-08-27
 
 ### Fixed
