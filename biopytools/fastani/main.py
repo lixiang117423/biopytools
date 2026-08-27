@@ -36,6 +36,14 @@ def parse_arguments(argv=None):
                         help='片段长度|Fragment length')
     parser.add_argument('--min-fraction', type=float, default=0.2,
                         help='信任ANI的最小共享比例|Min shared fraction to trust ANI')
+    parser.add_argument('--iterated', dest='iterated', action='store_true',
+                        default=True, help=argparse.SUPPRESS)
+    parser.add_argument('--no-iterated', dest='iterated', action='store_false',
+                        help='关闭大数据集自动遍历(强制all-vs-all)|Disable auto '
+                             'iterated mode (force all-vs-all)')
+    parser.add_argument('--iterated-threshold', type=int, default=100,
+                        help='触发遍历的基因组数阈值(默认100)|Genome count '
+                             'threshold for iterated mode (default 100)')
     parser.add_argument('--log-level', default='INFO',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
                         help='日志级别|Log level')
@@ -50,6 +58,7 @@ def main():
             input=args.input, query=args.query, reference=args.reference,
             output_dir=args.output_dir, threads=args.threads, kmer=args.kmer,
             frag_len=args.frag_len, min_fraction=args.min_fraction,
+            iterated=args.iterated, iterated_threshold=args.iterated_threshold,
             log_level=args.log_level)
         config.validate()
 

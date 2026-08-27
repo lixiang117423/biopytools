@@ -54,11 +54,17 @@ def _validate_path_exists(path):
               help='片段长度|Fragment length')
 @click.option('--min-fraction', default=0.2, show_default=True, type=float,
               help='信任ANI的最小共享比例|Min shared fraction to trust ANI')
+@click.option('--iterated/--no-iterated', default=True, show_default=True,
+              help='大数据集自动切换逐轮1-vs-all(默认开)|Auto switch to '
+                   'iterated 1-vs-all for large sets (default on)')
+@click.option('--iterated-threshold', default=100, show_default=True, type=int,
+              help='触发遍历的基因组数阈值(默认100)|Genome count threshold '
+                   'for iterated mode (default 100)')
 @click.option('--log-level', default='INFO', show_default=True,
               type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR']),
               help='日志级别|Log level')
 def fastani(input, query, reference, output_dir, threads, kmer,
-            frag_len, min_fraction, log_level):
+            frag_len, min_fraction, iterated, iterated_threshold, log_level):
     """fastANI全基因组ANI计算,输出矩阵与最近邻表
     |fastANI whole-genome ANI, producing matrix and nearest-neighbor table
 
@@ -77,7 +83,10 @@ def fastani(input, query, reference, output_dir, threads, kmer,
         args.extend(['-r', reference])
     args.extend(['-o', output_dir, '-t', str(threads), '-k', str(kmer),
                  '--frag-len', str(frag_len),
-                 '--min-fraction', str(min_fraction),
+                 '--min-fraction', str(min_fraction)])
+    if not iterated:
+        args.append('--no-iterated')
+    args.extend(['--iterated-threshold', str(iterated_threshold),
                  '--log-level', log_level])
 
     original_argv = sys.argv

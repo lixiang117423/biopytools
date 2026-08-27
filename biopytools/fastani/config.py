@@ -28,6 +28,13 @@ class FastaniConfig:
     query: Optional[str] = None
     reference: Optional[str] = None
 
+    # 大数据集内存保护:all-vs-all 基因组数超过阈值时自动改为逐轮 1-vs-all
+    # (每轮只 sketch 一个 query,内存峰值从"全部query草图"降到"单基因组草图")
+    # |Memory guard: all-vs-all over the threshold switches to iterated
+    # 1-vs-all (one query sketched per round → low memory peak)
+    iterated: bool = True
+    iterated_threshold: int = 100
+
     output_dir: str = './fastani_output'
 
     # fastANI可调参数|fastANI tunables

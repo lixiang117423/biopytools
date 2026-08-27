@@ -110,12 +110,110 @@ class FastaniCalculator:
                 return True
         return False
 
-    def run_fastani(self) -> bool:
+    def _fastani_cmd(self, ql_file, rl_file, out_file) -> List[str]:
+        """构建 fastANI 命令|Build the fastANI command"""
+        return build_conda_command(self.config.fastani_path, [
+            '--ql', ql_file, '--rl', rl_file,
+            '-o', out_file, '--matrix',
+            '-t', str(self.config.threads),
+            '-k', str(self.config.kmer),
+            '--fragLen', str(self.config.frag_len),
+            '--minFraction', str(self.config.min_fraction),
+        ])
+
+    def _run_single(self, ql_file, rl_file, out_file) -> bool:
+        """运行单次 fastANI|Run one fastANI invocation"""
+        cmd = self._fastani_cmd(ql_file, rl_file, out_file)
+        self.logger.info("执行|Executing: fastANI全基因组ANI计算|fastANI whole-genome ANI")
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        try:
+            result = subprocess.run(cmd, shell=False,
+                                    capture_output=True, text=True)
+        except FileNotFoundError as e:
+            self.logger.error(f"fastANI未找到|fastANI not found: {e}")
+            return False
+        if result.returncode != 0:
+            self.logger.error(
+                f"fastANI运行失败|fastANI failed (exit {result.returncode}): "
+                f"{(result.stderr or '').strip()[:2000]}")
+            return False
+        if not os.path.exists(out_file):
+            self.logger.error(
+                "fastANI成功退出但输出文件缺失|fastANI exited 0 but output "
+                f"file missing: {out_file}")
+            return False
+        return True
+
+    def _run_iterated(self, query_paths) -> bool:
+        """逐轮 1-vs-all:每个基因组作 query 跑一轮(内存友好,断点续传)
+        |Iterated 1-vs-all: one round per genome as query (low memory, resume)
+
+        Returns:
+            bool: 全部批次完成|all batches completed
+        """
+        self.logger.warning(
+            f"基因组数 {len(query_paths)} > 阈值 {self.config.iterated_threshold},"
+            f"使用逐轮 1-vs-all 模式(内存友好)|{len(query_paths)} genomes over "
+            f"threshold; using iterated 1-vs-all (low memory)")
+        # reference = 全部(写一次)|reference = all genomes (write once)
+        rl_file = os.path.join(self.fastani_dir, 'genome_list_rl.txt')
+        with open(rl_file, 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(query_paths) + '\n')
+        self._rl_file = rl_file
+
+        # 汇总文件|aggregated output
+        self._ql_file = os.path.join(self.fastani_dir, 'genome_list_ql.txt')
+        with open(self._ql_file, 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(query_paths) + '\n')
+        if os.path.exists(self.out_file) and os.path.getsize(self.out_file) > 0:
+            self.logger.info(
+                f"跳过已完成步骤|Skipping completed step: fastANI "
+                f"({self.out_file} 已存在|exists)")
+            return True
+
+        batch_dir = os.path.join(self.fastani_dir, 'batches')
+        os.makedirs(batch_dir, exist_ok=True)
+        done = 0
+        for i, q in enumerate(query_paths):
+            ql = os.path.join(batch_dir, f'ql_{i:04d}.txt')
+            with open(ql, 'w', encoding='utf-8') as fh:
+                fh.write(q + '\n')
+            out_batch = os.path.join(batch_dir, f'batch_{i:04d}.out')
+            if os.path.exists(out_batch) and os.path.getsize(out_batch) > 0:
+                done += 1
+                continue
+            if not self._run_single(ql, rl_file, out_batch):
+                self.logger.error(
+                    f"批次失败|Batch {i} failed: {q}; 重跑将从中断处继续|rerun "
+                    f"resumes from here")
+                return False
+            done += 1
+            self.logger.info(
+                f"批次进度|Batch progress: {done}/{len(query_paths)}")
+
+        # 汇总所有批次 → fastani.out|aggregate batches
+        with open(self.out_file, 'w', encoding='utf-8') as fh:
+            for i in range(len(query_paths)):
+                out_batch = os.path.join(batch_dir, f'batch_{i:04d}.out')
+                if not os.path.exists(out_batch):
+                    self.logger.error(f"批次缺失|Missing batch: {out_batch}")
+                    return False
+                with open(out_batch, encoding='utf-8') as bfh:
+                    fh.write(bfh.read())
+        self.logger.info("遍历完成,已汇总|Iterated runs done, aggregated")
+        return True
+
+    def run_fastani(self, query_paths: List[str] = None) -> bool:
         """运行fastANI(断点续传)|Run fastANI (checkpoint resume)
 
         须先调用write_list_files(内部依赖_ql_file/_rl_file)
         |Requires write_list_files first (uses _ql_file/_rl_file)
         """
+        # 遍历模式分流|iterated mode branch
+        if self.config.all_vs_all and self.config.iterated \
+                and self._n_query > self.config.iterated_threshold:
+            return self._run_iterated(query_paths)
+
         # 输入变化(任一列表比结果新)→ 作废旧结果重跑|input changed (any list newer
         # than result) → invalidate stale output and re-run
         if os.path.exists(self.out_file) and self._input_lists_newer():
@@ -130,34 +228,7 @@ class FastaniCalculator:
                 f"({self.out_file} 已存在|exists)")
             return True
 
-        cmd = build_conda_command(self.config.fastani_path, [
-            '--ql', self._ql_file, '--rl', self._rl_file,
-            '-o', self.out_file, '--matrix',
-            '-t', str(self.config.threads),
-            '-k', str(self.config.kmer),
-            '--fragLen', str(self.config.frag_len),
-            '--minFraction', str(self.config.min_fraction),
-        ])
-        self.logger.info("执行|Executing: fastANI全基因组ANI计算|fastANI whole-genome ANI")
-        self.logger.info(f"命令|Command: {' '.join(cmd)}")
-
-        try:
-            result = subprocess.run(cmd, shell=False,
-                                    capture_output=True, text=True)
-        except FileNotFoundError as e:
-            self.logger.error(f"fastANI未找到|fastANI not found: {e}")
-            return False
-
-        if result.returncode != 0:
-            self.logger.error(
-                f"fastANI运行失败|fastANI failed (exit {result.returncode}): "
-                f"{(result.stderr or '').strip()[:2000]}")
-            return False
-
-        if not os.path.exists(self.out_file):
-            self.logger.error(
-                "fastANI成功退出但输出文件缺失|fastANI exited 0 but output "
-                f"file missing: {self.out_file}")
+        if not self._run_single(self._ql_file, self._rl_file, self.out_file):
             return False
 
         if os.path.getsize(self.out_file) == 0:
@@ -221,7 +292,7 @@ class FastaniCalculator:
         ref_names = [genome_name(p) for p in ref_paths]
         self.write_list_files(query_paths, ref_paths)
 
-        if not self.run_fastani():
+        if not self.run_fastani(query_paths):
             return False
 
         records, malformed = parse_fastani_out(self.out_file)
