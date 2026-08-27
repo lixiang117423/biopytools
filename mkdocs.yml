@@ -222,6 +222,7 @@ nav:
           - easyhap: easyhap.md
           - genome2tree: genome2tree.md
           - reads2tree: reads2tree.md
+          - splitstree6: splitstree6.md
           - iqtree: iqtree.md
           - kaks: kaks.md
           - mafft-fasttree: mafft_fasttree.md
