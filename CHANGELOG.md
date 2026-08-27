@@ -1,3 +1,8 @@
+## [1.55.0] - 2026-08-27
+
+### Added
+- `fastani`: all-vs-all 大数据集内存保护——基因组数超过阈值(默认 100)时自动切换**逐轮 1-vs-all 遍历模式**(每轮只把 1 个基因组当 query 与全部 reference 比对,`batches/ql_XXXX.txt` + `batch_XXXX.out`),内存峰值从"全部 query 草图驻留"降到"单基因组草图",884 个 ~1GB 基因组 800G 内存可跑完;批次粒度断点续传(已完成批次跳过),全部完成后汇总到 `fastani.out` 复用既有矩阵/最近邻后处理;`--no-iterated` 强制 all-vs-all,`--iterated-threshold` 调阈值;新增 4 个单测(tests/test_fastani)
+
 ## [1.54.0] - 2026-08-27
 
 ### Added
