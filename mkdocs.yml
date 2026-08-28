@@ -250,6 +250,7 @@ nav:
           - edta: edta.md
           - hite: hite.md
           - lai: lai.md
+          - pathorepeat: pathorepeat.md
           - repeat-analyzer: repeat_analyzer.md
           - repeatmask: repeatmask.md
       - 可视化:

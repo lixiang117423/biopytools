@@ -212,13 +212,14 @@
 | signalp | signalp | SignalP 6.0信号肽预测工具|SignalP 6.0 signal peptide prediction tool |
 | tmhmm | tmhmm | TMHMM跨膜螺旋预测|TMHMM transmembrane helix prediction |
 
-## 重复序列|Repeats(5)|5 modules
+## 重复序列|Repeats(6)|6 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
 | edta | edta | EDTA转座子注释|EDTA TE annotation |
 | hite | hite | HiTE转座子检测与注释|HiTE transposon detection and annotation |
 | lai | lai | LAI组装质量指数计算工具|LAI Assembly Index calculator |
+| pathorepeat | pathorepeat | 病原菌重复序列注释(RepeatModeler2+RepeatMasker+TEsorter)|Pathogen repeat annotation (RepeatModeler2+RepeatMasker+TEsorter) |
 | repeat_analyzer | repeat-analyzer | 重复序列分析模块|Repeat sequence analysis module |
 | repeatmask | repeatmask | 重复序列屏蔽工具|Repeat masking tool |
 
@@ -285,4 +286,4 @@
 | subseq | subseq | 序列子集提取工具|Sequence subset extraction tool |
 | wgsim | wgsim | Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation |
 
-总覆盖|Total: 216/216;缺失|Missing: 无;重复|Duplicated: 无
+总覆盖|Total: 217/217;缺失|Missing: 无;重复|Duplicated: 无

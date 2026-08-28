@@ -88,6 +88,7 @@ TOOL_DOMAIN_MAP = {
     "LTR_retriever": "repeat",
     "ltr_harvest_parallel": "repeat",
     "ltr_finder_parallel": "repeat",
+    "TEsorter": "repeat",
     # ===== rna =====
     "hisat2": "rna",
     "hisat2-build": "rna",

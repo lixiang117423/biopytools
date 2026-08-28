@@ -12,3 +12,4 @@ dependencies:
   - ltr_retriever
   - ltr_harvest_parallel
   - ltr_finder_parallel
+  - tesorter

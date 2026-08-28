@@ -94,7 +94,8 @@ conda run -n repeat <工具> --no-capture-output
 | 工具<br>Tool | 工具<br>Tool | 工具<br>Tool |
 |---|---|---|
 | `BuildDatabase` | `LTR_retriever` | `RepeatMasker` |
-| `RepeatModeler` | `ltr_finder_parallel` | `ltr_harvest_parallel` |
+| `RepeatModeler` | `TEsorter` | `ltr_finder_parallel` |
+| `ltr_harvest_parallel` |  |  |
 
 ### rna — 转录组|RNA-seq
 

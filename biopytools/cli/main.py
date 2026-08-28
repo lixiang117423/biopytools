@@ -52,6 +52,7 @@ COMMAND_REGISTRY = [
     ('easyhap', 'easyhap', '区域单倍型分析(EasyHap)|Regional haplotype analysis (EasyHap)'),
     ('edta', 'edta', 'EDTA转座子注释|EDTA TE annotation'),
     ('panedta', 'panedta', 'PanEDTA泛基因组转座子注释|PanEDTA Pan-genome TE annotation'),
+    ('pathorepeat', 'pathorepeat', '病原菌重复序列注释(RepeatModeler2+RepeatMasker+TEsorter)|Pathogen repeat annotation (RepeatModeler2+RepeatMasker+TEsorter)'),
     ('egapx_batch', 'egapx-batch', 'EGAPx批量运行配置生成工具|EGAPx batch run configuration generator'),
     ('eviann', 'eviann', 'EviAnn基因组注释工具|EviAnn genome annotation tool'),
     ('ena_downloader', 'ena-downloader', 'ENA数据下载工具|ENA data download tool'),
