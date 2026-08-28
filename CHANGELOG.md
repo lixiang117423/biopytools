@@ -1,3 +1,8 @@
+## [1.56.0] - 2026-08-28
+
+### Added
+- `pathorepeat`: 新增病原菌重复序列注释模块(EDTA 的非植物替代)——RepeatModeler2 从头建库(默认 `-LTRStruct`)+RepeatMasker 默认 `-xsmall` 小写软屏蔽(下游 SignalP/RxLR motif 扫描、基因预测不丢序列)+TEsorter 蛋白域分类(家族→Order/Superfamily/Clade,补足 RepeatModeler 对 unknown 家族分类不足);支持单基因组/文件夹批量、断点续传(样品×步骤)、TEsorter 失败自动降级全 unknown 继续出报告;可选 effector 候选区交叉检查(BED/GFF3 其一,不做自动过滤);每类 repeat 的 bp/占比/GC% 统计服务 two-speed genome AT-rich 区识别;TEsorter 登记 repeat 域环境(env_map),repeat 环境补充 tesorter 依赖;审查修复 --masking-mode soft 传 `-soft` 无效参数(RM 4.2.4 已移除,`-xsmall` 是其等价,与 repeatmask 模块一致);新增 55 个单元测试
+
 ## [1.55.1] - 2026-08-27
 
 ### Fixed
