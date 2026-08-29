@@ -42,15 +42,19 @@ VERSION_PATTERNS = {
 
 
 def run_command(cmd: List[str], logger, description: str,
-                working_dir: Optional[str] = None) -> bool:
+                working_dir: Optional[str] = None,
+                extra_env: Optional[Dict[str, str]] = None) -> bool:
     """执行外部命令(INFO 先记录完整命令,§2.2.1)|Run external command
 
-    所有命令已经 build_conda_command 包装(含 --no-capture-output)
+    所有命令已经 build_conda_command 包装(含 --no-capture-output);
+    extra_env 以继承父环境方式注入(如 FAMDB_DIR)
+    |extra_env is merged over the inherited environment (e.g. FAMDB_DIR)
     """
     logger.info(f"执行|Executing: {description}")
     logger.info(f"命令|Command: {' '.join(cmd)}")
+    env = {**os.environ, **extra_env} if extra_env else None
     try:
-        result = subprocess.run(cmd, shell=False, cwd=working_dir,
+        result = subprocess.run(cmd, shell=False, cwd=working_dir, env=env,
                                 capture_output=True, text=True)
     except FileNotFoundError as e:
         logger.error(f"工具不存在|Tool not found: {e}")
@@ -124,6 +128,41 @@ class PathorepeatPipeline:
 
     # ---------- Step 1|建库+建模 ----------
 
+    def _modeler_fallback(self, name: str, run_dir: str) -> Optional[str]:
+        """分类已尝试失败时降级采用未分类 consensi.fa|Fall back to unclassified consensi.fa
+
+        判据:consensi.fa 非空 且 rmod.log 中出现过 RepeatClassifier
+        (RM2 主流程已跑完、仅分类失败——典型原因 FAMDB_DIR/Dfam 数据未配置)。
+        --no-skip-completed(强制重建)时不降级,保持重建语义。
+        |Criteria: non-empty consensi.fa + RepeatClassifier seen in rmod.log
+        (RM2 finished modeling, only classification failed). Skipped on force
+        rerun (--no-skip-completed).
+        """
+        if not self.config.skip_completed:
+            return None
+        cons = os.path.join(run_dir, 'consensi.fa')
+        rmod_log = os.path.join(run_dir, f'{name}_db-rmod.log')
+        if not (os.path.exists(cons) and os.path.getsize(cons) > 0):
+            return None
+        classifier_attempted = False
+        if os.path.exists(rmod_log):
+            with open(rmod_log, encoding='utf-8',
+                      errors='ignore') as fh:
+                classifier_attempted = 'RepeatClassifier' in fh.read()
+        if not classifier_attempted:
+            return None
+        marker = self._lib_path(name)
+        shutil.copyfile(cons, marker)
+        self.logger.warning(
+            f"RepeatModeler 分类失败(常见原因:FAMDB_DIR/Dfam 数据未配置),"
+            f"降级采用未分类库 consensi.fa 继续流程,家族分类由 TEsorter 承担;"
+            f"配置 Dfam 后可删除 {marker} 重跑以获得 RM2 自带分类"
+            f"|RepeatModeler classification failed (usually FAMDB_DIR/Dfam data "
+            f"missing); falling back to unclassified consensi.fa, classification "
+            f"delegated to TEsorter; configure Dfam and remove {marker} to rerun "
+            f"with RM2 built-in classification")
+        return marker
+
     def _run_modeler(self, genome: str, name: str) -> Optional[str]:
         """BuildDatabase + RepeatModeler;返回库路径或 None|Returns lib path or None"""
         marker = self._lib_path(name)
@@ -133,6 +172,9 @@ class PathorepeatPipeline:
             return marker
         run_dir = self._modeler_run_dir(name)
         os.makedirs(run_dir, exist_ok=True)
+        fallback = self._modeler_fallback(name, run_dir)
+        if fallback:
+            return fallback
         db_name = f'{name}_db'
 
         cmd = build_conda_command(
@@ -148,7 +190,10 @@ class PathorepeatPipeline:
             args.append('-LTRStruct')
         cmd = build_conda_command(self.config.repeatmodeler_path, args)
         desc = f"RepeatModeler 建模|RepeatModeler de novo ({name})"
-        if not run_command(cmd, self.logger, desc, working_dir=run_dir):
+        rm_env = ({'FAMDB_DIR': self.config.famdb_dir}
+                  if self.config.famdb_dir else None)
+        if not run_command(cmd, self.logger, desc, working_dir=run_dir,
+                           extra_env=rm_env):
             return None
         if not os.path.exists(marker):
             self.logger.error(f"RepeatModeler 未产出库文件|No library produced: "

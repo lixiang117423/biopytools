@@ -55,6 +55,12 @@ def _validate_path_exists(path):
               help='TEsorter数据库(REXdb植物/动物为主,卵菌可试gydb)|TEsorter db')
 @click.option('--db-hmm', default=None,
               help='自定义TEsorter HMM文件(优先于--tesorter-db)|Custom HMM file')
+@click.option('--famdb-dir', default=None,
+              callback=lambda ctx, param, value: _validate_path_exists(value),
+              type=click.Path(),
+              help='Dfam famdb数据目录(注入FAMDB_DIR启用RM2自带分类;不设则分类失败'
+                   '自动降级)|Dfam famdb dir (injected as FAMDB_DIR; auto-degrades '
+                   'if unset)')
 @click.option('--effector-bed', default=None,
               callback=lambda ctx, param, value: _validate_path_exists(value),
               help='effector候选区BED(仅单文件模式)|Effector BED (single-sample)')
@@ -70,8 +76,8 @@ def _validate_path_exists(path):
               type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR']),
               help='日志级别|Log level')
 def pathorepeat(input, output_dir, threads, masking_mode, ltr_struct,
-                tesorter_db, db_hmm, effector_bed, effector_gff, genome_name,
-                skip_completed, log_level):
+                tesorter_db, db_hmm, famdb_dir, effector_bed, effector_gff,
+                genome_name, skip_completed, log_level):
     """病原菌重复序列注释:RepeatModeler2+RepeatMasker(-xsmall)+TEsorter
     |Pathogen repeat annotation: RepeatModeler2 + RepeatMasker (-xsmall) + TEsorter
 
@@ -87,6 +93,8 @@ def pathorepeat(input, output_dir, threads, masking_mode, ltr_struct,
         args.append('--no-ltr-struct')
     if db_hmm:
         args.extend(['--db-hmm', db_hmm])
+    if famdb_dir:
+        args.extend(['--famdb-dir', famdb_dir])
     if effector_bed:
         args.extend(['--effector-bed', effector_bed])
     if effector_gff:

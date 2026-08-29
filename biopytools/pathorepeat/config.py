@@ -29,6 +29,10 @@ TESORTER_DBS = ('gydb', 'rexdb', 'rexdb-plant', 'rexdb-metazoa', 'rexdb-v3',
 # mask), consistent with the repeatmask module; hardcoding -soft makes RM abort
 MASKING_FLAGS = {
     'xsmall': ['-xsmall'],
+    # soft 映射为 -xsmall:RM 4.2.4 已移除 -soft 选项(实测 "Unknown option: soft"),
+    # 小写软屏蔽语义由 -xsmall 承担(与 repeatmask 模块处理一致)
+    # |soft maps to -xsmall: RM 4.2.4 dropped the -soft flag (verified);
+    # lowercase soft-masking is carried by -xsmall
     'soft': ['-xsmall'],
     'hard': [],
     'x': ['-x'],
@@ -50,6 +54,11 @@ class PathorepeatConfig:
     ltr_struct: bool = True
     tesorter_db: str = 'rexdb'
     db_hmm: Optional[str] = None
+    # Dfam famdb 数据目录(含 famdb.py 与 *.h5);设置后注入 FAMDB_DIR 环境变量,
+    # 使 RepeatModeler 分类可用 RM2 自带 Dfam 参考
+    # |Dfam famdb data dir (famdb.py + *.h5); injected as FAMDB_DIR so the
+    # RepeatModeler classification step can use its built-in Dfam reference
+    famdb_dir: Optional[str] = None
     effector_bed: Optional[str] = None
     effector_gff: Optional[str] = None
     genome_name: Optional[str] = None
@@ -64,7 +73,8 @@ class PathorepeatConfig:
 
     def __post_init__(self):
         """初始化后处理:~ 展开 + 域环境路径解析|Post-init: expand ~ + domain paths"""
-        for attr in ('input', 'output_dir', 'db_hmm', 'effector_bed', 'effector_gff'):
+        for attr in ('input', 'output_dir', 'db_hmm', 'effector_bed', 'effector_gff',
+                     'famdb_dir'):
             val = getattr(self, attr)
             if val:
                 setattr(self, attr, expand_path(val))
@@ -153,6 +163,14 @@ class PathorepeatConfig:
                             ('--effector-gff', self.effector_gff)):
             if path and not os.path.exists(path):
                 errors.append(f"{label} 文件不存在|File not found: {path}")
+        if self.famdb_dir:
+            if not os.path.isdir(self.famdb_dir):
+                errors.append(f"--famdb-dir 目录不存在|Directory not found: "
+                              f"{self.famdb_dir}")
+            elif not os.path.exists(os.path.join(self.famdb_dir, 'famdb.py')):
+                errors.append(f"--famdb-dir 下未找到 famdb.py(可将 conda 环境内的 "
+                              f"famdb.py 软链到该目录)|famdb.py not found in --famdb-dir "
+                              f"(symlink the one from the conda env): {self.famdb_dir}")
 
         # 工具二进制|Tool binaries
         for attr in ('build_database_path', 'repeatmodeler_path',

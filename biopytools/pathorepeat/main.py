@@ -45,6 +45,11 @@ def parse_arguments(argv=None):
     parser.add_argument('--db-hmm', default=None,
                         help='自定义TEsorter HMM文件(优先于--tesorter-db)|Custom '
                              'TEsorter HMM file (overrides --tesorter-db)')
+    parser.add_argument('--famdb-dir', default=None,
+                        help='Dfam famdb数据目录(含famdb.py与*.h5;设置后注入FAMDB_DIR,'
+                             '启用RM2自带分类;不设则分类失败时自动降级)|Dfam famdb dir '
+                             '(famdb.py + *.h5; injected as FAMDB_DIR to enable RM2 '
+                             'classification; auto-degrades if unset)')
     parser.add_argument('--effector-bed', default=None,
                         help='effector候选区BED(仅单文件模式)|Effector regions BED '
                              '(single-sample mode only)')
@@ -73,7 +78,8 @@ def main():
             input=args.input, output_dir=args.output_dir,
             threads=args.threads, masking_mode=args.masking_mode,
             ltr_struct=args.ltr_struct, tesorter_db=args.tesorter_db,
-            db_hmm=args.db_hmm, effector_bed=args.effector_bed,
+            db_hmm=args.db_hmm, famdb_dir=args.famdb_dir,
+            effector_bed=args.effector_bed,
             effector_gff=args.effector_gff, genome_name=args.genome_name,
             skip_completed=args.skip_completed, log_level=args.log_level)
         config.validate()
