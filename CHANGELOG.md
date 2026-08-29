@@ -1,3 +1,8 @@
+## [1.57.0] - 2026-08-29
+
+### Added
+- `pathorepeat`: 新增 `--famdb-dir`(Dfam famdb 数据目录)与 RepeatModeler 分类失败自动降级——设置后注入 `FAMDB_DIR` 环境变量,RepeatModeler 分类步使用 RM2 自带 Dfam 参考(RepeatClassifier);未配置 Dfam 时分类失败不再让整个建模报废:检测到 consensi.fa 非空且 rmod.log 出现 RepeatClassifier(仅分类失败)即自动降级采用未分类库继续 Masker/TEsorter 流程(9 小时级建模成果不浪费,家族分类由 TEsorter 承担),配置 Dfam 后删除 `{样品}_db-families.fa` 带 `--famdb-dir` 重跑即可获得 RM2 自带分类;`--no-skip-completed` 时不降级(保持强制重建语义);`run_command` 支持 `extra_env` 继承式环境注入;文档补 Dfam 下载说明(dfam.org releases/current/families/FamDB,约 2.2GB)与两条 FAQ(分类失败降级、`No LTRs identified` 误报);新增 5 个单元测试
+
 ## [1.56.0] - 2026-08-28
 
 ### Added
