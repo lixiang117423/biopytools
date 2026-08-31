@@ -83,8 +83,13 @@ def _validate_file_exists(file_path):
               default=None,
               type=click.Choice(['nucl', 'prot']),
               help='目标数据库类型，默认根据blast-type自动设置|Target database type (auto-set by blast-type if not specified)')
+@click.option('--task',
+              default='blastn',
+              show_default=True,
+              type=click.Choice(['blastn', 'megablast', 'dc-megablast']),
+              help='blastn搜索任务，默认blastn(最敏感，可报出<70%分歧比对)|blastn task, default blastn (most sensitive, reports <70% diverged hits)')
 @click.option('--min-identity',
-              default=70.0,
+              default=30.0,
               show_default=True,
               type=float,
               help='最小序列相似度|Minimum sequence identity')
@@ -161,10 +166,15 @@ def _validate_file_exists(file_path):
               type=float,
               help='比对可视化最小覆盖度|Minimum coverage for alignment visualization')
 @click.option('--alignment-max-per-sample',
-              default=100,
+              default=2000,
               show_default=True,
               type=int,
               help='每个样品最多显示的比对数|Maximum alignments to display per sample')
+@click.option('--alignment-max-per-query',
+              default=5,
+              show_default=True,
+              type=int,
+              help='每条查询序列最多显示的比对数(按相似度取前N，保证所有query都有展示)|Maximum alignments per query (top-N by identity, so every query is shown)')
 @click.option('--html-theme',
               default='modern',
               show_default=True,
@@ -197,12 +207,12 @@ def _validate_file_exists(file_path):
               is_flag=True,
               help='显示版本信息|Show version information')
 def blast(version, input, sample_map_file, reference, output, blast_type, evalue,
-          max_target_seqs, word_size, threads, input_suffix, target_db_type,
+          max_target_seqs, word_size, threads, input_suffix, target_db_type, task,
           min_identity, min_coverage, high_quality_evalue, auto_detect_samples,
           sample_name_pattern, sample_name, makeblastdb_path, blastn_path, blastp_path,
           blastx_path, tblastn_path, tblastx_path, alignment_output,
           alignment_width, alignment_min_identity, alignment_min_coverage,
-          alignment_max_per_sample, html_theme, merge_html, verbose, quiet,
+          alignment_max_per_sample, alignment_max_per_query, html_theme, merge_html, verbose, quiet,
           log_level, log_file, force, dry_run):
     """
     BLAST序列比对分析工具|BLAST Sequence Alignment Analysis Tool
@@ -258,7 +268,10 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if target_db_type is not None:
         args.extend(['--target-db-type', target_db_type])
 
-    if min_identity != 70.0:
+    if task != 'blastn':
+        args.extend(['--task', task])
+
+    if min_identity != 30.0:
         args.extend(['--min-identity', str(min_identity)])
 
     if min_coverage != 50.0:
@@ -308,8 +321,11 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if alignment_min_coverage != 0.0:
         args.extend(['--alignment-min-coverage', str(alignment_min_coverage)])
 
-    if alignment_max_per_sample != 100:
+    if alignment_max_per_sample != 2000:
         args.extend(['--alignment-max-per-sample', str(alignment_max_per_sample)])
+
+    if alignment_max_per_query != 5:
+        args.extend(['--alignment-max-per-query', str(alignment_max_per_query)])
 
     if html_theme != 'modern':
         args.extend(['--html-theme', html_theme])

@@ -204,6 +204,8 @@ class BLASTAnalyzer(BaseAnalyzer):
         """生成software_versions.yml到00_pipeline_info(§12.5)|Generate software_versions.yml"""
         import yaml
 
+        from . import __version__
+
         blast_program = getattr(self.config, f'{self.config.blast_type}_path', self.config.blast_type)
         tools = {
             'makeblastdb': self.config.makeblastdb_path,
@@ -223,7 +225,7 @@ class BLASTAnalyzer(BaseAnalyzer):
                 versions[name] = {'version': 'unknown', 'path': path}
 
         info = {
-            'pipeline': {'name': 'biopytools blast', 'version': '2.1.0'},
+            'pipeline': {'name': 'biopytools blast', 'version': __version__},
             'tools': versions,
             'parameters': {
                 'blast_type': self.config.blast_type,
@@ -231,6 +233,7 @@ class BLASTAnalyzer(BaseAnalyzer):
                 'word_size': self.config.word_size,
                 'max_target_seqs': self.config.max_target_seqs,
                 'target_db_type': self.config.target_db_type,
+                'blastn_task': self.config.blastn_task,
                 'min_identity': self.config.min_identity,
                 'min_coverage': self.config.min_coverage,
                 'threads': self.config.threads,
@@ -355,7 +358,19 @@ class BLASTAnalyzer(BaseAnalyzer):
                 '-query', sample_file,
                 '-db', self.database_path,
                 '-out', output_file,
-                '-outfmt', '6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq',
+            ]
+            # blastn专属参数:-task控制搜索敏感性(默认blastn任务;megablast实测报不出
+            # <70%的分歧比对,跨物种/亚种比较建议--task dc-megablast),-perc_identity
+            # 把min_identity前置到blast层过滤|- blastn only: -task controls search
+            # sensitivity (default blastn; megablast empirically misses <70% diverged
+            # hits), -perc_identity pre-filters at blast level
+            if self.config.blast_type == 'blastn':
+                args += ['-task', self.config.blastn_task,
+                         '-perc_identity', str(self.config.min_identity)]
+            # 末列qlen供查询覆盖度计算(目标作分母恒≈0%)|trailing qlen for query
+            # coverage (subject-length denominator is always ~0%)
+            args += [
+                '-outfmt', '6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq qlen',
                 '-evalue', str(self.config.evalue),
                 '-max_target_seqs', str(self.config.max_target_seqs),
                 '-word_size', str(self.config.word_size),
@@ -397,15 +412,17 @@ class BLASTAnalyzer(BaseAnalyzer):
             return None
 
     def _merge_results(self, result_files: List[Tuple[str, str]]) -> str:
-        """合并所有结果文件并计算覆盖度|Merge all result files and calculate coverage"""
+        """合并所有结果文件并计算查询覆盖度|Merge all result files and calculate query coverage"""
         try:
             merged_file = self.config.get_summary_output_path()
 
             with open(merged_file, 'w', encoding='utf-8') as out_f:
-                # 写入中文表头|Write Chinese header (16列)
+                # 写入中文表头|Write Chinese header (18列)
                 out_f.write("样品名称\t查询序列ID\t目标序列ID\t序列相似度(%)\t比对长度\t错配数\tGap数\t")
                 out_f.write("查询起始位置\t查询结束位置\t目标起始位置\t目标结束位置\tE-value\tBit_Score\t")
-                out_f.write("目标序列长度\t目标序列覆盖度(%)\t查询序列\t目标序列\n")
+                out_f.write("目标序列长度\t查询覆盖度(%)\t查询序列\t目标序列\t查询序列长度\n")
+
+                filtered_count = 0
 
                 for sample_name, result_file in result_files:
                     # 直接使用传入的真实sample_name,避免从文件名反推(含下划线的样本名会被切错)
@@ -417,18 +434,28 @@ class BLASTAnalyzer(BaseAnalyzer):
                                 line = line.strip()
                                 if line:
                                     parts = line.split('\t')
-                                    if len(parts) >= 14:
+                                    if len(parts) >= 16:
                                         try:
-                                            # 计算覆盖度|Calculate coverage
-                                            # BLAST output format (15 columns): qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
-                                            qseqid, sseqid, pident, length, mismatch, gapopen, qstart, qend, sstart, send, evalue, bitscore, slen, qseq, sseq = parts[:15]
+                                            # BLAST output format (16 columns): qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq qlen
+                                            (qseqid, sseqid, pident, length, mismatch, gapopen,
+                                             qstart, qend, sstart, send, evalue, bitscore,
+                                             slen, qseq, sseq, qlen) = parts[:16]
 
-                                            # 计算目标序列覆盖度|Calculate subject sequence coverage
+                                            # 过滤低于min_identity的比对(蛋白模式blast层无-perc_identity,统一在此拦截)
+                                            # |Drop alignments below min_identity (protein modes lack -perc_identity, filter here)
+                                            if float(pident) < self.config.min_identity:
+                                                filtered_count += 1
+                                                continue
+
+                                            # 计算查询覆盖度|Calculate query coverage
+                                            # 覆盖度分母必须是查询序列长度:用目标(整条染色体)作分母恒≈0%,
+                                            # 曾致min_coverage把所有比对拦光|Denominator must be query length:
+                                            # subject (whole chromosome) gives ~0% and starved min_coverage
                                             try:
-                                                sstart_int = int(sstart)
-                                                send_int = int(send)
-                                                slen_int = int(slen)
-                                                coverage = abs(send_int - sstart_int + 1) / slen_int * 100
+                                                qstart_int = int(qstart)
+                                                qend_int = int(qend)
+                                                qlen_int = int(qlen)
+                                                coverage = abs(qend_int - qstart_int + 1) / qlen_int * 100
                                                 coverage = min(coverage, 100.0)
                                             except (ValueError, ZeroDivisionError):
                                                 coverage = 0.0
@@ -437,7 +464,7 @@ class BLASTAnalyzer(BaseAnalyzer):
                                             out_line = '\t'.join([
                                                 sample_name, qseqid, sseqid, pident, length, mismatch, gapopen,
                                                 qstart, qend, sstart, send, evalue, bitscore, slen,
-                                                f"{coverage:.2f}", qseq, sseq
+                                                f"{coverage:.2f}", qseq, sseq, qlen
                                             ])
                                             out_f.write(out_line + '\n')
                                         except (ValueError, IndexError) as e:
@@ -445,6 +472,10 @@ class BLASTAnalyzer(BaseAnalyzer):
                                             continue
                     except Exception as e:
                         self.logger.warning(f"读取结果文件失败|Failed to read result file: {result_file}, error: {e}")
+
+                if filtered_count:
+                    self.logger.info(f"已过滤相似度低于{self.config.min_identity}%的比对{filtered_count}条|"
+                                     f"Filtered {filtered_count} alignments below {self.config.min_identity}% identity")
 
             self.logger.info(f"合并结果文件|Merged results file: {merged_file}")
             return merged_file
@@ -501,11 +532,11 @@ class BLASTAnalyzer(BaseAnalyzer):
         xlsx_path = os.path.join(blast_dir, 'blast_results.xlsx')
         sheets = {}
 
-        # raw_results:合并所有 {sample}_{blast_type}_results.tsv(blast outfmt 6 无表头,15列)|
-        # merge all raw results (blast outfmt 6 has no header, 15 cols)
+        # raw_results:合并所有 {sample}_{blast_type}_results.tsv(blast outfmt 6 无表头,16列,末列qlen)|
+        # merge all raw results (blast outfmt 6 has no header, 16 cols with trailing qlen)
         raw_cols = ['qseqid', 'sseqid', 'pident', 'length', 'mismatch', 'gapopen',
                     'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore',
-                    'slen', 'qseq', 'sseq']
+                    'slen', 'qseq', 'sseq', 'qlen']
         pattern = os.path.join(blast_dir, f"*_{self.config.blast_type}_results.tsv")
         suffix = f"_{self.config.blast_type}_results.tsv"
         raw_dfs = []
@@ -913,8 +944,15 @@ def main():
     parser.add_argument('--target-db-type', default=None,
                        choices=['nucl', 'prot'],
                        help='目标数据库类型,默认按blast-type设置|Target database type (auto-set by blast-type)')
-    parser.add_argument('--min-identity', type=float, default=70.0,
-                       help='最小序列相似度(%%)|Minimum sequence identity (%%)')
+    parser.add_argument('--task', dest='blastn_task', default='blastn',
+                        choices=['blastn', 'megablast', 'dc-megablast'],
+                       help='blastn搜索任务,默认blastn(最敏感,可报出<70%%分歧比对;'
+                            'megablast最快但仅适合高相似序列)|blastn task, default blastn '
+                            '(most sensitive, reports <70%% diverged hits; megablast is fast '
+                            'but only for high-identity searches)')
+    parser.add_argument('--min-identity', type=float, default=30.0,
+                       help='最小序列相似度(%%),传给blastn -perc_identity并过滤汇总|Minimum sequence '
+                            'identity (%%), passed to blastn -perc_identity and applied to summary')
     parser.add_argument('--min-coverage', type=float, default=50.0,
                        help='最小覆盖度(%%)|Minimum coverage (%%)')
     parser.add_argument('--high-quality-evalue', type=float, default=1e-10,
@@ -954,8 +992,11 @@ def main():
                        help='比对可视化最小相似度过滤|Minimum identity for alignment visualization')
     parser.add_argument('--alignment-min-coverage', type=float, default=0.0,
                        help='比对可视化最小覆盖度过滤|Minimum coverage for alignment visualization')
-    parser.add_argument('--alignment-max-per-sample', type=int, default=100,
+    parser.add_argument('--alignment-max-per-sample', type=int, default=2000,
                        help='每个样品最多显示的比对数|Maximum alignments to display per sample')
+    parser.add_argument('--alignment-max-per-query', type=int, default=5,
+                       help='每条查询序列最多显示的比对数(按相似度取前N,保证所有query都有展示)|Maximum '
+                            'alignments per query (top-N by identity, so every query is shown)')
     parser.add_argument('--html-theme', default='modern',
                        choices=['modern', 'classic', 'dark'],
                        help='HTML主题样式|HTML theme style')
@@ -1004,6 +1045,7 @@ def main():
         input_suffix=args.input_suffix,
         target_db_type=args.target_db_type,
         blast_type=args.blast_type,
+        blastn_task=args.blastn_task,
         min_identity=args.min_identity,
         min_coverage=args.min_coverage,
         high_quality_evalue=args.high_quality_evalue,
@@ -1020,6 +1062,7 @@ def main():
         alignment_min_identity=args.alignment_min_identity,
         alignment_min_coverage=args.alignment_min_coverage,
         alignment_max_per_sample=args.alignment_max_per_sample,
+        alignment_max_per_query=args.alignment_max_per_query,
         html_theme=args.html_theme,
         merge_html=args.merge_html,
         log_level=args.log_level,

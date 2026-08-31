@@ -25,7 +25,7 @@ biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
 |------|----------|
 | 查询(query) / 目标(subject) | 你想查的序列 / 拿来"对答案"的库；结果里 q 开头是查询侧，s 开头是目标侧 |
 | 相似度(identity) | 两条序列对齐后有多少比例完全一样，越高越像 |
-| 覆盖度(coverage) | 目标序列有多长被这段比对"盖住"，越满说明整条都对上了 |
+| 覆盖度(coverage) | 查询序列有多长被这段比对"盖住"（比对跨度÷查询序列长度），越满说明整条查询都对上了 |
 | E-value | "纯靠随机也能碰到这么像"的概率，越小越可信 |
 | Bit score | 比对的"力度分"，越大越强 |
 | blastn/blastp/blastx/tblastn/tblastx | 核酸比核酸 / 蛋白比蛋白 / 核酸翻译后比蛋白 / 蛋白比核酸翻译 / 两边都翻译后比 |
@@ -53,15 +53,15 @@ biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
 
 ### BLAST 类型与阈值 | BLAST type & thresholds
 
-**通俗理解|In plain words:** `--blast-type` 决定用哪个 BLAST 程序，**默认自动检测**，一般不用管。`-e`（默认 1e-5）是 E-value 门槛，调小=只要更可信的；`--max-target-seqs`（默认 10）每条查询最多保留几个目标；`--word-size` 按程序自动设，一般不用动。`--min-identity`（70%）和 `--min-coverage`（50%）用于"高质量结果"筛选，不是比对时的过滤。
+**通俗理解|In plain words:** `--blast-type` 决定用哪个 BLAST 程序，**默认自动检测**，一般不用管。`-e`（默认 1e-5）是 E-value 门槛，调小=只要更可信的；`--max-target-seqs`（默认 10）每条查询最多保留几个目标；`--word-size` 按程序自动设，一般不用动。`--task` 只对 blastn 生效，控制搜索"灵敏度档位"：`blastn`（默认）最敏感，能报出分歧大的同源（如 60–70% 相似度）；`megablast` 最快但只适合找高度相似的序列（实测报不出 <70% 的比对）；`dc-megablast` 居中，适合跨物种。`--min-identity`（默认 30%）会传给 blastn 的 `-perc_identity` 在比对阶段直接过滤，并同时过滤汇总表。
 
 ### 高质量筛选 | High quality filter
 
-**通俗理解|In plain words:** `--high-quality-evalue`（默认 1e-10）配合 `--min-identity`、`--min-coverage` 一起，从排序结果里再挑出"既像又满又可信"的顶级命中。阈值收紧=结果更精但可能漏掉边缘的弱同源；这些只在结果处理阶段起作用，不影响原始比对输出。
+**通俗理解|In plain words:** `--high-quality-evalue`（默认 1e-10）配合 `--min-identity`、`--min-coverage` 一起，从排序结果里再挑出"既像又满又可信"的顶级命中（查询覆盖度 ≥50% 等）。阈值收紧=结果更精但可能漏掉边缘的弱同源。`--min-coverage` 按查询覆盖度算（整条查询被盖住多少），衡量"是不是全长同源"。
 
 ### 比对可视化 | Alignment visualization
 
-**通俗理解|In plain words:** `--alignment-output`（默认 `both`）控制是否生成比对可视化（`none/text/html/both`）。`--alignment-width` 是每行显示的字符数，`--alignment-max-per-sample` 限制每个样品最多画几条，`--html-theme` 换 HTML 配色。`--merge-html`（默认开启）把 HTML 合并成**单个自包含文件**（概览 + 每样品一个 tab），一个文件就能发给别人看；`--no-merge-html` 恢复旧的 index + 分样品多文件。**只想拿表格结果时设 `--alignment-output none` 可跳过可视化，更快。**
+**通俗理解|In plain words:** `--alignment-output`（默认 `both`）控制是否生成比对可视化（`none/text/html/both`）。`--alignment-width` 是每行显示的字符数，`--alignment-max-per-query`（默认 5）**每条查询序列**只画相似度最高的 5 条，保证每个基因都会出现、不被高相似的头部基因挤掉；`--alignment-max-per-sample`（默认 2000）是整个样品的总上限，防止 HTML 过大。`--html-theme` 换 HTML 配色。`--merge-html`（默认开启）把 HTML 合并成**单个自包含文件**（概览 + 每样品一个 tab），一个文件就能发给别人看；`--no-merge-html` 恢复旧的 index + 分样品多文件。**只想拿表格结果时设 `--alignment-output none` 可跳过可视化，更快。**
 
 ## 分析流程 | Pipeline
 
@@ -70,8 +70,8 @@ biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
     │
     ▼
 步骤1: 建库 makeblastdb → 01_database/{ref}.db
-步骤2: 逐样本 BLAST 比对 → 02_blast/{sample}_{type}_results.tsv (15列)
-步骤3: 合并全部样本 → blast_summary_results.tsv (16列, 补算覆盖度)
+步骤2: 逐样本 BLAST 比对 → 02_blast/{sample}_{type}_results.tsv (16列, blastn带-task与-perc_identity)
+步骤3: 合并全部样本 → blast_summary_results.tsv (18列, 补算查询覆盖度, 过滤<min_identity)
 步骤4: 统计 + 排序 → blast_statistics.txt / blast_summary_results_sorted.tsv
 步骤5: 高质量筛选 → blast_summary_results_sorted_high_quality.tsv
 步骤6: 导出 Excel(软依赖) + 比对可视化(可选)
@@ -86,8 +86,8 @@ blast_output/
 ├── 01_database/
 │   └── {ref}.db(.nhr/.phr 等)                # makeblastdb 建的目标库
 ├── 02_blast/
-│   ├── {sample}_{type}_results.tsv           # 每样本原始比对(15列, 无表头)
-│   ├── blast_summary_results.tsv             # 合并汇总(16列, 含表头+覆盖度) —— 核心
+│   ├── {sample}_{type}_results.tsv           # 每样本原始比对(16列, 无表头, 末列qlen)
+│   ├── blast_summary_results.tsv             # 合并汇总(18列, 含表头+查询覆盖度) —— 核心
 │   ├── blast_summary_results_sorted.tsv      # 按覆盖度/相似度/E-value 排序
 │   ├── blast_summary_results_sorted_high_quality.tsv  # 高质量命中
 │   ├── blast_statistics.txt                  # 统计报告
@@ -100,13 +100,14 @@ blast_output/
 
 > 旧模式（`--no-merge-html`）下 `html/` 目录为 `index.html` + 各样品 `{sample}_alignments.html`。合并文件是自包含的（样式/脚本/序列全部内联），分享给他人只发这一个文件即可。
 
-- `blast_summary_results.tsv` 列（16 列）：样品名称 / 查询序列ID / 目标序列ID / 序列相似度(%) / 比对长度 / 错配数 / Gap数 / 查询起止 / 目标起止 / E-value / Bit_Score / 目标序列长度 / 目标序列覆盖度(%) / 查询序列 / 目标序列
+- `blast_summary_results.tsv` 列（18 列）：样品名称 / 查询序列ID / 目标序列ID / 序列相似度(%) / 比对长度 / 错配数 / Gap数 / 查询起止 / 目标起止 / E-value / Bit_Score / 目标序列长度 / **查询覆盖度(%)** / 查询序列 / 目标序列 / 查询序列长度；低于 `--min-identity` 的行在合并阶段即被过滤
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 最常用 `blast_summary_results_sorted.tsv`（已按好坏排序）或 `..._high_quality.tsv`（已过滤）。看"序列相似度(%)"和"目标序列覆盖度(%)"两列：都高 = 几乎整条序列高度同源；相似度高但覆盖度低 = 只有一小段像。
+**通俗理解|In plain words:** 最常用 `blast_summary_results_sorted.tsv`（已按好坏排序）或 `..._high_quality.tsv`（已过滤）。看"序列相似度(%)"和"查询覆盖度(%)"两列：都高 = 几乎整条序列高度同源；相似度高但覆盖度低 = 只有一小段像（可能是结构域级别的保守）。
 
-- 相似度 ≥ 90% 且覆盖度 ≥ 80%：基本可判为同源/同一基因
+- 相似度 ≥ 90% 且查询覆盖度 ≥ 80%：基本可判为同源/同一基因
+- 相似度 60–80%：分歧较大的同源（跨种/亚种常见），`--task blastn`（默认）才能报出来
 - E-value 极小（如 ≤ 1e-20）：比对极显著，几乎不可能随机
 - `blast_statistics.txt`：含总比对数、样品数、唯一查询/目标数、以及 E-value/相似度/覆盖度的分布区间计数，快速看整体
 - `blast_results.xlsx`：`raw_results / summary / sorted / high_quality` 四个 sheet，适合在 Excel 里筛选
@@ -114,7 +115,9 @@ blast_output/
 ## 参数选择建议 | Parameter Guidance
 
 - **找同源基因（常规）**：默认自动检测即可，`-i sequences/ -r genes.fa`
+- **跨物种/品种间分歧比较**：默认 `--task blastn` 已够敏感能报 60%+ 的同源；追求速度且只关心高相似命中时换 `--task megablast`
 - **只想要顶级命中**：收紧 `--high-quality-evalue 1e-30 --min-identity 90 --min-coverage 80`
+- **想看全部原始比对不过滤**：`--min-identity 0`（注意：可视化默认每 query 只画 5 条，调 `--alignment-max-per-query`）
 - **核酸 vs 蛋白不确定**：交给自动检测；确认时用 `--blast-type` 显式指定
 - **只要表格、不要图**：`--alignment-output none`
 - **结果要分享给同事**：默认产出的 `03_alignments/html/blast_alignments.html` 就是单个自包含文件，直接发送即可；需要旧的多文件结构时加 `--no-merge-html`
@@ -141,7 +144,8 @@ blast_output/
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--input-suffix` | `*.fa` | str | 输入文件后缀模式｜Input file suffix pattern |
 | `--target-db-type` | — | nucl/prot | 目标数据库类型，默认根据blast-type自动设置｜Target database type (auto-set by blast-type if not specified) |
-| `--min-identity` | `70.0` | float | 最小序列相似度｜Minimum sequence identity |
+| `--task` | `blastn` | blastn/megablast/dc-megablast | blastn搜索任务，默认blastn(最敏感，可报出<70%分歧比对)｜blastn task, default blastn (most sensitive, reports <70% diverged hits) |
+| `--min-identity` | `30.0` | float | 最小序列相似度｜Minimum sequence identity |
 | `--min-coverage` | `50.0` | float | 最小覆盖度｜Minimum coverage |
 | `--high-quality-evalue` | `1e-10` | float | 高质量比对E-value阈值｜High quality alignment E-value threshold |
 | `--auto-detect-samples/--no-auto-detect-samples` | `True` |  | 自动检测样品名称｜Auto-detect sample names |
@@ -157,7 +161,8 @@ blast_output/
 | `--alignment-width` | `80` | int | 比对每行显示的字符数｜Characters per line in alignment display |
 | `--alignment-min-identity` | `0.0` | float | 比对可视化最小相似度｜Minimum identity for alignment visualization |
 | `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度｜Minimum coverage for alignment visualization |
-| `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--alignment-max-per-sample` | `2000` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--alignment-max-per-query` | `5` | int | 每条查询序列最多显示的比对数(按相似度取前N，保证所有query都有展示)｜Maximum alignments per query (top-N by identity, so every query is shown) |
 | `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
 | `--merge-html/--no-merge-html` | `True` |  | HTML输出合并为单个文件(默认)｜Merge HTML output into a single file (default) |
 | `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
@@ -183,7 +188,8 @@ blast_output/
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--input-suffix` | `*.fa` |  | 输入文件后缀模式｜Input file suffix pattern |
 | `--target-db-type` | — | nucl/prot | 目标数据库类型,默认按blast-type设置｜Target database type (auto-set by blast-type) |
-| `--min-identity` | `70.0` | float | 最小序列相似度(%%)｜Minimum sequence identity (%%) |
+| `--task` | `blastn` | blastn/megablast/dc-megablast | blastn搜索任务,默认blastn(最敏感,可报出<70%%分歧比对;megablast最快但仅适合高相似序列)｜blastn task, default blastn (most sensitive, reports <70%% diverged hits; megablast is fast but only for high-identity searches) |
+| `--min-identity` | `30.0` | float | 最小序列相似度(%%),传给blastn -perc_identity并过滤汇总｜Minimum sequence identity (%%), passed to blastn -perc_identity and applied to summary |
 | `--min-coverage` | `50.0` | float | 最小覆盖度(%%)｜Minimum coverage (%%) |
 | `--high-quality-evalue` | `1e-10` | float | 高质量比对E-value阈值｜High quality alignment E-value threshold |
 | `--sample-name` | — |  | 单文件输入时的样品名称｜Sample name for single-file input |
@@ -199,7 +205,8 @@ blast_output/
 | `--alignment-width` | `80` | int | 比对每行显示的字符数｜Characters per line in alignment display |
 | `--alignment-min-identity` | `0.0` | float | 比对可视化最小相似度过滤｜Minimum identity for alignment visualization |
 | `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度过滤｜Minimum coverage for alignment visualization |
-| `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--alignment-max-per-sample` | `2000` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--alignment-max-per-query` | `5` | int | 每条查询序列最多显示的比对数(按相似度取前N,保证所有query都有展示)｜Maximum alignments per query (top-N by identity, so every query is shown) |
 | `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
 | `--merge-html` | `True` | store_true | HTML输出合并为单个文件(默认)｜Merge HTML output into a single file (default) |
 | `--no-merge-html` | — | store_false | 关闭HTML合并,输出index和分样品多文件｜Disable merging (legacy multi-file output) |
@@ -230,7 +237,13 @@ blast_output/
 读查询与参考的前几条序列，按碱基/氨基酸字符占比判断核酸还是蛋白，再按组合选程序（如 查询核酸+参考蛋白 → blastx）。只有同时给了 `-i` 和 `-r` 才自动检测；只给 `-s` 映射时默认 `blastn`，请用 `--blast-type` 显式指定。
 
 **Q4：覆盖度列是怎么算的？**
-是"目标序列被覆盖"的比例（`abs(send-sstart+1)/slen ×100`，上限 100），衡量整条目标序列对上了多少，和相似度是两个维度。
+是"查询序列被覆盖"的比例（`abs(qend-qstart+1)/qlen ×100`，上限 100），衡量整条查询序列对上了多少，和相似度是两个维度。v2.3.0 之前按目标序列长度算，对染色体级目标库恒 ≈0%，已废弃该口径。
+
+**Q7：为什么结果里最小相似度总是卡在 70% 附近？怎么降到更低？**
+v2.3.0 之前默认用 megablast 任务搜索，它只适合高相似序列，实测报不出 <70% 的比对（调 E-value、`--min-identity` 都没用，因为比对在 BLAST 内部就没被报告）。现在默认 `--task blastn`（最敏感，可报出 60% 左右的分歧同源）；旧结果如需补齐低相似命中，删除 `02_blast/` 或加 `--force` 重跑。
+
+**Q8：改了参数重跑，结果怎么没变化？**
+断点续传会复用旧的建库和比对结果（换参数不影响"输出文件已存在"的判断）。参数有变时加 `--force`，或先删除 `01_database/ 02_blast/`；v2.2.0 及更早的旧 raw 结果是 15 列（无 qlen 列），新版本无法直接复用，必须 `--force` 重跑。
 
 **Q5：Excel 没生成？**
 Excel 是软依赖，需要 `pandas` + `openpyxl`；没装会自动跳过（TSV 结果不受影响）。装了仍失败可能是某 sheet 超 Excel 行数上限，会被跳过并提示。

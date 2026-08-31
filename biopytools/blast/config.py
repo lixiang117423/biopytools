@@ -33,7 +33,8 @@ class BLASTConfig(BaseConfig):
         max_target_seqs: int = 10,
         word_size: Optional[int] = None,
         target_db_type: str = None,
-        min_identity: float = 70.0,
+        blastn_task: str = "blastn",
+        min_identity: float = 30.0,
         min_coverage: float = 50.0,
         high_quality_evalue: float = 1e-10,
         input_suffix: str = "*.fa",
@@ -51,7 +52,8 @@ class BLASTConfig(BaseConfig):
         alignment_width: int = 80,
         alignment_min_identity: float = 0.0,
         alignment_min_coverage: float = 0.0,
-        alignment_max_per_sample: int = 100,
+        alignment_max_per_sample: int = 2000,
+        alignment_max_per_query: int = 5,
         html_theme: str = "modern",
         merge_html: bool = True
     ):
@@ -74,6 +76,7 @@ class BLASTConfig(BaseConfig):
             max_target_seqs: 最大目标序列数|Maximum target sequences
             word_size: 词大小|Word size
             target_db_type: 目标数据库类型|Target database type
+            blastn_task: blastn搜索任务|blastn search task (blastn/megablast/dc-megablast)
             min_identity: 最小序列相似度|Minimum sequence identity
             min_coverage: 最小覆盖度|Minimum coverage
             high_quality_evalue: 高质量比对E-value阈值|High quality alignment E-value
@@ -91,6 +94,8 @@ class BLASTConfig(BaseConfig):
             alignment_min_identity: 比对可视化最小相似度过滤|Minimum identity for alignment visualization
             alignment_min_coverage: 比对可视化最小覆盖度过滤|Minimum coverage for alignment visualization
             alignment_max_per_sample: 每个样品最多显示的比对数|Maximum alignments to display per sample
+            alignment_max_per_query: 每个查询序列最多显示的比对数(按相似度取前N,保证所有query都有展示)
+                |Maximum alignments per query (top-N by identity, so every query is shown)
             html_theme: HTML主题样式|HTML theme style
             merge_html: HTML输出合并为单个文件|Merge HTML output into a single file
         """
@@ -116,6 +121,7 @@ class BLASTConfig(BaseConfig):
         self.max_target_seqs = max_target_seqs
         self.word_size = word_size
         self.target_db_type = target_db_type
+        self.blastn_task = self._validate_blastn_task(blastn_task)
         self.min_identity = self.validate_quality(min_identity, 0, 100)
         self.min_coverage = self.validate_quality(min_coverage, 0, 100)
         self.high_quality_evalue = self._validate_evalue(high_quality_evalue)
@@ -138,6 +144,7 @@ class BLASTConfig(BaseConfig):
         self.alignment_min_identity = self.validate_quality(alignment_min_identity, 0, 100)
         self.alignment_min_coverage = self.validate_quality(alignment_min_coverage, 0, 100)
         self.alignment_max_per_sample = alignment_max_per_sample
+        self.alignment_max_per_query = alignment_max_per_query
         self.html_theme = self._validate_html_theme(html_theme)
         self.merge_html = merge_html
 
@@ -366,6 +373,14 @@ class BLASTConfig(BaseConfig):
             return getattr(logging, str(self.log_level).upper(), logging.INFO)
         return super().get_log_level()
 
+    def _validate_blastn_task(self, blastn_task: str) -> str:
+        """验证blastn搜索任务|Validate blastn search task"""
+        valid_tasks = ['blastn', 'megablast', 'dc-megablast']
+        if blastn_task not in valid_tasks:
+            raise ValueError(f"无效的blastn搜索任务|Invalid blastn task: {blastn_task} "
+                             f"(可选|choices: {', '.join(valid_tasks)})")
+        return blastn_task
+
     def _validate_alignment_output(self, alignment_output: str) -> str:
         """验证比对可视化输出格式|Validate alignment visualization output format"""
         valid_choices = ['none', 'text', 'html', 'both']
@@ -475,6 +490,9 @@ class BLASTConfig(BaseConfig):
 
         if self.alignment_max_per_sample < 1:
             errors.append(f"每个样品最大比对数必须大于0|Maximum alignments per sample must be greater than 0: {self.alignment_max_per_sample}")
+
+        if self.alignment_max_per_query < 1:
+            errors.append(f"每个查询序列最大比对数必须大于0|Maximum alignments per query must be greater than 0: {self.alignment_max_per_query}")
 
         # 验证正则表达式|Validate regex pattern
         try:
