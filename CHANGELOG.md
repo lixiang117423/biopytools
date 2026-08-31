@@ -1,3 +1,12 @@
+## [1.60.0] - 2026-08-31
+
+### Added
+- `genome2sv`(模块 1.2.0): 新增步骤 6「SV 侧翼序列 + 基因型表」——从 merged VCF 提取每条 SV 的参考 [min(POS,END)-flank, max(POS,END)+flank] 序列(默认 ±300bp 可调 `--flank`,1-based 闭区间越界截断;INS 时 END 回退到 POS,实测 SURVIVOR 合并 VCF 的 INS END 带 POS+65536 伪偏移;TRA/BND 无坐标区间跳过并计数),输出 `sv_flank{flank}bp.{fa,tsv,xlsx}`(FASTA 60 列换行 + 每样本 GT/LN/QV 基因型表,可直接用于引物设计);sv_id 与步骤 5 共用自增编号便于交叉引用;断点续传三文件齐备即跳过
+- `primer3`(模块 1.1.0): 新增 `--primer3-core-path`(默认 ~/miniforge3/envs/misc/bin/primer3_core)、`--primer-max-ns`(默认 0)、`--primer-gc-clamp`(默认 1);CLI 默认值改全量显式透传(防两层默认漂移,与 edta 同款);错误输出改走 stderr(§2.3 .out/.err 分离)
+
+### Changed
+- `primer3`(模块 1.1.0): conda 调用统一走 common/conda_runner(删除模块内复制的 get_conda_env/build_conda_command/CommandRunner);Primer3Evaluator 重命名为 evaluator.py(旧 primer3_evaluator.py 删除);删除无引用的 parse_product_size_range
+
 ## [1.59.0] - 2026-08-31
 
 ### Added
