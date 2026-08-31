@@ -191,6 +191,76 @@ def _escape_gff3_attr(value: str) -> str:
     return value.translate(_GFF3_ESCAPES)
 
 
+def _parse_tsv_records(tsv_path: str, logger: logging.Logger) -> Tuple[List[Tuple[List[str], int, int]], int]:
+    """
+    解析结果TSV数据行|Parse result TSV data rows
+
+    单样本GFF与多样本汇总GFF共用;畸形行跳过并告警
+    |Shared by per-sample and summary GFF writers; malformed rows skipped with warning
+
+    Args:
+        tsv_path: 结果TSV路径|Result TSV path
+        logger: 日志器|Logger
+
+    Returns:
+        ([(fields, start, end), ...], 跳过畸形行数)|(records, malformed rows skipped)
+    """
+    path = Path(tsv_path)
+    if not path.exists():
+        logger.warning(f"结果文件不存在，跳过解析|Result file missing, skip parsing: {tsv_path}")
+        return ([], 0)
+
+    records = []
+    skipped = 0
+    for line in path.read_text().strip().split('\n'):
+        if not line.strip() or line.startswith('gene_id\t'):
+            continue
+        fields = line.split('\t')
+        # gene_id/nlr_id/type/start/end/strand;第7列motifs可缺(6列行)|col7 motifs optional
+        if len(fields) >= 6:
+            try:
+                start, end = int(fields[3]), int(fields[4])
+            except ValueError:
+                start = None
+            if start is not None and start <= end:
+                records.append((fields, start, end))
+                continue
+        skipped += 1
+        logger.warning(f"坐标或列数异常，该行跳过不出GFF|Bad coordinates or columns, row skipped in GFF: {line[:80]}")
+    return (records, skipped)
+
+
+def _build_attributes(nlr_id: str, nlr_type: str, motifs: str, sample: str = '') -> str:
+    """
+    构造GFF3属性串|Build GFF3 attribute string
+
+    汇总模式传sample:ID加{sample}:前缀保GFF3 ID全局唯一,并附sample属性
+    |In summary mode: {sample}: prefix keeps GFF3 IDs unique, plus a sample attribute
+    """
+    display_id = f"{sample}:{nlr_id}" if sample else nlr_id
+    attributes = (f"ID={_escape_gff3_attr(display_id)}"
+                  f";Name={_escape_gff3_attr(display_id)}"
+                  f";nlr_type={_escape_gff3_attr(nlr_type)}")
+    if sample:
+        attributes += f";sample={_escape_gff3_attr(sample)}"
+    if motifs:
+        # 逐值转义后用裸逗号join,符合GFF3多值属性惯例|escape per value, join with bare commas per GFF3 multi-value convention
+        escaped_motifs = ','.join(_escape_gff3_attr(m) for m in motifs.split(',') if m)
+        if escaped_motifs:
+            attributes += f";motifs={escaped_motifs}"
+    return attributes
+
+
+def _format_gff_record(fields: List[str], start: int, end: int, sample: str = '') -> str:
+    """一条TSV数据行格式化为GFF3记录行|Format one TSV data row as a GFF3 record line"""
+    motifs = fields[6] if len(fields) >= 7 else ''
+    return '\t'.join([
+        fields[0], 'nlr_annotator', 'gene', str(start), str(end),
+        '.', fields[5], '.',
+        _build_attributes(fields[1], fields[2], motifs, sample),
+    ])
+
+
 def tsv_to_gff(tsv_path: str, gff_path: str, logger: logging.Logger) -> Tuple[int, int]:
     """
     结果TSV转GFF3,与结果表逐行一致|Convert result TSV to GFF3, row-for-row consistent
@@ -219,47 +289,58 @@ def tsv_to_gff(tsv_path: str, gff_path: str, logger: logging.Logger) -> Tuple[in
         logger.warning(f"结果文件不存在，跳过GFF生成|Result file missing, skip GFF: {tsv_path}")
         return (0, 0)
 
-    records = []
-    skipped = 0
-    for line in path.read_text().strip().split('\n'):
-        if not line.strip() or line.startswith('gene_id\t'):
-            continue
-        fields = line.split('\t')
-        # gene_id/nlr_id/type/start/end/strand;第7列motifs可缺(6列行)|col7 motifs optional
-        if len(fields) >= 6:
-            try:
-                start, end = int(fields[3]), int(fields[4])
-            except ValueError:
-                start = None
-            if start is not None and start <= end:
-                seq_id, nlr_id, nlr_type, strand = fields[0], fields[1], fields[2], fields[5]
-                motifs = fields[6] if len(fields) >= 7 else ''
-                attributes = (f"ID={_escape_gff3_attr(nlr_id)}"
-                              f";Name={_escape_gff3_attr(nlr_id)}"
-                              f";nlr_type={_escape_gff3_attr(nlr_type)}")
-                if motifs:
-                    # 逐值转义后用裸逗号join,符合GFF3多值属性惯例|escape per value, join with bare commas per GFF3 multi-value convention
-                    escaped_motifs = ','.join(_escape_gff3_attr(m)
-                                              for m in motifs.split(',') if m)
-                    if escaped_motifs:
-                        attributes += f";motifs={escaped_motifs}"
-                records.append('\t'.join([
-                    seq_id, 'nlr_annotator', 'gene', str(start), str(end),
-                    '.', strand, '.', attributes,
-                ]))
-                continue
-        skipped += 1
-        logger.warning(f"坐标或列数异常，该行跳过不出GFF|Bad coordinates or columns, row skipped in GFF: {line[:80]}")
+    records, skipped = _parse_tsv_records(tsv_path, logger)
 
     with open(gff_path, 'w') as f:
         f.write('##gff-version 3\n')
-        for record in records:
-            f.write(record + '\n')
+        for fields, start, end in records:
+            f.write(_format_gff_record(fields, start, end) + '\n')
 
     logger.info(f"GFF已生成(与结果表逐行一致)|GFF generated (row-for-row consistent with TSV): "
                 f"{gff_path} ({len(records)} 条记录|records"
                 + (f", 跳过|skipped {skipped} 畸形行|malformed rows" if skipped else "") + ")")
     return (len(records), skipped)
+
+
+def generate_summary_gff(sample_results: List[Tuple[str, str]], output_path, logger: logging.Logger):
+    """
+    生成多样本汇总GFF(与nlr_annotator_summary.tsv逐行一致)|Generate multi-sample summary GFF
+
+    seqid保持gene_id原样(与输入FASTA对应),每条记录附sample属性,并给ID/Name加
+    {sample}:前缀保GFF3 ID全局唯一;不同样本共享同一seqid时告警(IGV等按seqid
+    聚合坐标的工具需注意)
+    |seqid stays verbatim (matches input FASTA); each record carries a sample
+    attribute and a {sample}: ID/Name prefix keeping GFF3 IDs globally unique;
+    warns when samples share a seqid (beware seqid-based aggregation in IGV etc.)
+
+    Args:
+        sample_results: [(sample_name, tsv_path), ...]
+        output_path: 输出目录|Output directory
+        logger: 日志器|Logger
+    """
+    gff_file = Path(output_path) / "nlr_annotator_summary.gff"
+
+    total = 0
+    seqid_samples = {}  # seq_id -> {sample_name, ...}|seqid到样本集合,用于跨样本重名告警
+    with open(gff_file, 'w') as f:
+        f.write('##gff-version 3\n')
+        for sample_name, tsv_path in sample_results:
+            records, skipped = _parse_tsv_records(tsv_path, logger)
+            if skipped:
+                logger.warning(f"样本{sample_name}有{skipped}条畸形行未进汇总GFF|"
+                               f"Sample {sample_name}: {skipped} malformed rows excluded from summary GFF")
+            for fields, start, end in records:
+                seqid_samples.setdefault(fields[0], set()).add(sample_name)
+                f.write(_format_gff_record(fields, start, end, sample=sample_name) + '\n')
+                total += 1
+
+    # 单样本内部同seqid多条记录属正常,只对跨样本共享的seqid告警|Same-seqid records within one sample are normal; warn only on cross-sample sharing
+    duplicated = {seq_id for seq_id, samples in seqid_samples.items() if len(samples) > 1}
+    if duplicated:
+        logger.warning(f"汇总GFF中{len(duplicated)}个seqid跨样本重名(记录以sample属性区分)"
+                       f"|{len(duplicated)} seqid(s) shared across samples in summary GFF (records disambiguated by sample attribute)")
+
+    logger.info(f"汇总GFF已生成|Summary GFF generated: {gff_file} ({total} 条记录|records)")
 
 
 def filter_contained_calls(output_file: str, logger: logging.Logger) -> Tuple[int, int]:

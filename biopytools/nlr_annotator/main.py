@@ -18,6 +18,7 @@ from .utils import (
     collect_result_files,
     filter_contained_calls,
     generate_summary,
+    generate_summary_gff,
     gff_path_for,
     removed_tsv_path,
     tsv_to_gff,
@@ -136,6 +137,7 @@ def run_merge_only(input_path: str, output_path, logger: logging.Logger):
     sample_results = collect_result_files(input_path, logger)
     logger.info(f"开始合并|Start merging: {len(sample_results)} 个基因组|genome(s)")
     generate_summary(sample_results, output_path, logger)
+    generate_summary_gff(sample_results, output_path, logger)
 
 
 def main():
@@ -263,6 +265,7 @@ def main():
     # 目录模式：生成汇总文件|Directory mode: generate summary file
     if is_batch:
         generate_summary(sample_results, config.output_path, logger)
+        generate_summary_gff(sample_results, config.output_path, logger)
 
     logger.info(f"全部完成|All done: {len(input_files)} 个样本|sample(s)")
 

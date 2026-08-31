@@ -10,7 +10,7 @@
 - 冗余过滤（默认开启）：剔除被完整基因完全包含的冗余短片段调用，被剔除记录留档 `*.removed.tsv`
 - 默认输出 GFF3：由过滤后结果表逐行生成，与 TSV 一条记录对一行（非 Java 原生 GFF）
 - 可选输出 BED / motifs BED / motif 比对 FASTA
-- 目录模式自动生成多样本汇总表 `nlr_annotator_summary.tsv`
+- 目录模式自动生成多样本汇总表 `nlr_annotator_summary.tsv` 与总 GFF `nlr_annotator_summary.gff`
 - 断点续传：已完成样本自动跳过（重跑同命令会对旧结果原地补冗余过滤与 GFF，无需重跑 Java）；`--merge-only` 可只合并已有结果补汇总
 
 ## 快速开始 | Quick Start
@@ -50,7 +50,7 @@ ATGGCTAG...
 
 ### 必需与批处理 | Required & batch
 
-**通俗理解|In plain words:** `-i` 是要预测的序列文件或目录；`-o` 是输出目录。目录模式下 `--sample-suffix` 控制匹配哪些文件（默认 `*.fa`），一般不用动。`--merge-only` 是「只合并已有结果、不再跑预测」，用于批量跑到一半被杀、只需补一张汇总表的情况。
+**通俗理解|In plain words:** `-i` 是要预测的序列文件或目录；`-o` 是输出目录。目录模式下 `--sample-suffix` 控制匹配哪些文件（默认 `*.fa`），一般不用动。`--merge-only` 是「只合并已有结果、不再跑预测」，用于批量跑到一半被杀、只需补一张汇总表和总 GFF 的情况。
 
 ### 工具路径 | Tool paths
 
@@ -88,7 +88,7 @@ ATGGCTAG...
 4. 由过滤后结果表逐行生成 GFF3（{sample}.nlr_annotator.gff，与 TSV 一致）
     │
     ▼
-5. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv
+5. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv + nlr_annotator_summary.gff
 ```
 
 ## 输出 | Output
@@ -118,7 +118,8 @@ output/
 │   └── 99_logs/{sample1}.nlr_annotator.log
 ├── {sample2}/
 │   └── ...
-└── nlr_annotator_summary.tsv       # 多样本汇总表（核心）
+├── nlr_annotator_summary.tsv       # 多样本汇总表（核心）
+└── nlr_annotator_summary.gff       # 多样本总 GFF，与汇总表逐行一致（核心）
 ```
 
 ### 关键文件说明 | Key files
@@ -126,7 +127,8 @@ output/
 - `{sample}.nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`；默认已剔除被完整包含的冗余调用
 - `{sample}.nlr_annotator.gff`：与结果表逐行一致的 GFF3，每条数据行对应一条 `gene` 记录；坐标沿用 TSV（1-based），NLR 类型在 `nlr_type` 属性、motif 列表在 `motifs` 属性；由过滤后 TSV 生成，不含被剔除的冗余调用
 - `{sample}.nlr_annotator.removed.tsv`：被剔除的冗余调用留档，比结果表多一列 `contained_by`（是被哪条完整基因包含），一行一条被剔记录
-- `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录（汇总表不生成对应 GFF：多样本 seqid 可能冲突，GFF 只在单样本层面有意义）
+- `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录
+- `nlr_annotator_summary.gff`：多样本总 GFF，与汇总表逐行一致；每条记录 seqid 保持 gene_id 原样、附 `sample={样本名}` 属性、ID/Name 加 `{样本}:` 前缀保证 GFF3 ID 全局唯一
 
 ## 结果解读 | Interpreting Results
 
@@ -139,12 +141,13 @@ output/
 - `motifs`：命中的 motif 列表（已去重、排序、去掉 `motif_` 前缀），motif 越多通常结构越完整
 - 一行 = 一个独立 NLR 基因：默认已剔除被其他调用完全包含的冗余片段，若需核对剔除了什么，看同目录 `*.removed.tsv` 的 `contained_by` 列
 - GFF3 是结果表的「坐标镜像」：记录数、坐标、链向与 TSV 完全一致，适合 IGV 可视化或 `bedtools getfasta` 提取序列；想知道某条 GFF 记录的 NLR 类型看 `nlr_type` 属性、特征 motif 看 `motifs` 属性
+- 总 GFF（`nlr_annotator_summary.gff`）是汇总表的「坐标镜像」：每条记录的 `sample` 属性标明来源样本。注意不同样本的 seqid 可能重名（如都叫 `Chr1`），程序会打 WARNING——跨样本的记录按 `sample` 属性区分，别把重名 seqid 的坐标当成同一基因组混用
 
 ## 参数选择建议 | Parameter Guidance
 
 - **单样本预测**：`-i 文件 -o 目录` 即可，默认参数
 - **多基因组批量**：`-i 目录 -o 目录`，程序自动按样本分目录并出汇总表
-- **批量中途被杀、只想补汇总**：`--merge-only -i 结果目录 -o 目录`，跳过 Java 预测直接合并
+- **批量中途被杀、只想补汇总**：`--merge-only -i 结果目录 -o 目录`，跳过 Java 预测直接合并，同时补出汇总表与总 GFF
 - **旧结果补冗余过滤**：重跑同一条命令即可——已完成样本跳过 Java，冗余过滤原地补做（幂等），无需删结果重跑
 - **旧结果补 GFF**：同上，重跑同一条命令即可——GFF 每次运行都由最终 TSV 重新生成，断点跳过 Java 也会补出
 - **想保留全部原始调用（不做冗余过滤）**：加 `--no-filter-contained`
