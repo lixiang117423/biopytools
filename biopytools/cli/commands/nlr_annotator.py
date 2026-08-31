@@ -55,9 +55,6 @@ def _validate_path_exists(path):
               is_flag=True,
               help='关闭被包含冗余调用过滤(默认开启:剔除被完整基因完全包含的短片段调用,留档*.removed.tsv)'
                    '|Disable contained-call filtering (default ON)')
-@click.option('--output-gff',
-              is_flag=True,
-              help='输出GFF文件|Output GFF file')
 @click.option('--output-bed',
               is_flag=True,
               help='输出BED文件|Output BED file')
@@ -84,7 +81,7 @@ def _validate_path_exists(path):
 @click.option('--distance-between-motif-combinations', type=int, default=50000, show_default=True,
               help='motif组合间距离|Distance between motif combinations')
 def nlr_annotator(input, output_dir, threads, sample_suffix, merge_only, no_filter_contained,
-                   output_gff, output_bed, output_motifs, output_alignment, jar_path, mot_file,
+                   output_bed, output_motifs, output_alignment, jar_path, mot_file,
                    store_file, java_path, num_seqs_per_thread,
                    distance_within_motif_combination, distance_for_elongating,
                    distance_between_motif_combinations):
@@ -103,8 +100,6 @@ def nlr_annotator(input, output_dir, threads, sample_suffix, merge_only, no_filt
         argv.append('--merge-only')
     if no_filter_contained:
         argv.append('--no-filter-contained')
-    if output_gff:
-        argv.append('--output-gff')
     if output_bed:
         argv.append('--output-bed')
     if output_motifs:

@@ -31,7 +31,8 @@ class NLRAnnotatorConfig:
     num_seqs_per_thread: int = 1000
 
     # 可选输出|Optional outputs
-    output_gff: str = ""
+    # GFF3不再由java产出,模块以过滤后TSV为源自行生成(见utils.tsv_to_gff)
+    # |GFF3 no longer from java; generated from the filtered TSV (see utils.tsv_to_gff)
     output_bed: str = ""
     output_motifs: str = ""
     output_alignment: str = ""

@@ -8,9 +8,10 @@
 - 支持单文件或目录批量处理（目录模式自动按样本名分目录）
 - 输出清洗：自动加表头、去重并排序 motif 列表
 - 冗余过滤（默认开启）：剔除被完整基因完全包含的冗余短片段调用，被剔除记录留档 `*.removed.tsv`
-- 可选输出 GFF / BED / motifs BED / motif 比对 FASTA
+- 默认输出 GFF3：由过滤后结果表逐行生成，与 TSV 一条记录对一行（非 Java 原生 GFF）
+- 可选输出 BED / motifs BED / motif 比对 FASTA
 - 目录模式自动生成多样本汇总表 `nlr_annotator_summary.tsv`
-- 断点续传：已完成样本自动跳过（重跑同命令会对旧结果原地补冗余过滤，无需重跑 Java）；`--merge-only` 可只合并已有结果补汇总
+- 断点续传：已完成样本自动跳过（重跑同命令会对旧结果原地补冗余过滤与 GFF，无需重跑 Java）；`--merge-only` 可只合并已有结果补汇总
 
 ## 快速开始 | Quick Start
 
@@ -61,7 +62,7 @@ ATGGCTAG...
 
 ### 可选输出 | Optional outputs
 
-**通俗理解|In plain words:** 默认只出 TSV 结果表。需要坐标格式就开 `--output-gff` / `--output-bed`；想看每个预测用了哪些 motif 开 `--output-motifs`；想看 motif 的序列比对开 `--output-alignment`。**默认都不开，按需勾选。**
+**通俗理解|In plain words:** 每个样本默认输出两样东西：TSV 结果表和 GFF3 坐标文件（`{sample}.nlr_annotator.gff`），GFF 由过滤后的结果表逐行生成，两者内容完全一致，可直接喂给 IGV / bedtools 等下游工具。需要 BED 就开 `--output-bed`；想看每个预测用了哪些 motif 开 `--output-motifs`；想看 motif 的序列比对开 `--output-alignment`。**这三项默认不开，按需勾选。**
 
 ### 结果过滤 | Result filtering
 
@@ -84,7 +85,10 @@ ATGGCTAG...
 3. 清洗输出：加表头、去重并排序 motif；剔除被完整包含的冗余调用（默认，留档 *.removed.tsv）
     │
     ▼
-4. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv
+4. 由过滤后结果表逐行生成 GFF3（{sample}.nlr_annotator.gff，与 TSV 一致）
+    │
+    ▼
+5. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv
 ```
 
 ## 输出 | Output
@@ -94,11 +98,11 @@ ATGGCTAG...
 ```text
 output/
 ├── {sample}.nlr_annotator.tsv           # 清洗+过滤后的 NLR 结果表（核心）
+├── {sample}.nlr_annotator.gff           # GFF3 坐标文件，由结果表逐行生成（默认输出）
 ├── {sample}.nlr_annotator.removed.tsv   # 被剔除的冗余调用留档（仅有剔除时生成）
-├── {sample}.gff                    # 仅 --output-gff（java 原生产物，未参与冗余过滤）
-├── {sample}.bed                    # 仅 --output-bed（同上）
-├── {sample}_motifs.bed             # 仅 --output-motifs
-├── {sample}_alignment.fa           # 仅 --output-alignment
+├── {sample}.nlr_annotator.bed           # 仅 --output-bed（java 原生产物，未参与冗余过滤）
+├── {sample}_motifs.bed                  # 仅 --output-motifs
+├── {sample}_alignment.fa                # 仅 --output-alignment
 └── 99_logs/
     └── nlr_annotator.log
 ```
@@ -109,6 +113,7 @@ output/
 output/
 ├── {sample1}/
 │   ├── {sample1}.nlr_annotator.tsv
+│   ├── {sample1}.nlr_annotator.gff
 │   ├── {sample1}.nlr_annotator.removed.tsv   # 仅有剔除时生成
 │   └── 99_logs/{sample1}.nlr_annotator.log
 ├── {sample2}/
@@ -119,8 +124,9 @@ output/
 ### 关键文件说明 | Key files
 
 - `{sample}.nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`；默认已剔除被完整包含的冗余调用
+- `{sample}.nlr_annotator.gff`：与结果表逐行一致的 GFF3，每条数据行对应一条 `gene` 记录；坐标沿用 TSV（1-based），NLR 类型在 `nlr_type` 属性、motif 列表在 `motifs` 属性；由过滤后 TSV 生成，不含被剔除的冗余调用
 - `{sample}.nlr_annotator.removed.tsv`：被剔除的冗余调用留档，比结果表多一列 `contained_by`（是被哪条完整基因包含），一行一条被剔记录
-- `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录
+- `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录（汇总表不生成对应 GFF：多样本 seqid 可能冲突，GFF 只在单样本层面有意义）
 
 ## 结果解读 | Interpreting Results
 
@@ -132,6 +138,7 @@ output/
 - `start / end / strand`：该 NLR 在输入序列上的坐标区间与方向
 - `motifs`：命中的 motif 列表（已去重、排序、去掉 `motif_` 前缀），motif 越多通常结构越完整
 - 一行 = 一个独立 NLR 基因：默认已剔除被其他调用完全包含的冗余片段，若需核对剔除了什么，看同目录 `*.removed.tsv` 的 `contained_by` 列
+- GFF3 是结果表的「坐标镜像」：记录数、坐标、链向与 TSV 完全一致，适合 IGV 可视化或 `bedtools getfasta` 提取序列；想知道某条 GFF 记录的 NLR 类型看 `nlr_type` 属性、特征 motif 看 `motifs` 属性
 
 ## 参数选择建议 | Parameter Guidance
 
@@ -139,6 +146,7 @@ output/
 - **多基因组批量**：`-i 目录 -o 目录`，程序自动按样本分目录并出汇总表
 - **批量中途被杀、只想补汇总**：`--merge-only -i 结果目录 -o 目录`，跳过 Java 预测直接合并
 - **旧结果补冗余过滤**：重跑同一条命令即可——已完成样本跳过 Java，冗余过滤原地补做（幂等），无需删结果重跑
+- **旧结果补 GFF**：同上，重跑同一条命令即可——GFF 每次运行都由最终 TSV 重新生成，断点跳过 Java 也会补出
 - **想保留全部原始调用（不做冗余过滤）**：加 `--no-filter-contained`
 - **Java 用 conda 环境**：`--java-path ~/miniforge3/envs/xxx/bin/java`
 - **距离参数**：除非你对 NLR-Annotator 的判定逻辑很熟悉，否则保持默认
@@ -159,7 +167,6 @@ output/
 | `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode |
 | `--merge-only` | — |  | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
 | `--no-filter-contained` | — |  | 关闭被包含冗余调用过滤(默认开启:剔除被完整基因完全包含的短片段调用,留档*.removed.tsv)｜Disable contained-call filtering (default ON) |
-| `--output-gff` | — |  | 输出GFF文件｜Output GFF file |
 | `--output-bed` | — |  | 输出BED文件｜Output BED file |
 | `--output-motifs` | — |  | 输出motifs BED文件｜Output motifs BED file |
 | `--output-alignment` | — |  | 输出motif比对FASTA｜Output motif alignment FASTA |
@@ -187,7 +194,6 @@ output/
 | `--java-path` | `java` |  | Java解释器路径(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)｜Java interpreter path |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
 | `--num-seqs-per-thread` | `1000` | int | 每线程处理序列数｜Sequences per thread (default: 1000) |
-| `--output-gff` | — | store_true | 输出GFF文件｜Output GFF file |
 | `--output-bed` | — | store_true | 输出BED文件｜Output BED file |
 | `--output-motifs` | — | store_true | 输出motifs BED文件｜Output motifs BED file |
 | `--output-alignment` | — | store_true | 输出motif比对FASTA｜Output motif alignment FASTA |
@@ -223,3 +229,9 @@ NLR-Annotator 需要这三件套齐全。检查默认路径 `~/software/NLR-Anno
 
 **Q6：为什么会出现「完整基因内部嵌着一条 TIR-only 小片段」？结果表里怎么没有了？**
 这是 NLR-Annotator 的已知行为：它先用 meme/mast 扫描全基因组匹配 NLR 保守 motif，再把邻近 motif 按距离阈值链接成基因模型。TIR 结构域内部本身含多个亚 motif，在 TIR 类 NLR 成簇/串联重复区域，这些亚 motif 间距恰好也满足「最小 NLR 判定标准」时，就会被单独打包成一条记录——本质是同一基因的冗余/重复调用，不是独立基因。模块默认按坐标完全包含关系剔除这类小片段（如 `A1091_Chr06_nlr12 [46996597-46996957]` 被完整基因 `nlr11 [46995758-47000361]` 完全包含），留档在 `*.removed.tsv`；想看原始调用加 `--no-filter-contained`。
+
+**Q7：GFF 里的记录数和 Java 原生工具跑出来的对不上？**
+正常。模块的 GFF 由清洗+冗余过滤后的结果表逐行生成（一条数据行对应一条 `gene` 记录），比 Java 原生 GFF 少了被剔除的冗余短片段调用——两边口径以模块的结果表为准。被剔记录在同目录 `*.removed.tsv` 可核对；想拿未经 Java 过滤的原生 GFF，可直接运行原工具或对比 `--no-filter-contained` 的结果表。
+
+**Q8：升级前跑的旧结果没有 GFF，怎么补？**
+重跑同一条命令即可：已完成的样本会因断点续传跳过 Java，GFF 每次运行都由最终 TSV 重新生成，旧结果原地补出，无需删任何文件。

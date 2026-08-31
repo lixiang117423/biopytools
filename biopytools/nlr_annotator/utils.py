@@ -166,6 +166,102 @@ def removed_tsv_path(output_file: str) -> str:
     return output_file + '.removed.tsv'
 
 
+def gff_path_for(output_file: str) -> str:
+    """
+    GFF3输出文件路径|GFF3 output file path
+
+    Args:
+        output_file: 结果TSV路径|Result TSV path
+    """
+    if output_file.endswith('.tsv'):
+        return output_file[:-len('.tsv')] + '.gff'
+    return output_file + '.gff'
+
+
+# GFF3属性值保留字符百分号编码(,仅在motifs多值分隔时按需还原,单值一律编码)
+# |Percent-encode GFF3 reserved chars (comma encoded too; motifs joins encoded values itself)
+_GFF3_ESCAPES = str.maketrans({
+    '%': '%25', ';': '%3B', '=': '%3D', '&': '%26', ',': '%2C',
+    '\t': '%09', '\n': '%0A', '\r': '%0D',
+})
+
+
+def _escape_gff3_attr(value: str) -> str:
+    """GFF3属性值百分号编码|Percent-encode a GFF3 attribute value"""
+    return value.translate(_GFF3_ESCAPES)
+
+
+def tsv_to_gff(tsv_path: str, gff_path: str, logger: logging.Logger) -> Tuple[int, int]:
+    """
+    结果TSV转GFF3,与结果表逐行一致|Convert result TSV to GFF3, row-for-row consistent
+
+    一行数据记录输出一条gene记录:seqid=gene_id,坐标沿用TSV(同为1-based),
+    NLR类型放nlr_type属性(GFF3第3列必须是SO术语)。TSV是唯一数据源,
+    经清洗+冗余过滤后生成,GFF天然与结果表/汇总口径一致
+    |Each data row emits one gene record: seqid=gene_id, coordinates verbatim
+    from the TSV (both 1-based), NLR type in the nlr_type attribute (GFF3 col3
+    must be an SO term). The TSV is the single source of truth, so the GFF
+    matches the cleaned+filtered result table by construction.
+
+    幂等:每次运行覆盖重写;断点续传跳过java时也重新生成
+    |Idempotent: overwritten on every run; regenerated even when checkpoint skips java
+
+    Args:
+        tsv_path: 结果TSV路径|Result TSV path
+        gff_path: 输出GFF3路径|Output GFF3 path
+        logger: 日志器|Logger
+
+    Returns:
+        (写入记录数, 跳过畸形行数)|(records written, malformed rows skipped)
+    """
+    path = Path(tsv_path)
+    if not path.exists():
+        logger.warning(f"结果文件不存在，跳过GFF生成|Result file missing, skip GFF: {tsv_path}")
+        return (0, 0)
+
+    records = []
+    skipped = 0
+    for line in path.read_text().strip().split('\n'):
+        if not line.strip() or line.startswith('gene_id\t'):
+            continue
+        fields = line.split('\t')
+        # gene_id/nlr_id/type/start/end/strand;第7列motifs可缺(6列行)|col7 motifs optional
+        if len(fields) >= 6:
+            try:
+                start, end = int(fields[3]), int(fields[4])
+            except ValueError:
+                start = None
+            if start is not None and start <= end:
+                seq_id, nlr_id, nlr_type, strand = fields[0], fields[1], fields[2], fields[5]
+                motifs = fields[6] if len(fields) >= 7 else ''
+                attributes = (f"ID={_escape_gff3_attr(nlr_id)}"
+                              f";Name={_escape_gff3_attr(nlr_id)}"
+                              f";nlr_type={_escape_gff3_attr(nlr_type)}")
+                if motifs:
+                    # 逐值转义后用裸逗号join,符合GFF3多值属性惯例|escape per value, join with bare commas per GFF3 multi-value convention
+                    escaped_motifs = ','.join(_escape_gff3_attr(m)
+                                              for m in motifs.split(',') if m)
+                    if escaped_motifs:
+                        attributes += f";motifs={escaped_motifs}"
+                records.append('\t'.join([
+                    seq_id, 'nlr_annotator', 'gene', str(start), str(end),
+                    '.', strand, '.', attributes,
+                ]))
+                continue
+        skipped += 1
+        logger.warning(f"坐标或列数异常，该行跳过不出GFF|Bad coordinates or columns, row skipped in GFF: {line[:80]}")
+
+    with open(gff_path, 'w') as f:
+        f.write('##gff-version 3\n')
+        for record in records:
+            f.write(record + '\n')
+
+    logger.info(f"GFF已生成(与结果表逐行一致)|GFF generated (row-for-row consistent with TSV): "
+                f"{gff_path} ({len(records)} 条记录|records"
+                + (f", 跳过|skipped {skipped} 畸形行|malformed rows" if skipped else "") + ")")
+    return (len(records), skipped)
+
+
 def filter_contained_calls(output_file: str, logger: logging.Logger) -> Tuple[int, int]:
     """
     过滤被完整基因包含的冗余NLR调用|Filter redundant NLR calls fully contained in another call

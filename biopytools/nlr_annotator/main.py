@@ -18,7 +18,9 @@ from .utils import (
     collect_result_files,
     filter_contained_calls,
     generate_summary,
+    gff_path_for,
     removed_tsv_path,
+    tsv_to_gff,
 )
 
 
@@ -33,9 +35,6 @@ def build_command(config: NLRAnnotatorConfig, input_file: str, output_file: str)
     args += ['-n', str(config.num_seqs_per_thread)]
     args += ['-o', output_file]
 
-    if config.output_gff:
-        gff_path = output_file.rsplit('.', 1)[0] + '.gff'
-        args += ['-g', gff_path]
     if config.output_bed:
         bed_path = output_file.rsplit('.', 1)[0] + '.bed'
         args += ['-b', bed_path]
@@ -112,6 +111,10 @@ def _run_single(config: NLRAnnotatorConfig, input_file: str, sample_name: str,
     if config.filter_contained:
         filter_contained_calls(output_file, logger)
 
+    # GFF3以过滤后TSV为唯一数据源,断点跳过java时也重新生成(幂等覆盖,旧结果原地补GFF)
+    # |GFF3 uses the filtered TSV as its single source; regenerated even on checkpoint skip (idempotent overwrite, backfills old results)
+    tsv_to_gff(output_file, gff_path_for(output_file), logger)
+
     return output_file
 
 
@@ -172,8 +175,6 @@ def main():
     parser.add_argument('--num-seqs-per-thread', type=int, default=1000,
                         help='每线程处理序列数|Sequences per thread (default: 1000)')
 
-    parser.add_argument('--output-gff', action='store_true',
-                        help='输出GFF文件|Output GFF file')
     parser.add_argument('--output-bed', action='store_true',
                         help='输出BED文件|Output BED file')
     parser.add_argument('--output-motifs', action='store_true',
@@ -218,7 +219,6 @@ def main():
         java_path=args.java_path,
         threads=args.threads,
         num_seqs_per_thread=args.num_seqs_per_thread,
-        output_gff="1" if args.output_gff else "",
         output_bed="1" if args.output_bed else "",
         output_motifs="1" if args.output_motifs else "",
         output_alignment="1" if args.output_alignment else "",
