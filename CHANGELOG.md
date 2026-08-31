@@ -1,3 +1,10 @@
+## [1.58.0] - 2026-08-31
+
+### Changed
+- `edta`(模块 1.1.0): 重构 conda 调用与路径解析——删除模块内复制 get_conda_env/build_conda_command,统一走 common/conda_runner.py(权威单一,§13.2);修复 CommandRunner 用 basename 提取命令名丢失 /envs/ 路径的 bug(§13.2.3,现传完整路径);EDTA.pl/panEDTA.sh 三级解析(显式 --edta-path → EDTA_PATH/PANEDTA_PATH 环境变量 → CONDA_PREFIX/share/EDTA),默认 edta_v.2.3.0 独立环境(从 delete_list 待退役列表转正到 protect_list 保留环境,补 envs/legacy 重建配方与速查表登记);序列 ID ≤13 字符预检(EDTA/RepeatMasker 硬限,超限在 validate 阶段报错提示改名,防数小时运行中途失败);输出按 by-step 归集(EDTA 原生产物自动移入 01_edta_raw/,00_pipeline_info/software_versions.yml 记录模块与 EDTA 版本,日志入 99_logs/);CLI 包装器默认值显式透传(防两层默认漂移);--sensitive/--force 参数说明修正
+- `nlr_annotator`(模块 1.1.0): GFF3 不再由 java 产出,改为过滤后结果 TSV 逐行生成(默认输出 {sample}.nlr_annotator.gff,与结果表一条记录对一行;GFF3 属性值百分号编码;断点续传跳过 java 时也重新生成,旧结果原地补 GFF);移除 `--output-gff` 参数;--output-bed 文件名改 {sample}.nlr_annotator.bed
+- `pathorepeat`: 文档补充 Dfam famdb 两层配置说明(数据目录 + `famdb.conf` 设 FAMDB_DATA_DIR 才是生效关键,`--famdb-dir` 仅指定非默认 famdb.py 位置)
+
 ## [1.57.0] - 2026-08-29
 
 ### Added
