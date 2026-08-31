@@ -4,7 +4,7 @@ Primer3引物设计主程序模块|Primer3 Primer Design Main Module
 
 import argparse
 import sys
-from .primer3_evaluator import Primer3Evaluator
+from .evaluator import Primer3Evaluator
 
 
 def parse_arguments():
@@ -118,7 +118,9 @@ def main():
             sys.exit(1)
 
     except Exception as e:
-        print(f"错误|Error: {e}")
+        # 错误走 stderr, 与超算 .err 分离约定一致(§2.3)
+        # |Errors go to stderr per the .out/.err convention (§2.3)
+        print(f"错误|Error: {e}", file=sys.stderr)
         sys.exit(1)
 
 

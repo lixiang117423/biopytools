@@ -1,123 +1,64 @@
-# primer3 - 批量 PCR 引物设计 | Primer3 Primer Design
+# Primer3 批量引物设计 | Primer3 Batch Primer Design
 
-一句话理解：**给一批序列批量设计 PCR 引物——自动为每条序列找出一组「正向+反向」引物对，连同长度、退火温度、GC 含量、产物大小等指标一起导出成表格，供实验直接下单合成。**
+一句话：给它一批 DNA 序列（FASTA 文件），它自动调用 Primer3 为每条序列设计一对（或多对）PCR 引物，并整理成一张带 Tm、GC 含量、二聚体评估的结果表格，可直接用于合成订单或实验记录。
 
-## 功能概述 | Overview { #overview }
+## 功能概述 | Overview
 
-- 用 Primer3 core 批量设计 PCR 引物，一条序列可返回多对（默认 5 对）
-- 支持两种策略：all（覆盖序列头尾）与 random（随机设计）
-- 自动根据序列长度调整产物大小范围（可关）
-- 输出 CSV / TSV / XLSX，表头可选中英文
-- 引物长度、退火温度、产物大小等参数全可定制
+- 批量输入 FASTA，单次运行完成全部引物设计
+- 两种设计策略：`all`（默认，引物锚定在序列两端，适合扩增完整插入片段）与 `random`（在序列内部自由选位）
+- 引物长度、退火温度（Tm）、产物大小、引物对数量等参数全部可调
+- 结果输出 CSV/TSV/XLSX，中英文表头可选，含二聚体与发夹结构热力学评估值
+- 支持断点续传：primer3 原始输出已存在时自动跳过重新计算
+- 自动记录软件版本到 `00_pipeline_info/software_versions.yml`
 
-## 快速开始 | Quick Start { #quick-start }
+## 快速开始 | Quick Start
 
 ```bash
 biopytools primer3 -i sequences.fasta -o primer3_output
 ```
 
-最小输入：一个含目标序列的 FASTA 文件。
+## 零基础概念速览 | Concepts in plain words
 
-## 零基础概念速览 | Concepts in plain words { #concepts }
+| 术语<br>Term | 通俗解释<br>Plain explanation |
+|---|---|
+| 引物 primer | 一小段（约 20 个碱基）人工合成的 DNA"起跑线"。DNA 聚合酶只能从这段起跑线开始复制，一对引物（一前一后）夹住的区段就是 PCR 会扩增的目标 |
+| Tm（解链温度） | 引物和模板"粘住"的温度门槛，可以理解为双链DNA"融化"一半时的温度。两条引物的 Tm 要接近，PCR 才能同时工作。一般设在 58-62°C |
+| GC 含量 | 引物里 G+C 碱基的比例。GC 之间有 3 个氢键，粘得更牢。40-60% 比较合适，太高太低都会降低扩增效率 |
+| GC clamp | 引物 3' 末端（起跑线的"踩踏端"）放 1-2 个 G/C，像锚一样抓牢模板，提高扩增特异性 |
+| 二聚体 dimer | 两条引物互相粘在一起而不是粘模板，PCR 就白做了。工具给出量化分数（TH 值），分数越低越好 |
+| 产物大小 product size | 一对引物夹住的片段长度。常规检测 100-300 bp；要测完整基因或做测序则更长 |
+| Penalty（惩罚值） | Primer3 给每对引物的综合打分，综合了长度、Tm、GC、二聚体等所有指标。越低越好，低于 1 通常令人满意 |
 
-| 术语 | 通俗理解 |
-|------|----------|
-| PCR | 用酶把一段 DNA 大量复制出来，分子生物学的「复印机」 |
-| 引物(primer) | 十几到二十几个碱基的短片段，引导复制从哪开始，PCR 成败的关键 |
-| 正向/反向引物(F/R) | 一条在目标区间起点、一条在终点，两把「夹子」夹出要扩增的片段 |
-| 退火温度(Tm) | 引物与模板结合的温度；太高结合不上、太低乱结合 |
-| 产物(amplicon/product) | 两条引物之间被扩增出来的那段 DNA |
-| GC 含量 | 序列里 G+C 的比例；过高过低都不利于稳定结合 |
-| 二聚体(dimer) | 引物自己或两条引物之间配对，会消耗引物、降低效率 |
-| 惩罚值(penalty) | Primer3 给每对引物打的综合分，越低越优 |
+## 输入 | Input
 
-## 输入 | Input { #input }
-
-- FASTA 文件(-i)：含要设计引物的序列（DNA）。序列 ID 中的空格和特殊字符会自动替换为下划线（Primer3 要求）。
-
-示例：
+一个 FASTA 文件（`-i`），每条序列为一行标题（`>` 开头）加若干行序列：
 
 ```text
->gene1
-ATGGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTA
->gene2
-ATGGCTAGCGAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTA
+>gene_alpha
+GCTAAAGACAATTACATAACATACACGTCAGC...
+>gene_beta
+TTTGGGGCCCCAAAATTTTGGGGCCCCAAAA...
 ```
 
-## 参数说明 | Parameters { #parameters }
+要求与说明：
 
-### 必需参数 | Required
+- 序列只含 A/C/G/T/N（其他字符会被 Primer3 拒绝）
+- 序列 ID 中的空格、`|`、`:` 等特殊字符会自动替换为下划线（Primer3 对 ID 有格式限制），结果表中以替换后的 ID 呈现
+- `method=all` 模式下序列长度应大于约 150 bp（两端各留出引物结合位点的空间），过短序列会设计失败
 
-**通俗理解|In plain words:** -i 输入 FASTA，-o 输出目录，两者必填。其余参数都有合理默认，新手可直接用默认。
+## 参数说明 | Parameters
 
-### 引物长度 | Primer size
+### 输入输出 | Input/Output
 
-**通俗理解|In plain words:** --primer-min-size / --primer-opt-size / --primer-max-size（默认 20/20/22）设定引物长度范围，Primer3 优先取「最优值」。长度太短特异性差、太长容易出错；20 bp 左右是通用值。一般不用动，除非实验有特殊要求。
+**通俗理解|In plain words:** 这组管"文件从哪来、结果到哪去"。一般只需要动 `-i` 和 `-o`；表头语言按实验记录本习惯选，给国内同事看选 `zh`，写英文论文附录选 `en`。
 
-### 退火温度 | Annealing temperature
+### 引物与产物 | Primer and product
 
-**通俗理解|In plain words:** --primer-min-tm / --primer-opt-tm / --primer-max-tm（默认 53/58/63）设定引物退火温度范围，Primer3 优先取最优值 58。想更特异可整体调高，想更容易扩增可调低。一般用默认。
-
-### 产物大小 | Product size
-
-**通俗理解|In plain words:** --product-min-size / --product-max-size（默认 100/300）设定扩增片段长度范围。--auto-product-size 默认开启，会按序列长度自动重新设定产物范围（--product-size-min-ratio 0.5 / --product-size-max-ratio 1.0 是产物占序列长度的比例）；想严格用手动范围时用 --no-auto-product-size 关闭。一般不用动。
+**通俗理解|In plain words:** 这组管"引物长什么样、扩增出多长的片段"。默认值是常规检测场景的成熟起点，一般不用动。引物长度加长（如 22-25）特异性更好但合成更贵；Tm 范围跟着你实验室的 PCR 退火温度走（退火温度通常设为 Tm 下限减 3-5°C）；产物大小在 `random` 模式下生效，`all` 模式会被自动产物范围覆盖。
 
 ### 设计策略 | Design strategy
 
-**通俗理解|In plain words:** --method 选 all（默认，把引物强制设计在序列两端，产物覆盖整条序列，适合「测全长/拿到整段」）或 random（整条序列里随便找最优引物对，适合「只扩增其中一段」）。--primer-end-margin（默认 200）只在 all 模式生效，控制两端允许放引物的范围。一般 all 就够。
-
-### 输出控制 | Output control
-
-**通俗理解|In plain words:** --primer-num-return（默认 5）是每条序列返回的引物对数量，多给几对方便挑；--output-format 选 csv/tsv/xlsx（默认 csv）；--output-header-lang 选表头中文 zh 或英文 en（默认 zh）。按需改。
-
-## 分析流程 | Pipeline { #pipeline }
-
-```text
-解析 FASTA（ID 清洗 + 序列大写）
-    |
-    v
-生成 Primer3 输入格式（含全局与每条序列的设定）
-    |
-    v
-conda run primer3_core 批量设计引物
-    |
-    v
-解析 Primer3 输出（逐引物对提取序列/Tm/GC/产物/惩罚值）
-    |
-    v
-格式化并保存 primers_result.<csv|tsv|xlsx>
-```
-
-## 输出 | Output { #output }
-
-```text
-primer3_output/
-|-- primers_result.csv        # 引物结果表（核心，格式由 --output-format 决定）
--- primer3_design.log         # 运行日志
-```
-
-结果表主要列（中文表头）：序列ID、输入序列、引物对编号、正向引物、反向引物、正向/反向引物长度、正向/反向引物 Tm 值、退火温度、正向/反向 GC 含量(%)、产物大小(bp)、产物 Tm 值、惩罚值、各类二聚体指标。
-
-## 结果解读 | Interpreting Results { #interpreting-results }
-
-**通俗理解|In plain words:** 打开结果表，每行是一对引物。先看有没有行（没行=没设计出来），再看惩罚值（越低越优）和各项指标是否落在合理范围。
-
-- 正向引物 / 反向引物：直接拿去合成的序列
-- 退火温度：取正反引物 Tm 的较小值，做 PCR 时参考
-- GC 含量：通常在 40-60% 之间比较理想，偏离太多扩增困难
-- 产物大小(bp)：扩增片段长度，应符合预期
-- 惩罚值：Primer3 综合打分，越小越优，同一序列内选惩罚值最小的那对
-- 二聚体指标：数值越低越好，高说明引物容易自己配对
-
-好坏判据：每条序列能返回若干对引物、惩罚值较低、GC 与 Tm 在常规范围即算成功；完全没结果多半是序列太短或含 N 过多（见 FAQ）。
-
-## 参数选择建议 | Parameter Guidance { #parameter-guidance }
-
-- 常规 PCR：全部默认（引物 20-22 bp、Tm 53-63、产物 100-300 bp）
-- 想扩增整段序列：默认 method=all 即可
-- 只扩增其中一段：--method random 并手动设 --product-min-size / --product-max-size
-- 想要更多候选：调大 --primer-num-return
-- 给 Excel 用：--output-format xlsx；给非中文同事：--output-header-lang en
+**通俗理解|In plain words:** 这组管"引物允许站在序列的哪些位置"。`all`（默认）把两条引物分别钉在序列头尾 `--primer-end-margin` bp 的范围内，适合"我要扩增这整段序列"的场景；`random` 允许引物落在序列任何位置，适合"只要在这个序列里扩增出一段就行"的场景。`--auto-product-size` 在 `all` 模式下让产物覆盖整条序列，无需手算。
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -131,6 +72,7 @@ primer3_output/
 |------|--------|------|------|
 | `--input-fasta, -i` | 必填 |  | 输入FASTA文件｜Input FASTA file path |
 | `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--primer3-core-path` | `~/miniforge3/envs/misc/bin/primer3_core` |  | Primer3核心程序路径｜Primer3 core program path |
 | `--primer-min-size` | `20` | int | 最小引物长度｜Minimum primer size |
 | `--primer-opt-size` | `20` | int | 最优引物长度｜Optimal primer size |
 | `--primer-max-size` | `22` | int | 最大引物长度｜Maximum primer size |
@@ -140,6 +82,8 @@ primer3_output/
 | `--product-min-size` | `100` | int | 最小产物大小(bp)｜Minimum product size (bp) |
 | `--product-max-size` | `300` | int | 最大产物大小(bp)｜Maximum product size (bp) |
 | `--primer-num-return` | `5` | int | 返回引物对数量｜Number of primer pairs to return |
+| `--primer-max-ns` | `0` | int | 允许的N碱基数量｜Number of N bases accepted |
+| `--primer-gc-clamp` | `1` | int | GC clamp数量｜GC clamp count |
 | `--output-format` | `csv` | csv/tsv/xlsx | 输出文件格式｜Output file format |
 | `--output-header-lang` | `zh` | zh/en | 输出表头语言(zh:中文, en:英文)｜Output header language (zh: Chinese, en: English) |
 | `--method, -m` | `all` | all/random | 引物设计策略: all=覆盖头尾, random=随机设计｜Primer design strategy: all=cover ends, random=random design |
@@ -177,29 +121,60 @@ primer3_output/
 
 <!-- END PARAMS:auto -->
 
-## 依赖 | Dependencies { #dependencies }
+## 输出 | Output
 
-- Primer3（命令行 primer3_core），默认 conda 环境 misc（~/miniforge3/envs/misc/bin/primer3_core），通过 conda run 自动检测调用
-- Biopython（解析 FASTA）
-- pandas（结果格式化）；输出 xlsx 额外需要 openpyxl
-- Python 3
+```text
+primer3_output/
+├── 00_pipeline_info/
+│   └── software_versions.yml      # primer3 版本与本次关键参数
+├── 01_primer_design/
+│   ├── primer3_output.txt         # Primer3 原始输出(断点续传依据)
+│   └── primers_result.csv         # 设计结果总表(--output-format 决定后缀)
+├── 99_logs/
+│   └── primer3_design.log         # 运行日志(含全部执行命令)
+└── tmp/                           # 临时目录(运行结束自动清空)
+```
 
-## 常见问题 | FAQ { #faq }
+- **`primers_result.csv`**：核心结果，每行一对引物，含正/反向引物序列、长度、Tm、GC 含量、退火温度（取两条引物 Tm 的较小值）、产物大小、惩罚值与各项二聚体评分
+- **`primer3_output.txt`**：Primer3 原始输出。重跑时若此文件存在会跳过重新计算（断点续传）；它也是排查"某序列为什么没有引物"的第一手材料
+- **`software_versions.yml`**：论文 Methods 与问题复现时使用
 
-Q1：支持断点续传吗？
-不支持。每次运行都全量重新解析、重新设计并覆盖输出文件。
+## 结果解读 | Interpreting Results
 
-Q2：method=all 和 random 有什么区别？
-all 把引物强制设计在序列两端（用 SEQUENCE_PRIMER_PAIR_OK_REGION_LIST 限制），产物覆盖整条序列；random 不限制位置，整条序列里找最优引物对。默认 all。
+结果表逐列怎么读、好坏判据：
 
-Q3：为什么某条序列没设计出引物？
-可能原因：序列太短（容不下引物+产物）、含 N 过多（默认不接受 N，PRIMER_MAX_NS_ACCEPTED=0）、GC 极端、或产物大小范围与序列长度冲突。检查该序列长度与内容。
+| 列<br>Column | 怎么读<br>How to read |
+|---|---|
+| 惩罚值 Penalty | 越低越好。`<1` 可放心用；`1-5` 可用但建议对照其他指标；`>10` 建议放弃或调整参数重新设计 |
+| 退火温度 Annealing_Temp | 两条引物 Tm 的较小值。PCR 退火温度建议设为该值减 3-5°C；同一反应中多条引物对的退火温度差最好不超过 5°C |
+| 正/反向引物 Tm 差 | 同一对引物两条 Tm 相差 `<5°C` 理想；`>10°C` 扩增可能偏斜 |
+| 正/反向 GC 含量 | `40-60%` 合适；`>70%` 或 `<30%` 扩增效率通常下降 |
+| 产物大小 | 按实验目的判断：酶切鉴定 `200-500 bp`、qPCR `70-200 bp`、测序 `400-800 bp` |
+| 自身二聚体 Any/End | 引物自己粘自己的评分。End（3'端）比 Any 更致命，经验阈值 `End < 9`、`Any < 12` |
+| 引物间二聚体 Any/End | 正反向引物互粘的评分，判据同上；引物间二聚体比自身二聚体危害更大 |
 
-Q4：auto-product-size 是什么？
-默认开启，按序列长度自动设定产物大小范围（最小 = max(序列长度×0.5, 全局最小值)，method=all 时最大 = 序列长度×1.0）。想要严格手动范围就加 --no-auto-product-size。
+没有引物输出的序列（结果表中无对应行）：先查 `01_primer_design/primer3_output.txt` 中该序列的 `PRIMER_PAIR_NUM_RETURNED`，为 0 说明 Primer3 判定无合格引物，常见原因是序列过短、GC 极端或重复序列。
 
-Q5：primer3_core 找不到怎么办？
-默认按「PRIMER3_PATH 环境变量、配置文件、~/miniforge3/envs/misc/bin/primer3_core」查找；找不到会直接报错，需确认装了 Primer3 并调整路径。
+## 参数选择建议 | Parameter Guidance
 
-Q6：输出 xlsx 报错？
-需要 openpyxl 库；未安装时改用 --output-format csv 或 tsv。
+- **常规基因检测/克隆筛验证**：默认参数即可
+- **qPCR 引物**：`--product-min-size 70 --product-max-size 200`，Tm 提高到 `--primer-min-tm 60 --primer-opt-tm 62 --primer-max-tm 65`，`--primer-num-return 3` 逐对评估
+- **扩增完整 ORF/片段（几百 bp 到数 kb）**：保持 `--method all`，加大 `--primer-end-margin`；产物范围自动覆盖全序列，无需手算
+- **在长序列内任意找一段扩增**：`--method random`，并用 `--product-min-size/--product-max-size` 指定期望产物区间
+- **含大量 N 的草图序列**：`--primer-max-ns 1` 放宽容忍度，但需自行评估风险
+- **序列很短（<150 bp）**：改用 `--method random` 并调小 `--product-min-size`，或考虑合成寡核苷酸而非 PCR 扩增
+
+## 依赖 | Dependencies
+
+- Python 环境随 biopytools 主环境（Biopython、pandas）
+- `primer3_core`：默认 `~/miniforge3/envs/misc/bin/primer3_core`（misc 环境），可用 `--primer3-core-path` 指定其他位置或设 `PRIMER3_PATH` 环境变量
+- 可选：输出 xlsx 需要 `openpyxl`
+
+## 常见问题 | FAQ
+
+- **改了参数重跑，结果没变？** 断点续传在起作用：`01_primer_design/primer3_output.txt` 已存在时跳过重新计算。换参数重跑请先删除旧输出目录（或仅删该文件）。
+- **序列 ID 里的 `|` 或空格去哪了？** 被 `format_sequence_id` 替换为下划线（Primer3 对 ID 格式有限制），结果表以替换后的 ID 呈现。
+- **某条序列结果表里没有？** 该序列设计失败。查 `primer3_output.txt` 对应记录的 `PRIMER_PAIR_NUM_RETURNED` 是否为 0，并按"结果解读"末段排查。
+- **xlsx 打不开？** 当前 Python 环境缺 `openpyxl`，安装后重跑，或改用 `--output-format csv`。
+- **旧版本（v1.0.0）的输出目录还能用吗？** v1.1.0 起结果移入 `01_primer_design/` 子目录、日志移入 `99_logs/`，与旧版平铺结构不同；旧目录重跑会自动补建新结构并重新计算（旧位置的结果文件不会被读取）。
+- **产物大小为什么被自动改了？** `--auto-product-size` 默认开启，会按序列长度自动设定产物范围（`all` 模式强制覆盖全序列，`random` 模式受全局上限约束）。要手动控制请加 `--no-auto-product-size`。

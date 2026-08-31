@@ -324,7 +324,7 @@ class ResultsFormatter:
                 row = {
                     'ID': seq_id,
                     'Input_Seq': input_seq,
-                    'Pair_Num': primer.get('pair_num', '') + 1,  # 从1开始编号|Start numbering from 1
+                    'Pair_Num': primer.get('pair_num', 0) + 1,  # 从1开始编号|Start numbering from 1
                     'F_Primer': primer.get('left_primer', ''),
                     'R_Primer': primer.get('right_primer', ''),
                     'F_Primer_Length': len(primer.get('left_primer', '')),

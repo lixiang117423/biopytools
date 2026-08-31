@@ -1,5 +1,10 @@
 """
 Primer3引物设计|Primer3 Primer Design Command
+
+透传约定|Forwarding convention: default 值也显式透传——模块侧 argparse/config
+改默认值后 Click 层若不同步会静默失效, 总透传使两层默认值永远一致
+|Defaults are always forwarded explicitly: module-side default changes can
+otherwise be silently shadowed by stale Click defaults.
 """
 
 import click
@@ -42,6 +47,10 @@ def _validate_file_exists(file_path):
               required=True,
               type=click.Path(),
               help='输出目录|Output directory')
+@click.option('--primer3-core-path',
+              default='~/miniforge3/envs/misc/bin/primer3_core',
+              show_default=True,
+              help='Primer3核心程序路径|Primer3 core program path')
 @click.option('--primer-min-size',
               type=int,
               default=20,
@@ -87,6 +96,16 @@ def _validate_file_exists(file_path):
               default=5,
               show_default=True,
               help='返回引物对数量|Number of primer pairs to return')
+@click.option('--primer-max-ns',
+              type=int,
+              default=0,
+              show_default=True,
+              help='允许的N碱基数量|Number of N bases accepted')
+@click.option('--primer-gc-clamp',
+              type=int,
+              default=1,
+              show_default=True,
+              help='GC clamp数量|GC clamp count')
 @click.option('--output-format',
               type=click.Choice(['csv', 'tsv', 'xlsx']),
               default='csv',
@@ -121,9 +140,11 @@ def _validate_file_exists(file_path):
               default=1.0,
               show_default=True,
               help='产物最大长度占序列长度的比例|Max product size ratio to sequence length (default: 1.0)')
-def primer3(input_fasta, output_dir, primer_min_size, primer_opt_size, primer_max_size,
+def primer3(input_fasta, output_dir, primer3_core_path,
+            primer_min_size, primer_opt_size, primer_max_size,
             primer_min_tm, primer_opt_tm, primer_max_tm,
-            product_min_size, product_max_size, primer_num_return, output_format, output_header_lang,
+            product_min_size, product_max_size, primer_num_return,
+            primer_max_ns, primer_gc_clamp, output_format, output_header_lang,
             method, primer_end_margin, auto_product_size,
             product_size_min_ratio, product_size_max_ratio):
     """
@@ -137,54 +158,47 @@ def primer3(input_fasta, output_dir, primer_min_size, primer_opt_size, primer_ma
     # 延迟加载|Lazy loading
     primer3_main = _lazy_import_primer3_main()
 
-    # 构建参数列表|Build argument list
+    # 构建参数列表(default 总显式透传)|Build argument list (defaults always forwarded)
     args = ['primer3.py']
 
     # 必需参数|Required parameters
     args.extend(['-i', input_fasta])
     args.extend(['-o', output_dir])
+    args.extend(['--primer3-core-path', primer3_core_path])
 
     # 引物长度参数|Primer size parameters
-    if primer_min_size != 20:
-        args.extend(['--primer-min-size', str(primer_min_size)])
-    if primer_opt_size != 20:
-        args.extend(['--primer-opt-size', str(primer_opt_size)])
-    if primer_max_size != 22:
-        args.extend(['--primer-max-size', str(primer_max_size)])
+    args.extend(['--primer-min-size', str(primer_min_size)])
+    args.extend(['--primer-opt-size', str(primer_opt_size)])
+    args.extend(['--primer-max-size', str(primer_max_size)])
 
     # 退火温度参数|Temperature parameters
-    if primer_min_tm != 53.0:
-        args.extend(['--primer-min-tm', str(primer_min_tm)])
-    if primer_opt_tm != 58.0:
-        args.extend(['--primer-opt-tm', str(primer_opt_tm)])
-    if primer_max_tm != 63.0:
-        args.extend(['--primer-max-tm', str(primer_max_tm)])
+    args.extend(['--primer-min-tm', str(primer_min_tm)])
+    args.extend(['--primer-opt-tm', str(primer_opt_tm)])
+    args.extend(['--primer-max-tm', str(primer_max_tm)])
 
     # 产物大小参数|Product size parameters
-    if product_min_size != 100:
-        args.extend(['--product-min-size', str(product_min_size)])
-    if product_max_size != 300:
-        args.extend(['--product-max-size', str(product_max_size)])
+    args.extend(['--product-min-size', str(product_min_size)])
+    args.extend(['--product-max-size', str(product_max_size)])
 
-    # 其他参数|Other parameters
-    if primer_num_return != 5:
-        args.extend(['--primer-num-return', str(primer_num_return)])
-    if output_format != 'csv':
-        args.extend(['--output-format', output_format])
-    if output_header_lang != 'zh':
-        args.extend(['--output-header-lang', output_header_lang])
-    # method参数，默认为all，只有设置为random时才添加参数
-    if method != 'all':
-        args.extend(['--method', method])
-    if primer_end_margin != 200:
-        args.extend(['--primer-end-margin', str(primer_end_margin)])
-    # auto_product_size默认为True，只有禁用时才添加参数
+    # 设计参数|Design parameters
+    args.extend(['--primer-num-return', str(primer_num_return)])
+    args.extend(['--primer-max-ns', str(primer_max_ns)])
+    args.extend(['--primer-gc-clamp', str(primer_gc_clamp)])
+
+    # 输出参数|Output parameters
+    args.extend(['--output-format', output_format])
+    args.extend(['--output-header-lang', output_header_lang])
+
+    # 引物设计策略|Primer design strategy
+    args.extend(['--method', method])
+    args.extend(['--primer-end-margin', str(primer_end_margin)])
+
+    # 自动产物大小(布尔开关)|Auto product size (boolean flag)
     if not auto_product_size:
         args.append('--no-auto-product-size')
-    if product_size_min_ratio != 0.5:
-        args.extend(['--product-size-min-ratio', str(product_size_min_ratio)])
-    if product_size_max_ratio != 1.0:
-        args.extend(['--product-size-max-ratio', str(product_size_max_ratio)])
+
+    args.extend(['--product-size-min-ratio', str(product_size_min_ratio)])
+    args.extend(['--product-size-max-ratio', str(product_size_max_ratio)])
 
     # 执行主程序|Execute main program
     original_argv = sys.argv
