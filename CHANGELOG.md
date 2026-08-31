@@ -1,8 +1,15 @@
 ## [1.59.0] - 2026-08-31
 
+### Added
+- `blast`(模块 2.3.0): 新增 `--task` 参数(blastn 专属,默认 `blastn`)——修复"最小相似度恒卡在 70%"的根因:原默认 megablast 任务实测报不出 <70% 的分歧比对(E-value 放宽到 10 仍为 70.0000 整,4581 条以下零命中;实测小花糖芥 EcA vs 68-1 数据,`task=blastn` 可报至 63.8% 并恢复 megablast 完全漏掉的比对);`megablast`/`dc-megablast` 仍可选;新增 `--alignment-max-per-query`(默认 5,每条查询按相似度取前 N 条)修复可视化截断观感——原 `--alignment-max-per-sample=100` 按 identity 取前 100 条导致 166 条查询只展示 17 个基因,用户误判"005400 之后的基因没有 blast 结果";`--alignment-max-per-sample` 默认提至 2000;新增 19 个单元测试
+
+### Fixed
+- `blast`(模块 2.3.0): `--min-identity` 此前不传给 blastn、仅用于过滤高质量文件(且该文件因覆盖度 bug 恒为空,参数整体无效)——现透传为 blastn `-perc_identity`(仅 blastn 支持)并在合并阶段过滤汇总表(蛋白模式同样生效);修复覆盖度按目标序列长度计算致对染色体级目标库恒 ≈0%(统计显示 6183 条全部 <50%、`--min-coverage 50` 把所有比对拦光、高质量结果文件永不产出)——outfmt 末列追加 `qlen`(raw 15→16 列,汇总 17→18 列),覆盖度改按查询序列算(`abs(qend-qstart+1)/qlen`),统计报告覆盖度分布恢复有意义;`software_versions.yml` 的 `pipeline.version` 从硬编码 2.1.0 改为跟随模块 `__version__`;`--min-identity` 默认值 70→30(config/argparse/Click 三层同步)
+- `genome2sv`(模块 1.1.1): 六工具路径从裸命令名固定为 align 域环境全路径(裸命令名会被 get_conda_env 按 PATH/listdir 顺序随机解析,曾漂移到 mga/Augustus 环境;svim-asm/SURVIVOR 自 sv_calling 并入 align,envs/align.yml 补 svim-asm=1.0.3/survivor=1.0.7)
+
 ### Changed
-- `blast`(模块 2.3.0): 查询覆盖度修正——覆盖度分母从目标序列长度(slen)改为查询序列长度(qlen)(目标常为整条染色体,原分母恒≈0% 致 min_coverage 拦光所有比对;outfmt 加末列 qlen,单样品 15→16 列、合并 17→18 列);`min_identity` 透传 blastn `-perc_identity`(blast 层前置过滤,蛋白模式无此参数故合并时统一再过滤);默认 `task=blastn`(新增 `--task` 参数,blastn 最敏感可报出 <70% 分歧比对,megablast 实测漏报);比对可视化按 query 均摊(新增 `--alignment-max-per-query` 默认 5,每条查询序列保留相似度前 N 条,保证所有 query 都有展示);默认值调整(min_identity 70→30,alignment_max_per_sample 100→2000);software_versions.yml 改用模块 `__version__`(修复硬编码 2.1.0)
-- `genome2sv`(模块 1.1.1): 六工具路径从裸命令名固定为 align 域环境全路径(裸命令名会被 get_conda_env 按 PATH/listdir 顺序随机解析,曾漂移到 mga/Augustus 环境;svim-asm/SURVIVOR 自 sv_calling 并入 align,envs/align.yml 补 svim-asm=1.0.3/survivor=1.0.7);文档同步 sv_calling→align
+- `blast`(模块 2.3.0): raw/汇总结果列数变更(16/18 列),v2.2.0 及更早的旧 raw 结果(15 列)与新版本不兼容,断点续传会复用旧比对结果——换版本或换参数重跑须 `--force` 或删除 `01_database/ 02_blast/`;docs/blast.md 同步任务语义/覆盖度口径/参数表(生成器刷新)并新增 70% 截断与旧结果复用两条 FAQ
+- `genome2sv`(模块 1.1.1): docs/genome2sv.md 同步 sv_calling→align;envs/README.md 记录 align 域补装 svim-asm/SURVIVOR 踩坑实录(sv_calling 自此无依赖方,可随 154 环境退役流程清理)
 
 ## [1.58.0] - 2026-08-31
 

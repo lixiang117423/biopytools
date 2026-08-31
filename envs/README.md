@@ -149,4 +149,5 @@ $M run -n busco  busco --version
 | 4 | misc 域 `iseq` 缺下载工具（axel/pigz/sra-tools/aspera-cli/wget） | 补装：`mamba install -n misc -c conda-forge -c bioconda axel pigz sra-tools aspera-cli wget` |
 | 5 | busco/embossversion 直接调 bin 报错（PATH 缺 env/bin） | 假警报：经 `conda run -n <env>` 调用正常（仓库代码本来就是 conda run 包装） |
 | 6 | `mamba run` 对 `--` 参数解析有 bug | 仓库代码用 `conda run`（验证正常），不受影响 |
+| 7 | align 域建配方时漏了吸收清单里 `sv_calling` 的 svim-asm/SURVIVOR（genome2sv 运行时曾随机漂移解析到 mga/Augustus 环境报 env mismatch） | 2026-08-31 补装：`mamba install -n align -c bioconda -c conda-forge svim-asm=1.0.3 survivor=1.0.7`（纯新增 27 包无降级，版本与 sv_calling 同 build），align.yml 已同步；sv_calling 自此无依赖方，可随 154 环境退役流程清理 |
 
