@@ -1,9 +1,11 @@
-## [1.58.0] - 2026-08-31
+## [1.57.1] - 2026-08-31
+
+### Fixed
+- `edta`(模块 1.1.0): 模块审计修复(P0×3+P1×6)——修复 `~` 路径从未展开致默认配置下 validate/EDTA.pl 查找必然失败(config 与两级 runner 查找链全部改 `expand_path`/`get_domain_tool_path`);修复 `["perl", EDTA.pl]` 经 basename 提取 `perl` 后 conda run 进任意环境的 bug(现直接完整路径执行 EDTA.pl,env 内 perl 由 conda run 提供);删除 930 行孤儿死代码(analysis/data_processing/results/visualization,其中 EDTAProcessor 引用不存在的 config 方法);conda 调用统一走 common/conda_runner 公共层(删除模块内复制实现)、EDTALogger 改 named logger + stdout/stderr 分离(不再 basicConfig 污染 root)、依赖检查经 conda 包装跑 `--help` 并顺带解析 EDTA 版本、CLI 默认值改全量显式透传并修正 `--force/--sensitive` 错误 help 文案、env_map 注册 `EDTA.pl`/`panEDTA.sh`→edta_v.2.3.0(原硬编码 EDTA_v.2.2.2 旧环境;该环境从 delete_list 待退役列表转正到 protect_list 保留环境,补 envs/legacy 重建配方与速查表登记)、输出检查/空 TE 文件路径改对齐实际工作目录、新增 13 字符序列 ID 预检(validate 阶段拦截,防数小时运行中途 die,提示 chr_rename/assembly_qc 改名);输出目录改 by-step 规范结构(运行结束自动归集 `{genome}.mod*` 到 `01_edta_raw/`,幂等;日志移 `99_logs/`;新增 `00_pipeline_info/software_versions.yml` 记录 EDTA 与模块版本);`step` 参数归一化小写(大写输入 API 直调不再报错);新增 14 个单元测试
+- `nlr_annotator`(模块 1.1.0): GFF3 不再由 java 产出,改为过滤后结果 TSV 逐行生成(默认输出 {sample}.nlr_annotator.gff,与结果表逐行一致;GFF3 属性值百分号编码;断点续传跳过 java 时也重新生成,旧结果原地补 GFF);移除 `--output-gff` 参数;`--output-bed` 文件名改 {sample}.nlr_annotator.bed
 
 ### Changed
-- `edta`(模块 1.1.0): 重构 conda 调用与路径解析——删除模块内复制 get_conda_env/build_conda_command,统一走 common/conda_runner.py(权威单一,§13.2);修复 CommandRunner 用 basename 提取命令名丢失 /envs/ 路径的 bug(§13.2.3,现传完整路径);EDTA.pl/panEDTA.sh 三级解析(显式 --edta-path → EDTA_PATH/PANEDTA_PATH 环境变量 → CONDA_PREFIX/share/EDTA),默认 edta_v.2.3.0 独立环境(从 delete_list 待退役列表转正到 protect_list 保留环境,补 envs/legacy 重建配方与速查表登记);序列 ID ≤13 字符预检(EDTA/RepeatMasker 硬限,超限在 validate 阶段报错提示改名,防数小时运行中途失败);输出按 by-step 归集(EDTA 原生产物自动移入 01_edta_raw/,00_pipeline_info/software_versions.yml 记录模块与 EDTA 版本,日志入 99_logs/);CLI 包装器默认值显式透传(防两层默认漂移);--sensitive/--force 参数说明修正
-- `nlr_annotator`(模块 1.1.0): GFF3 不再由 java 产出,改为过滤后结果 TSV 逐行生成(默认输出 {sample}.nlr_annotator.gff,与结果表一条记录对一行;GFF3 属性值百分号编码;断点续传跳过 java 时也重新生成,旧结果原地补 GFF);移除 `--output-gff` 参数;--output-bed 文件名改 {sample}.nlr_annotator.bed
-- `pathorepeat`: 文档补充 Dfam famdb 两层配置说明(数据目录 + `famdb.conf` 设 FAMDB_DATA_DIR 才是生效关键,`--famdb-dir` 仅指定非默认 famdb.py 位置)
+- `pathorepeat`: Dfam 接入实测补充两层配置事实——famdb.py 靠 `famdb.conf`(share/famdb-3.0.0/)的 `FAMDB_DATA_DIR` 找 h5(RepeatClassifier 调用不带 `-i`,环境变量无效);数据目录+conf 配好后默认即可用,`--famdb-dir` 降级为可选项;已配置 `~/database/dfam`(Dfam 4.0,基础片+curated 2.2GB,md5 全过,`famdb.py info` 验证通过)
 
 ## [1.57.0] - 2026-08-29
 
