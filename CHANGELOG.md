@@ -1,3 +1,9 @@
+## [1.59.0] - 2026-08-31
+
+### Changed
+- `blast`(模块 2.3.0): 查询覆盖度修正——覆盖度分母从目标序列长度(slen)改为查询序列长度(qlen)(目标常为整条染色体,原分母恒≈0% 致 min_coverage 拦光所有比对;outfmt 加末列 qlen,单样品 15→16 列、合并 17→18 列);`min_identity` 透传 blastn `-perc_identity`(blast 层前置过滤,蛋白模式无此参数故合并时统一再过滤);默认 `task=blastn`(新增 `--task` 参数,blastn 最敏感可报出 <70% 分歧比对,megablast 实测漏报);比对可视化按 query 均摊(新增 `--alignment-max-per-query` 默认 5,每条查询序列保留相似度前 N 条,保证所有 query 都有展示);默认值调整(min_identity 70→30,alignment_max_per_sample 100→2000);software_versions.yml 改用模块 `__version__`(修复硬编码 2.1.0)
+- `genome2sv`(模块 1.1.1): 六工具路径从裸命令名固定为 align 域环境全路径(裸命令名会被 get_conda_env 按 PATH/listdir 顺序随机解析,曾漂移到 mga/Augustus 环境;svim-asm/SURVIVOR 自 sv_calling 并入 align,envs/align.yml 补 svim-asm=1.0.3/survivor=1.0.7);文档同步 sv_calling→align
+
 ## [1.58.0] - 2026-08-31
 
 ### Added
