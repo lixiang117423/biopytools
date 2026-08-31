@@ -216,6 +216,11 @@ class FaidxReader:
                 self._index[name] = (int(length), int(offset),
                                      int(linebases), int(linewidth))
 
+    @property
+    def lengths(self) -> dict:
+        """染色体名→长度|contig name -> length"""
+        return {name: meta[0] for name, meta in self._index.items()}
+
     def fetch(self, chrom: str, start1: int, end1: int) -> str:
         """取 1-based 闭区间序列(end 超长自动截断)|Fetch 1-based closed interval (clamped)."""
         if chrom not in self._index:
@@ -341,6 +346,103 @@ def format_pav_binary(rows: List[Tuple], sample_names: List[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
+# ---------- SV 侧翼序列 + 基因型表|SV flanks & genotype table ----------
+
+# 每样本保留的 FORMAT 字段|per-sample FORMAT fields kept in flank outputs
+FLANK_FORMAT_FIELDS = ("GT", "LN", "QV")
+# Excel 单元格字符上限|xlsx cell character limit
+XLSX_MAX_CHARS = 32767
+
+
+def flank_interval(pos: int, end: int, contig_len: int,
+                   flank: int) -> Tuple[int, int, bool]:
+    """计算 SV ±flank 的 1-based 闭区间|1-based closed interval for SV ± flank.
+
+    INS 时 end=pos,插入位点位于区间中部;部分 INV/DUP 记录 END<POS,
+    按 min/max 求覆盖区间;越界截到染色体边界并标记。
+    |INS has end=pos (insertion site centered); some INV/DUP records have
+    END<POS so min/max covers them; clamped at contig bounds and flagged.
+
+    Returns:
+        (flank_lo, flank_hi, boundary_trimmed)
+    """
+    lo, hi = min(pos, end), max(pos, end)
+    flank_lo = max(1, lo - flank)
+    flank_hi = min(contig_len, hi + flank)
+    trimmed = (flank_lo != lo - flank) or (flank_hi != hi + flank)
+    return flank_lo, flank_hi, trimmed
+
+
+def parse_sample_fields(field_str: str, fmt_keys: List[str],
+                        want: Tuple[str, ...] = FLANK_FORMAT_FIELDS
+                        ) -> Tuple[str, ...]:
+    """按 FORMAT 键解析单样本列,按 want 顺序取值|Parse one sample column by FORMAT keys.
+
+    值少于键或 want 键不在 FORMAT 中时补 `.`(SURVIVOR 允许截断)。
+    |Pad `.` for truncated values or want-keys absent from FORMAT.
+    """
+    values = dict(zip(fmt_keys, field_str.split(":")))
+    return tuple(values.get(key, ".") for key in want)
+
+
+def format_flank_tsv(rows: List[Tuple], sample_names: List[str]) -> str:
+    """flank 基因型表 TSV(末列全序列,无截断)|Flank genotype TSV (full sequence).
+
+    Args:
+        rows: [(sv_id, chrom, pos, end, svtype, svlen, flank_lo, flank_hi,
+                [(GT, LN, QV), ...], sequence), ...]
+    """
+    header = (["sv_id", "chrom", "pos", "end", "svtype", "svlen",
+               "flank_lo", "flank_hi"])
+    for name in sample_names:
+        header += [f"{name}_{f}" for f in FLANK_FORMAT_FIELDS]
+    header.append("sequence")
+    lines = ["\t".join(header)]
+    for sv_id, chrom, pos, end, svtype, svlen, flank_lo, flank_hi, gts, seq in rows:
+        cells = [sv_id, chrom, str(pos), str(end), svtype, str(svlen),
+                 str(flank_lo), str(flank_hi)]
+        for gt in gts:
+            cells += [str(v) for v in gt]
+        cells.append(seq)
+        lines.append("\t".join(cells))
+    return "\n".join(lines) + "\n"
+
+
+def write_flank_xlsx(rows: List[Tuple], sample_names: List[str],
+                     xlsx_path: str, fasta_name: str = "") -> None:
+    """flank 基因型表 xlsx(列同 TSV)|Flank genotype xlsx (columns mirror TSV).
+
+    序列超 Excel 单元格上限时只写占位标记(全长见配套 FASTA),避免 openpyxl
+    写入超限值直接损坏文件。|Oversized sequences become a pointer to the
+    companion FASTA instead of corrupting the cell.
+    """
+    from openpyxl import Workbook          # 惰性导入,openpyxl 缺失不影响其余功能
+    from openpyxl.styles import Font       # |lazy import keeps rest usable
+    from openpyxl.utils import get_column_letter
+
+    wb = Workbook(write_only=True)
+    ws = wb.create_sheet("SV_flanks")
+    header = (["sv_id", "chrom", "pos", "end", "svtype", "svlen",
+               "flank_lo", "flank_hi"])
+    for name in sample_names:
+        header += [f"{name}_{f}" for f in FLANK_FORMAT_FIELDS]
+    header.append("sequence")
+    ws.append(header)
+    for sv_id, chrom, pos, end, svtype, svlen, flank_lo, flank_hi, gts, seq in rows:
+        cells = [sv_id, chrom, pos, end, svtype, str(svlen), flank_lo, flank_hi]
+        for gt in gts:
+            cells += [str(v) for v in gt]
+        if len(seq) > XLSX_MAX_CHARS:
+            cells.append(
+                f"序列超 Excel 上限({XLSX_MAX_CHARS}字符),全长见 {fasta_name} "
+                f"(id={sv_id})|Sequence exceeds Excel cell limit; full length "
+                f"in {fasta_name}")
+        else:
+            cells.append(seq)
+        ws.append(cells)
+    wb.save(xlsx_path)
+
+
 def write_software_versions(config, logger: logging.Logger, output_path: str,
                             start_time=None) -> None:
     """生成 software_versions.yml|Generate software_versions.yml.
@@ -372,9 +474,10 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
     # 关键参数(getattr 容错,适配测试桩)|key params (getattr-tolerant for stubs)
     param_keys = ["ref_sample", "preset", "svim_mode", "threads", "max_dist",
                   "min_support", "survivor_type", "survivor_strand", "est_dist",
-                  "min_sv_length", "svim_min_sv_size"]
+                  "min_sv_length", "svim_min_sv_size", "flank"]
+    from . import __version__
     info = {
-        "pipeline": {"name": "biopytools genome2sv", "version": "1.1.0"},
+        "pipeline": {"name": "biopytools genome2sv", "version": __version__},
         "tools": versions,
         "parameters": {k: getattr(config, k, None) for k in param_keys},
     }

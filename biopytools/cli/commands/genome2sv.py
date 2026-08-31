@@ -53,6 +53,8 @@ def _validate_path_exists(path):
               help="链方向一致1/任意0(默认1)|Require same strand (default 1)")
 @click.option("--min-support", default=1, type=int,
               help="SURVIVOR 最小支持调用数(默认1)|SURVIVOR min supporting callers (default 1)")
+@click.option("--flank", default=300, type=int,
+              help="SV 上下游侧翼长度bp(默认300)|SV flank length bp (default 300)")
 @click.option("--log-level", default="INFO", help="日志级别(默认INFO)|Log level (default INFO)")
 def genome2sv(**kwargs):
     """fof 清单中参考 vs 其余组装的 SV 调用与合并
@@ -73,6 +75,7 @@ def genome2sv(**kwargs):
             "--survivor-type", str(kwargs["survivor_type"]),
             "--survivor-strand", str(kwargs["survivor_strand"]),
             "--min-support", str(kwargs["min_support"]),
+            "--flank", str(kwargs["flank"]),
             "--log-level", kwargs["log_level"]]
     original = sys.argv
     sys.argv = args

@@ -8,6 +8,7 @@
 - 每个查询样本：minimap2 比对到参考(asm5/asm10/asm20 预设) → svim-asm 检测结构变异(SV) → SURVIVOR 把各样本的 SV 合并
 - 合并后的群体 SV 清单输出为 `pan_sv.survivor.vcf`，并生成每样本 SV 类型统计表 `sv_summary.tsv`
 - 同时输出每条 SV 的代表序列 `pan_sv.sequences.fa` 和样本×SV 的 PAV 矩阵(`pav_matrix.tsv` / `pav_binary.tsv`)
+- 输出每条 SV 上下游侧翼序列(`06_sv_flanks/`，默认 ±300bp 可调) + 每样本基因型表(TSV/FASTA/XLSX)，可直接用于引物设计
 - 全程断点续传：比对、SV 调用、SURVIVOR 合并已完成的步骤重跑时自动跳过
 - 六个依赖工具(minimap2 / samtools / svim-asm / bcftools / bedtools / SURVIVOR)统一在 `align` 域环境中调用(比对管道要求单环境)
 
@@ -28,6 +29,8 @@ biopytools genome2sv -i samples.fof -r ref -o results/
 | svim-asm | 专门从「两个组装好的基因组比对」里找 SV 的工具 |
 | SURVIVOR 合并 | 多个样本各自报出的 SV，把「位置接近、类型一致」的合并成同一个，避免重复计数 |
 | 断点(breakpoint) | 一段 SV 的两端坐标，像「被撕掉那页」的开头和结尾页码 |
+| 侧翼序列(flank) | 以 SV 断点为中心向两边各多取一段(默认 300bp)的参考序列，像「被撕那页前后各多复印 300 个字」，让 PCR 引物能落在变异之外的正常区域上 |
+| GT/LN/QV | 每个样本对这条 SV 的三个值：GT=基因型(如 1/1 表示两套拷贝都有此变异，./.=没测出)，LN=变异长度，QV=质量值(越高越可信，`.`=未提供) |
 
 ## 输入 | Input { #input }
 
@@ -64,6 +67,10 @@ sampleB /data/genomes/sampleB.fa
 
 **通俗理解|In plain words:** 这一组决定「什么样的 SV 才算同一个、哪些值得保留」。`--max-dist`(默认 1000)是允许两个断点最多差多少 bp 仍视为同一个 SV，调大会更宽松地合并；`--min-sv-length`(默认 50)只保留足够长的 SV；`--min-support`(默认 1)是「至少几个样本都报出这个 SV 才保留」，调大能滤掉只在单个样本里出现的噪音，但也可能丢掉真实稀有变异；`--survivor-type` 和 `--survivor-strand`(默认都为 1)控制合并时是否要求类型/链方向一致。**绝大多数项目用默认值即可，一般不用动。**
 
+### 侧翼参数 | Flank
+
+**通俗理解|In plain words:** `--flank`(默认 300)决定步骤 6 给每条 SV 的断点向两边各多取多少 bp 参考序列。管什么：引物设计时让引物落在 SV 之外的正常区域，需要「变异位点 + 两侧足够的落脚点」。调大：序列更长，离变异更远，适合设计更长片段(如长距离 PCR、探针)；调小：序列更紧凑，适合小片段扩增。300bp 是常规 PCR 引物设计的常用跨度，**一般不用动**；要 SV 本体序列(不含侧翼)可设为 0。
+
 ### 运行参数 | Runtime
 
 **通俗理解|In plain words:** `--log-level` 控制日志详细程度，默认 INFO，排查问题时才调到 DEBUG，一般不用动。
@@ -94,7 +101,10 @@ sampleB /data/genomes/sampleB.fa
 步骤5: SV 序列提取 + PAV 矩阵(从合并 VCF 生成)
     |
     ▼
-输出 pan_sv.survivor.vcf + pan_sv.sequences.fa + pav_matrix.tsv + sv_summary.tsv
+步骤6: SV ±flank 侧翼序列 + 每样本 GT/LN/QV 基因型表(TSV/FASTA/XLSX)
+    |
+    ▼
+输出 pan_sv.survivor.vcf + pan_sv.sequences.fa + pav_matrix.tsv + sv_flank300bp.* + sv_summary.tsv
 ```
 
 ## 输出 | Output { #output }
@@ -117,6 +127,10 @@ results/
 │   └── pav_binary.tsv          # 纯 0/1 PAV 矩阵(R 可直接 as.matrix)
 ├── 05_sv_sequences/
 │   └── pan_sv.sequences.fa     # 每条 SV 一条代表序列(FASTA)
+├── 06_sv_flanks/
+│   ├── sv_flank300bp.fa        # 每条 SV ±300bp 侧翼序列(FASTA)
+│   ├── sv_flank300bp.tsv       # 侧翼坐标 + 每样本 GT/LN/QV + 序列(程序友好)
+│   └── sv_flank300bp.xlsx      # 同 TSV,Excel 查看(超长序列只入 fasta)
 ├── 00_pipeline_info/
 │   └── software_versions.yml   # 软件版本与运行参数
 └── 99_logs/
@@ -163,7 +177,17 @@ merged    150      35     80     15     10     8      2
 - 判定规则：样本基因型含 allele 1(如 `1/1`、`0/1`)记 1,缺失(`./.`)记 0
 - 行数与合并 VCF 的 SV 总数一致(含 BND);`sv_id` 与序列 FASTA 对应
 
-### 5. 好坏判据
+### 5. 06_sv_flanks/(SV 侧翼序列与基因型表)
+
+**通俗理解|In plain words:** 给每条 SV 拍一张「连周边环境一起」的照片——以断点为中心，两边各多取 300bp 参考序列，并附上每个样本在这条 SV 上的基因型(_GT)、长度(_LN)和质量(_QV)。拿到手就能直接挑「亲本间有差异」的 SV 去设计 PCR 引物：引物落在两侧翼上，扩增产物长度随 SV 有无而不同，从而把不同基因型区分开。
+
+- 序列区间 = 参考 `[min(pos,end)-flank, max(pos,end)+flank]`(1-based 闭区间)；INS 的 pos=end，插入位点正好在序列中部；靠近染色体首尾时区间会截断(日志给"边界截断"计数)
+- `TRA/BND`(易位)没有单一参考区间，不输出(日志计数)；不做额外长度过滤，保留哪些 SV 由 `--min-sv-length` 在合并时决定
+- `sv_id`(如 `pan_sv.DEL.00001`)与 `pav_matrix.tsv`、`pan_sv.sequences.fa` 完全一致，可用 vlookup 互相对照；FASTA header 还带 `flank=起点-终点`
+- 三个文件内容一致、各有所长：`.fa` 给引物设计软件，`.tsv` 给脚本/R 批量处理，`.xlsx` 给人筛选浏览
+- Excel 单元格最多存 32767 字符，超长的序列在 `.xlsx` 里只写占位提示，全长以 `.fa` 为准
+
+### 6. 好坏判据
 
 - 合并后 SV 数量合理、各样本统计表都能正常生成，说明流程正常
 - 若某样本 SV 数异常为 0 或极少，检查该样本比对是否失败(看日志)，或它与参考差异是否过大(考虑换 `--preset`)
@@ -175,6 +199,7 @@ merged    150      35     80     15     10     8      2
 - **只要高可信的群体 SV**：调大 `--min-support`(如 2)，滤掉单样本噪音
 - **想保留稀有变异**：`--min-support 1`(默认)保留所有样本各自报出的 SV
 - **双倍体组装**：`--svim-mode diploid`
+- **要设计 PCR/INDEL 标记引物**：默认 `--flank 300` 即可；要更长同源臂(如长片段 PCR)调大到 500–1000；只要 SV 本体序列设 `--flank 0`
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -197,6 +222,7 @@ merged    150      35     80     15     10     8      2
 | `--survivor-type` | `1` | 0/1 | SV类型一致1/任意0(默认1)｜Require same type (default 1) |
 | `--survivor-strand` | `1` | 0/1 | 链方向一致1/任意0(默认1)｜Require same strand (default 1) |
 | `--min-support` | `1` | int | SURVIVOR 最小支持调用数(默认1)｜SURVIVOR min supporting callers (default 1) |
+| `--flank` | `300` | int | SV 上下游侧翼长度bp(默认300)｜SV flank length bp (default 300) |
 | `--log-level` | `INFO` |  | 日志级别(默认INFO)｜Log level (default INFO) |
 
 ### 模块直调参数 | Direct invocation options
@@ -214,6 +240,7 @@ merged    150      35     80     15     10     8      2
 | `--survivor-type` | `1` | 0/1 | SV 类型一致(1)/任意(0)｜Require same type (default 1) |
 | `--survivor-strand` | `1` | 0/1 | 链方向一致(1)/任意(0)｜Require same strand (default 1) |
 | `--min-support` | `1` | int | SURVIVOR 最小支持调用数｜SURVIVOR min supporting callers (default 1) |
+| `--flank` | `300` | int | SV 上下游侧翼长度 bp(默认300)｜SV flank length bp (default 300) |
 | `--log-level` | `INFO` |  | 日志级别｜Log level (default INFO) |
 
 <!-- END PARAMS:auto -->
@@ -242,3 +269,9 @@ fof 每行必须是 `样本名<TAB>路径`(TAB 分隔)，非注释行缺 TAB 会
 
 **Q4：minimap2 和 samtools 不在同一个 conda 环境怎么办？**
 默认路径已把两者固定在 `align` 环境，不会出现不一致。若用 `MINIMAP2_PATH`/`SAMTOOLS_PATH` 环境变量覆盖后两者分属不同环境，比对管道会以 samtools 所在环境为准并在日志给出 WARNING——此时请确保该环境里同时装有 minimap2，否则会找不到命令。
+
+**Q5：换 `--flank` 重跑为什么没有重新生成侧翼文件？**
+侧翼输出按「三个文件是否都已存在」判断断点续传。改了 `--flank` 后文件名(如 `sv_flank300bp.fa` → `sv_flank500bp.fa`)会变，新生成的文件名不同，不影响；但重跑同 flank 时旧文件不会被覆盖，需要换 flank 长度或先删除 `06_sv_flanks/` 旧产物。
+
+**Q6：为什么部分 SV 没有 xlsx 序列/没有进 FASTA？**
+易位(`TRA/BND`)没有单一的参考坐标区间，侧翼序列无从取起，日志有跳过计数；这是 SV 类型本身的特点，不是错误。

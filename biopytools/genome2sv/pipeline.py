@@ -6,9 +6,14 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 from .utils import (FaidxReader, ModuleLogger, build_conda_command,
-                    build_survivor_input, extract_sv_sequence, format_pav_binary,
-                    format_pav_matrix, format_sv_summary_tsv, get_conda_env,
-                    gt_present, parse_info_str, parse_svtype_stats, stable_sv_id)
+                    build_survivor_input, extract_sv_sequence, flank_interval,
+                    format_flank_tsv, format_pav_binary, format_pav_matrix,
+                    format_sv_summary_tsv, get_conda_env, gt_present,
+                    parse_info_str, parse_sample_fields, parse_svtype_stats,
+                    stable_sv_id, write_flank_xlsx)
+
+# 无参考坐标区间、不进侧翼输出的类型|types without a reference interval
+_FLANK_SKIP_TYPES = {"TRA", "BND"}
 
 
 class Genome2SVPipeline:
@@ -292,6 +297,127 @@ class Genome2SVPipeline:
         self.logger.info(f"PAV 矩阵已生成|PAV matrices written: {pav_tsv}, {pav_bin}")
         return True
 
+    # ---------- 步骤 6:SV 侧翼序列 + 基因型表|flanks + genotype table ----------
+
+    def generate_sv_flanks(self, merged_vcf: str) -> bool:
+        """从 merged VCF 提取 SV ±flank 序列 + 每样本 GT/LN/QV 基因型表
+        |Extract SV ± flank sequences + per-sample GT/LN/QV genotype table.
+
+        序列为参考 [min(POS,END)-flank, max(POS,END)+flank](1-based 闭区间,
+        越界截断);INS 时 END=POS,插入位点位于序列中部。TRA/BND 无坐标区间
+        跳过并计数。sv_id 与步骤 5(序列/PAV)共用同一自增编号便于交叉引用。
+        |Sequence = reference [min(POS,END)-flank, max(POS,END)+flank]
+        (1-based closed, clamped); INS has END=POS so the insertion site is
+        centered. TRA/BND skipped with counts. sv_id shares the step-5
+        auto-increment numbering for cross-reference.
+        """
+        flank = self.config.flank
+        fa_path = self.config.flank_dir / f"sv_flank{flank}bp.fa"
+        tsv_path = self.config.flank_dir / f"sv_flank{flank}bp.tsv"
+        xlsx_path = self.config.flank_dir / f"sv_flank{flank}bp.xlsx"
+        if all(p.exists() for p in (fa_path, tsv_path, xlsx_path)):
+            self.logger.info(
+                "跳过已完成侧翼输出|Skipping completed flank outputs")
+            return True
+        if not os.path.exists(merged_vcf):
+            self.logger.warning(
+                f"merged VCF 不存在,跳过侧翼输出|merged VCF missing; "
+                f"skip flank outputs: {merged_vcf}")
+            return True
+        try:
+            reader = FaidxReader(self.config.reference_fasta)
+        except (FileNotFoundError, OSError) as e:
+            self.logger.warning(
+                f"参考 fai 不可用,跳过侧翼提取|Reference fai unavailable; "
+                f"flank extraction skipped: {e}")
+            return True
+
+        contig_len = reader.lengths
+        sample_names: List[str] = []
+        fmt_keys: List[str] = []
+        type_counters: dict = {}
+        rows: List[tuple] = []
+        fa_records: List[Tuple[str, str]] = []
+        skipped_interval = 0
+        skipped_empty = 0
+        n_trimmed = 0
+        with open(merged_vcf) as fh:
+            for line in fh:
+                if line.startswith("##"):
+                    continue
+                if line.startswith("#CHROM"):
+                    cols = line.rstrip("\n").split("\t")
+                    sample_names = cols[9:]
+                    continue
+                fields = line.rstrip("\n").split("\t")
+                if len(fields) < 8:
+                    continue
+                chrom, pos = fields[0], int(fields[1])
+                info = parse_info_str(fields[7])
+                svtype = info.get("SVTYPE", "UNKNOWN")
+                # 计数与步骤 5 对齐(TRA 也占号),保证 sv_id 交叉引用一致
+                # |counter matches step 5 (TRA consumes a number) so sv_ids align
+                n = type_counters.get(svtype, 0) + 1
+                type_counters[svtype] = n
+                base_type = svtype.split(":", 1)[0]
+                if base_type in _FLANK_SKIP_TYPES:
+                    continue
+                try:
+                    end = int(info.get("END", pos))
+                except (TypeError, ValueError):
+                    end = pos   # 畸形 END 回退起点|malformed END falls back
+                if base_type == "INS":
+                    # SURVIVOR 合并 VCF 的 INS END 可能带伪偏移(实测 POS+65536),
+                    # 插入位点以 POS 为准|SURVIVOR merged INS END can carry a
+                    # bogus offset (POS+65536 seen); the insertion site is POS
+                    end = pos
+                if chrom not in contig_len:
+                    skipped_interval += 1
+                    continue
+                flank_lo, flank_hi, trimmed = flank_interval(
+                    pos, end, contig_len[chrom], flank)
+                if trimmed:
+                    n_trimmed += 1
+                seq = reader.fetch(chrom, flank_lo, flank_hi)
+                if not seq:
+                    skipped_empty += 1
+                    continue
+                if len(fields) > 8:
+                    fmt_keys = fields[8].split(":")
+                gts = [parse_sample_fields(f, fmt_keys)
+                       for f in fields[9:9 + len(sample_names)]]
+                pav = [gt_present(f) for f in fields[9:]] if len(fields) > 9 else []
+                support = ",".join(
+                    s for s, p in zip(sample_names, pav) if p)
+                sv_id = stable_sv_id(svtype, n)
+                header = (f">{sv_id} type={base_type} chrom={chrom} pos={pos} "
+                          f"end={end} svlen={info.get('SVLEN', '.')} "
+                          f"flank={flank_lo}-{flank_hi} len={len(seq)} "
+                          f"samples={support}")
+                rows.append((sv_id, chrom, pos, end, svtype,
+                             info.get("SVLEN", "."), flank_lo, flank_hi,
+                             gts, seq))
+                fa_records.append((header, seq))
+        reader.close()
+
+        # FASTA(60 列换行)|FASTA wrapped at 60 columns
+        with open(fa_path, "w") as out:
+            for header, seq in fa_records:
+                out.write(header + "\n")
+                for i in range(0, len(seq), 60):
+                    out.write(seq[i:i + 60] + "\n")
+        tsv_path.write_text(format_flank_tsv(rows, sample_names))
+        write_flank_xlsx(rows, sample_names, str(xlsx_path),
+                         fasta_name=fa_path.name)
+        self.logger.info(
+            f"侧翼输出已生成|Flank outputs written: {fa_path.parent} "
+            f"(记录|records {len(rows)}, TRA/BND 跳过|skipped "
+            f"{type_counters.get('TRA', 0) + type_counters.get('BND', 0)}, "
+            f"无区间/未知染色体|no-interval/unknown-chrom {skipped_interval}, "
+            f"空序列|empty-seq {skipped_empty}, 边界截断|boundary-trimmed "
+            f"{n_trimmed})")
+        return True
+
     # ---------- 主流程|main run ----------
 
     def run(self) -> int:
@@ -322,10 +448,11 @@ class Genome2SVPipeline:
         merged_vcf = str(self.config.merged_dir / "pan_sv.survivor.vcf")
         if os.path.exists(merged_vcf):
             self.generate_downstream_outputs(merged_vcf)
+            self.generate_sv_flanks(merged_vcf)
         else:
             self.logger.warning(
-                "无 merged VCF,跳过 SV 序列与 PAV 输出|No merged VCF; "
-                "skip SV sequences & PAV output")
+                "无 merged VCF,跳过 SV 序列/PAV/侧翼输出|No merged VCF; "
+                "skip SV sequences, PAV & flank outputs")
         from .utils import write_software_versions
         write_software_versions(
             self.config, self.logger,

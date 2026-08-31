@@ -37,6 +37,8 @@ def parse_arguments(argv=None):
                         help="链方向一致(1)/任意(0)|Require same strand (default 1)")
     parser.add_argument("--min-support", type=int, default=1,
                         help="SURVIVOR 最小支持调用数|SURVIVOR min supporting callers (default 1)")
+    parser.add_argument("--flank", type=int, default=300,
+                        help="SV 上下游侧翼长度 bp(默认300)|SV flank length bp (default 300)")
     parser.add_argument("--log-level", default="INFO",
                         help="日志级别|Log level (default INFO)")
     return parser.parse_args(argv)
@@ -58,6 +60,7 @@ def main(argv=None):
             survivor_type=args.survivor_type,
             survivor_strand=args.survivor_strand,
             min_support=args.min_support,
+            flank=args.flank,
             log_level=args.log_level,
         )
         config.validate()

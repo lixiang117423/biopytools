@@ -64,6 +64,9 @@ class Genome2SVConfig:
     # svim-asm 额外参数|svim-asm extra param
     svim_min_sv_size: int = 40    # svim-asm --min_sv_size
 
+    # 侧翼序列(步骤6)|flank sequences (step 6)
+    flank: int = 300              # SV 上下游侧翼长度(bp)|up/downstream flank bp
+
     # 工具路径:固定 align 域环境全路径,环境变量/用户配置可覆盖(§13.2.3 传全路径)
     # 裸命令名会被 get_conda_env 按 PATH/listdir 顺序随机解析(曾漂移到 mga/
     # Augustus),管道混 env 后只能靠父进程 PATH 侥幸命中 minimap2。
@@ -100,11 +103,12 @@ class Genome2SVConfig:
         self.merged_dir = self.output_path / "03_merged"
         self.stats_dir = self.output_path / "04_stats"
         self.sv_seq_dir = self.output_path / "05_sv_sequences"
+        self.flank_dir = self.output_path / "06_sv_flanks"
         self.logs_dir = self.output_path / "99_logs"
         self.info_dir = self.output_path / "00_pipeline_info"
         for d in (self.reference_dir, self.alignment_dir, self.svim_dir,
                   self.merged_dir, self.stats_dir, self.sv_seq_dir,
-                  self.logs_dir, self.info_dir):
+                  self.flank_dir, self.logs_dir, self.info_dir):
             d.mkdir(parents=True, exist_ok=True)
 
         # 解析 fof(文件不存在则留空,交 validate 报错)|parse fof
@@ -146,6 +150,8 @@ class Genome2SVConfig:
             errors.append(f"survivor_strand 必须为 0 或 1|must be 0 or 1: {self.survivor_strand}")
         if self.max_dist < 0 or self.min_sv_length < 0:
             errors.append("max_dist/min_sv_length 不能为负|cannot be negative")
+        if self.flank < 0:
+            errors.append(f"flank 不能为负|flank cannot be negative: {self.flank}")
         # 仅当 fof 可解析且参考名非空时做样本校验|sample checks only if parseable
         if Path(self.input_fof).is_file() and self.ref_sample:
             names = [n for n, _ in self._fof_entries]
