@@ -111,7 +111,9 @@ def check_dependencies(config, logger: logging.Logger) -> bool:
         except (FileNotFoundError, subprocess.TimeoutExpired):
             missing.append(name)
     if missing:
-        logger.error(f"缺失工具|Missing tools: {', '.join(missing)} (环境|env: sv_calling)")
+        logger.error(
+            f"缺失工具|Missing tools: {', '.join(missing)} "
+            f"(align 域环境或环境变量覆盖|align domain env or env-var overrides)")
         return False
     return True
 

@@ -64,20 +64,27 @@ class Genome2SVConfig:
     # svim-asm 额外参数|svim-asm extra param
     svim_min_sv_size: int = 40    # svim-asm --min_sv_size
 
-    # 工具路径(默认命令名,由 get_conda_env 在 sv_calling 环境解析)
-    # |Tool paths (command names; resolved to sv_calling env by get_conda_env)
-    minimap2_path: str = field(
-        default_factory=lambda: get_tool_path("minimap2", "minimap2", "MINIMAP2_PATH"))
-    samtools_path: str = field(
-        default_factory=lambda: get_tool_path("samtools", "samtools", "SAMTOOLS_PATH"))
-    svim_asm_path: str = field(
-        default_factory=lambda: get_tool_path("svim-asm", "svim-asm", "SVIM_ASM_PATH"))
-    bcftools_path: str = field(
-        default_factory=lambda: get_tool_path("bcftools", "bcftools", "BCFTOOLS_PATH"))
-    bedtools_path: str = field(
-        default_factory=lambda: get_tool_path("bedtools", "bedtools", "BEDTOOLS_PATH"))
-    survivor_path: str = field(
-        default_factory=lambda: get_tool_path("survivor", "SURVIVOR", "SURVIVOR_PATH"))
+    # 工具路径:固定 align 域环境全路径,环境变量/用户配置可覆盖(§13.2.3 传全路径)
+    # 裸命令名会被 get_conda_env 按 PATH/listdir 顺序随机解析(曾漂移到 mga/
+    # Augustus),管道混 env 后只能靠父进程 PATH 侥幸命中 minimap2。
+    # 六工具已全部并入 align 域环境(svim-asm/SURVIVOR 2026-08-31 自 sv_calling
+    # 补齐,见 envs/align.yml 与 envs/README.md 踩坑实录)。
+    # |Tool paths: pinned to the align domain env (env var/user config may
+    # override). Bare names resolved nondeterministically (drifted to mga/
+    # Augustus envs). All six tools merged into align (svim-asm/SURVIVOR
+    # added from sv_calling on 2026-08-31).
+    minimap2_path: str = field(default_factory=lambda: get_tool_path(
+        "minimap2", "~/miniforge3/envs/align/bin/minimap2", "MINIMAP2_PATH"))
+    samtools_path: str = field(default_factory=lambda: get_tool_path(
+        "samtools", "~/miniforge3/envs/align/bin/samtools", "SAMTOOLS_PATH"))
+    svim_asm_path: str = field(default_factory=lambda: get_tool_path(
+        "svim-asm", "~/miniforge3/envs/align/bin/svim-asm", "SVIM_ASM_PATH"))
+    bcftools_path: str = field(default_factory=lambda: get_tool_path(
+        "bcftools", "~/miniforge3/envs/align/bin/bcftools", "BCFTOOLS_PATH"))
+    bedtools_path: str = field(default_factory=lambda: get_tool_path(
+        "bedtools", "~/miniforge3/envs/align/bin/bedtools", "BEDTOOLS_PATH"))
+    survivor_path: str = field(default_factory=lambda: get_tool_path(
+        "survivor", "~/miniforge3/envs/align/bin/SURVIVOR", "SURVIVOR_PATH"))
 
     def __post_init__(self):
         """展开路径、建目录、解析 fof|Expand paths, make dirs, parse fof"""

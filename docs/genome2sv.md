@@ -9,7 +9,7 @@
 - 合并后的群体 SV 清单输出为 `pan_sv.survivor.vcf`，并生成每样本 SV 类型统计表 `sv_summary.tsv`
 - 同时输出每条 SV 的代表序列 `pan_sv.sequences.fa` 和样本×SV 的 PAV 矩阵(`pav_matrix.tsv` / `pav_binary.tsv`)
 - 全程断点续传：比对、SV 调用、SURVIVOR 合并已完成的步骤重跑时自动跳过
-- 六个依赖工具(minimap2 / samtools / svim-asm / bcftools / bedtools / SURVIVOR)统一在 `sv_calling` conda 环境中调用
+- 六个依赖工具(minimap2 / samtools / svim-asm / bcftools / bedtools / SURVIVOR)统一在 `align` 域环境中调用(比对管道要求单环境)
 
 ## 快速开始 | Quick Start { #quick-start }
 
@@ -227,7 +227,7 @@ merged    150      35     80     15     10     8      2
 - bedtools(版本探测)
 - SURVIVOR(SV 合并)
 
-以上工具统一在 conda 环境 `sv_calling` 中调用(由路径自动检测，无需手动指定)。
+以上工具统一在 `align` 域环境中调用(无需手动指定，也可用 `MINIMAP2_PATH` 等环境变量覆盖)。
 
 ## 常见问题 | FAQ { #faq }
 
@@ -235,10 +235,10 @@ merged    150      35     80     15     10     8      2
 支持。比对步骤按 `.sorted.bam` 和 `.bam.bai` 是否都存在判断跳过；SV 调用按 `02_svim/<样本>/` 下是否已有 VCF 判断跳过。换参数重跑前需先删除对应的旧产物。
 
 **Q2：SURVIVOR 显示「缺失工具」但明明装了？**
-SURVIVOR 是子命令式命令行(没有 `--version`)，依赖检查按「能否执行」而非「退出码为 0」判定，属正常。确认 SURVIVOR 在 `sv_calling` 环境里即可。
+SURVIVOR 是子命令式命令行(没有 `--version`)，依赖检查按「能否执行」而非「退出码为 0」判定，属正常。确认 SURVIVOR 在 `align` 环境里即可。
 
 **Q3：fof 报「格式错误」？**
 fof 每行必须是 `样本名<TAB>路径`(TAB 分隔)，非注释行缺 TAB 会报错。路径里带 `~` 或环境变量会自动展开。
 
 **Q4：minimap2 和 samtools 不在同一个 conda 环境怎么办？**
-程序会以 samtools 所在环境为准跑比对管道；若两者环境不一致会在日志里给出 WARNING。建议把两个工具都放进 `sv_calling` 环境避免歧义。
+默认路径已把两者固定在 `align` 环境，不会出现不一致。若用 `MINIMAP2_PATH`/`SAMTOOLS_PATH` 环境变量覆盖后两者分属不同环境，比对管道会以 samtools 所在环境为准并在日志给出 WARNING——此时请确保该环境里同时装有 minimap2，否则会找不到命令。

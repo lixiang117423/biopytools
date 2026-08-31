@@ -14,3 +14,5 @@ dependencies:
   - bwa
   - freebayes
   - bedtools
+  - svim-asm=1.0.3
+  - survivor=1.0.7
