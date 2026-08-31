@@ -146,7 +146,7 @@ out_dir/
 ## 依赖 | Dependencies
 
 - `repeat` 域环境:RepeatModeler 2.0.9(含 BuildDatabase)、RepeatMasker 4.2.4、TEsorter 1.5.1
-- 可选:`--famdb-dir` 提供 Dfam famdb 数据(从 dfam.org `releases/current/families/FamDB/` 下载,至少基础片+curated 四件约 2.2GB,解压到同一目录并软链环境内的 famdb.py)——设置后注入 `FAMDB_DIR`,RepeatModeler 分类步使用 RM2 自带 Dfam 参考;未配置时分类失败会自动降级为未分类库继续流程
+- 可选(启用 RM2 自带 Dfam 分类):Dfam famdb 数据两层配置,缺一不可——①数据目录:从 dfam.org `releases/current/families/FamDB/` 下载基础片+curated 四件(~2.2GB),`gunzip` 解压到同一目录(如 `~/database/dfam`),并软链环境内 `famdb.py` 进去;②站点配置:`famdb.conf`(位于 `~/miniforge3/envs/repeat/share/famdb-3.0.0/`)设 `FAMDB_DATA_DIR = <数据目录>`——`famdb.py` 靠它找 h5(RepeatClassifier 调用不带 `-i`,环境变量无效)。验证:`conda run -n repeat ~/database/dfam/famdb.py info` 应输出 `Version : 4.0`。配置好后默认即可用;`--famdb-dir` 仅用于显式指定非默认的 famdb.py 位置。未配置时分类失败会自动降级为未分类库继续流程
 - 运行时自动探测版本写入 `software_versions.yml`;工具缺失时报错并列出可设置的 `*_PATH` 环境变量
 
 ## 常见问题 | FAQ { #faq }
@@ -156,5 +156,5 @@ out_dir/
 - **RepeatModeler 阶段很慢?** `-LTRStruct` 约占一半耗时;赶时间 `--no-ltr-struct`,但 LTR 家族分类会变粗。
 - **重跑会不会推倒重来?** 不会。断点续传按"样品×步骤"跳过已完成步骤;换参数(如换 `--tesorter-db`)后想全部重跑需 `--no-skip-completed` 或删除对应步骤目录。
 - **批量模式一个样品失败会影响其他吗?** 不会,失败样品记入 batch_summary.tsv 后继续;最终退出码非 0 提示有失败。
-- **日志出现"RepeatModeler 分类失败…降级"或 "Could not determine FamDB version"?** RM2 分类步需要 Dfam famdb 数据。下载 dfam.org `releases/current/families/FamDB/` 的基础片+curated 四件(~2.2GB),`gunzip` 到同一目录并软链环境内 `famdb.py`,重跑时传 `--famdb-dir <目录>`(目录内需有 famdb.py)。未配置时模块自动降级:用未分类 consensi.fa 继续 Masker/TEsorter 步骤,9 小时级建模成果不浪费;想要 RM2 自带分类,删除 `01_modeler/{样品}_rm_run/{样品}_db-families.fa` 后带 `--famdb-dir` 重跑(会重跑建模)。
+- **日志出现"RepeatModeler 分类失败…降级"或 "Could not determine FamDB version"?** RM2 分类步需要 Dfam famdb 数据,**两层配置缺一不可**:①数据目录(dfam.org `releases/current/families/FamDB/` 下载基础片+curated 四件 ~2.2GB,`gunzip` 到同一目录,软链环境内 `famdb.py` 进去);②`~/miniforge3/envs/repeat/share/famdb-3.0.0/famdb.conf` 里设 `FAMDB_DATA_DIR = <数据目录>`(famdb.py 靠它找 h5;RepeatClassifier 不带 `-i` 调用,此步必做,环境重建后需重设)。验证:`conda run -n repeat ~/database/dfam/famdb.py info` 出 `Version : 4.0` 即通。未配置时模块自动降级:用未分类 consensi.fa 继续 Masker/TEsorter 步骤,9 小时级建模成果不浪费;配置好后想补 RM2 自带分类,删除 `01_modeler/{样品}_rm_run/{样品}_db-families.fa` 重跑(会重跑建模)。
 - **"No LTRs identified" 是真的没有 LTR 吗?** 未必。conda 环境下 LTR_retriever 对 RepeatMasker 的 RMblast 依赖检查可能误报("The RMblast engine is not installed"),导致 -LTRStruct 的 LTR 结构验证空手而归;主库与 TEsorter 分类不受影响。需要 LTR 精修可单独用 lai 模块(其 LTR_retriever 链路独立,不经该检查)。
