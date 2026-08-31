@@ -22,29 +22,22 @@ class PanEDTARunner:
             config: PanEDTA配置对象|PanEDTA configuration object
         """
         self.config = config
-        self.logger_manager = EDTALogger(config.output_path, log_name="panedta_analysis.log")
+        self.logger_manager = EDTALogger(config.output_path / '99_logs',
+                                         log_name="panedta_analysis.log")
         self.logger = self.logger_manager.get_logger()
         self.cmd_runner = CommandRunner(self.logger, config.output_path)
 
     def build_command(self) -> list:
-        """构建panEDTA命令|Build panEDTA command
-
-        Returns:
-            panEDTA命令列表|panEDTA command list
-        """
-        cmd = []
-
-        # 查找panEDTA.sh|Find panEDTA.sh
-        panedta_sh = self._find_panedta_sh()
+        """构建panEDTA命令(完整路径直接执行)|Build panEDTA command (direct exec)"""
+        # panEDTA.sh 由 config.validate() 解析|resolved by config.validate()
+        panedta_sh = getattr(self.config, 'resolved_panedta_sh', None) or \
+            self.config._resolve_panedta_sh()
 
         if not panedta_sh or not os.path.exists(panedta_sh):
             raise RuntimeError(f"未找到panEDTA.sh|panEDTA.sh not found at: {panedta_sh}")
 
-        # 使用bash执行panEDTA.sh|Use bash to execute panEDTA.sh
-        cmd = ["bash", panedta_sh]
-
         # 必需参数|Required parameters
-        cmd.extend(["-g", self.config.genome_list])
+        cmd = [panedta_sh, "-g", self.config.genome_list]
 
         # 可选参数|Optional parameters
         if self.config.cds:
@@ -57,32 +50,6 @@ class PanEDTARunner:
         cmd.extend(["-t", str(self.config.threads)])
 
         return cmd
-
-    def _find_panedta_sh(self) -> Optional[str]:
-        """查找panEDTA.sh脚本|Find panEDTA.sh script
-
-        Returns:
-            panEDTA.sh路径或None|panEDTA.sh path or None
-        """
-        # 1. 检查配置中的edta_path|Check edta_path in config
-        if self.config.edta_path:
-            panedta_sh = os.path.join(self.config.edta_path, "panEDTA.sh")
-            if os.path.exists(panedta_sh):
-                return panedta_sh
-
-        # 2. 检查conda环境|Check conda environment
-        conda_prefix = os.environ.get('CONDA_PREFIX', '')
-        if conda_prefix:
-            panedta_sh = os.path.join(conda_prefix, 'share', 'EDTA', 'panEDTA.sh')
-            if os.path.exists(panedta_sh):
-                return panedta_sh
-
-        # 3. 使用默认路径|Use default path
-        default_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/panEDTA.sh'
-        if os.path.exists(default_path):
-            return default_path
-
-        return None
 
     def run(self) -> bool:
         """运行PanEDTA分析|Run PanEDTA analysis

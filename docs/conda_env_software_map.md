@@ -200,6 +200,7 @@ conda run -n busco <工具> --no-capture-output
 | Blast_v.2.16.0 | (见 backup yaml) |
 | DeepBSA | (见 backup yaml) |
 | EDTA_v.2.2.2 | (见 backup yaml) |
+| edta_v.2.3.0 | (见 backup yaml) |
 | EGAPx_v.0.4.0-alpha | (见 backup yaml) |
 | GATK_v.4.6.2.0 | (见 backup yaml) |
 | Genome_dedup | (见 backup yaml) |
@@ -268,6 +269,6 @@ conda run -n busco <工具> --no-capture-output
 
 ## 第四部分: 禁止使用|Part 4: Forbidden (待退役)
 
-scripts/delete_list.txt 中的 154 个环境已被域环境取代或从未被模块引用, **不要**再调用它们, 也不要让新模块依赖它们; 如需其中的软件, 先并入对应域环境。
+scripts/delete_list.txt 中的 153 个环境已被域环境取代或从未被模块引用, **不要**再调用它们, 也不要让新模块依赖它们; 如需其中的软件, 先并入对应域环境。
 
 > 完整新旧对应关系见 docs/env_migration_map.md; 域环境重建配方见 envs/*.yml, 保留环境重建配方见 envs/legacy/*.yaml。

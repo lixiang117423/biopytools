@@ -40,7 +40,8 @@ def main():
     edta_parser.add_argument('--rmlib',
                            help='RepeatModeler库|RepeatModeler library')
     edta_parser.add_argument('--sensitive', type=int, default=0, choices=[0, 1],
-                           help='使用RepeatModeler|Use RepeatModeler')
+                           help='敏感模式RepeatModeler建库(同源阈值放宽)'
+                                '|Sensitive-mode RepeatModeler library')
     edta_parser.add_argument('--anno', type=int, default=0, choices=[0, 1],
                            help='执行全基因组注释|Perform whole-genome annotation')
     edta_parser.add_argument('--rmout',
@@ -52,7 +53,8 @@ def main():
     edta_parser.add_argument('--exclude',
                            help='排除区域BED文件|Exclude regions BED file')
     edta_parser.add_argument('--force', type=int, default=0, choices=[0, 1],
-                           help='强制使用水稻TE|Force to use rice TEs')
+                           help='强制继续过滤步骤(自动填充缺失TE文件)'
+                                '|Force filtering (auto-fill missing TE files)')
     edta_parser.add_argument('--u', type=float, default=1.3e-8,
                            help='中性突变率|Neutral mutation rate')
     edta_parser.add_argument('-t', '--threads', type=int, default=12,

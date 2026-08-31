@@ -71,34 +71,17 @@ def panedta(genome_list, cds, curatedlib, fl_copy, anno, overwrite,
     # 延迟加载|Lazy loading
     edta_main = _lazy_import_edta_main()
 
-    # 构建参数列表|Build argument list
-    args = ['edta.py', 'panedta']
-
-    # 必需参数|Required parameters
-    args.extend(['--genome-list', genome_list])
-
-    # 可选参数|Optional parameters
+    # 构造参数列表(默认值显式透传,防止两层默认漂移)
+    # |Build argv (defaults always forwarded to avoid two-layer drift)
+    args = ['panedta', 'panedta']
+    args.extend(['--genome-list', genome_list,
+                 '--fl-copy', str(fl_copy), '--anno', str(anno),
+                 '--overwrite', str(overwrite),
+                 '--threads', str(threads), '--output-dir', output_dir])
     if cds:
         args.extend(['-c', cds])
-
     if curatedlib:
         args.extend(['-l', curatedlib])
-
-    if fl_copy != 3:
-        args.extend(['--fl-copy', str(fl_copy)])
-
-    if anno != 1:
-        args.extend(['--anno', str(anno)])
-
-    if overwrite != 0:
-        args.extend(['--overwrite', str(overwrite)])
-
-    if threads != 12:
-        args.extend(['--threads', str(threads)])
-
-    if output_dir != './panedta_output':
-        args.extend(['--output-dir', output_dir])
-
     if edta_path:
         args.extend(['--edta-path', edta_path])
 

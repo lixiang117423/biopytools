@@ -3,6 +3,7 @@ BUSCO_v.6.0.0
 Blast_v.2.16.0
 DeepBSA
 EDTA_v.2.2.2
+edta_v.2.3.0
 EGAPx_v.0.4.0-alpha
 GATK_v.4.6.2.0
 Genome_dedup

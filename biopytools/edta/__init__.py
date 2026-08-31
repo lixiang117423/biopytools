@@ -17,7 +17,7 @@ EDTA转座子注释工具包|EDTA TE Annotation Toolkit
     runner.run()
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "Xiang LI"
 
 from .main import main

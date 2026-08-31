@@ -89,6 +89,9 @@ TOOL_DOMAIN_MAP = {
     "ltr_harvest_parallel": "repeat",
     "ltr_finder_parallel": "repeat",
     "TEsorter": "repeat",
+    # ===== 保留独立环境(legacy,§13.5.2)|Standalone legacy envs =====
+    "EDTA.pl": "edta_v.2.3.0",
+    "panEDTA.sh": "edta_v.2.3.0",
     # ===== rna =====
     "hisat2": "rna",
     "hisat2-build": "rna",

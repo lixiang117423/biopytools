@@ -55,7 +55,7 @@ def _validate_file_exists(file_path):
               help='RepeatModeler库|RepeatModeler library')
 @click.option('--sensitive', default=0, show_default=True,
               type=click.IntRange(0, 1),
-              help='使用RepeatModeler|Use RepeatModeler')
+              help='敏感模式RepeatModeler建库|Sensitive-mode RepeatModeler library')
 @click.option('--anno', default=0, show_default=True,
               type=click.IntRange(0, 1),
               help='执行全基因组注释|Perform whole-genome annotation')
@@ -73,7 +73,7 @@ def _validate_file_exists(file_path):
               help='排除区域BED文件|Exclude regions BED file')
 @click.option('--force', default=0, show_default=True,
               type=click.IntRange(0, 1),
-              help='强制使用水稻TE|Force to use rice TEs')
+              help='强制继续过滤步骤(自动填充缺失TE文件)|Force filtering (auto-fill missing TE files)')
 @click.option('--u', default=1.3e-8, show_default=True,
               type=float,
               help='中性突变率|Neutral mutation rate')
@@ -102,64 +102,26 @@ def edta(genome, species, step, overwrite, cds, curatedlib, rmlib,
     # 延迟加载|Lazy loading
     edta_main = _lazy_import_edta_main()
 
-    # 构建参数列表|Build argument list
-    args = ['edta.py', 'edta']
-
-    # 必需参数|Required parameters
-    args.extend(['--genome', genome])
-
-    # 可选参数|Optional parameters
-    if species != 'others':
-        args.extend(['--species', species])
-
-    if step != 'all':
-        args.extend(['--step', step])
-
-    if overwrite != 0:
-        args.extend(['--overwrite', str(overwrite)])
-
+    # 构造参数列表(默认值显式透传,防止两层默认漂移)
+    # |Build argv (defaults always forwarded to avoid two-layer drift)
+    args = ['edta', 'edta']
+    args.extend(['--genome', genome,
+                 '--species', species, '--step', step,
+                 '--overwrite', str(overwrite), '--sensitive', str(sensitive),
+                 '--anno', str(anno), '--maxdiv', str(maxdiv),
+                 '--evaluate', str(evaluate), '--force', str(force),
+                 '--u', str(u), '--threads', str(threads),
+                 '--debug', str(debug), '--output-dir', output_dir])
     if cds:
         args.extend(['--cds', cds])
-
     if curatedlib:
         args.extend(['--curatedlib', curatedlib])
-
     if rmlib:
         args.extend(['--rmlib', rmlib])
-
-    if sensitive != 0:
-        args.extend(['--sensitive', str(sensitive)])
-
-    if anno != 0:
-        args.extend(['--anno', str(anno)])
-
     if rmout:
         args.extend(['--rmout', rmout])
-
-    if maxdiv != 40:
-        args.extend(['--maxdiv', str(maxdiv)])
-
-    if evaluate != 0:
-        args.extend(['--evaluate', str(evaluate)])
-
     if exclude:
         args.extend(['--exclude', exclude])
-
-    if force != 0:
-        args.extend(['--force', str(force)])
-
-    if u != 1.3e-8:
-        args.extend(['--u', str(u)])
-
-    if threads != 12:
-        args.extend(['--threads', str(threads)])
-
-    if debug != 0:
-        args.extend(['--debug', str(debug)])
-
-    if output_dir != './edta_output':
-        args.extend(['--output-dir', output_dir])
-
     if edta_path:
         args.extend(['--edta-path', edta_path])
 
@@ -180,4 +142,3 @@ def edta(genome, species, step, overwrite, cds, curatedlib, rmlib,
         sys.exit(1)
     finally:
         sys.argv = original_argv
-

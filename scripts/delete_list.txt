@@ -46,7 +46,6 @@ csvkit
 deeploc20
 deeploc_v.2.1
 diamond_v.2.1.13
-edta_v.2.3.0
 effectR
 egepx_v.0.5.1
 eggnog-mapper_v.2.1.15

@@ -3,11 +3,11 @@ EDTA转座子注释运行器|EDTA TE Annotation Runner
 """
 
 import os
-import sys
+import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional
 
+from . import __version__
 from .config import EDTAConfig
 from .utils import EDTALogger, CommandRunner, check_edta_dependencies
 
@@ -19,39 +19,68 @@ class EDTARunner:
         """初始化EDTA运行器|Initialize EDTA Runner
 
         Args:
-            config: EDTA配置对象|EDTA configuration object
+            config: EDTA配置对象(validate() 已调用,resolved_edta_pl 可用)
+                    |EDTA config (validate() called; resolved_edta_pl available)
         """
         self.config = config
-        self.logger_manager = EDTALogger(config.output_path)
+        self.logger_manager = EDTALogger(config.output_path / '99_logs')
         self.logger = self.logger_manager.get_logger()
         self.cmd_runner = CommandRunner(self.logger, config.output_path)
 
-        # 检查EDTA依赖|Check EDTA dependencies
+        # 检查EDTA可执行性并解析版本|Check EDTA runs and parse version
+        edta_pl = getattr(config, 'resolved_edta_pl', None) or \
+            config._resolve_edta_pl()
+        if not edta_pl:
+            raise RuntimeError(
+                "未找到 EDTA.pl|EDTA.pl not found (check the edta_v.2.3.0 env "
+                "or set --edta-path / EDTA_PATH)")
+        self.edta_pl = edta_pl
         try:
-            check_edta_dependencies(config, self.logger)
+            self.edta_version = check_edta_dependencies(edta_pl, self.logger)
         except RuntimeError as e:
             self.logger.error(f"依赖检查失败|Dependency check failed: {e}")
             raise
+        self._write_software_versions()
+
+    def _write_software_versions(self):
+        """写 00_pipeline_info/software_versions.yml(§12.5)|Write versions yml"""
+        info_dir = Path(self.config.output_path) / '00_pipeline_info'
+        info_dir.mkdir(parents=True, exist_ok=True)
+        with open(info_dir / 'software_versions.yml', 'w',
+                  encoding='utf-8') as fh:
+            fh.write(f"edta_module: {__version__}\n")
+            fh.write(f"edta: {self.edta_version}\n")
+
+    def _collect_outputs(self):
+        """归集 EDTA 原生产物到 01_edta_raw/(§12.2 by-step)|Collect native outputs
+
+        EDTA 把 `{stem}.mod*` 写在运行目录(output 根);跑完归集到步骤目录,
+        目标已存在时跳过(幂等,支持重跑)
+        |Move `{stem}.mod*` artifacts from the output root into 01_edta_raw/;
+        existing targets are skipped (idempotent)
+        """
+        stem = Path(self.config.genome).stem
+        target = Path(self.config.output_path) / '01_edta_raw'
+        target.mkdir(parents=True, exist_ok=True)
+        moved = 0
+        for src in sorted(Path(self.config.output_path).glob(f'{stem}.mod*')):
+            dst = target / src.name
+            if dst.exists():
+                self.logger.warning(
+                    f"归集目标已存在,跳过|Collect target exists, skip: {src.name}")
+                continue
+            shutil.move(str(src), str(dst))
+            moved += 1
+        self.logger.info(
+            f"已归集 {moved} 个EDTA产物到 01_edta_raw/|Collected {moved} EDTA "
+            f"outputs into 01_edta_raw/")
 
     def build_command(self) -> list:
-        """构建EDTA命令|Build EDTA command
-
-        Returns:
-            EDTA命令列表|EDTA command list
-        """
-        cmd = []
-
-        # 查找EDTA.pl|Find EDTA.pl
-        edta_pl = self._find_edta_pl()
-
-        if not edta_pl or not os.path.exists(edta_pl):
-            raise RuntimeError(f"未找到EDTA.pl|EDTA.pl not found at: {edta_pl}")
-
-        # 使用perl执行EDTA.pl|Use perl to execute EDTA.pl
-        cmd = ["perl", edta_pl]
+        """构建EDTA命令(完整路径直接执行,env perl 由 conda run 提供)
+        |Build EDTA command (direct exec; env perl comes from conda run)"""
 
         # 必需参数|Required parameters
-        cmd.extend(["--genome", self.config.genome])
+        cmd = [self.edta_pl, "--genome", self.config.genome]
 
         # 可选参数|Optional parameters
         cmd.extend(["--species", self.config.species])
@@ -95,45 +124,6 @@ class EDTARunner:
             cmd.extend(["--annosine", self.config.annosine_path])
 
         return cmd
-
-    def _find_edta_pl(self) -> Optional[str]:
-        """查找EDTA.pl脚本|Find EDTA.pl script
-
-        Returns:
-            EDTA.pl路径或None|EDTA.pl path or None
-        """
-        # 1. 检查配置中的edta_path|Check edta_path in config
-        if self.config.edta_path:
-            edta_pl = os.path.join(self.config.edta_path, "EDTA.pl")
-            if os.path.exists(edta_pl):
-                return edta_pl
-
-        # 2. 检查conda环境|Check conda environment
-        conda_prefix = os.environ.get('CONDA_PREFIX', '')
-        if conda_prefix:
-            edta_pl = os.path.join(conda_prefix, 'share', 'EDTA', 'EDTA.pl')
-            if os.path.exists(edta_pl):
-                return edta_pl
-
-        # 3. 检查系统PATH|Check system PATH
-        try:
-            result = subprocess.run(
-                ["which", "EDTA.pl"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-        except Exception:
-            pass
-
-        # 4. 使用默认路径|Use default path
-        default_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl'
-        if os.path.exists(default_path):
-            return default_path
-
-        return None
 
     def run(self) -> bool:
         """运行EDTA分析|Run EDTA analysis
@@ -192,6 +182,7 @@ class EDTARunner:
             # 检查结果|Check results
             if result.returncode == 0:
                 self.logger.info("EDTA分析完成|EDTA analysis completed")
+                self._collect_outputs()
                 self._check_outputs()
                 return True
             else:
@@ -205,6 +196,8 @@ class EDTARunner:
     def _create_empty_te_file(self, te_type: str) -> bool:
         """创建空的TE文件|Create empty TE file
 
+        EDTA 在工作目录(output_path)生成输出|EDTA writes outputs to cwd
+
         Args:
             te_type: TE类型 (SINE, LINE等)
 
@@ -213,7 +206,7 @@ class EDTARunner:
         """
         try:
             genome_name = Path(self.config.genome).stem
-            raw_dir = Path(self.config.genome).parent / f"{genome_name}.mod.EDTA.raw"
+            raw_dir = Path(self.config.output_path) / f"{genome_name}.mod.EDTA.raw"
             te_file = raw_dir / f"{genome_name}.mod.{te_type}.raw.fa"
 
             # 创建目录
@@ -258,6 +251,7 @@ class EDTARunner:
             # 检查结果
             if result.returncode == 0:
                 self.logger.info("EDTA filter步骤完成|EDTA filter step completed")
+                self._collect_outputs()
                 self._check_outputs()
                 return True
             else:
@@ -281,6 +275,7 @@ class EDTARunner:
         self.logger.info(f"  评估|Evaluate: {self.config.evaluate}")
         self.logger.info(f"  最大分歧度|Max divergence: {self.config.maxdiv}")
         self.logger.info(f"  输出目录|Output directory: {self.config.output_dir}")
+        self.logger.info(f"  EDTA.pl|EDTA.pl: {self.edta_pl}")
 
         if self.config.cds:
             self.logger.info(f"  CDS文件|CDS: {self.config.cds}")
@@ -290,7 +285,7 @@ class EDTARunner:
             self.logger.info(f"  排除区域|Exclude regions: {self.config.exclude}")
 
     def _check_outputs(self):
-        """检查输出文件|Check output files"""
+        """检查输出文件(已归集到 01_edta_raw/)|Check collected outputs"""
         self.logger.info("检查EDTA输出文件|Checking EDTA output files")
 
         genome_name = Path(self.config.genome).stem
@@ -307,9 +302,10 @@ class EDTARunner:
 
         found_files = []
         missing_files = []
+        raw_dir = Path(self.config.output_path) / '01_edta_raw'
 
         for filename in expected_files:
-            filepath = Path(self.config.genome).parent / filename
+            filepath = raw_dir / filename
             if filepath.exists():
                 found_files.append(filename)
                 self.logger.info(f"  找到|Found: {filename}")

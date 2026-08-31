@@ -69,7 +69,7 @@ TTGCAAGCTAGCATCGATC...
 
 ### 注释与评估 | Annotation & evaluation
 
-**通俗理解|In plain words:** `--anno 1` 是「要不要最后的全基因组注释」——要拿到 GFF3 坐标就必须开；`--evaluate 1` 额外做一轮注释一致性自检（更慢）。`--force 1` 强制使用水稻 TE 库，只在程序因缺某些 TE 类型报错、想让它自动补空文件续跑时才用。**平时 `--anno 1` 即可，其余一般不用动。**
+**通俗理解|In plain words:** `--anno 1` 是「要不要最后的全基因组注释」——要拿到 GFF3 坐标就必须开；`--evaluate 1` 额外做一轮注释一致性自检（更慢）。`--force 1` 强制继续过滤步骤（自动填充缺失的 TE 类型文件），只在程序因缺某些 TE 类型报错、想让它自动补空文件续跑时才用。**平时 `--anno 1` 即可，其余一般不用动。**
 
 本组参数：`--anno`（默认 0）、`--evaluate`（默认 0）、`--force`（默认 0）。
 
@@ -107,25 +107,27 @@ anno   : RepeatMasker 全基因组注释(需 --anno 1)   -> {genome}.mod.EDTA.TE
 
 ## 输出 | Output { #output }
 
-注意：EDTA 的产物写在**基因组 FASTA 所在目录**；`-o` 输出目录只存放运行日志。
+EDTA 原生产物运行结束后自动归集到 `-o` 输出目录的 `01_edta_raw/`（by-step 结构，`{genome}` 为基因组文件名剥 `.fa` 后缀，如 `plant`）：
 
 ```text
-基因组所在目录/
-├── {genome}.mod.EDTA.raw/            # 各类型原始候选(中间产物, --debug 0 可能被清理)
-│   ├── {genome}.mod.LTR.raw.fa
-│   ├── {genome}.mod.TIR.raw.fa
-│   ├── {genome}.mod.Helitron.raw.fa
-│   └── ...
-├── {genome}.mod.EDTA.TElib.fa       # 非冗余 TE 库(核心产物)
-├── {genome}.mod.EDTA.TElib.novel.fa # 新鉴定 TE(不属于已知库的部分)
-├── {genome}.mod.EDTA.TEanno.gff3    # 全基因组 TE 注释(--anno 1)
-└── {genome}.mod.EDTA.TEanno.sum     # 注释统计汇总(--anno 1)
-
 -o 输出目录/
-└── edta_analysis.log                # 运行日志(重跑会备份为 .backup.<时间戳>.log)
+├── 00_pipeline_info/
+│   └── software_versions.yml         # EDTA 与模块版本
+├── 01_edta_raw/                      # EDTA 原生产物(运行结束自动归集到这里)
+│   ├── {genome}.mod.EDTA.raw/        # 各类型原始候选(中间产物, --debug 0 可能被清理)
+│   │   ├── {genome}.mod.LTR.raw.fa
+│   │   ├── {genome}.mod.TIR.raw.fa
+│   │   ├── {genome}.mod.Helitron.raw.fa
+│   │   └── ...
+│   ├── {genome}.mod.EDTA.TElib.fa    # 非冗余 TE 库(核心产物)
+│   ├── {genome}.mod.EDTA.TElib.novel.fa # 新鉴定 TE(不属于已知库的部分)
+│   ├── {genome}.mod.EDTA.TEanno.gff3 # 全基因组 TE 注释(--anno 1)
+│   └── {genome}.mod.EDTA.TEanno.sum  # 注释统计汇总(--anno 1)
+└── 99_logs/
+    └── edta_analysis.log             # 运行日志
 ```
 
-其中 `{genome}` 是基因组文件名（含 `.fa` 后缀，如 `plant.fa`）。
+注意：运行过程中产物先写在输出目录根（EDTA 以运行目录为写入位置），成功（或 filter 容错续跑成功）后自动归集到 `01_edta_raw/`；归集幂等，重跑安全。
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
@@ -173,13 +175,13 @@ anno   : RepeatMasker 全基因组注释(需 --anno 1)   -> {genome}.mod.EDTA.TE
 | `--cds` | — |  | CDS序列文件｜CDS sequences file |
 | `--curatedlib` | — |  | 筛选TE库｜Curated TE library |
 | `--rmlib` | — |  | RepeatModeler库｜RepeatModeler library |
-| `--sensitive` | `0` | IntRange | 使用RepeatModeler｜Use RepeatModeler |
+| `--sensitive` | `0` | IntRange | 敏感模式RepeatModeler建库｜Sensitive-mode RepeatModeler library |
 | `--anno` | `0` | IntRange | 执行全基因组注释｜Perform whole-genome annotation |
 | `--rmout` | — |  | RepeatMasker输出文件｜RepeatMasker output file |
 | `--maxdiv` | `40` | int | 最大分歧度｜Maximum divergence |
 | `--evaluate` | `0` | IntRange | 评估注释一致性｜Evaluate annotation consistency |
 | `--exclude` | — |  | 排除区域BED文件｜Exclude regions BED file |
-| `--force` | `0` | IntRange | 强制使用水稻TE｜Force to use rice TEs |
+| `--force` | `0` | IntRange | 强制继续过滤步骤(自动填充缺失TE文件)｜Force filtering (auto-fill missing TE files) |
 | `--u` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--debug` | `0` | IntRange | 保留中间文件｜Retain intermediate files |
@@ -197,13 +199,13 @@ anno   : RepeatMasker 全基因组注释(需 --anno 1)   -> {genome}.mod.EDTA.TE
 | `--cds` | — |  | CDS序列文件｜CDS sequences file |
 | `--curatedlib` | — |  | 筛选TE库｜Curated TE library |
 | `--rmlib` | — |  | RepeatModeler库｜RepeatModeler library |
-| `--sensitive` | `0` | 0/1 | 使用RepeatModeler｜Use RepeatModeler |
+| `--sensitive` | `0` | 0/1 | 敏感模式RepeatModeler建库(同源阈值放宽)｜Sensitive-mode RepeatModeler library |
 | `--anno` | `0` | 0/1 | 执行全基因组注释｜Perform whole-genome annotation |
 | `--rmout` | — |  | RepeatMasker输出文件｜RepeatMasker output file |
 | `--maxdiv` | `40` | int | 最大分歧度｜Maximum divergence |
 | `--evaluate` | `0` | 0/1 | 评估注释一致性｜Evaluate annotation consistency |
 | `--exclude` | — |  | 排除区域BED文件｜Exclude regions BED file |
-| `--force` | `0` | 0/1 | 强制使用水稻TE｜Force to use rice TEs |
+| `--force` | `0` | 0/1 | 强制继续过滤步骤(自动填充缺失TE文件)｜Force filtering (auto-fill missing TE files) |
 | `--u` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--debug` | `0` | 0/1 | 保留中间文件｜Retain intermediate files |
@@ -239,3 +241,9 @@ EDTA 有断点续传，复用旧中间文件。换过滤参数重跑时加 `--ov
 
 **Q5：非模式物种没给 `--cds`，注释假阳性很多怎么办？**
 提供该物种的 CDS 文件（`--cds`），EDTA 会用它把混进 TE 库的真基因过滤掉，显著降低假阳性。
+
+## 已知限制与预检 | Known limits & prechecks
+
+- **序列 ID ≤13 字符**：EDTA/RepeatMasker 对序列 ID 有 13 字符硬限（如 `HiC_scaffold_100` 会撞限），模块在 `validate` 阶段预检并直接报错提示改名（`biopytools chr_rename` / `assembly_qc`），避免数小时运行中途失败
+- **输出位置**：EDTA 原生结果（`{genome}.mod.EDTA.*`）生成在模块输出目录（EDTA 以运行目录为写入位置），不写在基因组旁
+- **环境**：默认走 `edta_v.2.3.0` 域解析（env_map 注册 `EDTA.pl`/`panEDTA.sh`）；可用 `--edta-path` 或 `EDTA_PATH`/`PANEDTA_PATH` 环境变量显式指定安装目录
