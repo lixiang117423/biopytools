@@ -1,3 +1,8 @@
+## [1.58.0] - 2026-08-31
+
+### Added
+- `nlr_annotator`(模块 1.2.0): 目录模式新增多样本汇总 GFF `nlr_annotator_summary.gff`(与 `nlr_annotator_summary.tsv` 逐行一致——seqid 保持 gene_id 原样,每条记录附 `sample` 属性,ID/Name 加 `{样本}:` 前缀保 GFF3 ID 全局唯一;不同样本共享 seqid 时打 WARNING);`tsv_to_gff` 重构抽出 `_parse_tsv_records`/`_build_attributes`/`_format_gff_record` 供单样本与汇总 GFF 共用;`--merge-only` 与目录模式均自动补出汇总 GFF
+
 ## [1.57.1] - 2026-08-31
 
 ### Fixed
