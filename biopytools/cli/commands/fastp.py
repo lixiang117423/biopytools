@@ -64,7 +64,7 @@ def _validate_output_dir(dir_path):
               type=int,
               default=12,
               show_default=True,
-              help='线程数|Number of threads')
+              help='线程数(fastp worker上限16,超出自动钳制)|Number of threads (fastp worker threads capped at 16; excess is clamped automatically)')
 @click.option('--quality-threshold', '-q',
               type=int,
               default=30,

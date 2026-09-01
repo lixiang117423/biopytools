@@ -8,6 +8,12 @@ import subprocess
 from pathlib import Path
 from .utils import CommandRunner
 
+# fastp 1.x 实测 -w>16 会进入死态(95线程互卡、仅0.3核在动、零输出);
+# 官方文档建议 worker 上限 16, 超出一律钳制
+# |fastp 1.x stalls with -w>16 (measured: 95 threads wedged, ~0.3 core,
+# zero output); docs cap worker threads at 16, so clamp any excess
+FASTP_MAX_WORKER_THREADS = 16
+
 
 class FastpCore:
     """FASTP核心处理器|FASTP Core Processor"""
@@ -24,6 +30,16 @@ class FastpCore:
         self.config = config
         self.logger = logger
         self.cmd_runner = cmd_runner
+
+        # 钳制worker线程数, 防止 -w>16 死态|Clamp worker threads to avoid stall
+        self.worker_threads = min(config.threads, FASTP_MAX_WORKER_THREADS)
+        if config.threads > FASTP_MAX_WORKER_THREADS:
+            self.logger.warning(
+                f"fastp worker线程数上限为{FASTP_MAX_WORKER_THREADS}, "
+                f"已从 {config.threads} 钳制为 {self.worker_threads}"
+                f"|fastp worker threads capped at {FASTP_MAX_WORKER_THREADS}: "
+                f"{config.threads} -> {self.worker_threads}"
+            )
 
     def create_output_directories(self):
         """创建输出目录|Create output directories"""
@@ -117,7 +133,7 @@ class FastpCore:
             "-o", str(final_read1),
             "-h", str(html_report),
             "-j", str(json_report),
-            "-w", str(self.config.threads),
+            "-w", str(self.worker_threads),
             "-q", str(self.config.quality_threshold),
             "-l", str(self.config.min_length),
             "-u", str(self.config.unqualified_percent),
@@ -236,7 +252,7 @@ class FastpCore:
             "-O", str(out2),
             "-h", str(html_report),
             "-j", str(json_report),
-            "-w", str(self.config.threads),
+            "-w", str(self.worker_threads),
             "-q", str(self.config.quality_threshold),
             "-l", str(self.config.min_length),
             "-u", str(self.config.unqualified_percent),

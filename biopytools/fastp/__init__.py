@@ -5,7 +5,7 @@ FASTQ质控工具包|FASTQ Quality Control Toolkit
 Features: Complete pipeline for batch FASTQ quality control using fastp
 
 作者|Author: Xiang LI
-版本|Version: 1.1.0
+版本|Version: 1.1.1
 日期|Date: 2026-09-01
 
 使用示例|Usage Examples:
@@ -26,7 +26,7 @@ Features: Complete pipeline for batch FASTQ quality control using fastp
     python -m fastp.main -i raw_data/ -o clean_data/ -t 12
 """
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 __author__ = "Xiang LI"
 
 from .main import FastpProcessor

@@ -12,7 +12,7 @@ from .processing import FastpCore
 from .results import SummaryGenerator
 
 # 版本信息|Version information
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 
 class FastpProcessor:
@@ -157,7 +157,7 @@ def parse_arguments():
     optional.add_argument("--fastp-path", default="fastp",
                          help="fastp可执行文件路径|fastp executable path")
     optional.add_argument("-t", "--threads", type=int, default=12,
-                         help="线程数|Number of threads")
+                         help="线程数(fastp worker上限16,超出自动钳制)|Number of threads (fastp worker threads capped at 16; excess is clamped automatically)")
     optional.add_argument("-q", "--quality-threshold", type=int, default=30,
                          help="质量阈值|Quality threshold")
     optional.add_argument("-l", "--min-length", type=int, default=50,

@@ -51,7 +51,7 @@ biopytools fastp -i raw_data/ -o clean_data/
 
 ### 线程数 | Threads
 
-**通俗理解|In plain words:** `-t` 控制 fastp 和 seqkit pair 的并行度，默认 12。机器核多可调大加速，核少调小避免抢占资源。
+**通俗理解|In plain words:** `-t` 控制 fastp 的 worker 线程数，默认 12。**fastp 的 worker 上限是 16**：实测给到 16 以上（如 `-t 88`）fastp 会进入"假死"状态——线程互相卡住、几乎不占 CPU、永远不出结果。所以模块会把超过 16 的值自动钳制到 16 并打印 WARNING；调 `-t` 在 1-16 之间有意义，核多也**不要超过 16**。
 
 ### 质控阈值 | QC thresholds
 
@@ -139,11 +139,11 @@ clean_data/
 
 ## 参数选择建议 | Parameter Guidance
 
-- **标准双末端批量质控**：默认参数 + 保持 pair 开启即可
+- **标准双末端批量质控**：默认参数即可（默认只跑 fastp，输出天然严格配对）
 - **单末端长读（HiFi）**：`-i file.fq -o out`，程序自动识别单末端
 - **数据质量差、想更严格**：调高 `-q`（如 30→35）、调低 `-u`（如 40→20）
 - **想保留更多短 read**：调低 `-l`（如 50→30）
-- **确定数据已严格配对、想提速**：加 `--disable-pair`
+- **怀疑上游数据本身错位、需要强制配对**：加 `--enable-pair` 启用 seqkit pair 修复
 - **先看命令不真跑**：加 `--dry-run`
 
 <!-- BEGIN PARAMS:auto -->
@@ -159,7 +159,7 @@ clean_data/
 | `--input, -i` | 必填 |  | 输入原始FASTQ数据目录或文件｜Input raw FASTQ data directory or file |
 | `--output-dir, -o` | 必填 |  | 输出清洁FASTQ数据目录｜Output clean FASTQ data directory |
 | `--fastp-path` | `fastp` |  | fastp可执行文件路径｜fastp executable path |
-| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--threads, -t` | `12` | int | 线程数(fastp worker上限16,超出自动钳制)｜Number of threads (fastp worker threads capped at 16; excess is clamped automatically) |
 | `--quality-threshold, -q` | `30` | int | 质量阈值｜Quality threshold |
 | `--min-length, -l` | `50` | int | 最小长度｜Minimum length |
 | `--unqualified-percent, -u` | `40` | int | 不合格碱基百分比阈值｜Unqualified base percentage threshold |
@@ -184,7 +184,7 @@ clean_data/
 | `-i, --input` | 必填 |  | 输入原始FASTQ数据目录｜Input raw FASTQ data directory |
 | `-o, --output-dir` | 必填 |  | 输出清洁FASTQ数据目录｜Output clean FASTQ data directory |
 | `--fastp-path` | `fastp` |  | fastp可执行文件路径｜fastp executable path |
-| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-t, --threads` | `12` | int | 线程数(fastp worker上限16,超出自动钳制)｜Number of threads (fastp worker threads capped at 16; excess is clamped automatically) |
 | `-q, --quality-threshold` | `30` | int | 质量阈值｜Quality threshold |
 | `-l, --min-length` | `50` | int | 最小长度｜Minimum length |
 | `-u, --unqualified-percent` | `40` | int | 不合格碱基百分比阈值｜Unqualified base percentage threshold |
@@ -228,3 +228,6 @@ clean_data/
 
 **Q5：R1/R2 的 read 名字带 /1、/2 或空格格式，pair 能处理吗？**
 能。seqkit pair 步骤会自动检测 read 名配对格式（`/1``/2`、`.1``.2`、`_1``_2`、Casava 空格格式、无后缀等）并生成对应的 `--id-regexp`，无需手动指定。
+
+**Q6：给了很大的 `-t`（如 88），为什么作业"假死"——不报错、几乎不占 CPU、永远没结果？**
+fastp 的 worker 线程上限是 16，实测超过后（如 `-w 88`）线程互相卡死：作业显示在跑、CPU 几乎为零、输出 0 字节。v1.1.1 起模块自动把 `-t` 钳制到 16 并打印 WARNING，无需手动处理；也建议流程调用时直接给 `-t 16` 以内的值。
