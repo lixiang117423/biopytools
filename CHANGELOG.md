@@ -1,3 +1,8 @@
+## [1.62.0] - 2026-09-01
+
+### Changed
+- `fastp`(模块 1.1.0): seqkit pair 配对修复步骤**默认关闭**——fastp 处理双端数据时本来就一条 pair 一条 pair 地过滤(某条 read 被丢时搭档一起丢),输出 R1/R2 天然严格成对;v1.0.x 默认跑的 seqkit pair 全量复查耗时约翻倍,降为可选(`--enable-pair` 显式开启,`--disable-pair` 向后兼容保留,两 flag 同时给时 disable 优先);main.py 抽出 `parse_arguments()` 便于测试;docs 同步 pair 语义/输出结构(unpaired/ 仅 `--enable-pair` 时产生)
+
 ## [1.61.0] - 2026-09-01
 
 ### Added
