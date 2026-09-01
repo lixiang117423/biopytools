@@ -12,7 +12,7 @@ from .processing import FastpCore
 from .results import SummaryGenerator
 
 # 版本信息|Version information
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 
 class FastpProcessor:
@@ -133,10 +133,8 @@ class FastpProcessor:
         self.logger.info("=" * 60)
 
 
-def main():
-    """主函数|Main function"""
-    start_time = time.time()
-
+def parse_arguments():
+    """解析命令行参数|Parse command line arguments"""
     parser = argparse.ArgumentParser(
         description="FASTQ数据质控批处理脚本|FASTQ Data Quality Control Batch Processing Script",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -176,11 +174,14 @@ def main():
                          help="单末端模式（单文件输入时自动检测，无需手动指定）|Single-end mode (auto-detected for single file input, no need to specify manually)")
 
     # SeqKit配对修复选项|SeqKit pair options
+    # 默认关闭: fastp双端输出本身已严格配对, pair步骤为全量复查, 耗时约翻倍
+    # |Off by default: fastp PE output is already strictly paired; the pair
+    # step is a full re-check that roughly doubles runtime
     pair_group = parser.add_argument_group('配对修复选项|Pair repair options')
-    pair_group.add_argument("--enable-pair", action="store_true", default=True,
-                          help="启用seqkit pair配对修复步骤（默认启用）|Enable seqkit pair step (enabled by default)")
+    pair_group.add_argument("--enable-pair", action="store_true", default=False,
+                          help="启用seqkit pair配对修复步骤（默认关闭,fastp双端输出本身已严格配对）|Enable seqkit pair step (disabled by default; fastp PE output is already strictly paired)")
     pair_group.add_argument("--disable-pair", "--disable-repair", action="store_true", default=False,
-                          help="禁用seqkit pair配对修复步骤|Disable seqkit pair step")
+                          help="显式禁用seqkit pair配对修复步骤（与默认行为一致,向后兼容保留）|Explicitly disable seqkit pair step (same as default, kept for backward compatibility)")
     pair_group.add_argument("--seqkit-path", default="seqkit",
                           help="seqkit可执行文件路径|seqkit executable path")
 
@@ -206,7 +207,14 @@ def main():
     parser.add_argument("-V", "--version", action="version",
                        version=f'%(prog)s {VERSION}')
 
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main():
+    """主函数|Main function"""
+    start_time = time.time()
+
+    args = parse_arguments()
 
     # 确定日志级别|Determine log level
     if args.log_level:

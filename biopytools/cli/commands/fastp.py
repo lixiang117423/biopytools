@@ -98,12 +98,12 @@ def _validate_output_dir(dir_path):
               help='单末端模式（单文件输入时自动检测，无需手动指定）|Single-end mode (auto-detected for single file input, no need to specify manually)')
 @click.option('--enable-pair',
               is_flag=True,
-              default=True,
-              help='启用seqkit pair配对修复步骤（默认启用）|Enable seqkit pair step (enabled by default)')
+              default=False,
+              help='启用seqkit pair配对修复步骤（默认关闭,fastp双端输出本身已严格配对）|Enable seqkit pair step (disabled by default; fastp PE output is already strictly paired)')
 @click.option('--disable-pair', '--disable-repair',
               is_flag=True,
               default=False,
-              help='禁用seqkit pair配对修复步骤|Disable seqkit pair step')
+              help='显式禁用seqkit pair配对修复步骤（与默认行为一致,向后兼容保留）|Explicitly disable seqkit pair step (same as default, kept for backward compatibility)')
 @click.option('--seqkit-path',
               default='seqkit',
               show_default=True,
@@ -176,6 +176,8 @@ def fastp(input, output_dir, fastp_path, threads, quality_threshold,
         args.extend(['--single-end'])
 
     # Pair参数|Pair parameters
+    if enable_pair:
+        args.extend(['--enable-pair'])
     if disable_pair:
         args.extend(['--disable-pair'])
 

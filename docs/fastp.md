@@ -6,7 +6,7 @@
 
 - 批量处理一个目录（或多个样本）的 FASTQ 文件，支持双末端和单末端
 - 用 fastp 做质控：质量阈值、最小长度、不合格碱基比例、N 碱基上限
-- 默认启用 seqkit pair 配对修复，保证质控后 R1/R2 严格成对
+- 默认只跑 fastp（可选 `--enable-pair` 追加 seqkit pair 配对修复；fastp 双端输出本身已严格成对）
 - 自动检测后缀（`_1.fq.gz`/`_2.fq.gz`、`_1.fastq.gz`/`_2.fastq.gz`）、自动识别单末端
 - 内置模拟数据检测（质量值全同自动把质量阈值降为 0，避免全丢）
 - 支持断点续传：已完成的样本自动跳过（`--force` 强制重跑）
@@ -71,7 +71,7 @@ biopytools fastp -i raw_data/ -o clean_data/
 
 ### 配对修复 | Pair repair
 
-**通俗理解|In plain words:** 默认会多跑一步 seqkit pair，把质控后「落单」的 reads 分离到 `unpaired/` 目录，保证最终 R1/R2 严格成对（下游很多工具要求两端数量一致）。这一步会稍微多花一点时间，但换来的是干净、成对的 clean 数据。**建议保持默认开启**；确定自己数据已严格配对、想省时间时才用 `--disable-pair` 关掉。
+**通俗理解|In plain words:** **默认只跑 fastp，不做配对检查**——fastp 处理双端数据时本来就一条 pair 一条 pair 地过滤，某条 read 被丢时它的搭档也一起丢，所以输出的 R1/R2 天然严格成对，不需要额外修复。v1.0.x 版本默认会多跑一步 seqkit pair 全量复查（把「落单」reads 分离到 `unpaired/`），它能保证配对但会把整个流程耗时翻倍，v1.1.0 起改为默认关闭。确有需求（比如怀疑上游数据本身已错位）时用 `--enable-pair` 显式开启。
 
 ### 日志选项 | Logging
 
@@ -97,7 +97,7 @@ biopytools fastp -i raw_data/ -o clean_data/
   |
   v
 4. 逐样本处理:
-   双末端: fastp 质控 -> seqkit pair 配对修复 -> 最终 clean 文件
+   双末端: fastp 质控 -> 最终 clean 文件 (--enable-pair 时多一步 seqkit pair 修复)
    单末端: fastp 质控 -> 最终 clean 文件
    (已存在最终输出则跳过,除非 --force)
   |
@@ -115,7 +115,7 @@ clean_data/
 ├── fastp_reports/
 │   ├── sample1.html               # 质控报告(浏览器打开)
 │   └── sample1.json               # 质控报告(机器可读)
-├── unpaired/                      # 配对修复挑出的"落单"reads(启用 pair 时)
+├── unpaired/                      # 配对修复挑出的"落单"reads(仅 --enable-pair 时)
 ├── fastp_processing_summary.txt   # 总览报告
 └── fastp_processing.log           # 运行日志
 ```
@@ -125,7 +125,7 @@ clean_data/
 - **clean 文件**：质控后的干净数据，是下游分析的直接输入
 - **fastp_reports/*.html**：fastp 的图形化质控报告，含碱基质量、GC 含量、接头含量、过滤统计等
 - **fastp_reports/*.json**：同一份报告的机器可读版本
-- **unpaired/**：seqkit pair 分离出的无法配对的 reads，一般不参与下游分析，可留作记录或删除
+- **unpaired/**：seqkit pair 分离出的无法配对的 reads（仅 `--enable-pair` 时产生），一般不参与下游分析，可留作记录或删除
 - **fastp_processing_summary.txt**：总样本数、成功/失败数、成功率、所用参数的总览
 
 ## 结果解读 | Interpreting Results
@@ -135,7 +135,7 @@ clean_data/
 - **成功 / 失败数**：日志末尾「成功处理 / 失败样本」应为 0 失败；有失败样本看日志里对应样本的报错
 - **过滤比例**：HTML 报告里「过滤前后 reads 数」。过滤掉的比例过高（如 >50%）提示数据质量差或阈值过严
 - **质量曲线**：HTML 报告里的碱基质量分布，好的数据整体质量值高、末端略有下降属正常
-- **好坏判据**：失败样本为 0、R1/R2 的 clean reads 数相等（启用 pair 后应相等）、过滤比例在合理范围
+- **好坏判据**：失败样本为 0、R1/R2 的 clean reads 数相等（fastp 双端处理天然保证相等）、过滤比例在合理范围
 
 ## 参数选择建议 | Parameter Guidance
 
@@ -167,8 +167,8 @@ clean_data/
 | `--read1-suffix` | — |  | Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz｜Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz |
 | `--read2-suffix` | — |  | Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz｜Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz |
 | `--single-end` | — |  | 单末端模式（单文件输入时自动检测，无需手动指定）｜Single-end mode (auto-detected for single file input, no need to specify manually) |
-| `--enable-pair` | `True` |  | 启用seqkit pair配对修复步骤（默认启用）｜Enable seqkit pair step (enabled by default) |
-| `--disable-pair, --disable-repair` | `False` |  | 禁用seqkit pair配对修复步骤｜Disable seqkit pair step |
+| `--enable-pair` | `False` |  | 启用seqkit pair配对修复步骤（默认关闭,fastp双端输出本身已严格配对）｜Enable seqkit pair step (disabled by default; fastp PE output is already strictly paired) |
+| `--disable-pair, --disable-repair` | `False` |  | 显式禁用seqkit pair配对修复步骤（与默认行为一致,向后兼容保留）｜Explicitly disable seqkit pair step (same as default, kept for backward compatibility) |
 | `--seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
 | `--verbose, -v` | — |  | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
 | `--quiet` | — |  | 静默模式(仅输出ERROR)｜Quiet mode (ERROR only) |
@@ -192,8 +192,8 @@ clean_data/
 | `--read1-suffix` | — |  | Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz｜Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz |
 | `--read2-suffix` | — |  | Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz｜Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz |
 | `--single-end` | — | store_true | 单末端模式（单文件输入时自动检测，无需手动指定）｜Single-end mode (auto-detected for single file input, no need to specify manually) |
-| `--enable-pair` | `True` | store_true | 启用seqkit pair配对修复步骤（默认启用）｜Enable seqkit pair step (enabled by default) |
-| `--disable-pair, --disable-repair` | `False` | store_true | 禁用seqkit pair配对修复步骤｜Disable seqkit pair step |
+| `--enable-pair` | `False` | store_true | 启用seqkit pair配对修复步骤（默认关闭,fastp双端输出本身已严格配对）｜Enable seqkit pair step (disabled by default; fastp PE output is already strictly paired) |
+| `--disable-pair, --disable-repair` | `False` | store_true | 显式禁用seqkit pair配对修复步骤（与默认行为一致,向后兼容保留）｜Explicitly disable seqkit pair step (same as default, kept for backward compatibility) |
 | `--seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
 | `-v, --verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
 | `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |

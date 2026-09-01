@@ -45,7 +45,10 @@ class FastpConfig:
     dry_run: bool = False
 
     # SeqKit配对修复配置|SeqKit pair configuration
-    enable_pair: bool = True  # 是否启用seqkit pair配对修复步骤（默认启用）|Whether to enable seqkit pair step (enabled by default)
+    # 默认关闭: fastp双端输出本身已严格配对, pair步骤为全量复查, 耗时约翻倍
+    # |Off by default: fastp PE output is already strictly paired; the pair
+    # step is a full re-check that roughly doubles runtime
+    enable_pair: bool = False  # 是否启用seqkit pair配对修复步骤（默认关闭）|Whether to enable seqkit pair step (disabled by default)
     seqkit_path: str = "seqkit"  # seqkit可执行文件路径|seqkit executable path
 
     def __post_init__(self):
