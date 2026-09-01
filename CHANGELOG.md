@@ -1,3 +1,8 @@
+## [1.61.0] - 2026-09-01
+
+### Added
+- `primer3`(模块 1.2.0): 新增并行执行——`--threads`(`-t`,默认 12)+ `--parallel-threshold`(默认 500);primer3_core 单线程,并行=把序列按全局顺序均分给多个 primer3_core 进程(ThreadPoolExecutor 并发,块输出到 output_dir/tmp 后按块序合并,输出与单进程逐字节一致);序列数低于阈值或 `--threads 1` 时保持单进程(stdout 直写 done-marker);任一块失败则整体失败且不落合并产物(断点续传只认最终文件);`--parallel-threshold 0` 可让任意批量都并行
+
 ## [1.60.0] - 2026-08-31
 
 ### Added
