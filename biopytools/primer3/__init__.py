@@ -2,8 +2,8 @@
 Primer3引物设计工具包|Primer3 Primer Design Toolkit
 功能: 批量PCR引物设计的完整流程|Features: Complete pipeline for batch PCR primer design
 作者|Author: Xiang LI
-版本|Version: 1.1.0
-日期|Date: 2026-08-31
+版本|Version: 1.2.0
+日期|Date: 2026-09-01
 
 使用示例|Usage Examples:
     from biopytools.primer3 import Primer3Evaluator, Primer3Config
@@ -18,7 +18,7 @@ Primer3引物设计工具包|Primer3 Primer Design Toolkit
     evaluator.run_design()
 """
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 __author__ = "Xiang LI"
 
 from .evaluator import Primer3Evaluator

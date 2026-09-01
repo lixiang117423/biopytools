@@ -77,6 +77,12 @@ def parse_arguments():
     parser.add_argument('--product-size-max-ratio', type=float, default=1.0,
                        help='产物最大长度占序列长度的比例|Max product size ratio to sequence length (default: 1.0)')
 
+    # 并行参数|Parallel parameters
+    parser.add_argument('-t', '--threads', type=int, default=12,
+                       help='并行进程数, 序列数达到阈值时生效(primer3_core单线程, 并行为多进程)|Parallel process count, active when sequence count reaches threshold (primer3_core is single-threaded; parallelism is multi-process)')
+    parser.add_argument('--parallel-threshold', type=int, default=500,
+                       help='触发并行的序列数阈值, 低于该值保持单进程|Sequence count threshold to trigger parallel running; below it a single process is used')
+
     return parser.parse_args()
 
 
@@ -106,7 +112,9 @@ def main():
             primer_end_margin=args.primer_end_margin,
             auto_product_size=args.auto_product_size,
             product_size_min_ratio=args.product_size_min_ratio,
-            product_size_max_ratio=args.product_size_max_ratio
+            product_size_max_ratio=args.product_size_max_ratio,
+            threads=args.threads,
+            parallel_threshold=args.parallel_threshold
         )
 
         # 运行引物设计|Run primer design

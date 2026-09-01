@@ -140,13 +140,24 @@ def _validate_file_exists(file_path):
               default=1.0,
               show_default=True,
               help='产物最大长度占序列长度的比例|Max product size ratio to sequence length (default: 1.0)')
+@click.option('--threads', '-t',
+              type=int,
+              default=12,
+              show_default=True,
+              help='并行进程数, 序列数达到阈值时生效(primer3_core单线程, 并行为多进程)|Parallel process count, active when sequence count reaches threshold (primer3_core is single-threaded; parallelism is multi-process)')
+@click.option('--parallel-threshold',
+              type=int,
+              default=500,
+              show_default=True,
+              help='触发并行的序列数阈值, 低于该值保持单进程|Sequence count threshold to trigger parallel running; below it a single process is used')
 def primer3(input_fasta, output_dir, primer3_core_path,
             primer_min_size, primer_opt_size, primer_max_size,
             primer_min_tm, primer_opt_tm, primer_max_tm,
             product_min_size, product_max_size, primer_num_return,
             primer_max_ns, primer_gc_clamp, output_format, output_header_lang,
             method, primer_end_margin, auto_product_size,
-            product_size_min_ratio, product_size_max_ratio):
+            product_size_min_ratio, product_size_max_ratio,
+            threads, parallel_threshold):
     """
     Primer3引物设计工具|Primer3 Primer Design Tool
 
@@ -199,6 +210,10 @@ def primer3(input_fasta, output_dir, primer3_core_path,
 
     args.extend(['--product-size-min-ratio', str(product_size_min_ratio)])
     args.extend(['--product-size-max-ratio', str(product_size_max_ratio)])
+
+    # 并行参数|Parallel parameters
+    args.extend(['-t', str(threads)])
+    args.extend(['--parallel-threshold', str(parallel_threshold)])
 
     # 执行主程序|Execute main program
     original_argv = sys.argv

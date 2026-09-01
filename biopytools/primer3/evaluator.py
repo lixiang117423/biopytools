@@ -3,6 +3,7 @@ Primer3引物设计评估器|Primer3 Primer Design Evaluator
 """
 
 import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from ..common.conda_runner import CommandRunner, build_conda_command
@@ -67,19 +68,16 @@ class Primer3Evaluator:
                 f"成功解析|Successfully parsed {format_number(len(sequences))} 条序列|sequences"
             )
 
-            # 步骤3: 生成Primer3输入文件|Step 3: Generate Primer3 input file
-            self.logger.info("步骤3: 生成Primer3输入格式|Step 3: Generating Primer3 input format")
-            primer3_input = self._generate_primer3_input(sequences)
+            # 步骤3: 运行Primer3(断点续传; 达阈值自动并行)
+            # |Step 3: Run Primer3 (resume; auto-parallel at threshold)
+            self._run_primer3(sequences)
 
-            # 步骤4: 运行Primer3(支持断点续传)|Step 4: Run Primer3 (checkpoint resume)
-            self._run_primer3(primer3_input)
-
-            # 步骤5: 解析Primer3输出|Step 5: Parse Primer3 output
-            self.logger.info("步骤5: 解析Primer3输出结果|Step 5: Parsing Primer3 output")
+            # 步骤4: 解析Primer3输出|Step 4: Parse Primer3 output
+            self.logger.info("步骤4: 解析Primer3输出结果|Step 4: Parsing Primer3 output")
             parsed_results = self._parse_primer3_output()
 
-            # 步骤6: 格式化并保存结果|Step 6: Format and save results
-            self.logger.info("步骤6: 格式化并保存结果|Step 6: Formatting and saving results")
+            # 步骤5: 格式化并保存结果|Step 5: Format and save results
+            self.logger.info("步骤5: 格式化并保存结果|Step 5: Formatting and saving results")
             self._format_and_save_results(parsed_results, sequences)
 
             self.logger.info("Primer3引物设计流程完成|Primer3 primer design pipeline completed")
@@ -103,17 +101,23 @@ class Primer3Evaluator:
         generator = Primer3InputGenerator(settings)
         return generator.generate_batch_input(sequences, self.config)
 
-    def _run_primer3(self, primer3_input: str):
+    def _run_primer3(self, sequences):
         """
-        运行Primer3(单次执行+断点续传)|Run Primer3 (single execution + checkpoint resume)
+        运行Primer3(断点续传; 达阈值自动并行)|Run Primer3 (resume; auto-parallel at threshold)
 
-        stdout 直接重定向到 01_primer_design/primer3_output.txt:
-        既避免大输出内存缓冲, 又天然形成断点续传 done-marker。
-        |stdout redirects straight to 01_primer_design/primer3_output.txt:
-        avoids buffering large outputs and doubles as the resume done-marker.
+        primer3_core 本身单线程, 并行=把序列均分给多个 primer3_core 进程。
+        序列数 < parallel_threshold 或 threads=1 时单次执行, stdout 直写
+        01_primer_design/primer3_output.txt(兼断点续传 done-marker);
+        达到阈值则按 threads 切块并行, 完成后按块顺序合并, 输出与单进程
+        完全一致; 任一块失败则整体失败且不落合并产物。
+        |primer3_core is single-threaded; parallelism splits sequences across
+        multiple primer3_core processes. Below threshold or threads=1: one
+        run whose stdout lands on the resume done-marker; at threshold:
+        chunked concurrent runs merged in chunk order (byte-identical to the
+        single-process output); any failed chunk fails the whole run.
 
         Args:
-            primer3_input: Primer3输入格式字符串|Primer3 input format string
+            sequences: 序列列表[(seq_id, seq), ...]|Sequence list
         """
         if self._is_step_completed(self.primer3_output_file):
             self.logger.info(
@@ -121,6 +125,40 @@ class Primer3Evaluator:
             )
             return
 
+        n_seqs = len(sequences)
+        use_parallel = (
+            self.config.threads > 1 and n_seqs >= self.config.parallel_threshold
+        )
+
+        if not use_parallel:
+            primer3_input = self._generate_primer3_input(sequences)
+            self._run_primer3_single(primer3_input)
+            return
+
+        n_chunks = min(self.config.threads, n_seqs)
+        self.logger.info(
+            f"序列数 {n_seqs} 达到阈值 {self.config.parallel_threshold}, "
+            f"启动 {n_chunks} 个primer3进程并行|"
+            f"{n_seqs} sequences >= threshold {self.config.parallel_threshold}, "
+            f"running {n_chunks} primer3 processes in parallel"
+        )
+        chunks = self._split_sequences(sequences, n_chunks)
+        self._run_primer3_parallel(chunks)
+
+    @staticmethod
+    def _split_sequences(sequences, n_chunks):
+        """按全局顺序均分为至多n块(每块非空)|Split into <=n_chunks ordered non-empty chunks"""
+        n_seqs = len(sequences)
+        chunk_size = (n_seqs + n_chunks - 1) // n_chunks
+        return [sequences[i:i + chunk_size] for i in range(0, n_seqs, chunk_size)]
+
+    def _run_primer3_single(self, primer3_input: str):
+        """
+        单进程执行primer3(stdout直写done-marker)|Single-process run (stdout to done-marker)
+
+        Args:
+            primer3_input: Primer3输入格式字符串|Primer3 input format string
+        """
         # 临时输入文件写入 output_dir/tmp(§12.4, 防超算 /tmp 爆满)
         # |Temp input under output_dir/tmp (§12.4, avoid filling HPC /tmp)
         with tempfile.NamedTemporaryFile(
@@ -144,6 +182,70 @@ class Primer3Evaluator:
                 raise RuntimeError(f"Primer3运行失败|Primer3 execution failed: {stderr}")
         finally:
             Path(tmp_input_path).unlink(missing_ok=True)
+
+    def _run_primer3_parallel(self, chunks):
+        """
+        并行执行多个primer3_core并按块序合并|Run chunks concurrently, merge in order
+
+        Args:
+            chunks: 序列块列表|List of sequence chunks
+        """
+        n_chunks = len(chunks)
+        chunk_outputs = [
+            self.tmp_dir / f"primer3_chunk_{i:03d}.txt" for i in range(n_chunks)
+        ]
+
+        def _run_chunk(chunk_index: int):
+            """执行单块并返回(块号, 是否成功, 错误)|Run one chunk, return (index, success, stderr)"""
+            chunk_input = self._generate_primer3_input(chunks[chunk_index])
+            with tempfile.NamedTemporaryFile(
+                mode='w', suffix='.txt', delete=False, dir=self.tmp_dir,
+                prefix=f"chunk_{chunk_index:03d}_",
+            ) as tmp_input:
+                tmp_input.write(chunk_input)
+                tmp_input_path = tmp_input.name
+            try:
+                cmd = build_conda_command(self.config.primer3_core_path, [tmp_input_path])
+                success, _, stderr = self.cmd_runner.run(
+                    cmd,
+                    description=(
+                        f"Primer3引物设计(块 {chunk_index + 1}/{n_chunks})|"
+                        f"Primer3 primer design (chunk {chunk_index + 1}/{n_chunks})"
+                    ),
+                    output_file=str(chunk_outputs[chunk_index]),
+                )
+                return chunk_index, success, stderr
+            finally:
+                Path(tmp_input_path).unlink(missing_ok=True)
+
+        try:
+            with ThreadPoolExecutor(max_workers=n_chunks) as pool:
+                futures = [pool.submit(_run_chunk, i) for i in range(n_chunks)]
+                failures = []
+                for future in as_completed(futures):
+                    chunk_index, success, stderr = future.result()
+                    if not success:
+                        failures.append((chunk_index, stderr))
+
+            if failures:
+                # 任一块失败即整体失败; 合并产物不落盘, 断点续传只认最终文件
+                # |Any failed chunk fails the run; no merged marker is written
+                chunk_index, stderr = sorted(failures)[0]
+                raise RuntimeError(
+                    f"Primer3运行失败(块 {chunk_index + 1}/{n_chunks})|"
+                    f"Primer3 execution failed (chunk {chunk_index + 1}/{n_chunks}): {stderr}"
+                )
+
+            # 按块顺序合并, 输出与单进程执行完全一致|Merge in chunk order
+            with open(self.primer3_output_file, 'w', encoding='utf-8') as out_fh:
+                for chunk_output in chunk_outputs:
+                    out_fh.write(chunk_output.read_text(encoding='utf-8'))
+            self.logger.info(
+                f"并行执行完成, 已合并到|Parallel run merged into: {self.primer3_output_file}"
+            )
+        finally:
+            for chunk_output in chunk_outputs:
+                chunk_output.unlink(missing_ok=True)
 
     def _parse_primer3_output(self):
         """解析Primer3输出文件|Parse Primer3 output file"""

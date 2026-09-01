@@ -60,6 +60,12 @@ class Primer3Config:
     product_size_min_ratio: float = 0.5  # 产物最小长度占序列长度的比例|Min product size ratio to sequence length
     product_size_max_ratio: float = 1.0  # 产物最大长度占序列长度的比例|Max product size ratio to sequence length
 
+    # 并行参数|Parallel parameters
+    # primer3_core 本身单线程, 并行=多进程各跑一段输入|primer3_core is single-threaded;
+    # parallelism = multiple processes each taking a slice of the input
+    threads: int = 12  # 并行进程数(达到阈值时生效)|Parallel process count (active at threshold)
+    parallel_threshold: int = 500  # 触发并行的序列数阈值|Sequence count threshold to trigger parallel
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 根据method自动设置primer_force_ends|Auto-set primer_force_ends based on method
@@ -128,6 +134,12 @@ class Primer3Config:
         valid_langs = ['zh', 'en']
         if self.output_header_lang not in valid_langs:
             errors.append(f"表头语言无效|Invalid header language: {self.output_header_lang}, 支持|supported: {valid_langs}")
+
+        # 验证并行参数|Validate parallel parameters
+        if self.threads < 1:
+            errors.append(f"线程数必须为正数|Thread count must be positive: {self.threads}")
+        if self.parallel_threshold < 0:
+            errors.append(f"序列数阈值不允许为负|Parallel threshold must not be negative: {self.parallel_threshold}")
 
         if errors:
             raise ValueError("\n".join(errors))

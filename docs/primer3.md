@@ -9,6 +9,7 @@
 - 引物长度、退火温度（Tm）、产物大小、引物对数量等参数全部可调
 - 结果输出 CSV/TSV/XLSX，中英文表头可选，含二聚体与发夹结构热力学评估值
 - 支持断点续传：primer3 原始输出已存在时自动跳过重新计算
+- 序列数达到阈值（默认 500 条）自动切换多进程并行，小批量保持单进程；两种模式输出完全一致
 - 自动记录软件版本到 `00_pipeline_info/software_versions.yml`
 
 ## 快速开始 | Quick Start
@@ -60,6 +61,10 @@ TTTGGGGCCCCAAAATTTTGGGGCCCCAAAA...
 
 **通俗理解|In plain words:** 这组管"引物允许站在序列的哪些位置"。`all`（默认）把两条引物分别钉在序列头尾 `--primer-end-margin` bp 的范围内，适合"我要扩增这整段序列"的场景；`random` 允许引物落在序列任何位置，适合"只要在这个序列里扩增出一段就行"的场景。`--auto-product-size` 在 `all` 模式下让产物覆盖整条序列，无需手算。
 
+### 并行 | Parallel
+
+**通俗理解|In plain words:** 这组管"跑得快不快"。Primer3 程序本身一次只能算一条序列（单线程），所以并行不是让它"多长几只手"，而是同时开多个 Primer3 程序、每份只算一部分序列，最后按原顺序拼起来——结果与单进程逐字节一致。什么时候生效由序列数说了算：不到 `--parallel-threshold`（默认 500 条）就单进程安静跑完，达到了才自动开 `--threads`（默认 12）个进程。一般两个参数都不用动；想让小批量也并行，把阈值调到 0 即可，`--threads 1` 则彻底关闭并行。
+
 <!-- BEGIN PARAMS:auto -->
 
 ## 参数速查 | Parameter reference
@@ -91,6 +96,8 @@ TTTGGGGCCCCAAAATTTTGGGGCCCCAAAA...
 | `--auto-product-size/--no-auto-product-size` | `True` |  | 自动根据序列长度设置产物大小范围(默认开启)｜Auto set product size range based on sequence length (enabled by default) |
 | `--product-size-min-ratio` | `0.5` | float | 产物最小长度占序列长度的比例｜Min product size ratio to sequence length (default: 0.5) |
 | `--product-size-max-ratio` | `1.0` | float | 产物最大长度占序列长度的比例｜Max product size ratio to sequence length (default: 1.0) |
+| `--threads, -t` | `12` | int | 并行进程数, 序列数达到阈值时生效(primer3_core单线程, 并行为多进程)｜Parallel process count, active when sequence count reaches threshold (primer3_core is single-threaded; parallelism is multi-process) |
+| `--parallel-threshold` | `500` | int | 触发并行的序列数阈值, 低于该值保持单进程｜Sequence count threshold to trigger parallel running; below it a single process is used |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -118,6 +125,8 @@ TTTGGGGCCCCAAAATTTTGGGGCCCCAAAA...
 | `--no-auto-product-size` | — | store_false | 禁用自动产物大小范围｜Disable automatic product size range |
 | `--product-size-min-ratio` | `0.5` | float | 产物最小长度占序列长度的比例｜Min product size ratio to sequence length (default: 0.5) |
 | `--product-size-max-ratio` | `1.0` | float | 产物最大长度占序列长度的比例｜Max product size ratio to sequence length (default: 1.0) |
+| `-t, --threads` | `12` | int | 并行进程数, 序列数达到阈值时生效(primer3_core单线程, 并行为多进程)｜Parallel process count, active when sequence count reaches threshold (primer3_core is single-threaded; parallelism is multi-process) |
+| `--parallel-threshold` | `500` | int | 触发并行的序列数阈值, 低于该值保持单进程｜Sequence count threshold to trigger parallel running; below it a single process is used |
 
 <!-- END PARAMS:auto -->
 
@@ -158,6 +167,7 @@ primer3_output/
 ## 参数选择建议 | Parameter Guidance
 
 - **常规基因检测/克隆筛验证**：默认参数即可
+- **大批量序列（数千条以上）**：保持默认 `--threads 12`（自动并行）；节点核心紧张时降到 `--threads 4-8`
 - **qPCR 引物**：`--product-min-size 70 --product-max-size 200`，Tm 提高到 `--primer-min-tm 60 --primer-opt-tm 62 --primer-max-tm 65`，`--primer-num-return 3` 逐对评估
 - **扩增完整 ORF/片段（几百 bp 到数 kb）**：保持 `--method all`，加大 `--primer-end-margin`；产物范围自动覆盖全序列，无需手算
 - **在长序列内任意找一段扩增**：`--method random`，并用 `--product-min-size/--product-max-size` 指定期望产物区间
@@ -178,3 +188,4 @@ primer3_output/
 - **xlsx 打不开？** 当前 Python 环境缺 `openpyxl`，安装后重跑，或改用 `--output-format csv`。
 - **旧版本（v1.0.0）的输出目录还能用吗？** v1.1.0 起结果移入 `01_primer_design/` 子目录、日志移入 `99_logs/`，与旧版平铺结构不同；旧目录重跑会自动补建新结构并重新计算（旧位置的结果文件不会被读取）。
 - **产物大小为什么被自动改了？** `--auto-product-size` 默认开启，会按序列长度自动设定产物范围（`all` 模式强制覆盖全序列，`random` 模式受全局上限约束）。要手动控制请加 `--no-auto-product-size`。
+- **并行和单进程的结果一样吗？** 一样。并行只是把序列分给多个 Primer3 进程分头计算，最后按原顺序合并，结果表与单进程完全一致；区别只在耗时。
