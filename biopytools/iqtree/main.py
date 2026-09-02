@@ -105,6 +105,10 @@ def main():
     core = parser.add_argument_group('核心参数|Core parameters')
     core.add_argument('-m', '--model',
                      help='进化模型 (不指定则自动选择)|Evolutionary model (auto-select if not specified)')
+    core.add_argument('--sequence-type', choices=['DNA', 'AA', 'BIN', 'MORPH'],
+                     help='序列类型 (不指定则按比对字母表嗅探; NEXUS等格式回退IQ-TREE自动检测)|'
+                          'Sequence type (sniffed from alignment alphabet if omitted; '
+                          'NEXUS etc. fall back to IQ-TREE auto-detection)')
     core.add_argument('-t', '--threads', type=int, default=12,
                      help='线程数|Number of threads (default: 12)')
 
@@ -158,6 +162,7 @@ def main():
         output_dir=args.output_dir,
         prefix=args.prefix,
         model=args.model,
+        sequence_type=args.sequence_type,
         threads=args.threads,
         bootstrap=args.bootstrap,
         bootstrap_type=args.boot_type,

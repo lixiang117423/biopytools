@@ -59,7 +59,7 @@ ATCGATCGATCG
 
 ### 模型与线程 | Model & threads
 
-**通俗理解|In plain words:** 模型参数管「用哪套数学规则建树」。**不懂就完全不写**——不指定时自动用 ModelFinder（MFP）挑最好的，几乎总是最优解；只有你明确要复现某篇文献的模型时才手写。线程数管并行加速，一般不用动。
+**通俗理解|In plain words:** 模型参数管「用哪套数学规则建树」。**不懂就完全不写**——不指定时自动用 ModelFinder（MFP）挑最好的，几乎总是最优解；只有你明确要复现某篇文献的模型时才手写。`--sequence-type` 管「把序列当 DNA 还是当蛋白」——默认程序自动嗅探并显式告知 IQ-TREE，一般不用动；只有 NEXUS 等少见格式或形态/二进制数据才需要手填。线程数管并行加速，一般不用动。
 
 ### Bootstrap 支持值 | Bootstrap
 
@@ -157,6 +157,7 @@ output_dir/
 | `--output, -o` | 必填 | Path | 输出目录｜Output directory |
 | `--prefix, -p` | 必填 |  | 输出文件前缀｜Output file prefix |
 | `--model, -m` | — |  | 进化模型｜Evolutionary model |
+| `--sequence-type` | — | DNA/AA/BIN/MORPH | 序列类型 (默认按比对字母表自动嗅探并显式传-st, 规避IQ-TREE 3对简并码富集比对的误判)｜Sequence type (auto-sniffed from alignment alphabet by default) |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--bootstrap, -b` | `1000` | int | Bootstrap重复次数｜Bootstrap replicates |
 | `--boot-type` | `ufboot` | ufboot/standard | Bootstrap类型｜Bootstrap type |
@@ -180,6 +181,7 @@ output_dir/
 | `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
 | `-p, --prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
 | `-m, --model` | — |  | 进化模型 (不指定则自动选择)｜Evolutionary model (auto-select if not specified) |
+| `--sequence-type` | — | DNA/AA/BIN/MORPH | 序列类型 (不指定则按比对字母表嗅探; NEXUS等格式回退IQ-TREE自动检测)｜Sequence type (sniffed from alignment alphabet if omitted; NEXUS etc. fall back to IQ-TREE auto-detection) |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
 | `-b, --bootstrap` | `1000` | int | Bootstrap重复次数｜Bootstrap replicates (default: 1000) |
 | `--boot-type` | `ufboot` | ufboot/standard | Bootstrap类型｜Bootstrap type (default: ufboot) |
@@ -215,6 +217,9 @@ IQ-TREE 自己有断点机制，会复用已有的中间文件继续。但如果
 
 **Q4：contree 里某个分支支持值很低，树还能用吗？**
 低支持值只说明「这个分组」证据弱，不影响整棵树。可以用 `.treefile` 看完整拓扑，重点讨论高支持值分支；低支持分支在结论里要谨慎表述。
+
+**Q5：报 `ERROR: Unknown sequence type` 退出？**
+IQ-TREE 3 的序列类型自动检测对「简并码/缺失富集」的 DNA 比对会误判——全比对非 ACGT 字符（R/Y/N 等杂合简并码）占比 ≥10% 就直接报错退出（IQ-TREE 2 无此问题）。VCF 转来的群体 SNP 比对恰好杂合多、极易超线。模块现在默认按字母表嗅探并显式传 `-st DNA` 规避；若仍报错（如 NEXUS 输入未被嗅探），手动加 `--sequence-type DNA`。
 
 **Q5：UFBoot 和标准 Bootstrap 哪个好？**
 两者都给分支支持值，UFBoot 计算量小很多、结果通常与标准 Bootstrap 高度一致，默认 UFBoot 即可。个别审稿场景要求「标准 bootstrap」时再用 `--boot-type standard`。

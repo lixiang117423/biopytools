@@ -4,7 +4,7 @@ IQ-TREE 核心分析模块|IQ-TREE Core Analysis Module
 
 import os
 from pathlib import Path
-from .utils import CommandRunner, build_conda_command
+from .utils import CommandRunner, build_conda_command, sniff_sequence_type
 
 
 class TreeBuilder:
@@ -24,6 +24,19 @@ class TreeBuilder:
 
         # 输出前缀|Output prefix
         args.extend(['--prefix', self.config.prefix])
+
+        # 序列类型|Sequence type
+        # Why: IQ-TREE 3.x自动检测对简并码/N富集(非ACGT>=10%)的DNA比对误报
+        # "Unknown sequence type"后退出(3.1.3实测; 2026-09-02 psoja_365事故),
+        # DNA比对必须显式-st。未显式指定时按字母表嗅探(含蛋白特异字符→AA,
+        # 否则DNA), NEXUS等未知格式不传-st、回退IQ-TREE自动检测(原行为)
+        # |IQ-TREE 3.x auto-detection aborts on ambiguity-rich DNA alignments
+        # with "Unknown sequence type"; pass -st explicitly. Sniff alphabet when
+        # unspecified; unknown formats fall back to auto-detection
+        seq_type = self.config.sequence_type or sniff_sequence_type(self.config.input_file)
+        if seq_type:
+            args.extend(['-st', seq_type])
+            self.logger.info(f"显式序列类型|Explicit sequence type: {seq_type}")
 
         # 模型选择|Model selection
         if self.config.model:

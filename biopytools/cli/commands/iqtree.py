@@ -47,6 +47,10 @@ def _validate_file_exists(file_path):
               help='输出文件前缀|Output file prefix')
 @click.option('--model', '-m',
               help='进化模型|Evolutionary model')
+@click.option('--sequence-type',
+              type=click.Choice(['DNA', 'AA', 'BIN', 'MORPH'], case_sensitive=False),
+              help='序列类型 (默认按比对字母表自动嗅探并显式传-st, 规避IQ-TREE 3对简并码富集比对的误判)|'
+                   'Sequence type (auto-sniffed from alignment alphabet by default)')
 @click.option('--threads', '-t',
               type=int,
               default=12,
@@ -99,7 +103,7 @@ def _validate_file_exists(file_path):
               default='iqtree',
               show_default=True,
               help='IQ-TREE软件路径|IQ-TREE program path')
-def iqtree(input, output, prefix, model, threads, bootstrap, boot_type, save_boot_trees,
+def iqtree(input, output, prefix, model, sequence_type, threads, bootstrap, boot_type, save_boot_trees,
            outgroup, constraint, partition, partition_mode,
            concordance, ancestral, seed, runs, redo, iqtree_path):
     """
@@ -126,7 +130,13 @@ def iqtree(input, output, prefix, model, threads, bootstrap, boot_type, save_boo
     if model:
         args.extend(['-m', model])
 
-    if threads != 88:
+    if sequence_type:
+        args.extend(['--sequence-type', sequence_type.upper()])
+
+    # 透传线程数(与argparse默认12一致才省略; 曾误用!=88把用户的-t 88吞掉)
+    # |Forward threads; omit only when equal to argparse default 12
+    # (a magic `!= 88` check previously swallowed user-specified -t 88)
+    if threads != 12:
         args.extend(['-t', str(threads)])
 
     # Bootstrap参数|Bootstrap parameters

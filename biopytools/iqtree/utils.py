@@ -58,6 +58,83 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
         return [command] + args
 
 
+# FASTA常见后缀|Common FASTA suffixes
+_FASTA_SUFFIXES = {'.fasta', '.fa', '.fna', '.faa', '.fsa'}
+# PHYLIP常见后缀|Common PHYLIP suffixes
+_PHYLIP_SUFFIXES = {'.phy', '.phylip', '.ph'}
+# 蛋白特异字符(不在DNA IUPAC字母表中)|Protein-only chars absent from DNA IUPAC alphabet
+_PROTEIN_ONLY_CHARS = set('EFILPQZJ*')
+# 不参与判定的字符(缺口/两可字符/数字)|Chars that don't vote (gaps/ambiguous/digits)
+_NEUTRAL_CHARS = set('-?.~ 0123456789')
+
+
+def sniff_sequence_type(alignment_file: str) -> Optional[str]:
+    """嗅探比对文件的序列类型|Sniff sequence type of an alignment file
+
+    Why: IQ-TREE 3.x自动检测对简并码/N富集(非ACGT字符全比对>=10%)的DNA比对
+    误报 "Unknown sequence type" 后退出(vcf2tree模块2026-08-18在3.1.3实测,
+    2026-09-02 psoja_365再次复现), 故DNA比对需显式-st。按字母表嗅探: 含任一
+    蛋白特异字符即AA, 否则视为DNA(蛋白检测本身不受此bug影响, -st AA同样安全)。
+    仅嗅探FASTA/PHYLIP; NEXUS等复杂格式返回None, 交回IQ-TREE自动检测(现状行为)。
+    |Why: IQ-TREE 3.x auto-detection aborts with "Unknown sequence type" on
+    ambiguity-rich DNA alignments (>=10% non-ACGT alignment-wide; reproduced on
+    3.1.3), so DNA needs explicit -st. Sniff by alphabet: any protein-only char
+    means AA, otherwise DNA. Only FASTA/PHYLIP are sniffed; NEXUS etc. return
+    None and fall back to IQ-TREE auto-detection (previous behavior).
+
+    Args:
+        alignment_file: 比对文件路径|Alignment file path
+
+    Returns:
+        'DNA'或'AA'; 无法判断时None|'DNA' or 'AA'; None if undeterminable
+    """
+    path = Path(alignment_file)
+    suffix = path.suffix.lower()
+    is_fasta = suffix in _FASTA_SUFFIXES
+    is_phylip = suffix in _PHYLIP_SUFFIXES
+    if not (is_fasta or is_phylip):
+        return None
+
+    chars = set()
+    first_line = True
+    try:
+        with open(path, 'r', errors='ignore') as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+
+                if is_fasta:
+                    if line.startswith('>'):
+                        continue
+                    seq = line
+                else:
+                    # PHYLIP头行形如"366 147677"|PHYLIP header like "366 147677"
+                    tokens = line.split()
+                    if first_line and len(tokens) == 2 and all(t.isdigit() for t in tokens):
+                        first_line = False
+                        continue
+                    first_line = False
+                    # 名字与序列之间必有空白(顺序格式首块); 交错格式后续块无名字
+                    # (无空白, 切不开)→整行即序列, 不会误剥序列前10列
+                    # |Name and sequence are separated by whitespace (sequential
+                    # first block); interleaved later blocks have no name and no
+                    # whitespace, so the whole line is sequence
+                    parts = line.split(None, 1)
+                    seq = parts[1] if len(parts) == 2 else parts[0]
+
+                chars.update(seq.upper())
+    except OSError:
+        return None
+
+    chars -= _NEUTRAL_CHARS
+    if not chars:
+        return None
+    if chars & _PROTEIN_ONLY_CHARS:
+        return 'AA'
+    return 'DNA'
+
+
 class TreeLogger:
     """系统发育树分析日志管理器|Phylogenetic Tree Analysis Logger Manager"""
 

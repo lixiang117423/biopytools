@@ -20,6 +20,7 @@ class TreeConfig:
 
     # 核心参数|Core parameters
     model: Optional[str] = None  # None表示自动选择|None means auto-selection
+    sequence_type: Optional[str] = None  # None表示按比对字母表嗅探|None means sniff from alignment alphabet
     threads: int = 12
 
     # Bootstrap参数|Bootstrap parameters
@@ -72,7 +73,11 @@ class TreeConfig:
 
         if self.constraint_tree:
             self.constraint_tree = os.path.normpath(os.path.abspath(self.constraint_tree))
-    
+
+        # 序列类型归一为大写|Normalize sequence type to uppercase
+        if self.sequence_type:
+            self.sequence_type = self.sequence_type.upper()
+
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
         errors = []
@@ -108,7 +113,10 @@ class TreeConfig:
         
         if self.partition_mode not in ['edge-linked', 'edge-equal', 'edge-unlinked']:
             errors.append(f" 分区模式无效|Invalid partition mode: {self.partition_mode}")
-        
+
+        if self.sequence_type and self.sequence_type not in ['DNA', 'AA', 'BIN', 'MORPH']:
+            errors.append(f" 序列类型必须是DNA/AA/BIN/MORPH|Sequence type must be DNA/AA/BIN/MORPH: {self.sequence_type}")
+
         if errors:
             raise ValueError("\n".join(errors))
         

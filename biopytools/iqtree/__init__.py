@@ -25,7 +25,7 @@ IQ-TREE系统发育树构建工具包|IQ-TREE Phylogenetic Tree Construction Too
     analyzer.run_analysis()
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Claude"
 
 from .main import IQTreeAnalyzer
