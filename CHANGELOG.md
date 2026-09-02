@@ -1,3 +1,8 @@
+## [1.64.1] - 2026-09-02
+
+### Fixed
+- `iqtree`(模块 1.0.1): 序列类型自动嗅探并显式传 `-st`——IQ-TREE 3.x 自动检测对简并码/N 富集(非 ACGT 全比对 ≥10%)的 DNA 比对误报 "Unknown sequence type" 后退出(3.1.3 实测,2026-09-02 psoja_365 事故),现按比对字母表嗅探(含蛋白特异字符 EFILPQZJ*→AA,否则 DNA;仅 FASTA/PHYLIP 嗅探,NEXUS 等回退 IQ-TREE 自动检测);新增 `--sequence-type` 可显式指定(DNA/AA/BIN/MORPH,config 大写归一化+校验);修复 CLI 线程透传 bug(误用 `!= 88` 吞掉用户 `-t 88`,改 `!= 12` 与 argparse 默认一致)
+
 ## [1.64.0] - 2026-09-02
 
 ### Added
