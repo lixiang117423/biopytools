@@ -117,10 +117,20 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 ├── 05_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
 ├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
 ├── 07_report/          {sample}.report.md(证据链)
-├── summary/            verdict_summary.tsv · verdict_summary.xlsx(中文/英文双sheet) · mixrace_report.html(自包含)
+├── summary/            verdict_summary.tsv · verdict_summary.xlsx(中文/英文双sheet) · mixrace_report.html(自包含交互报告) · verdict_summary.html(汇总表独立页)
 ├── tmp/                临时文件(运行中,结束清理)
 └── 99_logs/
 ```
+
+### mixrace_report.html 报告结构 | HTML report layout
+
+> **通俗理解|In plain words:** 双击打开就能看,不需要联网;像一份体检报告——先给结论总览,再给全景图,最后是每个样品的完整证据。
+
+- **页头总览**:判读构成条 + 四张计数卡(纯菌/优势菌株/混杂/不确定各多少份),一眼看清整批判读构成
+- **01 判读汇总表**:点击表头排序(数值列按原始数值排序,不受显示格式影响);横向滚动时表头和样品列固定不动;建议列超长省略号显示,鼠标悬浮看全文
+- **02 图版**:全部 9 张图按阅读顺序排列(全景→定位→关系→机理),每张带中文标题和一句话图注
+- **03 逐样品证据链**:默认折叠;顶部搜索框按样品名过滤(汇总表同步过滤);「全部展开」后可直接打印(打印时自动展开全部,搜索框和按钮自动隐藏)
+- 颜色语义与图一致:绿=纯菌、橙=优势菌株/参考差异型、红=混杂、灰=不确定;所有颜色都伴随文字标签,不单独依赖颜色区分
 
 ## 结果解读 | Interpreting Results
 
