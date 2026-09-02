@@ -1,3 +1,11 @@
+## [1.64.0] - 2026-09-02
+
+### Added
+- `poplddecay`(模块 1.2.0): 新增 `--threads`(默认 12)——PopLDdecay2 多线程(`-T` 参数,按染色体/scaffold 分区并行,超过染色体数无效;多线程下求和顺序变化可能致第 4 位小数 ±0.0001 浮动,同参数重跑结果一致);config 校验线程数为正
+
+### Changed
+- `poplddecay`(模块 1.2.0): 默认工具切换为 **PopLDdecay2**(输出与经典 PopLDdecay 逐字节一致的加速重写版,支持多线程;默认 `~/miniforge3/envs/pop/bin/PopLDdecay2`,env_map 登记 PopLDdecay2→pop 域,`POPLDDECAY2_PATH` 可覆盖;pop 环境补 htslib 依赖,经典版 PopLDdecay 保留同目录可回退);Plot_OnePop.pl/Plot_MultiPop.pl 默认路径改 `~/software/PopLDdecay2/bin/`(与经典版逐字节相同);docs 补 FAQ(Q6 单染色体多线程无效/Q7 二进制不可跨机拷贝+超算本机编译部署步骤/Q8 子群体需 ≥3 样本)
+
 ## [1.63.0] - 2026-09-01
 
 ### Changed
