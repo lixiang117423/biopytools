@@ -4,7 +4,7 @@
 
 ## 功能概述 | Overview
 
-- 封装 PopLDdecay，计算 r²(或 D')随物理距离的衰减曲线
+- 封装 PopLDdecay2（输出与经典 PopLDdecay 逐字节一致的加速重写版），计算 r²(或 D')随物理距离的衰减曲线，支持多线程
 - 支持 VCF 和 Genotype 两种输入，可指定子群体分别计算并汇总
 - 按距离分箱(bin)求平均，自动绘制 LD 衰减曲线图
 - 用 Hill & Weir 模型拟合衰减曲线，自动推荐 LD 阈值、背景 r² 与 GWAS 建议窗口
@@ -149,6 +149,7 @@ output_summary.tsv                   # 合并表(Population/Dist/Mean_r2 列)
 - `--method`：绘图统计方法，默认 MeanBin(每箱取平均)；数据噪声大时可试 MedianBin
 - `-s/--subpop`：想比较不同群体的衰减速度时用；不指定则对全体样本算一次
 - `--no-recommend-threshold`：只想看曲线、不想要阈值推荐时加上
+- `--threads`：**通俗理解|In plain words:** 并行计算用的「人手数」。人手按染色体分活——数据里有几条染色体/scaffold，最多就同时用几个人；给的数字超过染色体数也不报错，只是白给。人手多了求和顺序会变，结果可能在第 4 位小数上有 ±0.0001 的浮动（科学上无影响）；同样的 `--threads` 值重跑结果完全一致。**一般不用动**（默认 12），单染色体数据调了也没用
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -178,13 +179,14 @@ output_summary.tsv                   # 合并表(Population/Dist/Mean_r2 列)
 | `--percentile` | `0.5` | float | 百分位数｜Percentile for PercentileBin [default: 0.5] |
 | `--no-plot` | — |  | 不绘制图像｜Do not plot figure |
 | `--no-recommend-threshold` | — |  | 不推荐LD阈值｜Do not recommend LD threshold |
+| `--threads` | `12` | int | 计算线程数(按染色体分区,超过染色体数无效)｜Threads for LD calculation (partitioned per chromosome) [default: 12] |
 
 <!-- END PARAMS:auto -->
 
 ## 依赖 | Dependencies
 
-- PopLDdecay（默认 `~/miniforge3/envs/pop/bin/PopLDdecay`，可用环境变量 `POPLDDECAY_PATH` 覆盖）
-- Plot_OnePop.pl / Plot_MultiPop.pl（绘图 Perl 脚本，默认 `~/software/PopLDdecay/PopLDdecay-3.43/bin/`）
+- PopLDdecay2（默认 `~/miniforge3/envs/pop/bin/PopLDdecay2`，可用环境变量 `POPLDDECAY2_PATH` 覆盖；pop 环境含其依赖 htslib 1.24，二进制内嵌 RPATH 无需额外设置；经典版 PopLDdecay 仍保留在同目录可随时回退）
+- Plot_OnePop.pl / Plot_MultiPop.pl（绘图 Perl 脚本，默认 `~/software/PopLDdecay2/bin/`，与经典版脚本逐字节相同）
 - Perl（需 Data::Dumper、Getopt::Long 模块；绘图脚本自身还需 GD 等图形模块）
 - Python 依赖 numpy / pandas / scipy（仅阈值推荐步骤）
 
@@ -204,3 +206,12 @@ PopLDdecay 每次运行直接覆盖同名输出，不判断「已存在即跳过
 
 **Q5：阈值推荐是怎么算出来的？**
 用 Hill & Weir (1988) 模型拟合衰减曲线，估计远距离的「背景 r²」噪声水平，再在候选阈值里挑一个约为背景 r² 两倍的 r² 作为推荐阈值，并据此给出衰减距离和 GWAS 建议窗口。高于拟合曲线最大值的候选会被标记并剔除——H&W 公式在 0 kb 处上限约 0.455(与 rho 无关)，所以候选 r²=0.5 永远达不到，背景 r² 偏高(>0.2)时它曾因 bg_ratio 最接近 2 被误选，输出「衰减距离 0.0 kb / GWAS 窗口 ±0」的无效结果；全部候选阈值的衰减表写入运行日志，可自行查看每个阈值对应的衰减距离。
+
+**Q6：为什么我的数据加 `--threads` 没变快？**
+多线程按染色体/scaffold 分区并行。数据只有 1 条染色体时只有一个「活」，加多少线程都是单线程在跑（属正常，不是故障）；真核基因组等多染色体数据才能吃满线程。另外单染色体数据可先 bgzip + tabix 建索引，PopLDdecay2 的快速通道会边读边算，仍有提速。
+
+**Q7：能把别处编译好的 PopLDdecay2 二进制直接拷来超算用吗？**
+不能。C++ 二进制绑定了编译机的 glibc 与动态库（如在 Mac/homebrew 新系统上编译的版本要求 GLIBC 2.33+，超算 RHEL8 只有 2.28，会报 `version GLIBC_2.33 not found`），且依赖 libhts/libdeflate/libcrypto。超算上的正确部署是本仓库 envs/pop.yml 的方式：pop 环境装 htslib 后用 `HTSLIB_ROOT=~/miniforge3/envs/pop bash make.sh` 本机编译，再用 patchelf `--force-rpath --set-rpath '$ORIGIN/../lib'` 嵌 RPATH（务必 DT_RPATH 而非默认 RUNPATH——登录环境的 LD_LIBRARY_PATH 可能指向其它软件带的旧 libhts，RUNPATH 会被它压过导致符号版本冲突）。
+
+**Q8：子群体最少要几个样本？**
+PopLDdecay 工具自身要求子群体 ≥3 个样本，少于 3 个会报 `sub Group Population szie is too small`（新旧版本行为一致）；模块会记 WARNING 并跳过该群体，其余群体与全体(_all)结果照常产出。

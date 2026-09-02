@@ -534,7 +534,8 @@ def main(args) -> int:
         measure=args.measure,
         method=args.method,
         percentile=args.percentile,
-        recommend_threshold=args.recommend_threshold
+        recommend_threshold=args.recommend_threshold,
+        threads=getattr(args, "threads", 12)
     )
 
     # 验证配置|Validate configuration

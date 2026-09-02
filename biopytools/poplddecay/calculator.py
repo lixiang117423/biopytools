@@ -118,6 +118,10 @@ class PopLDdecayCalculator:
         if self.config.output_filtered_snp:
             args.append("-OutFilterSNP")
 
+        # 线程数(PopLDdecay2多线程;按染色体分区,超过染色体数无效)|Threads
+        # (PopLDdecay2 parallelism; partitioned per chromosome, capped by contig count)
+        args.extend(["-T", str(self.config.threads)])
+
         # 使用conda run包装命令|Wrap command with conda run
         cmd = build_conda_command(self.config.poplddecay_path, args)
 

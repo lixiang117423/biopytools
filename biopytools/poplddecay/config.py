@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -35,6 +35,7 @@ class PopLDdecayConfig:
     # 其他参数|Other parameters
     ehh_site: str = "NA"  # EHH区域起始位点|EHH region start site
     output_filtered_snp: bool = False  # 输出过滤后的SNP|Output filtered SNPs
+    threads: int = 12  # 计算线程数(PopLDdecay2)|Threads for LD calculation (PopLDdecay2 only)
 
     # 绘图参数|Plotting parameters
     plot: bool = True  # 是否绘图|Whether to plot
@@ -51,20 +52,20 @@ class PopLDdecayConfig:
 
     # 软件路径|Software paths
     poplddecay_path: str = field(
-        default_factory=lambda: get_tool_path(
-            'poplddecay',
-            '~/miniforge3/envs/pop/bin/PopLDdecay',
-            'POPLDDECAY_PATH'
+        default_factory=lambda: get_domain_tool_path(
+            'PopLDdecay2',
+            '~/software/PopLDdecay2/bin/PopLDdecay2',
+            'POPLDDECAY2_PATH'
         )
     )
     plot_one_pop_path: str = field(
         default_factory=lambda: expand_path(
-            '~/software/PopLDdecay/PopLDdecay-3.43/bin/Plot_OnePop.pl'
+            '~/software/PopLDdecay2/bin/Plot_OnePop.pl'
         )
     )
     plot_multi_pop_path: str = field(
         default_factory=lambda: expand_path(
-            '~/software/PopLDdecay/PopLDdecay-3.43/bin/Plot_MultiPop.pl'
+            '~/software/PopLDdecay2/bin/Plot_MultiPop.pl'
         )
     )
 
@@ -157,6 +158,10 @@ class PopLDdecayConfig:
         # 检查子群体文件|Check subpopulation file
         if self.subpop_file and not self.subpop_path.exists():
             errors.append(f"子群体文件不存在|Subpopulation file does not exist: {self.subpop_file}")
+
+        # 检查线程数|Check thread count
+        if self.threads <= 0:
+            errors.append(f"线程数必须为正数|Thread count must be positive: {self.threads}")
 
         # 检查输出类型|Check output type
         if not 1 <= self.out_type <= 8:

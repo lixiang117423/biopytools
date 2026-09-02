@@ -24,7 +24,8 @@ import click
 @click.option('--percentile', default=0.5, type=float, help='百分位数|Percentile for PercentileBin [default: 0.5]')
 @click.option('--no-plot', is_flag=True, help='不绘制图像|Do not plot figure')
 @click.option('--no-recommend-threshold', is_flag=True, help='不推荐LD阈值|Do not recommend LD threshold')
-def poplddecay(input, output, type, max_dist, min_maf, max_het, max_miss, subpop, out_type, bin1, bin2, break_point, max_x, measure, method, percentile, no_plot, no_recommend_threshold):
+@click.option('--threads', default=12, type=int, help='计算线程数(按染色体分区,超过染色体数无效)|Threads for LD calculation (partitioned per chromosome) [default: 12]')
+def poplddecay(input, output, type, max_dist, min_maf, max_het, max_miss, subpop, out_type, bin1, bin2, break_point, max_x, measure, method, percentile, no_plot, no_recommend_threshold, threads):
     """
     连锁不平衡衰减分析工具|Linkage Disequilibrium Decay Analysis Tool
 
@@ -56,5 +57,6 @@ def poplddecay(input, output, type, max_dist, min_maf, max_het, max_miss, subpop
     args.percentile = percentile
     args.no_plot = no_plot
     args.recommend_threshold = not no_recommend_threshold  # 默认开启
+    args.threads = threads
 
     return poplddecay_main(args)
