@@ -226,6 +226,7 @@ conda run -n busco <工具> --no-capture-output
 | genomesyn2 | (见 backup yaml) |
 | hicpro | (见 backup yaml) |
 | iseq_v.1.9.8 | (见 backup yaml) |
+| isoseq_v.4.0.0 | ccs(pbccs 6.4.0), isoseq3 26.2.0, isoquant 4.0.0, samtools 1.24 (rna_iso 模块) |
 | jcvi_v.1.5.7 | (见 backup yaml) |
 | juicer_v.1.6 | (见 backup yaml) |
 | kmc_v.3.2.4 | (见 backup yaml) |

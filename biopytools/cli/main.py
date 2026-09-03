@@ -177,6 +177,7 @@ COMMAND_REGISTRY = [
     ('repeat_analyzer', 'repeat-analyzer', '重复序列分析模块|Repeat sequence analysis module'),
     ('repeatmask', 'repeatmask', '重复序列屏蔽工具|Repeat masking tool'),
     ('rnabloom', 'rnabloom', 'RNA-Bloom转录组从头组装工具|RNA-Bloom de novo transcriptome assembly tool'),
+    ('rna_iso', 'rna-iso', '全长转录本分析(IsoSeq3+IsoQuant)|Full-length transcript analysis (IsoSeq3+IsoQuant)'),
     ('gene_rnaseq_check', 'gene-rnaseq-check', '候选基因RNA-seq转录验证|Candidate gene RNA-seq transcriptional validation'),
     ('rnaseq', 'rnaseq', 'RNA-seq表达定量流程|RNA-seq expression quantification pipeline'),
     ('rnaseq_val', 'rnaseq-val', '转录组验证注释|Transcriptome validation for genome annotation'),
