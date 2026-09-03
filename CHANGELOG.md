@@ -1,3 +1,9 @@
+## [1.64.2] - 2026-09-02
+
+### Fixed
+- `hifi_hic`(模块 1.0.1): `--genome-size` 默认值移除(原写死 1.45g,对非 1.45Gb 基因组会跑偏 hifiasm 覆盖度推断)——不传则走 hifiasm `--hg-size auto` 自动估计,显式指定才传 `--hg-size`;config 校验/软件版本 yml/日志/报告同步 `None=auto` 语义;修复 hifiasm 版本探测(0.25 不认 `-V`,实测 rc=139,全部改用 `--version`);software_versions.yml 硬编码版本改跟随模块
+- `hifi_hic_workflow`(模块 1.0.1): `--genome-size` 默认值移除(同 hifi_hic,传 None 走 auto)并新增 CLI 透传(`-g/--genome-size`,仅显式指定时传给底层);config 类型改 `Optional[str]`
+
 ## [1.64.1] - 2026-09-02
 
 ### Fixed
