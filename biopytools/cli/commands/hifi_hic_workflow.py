@@ -59,6 +59,11 @@ from pathlib import Path
     help='线程数|Number of threads (default: 64)'
 )
 @click.option(
+    '-g', '--genome-size',
+    default=None,
+    help='预估基因组大小,不传则hifiasm自动估计|Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto'
+)
+@click.option(
     '--use-ngs-polish',
     is_flag=True,
     help='启用NGS polish|Enable NGS polish'
@@ -110,7 +115,7 @@ from pathlib import Path
 )
 def hifi_hic_workflow(
     hifi_reads, hic_r1, hic_r2, reference_genome, output, prefix,
-    threads, use_ngs_polish, ngs_data, nchrs,
+    threads, genome_size, use_ngs_polish, ngs_data, nchrs,
     skip_hifi_hic, skip_haphic, skip_rename, skip_heatmap,
     no_resume, force, verbose
 ):
@@ -141,6 +146,10 @@ def hifi_hic_workflow(
             sys.argv.append('--use-ngs-polish')
             if ngs_data:
                 sys.argv.extend(['--ngs-data', ngs_data])
+
+        # 基因组大小(仅显式传入时透传,hifiasm auto)|Genome size (forward only when set)
+        if genome_size is not None:
+            sys.argv.extend(['--genome-size', genome_size])
 
         # 染色体数|Chromosomes
         if nchrs:

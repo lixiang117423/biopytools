@@ -34,7 +34,7 @@ class HifiHicWorkflowConfig:
 
     # ==================== Step 1: HiFi组装参数 | Step 1: HiFi Assembly Parameters ====================
     # 基本参数|Basic parameters
-    genome_size: str = "1.45g"  # 基因组大小|Genome size estimate
+    genome_size: Optional[str] = None  # 基因组大小(None=hifiasm --hg-size auto)|Genome size (None=hifiasm auto)
     n_hap: int = 2  # 倍性|Ploidy
     purge_level: Optional[int] = None  # purge level (-l): 0=no purging, 1=light, 2/3=aggressive
     hom_cov: Optional[int] = None  # homozygous read coverage (--hom-cov)

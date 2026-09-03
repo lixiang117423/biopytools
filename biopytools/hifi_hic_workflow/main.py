@@ -174,8 +174,8 @@ def parse_arguments():
     hifi_group = parser.add_argument_group('HiFi组装参数|HiFi assembly parameters')
     hifi_group.add_argument(
         '--genome-size',
-        default='1.45g',
-        help='预估基因组大小|Estimated genome size (default: 1.45g)'
+        default=None,
+        help='预估基因组大小,不传则hifiasm自动估计|Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto'
     )
     hifi_group.add_argument(
         '--n-hap',

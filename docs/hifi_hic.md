@@ -126,7 +126,7 @@ assembly_output/
 ## 参数选择建议 | Parameter Guidance
 
 - `--n-hap`：二倍体=2（默认）；单倍体=1；多倍体按染色体组数
-- `--genome-size`：报预估大小（宁大勿小），单位 `g`/`m`
+- `--genome-size`：**不传则 hifiasm 自动估计**（推荐，`--hg-size auto`）；手动指定时报预估大小（宁大勿小），单位 `g`/`m`——早期版本写死默认 `1.45g`，对小于/大于 1.45Gb 的基因组会跑偏覆盖度推断，已移除
 - `--no-purge-dups`：想要 hifiasm 原始结果、或后续自己控制去冗余时关掉
 - `--threads`：默认 88 偏大，按机器核数调整；去冗余默认复用组装线程数（`--purge-dups-threads` 可单独指定）
 - `--high-cov`/`--medium-cov-min`：**一般不用动**，只有覆盖分布异常（如极高覆盖污染）时才调
@@ -146,7 +146,7 @@ assembly_output/
 | `--hic-r2, -2` | — | Path | Hi-C R2文件路径（可选）｜Path to Hi-C R2 file (optional) |
 | `--prefix, -p` | `genome_sample` | str | 样本前缀｜Sample prefix |
 | `--threads, -t` | `88` | int | 线程数｜Number of threads |
-| `--genome-size, -g` | `1.45g` | str | 预估基因组大小｜Estimated genome size (e.g., 1.45g, 250m) |
+| `--genome-size, -g` | — | str | 预估基因组大小,不传则hifiasm自动估计｜Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto |
 | `--n-hap` | `2` | int | 倍性｜Ploidy (haploid count) |
 | `--purge-level, -l` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) [default: 3 for unzip] |
 | `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |
@@ -170,7 +170,7 @@ assembly_output/
 | `--hic-r2, -2` | — |  | Hi-C R2文件路径｜Path to Hi-C R2 file |
 | `--prefix, -p` | `genome_sample` |  | 样本前缀｜Sample prefix |
 | `--threads, -t` | `88` | int | 线程数｜Number of threads |
-| `--genome-size, -g` | `1.45g` |  | 预估基因组大小｜Estimated genome size (e.g., 1.45g, 250m) |
+| `--genome-size, -g` | — |  | 预估基因组大小,不传则hifiasm自动估计｜Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto |
 | `--n-hap` | `2` | int | 倍性｜Ploidy (haploid count) |
 | `--purge-level, -l` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) [default: 3 for unzip] |
 | `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |

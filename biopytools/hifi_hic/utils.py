@@ -129,7 +129,7 @@ def check_dependencies(logger, hifiasm_bin: str = '~/miniforge3/envs/asm/bin/hif
     """
     logger.info("检查依赖软件|Checking dependencies")
     try:
-        cmd = build_conda_command(hifiasm_bin, ['-V'])
+        cmd = build_conda_command(hifiasm_bin, ['--version'])
         logger.info(f"命令|Command: {' '.join(cmd)}")
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30, shell=False)
         if result.returncode == 0:

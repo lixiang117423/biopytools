@@ -30,9 +30,13 @@ class HifiasmAssembler:
         cmd_args = [
             "-o", self.config.prefix,
             "-t", str(self.config.threads),
-            "--hg-size", self.config.genome_size,
             "--n-hap", str(self.config.n_hap),
         ]
+
+        # 仅显式指定时传--hg-size,否则走hifiasm auto自动估覆盖度
+        # |Pass --hg-size only when explicitly set; otherwise hifiasm auto-infers coverage
+        if self.config.genome_size is not None:
+            cmd_args.extend(["--hg-size", self.config.genome_size])
 
         # 如果有Hi-C数据，添加Hi-C参数|Add Hi-C parameters if Hi-C data available
         if self.config.has_hic:

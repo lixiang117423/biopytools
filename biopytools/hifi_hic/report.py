@@ -31,7 +31,7 @@ class ReportGenerator:
             f.write(f" 总耗时|Total Duration: {format_time(duration)}\n\n")
             
             f.write(f"  组装参数|Assembly Parameters:\n")
-            f.write(f"  - 基因组大小|Genome Size: {self.config.genome_size}\n")
+            f.write(f"  - 基因组大小|Genome Size: {self.config.genome_size or 'auto(hifiasm自动估计)|auto'}\n")
             f.write(f"  - 倍性|Ploidy: {self.config.n_hap}\n")
             f.write(f"  - 线程数|Threads: {self.config.threads}\n\n")
             

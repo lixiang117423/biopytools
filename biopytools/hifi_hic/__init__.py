@@ -22,7 +22,7 @@ Features: HiFi + Hi-C genome assembly using hifiasm
     assembler.run_assembly()
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Claude"
 
 from .config import AssemblyConfig

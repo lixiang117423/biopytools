@@ -51,7 +51,7 @@ biopytools hifi-hic-workflow --hifi hifi.fq.gz --hic-r1 R1.fq.gz --hic-r2 R2.fq.
 
 ### HiFi 组装与 NGS polish | HiFi assembly & NGS polish
 
-**通俗理解|In plain words:** 传给底层 hifi_hic 的组装参数。`--genome-size` 报预算（默认 1.45g）、`--n-hap` 倍性（默认 2）、`--purge-level`/`--hom-cov` 一般不用动；`--use-ngs-polish` + `--ngs-data` 开启二代纠错。
+**通俗理解|In plain words:** 传给底层 hifi_hic 的组装参数。`--genome-size` 报预算（**不传则 hifiasm 自动估计**，无默认值；以前写死 1.45g 导致小基因组跑偏，已移除）、`--n-hap` 倍性（默认 2）、`--purge-level`/`--hom-cov` 一般不用动；`--use-ngs-polish` + `--ngs-data` 开启二代纠错。
 
 ### HapHiC 挂载 | HapHiC scaffolding
 
@@ -113,7 +113,7 @@ workflow_output/
 ## 参数选择建议 | Parameter Guidance
 
 - `--nchrs`：一般不用指定，自动从参考基因组统计；若参考不完整可手动给定
-- `--genome-size`：报预估大小（宁大勿小）
+- `--genome-size`：不传则 hifiasm 自动估计（推荐）；手动指定时报预估大小（宁大勿小），单位 `g`/`m`
 - `--hicpro-enzyme`：务必与 Hi-C 建库实际使用的酶一致（MboI/DpnII/HindIII 等），否则热图/挂载可能失真
 - `--skip-haphic --skip-rename`：只想重新跑热图时，可跳过前面步骤（需已有对应产物）
 - `--heatmap-resolution`：默认 100000 bp；想看更细结构可调小（如 50000），文件会变大
@@ -135,6 +135,7 @@ workflow_output/
 | `-o, --output` | 必填 | Path | 输出目录｜Output directory |
 | `-p, --prefix` | `genome_sample` |  | 样本前缀｜Sample prefix (default: genome_sample) |
 | `-t, --threads` | `64` | int | 线程数｜Number of threads (default: 64) |
+| `-g, --genome-size` | — |  | 预估基因组大小,不传则hifiasm自动估计｜Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto |
 | `--use-ngs-polish` | — |  | 启用NGS polish｜Enable NGS polish |
 | `--ngs-data` | — | Path | NGS二代数据目录｜NGS second-generation data directory |
 | `--nchrs` | — | int | 染色体数量（如不指定，从reference统计）｜Number of chromosomes (count from reference if not specified) |
@@ -163,7 +164,7 @@ workflow_output/
 | `--skip-heatmap` | — | store_true | 跳过热图｜Skip heatmap |
 | `--no-resume` | — | store_true | 禁用断点续传｜Disable resume mode |
 | `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
-| `--genome-size` | `1.45g` |  | 预估基因组大小｜Estimated genome size (default: 1.45g) |
+| `--genome-size` | — |  | 预估基因组大小,不传则hifiasm自动估计｜Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto |
 | `--n-hap` | `2` | int | 倍性｜Ploidy (default: 2) |
 | `--purge-level` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) |
 | `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) |

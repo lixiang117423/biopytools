@@ -44,10 +44,9 @@ def _lazy_import_assembler_main():
               show_default=True,
               help='线程数|Number of threads')
 @click.option('--genome-size', '-g',
-              default="1.45g",
+              default=None,
               type=str,
-              show_default=True,
-              help='预估基因组大小|Estimated genome size (e.g., 1.45g, 250m)')
+              help='预估基因组大小,不传则hifiasm自动估计|Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto')
 @click.option('--n-hap',
               default=2,
               type=int,
@@ -142,7 +141,7 @@ def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
     if threads != 88:
         args.extend(['--threads', str(threads)])
 
-    if genome_size != "1.45g":
+    if genome_size is not None:
         args.extend(['--genome-size', genome_size])
 
     if n_hap != 2:

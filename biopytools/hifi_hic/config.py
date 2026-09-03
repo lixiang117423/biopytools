@@ -6,6 +6,7 @@ import os
 import glob
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
 from ..common.paths import expand_path, resolve_legacy_path, resolve_legacy_path_chain, get_tool_path
 
 @dataclass
@@ -22,7 +23,7 @@ class AssemblyConfig:
     # 基本参数|Basic parameters
     prefix: str = "genome_sample"  # 样本前缀|Sample prefix
     threads: int = 88             # 线程数|Number of threads
-    genome_size: str = "1.45g"    # 基因组大小|Genome size estimate
+    genome_size: Optional[str] = None  # 基因组大小(None=hifiasm --hg-size auto自动估计)|Genome size (None=hifiasm auto)
     n_hap: int = 2                # 倍性|Ploidy
 
     # Hifiasm 参数|Hifiasm parameters
@@ -150,7 +151,8 @@ class AssemblyConfig:
         if self.n_hap <= 0:
             errors.append(f"倍性必须为正整数|Ploidy must be positive: {self.n_hap}")
 
-        if not self.genome_size.lower().endswith(('g', 'm', 'k')):
+        # genome_size可选:未设置走hifiasm auto,设置时校验格式|Optional: hifiasm auto when unset, validate format when set
+        if self.genome_size is not None and not self.genome_size.lower().endswith(('g', 'm', 'k')):
             errors.append(f"基因组大小格式错误|Genome size format error: {self.genome_size}")
 
         if self.has_ngs and (self.high_cov <= 0 or self.high_cov > 100):
@@ -171,11 +173,11 @@ class AssemblyConfig:
         """
         import subprocess
         info = {
-            'pipeline': {'name': 'biopytools hifi_hic', 'version': '1.0.0'},
+            'pipeline': {'name': 'biopytools hifi_hic', 'version': '1.0.1'},
             'tools': {},
             'parameters': {
                 'prefix': self.prefix, 'threads': self.threads,
-                'genome_size': self.genome_size, 'n_hap': self.n_hap,
+                'genome_size': self.genome_size if self.genome_size else 'auto', 'n_hap': self.n_hap,
                 'has_hic': self.has_hic, 'has_ngs': self.has_ngs,
                 'has_purge_dups': self.has_purge_dups,
             }
@@ -186,8 +188,8 @@ class AssemblyConfig:
             'samtools': self.samtools_path,
         }
         for tool_name, tool_path in tools_to_check.items():
-            # hifiasm用-V,seqkit/samtools用--version|hifiasm uses -V, others --version
-            flag = ['-V'] if tool_name == 'hifiasm' else ['--version']
+            # 全部用--version(hifiasm 0.25不认-V,实测rc=139)|All use --version (hifiasm 0.25 rejects -V, rc=139)
+            flag = ['--version']
             try:
                 result = subprocess.run([tool_path] + flag, capture_output=True, text=True, timeout=5)
                 version = result.stdout.strip() or result.stderr.strip()

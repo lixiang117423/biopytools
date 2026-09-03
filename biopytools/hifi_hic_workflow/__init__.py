@@ -17,5 +17,5 @@ This module integrates 4 sub-modules for complete plant genome assembly workflow
 from .main import HifiHicWorkflow
 from .config import HifiHicWorkflowConfig
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __all__ = ["HifiHicWorkflow", "HifiHicWorkflowConfig"]

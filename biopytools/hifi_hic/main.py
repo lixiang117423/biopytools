@@ -224,7 +224,7 @@ class GenomeAssembler:
         """打印配置信息|Print configuration"""
         self.logger.info("组装配置|Assembly Configuration:")
         self.logger.info(f"  样本名称|Sample Name: {self.config.prefix}")
-        self.logger.info(f"  基因组大小|Genome Size: {self.config.genome_size}")
+        self.logger.info(f"  基因组大小|Genome Size: {self.config.genome_size or 'auto(hifiasm自动估计)|auto'}")
         self.logger.info(f"  倍性|Ploidy: {self.config.n_hap}")
         self.logger.info(f"  线程数|Threads: {self.config.threads}")
         self.logger.info(f"  HiFi数据|HiFi Data: {self.config.hifi_data}")
@@ -287,8 +287,8 @@ def main():
     parser.add_argument('--threads', '-t', type=int, default=88,
                        help='线程数|Number of threads')
 
-    parser.add_argument('--genome-size', '-g', default="1.45g",
-                       help='预估基因组大小|Estimated genome size (e.g., 1.45g, 250m)')
+    parser.add_argument('--genome-size', '-g', default=None,
+                       help='预估基因组大小,不传则hifiasm自动估计|Estimated genome size (e.g., 1.2g, 250m); omit for hifiasm auto')
 
     parser.add_argument('--n-hap', type=int, default=2,
                        help='倍性|Ploidy (haploid count)')
