@@ -1,3 +1,8 @@
+## [1.65.0] - 2026-09-03
+
+### Added
+- `rna_iso`(模块 1.0.0): 全长转录本分析——融合 **IsoSeq3 26.2**(ccs+refine+cluster2,de novo)与 **IsoQuant 4.0**(参考引导重建+定量),三种输入形态一条命令到全长转录本(PacBio `subreads.bam` 自动 ccs→refine;`ccs.bam` 直接 refine;fasta/fastq 直传需 `--data-type pacbio|ont`);输入按文件名自动嗅探、混杂报错;`--engine isoquant`(默认,产 GTF+表达量表)/`isoseq3`(产 de novo transcripts.fasta)/`both`;内置 Clontech SMARTer 引物对(`--primers` 可换);多文件=同一样品多 run(cluster2 原生 FOFN);逐步断点续传;独立 env `isoseq_v.4.0.0`(pbccs 6.4.0/isoseq3 26.2.0/IsoQuant 4.0.0/samtools 1.24,CCS_PATH 等环境变量可覆盖);63 mock 单测;docs/rna_iso.md 全套用户文档。注意:isoseq3 26.2 已移除 polish 子命令、去引物并入 refine(无需 lima),旧文档流程不再适用
+
 ## [1.64.2] - 2026-09-02
 
 ### Fixed
