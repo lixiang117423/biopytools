@@ -103,7 +103,7 @@
 | rnaseq_val | rnaseq-val | 转录组验证注释|Transcriptome validation for genome annotation |
 | rxlr_scanner | rxlr-scanner | RxLR效应蛋白扫描工具|RxLR effector protein scanner |
 
-## 转录组|Transcriptome(6)|6 modules
+## 转录组|Transcriptome(7)|7 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -112,6 +112,7 @@
 | rnabloom | rnabloom | RNA-Bloom转录组从头组装工具|RNA-Bloom de novo transcriptome assembly tool |
 | rnaseq | rnaseq | RNA-seq表达定量流程|RNA-seq expression quantification pipeline |
 | rnaseq2vcf | rnaseq2vcf | 转录组变异检测(到VCF)|RNA-seq variant calling (to VCF) |
+| rna_iso | rna-iso | 全长转录本分析(IsoSeq3+IsoQuant)|Full-length transcript analysis (IsoSeq3+IsoQuant) |
 | transcript_assembly | transcript-assembly | 转录本组装(FASTQ/BAM→GFF3,支持长读)|Transcript assembly (FASTQ/BAM→GFF3, long-read support) |
 
 ## 变异检测|Variants(23)|23 modules

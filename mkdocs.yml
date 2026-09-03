@@ -167,6 +167,7 @@ nav:
           - rnabloom: rnabloom.md
           - rnaseq: rnaseq.md
           - rnaseq2vcf: rnaseq2vcf.md
+          - rna-iso: rna_iso.md
           - transcript-assembly: transcript_assembly.md
       - 变异检测:
           - annovar: annovar.md
