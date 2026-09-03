@@ -28,6 +28,30 @@ _CCS_RE = re.compile(r"\.(ccs|hifi_reads|consensusreads)\.bam(\.pbi)?$", re.IGNO
 _READS_RE = re.compile(r"\.(fa|fasta|fq|fastq)(\.gz)?$", re.IGNORECASE)
 
 
+def expand_reads_paths(reads: List[str]) -> List[str]:
+    """展开目录输入为reads文件列表|Expand directory inputs to reads file lists
+
+    目录按文件名排序收集fasta/fastq(±gz),忽略子目录(如fastp_reports);
+    目录中无reads文件时报错提示|Collect fasta/fastq (±gz) sorted, skip
+    subdirectories; error when a directory contains no reads files
+    """
+    expanded = []
+    for r in reads:
+        if os.path.isdir(r):
+            found = sorted(
+                os.path.join(r, name) for name in os.listdir(r)
+                if os.path.isfile(os.path.join(r, name)) and _READS_RE.search(name)
+            )
+            if not found:
+                raise ValueError(
+                    f"输入目录中未找到reads文件(fasta/fastq,可gz)|No reads files "
+                    f"(fasta/fastq, optionally gzipped) in directory: {r}")
+            expanded.extend(found)
+        else:
+            expanded.append(r)
+    return expanded
+
+
 def detect_input_type(reads: List[str]) -> str:
     """嗅探输入形态,混杂或未知报错|Sniff input kind, error on mixed/unknown
 
@@ -94,7 +118,7 @@ class RnaIsoConfig:
         for p in ("reference", "genedb", "primers", "output_dir"):
             if getattr(self, p):
                 setattr(self, p, expand_path(getattr(self, p)))
-        self.reads = [expand_path(r) for r in self.reads]
+        self.reads = expand_reads_paths([expand_path(r) for r in self.reads])
         for p in ("ccs_path", "isoseq3_path", "isoquant_path", "samtools_path"):
             setattr(self, p, expand_path(getattr(self, p)))
         if self.data_type:

@@ -39,7 +39,7 @@ biopytools rna-iso -i sample.fq.gz --data-type ont -g genome.fa -o output/
 | PacBio CCS | `sample.ccs.bam` / `sample.hifi_reads.bam` | refine → 引擎 |
 | reads 文件 | `sample.fq.gz`、`sample.fasta`（ONT 或已有 HiFi） | 直接进引擎；**必须加 `--data-type pacbio` 或 `ont`** |
 
-多个文件 = 同一样品的多个测序 run（如多个 SMRT cell），重复 `-i` 传入即可。**不同形态不要混传**（会报错）。
+多个文件 = 同一样品的多个测序 run（如多个 SMRT cell），重复 `-i` 传入即可；**`-i` 也可以直接传目录**——自动按文件名排序收集目录内的 fasta/fastq（±gz），忽略子目录。**不同形态不要混传**（会报错）。
 
 引物 fasta 格式（仅 PacBio 链用到；不传则用内置 Clontech SMARTer）：
 
@@ -60,7 +60,7 @@ GTACTCTGCGTTGATACCACTGCTT
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `-i, --reads` | 必填 | Path | 输入文件(可多个):subreads.bam/ccs.bam/fasta/fastq(±gz)｜Input files (multiple allowed) |
+| `-i, --reads` | 必填 | Path | 输入文件或目录(可多个;目录自动收集fasta/fastq±gz):subreads.bam/ccs.bam/fasta/fastq(±gz)｜Input file(s) or dir (dir auto-collects fasta/fastq±gz) |
 | `--data-type` | — | pacbio/ont | reads文件(fasta/fastq)时必填;BAM输入自动嗅探｜Required for fasta/fastq inputs; auto-sniffed for BAM |
 | `-g, --reference` | — | Path | 参考基因组FASTA(isoquant引擎必填)｜Reference genome FASTA (required for isoquant engine) |
 | `--genedb` | — | Path | 参考注释GTF/GFF(可选,提高精确度)｜Reference annotation GTF/GFF (optional) |
@@ -75,7 +75,7 @@ GTACTCTGCGTTGATACCACTGCTT
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `-i, --reads` | 必填 |  | 输入文件(可多个):subreads.bam/ccs.bam/fasta/fastq(±gz)｜Input files (multiple allowed) |
+| `-i, --reads` | 必填 |  | 输入文件或目录(可多个;目录自动收集fasta/fastq±gz):subreads.bam/ccs.bam/fasta/fastq(±gz)｜Input file(s) or dir (dir auto-collects fasta/fastq±gz) |
 | `--data-type` | — | pacbio/ont | reads文件(fasta/fastq)时必填;BAM输入自动嗅探｜Required for fasta/fastq inputs; auto-sniffed for BAM |
 | `-g, --reference` | — |  | 参考基因组FASTA(isoquant引擎必填)｜Reference genome FASTA (required for isoquant engine) |
 | `--genedb` | — |  | 参考注释GTF/GFF(可选,提高精确度)｜Reference annotation GTF/GFF (optional, improves precision) |

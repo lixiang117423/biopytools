@@ -17,7 +17,7 @@ def parse_arguments(argv=None):
     )
 
     parser.add_argument('-i', '--reads', nargs='+', required=True,
-                        help='输入文件(可多个):subreads.bam/ccs.bam/fasta/fastq(±gz)|Input files (multiple allowed)')
+                        help='输入文件或目录(可多个;目录自动收集fasta/fastq±gz):subreads.bam/ccs.bam/fasta/fastq(±gz)|Input file(s) or dir (dir auto-collects fasta/fastq±gz)')
     parser.add_argument('--data-type', choices=['pacbio', 'ont'], default=None,
                         help='reads文件(fasta/fastq)时必填;BAM输入自动嗅探|Required for fasta/fastq inputs; auto-sniffed for BAM')
     parser.add_argument('-g', '--reference', default=None,

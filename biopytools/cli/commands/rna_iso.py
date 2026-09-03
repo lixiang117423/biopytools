@@ -26,7 +26,7 @@ def _lazy_import_main():
               multiple=True,
               required=True,
               type=click.Path(exists=True),
-              help='输入文件(可多个):subreads.bam/ccs.bam/fasta/fastq(±gz)|Input files (multiple allowed)')
+              help='输入文件或目录(可多个;目录自动收集fasta/fastq±gz):subreads.bam/ccs.bam/fasta/fastq(±gz)|Input file(s) or dir (dir auto-collects fasta/fastq±gz)')
 @click.option('--data-type',
               type=click.Choice(['pacbio', 'ont']),
               default=None,

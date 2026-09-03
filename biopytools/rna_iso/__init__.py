@@ -6,4 +6,4 @@
 PacBio subreads.bam / PacBio CCS / ONT reads to full-length transcripts.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
