@@ -115,7 +115,7 @@
 | rna_iso | rna-iso | 全长转录本分析(IsoSeq3+IsoQuant)|Full-length transcript analysis (IsoSeq3+IsoQuant) |
 | transcript_assembly | transcript-assembly | 转录本组装(FASTQ/BAM→GFF3,支持长读)|Transcript assembly (FASTQ/BAM→GFF3, long-read support) |
 
-## 变异检测|Variants(23)|23 modules
+## 变异检测|Variants(24)|24 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
@@ -133,6 +133,7 @@
 | parabricks | parabricks | 基于GPU的全基因组流程|GPU-based whole genome pipeline |
 | snp_region_gene | snp-region-gene | SNP区域基因提取工具|SNP Region Gene Extractor |
 | swave | swave | Swave结构变异检测工具|Swave structural variant detection tool |
+| vcf2deepbsa | vcf2deepbsa | VCF转DeepBSA输入CSV(提取AD)|VCF to DeepBSA input CSV (extract AD) |
 | vcf2gene | vcf2gene | VCF变异基因注释工具|VCF variant gene annotation tool |
 | vcf2genotype | vcf2genotype | VCF基因型提取|VCF genotype extraction |
 | vcf2pav | vcf2pav | VCF转PAV(Presence/Absence)矩阵|VCF to PAV (Presence/Absence) matrix |
@@ -287,4 +288,4 @@
 | subseq | subseq | 序列子集提取工具|Sequence subset extraction tool |
 | wgsim | wgsim | Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation |
 
-总覆盖|Total: 217/217;缺失|Missing: 无;重复|Duplicated: 无
+总覆盖|Total: 219/219;缺失|Missing: 无;重复|Duplicated: 无

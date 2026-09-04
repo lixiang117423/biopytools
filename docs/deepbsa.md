@@ -33,7 +33,7 @@ biopytools deepbsa run -i variant.vcf -o bsa_results
 
 - `run` 的输入是一个 BSA 的 VCF(或 CSV)。VCF 通常来自「高表型池 + 低表型池」的变异检测，含 AD(等位深度)信息最佳。
 - 复杂文件名(如 `variation.filtered.snp.biallelic.vcf`)会自动处理(内部建符号链接)，无需改名。
-- `vcf2csv` 子命令可把 VCF 转成 DeepBSA 用的 CSV(提取 FORMAT 里的 AD 信息)：`biopytools deepbsa vcf2csv -i input.vcf -o out.csv`。
+- 想把 VCF 预先转成 DeepBSA 用的 CSV(提取 FORMAT 里的 AD 信息)，用独立模块 `vcf2deepbsa`：`biopytools vcf2deepbsa -i input.vcf -o out_dir/`(详见 [vcf2deepbsa 文档](vcf2deepbsa.md))。
 
 ## 参数说明 | Parameters
 
@@ -74,22 +74,15 @@ biopytools deepbsa run -i variant.vcf -o bsa_results
 | `-o, --output-dir` | 必填 | 合并结果目录 |
 | `-m, --methods` | 全部 | 要合并的方法 |
 
-### vcf2csv - VCF 转 CSV | VCF to CSV
-
-**通俗理解|In plain words:** 从 VCF 提取 AD(等位深度)转成 DeepBSA 认识的 CSV，做输入预处理。
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `-i, --input-file` | 必填 | 输入 VCF |
-| `-o, --output-file` | 必填 | 输出 CSV |
+> VCF 转 CSV 预处理已拆分为独立模块 `vcf2deepbsa`(`biopytools vcf2deepbsa -i in.vcf -o out_dir/`)，不再是 deepbsa 子命令。
 
 ## 分析流程 | Pipeline
 
-**通俗理解|In plain words:** 先给输入(必要时 vcf2csv 转格式)→ 为每个方法建独立目录(并行跑)→ 各自出 QTL 结果和图 → 汇总成总表和总图。
+**通俗理解|In plain words:** 先给输入(必要时 `vcf2deepbsa` 转格式)→ 为每个方法建独立目录(并行跑)→ 各自出 QTL 结果和图 → 汇总成总表和总图。
 
 ```text
 输入 VCF/CSV
-    │ (可选 vcf2csv 转格式)
+    │ (可选 vcf2deepbsa 转格式)
     ▼
 为每个方法建独立目录(复杂文件名自动建符号链接;DL 自动建 Models 链接)
     │
@@ -136,7 +129,7 @@ bsa_results/
 | 集群投递 | 用 `batch` 生成脚本再投递 |
 | 内存/核数有限 | `--no-parallel` 串行，`--threads 16` |
 | 重跑某方法 | 删掉对应方法目录，或 `-f` 强制重跑 |
-| VCF 含 AD 想转 CSV | 先 `vcf2csv` 预处理 |
+| VCF 含 AD 想转 CSV | 先 `biopytools vcf2deepbsa` 预处理 |
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -174,7 +167,7 @@ bsa_results/
 ## 常见问题 | FAQ
 
 **Q1：`biopytools deepbsa` 和 `python -m biopytools.deepbsa` 有什么区别？**
-`biopytools deepbsa` 走子命令接口(batch/run/merge/vcf2csv，默认 `run --threads 6`、内置 DeepBSA)；`python -m biopytools.deepbsa` 是旧版扁平接口(见下方参数表，默认 `--threads 0`、外置 multithread 路径)。**日常用 `biopytools deepbsa` 即可**。
+`biopytools deepbsa` 走子命令接口(batch/run/merge，默认 `run --threads 6`、内置 DeepBSA)；`python -m biopytools.deepbsa` 是旧版扁平接口(见下方参数表，默认 `--threads 0`、外置 multithread 路径)。**日常用 `biopytools deepbsa` 即可**；VCF 转 CSV 用 `biopytools vcf2deepbsa`。
 
 **Q2：DL 方法报错找不到 Models？**
 本工具已自动为 DL 创建 Models 符号链接；若仍失败，检查内置 `deepbsa_builtin/Models` 是否存在。

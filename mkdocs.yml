@@ -184,6 +184,7 @@ nav:
           - parabricks: parabricks.md
           - snp-region-gene: snp_region_gene.md
           - swave: swave.md
+          - vcf2deepbsa: vcf2deepbsa.md
           - vcf2gene: vcf2gene.md
           - vcf2genotype: vcf2genotype.md
           - vcf2pav: vcf2pav.md
