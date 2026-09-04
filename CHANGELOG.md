@@ -1,3 +1,11 @@
+## [1.67.0] - 2026-09-04
+
+### Added
+- `vcf2deepbsa`(模块 1.0.0): VCF→DeepBSA 输入 CSV 转换——从 `deepbsa` 的 `vcf2csv` 子命令拆分为独立模块;提取 FORMAT 中的 AD(等位深度)输出无 header 的 `CHROM,POS,REF,ALT,AD对...` 矩阵,与旧实现**逐字节一致**;`-o` 改为输出目录,CSV 按输入名自动生成(`xxx.vcf → xxx.deepbsa.csv`);支持 `.vcf.gz`;纯标准库流式实现(去 pandas 依赖);坏行优雅降级——无AD/AD不完整/值非法/样本列数不一致四类跳过原因分类计数;29 mock 单测;docs/vcf2deepbsa.md 全套用户文档
+
+### Changed
+- `deepbsa`: 移除 `vcf2csv` 子命令与 `deepbsa/vcf2csv.py`(功能迁移至独立模块 `biopytools vcf2deepbsa`,输出格式不变);CLI help 与 docs/deepbsa.md 同步指向新命令
+
 ## [1.66.0] - 2026-09-03
 
 ### Added
