@@ -31,7 +31,9 @@ def deepbsa(args):
       batch   生成批量处理命令（推荐）|Generate batch processing commands (Recommended)
       run     运行单个DeepBSA分析方法|Run single DeepBSA analysis method
       merge   合并DeepBSA运行结果|Merge DeepBSA results
-      vcf2csv VCF转CSV（为DeepBSA准备输入数据）|Convert VCF to CSV for DeepBSA
+
+    VCF转CSV预处理请用独立模块|For VCF to CSV preprocessing use the standalone module:
+      biopytools vcf2deepbsa -i input.vcf -o output_dir/
 
     推荐工作流|Recommended workflow:
       1. biopytools deepbsa batch -i input.vcf -o batch_jobs/

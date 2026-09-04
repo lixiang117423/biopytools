@@ -56,14 +56,6 @@ def main():
     )
     _setup_merge_parser(merge_parser)
 
-    # vcf2csv子命令|vcf2csv subcommand
-    vcf2csv_parser = subparsers.add_parser(
-        'vcf2csv',
-        help='VCF转CSV（为DeepBSA准备输入数据）|Convert VCF to CSV for DeepBSA',
-        formatter_class=argparse.RawDescriptionHelpFormatter
-    )
-    _setup_vcf2csv_parser(vcf2csv_parser)
-
     # 解析参数|Parse arguments
     args = parser.parse_args()
 
@@ -74,8 +66,6 @@ def main():
         _handle_run(args)
     elif args.command == 'merge':
         _handle_merge(args)
-    elif args.command == 'vcf2csv':
-        _handle_vcf2csv(args)
     else:
         parser.print_help()
         sys.exit(1)
@@ -282,30 +272,6 @@ def _setup_merge_parser(parser: argparse.ArgumentParser):
     )
 
 
-def _setup_vcf2csv_parser(parser: argparse.ArgumentParser):
-    """设置vcf2csv子命令参数|Setup vcf2csv subcommand parser"""
-    parser.description = """
-将VCF文件转换为DeepBSA可用的CSV格式|Convert VCF file to DeepBSA-compatible CSV format
-提取FORMAT字段中的AD（Allele Depth）信息|Extract AD (Allele Depth) from FORMAT field
-
-示例|Examples: biopytools deepbsa vcf2csv -i input.vcf -o ./
-"""
-
-    required = parser.add_argument_group('必需参数|Required arguments')
-    required.add_argument(
-        '-i', '--input-file',
-        required=True,
-        help='输入VCF文件路径|Input VCF file path'
-    )
-
-    required = parser.add_argument_group('必需参数|Required arguments')
-    required.add_argument(
-        '-o', '--output-file',
-        required=True,
-        help='输出CSV文件路径|Output CSV file path'
-    )
-
-
 def _handle_batch(args):
     """处理batch命令|Handle batch command"""
     from .batch_generator import BatchGenerator
@@ -463,40 +429,6 @@ def _handle_merge(args):
         sys.exit(1)
     except ValueError as e:
         print(f"配置错误|Configuration error: {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"程序执行出错|Program execution error: {e}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
-
-
-def _handle_vcf2csv(args):
-    """处理vcf2csv命令|Handle vcf2csv command"""
-    from pathlib import Path
-    from .vcf2csv import vcf2csv
-    from .utils import DeepBSALogger
-
-    try:
-        input_path = Path(args.input_file).expanduser().resolve()
-        output_path = Path(args.output_file).expanduser().resolve()
-
-        if not input_path.exists():
-            print(f"错误|Error: 输入文件不存在|Input file not found: {input_path}")
-            sys.exit(1)
-
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        log_file = output_path.parent / "vcf2csv.log"
-        logger_manager = DeepBSALogger(log_file)
-        logger = logger_manager.get_logger()
-
-        csv_path = vcf2csv(input_path, output_path, logger)
-
-        print(f"\n转换完成|Conversion completed: {csv_path}")
-        sys.exit(0)
-
-    except KeyboardInterrupt:
-        print("\n转换被用户中断|Conversion interrupted by user")
         sys.exit(1)
     except Exception as e:
         print(f"程序执行出错|Program execution error: {e}")

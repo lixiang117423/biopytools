@@ -240,6 +240,7 @@ COMMAND_REGISTRY = [
     ('predgpi', 'predgpi', 'PredGPI GPI锚定蛋白预测|PredGPI GPI-anchor prediction'),
     ('genome2sv', 'genome2sv', 'assembly-to-assembly SV calling (minimap2+svim-asm+SURVIVOR)|组装间结构变异检测'),
     ('vcf2pav', 'vcf2pav', 'VCF转PAV(Presence/Absence)矩阵|VCF to PAV (Presence/Absence) matrix'),
+    ('vcf2deepbsa', 'vcf2deepbsa', 'VCF转DeepBSA输入CSV(提取AD)|VCF to DeepBSA input CSV (extract AD)'),
     ('selective_sweep', 'selective-sweep', '选择性扫荡检测|Selective sweep detection'),
     ('mixrace', 'mixrace', 'WGS混合小种检测|WGS mixed-race detection'),
     ('genome2tree', 'genome2tree', '基因组目录免比对物种树(waster)|Alignment-free species tree from genome dir (waster)'),
