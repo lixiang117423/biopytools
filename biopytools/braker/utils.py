@@ -352,7 +352,9 @@ def find_rnaseq_files_in_directory(directory: str, read1_pattern: str = "_1.fq.g
 
     if not r1_files:
         # 尝试其他常见模式|Try other common patterns
-        alternative_patterns = ["_1_clean.fq.gz", "_R1.fastq.gz", "_R1.fq.gz", ".R1.fastq.gz"]
+        # _1.clean.fq.gz为命名迁移(95d775d)前的旧规范,历史数据大量存在,必须回退识别
+        # _1.clean.fq.gz is the pre-migration (95d775d) legacy naming, widely present in historical data
+        alternative_patterns = ["_1_clean.fq.gz", "_1.clean.fq.gz", "_R1.fastq.gz", "_R1.fq.gz", ".R1.fastq.gz"]
         for alt_pattern in alternative_patterns:
             r1_files = list(Path(directory).glob(f"*{alt_pattern}"))
             if r1_files:
@@ -362,6 +364,8 @@ def find_rnaseq_files_in_directory(directory: str, read1_pattern: str = "_1.fq.g
                 # 更新对应的R2模式|Update corresponding R2 pattern
                 if alt_pattern == "_1_clean.fq.gz":
                     read2_pattern = "_2_clean.fq.gz"
+                elif alt_pattern == "_1.clean.fq.gz":
+                    read2_pattern = "_2.clean.fq.gz"
                 elif alt_pattern == "_R1.fastq.gz":
                     read2_pattern = "_R2.fastq.gz"
                 elif alt_pattern == "_R1.fq.gz":

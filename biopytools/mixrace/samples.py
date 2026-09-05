@@ -11,11 +11,17 @@ import re
 from typing import Dict, List
 
 # (R1 后缀, R2 后缀),长在前避免误匹配|(R1 suffix, R2 suffix); longest first
+# 新(下划线)旧(点号)双风格并存:旧风格兜底迁移前的 01_qc/02_host_filter 产物,
+# 保证旧目录重跑/续跑不丢样本|both styles: legacy dot-suffix fallback keeps
+# pre-migration output dirs discoverable on resume
 _R1_R2_PAIRS = [
     ("_1_clean.fq.gz", "_2_clean.fq.gz"),
     ("_R1_clean.fq.gz", "_R2_clean.fq.gz"),
+    ("_1.clean.fq.gz", "_2.clean.fq.gz"),
+    ("_R1.clean.fq.gz", "_R2.clean.fq.gz"),
     # 寄主剔除产物|host-depleted outputs
     ("_1_nohost.fq.gz", "_2_nohost.fq.gz"),
+    ("_1.nohost.fq.gz", "_2.nohost.fq.gz"),
     ("_1.fastq.gz", "_2.fastq.gz"),
     ("_R1.fastq.gz", "_R2.fastq.gz"),
     ("_1.fq.gz", "_2.fq.gz"),

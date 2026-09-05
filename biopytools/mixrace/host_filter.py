@@ -339,22 +339,38 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
         host_mapped = None
         nonhost = None
     if pathogen_mapped is None:
-        runner.logger.warning(
-            f"{sample}: mapq_stats.tsv 缺失,现场计数最终 BAM(过滤后 BAM 无 unmapped,总数退化)"
-            f"|mapq_stats.tsv missing, live counts on final BAM (degraded total)")
-        pathogen_mapped = _count_bam(runner, config.samtools_path, bam, _EXCL_MAPPED,
-                                     threads=config.threads) or 0
-        if total_reads is None:
-            total_reads = pathogen_mapped
+        if bam:
+            runner.logger.warning(
+                f"{sample}: mapq_stats.tsv 缺失,现场计数最终 BAM(过滤后 BAM 无 unmapped,总数退化)"
+                f"|mapq_stats.tsv missing, live counts on final BAM (degraded total)")
+            pathogen_mapped = _count_bam(runner, config.samtools_path, bam, _EXCL_MAPPED,
+                                         threads=config.threads) or 0
+            if total_reads is None:
+                total_reads = pathogen_mapped
+        else:
+            # BAM 未解析时不下发注定失败的空路径命令|no doomed empty-path command
+            runner.logger.warning(
+                f"{sample}: mapq_stats.tsv 缺失且 BAM 未解析,mapped 记 0(核对 "
+                f"03_gtx/03_mapping/bam 产物命名)|mapq_stats.tsv missing and BAM "
+                f"unresolved, mapped=0 (check 03_gtx/03_mapping/bam naming)")
+            pathogen_mapped = 0
     # 覆盖广度(≥1x;samtools coverage -q 与 MAPQ 统一口径)|breadth >=1x with min-MQ
-    cov_args = ["coverage"]
-    if getattr(config, "min_mapq", 0) > 0:
-        cov_args += ["-q", str(config.min_mapq)]
-    cov_args.append(bam)
-    ok_cov, cov_text, _ = runner.run_conda(config.samtools_path, cov_args,
-                                           f"覆盖广度|breadth {sample}")
-    cov = parse_samtools_coverage(cov_text if ok_cov else "")
-    breadth = cov["covbases_total"] / genome_size * 100 if genome_size else 0.0
+    # BAM 未解析:不下 doomed 命令,breadth 记 0 并告警,统计表照常写出(优雅降级)
+    # |BAM unresolved: no doomed command, breadth=0 + warning, table still written
+    breadth = 0.0
+    if not bam:
+        runner.logger.warning(
+            f"{sample}: BAM 未解析,覆盖广度记 0(核对 03_gtx/03_mapping/bam 产物命名)"
+            f"|BAM unresolved, breadth=0 (check 03_gtx/03_mapping/bam naming)")
+    else:
+        cov_args = ["coverage"]
+        if getattr(config, "min_mapq", 0) > 0:
+            cov_args += ["-q", str(config.min_mapq)]
+        cov_args.append(bam)
+        ok_cov, cov_text, _ = runner.run_conda(config.samtools_path, cov_args,
+                                               f"覆盖广度|breadth {sample}")
+        cov = parse_samtools_coverage(cov_text if ok_cov else "")
+        breadth = cov["covbases_total"] / genome_size * 100 if genome_size else 0.0
     stats = compute_host_stats(total_reads or 0, host_mapped, nonhost, pathogen_mapped)
     stats.update({"sample": sample, "mean_depth": mean_depth, "breadth_1x": breadth})
     (out_dir / f"{sample}_host_stats.tsv").write_text(build_host_stats_tsv(stats),

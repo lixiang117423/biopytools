@@ -14,14 +14,14 @@ from ..common.paths import resolve_legacy_path
 
 # 输入发现后缀(寄主剔除产物 nohost 需与 clean/raw 同列)|input discovery suffixes
 # |nohost = host-depleted output of biopytools mixrace (02_host_filter)
-R1_PATTERNS_CLEAN = ['*_1_clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
-R2_PATTERNS_CLEAN = ['*_2_clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
+R1_PATTERNS_CLEAN = ['*_1_clean.fq.gz', '*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
+R2_PATTERNS_CLEAN = ['*_2_clean.fq.gz', '*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
 R1_PATTERNS_SKIP_QC = R1_PATTERNS_CLEAN
 R2_PATTERNS_SKIP_QC = R2_PATTERNS_CLEAN
-R1_PATTERNS_QC = ['*_1_clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz']
-R2_PATTERNS_QC = ['*_2_clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz']
-R1_STRIP_SUFFIXES = ['_1_clean.fq.gz', '_1.nohost.fq.gz', '_1.fq.gz', '_1.fastq.gz']
-R2_BUILD_SUFFIXES = ['_2_clean.fq.gz', '_2.nohost.fq.gz', '_2.fq.gz', '_2.fastq.gz']
+R1_PATTERNS_QC = ['*_1_clean.fq.gz', '*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz']
+R2_PATTERNS_QC = ['*_2_clean.fq.gz', '*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz']
+R1_STRIP_SUFFIXES = ['_1_clean.fq.gz', '_1.clean.fq.gz', '_1.nohost.fq.gz', '_1.fq.gz', '_1.fastq.gz']
+R2_BUILD_SUFFIXES = ['_2_clean.fq.gz', '_2.clean.fq.gz', '_2.nohost.fq.gz', '_2.fq.gz', '_2.fastq.gz']
 from ..common.conda_runner import build_pipeline_command
 
 

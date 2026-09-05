@@ -383,8 +383,13 @@ class FileProcessor:
 
             self.logger.info(f" 提取样本名|Extracted sample name: {sample_name}")
 
-            # 查找对应的R2文件
-            r2_pattern_suffix = pattern_suffix.replace('_1.', '_2.').replace('_R1.', '_R2.')
+            # 查找对应的R2文件(下划线新风格须在点号风格前替换,防R1自身误配)|
+            # Find R2 (underscore style replaced before dot style to avoid R1 self-pairing)
+            r2_pattern_suffix = (pattern_suffix
+                                 .replace('_1_clean', '_2_clean')
+                                 .replace('_R1_clean', '_R2_clean')
+                                 .replace('_1.', '_2.')
+                                 .replace('_R1.', '_R2.'))
             r2_filename = sample_name + r2_pattern_suffix
             r2_file = input_dir / r2_filename
             

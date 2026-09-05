@@ -6,9 +6,11 @@ from typing import List, Optional, Tuple
 
 from ..common.paths import expand_path, get_domain_tool_path
 
-# 配对后缀候选(检测顺序即优先级)|Paired suffix candidates (order = priority)
+# 配对后缀候选(检测顺序即优先级;旧点号风格兜底迁移前历史数据)|
+# Paired suffix candidates (order = priority; legacy dot-style fallback for pre-migration data)
 SUFFIX_CANDIDATES = [
     ("_1_clean.fq.gz", "_2_clean.fq.gz"),
+    ("_1.clean.fq.gz", "_2.clean.fq.gz"),
     ("_1.fq.gz", "_2.fq.gz"),
 ]
 

@@ -539,9 +539,10 @@ class SampleParser:
     def _parse_with_default_patterns(self, input_dir: str) -> List[Dict]:
         """使用默认模式解析样本|Parse samples with default patterns"""
         patterns = [
+            "*_1_clean.fq.gz", "*_1.clean.fq.gz",
             "*_1.fq.gz", "*_R1.fq.gz", "*.R1.fastq.gz",
             "*_1.fastq.gz", "*.1.fq.gz", "*_R1.fq",
-            "*_1_clean.fq.gz", "*_f1.fq.gz",
+            "*_f1.fq.gz",
         ]
 
         for pattern in patterns:
