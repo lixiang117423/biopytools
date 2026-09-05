@@ -1,3 +1,10 @@
+## [1.69.1] - 2026-09-05
+
+### Fixed
+- 输出命名迁移(1.69.0)兼容修补:读入侧补旧点号风格回退识别——braker `find_rnaseq_files_in_directory`、fastq2vcf_gtx R1/R2 pattern 列表、insert2locus SUFFIX_CANDIDATES、kmertools pipeline_processor 样本发现与后缀剥离、mixrace `_R1_R2_PAIRS`、rnaseq2vcf DEFAULT_R1/R2_SUFFIXES、transcript_assembly SampleParser 默认 pattern 均补 `_1.clean.fq.gz` 等旧规范后缀,历史数据目录重跑/续跑不丢样本
+- `kmertools`: 修复 R2 配对后缀替换 bug——`_1_clean` 下划线新风格此前未被 `_1.`→`_2.` 替换命中致 R2 文件找不到;改为先替换 `_1_clean`/`_R1_clean` 再替换点号风格
+- `mixrace`: BAM 未解析(新旧命名均缺)时优雅降级——不再下发空路径 doomed 命令,mapped/breadth 记 0 + WARNING(提示核对 03_gtx BAM 产物命名),统计表照常写出
+
 ## [1.69.0] - 2026-09-05
 
 ### Changed
