@@ -67,8 +67,20 @@ def _validate_file(path):
 @click.option('--kmer-size', '-k', type=int, default=21, show_default=True, help='K-mer大小|K-mer size')
 @click.option('--read-length', '-l', type=int, default=150, show_default=True, help='测序读长|Read length')
 @click.option('--step', type=int, default=None,
-              help='只跑指定步骤1-5(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告)'
-              '|Run single step 1-5 (default all)')
+              help='只跑指定步骤1-6(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 '
+              '6=kraken2污染评估)|Run single step 1-6 (default all)')
+@click.option('--skip-kraken2', is_flag=True, default=False,
+              help='跳过kraken2+bracken污染评估|Skip contamination assessment')
+@click.option('--kraken2-db', default='~/database/kraken2', show_default=True,
+              callback=lambda ctx, param, value: _validate_dir(value)
+              if value and value != '~/database/kraken2' else value,
+              help='kraken2/bracken数据库(默认模式内存需约DB大小,~240GB)'
+              '|kraken2 db (RAM ~ DB size in default mode)')
+@click.option('--kraken-memory-mapping', is_flag=True, default=False,
+              help='kraken2省内存模式(慢)|kraken2 --memory-mapping (slower, less RAM)')
+@click.option('--bracken-level', default='S', show_default=True,
+              type=click.Choice(['D', 'P', 'C', 'O', 'F', 'G', 'S']),
+              help='bracken丰度层级(S=种)|bracken abundance rank (S=species)')
 @click.option('--no-checkpoint', is_flag=True, default=False, help='禁用断点续传|Disable checkpoint')
 @click.option('--dry-run', is_flag=True, default=False, help='只打印命令不执行|Print commands only')
 @click.option('--pure-het-threshold', type=float, default=0.001, show_default=True,
@@ -88,7 +100,8 @@ def _validate_file(path):
 def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome, min_mapq,
             threads, sample_parallel, kmer_size, read_length, step, no_checkpoint, dry_run,
             pure_het_threshold, partner_alt_rate, partner_hom_rate, min_sites,
-            window_size, hotspot_fold, hotspot_min_median):
+            window_size, hotspot_fold, hotspot_min_median, skip_kraken2, kraken2_db,
+            kraken_memory_mapping, bracken_level):
     """
     WGS混合小种检测(三分支判读)|WGS mixed-race detection (three-branch).
 
@@ -143,6 +156,14 @@ def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome,
         args.extend(['--hotspot-fold', str(hotspot_fold)])
     if hotspot_min_median != 0.10:
         args.extend(['--hotspot-min-median', str(hotspot_min_median)])
+    if skip_kraken2:
+        args.append('--skip-kraken2')
+    if kraken2_db != '~/database/kraken2':
+        args.extend(['--kraken2-db', kraken2_db])
+    if kraken_memory_mapping:
+        args.append('--kraken-memory-mapping')
+    if bracken_level != 'S':
+        args.extend(['--bracken-level', bracken_level])
 
     original_argv = sys.argv
     sys.argv = args

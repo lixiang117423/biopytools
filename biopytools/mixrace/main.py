@@ -1,9 +1,10 @@
-"""mixrace 主入口与编排(v0.3 GTX 后端)|mixrace main (GTX backend, three-branch verdict).
+"""mixrace 主入口与编排(v0.4 GTX 后端)|mixrace main (GTX backend, three-branch verdict).
 
 解析参数 → 按 --step 调度:01 QC+寄主剔除 / 02 GTX 比对+联合calling /
-03 杂合评估+三分支判读 / 04 mapped-reads k-mer / 05 图+报告。
+03 杂合评估+三分支判读 / 04 mapped-reads k-mer / 05 图+报告 /
+06 kraken2+bracken 污染评估。
 |argparse -> --step dispatch: QC+host depletion / GTX / het-eval verdicts /
-mapped-read k-mer / figures+report. Mentor methodology v4.
+mapped-read k-mer / figures+report / kraken2 contamination. Mentor methodology v4.
 """
 import argparse
 import os
@@ -15,6 +16,7 @@ from .config import MixraceConfig
 from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_software_versions
 from .samples import discover_samples
 from .pipeline import run_index, run_qc, run_depth, read_cached_depth, run_kmer
+from .contamination import run_contamination
 from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
 from .gtx_backend import run_gtx, extract_mapped_fastq, count_mapped, resolve_gtx_bam
 from .het_eval import run_het_eval, write_tsv
@@ -97,6 +99,17 @@ def _argv_to_config() -> MixraceConfig:
                    help="热点:窗口杂合率>该倍数×自身全基因组率(默认2)|hotspot fold")
     p.add_argument("--hotspot-min-median", dest="hotspot_min_median", type=float, default=0.10,
                    help="热点:窗口在候选中的中位杂合率下限(默认0.1)|hotspot min median rate")
+    # 污染评估(step 6)|contamination assessment (step 6)
+    p.add_argument("--skip-kraken2", dest="run_kraken2", action="store_false",
+                   help="跳过 kraken2+bracken 污染评估(默认跑)|skip contamination assessment")
+    p.add_argument("--kraken2-db", dest="kraken2_db", default="~/database/kraken2",
+                   help="kraken2/bracken 数据库(默认~/database/kraken2,内存需约DB大小)"
+                        "|kraken2 db (RAM ~ DB size)")
+    p.add_argument("--kraken-memory-mapping", dest="kraken_memory_mapping", action="store_true",
+                   help="kraken2 省内存模式(慢,适合内存不足节点)|kraken2 --memory-mapping (slower)")
+    p.add_argument("--bracken-level", dest="bracken_level", default="S",
+                   choices=["D", "P", "C", "O", "F", "G", "S"],
+                   help="bracken 丰度层级(默认S=种)|bracken rank (S=species)")
     a = p.parse_args()
     return MixraceConfig(
         fastq_dir=a.fastq_dir or "", clean_fastq_dir=a.clean_fastq_dir,
@@ -108,7 +121,9 @@ def _argv_to_config() -> MixraceConfig:
         hotspot_min_median=a.hotspot_min_median,
         threads=a.threads, sample_parallel=a.sample_parallel,
         kmer_size=a.kmer_size, read_length=a.read_length,
-        step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run)
+        step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run,
+        run_kraken2=a.run_kraken2, kraken2_db=a.kraken2_db,
+        kraken_memory_mapping=a.kraken_memory_mapping, bracken_level=a.bracken_level)
 
 
 def _read_verdict_table(config) -> list:
@@ -298,6 +313,17 @@ def run_pipeline(config, runner, ckpt, logger):
     # 05 图+报告|figures + report
     if step in (None, 5) and rows:
         _figures_and_report(config, runner, ckpt, logger, rows, genome_size)
+
+    # 06 污染评估(kraken2+bracken,吃 01_qc clean reads,寄主剔除前)
+    # |contamination assessment (input = 01_qc clean reads, pre host-depletion)
+    if config.run_kraken2 and step in (None, 6):
+        src = str(clean_dir) if Path(str(clean_dir)).is_dir() else config.fastq_dir
+        contam_samples = discover_samples(src) if src and os.path.isdir(src) else []
+        if contam_samples:
+            run_contamination(config, runner, ckpt, contam_samples)
+        else:
+            logger.warning("污染评估未跑:无 clean reads(先跑 --step 1 或给 "
+                           "--clean-fastq-dir)|contamination skipped: no clean reads")
 
     write_software_versions(
         config, logger,

@@ -35,6 +35,11 @@ class MixraceConfig:
     window_size: int = 100000
     hotspot_fold: float = 2.0
     hotspot_min_median: float = 0.10
+    # 污染评估(step 6,kraken2+bracken)|contamination assessment (step 6)
+    run_kraken2: bool = True             # 默认跑;--skip-kraken2 关闭|default on; --skip-kraken2 disables
+    kraken2_db: str = "~/database/kraken2"   # PlusPF 库(含真菌/原生,bracken kmer_distrib 齐全)|PlusPF DB
+    kraken_memory_mapping: bool = False  # 省内存模式(较慢)|less RAM (slower)
+    bracken_level: str = "S"             # 丰度重估层级 D/P/C/O/F/G/S|abundance rank
     # 执行|Execution
     threads: int = 12
     sample_parallel: int = 1        # 样本级并行数(每worker线程=threads/该值)|per-sample workers
@@ -47,12 +52,16 @@ class MixraceConfig:
     bwa_mem2_path: str = "~/miniforge3/envs/cphasing/bin/bwa-mem2"
     samtools_path: str = "~/miniforge3/envs/align/bin/samtools"
     bcftools_path: str = "~/miniforge3/envs/align/bin/bcftools"
+    kraken2_path: str = "~/miniforge3/envs/kraken_v.2.17/bin/kraken2"
+    bracken_path: str = "~/miniforge3/envs/kraken_v.2.17/bin/bracken"
 
     def __post_init__(self):
         # 展开工具路径(支持环境变量覆盖)|expand tool paths (env var override supported)
         self.bwa_mem2_path = get_tool_path("bwa-mem2", self.bwa_mem2_path, "BWA_MEM2_PATH")
         self.samtools_path = get_tool_path("samtools", self.samtools_path, "SAMTOOLS_PATH")
         self.bcftools_path = get_tool_path("bcftools", self.bcftools_path, "BCFTOOLS_PATH")
+        self.kraken2_path = get_tool_path("kraken2", self.kraken2_path, "KRAKEN2_PATH")
+        self.bracken_path = get_tool_path("bracken", self.bracken_path, "BRACKEN_PATH")
         # 用户输入路径统一用 expand_path(同时展开 ~ 和 $VAR;裸 expanduser 漏 $VAR)
         # |User paths via expand_path (expands ~ AND $VAR; bare expanduser misses $VAR)
         if self.fastq_dir:
@@ -67,6 +76,8 @@ class MixraceConfig:
             self.repeat_bed = expand_path(self.repeat_bed)
         if self.host_genome:
             self.host_genome = expand_path(self.host_genome)
+        if self.kraken2_db:
+            self.kraken2_db = expand_path(self.kraken2_db)
 
     def validate(self):
         """校验配置,错误一次性抛出|validate config, raise all errors at once."""
@@ -103,7 +114,17 @@ class MixraceConfig:
             errors.append("hotspot_fold必须>=1|hotspot_fold must be >= 1")
         if not 0 <= self.hotspot_min_median <= 1:
             errors.append("hotspot_min_median须在[0,1]|hotspot_min_median must be in [0,1]")
-        if self.step is not None and not (1 <= self.step <= 5):
-            errors.append("step须为1-5|step must be 1-5")
+        if self.step is not None and not (1 <= self.step <= 6):
+            errors.append("step须为1-6|step must be 1-6")
+        # 污染评估|contamination assessment
+        if self.run_kraken2:
+            if not os.path.isdir(self.kraken2_db):
+                errors.append(f"kraken2数据库目录不存在(--kraken2-db 指定,或 --skip-kraken2 关闭)"
+                              f"|kraken2 db dir not found: {self.kraken2_db}")
+            elif not os.path.isfile(os.path.join(self.kraken2_db, "hash.k2d")):
+                errors.append(f"kraken2数据库不完整(缺hash.k2d)|kraken2 db incomplete "
+                              f"(hash.k2d missing): {self.kraken2_db}")
+        if self.bracken_level not in ("D", "P", "C", "O", "F", "G", "S"):
+            errors.append("bracken_level须为D/P/C/O/F/G/S|bracken_level must be D/P/C/O/F/G/S")
         if errors:
             raise ValueError("\n".join(errors))

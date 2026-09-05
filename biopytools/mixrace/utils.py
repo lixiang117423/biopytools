@@ -212,6 +212,9 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
         "samtools": (config.samtools_path, ["--version"]),
         "bcftools": (config.bcftools_path, ["--version"]),
         "gtx(fastq2vcf-gtx)": ("biopytools", ["fastq2vcf-gtx", "--help"]),
+        # bracken 无 --version 长选项,用 -v 回显版本|bracken echoes version via -v
+        "kraken2": (config.kraken2_path, ["--version"]),
+        "bracken": (config.bracken_path, ["-v"]),
     }
     versions = {}
     for name, (path, args) in tools.items():
@@ -227,7 +230,8 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
     param_keys = ["threads", "sample_parallel", "kmer_size", "read_length", "repeat_bed",
                   "host_genome", "min_mapq", "pure_het_threshold",
                   "partner_alt_min", "partner_hom_min", "min_sites",
-                  "window_size", "hotspot_fold", "hotspot_min_median"]
+                  "window_size", "hotspot_fold", "hotspot_min_median",
+                  "run_kraken2", "kraken2_db", "bracken_level"]
     from . import __version__
     info = {
         "pipeline": {"name": "biopytools mixrace", "version": __version__},
