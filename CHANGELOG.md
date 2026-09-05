@@ -1,3 +1,8 @@
+## [1.69.0] - 2026-09-05
+
+### Changed
+- 全库输出文件命名规范迁移(CLAUDE.md §12.3): `{Sample}.{Tool}.{State}.{Ext}` → `{Sample}_{Tool}_{State}.{Ext}`——中间状态/步骤后缀由点号改下划线,仅保留最终扩展名点号(如 `sample.sorted.bam` → `sample_sorted.bam`、`S1.genomescope.linear.png` → `S1_genomescope_linear.png`);涉及 100+ 模块约 250 个 Python 文件与 95 份文档(含 AGENTS.md §12 与 docs/dev-standards/12_output_naming.md 规范文本同步);CLI 默认 pattern/suffix 参数同步(如 dual_rnaseq `--pattern` 默认 `*_1_clean.fq.gz`、get_plastome `--read1/2-suffix` 默认 `_1/2_clean.fq.gz`);**读旧名兼容**:识别/回退逻辑同时匹配新旧命名(如 mixrace resolve_gtx_bam、rna_iso _movie_name、genome2sv BAM 定位等),旧命名产物可直接续跑不重复计算
+
 ## [1.68.0] - 2026-09-05
 
 ### Added
