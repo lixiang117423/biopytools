@@ -11,7 +11,7 @@ Features: Batch analysis of GWAS results, calculate Lambda GC values and assess 
 
     # 创建计算器|Create calculator
     calculator = GWASLambdaCalculator(
-        search_pattern="feture_*/GWAS_Result.mlm.manht_input",
+        search_pattern="feture_*/GWAS_Result_mlm_manht_input",
         output_file="lambda_assessment.txt",
         significance_threshold=1e-5
     )

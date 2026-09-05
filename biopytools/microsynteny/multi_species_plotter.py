@@ -36,7 +36,7 @@ class MultiSpeciesPlotter:
         species_to_plot = [reference_species]
 
         for sp in species_list[1:]:
-            blocks_file = self.config.blocks_dir / f"{reference_species}.{sp}.blocks"
+            blocks_file = self.config.blocks_dir / f"{reference_species}_{sp}.blocks"
             if os.path.exists(blocks_file):
                 all_blocks.append(blocks_file)
                 species_to_plot.append(sp)
@@ -121,7 +121,7 @@ class MultiSpeciesPlotter:
             if sp in self.config.species_genes:
                 target_genes.update(self.config.species_genes[sp])
 
-        extracted_blocks_raw = self.config.plot_dir / "multi_species.extracted.raw.blocks"
+        extracted_blocks_raw = self.config.plot_dir / "multi_species_extracted_raw.blocks"
 
         # 提取包含目标基因的blocks，但限制数量以避免图太密集
         MAX_BLOCKS = 50
@@ -142,7 +142,7 @@ class MultiSpeciesPlotter:
                     outf.write(line)
 
         # 关键修复：在提取目标基因后，过滤空列
-        extracted_blocks = self.config.plot_dir / "multi_species.extracted.blocks"
+        extracted_blocks = self.config.plot_dir / "multi_species_extracted.blocks"
 
         # 读取提取的blocks，检查哪些列有有效数据
         extracted_lines = []
@@ -178,7 +178,7 @@ class MultiSpeciesPlotter:
 
         # 合并所有物种的BED文件
         all_beds = [str(self.config.preprocess_dir / f"{sp}.bed") for sp in species_to_plot]
-        merged_bed = self.config.plot_dir / "all_species.merged.bed"
+        merged_bed = self.config.plot_dir / "all_species_merged.bed"
 
         self.logger.info("合并所有BED文件|Merging all BED files")
 

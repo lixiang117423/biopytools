@@ -42,9 +42,9 @@ class MinibwaAligner:
         sample_dir = self.config.output_path / sample_name
         sample_dir.mkdir(parents=True, exist_ok=True)
 
-        # 输出文件命名遵循{sample}.{tool}.{ext}|Naming follows {sample}.{tool}.{ext}
-        sorted_bam = sample_dir / f"{sample_name}.minibwa.bam"
-        sorted_bai = sample_dir / f"{sample_name}.minibwa.bam.bai"
+        # 输出文件命名遵循{sample}_{tool}_{ext}|Naming follows {sample}_{tool}_{ext}
+        sorted_bam = sample_dir / f"{sample_name}_minibwa.bam"
+        sorted_bai = sample_dir / f"{sample_name}_minibwa.bam.bai"
 
         # 断点续传|Checkpoint resume
         if self.config.resume and sorted_bam.exists() and sorted_bai.exists():
@@ -58,7 +58,7 @@ class MinibwaAligner:
         # Step 2: 标记重复（可选）|Step 2: Mark duplicates (optional)
         final_bam = sorted_bam
         if self.config.markdup:
-            final_bam = sample_dir / f"{sample_name}.minibwa.markdup.bam"
+            final_bam = sample_dir / f"{sample_name}_minibwa_markdup.bam"
             if not self._mark_duplicates(sorted_bam, final_bam):
                 return None
             # markdup产物替代原bam|markdup output replaces sorted bam
@@ -100,7 +100,7 @@ class MinibwaAligner:
     def _mark_duplicates(self, input_bam: Path, output_bam: Path) -> bool:
         """标记或移除重复|Mark or remove duplicates"""
         stats_dir = self.config.output_path / input_bam.parent.name
-        stats_file = stats_dir / f"{input_bam.stem}.markdup_stats.txt"
+        stats_file = stats_dir / f"{input_bam.stem}_markdup_stats.txt"
 
         args = ['markdup', '-@', str(self.config.threads)]
         if self.config.remove_dup:

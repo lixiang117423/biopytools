@@ -16,12 +16,12 @@ class VCFFilter:
         self.cmd_runner = cmd_runner
 
         # 定义输出文件名|Define output file names
-        self.filtered_snp_file = Path(f"{self.config.base_name}.filtered.snp.vcf.gz")
-        self.filtered_indel_file = Path(f"{self.config.base_name}.filtered.indel.vcf.gz")
-        self.merged_file = Path(f"{self.config.base_name}.filtered.merged.vcf.gz")
+        self.filtered_snp_file = Path(f"{self.config.base_name}_filtered_snp.vcf.gz")
+        self.filtered_indel_file = Path(f"{self.config.base_name}_filtered_indel.vcf.gz")
+        self.merged_file = Path(f"{self.config.base_name}_filtered_merged.vcf.gz")
 
         # 双等位位点过滤后的文件|Biallelic filtered SNP file
-        self.biallelic_snp_file = Path(f"{self.config.base_name}.filtered.snp.biallelic.vcf.gz")
+        self.biallelic_snp_file = Path(f"{self.config.base_name}_filtered_snp_biallelic.vcf.gz")
 
     def filter_snps(self, input_file: Path) -> bool:
         """过滤SNP|Filter SNPs"""
@@ -204,7 +204,7 @@ class VCFFilter:
                 self.logger.info("使用常规过滤后的SNP|Using regular filtered SNPs")
 
             # 临时未排序合并文件名(在working_dir下)|Temp unsorted merge filename (under working_dir)
-            unsorted_merged_filename = f"{self.config.base_name}.filtered.merged.unsorted.vcf.gz"
+            unsorted_merged_filename = f"{self.config.base_name}_filtered_merged_unsorted.vcf.gz"
 
             # 步骤1: 合并到临时文件|Step 1: concat into temp file
             merge_args = [

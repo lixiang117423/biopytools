@@ -63,7 +63,7 @@ class IndelMarkerRunner:
             raise ValueError(f"samplesheet样品不在VCF中|samples not in VCF: {missing}")
 
     def _extract_indels(self) -> list:
-        out_tsv = str(self.config.vcf_extract_dir / 'indels.gt_matrix.tsv')
+        out_tsv = str(self.config.vcf_extract_dir / 'indels_gt_matrix.tsv')
         ve = VCFExtractor(self.config, self.logger, self.cmd)
         # 样本名只取一次，复用给extract避免重复调用get_sample_names
         # fetch sample names once, reuse for extract (avoid double get_sample_names)

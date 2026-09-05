@@ -166,8 +166,8 @@ class BrakerConfig:
     rnaseq_sets: Optional[List[str]] = None  # RNA-seq集合ID列表|List of RNA-seq set IDs (已废弃|Deprecated)
 
     # ===== 文件识别模式|File identification patterns =====
-    read1_pattern: str = "_1.clean.fq.gz"  # R1文件模式|R1 file pattern (fastp处理后默认后缀)
-    read2_pattern: str = "_2.clean.fq.gz"  # R2文件模式|R2 file pattern
+    read1_pattern: str = "_1_clean.fq.gz"  # R1文件模式|R1 file pattern (fastp处理后默认后缀)
+    read2_pattern: str = "_2_clean.fq.gz"  # R2文件模式|R2 file pattern
 
     # ===== Singularity镜像配置|Singularity image configuration =====
     use_singularity: bool = True  # 使用Singularity镜像|Use Singularity image

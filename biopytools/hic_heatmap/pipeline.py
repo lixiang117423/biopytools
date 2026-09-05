@@ -22,7 +22,7 @@ class HiCPipeline:
 
         # 输出文件路径|Output file paths
         self.base_name = Path(self.config.genome).stem
-        self.bam_file = self.config.bam_dir / f"{self.base_name}.sorted.bam"
+        self.bam_file = self.config.bam_dir / f"{self.base_name}_sorted.bam"
         self.restriction_bed = self.config.matrix_dir / f"{self.base_name}_restriction_sites.bed"
         self.raw_matrix = self.config.matrix_dir / f"{self.base_name}_raw.h5"
         self.corrected_matrix = self.config.matrix_dir / f"{self.base_name}_corrected.h5"
@@ -282,7 +282,7 @@ class HiCPipeline:
         # 检查是否已完成|Check if already done
         if self.config.skip_existing and self.bam_file.exists() and self.bam_file.with_suffix('.bam.bai').exists():
             # 检查是否已过滤（通过标记文件）
-            filtered_marker = self.config.bam_dir / f"{self.base_name}.filtered.done"
+            filtered_marker = self.config.bam_dir / f"{self.base_name}_filtered.done"
             if not filtered_marker.exists():
                 # 需要重新过滤
                 self.logger.info("检测到需要过滤BAM文件|Detected need to filter BAM file")
@@ -292,7 +292,7 @@ class HiCPipeline:
 
         try:
             # 定义备份BAM文件路径|Define backup BAM file path
-            backup_bam = self.config.bam_dir / f"{self.base_name}.before_filter.bam"
+            backup_bam = self.config.bam_dir / f"{self.base_name}_before_filter.bam"
 
             # 如果BAM已存在但需要过滤，先备份
             if self.bam_file.exists():
@@ -330,7 +330,7 @@ class HiCPipeline:
             # 过滤掉有问题的reads（没有CIGAR信息的reads）
             # HiCExplorer无法处理cigartuples为None的reads
             self.logger.info("过滤有问题的reads|Filtering problematic reads...")
-            filtered_bam = self.config.bam_dir / f"{self.base_name}.filtered.bam"
+            filtered_bam = self.config.bam_dir / f"{self.base_name}_filtered.bam"
             cmd_filter = [
                 self.config.samtools_path, 'view',
                 '-h',  # 包含header
@@ -357,7 +357,7 @@ class HiCPipeline:
                     backup_bai.unlink()
 
             # 创建过滤完成标记
-            filtered_marker = self.config.bam_dir / f"{self.base_name}.filtered.done"
+            filtered_marker = self.config.bam_dir / f"{self.base_name}_filtered.done"
             filtered_marker.touch()
 
             # 建立索引|Build index
@@ -484,7 +484,7 @@ class HiCPipeline:
 
         try:
             # 步骤1: 生成chrom.sizes文件|Step 1: Generate chrom.sizes file
-            chrom_sizes_file = self.config.matrix_dir / f"{self.base_name}.chrom.sizes"
+            chrom_sizes_file = self.config.matrix_dir / f"{self.base_name}_chrom.sizes"
             if not chrom_sizes_file.exists():
                 self.logger.info("生成chrom.sizes文件|Generating chrom.sizes file...")
                 cmd_chrom = [
@@ -513,7 +513,7 @@ class HiCPipeline:
                 self.logger.info(f"chrom.sizes文件已生成|chrom.sizes file created: {chrom_sizes_file}")
 
             # 步骤2: 使用pairtools将BAM转换为pairs|Step 2: Convert BAM to pairs using pairtools
-            pairs_file = self.config.matrix_dir / f"{self.base_name}.pairs.gz"
+            pairs_file = self.config.matrix_dir / f"{self.base_name}_pairs.gz"
             if not pairs_file.exists():
                 self.logger.info("将BAM转换为pairs格式|Converting BAM to pairs format...")
 

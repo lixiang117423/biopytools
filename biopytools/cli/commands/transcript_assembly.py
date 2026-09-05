@@ -65,7 +65,7 @@ def _validate_path_exists(path):
               help='TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)|TransDecoder CDS prediction (needs -g)')
 @click.option('--pattern', '-p',
               type=str,
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               show_default=True,
               help='FASTQ文件命名模式|FASTQ file naming pattern (* is sample name placeholder)')
 @click.option('--threads', '-t',
@@ -123,7 +123,7 @@ def transcript_assembly(output, genome, input, bam, guide_gff, read_type, transc
         args.append('--predict-cds')
 
     # 可选参数|Optional parameters
-    if pattern != '*_1.clean.fq.gz':
+    if pattern != '*_1_clean.fq.gz':
         args.extend(['-p', pattern])
 
     if threads != 12:

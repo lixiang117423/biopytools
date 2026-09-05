@@ -143,13 +143,13 @@ def _reads_accounting(config, runner, rows, bam_dir: str, genome_size: int):
         bam = resolve_gtx_bam(bam_dir, sample) or ""
         bam_exists = bool(bam)
         # 计数表(供 pathogen_alignment_stats 读)|counts file for pathogen stats
-        if bam_exists and not (eval_dir / f"{sample}.mapq_stats.tsv").exists():
+        if bam_exists and not (eval_dir / f"{sample}_mapq_stats.tsv").exists():
             total, mapped = count_mapped(w_runner, wcfg, bam)
             if total is not None and mapped is not None:
-                (eval_dir / f"{sample}.mapq_stats.tsv").write_text(
+                (eval_dir / f"{sample}_mapq_stats.tsv").write_text(
                     f"field\tvalue\ntotal_primary_reads\t{total}\n"
                     f"mapped_q_reads\t{mapped}\n", encoding="utf-8")
-        stats_file = eval_dir / "alignment_qc" / f"{sample}.stats.txt"
+        stats_file = eval_dir / "alignment_qc" / f"{sample}_stats.txt"
         depth = read_cached_depth(stats_file, genome_size)
         if depth is None and bam_exists:
             depth = run_depth(w_runner, wcfg, sample, bam, genome_size)
@@ -205,7 +205,7 @@ def _figures_and_report(config, runner, ckpt, logger, rows, genome_size):
         logger.warning(f"Excel 汇总未生成(报告继续)|Excel summary skipped: {e}")
     # 单样本 md|per-sample markdown
     for row in rows:
-        (rep_dir / f"{row['sample']}.report.md").write_text(
+        (rep_dir / f"{row['sample']}_report.md").write_text(
             build_sample_report(row["sample"], row, figures), encoding="utf-8")
     # 自包含 HTML|self-contained HTML
     # 判读口径文案按 config 阈值动态生成(防阈值可配后文案漂移)

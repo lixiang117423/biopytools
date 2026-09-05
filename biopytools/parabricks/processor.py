@@ -273,11 +273,11 @@ class parabricksProcessor:
             return True
         
         # 定义输出文件路径 |Define output file paths
-        output_bam = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
+        output_bam = self.config.bam_output_dir / f"{sample_name}_sorted.bam"
         
         # --- MODIFIED: 根据配置决定输出是VCF还是GVCF ---
         if self.config.gvcf:
-            output_vcf = self.config.vcf_output_dir / f"{sample_name}.g.vcf.gz"
+            output_vcf = self.config.vcf_output_dir / f"{sample_name}_g.vcf.gz"
             vcf_type_str = "GVCF"
         else:
             output_vcf = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
@@ -366,7 +366,7 @@ class parabricksProcessor:
         missing_samples = []
         
         for sample_name in sample_names:
-            gvcf_file = self.config.vcf_output_dir / f"{sample_name}.g.vcf.gz"
+            gvcf_file = self.config.vcf_output_dir / f"{sample_name}_g.vcf.gz"
             if gvcf_file.exists():
                 gvcf_files.append(gvcf_file)
             else:

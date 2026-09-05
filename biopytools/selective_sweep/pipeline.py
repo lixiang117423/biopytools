@@ -83,6 +83,11 @@ class SweepPipeline:
         """断点续传:输出文件存在即跳过|Resume: skip if output exists"""
         return Path(output_file).exists()
 
+    def _rename_dotted(self, dotted: Path, underscored: Path) -> None:
+        """工具固定点分后缀名 → 下划线分隔|Rename tool-fixed dotted name to underscore form"""
+        if dotted.exists():
+            dotted.rename(underscored)
+
     # ---- 1. 过滤|filter ----
     def run_filter(self) -> Path:
         """bcftools过滤:双等位SNP+MAF+缺失率|Filter: biallelic SNP + MAF + missing rate"""
@@ -92,7 +97,7 @@ class SweepPipeline:
             return filtered_vcf
 
         self.logger.info("开始步骤|Starting step: 过滤|filter")
-        tmp_tagged = Path(self.config.tmp_dir) / 'filtered.tagged.vcf.gz'
+        tmp_tagged = Path(self.config.tmp_dir) / 'filtered_tagged.vcf.gz'
 
         # 填充MAF/F_MISSING标签|fill MAF/F_MISSING tags
         fill_cmd = build_conda_command(
@@ -124,7 +129,7 @@ class SweepPipeline:
                 "过滤后VCF为空,请降低MAF/缺失率阈值或检查输入"
                 "|Filtered VCF is empty; lower MAF/missing thresholds or check input")
 
-        # 清理过滤中间文件(tmp下仅filtered.tagged.vcf.gz;删文件不删目录)
+        # 清理过滤中间文件(tmp下仅filtered_tagged.vcf.gz;删文件不删目录)
         # |clean filter intermediates (only the tagged VCF lives in tmp; files only, keep dir)
         try:
             for p in self.config.tmp_dir.iterdir():
@@ -268,7 +273,7 @@ class SweepPipeline:
             pop_vcf = Path(self.config.filter_dir) / f'{pop}.vcf.gz'
 
             # π|pi
-            pi_out = Path(self.config.stats_dir) / f'{pop}.windowed.pi'
+            pi_out = Path(self.config.stats_dir) / f'{pop}_windowed.pi'
             if not self._is_step_completed(pi_out):
                 pi_cmd = build_conda_command(
                     self.config.vcftools_path,
@@ -278,11 +283,12 @@ class SweepPipeline:
                      '--out', str(Path(self.config.stats_dir) / pop)])
                 if not self.runner.run(pi_cmd, f'vcftools窗口π|vcftools windowed pi: {pop}'):
                     raise RuntimeError(f"vcftools π计算失败|vcftools pi failed: {pop}")
+                self._rename_dotted(Path(self.config.stats_dir) / f'{pop}.windowed.pi', pi_out)
             else:
                 self.logger.info(f"跳过已完成步骤|Skipping completed step: π {pop}")
 
             # Tajima's D|Tajima's D
-            tajd_out = Path(self.config.stats_dir) / f'{pop}.Tajima.D'
+            tajd_out = Path(self.config.stats_dir) / f'{pop}_Tajima.D'
             if not self._is_step_completed(tajd_out):
                 tajd_cmd = build_conda_command(
                     self.config.vcftools_path,
@@ -291,11 +297,12 @@ class SweepPipeline:
                      '--out', str(Path(self.config.stats_dir) / pop)])
                 if not self.runner.run(tajd_cmd, f"vcftools窗口Tajima's D|vcftools Tajima's D: {pop}"):
                     raise RuntimeError(f"vcftools TajimaD失败|vcftools TajimaD failed: {pop}")
+                self._rename_dotted(Path(self.config.stats_dir) / f'{pop}.Tajima.D', tajd_out)
             else:
                 self.logger.info(f"跳过已完成步骤|Skipping completed step: TajimaD {pop}")
 
             # RAiSD μ|cwd=stats_dir(报告文件无路径参数)|mu; cwd=stats_dir
-            raisd_reports = list(Path(self.config.stats_dir).glob(f'RAiSD_Report.{pop}.*'))
+            raisd_reports = list(Path(self.config.stats_dir).glob(f'RAiSD_Report_{pop}_*'))
             if raisd_reports:
                 self.logger.info(f"跳过已完成步骤|Skipping completed step: RAiSD {pop}")
             else:
@@ -306,16 +313,19 @@ class SweepPipeline:
                 if not self.runner.run(raisd_cmd, f'RAiSD μ统计|RAiSD mu statistic: {pop}',
                                        cwd=Path(self.config.stats_dir)):
                     raise RuntimeError(f"RAiSD运行失败|RAiSD failed: {pop}")
-                raisd_reports = list(Path(self.config.stats_dir).glob(f'RAiSD_Report.{pop}.*'))
+                for r in Path(self.config.stats_dir).glob(f'RAiSD_Report.{pop}.*'):
+                    suffix = r.name[len(f'RAiSD_Report.{pop}.'):]
+                    r.rename(r.parent / f'RAiSD_Report_{pop}_{suffix}')
+                raisd_reports = list(Path(self.config.stats_dir).glob(f'RAiSD_Report_{pop}_*'))
                 if not raisd_reports:
                     raise RuntimeError(f"RAiSD未生成报告|RAiSD produced no reports for pop: {pop}")
 
             # SweeD CLR|cwd=stats_dir;SweeD不支持.gz输入,先解压到tmp,跑完清理
-            sweed_reports = list(Path(self.config.stats_dir).glob(f'SweeD_Report.{pop}.*'))
+            sweed_reports = list(Path(self.config.stats_dir).glob(f'SweeD_Report_{pop}_*'))
             if sweed_reports:
                 self.logger.info(f"跳过已完成步骤|Skipping completed step: SweeD {pop}")
             else:
-                sweed_vcf = Path(self.config.tmp_dir) / f'{pop}.sweed.vcf'
+                sweed_vcf = Path(self.config.tmp_dir) / f'{pop}_sweed.vcf'
                 decompress_cmd = build_conda_command(
                     self.config.bcftools_path,
                     ['view', '-O', 'v', str(pop_vcf), '-o', str(sweed_vcf)])
@@ -337,7 +347,10 @@ class SweepPipeline:
                 except OSError as e:
                     self.logger.warning(
                         f"清理SweeD解压文件失败,不影响结果|Failed to clean SweeD input: {e}")
-                sweed_reports = list(Path(self.config.stats_dir).glob(f'SweeD_Report.{pop}.*'))
+                for r in Path(self.config.stats_dir).glob(f'SweeD_Report.{pop}.*'):
+                    suffix = r.name[len(f'SweeD_Report.{pop}.'):]
+                    r.rename(r.parent / f'SweeD_Report_{pop}_{suffix}')
+                sweed_reports = list(Path(self.config.stats_dir).glob(f'SweeD_Report_{pop}_*'))
                 if not sweed_reports:
                     raise RuntimeError(f"SweeD未生成报告|SweeD produced no reports for pop: {pop}")
 
@@ -349,7 +362,7 @@ class SweepPipeline:
             return
         for a, b in pairwise_combinations(self.pops):
             label = f'{a}_{b}'
-            fst_out = Path(self.config.stats_dir) / f'{label}.windowed.weir.fst'
+            fst_out = Path(self.config.stats_dir) / f'{label}_windowed.weir.fst'
             if self._is_step_completed(fst_out):
                 self.logger.info(f"跳过已完成步骤|Skipping completed step: Fst {label}")
                 continue
@@ -363,6 +376,7 @@ class SweepPipeline:
                  '--out', str(Path(self.config.stats_dir) / label)])
             if not self.runner.run(fst_cmd, f'vcftools窗口Fst|vcftools windowed Fst: {a} vs {b}'):
                 raise RuntimeError(f"vcftools Fst失败|vcftools Fst failed: {label}")
+            self._rename_dotted(Path(self.config.stats_dir) / f'{label}.windowed.weir.fst', fst_out)
 
     # ---- 4b. XP-CLR两群体×每染色体|pairwise XP-CLR per chromosome ----
     def run_xpclr(self, filtered_vcf: Path) -> None:
@@ -411,7 +425,7 @@ class SweepPipeline:
                 # XP-CLR的--out必须是绝对路径(os.path.dirname空串会assert失败)
                 # |XP-CLR --out must be absolute (empty dirname fails its assert)
                 out_tsv = (Path(self.config.stats_dir) /
-                           f'XPCLR_{label}.{chrom}.tsv').resolve()
+                           f'XPCLR_{label}_{chrom}.tsv').resolve()
                 if self._is_step_completed(out_tsv):
                     self.logger.info(
                         f"跳过已完成步骤|Skipping completed step: XP-CLR {label} {chrom}")

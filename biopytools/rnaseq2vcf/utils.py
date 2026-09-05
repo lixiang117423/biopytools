@@ -251,5 +251,5 @@ def discover_samples(input_dir: str, read1_pattern: Optional[str] = None,
 
 
 # 默认 R1/R2 后缀(对齐 fastq2vcf_gtx,clean 优先)|default R1/R2 suffixes (aligned with fastq2vcf_gtx, clean first)
-DEFAULT_R1_SUFFIXES = ["_1.clean.fq.gz", "_1.fq.gz", "_1.fastq.gz"]
-DEFAULT_R2_SUFFIXES = ["_2.clean.fq.gz", "_2.fq.gz", "_2.fastq.gz"]
+DEFAULT_R1_SUFFIXES = ["_1_clean.fq.gz", "_1.fq.gz", "_1.fastq.gz"]
+DEFAULT_R2_SUFFIXES = ["_2_clean.fq.gz", "_2.fq.gz", "_2.fastq.gz"]

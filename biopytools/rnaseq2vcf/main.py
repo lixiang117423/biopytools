@@ -167,8 +167,8 @@ class Rnaseq2vcfProcessor:
         report = os.path.join(cfg.output_dir, "ANALYSIS_REPORT.txt")
         joint_dir = os.path.join(cfg.output_dir, "04_joint")
         pre_vcf = os.path.join(joint_dir, "joint.vcf.gz")
-        filt_vcf = os.path.join(joint_dir, "joint.filtered.vcf.gz")
-        pass_vcf = joint_vcf or os.path.join(joint_dir, "all_samples.pass.vcf.gz")
+        filt_vcf = os.path.join(joint_dir, "joint_filtered.vcf.gz")
+        pass_vcf = joint_vcf or os.path.join(joint_dir, "all_samples_pass.vcf.gz")
 
         n_pre = self._count_records(pre_vcf) if os.path.exists(pre_vcf) else None
         n_pass = self._count_records(pass_vcf) if os.path.exists(pass_vcf) else None
@@ -190,7 +190,7 @@ class Rnaseq2vcfProcessor:
             out = n_pre - n_pass
             pct = (out / n_pre * 100) if n_pre else 0.0
             lines.append(f"过滤前变异总数|Total before filter  (joint.vcf.gz):           {n_pre}")
-            lines.append(f"过滤后保留 PASS|Retained PASS (all_samples.pass.vcf.gz):     {n_pass}")
+            lines.append(f"过滤后保留 PASS|Retained PASS (all_samples_pass.vcf.gz):     {n_pass}")
             lines.append(f"被过滤掉|Filtered out:                                   {out} ({pct:.1f}%)")
         else:
             lines.append("变异统计不可用(联合 VCF 未生成)|Counts unavailable (joint VCF missing)")
@@ -228,7 +228,7 @@ def parse_arguments(argv=None):
     p.add_argument('--qd-threshold', type=float, default=2.0)
     p.add_argument('--cluster-window', type=int, default=35)
     p.add_argument('--cluster-size', type=int, default=3)
-    p.add_argument('--read1-pattern', help='R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto)')
+    p.add_argument('--read1-pattern', help='R1 后缀(默认自动识别 _1_clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto)')
     p.add_argument('--read2-pattern', help='R2 后缀(默认自动识别)|R2 suffix (auto)')
     p.add_argument('-s', '--step', type=int, choices=[0, 1, 2, 3, 4],
                    help='0=仅建索引|index only;省略=全流程|omit for full pipeline')

@@ -110,9 +110,9 @@ def load_raisd(files, pop, win) -> pd.DataFrame:
                 f"RAiSD 报告列数异常|Unexpected column count in {f}: {n_cols}")
         text = '\n'.join(line for _, line in rows)
         d = pd.read_csv(StringIO(text), sep='\t', header=None, names=names)
-        # 染色体名:优先//分隔行,兜底文件名最后点后缀
-        # |chrom: prefer // separator, fallback to last dot suffix of filename
-        fallback_chrom = Path(f).name.rsplit('.', 1)[-1]
+        # 染色体名:优先//分隔行,兜底文件名最后下划线后缀
+        # |chrom: prefer // separator, fallback to last underscore suffix of filename
+        fallback_chrom = Path(f).name.rsplit('_', 1)[-1]
         d['CHR'] = [rc if rc else fallback_chrom for rc, _ in rows]
         frames.append(d)
     if not frames:
@@ -130,7 +130,7 @@ def load_sweed(files, pop, win) -> pd.DataFrame:
     - 每行格式|Line format: Position Likelihood(CLR) Alpha StartPos EndPos
     - 表头行(首列非数字)自动跳过|Non-numeric header line auto-skipped
     - `//` 分隔行(仅reports=0模式出现)取首token作染色体名,优先于文件名后缀
-    - 染色体名:优先//分隔行,兜底文件名最后点后缀(与load_raisd一致)
+    - 染色体名:优先//分隔行,兜底文件名最后下划线后缀(与load_raisd一致)
     - 异常列数/无法解析的行抛错(由调用方捕获降级为WARNING)
 
     Args:
@@ -173,7 +173,7 @@ def load_sweed(files, pop, win) -> pd.DataFrame:
                 rows.append((current_chrom, pos, clr))
         if not rows:
             continue
-        fallback_chrom = Path(f).name.rsplit('.', 1)[-1]
+        fallback_chrom = Path(f).name.rsplit('_', 1)[-1]
         d = pd.DataFrame(rows, columns=['CHR_SRC', 'POS', 'CLR'])
         d['CHR'] = [rc if rc else fallback_chrom for rc, _, _ in rows]
         d = d.drop(columns=['CHR_SRC'])
@@ -244,31 +244,31 @@ class SweepMerger:
         stats_dir = Path(self.config.stats_dir)
         result = {'pi': [], 'tajd': [], 'raisd': [], 'sweed': [], 'xpclr': [], 'fst': []}
 
-        for f in sorted(stats_dir.glob('*.windowed.pi')):
-            result['pi'].append((f.name[: -len('.windowed.pi')], f))
-        for f in sorted(stats_dir.glob('*.Tajima.D')):
-            result['tajd'].append((f.name[: -len('.Tajima.D')], f))
-        for f in sorted(stats_dir.glob('*.windowed.weir.fst')):
-            result['fst'].append((f.name[: -len('.windowed.weir.fst')], f))
-        # RAiSD_Report.<pop>.<chr>:前缀后、最后点后缀之前全部为pop
-        # |pop = everything between "RAiSD_Report." and last dot suffix
+        for f in sorted(stats_dir.glob('*_windowed.pi')):
+            result['pi'].append((f.name[: -len('_windowed.pi')], f))
+        for f in sorted(stats_dir.glob('*_Tajima.D')):
+            result['tajd'].append((f.name[: -len('_Tajima.D')], f))
+        for f in sorted(stats_dir.glob('*_windowed.weir.fst')):
+            result['fst'].append((f.name[: -len('_windowed.weir.fst')], f))
+        # RAiSD_Report_<pop>_<chr>:前缀后、最后下划线后缀之前全部为pop
+        # |pop = everything between "RAiSD_Report_" and last underscore suffix
         raisd_grouped = {}
-        for f in sorted(stats_dir.glob('RAiSD_Report.*')):
-            pop = f.name[len('RAiSD_Report.'):].rsplit('.', 1)[0]
+        for f in sorted(stats_dir.glob('RAiSD_Report_*')):
+            pop = f.name[len('RAiSD_Report_'):].rsplit('_', 1)[0]
             raisd_grouped.setdefault(pop, []).append(f)
         result['raisd'] = [(pop, files) for pop, files in sorted(raisd_grouped.items())]
-        # SweeD_Report.<pop>.<chr>:与RAiSD相同的前缀后pop解析|same pop parsing
+        # SweeD_Report_<pop>_<chr>:与RAiSD相同的前缀后pop解析|same pop parsing
         sweed_grouped = {}
-        for f in sorted(stats_dir.glob('SweeD_Report.*')):
-            pop = f.name[len('SweeD_Report.'):].rsplit('.', 1)[0]
+        for f in sorted(stats_dir.glob('SweeD_Report_*')):
+            pop = f.name[len('SweeD_Report_'):].rsplit('_', 1)[0]
             sweed_grouped.setdefault(pop, []).append(f)
         result['sweed'] = [(pop, files) for pop, files in sorted(sweed_grouped.items())]
-        # XPCLR_<a>_<b>.<chr>.tsv:跨群体对,前缀后、最后点后缀之前为群体对标签
-        # |XPCLR_<a>_<b>.<chr>.tsv: cross-pop pair label between prefix and last dot
+        # XPCLR_<a>_<b>_<chr>.tsv:跨群体对,前缀后、最后下划线后缀之前为群体对标签
+        # |XPCLR_<a>_<b>_<chr>.tsv: cross-pop pair label between prefix and last underscore
         xpclr_grouped = {}
         for f in sorted(stats_dir.glob('XPCLR_*.tsv')):
-            stem = f.name[: -len('.tsv')]  # XPCLR_<a>_<b>.<chr>
-            label = stem[len('XPCLR_'):].rsplit('.', 1)[0]  # <a>_<b>
+            stem = f.name[: -len('.tsv')]  # XPCLR_<a>_<b>_<chr>
+            label = stem[len('XPCLR_'):].rsplit('_', 1)[0]  # <a>_<b>
             xpclr_grouped.setdefault(label, []).append(f)
         result['xpclr'] = [(label, files) for label, files in sorted(xpclr_grouped.items())]
 

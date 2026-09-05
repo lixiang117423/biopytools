@@ -14,7 +14,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description="序列提取工具(seqkit封装,自动识别ID/ID文件/BED)|Sequence extraction tool (seqkit wrapper, auto-detect ID/ID file/BED)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="示例|Examples: biopytools seq-extract -i gene.id.txt -s gene.fa -o gene.genomic.fa",
+        epilog="示例|Examples: biopytools seq-extract -i gene.id.txt -s gene.fa -o gene_genomic.fa",
     )
 
     parser.add_argument(
@@ -30,7 +30,7 @@ def parse_arguments():
     parser.add_argument(
         "-o", "--output",
         default=None,
-        help="输出文件(默认自动推导:{query}.{subject}.fa)|Output file (default: auto-derived {query}.{subject}.fa)",
+        help="输出文件(默认自动推导:{query}_{subject}.fa)|Output file (default: auto-derived {query}_{subject}.fa)",
     )
     parser.add_argument(
         "--bed",

@@ -24,7 +24,7 @@ class GenomeAnalysisConfig:
     threads: int = 64
     hash_size: str = "10G"
     max_kmer_cov: int = 1000
-    read1_suffix: str = "*_1.clean.fq.gz"
+    read1_suffix: str = "*_1_clean.fq.gz"
     skip_smudgeplot: bool = False
     ploidy: int = 2
 

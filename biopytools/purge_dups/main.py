@@ -60,7 +60,7 @@ class PurgeDupsRunner:
         paf_files = []
         for reads_file in self.config.reads_files:
             reads_base = Path(reads_file).stem
-            paf_file = self.config.coverage_dir / f"{reads_base}.paf.gz"
+            paf_file = self.config.coverage_dir / f"{reads_base}_paf.gz"
             paf_file_abs = str(paf_file.absolute())  # 转换为绝对路径
 
             if self.config.read_type in ['pacbio', 'hifi']:
@@ -76,7 +76,7 @@ class PurgeDupsRunner:
             paf_files.append(paf_file_abs)  # 使用绝对路径|Use absolute path
 
         # 计算测序深度统计|Calculate coverage statistics
-        base_cov_file = self.config.coverage_dir / f"{self.genome_base}.base.cov"
+        base_cov_file = self.config.coverage_dir / f"{self.genome_base}_base.cov"
         stat_file = self.config.coverage_dir / f"{self.genome_base}.stat"
 
         # 转换为绝对路径用于命令|Convert to absolute paths for command
@@ -144,7 +144,7 @@ class PurgeDupsRunner:
             return False
 
         # 自比对|Self-alignment
-        paf_file = self.config.split_aln_dir / f"{self.genome_base}.split.self.paf.gz"
+        paf_file = self.config.split_aln_dir / f"{self.genome_base}_split_self_paf.gz"
         paf_file_abs = str(paf_file.absolute())  # 转换为绝对路径
         cmd = f"{self.minimap2_bin} -xasm5 -DP -t {self.config.threads} " \
               f"{split_fa_abs} {split_fa_abs} | gzip -c > {paf_file_abs}"
@@ -158,9 +158,9 @@ class PurgeDupsRunner:
         """步骤4: 识别并去除冗余序列|Step 4: Identify and purge duplications"""
         self.logger.info("开始步骤4: 识别并去除冗余序列|Starting step 4: Identify and purge duplications")
 
-        base_cov_file = self.config.coverage_dir / f"{self.genome_base}.base.cov"
+        base_cov_file = self.config.coverage_dir / f"{self.genome_base}_base.cov"
         cutoffs_file = self.config.coverage_dir / "cutoffs"
-        paf_file = self.config.split_aln_dir / f"{self.genome_base}.split.self.paf.gz"
+        paf_file = self.config.split_aln_dir / f"{self.genome_base}_split_self_paf.gz"
         dups_bed = self.config.purge_dups_dir / "dups.bed"
 
         # 检查输入文件|Check input files

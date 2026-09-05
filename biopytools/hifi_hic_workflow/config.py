@@ -43,7 +43,7 @@ class HifiHicWorkflowConfig:
     use_ngs_polish: bool = False  # 是否使用NGS polish|Whether to use NGS polish
     ngs_data: Optional[str] = None  # NGS二代数据目录|NGS second-generation data directory
     ngs_high_cov: float = 95.0  # 高质量contig覆盖度阈值|High quality contig coverage threshold
-    ngs_pattern: str = "_1.clean.fq.gz"  # NGS文件匹配模式|NGS file matching pattern
+    ngs_pattern: str = "_1_clean.fq.gz"  # NGS文件匹配模式|NGS file matching pattern
 
     # ==================== Step 2: HapHiC挂载参数 | Step 2: HapHiC Scaffolding Parameters ====================
     nchrs: Optional[int] = None  # 染色体数量（如果为None，从reference_genome统计）|Number of chromosomes (count from reference if None)

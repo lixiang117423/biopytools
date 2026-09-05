@@ -48,7 +48,7 @@ def _validate_column(column):
 @click.command(short_help='GWAS Lambda GC计算器|GWAS Lambda GC Calculator',
                context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--pattern', '-p',
-              default="feture_*/GWAS_Result.mlm.manht_input",
+              default="feture_*/GWAS_Result_mlm_manht_input",
               show_default=True,
               callback=lambda ctx, param, value: _validate_pattern(value) if value else None,
               help='文件搜索模式|File search pattern')

@@ -95,10 +95,10 @@ def parse_arguments():
                        help='分类器缓存目录|Classifier cache directory (default: <db>/classifier_cache)')
 
     # 样品命名|Sample naming
-    parser.add_argument('--r1-suffix', default='_1.clean.fq.gz',
-                       help='R1文件后缀|R1 file suffix (default: _1.clean.fq.gz)')
-    parser.add_argument('--r2-suffix', default='_2.clean.fq.gz',
-                       help='R2文件后缀|R2 file suffix (default: _2.clean.fq.gz)')
+    parser.add_argument('--r1-suffix', default='_1_clean.fq.gz',
+                       help='R1文件后缀|R1 file suffix (default: _1_clean.fq.gz)')
+    parser.add_argument('--r2-suffix', default='_2_clean.fq.gz',
+                       help='R2文件后缀|R2 file suffix (default: _2_clean.fq.gz)')
 
     # 跳过控制|Skip control
     parser.add_argument('--skip-cutadapt', action='store_true',

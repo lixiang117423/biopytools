@@ -477,10 +477,10 @@ def main():
 
     # 双末端测序参数|Paired-end parameters
     parser.add_argument('--read1-suffix',
-                       default='_1.clean.fq.gz',
+                       default='_1_clean.fq.gz',
                        help='Read1文件后缀|Read1 file suffix')
     parser.add_argument('--read2-suffix',
-                       default='_2.clean.fq.gz',
+                       default='_2_clean.fq.gz',
                        help='Read2文件后缀|Read2 file suffix')
     parser.add_argument('--single-end',
                        action='store_true',

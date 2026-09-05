@@ -31,7 +31,7 @@ class AlignmentStatsGenerator:
     
     def _run_flagstat(self, sample_name: str, bam_file: str) -> bool:
         """运行samtools flagstat|Run samtools flagstat"""
-        output_file = self.config.stats_dir / f"{sample_name}.flagstat.txt"
+        output_file = self.config.stats_dir / f"{sample_name}_flagstat.txt"
 
         # 构建命令(conda环境自动包装, 输出重定向到文件)
         # |Build command (auto conda wrap, redirect to file)
@@ -49,7 +49,7 @@ class AlignmentStatsGenerator:
 
     def _run_stats(self, sample_name: str, bam_file: str) -> bool:
         """运行samtools stats|Run samtools stats"""
-        output_file = self.config.stats_dir / f"{sample_name}.stats.txt"
+        output_file = self.config.stats_dir / f"{sample_name}_stats.txt"
 
         # 构建命令(conda环境自动包装, 输出重定向到文件)
         # |Build command (auto conda wrap, redirect to file)

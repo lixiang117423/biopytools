@@ -43,14 +43,14 @@ def _validate_file_exists(file_path):
               help="目标序列FASTA文件|Target sequence FASTA file")
 @click.option("-o", "--output",
               default=None,
-              help="输出文件(默认自动推导:{query}.{subject}.fa)|Output file (default: auto-derived)")
+              help="输出文件(默认自动推导:{query}_{subject}.fa)|Output file (default: auto-derived)")
 @click.option("--bed",
               is_flag=True,
               help="强制BED模式(跳过自动检测)|Force BED mode (skip auto-detection)")
 def seq_extract(input, sequence, output, bed):
     """序列提取工具(seqkit封装,自动识别ID/ID文件/BED)|Sequence extraction tool (seqkit wrapper, auto-detect ID/ID file/BED)
 
-    示例|Examples: biopytools seq-extract -i gene.id.txt -s gene.fa -o gene.genomic.fa
+    示例|Examples: biopytools seq-extract -i gene.id.txt -s gene.fa -o gene_genomic.fa
     """
     seq_extract_main = _lazy_import_main()
 

@@ -174,7 +174,7 @@ def run_kraken2_sample(config, runner, ckpt, sample: str,
     """kraken2 单样本分类|kraken2 classification for one sample."""
     out_dir = Path(config.output_dir) / "08_contamination" / "kraken2"
     out_dir.mkdir(parents=True, exist_ok=True)
-    report = out_dir / f"{sample}.k2.report.txt"
+    report = out_dir / f"{sample}_k2_report.txt"
     step = f"kraken2_{sample}"
     if config.enable_checkpoint and ckpt.exists(step) and report.exists():
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: {step}")
@@ -202,7 +202,7 @@ def run_bracken_sample(config, runner, ckpt, sample: str,
     """bracken 单样本丰度重估|bracken abundance re-estimation for one sample."""
     out_dir = Path(config.output_dir) / "08_contamination" / "bracken"
     out_dir.mkdir(parents=True, exist_ok=True)
-    out = out_dir / f"{sample}.bracken.{config.bracken_level}.txt"
+    out = out_dir / f"{sample}_bracken_{config.bracken_level}.txt"
     step = f"bracken_{sample}"
     if config.enable_checkpoint and ckpt.exists(step) and out.exists():
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: {step}")

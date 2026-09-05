@@ -16,11 +16,11 @@ class VCFSeparator:
         self.cmd_runner = cmd_runner
         
         # 定义输出文件名|Define output file names
-        # self.raw_snp_file = self.config.output_path / f"{self.config.base_name}.raw.snp.vcf.gz"
-        # self.raw_indel_file = self.config.output_path / f"{self.config.base_name}.raw.indel.vcf.gz"
+        # self.raw_snp_file = self.config.output_path / f"{self.config.base_name}_raw_snp.vcf.gz"
+        # self.raw_indel_file = self.config.output_path / f"{self.config.base_name}_raw_indel.vcf.gz"
         # After
-        self.raw_snp_file = Path(f"{self.config.base_name}.raw.snp.vcf.gz")
-        self.raw_indel_file = Path(f"{self.config.base_name}.raw.indel.vcf.gz")
+        self.raw_snp_file = Path(f"{self.config.base_name}_raw_snp.vcf.gz")
+        self.raw_indel_file = Path(f"{self.config.base_name}_raw_indel.vcf.gz")
     
     def separate_variants(self) -> bool:
         """分离SNP和INDEL|Separate SNPs and INDELs"""

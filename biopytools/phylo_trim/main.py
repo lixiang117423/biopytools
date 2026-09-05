@@ -54,7 +54,7 @@ class PhyloTrimRunner:
             ext = os.path.splitext(mafft_fa)[1] or '.fasta'
         else:
             ext = f'.{self.config.trimal_format}'
-        return os.path.join(trimal_dir, '01_trimal', f'{self.config.sample_name}.trimmed{ext}')
+        return os.path.join(trimal_dir, '01_trimal', f'{self.config.sample_name}_trimmed{ext}')
 
     # ------------------------------------------------------------------ #
     # 子流程|Sub-flows
@@ -128,9 +128,9 @@ class PhyloTrimRunner:
             self._setup_default_log(log_dir)
 
             base = self.config.sample_name
-            mafft_fa = os.path.join(before_dir, f'{base}.mafft.fa')
-            before_nwk = os.path.join(before_dir, f'{base}.fasttree.nwk')
-            after_nwk = os.path.join(after_dir, f'{base}.fasttree.trimmed.nwk')
+            mafft_fa = os.path.join(before_dir, f'{base}_mafft.fa')
+            before_nwk = os.path.join(before_dir, f'{base}_fasttree.nwk')
+            after_nwk = os.path.join(after_dir, f'{base}_fasttree_trimmed.nwk')
 
             seq_type = self._detect_seq_type()
             self.logger.info(f"序列类型|Sequence type: {seq_type}")

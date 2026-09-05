@@ -213,7 +213,7 @@ def _sanitize_gwas_file(in_gwas: str, output_dir: str, logger) -> Optional[str]:
     if src_abs in _GWAS_CLEAN_CACHE:
         return _GWAS_CLEAN_CACHE[src_abs]
 
-    clean_path = os.path.join(output_dir, f"{os.path.basename(src_abs)}.clean.tsv")
+    clean_path = os.path.join(output_dir, f"{os.path.basename(src_abs)}_clean.tsv")
 
     total = 0      # 数据行数|data rows
     dropped = 0    # 无效P值行|invalid P-value rows

@@ -209,7 +209,7 @@ class JcviPipeline:
         stem_a = get_jcvi_stem(name_a)
         stem_b = get_jcvi_stem(name_b)
         suffix = ".cds" if self.config.dbtype == "nucl" else ".pep"
-        pprefix = f"{stem_a}.{stem_b}"
+        pprefix = f"{stem_a}_{stem_b}"
 
         # 创建符号链接
         for name in [name_a, name_b]:

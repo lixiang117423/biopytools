@@ -392,8 +392,8 @@ class SampleFinder:
 
 
 def detect_samples_and_reads(input_dir: str, logger: Optional[logging.Logger] = None,
-                             read1_suffix: str = '_1.clean.fq.gz',
-                             read2_suffix: str = '_2.clean.fq.gz') -> dict:
+                             read1_suffix: str = '_1_clean.fq.gz',
+                             read2_suffix: str = '_2_clean.fq.gz') -> dict:
     """
     自动检测输入目录中的多个样品及其reads文件|Auto-detect multiple samples and their reads files
 
@@ -446,8 +446,8 @@ def detect_samples_and_reads(input_dir: str, logger: Optional[logging.Logger] = 
 
 
 def detect_reads_files(input_dir: str, logger: Optional[logging.Logger] = None,
-                       read1_suffix: str = '_1.clean.fq.gz',
-                       read2_suffix: str = '_2.clean.fq.gz') -> Tuple[Optional[str], Optional[str], None]:
+                       read1_suffix: str = '_1_clean.fq.gz',
+                       read2_suffix: str = '_2_clean.fq.gz') -> Tuple[Optional[str], Optional[str], None]:
     """
     自动检测输入目录中的reads文件（单个样品）| Auto-detect reads files in input directory (single sample)
 

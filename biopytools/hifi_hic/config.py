@@ -40,7 +40,7 @@ class AssemblyConfig:
     ngs_data: str = None      # NGS二代数据目录|NGS second-generation data directory
     high_cov: float = 95.0    # 高质量contig覆盖度阈值|High quality contig coverage threshold
     medium_cov_min: float = 30.0  # 中等质量contig最小覆盖度|Medium quality contig minimum coverage
-    ngs_pattern: str = "_1.clean.fq.gz"  # NGS文件匹配模式|NGS file matching pattern
+    ngs_pattern: str = "_1_clean.fq.gz"  # NGS文件匹配模式|NGS file matching pattern
 
     # Purge_Dups去冗余参数|Purge_Dups deduplication parameters
     enable_purge_dups: bool = True  # 是否启用去冗余（默认启用）|Whether to enable deduplication (enabled by default)
@@ -226,14 +226,14 @@ class AssemblyConfig:
         # 根据是否有Hi-C数据定义GFA文件|Define GFA files based on Hi-C data availability
         if self.has_hic:
             primary_gfa = f"{self.prefix}.hic.p_ctg.gfa"
-            primary_fasta = f"{self.prefix}.primary.fa"
-            mapping_file = f"{self.prefix}.p_ctg.contig_reads.tsv"
+            primary_fasta = f"{self.prefix}_primary.fa"
+            mapping_file = f"{self.prefix}_p_ctg_contig_reads.tsv"
             # 尝试.bp.前缀的文件名|Try .bp. prefixed filename
             primary_gfa_bp = f"{self.prefix}.bp.hic.p_ctg.gfa"
         else:
             primary_gfa = f"{self.prefix}.p_ctg.gfa"
-            primary_fasta = f"{self.prefix}.primary.fa"
-            mapping_file = f"{self.prefix}.p_ctg.contig_reads.tsv"
+            primary_fasta = f"{self.prefix}_primary.fa"
+            mapping_file = f"{self.prefix}_p_ctg_contig_reads.tsv"
             # 尝试.bp.前缀的文件名|Try .bp. prefixed filename
             primary_gfa_bp = f"{self.prefix}.bp.p_ctg.gfa"
 
@@ -286,7 +286,7 @@ class AssemblyConfig:
                 steps['filtered_reads'] = True
 
             # 检查重新组装是否完成|Check if reassembly completed
-            polished_genome = os.path.join(self.ngs_polish_dir, f"{self.prefix}.polished.fa")
+            polished_genome = os.path.join(self.ngs_polish_dir, f"{self.prefix}_polished.fa")
             if os.path.exists(polished_genome) and os.path.getsize(polished_genome) > 0:
                 steps['reassembly'] = True
 

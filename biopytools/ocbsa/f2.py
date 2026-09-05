@@ -263,9 +263,9 @@ class F2bsaCalculator:
 
         # 输出中间文件|Output intermediate file
         if snp_index:
-            mid_file = str(cfg.output_path / "f2bsa.snpindex")
+            mid_file = str(cfg.output_path / "f2bsa_snpindex")
         else:
-            mid_file = str(cfg.output_path / "f2bsa.ED")
+            mid_file = str(cfg.output_path / "f2bsa_ED")
 
         with open(mid_file, 'w') as out_file:
             for key, value in chr_geno_dict_filter.items():
@@ -286,7 +286,7 @@ class F2bsaCalculator:
         pool.close()
         pool.join()
 
-        smoothed_file = str(cfg.output_path / "f2bsa.smoothed")
+        smoothed_file = str(cfg.output_path / "f2bsa_smoothed")
         with open(smoothed_file, 'w') as file3:
             for i_list in result:
                 i_list = i_list.get()
@@ -299,7 +299,7 @@ class F2bsaCalculator:
 
         # 输出R绘图用汇总数据|Output summary data for R plotting
         import re
-        summary_file = str(cfg.output_path / "f2bsa.summary.tsv")
+        summary_file = str(cfg.output_path / "f2bsa_summary.tsv")
         chr_sorted = sorted(chr_geno_dict_filter.keys(), key=lambda x: int(re.findall(r'\d+', x)[0]))
         chr_len_dict = {}
         for ch in chr_sorted:
@@ -321,7 +321,7 @@ class F2bsaCalculator:
         from .fig import BsaFigPlotter
 
         fig_type = 'snpindex' if snp_index else 'ed'
-        fig_file = str(cfg.output_path / f"f2bsa.{method_name}.png")
+        fig_file = str(cfg.output_path / f"f2bsa_{method_name}.png")
         fig_config = BsaFigConfig(
             input_file=smoothed_file,
             output_file=fig_file,

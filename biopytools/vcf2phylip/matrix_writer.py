@@ -59,7 +59,7 @@ class MatrixWriter:
                     prefix_parts.append(p)
             prefix = ".".join(prefix_parts)
         
-        return f"{prefix}.min{self.config.min_samples_locus}"
+        return f"{prefix}_min{self.config.min_samples_locus}"
     
     def write_sequences(self, sample_names, temp_file, temp_bin_file=None):
         """写入序列数据|Write sequence data"""

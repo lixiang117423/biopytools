@@ -83,7 +83,7 @@ def _parse_sn(stats_text: str, key: str) -> Optional[int]:
 
 
 def run_depth(runner, config, sample: str, bam: str, genome_size: int):
-    """samtools stats → 04_het_eval/alignment_qc/{sample}.stats.txt;平均深度 = bases_mapped / genome_size。
+    """samtools stats → 04_het_eval/alignment_qc/{sample}_stats.txt;平均深度 = bases_mapped / genome_size。
     |samtools stats -> stats.txt; mean depth = bases_mapped / genome_size."""
     qc_dir = Path(config.output_dir) / "04_het_eval" / "alignment_qc"
     qc_dir.mkdir(parents=True, exist_ok=True)
@@ -91,7 +91,7 @@ def run_depth(runner, config, sample: str, bam: str, genome_size: int):
                                         f"samtools stats {sample}")
     if not (ok and stats_txt):
         return None
-    (qc_dir / f"{sample}.stats.txt").write_text(stats_txt)
+    (qc_dir / f"{sample}_stats.txt").write_text(stats_txt)
     bases = _parse_sn(stats_txt, "bases mapped")
     if bases and genome_size:
         return bases / genome_size
@@ -121,7 +121,7 @@ def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     ok, _, _ = runner.run(
         f"biopytools smudgescope -i {clean_dir} -o {kmer_root} "
         f"-l {config.read_length} -k {config.kmer_size} -t {config.threads} "
-        f"--read1-suffix *_1.mapped.fq.gz",
+        f"--read1-suffix *_1_mapped.fq.gz",
         "k-mer谱分析|k-mer spectrum (smudgescope)")
     if config.enable_checkpoint and ok:
         ckpt.create("kmer")

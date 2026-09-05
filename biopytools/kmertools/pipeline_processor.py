@@ -101,7 +101,7 @@ class PipelineProcessor:
             return None
 
         # 首先尝试查找双末端数据（paired-end）|Try to find paired-end data first
-        r1_files = sorted(input_dir.glob("*_1.clean.fq.gz"))
+        r1_files = sorted(input_dir.glob("*_1_clean.fq.gz"))
         if not r1_files:
             r1_files = sorted(input_dir.glob("*_1.filter.fq.gz"))
         if not r1_files:
@@ -127,7 +127,7 @@ class PipelineProcessor:
                     continue
 
                 # 样本名（去除后缀）|Sample name (remove suffix)
-                sample_name = r1_file.name.replace("_1.clean.fq.gz", "")
+                sample_name = r1_file.name.replace("_1_clean.fq.gz", "")
                 sample_name = sample_name.replace("_1.filter.fq.gz", "")
                 sample_name = sample_name.replace("_1.fq.gz", "")
                 sample_name = sample_name.replace("_1.fastq.gz", "")

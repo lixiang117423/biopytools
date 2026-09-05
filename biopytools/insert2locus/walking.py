@@ -248,7 +248,7 @@ class WalkingRunner:
             pe1: Path, pe2: Path, walk_dir: Path) -> WalkResult:
         """跑完整步移|Run full walking"""
         walk_dir.mkdir(parents=True, exist_ok=True)
-        summary = walk_dir / f"{sample}.walk_summary.tsv"
+        summary = walk_dir / f"{sample}_walk_summary.tsv"
         master = walk_dir / "master.txt"
         recruited_r1 = walk_dir / "recruited_R1.fastq"
         recruited_r2 = walk_dir / "recruited_R2.fastq"
@@ -374,7 +374,7 @@ class WalkingRunner:
         # 带样本前缀防多样本串扰|
         # Done flag: summary exists right after round 0; sample-prefixed to
         # avoid multi-sample crosstalk
-        (walk_dir / f"{sample}.walk_done.flag").write_text(
+        (walk_dir / f"{sample}_walk_done.flag").write_text(
             f"stop_reason={stop_reason}\ntotal_bp={total}\nlongest_bp={longest}\n")
         return WalkResult(
             final_contigs=final_contigs, rounds_done=max(done_rounds.keys(),

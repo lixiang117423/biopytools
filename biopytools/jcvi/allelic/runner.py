@@ -56,7 +56,7 @@ class AllelicRunner:
 
             for (name_a, name_b), pair_dir in result.pair_dirs.items():
                 pairs_file = str(pair_dir / f"{name_a}_{name_b}.allelic_pairs.txt")
-                lifted_anchors = str(pair_dir / f"{name_a}.{name_b}.lifted.anchors")
+                lifted_anchors = str(pair_dir / f"{name_a}_{name_b}.lifted.anchors")
                 bed_a = str(result.bed_dir / f"{name_a}.uniq.bed")
                 bed_b = str(result.bed_dir / f"{name_b}.uniq.bed")
 

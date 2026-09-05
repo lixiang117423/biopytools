@@ -75,8 +75,8 @@ class QualityController:
         cfg = self.config
         qc_dir = os.path.join(cfg.output_dir, "01_qc")
         os.makedirs(qc_dir, exist_ok=True)
-        r1_clean = os.path.join(qc_dir, f"{sample}_1.clean.fq.gz")
-        r2_clean = os.path.join(qc_dir, f"{sample}_2.clean.fq.gz")
+        r1_clean = os.path.join(qc_dir, f"{sample}_1_clean.fq.gz")
+        r2_clean = os.path.join(qc_dir, f"{sample}_2_clean.fq.gz")
         if os.path.exists(r1_clean) and os.path.exists(r2_clean) and not cfg.force:
             self.logger.info(f"跳过已完成 QC|Skipping QC: {sample}")
             return r1_clean, r2_clean
@@ -129,8 +129,8 @@ class Aligner:
         cfg = self.config
         align_dir = os.path.join(cfg.output_dir, "02_align")
         os.makedirs(align_dir, exist_ok=True)
-        out_bam = os.path.join(align_dir, f"{sample}.sorted.bam")
-        log_file = os.path.join(align_dir, f"{sample}.hisat2.log")
+        out_bam = os.path.join(align_dir, f"{sample}_sorted.bam")
+        log_file = os.path.join(align_dir, f"{sample}_hisat2.log")
         if os.path.exists(out_bam) and not cfg.force:
             self.logger.info(f"跳过已完成比对|Skipping alignment: {sample}")
             return out_bam
@@ -180,12 +180,12 @@ class Caller:
         cfg = self.config
         call_dir = os.path.join(cfg.output_dir, "03_calling")
         os.makedirs(call_dir, exist_ok=True)
-        rg = os.path.join(call_dir, f"{sample}.rg.bam")
-        dedup = os.path.join(call_dir, f"{sample}.dedup.bam")
-        split = os.path.join(call_dir, f"{sample}.split.bam")
-        gvcf = os.path.join(call_dir, f"{sample}.g.vcf.gz")
-        # 续传须同时存在 gVCF 与其 .tbi(HaplotypeCaller 正常退出必生成两者);仅 .g.vcf.gz 而缺 .tbi 是中断残缺产物|
-        # Resume only when BOTH gVCF and .tbi exist (HaplotypeCaller always emits both); lone .g.vcf.gz = truncated
+        rg = os.path.join(call_dir, f"{sample}_rg.bam")
+        dedup = os.path.join(call_dir, f"{sample}_dedup.bam")
+        split = os.path.join(call_dir, f"{sample}_split.bam")
+        gvcf = os.path.join(call_dir, f"{sample}_g.vcf.gz")
+        # 续传须同时存在 gVCF 与其 .tbi(HaplotypeCaller 正常退出必生成两者);仅 _g.vcf.gz 而缺 .tbi 是中断残缺产物|
+        # Resume only when BOTH gVCF and .tbi exist (HaplotypeCaller always emits both); lone _g.vcf.gz = truncated
         if os.path.exists(gvcf) and os.path.exists(gvcf + '.tbi') and not cfg.force:
             self.logger.info(f"跳过已完成 calling|Skipping calling: {sample}")
             return gvcf
@@ -246,10 +246,10 @@ class JointCaller:
         cfg = self.config
         joint_dir = os.path.join(cfg.output_dir, "04_joint")
         os.makedirs(joint_dir, exist_ok=True)
-        combined = os.path.join(joint_dir, "combined.g.vcf.gz")
+        combined = os.path.join(joint_dir, "combined_g.vcf.gz")
         joint_vcf = os.path.join(joint_dir, "joint.vcf.gz")
-        filtered = os.path.join(joint_dir, "joint.filtered.vcf.gz")
-        pass_vcf = os.path.join(joint_dir, "all_samples.pass.vcf.gz")
+        filtered = os.path.join(joint_dir, "joint_filtered.vcf.gz")
+        pass_vcf = os.path.join(joint_dir, "all_samples_pass.vcf.gz")
         if os.path.exists(pass_vcf) and not cfg.force:
             self.logger.info("跳过已完成步骤|Skipping completed step: joint_calling")
             return pass_vcf

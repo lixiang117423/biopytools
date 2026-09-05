@@ -163,7 +163,7 @@ def create_absolute_path_seqfile(seqfile: str, output_dir: str, logger: Optional
             lines = f.readlines()
 
         # 创建新的seqfile文件名|Create new seqfile filename
-        new_seqfile = output_path / f"{seqfile_path.stem}.abs{seqfile_path.suffix}"
+        new_seqfile = output_path / f"{seqfile_path.stem}_abs{seqfile_path.suffix}"
 
         with open(new_seqfile, 'w') as f:
             for line in lines:
@@ -273,7 +273,7 @@ def get_genome_dirs(seqfile: str, logger: Optional[logging.Logger] = None) -> li
     otherwise cactus inside the container cannot read them.
 
     Args:
-        seqfile: 序列文件路径（建议为绝对路径版本.abs）|Sequence file path (absolute-path .abs version recommended)
+        seqfile: 序列文件路径（建议为绝对路径版本_abs）|Sequence file path (absolute-path _abs version recommended)
         logger: 日志对象|Logger object
 
     Returns:

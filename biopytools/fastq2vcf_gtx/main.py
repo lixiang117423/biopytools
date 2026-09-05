@@ -322,7 +322,7 @@ class Fastq2VcfGTXProcessor:
             f.write("------------------------------------------------------------------------\n")
             f.write(f"原始FASTQ目录|Raw FASTQ Directory: {self.config.raw_fastq_dir}\n")
             f.write(f"参考基因组|Reference Genome: {self.config.ref_genome_fa}\n")
-            f.write(f"样本数量|Sample Count: {FileManager.count_files(self.config.gvcf_dir, '*.g.vcf.gz')}\n\n")
+            f.write(f"样本数量|Sample Count: {FileManager.count_files(self.config.gvcf_dir, '*_g.vcf.gz')}\n\n")
 
             f.write("------------------------------------------------------------------------\n")
             f.write("处理参数|Processing Parameters\n")

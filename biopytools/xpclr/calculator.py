@@ -100,7 +100,7 @@ class XpclrCalculator:
 
     def chrom_output(self, chrom: str) -> Path:
         """单染色体输出路径|Per-chrom output path."""
-        return Path(self.config.output_dir) / "01_xpclr" / f"{chrom}.xpclr.tsv"
+        return Path(self.config.output_dir) / "01_xpclr" / f"{chrom}_xpclr.tsv"
 
     def _tool_path(self) -> str:
         """当前后端工具路径|Active backend's tool path."""
@@ -156,7 +156,7 @@ class XpclrCalculator:
         """Rust 输出收尾:改名 + 补 id 列(对齐 python 版 schema)|Finalize rust output.
 
         xpclrs 无 id 列且 --out 是基名;这里把 {chrom}.{chrom}.xpclr 改名为
-        {chrom}.xpclr.tsv,并补 id={chrom}_{start:08d}_{stop:08d}。
+        {chrom}_xpclr.tsv,并补 id={chrom}_{start:08d}_{stop:08d}。
         |No id column and base-name output in xpclrs; rename + insert id column.
         """
         raw = self._raw_output(chrom)
@@ -219,7 +219,7 @@ class XpclrCalculator:
         if not frames:
             return None
         merged = pd.concat(frames, ignore_index=True)
-        out = out_dir / f"{self.config.label}.xpclr.genome.tsv"
+        out = out_dir / f"{self.config.label}_xpclr_genome.tsv"
         merged.to_csv(out, sep="\t", index=False)
         self.logger.info(
             f"全基因组合并表|Genome-wide merged table: {out} "
@@ -238,7 +238,7 @@ class XpclrCalculator:
                  .head(self.config.top_n))
         out_dir = Path(self.config.output_dir) / "03_top"
         out_dir.mkdir(parents=True, exist_ok=True)
-        out = out_dir / f"{self.config.label}.xpclr.top{self.config.top_n}.tsv"
+        out = out_dir / f"{self.config.label}_xpclr_top{self.config.top_n}.tsv"
         top.to_csv(out, sep="\t", index=False)
         self.logger.info(
             f"Top 候选窗口表|Top candidate windows: {out} (n={len(top)})")

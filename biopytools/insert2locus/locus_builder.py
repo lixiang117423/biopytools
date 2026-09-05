@@ -186,9 +186,9 @@ def write_junction_outputs(junctions: List[JunctionInfo],
     """写junction/locus产物|Write junction & locus outputs"""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    junc_fa = out_dir / f"{sample}.junction_contigs.fasta"
-    junc_tsv = out_dir / f"{sample}.junction_report.tsv"
-    locus_fa = out_dir / f"{sample}.complete_locus.fasta"
+    junc_fa = out_dir / f"{sample}_junction_contigs.fasta"
+    junc_tsv = out_dir / f"{sample}_junction_report.tsv"
+    locus_fa = out_dir / f"{sample}_complete_locus.fasta"
     with open(junc_fa, "w") as fh:
         for j in junctions:
             fh.write(f">{j.contig} border={j.border} pos={j.pos_on_insert} "

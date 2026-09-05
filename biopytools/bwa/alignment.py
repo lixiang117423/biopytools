@@ -35,8 +35,8 @@ class BWAAlignmentProcessor:
         
         # 定义输出文件|Define output files
         sam_file = self.config.bam_dir / f"{sample_name}.sam"
-        raw_bam = self.config.bam_dir / f"{sample_name}.raw.bam"
-        sorted_bam = self.config.bam_dir / f"{sample_name}.sorted.bam"
+        raw_bam = self.config.bam_dir / f"{sample_name}_raw.bam"
+        sorted_bam = self.config.bam_dir / f"{sample_name}_sorted.bam"
         final_bam = self.config.bam_dir / f"{sample_name}.bam"
         
         # 检查断点续传|Check resume
@@ -58,7 +58,7 @@ class BWAAlignmentProcessor:
         
         # Step 4: 标记重复序列（可选）| Mark duplicates (optional)
         if self.config.markdup:
-            markdup_bam = self.config.bam_dir / f"{sample_name}.markdup.bam"
+            markdup_bam = self.config.bam_dir / f"{sample_name}_markdup.bam"
             if not self._mark_duplicates(sorted_bam, markdup_bam):
                 return None
             final_bam = markdup_bam
@@ -129,7 +129,7 @@ class BWAAlignmentProcessor:
 
     def _mark_duplicates(self, input_bam: Path, output_bam: Path) -> bool:
         """标记重复序列|Mark duplicates"""
-        stats_file = self.config.stats_dir / f"{input_bam.stem}.markdup_stats.txt"
+        stats_file = self.config.stats_dir / f"{input_bam.stem}_markdup_stats.txt"
 
         args = [
             "markdup",

@@ -18,11 +18,11 @@ _EXCL_INCL_UNMAPPED = "0x900"
 
 
 def resolve_gtx_bam(bam_dir: str, sample: str) -> Optional[str]:
-    """解析样本 BAM 路径:GTX 实际产出 {sample}.sorted.bam,裸名为回退。
+    """解析样本 BAM 路径:GTX 实际产出 {sample}_sorted.bam,裸名为回退。
 
-    |resolve sample BAM: GTX emits {sample}.sorted.bam; bare name as fallback.
+    |resolve sample BAM: GTX emits {sample}_sorted.bam; bare name as fallback.
     """
-    for name in (f"{sample}.sorted.bam", f"{sample}.bam"):
+    for name in (f"{sample}_sorted.bam", f"{sample}.sorted.bam", f"{sample}.bam"):
         p = Path(bam_dir) / name
         if p.exists():
             return str(p)
@@ -62,12 +62,12 @@ def extract_mapped_fastq(config, runner, ckpt, sample: str,
     """step4 前置:从 BAM 提取达标 mapped reads 成对 fastq|mapped-read pair extraction.
 
     samtools view -F 0x904 [-q Q] 过滤后 samtools fastq;输出
-    05_kmer/mapped_fastq/{sample}_1/2.mapped.fq.gz。
+    05_kmer/mapped_fastq/{sample}_1/2_mapped.fq.gz。
     """
     out_dir = Path(config.output_dir) / "05_kmer" / "mapped_fastq"
     out_dir.mkdir(parents=True, exist_ok=True)
-    r1 = out_dir / f"{sample}_1.mapped.fq.gz"
-    r2 = out_dir / f"{sample}_2.mapped.fq.gz"
+    r1 = out_dir / f"{sample}_1_mapped.fq.gz"
+    r2 = out_dir / f"{sample}_2_mapped.fq.gz"
     if config.enable_checkpoint and _done(ckpt, f"mapped_{sample}", r1):
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: mapped_{sample}")
         return str(r1), str(r2)

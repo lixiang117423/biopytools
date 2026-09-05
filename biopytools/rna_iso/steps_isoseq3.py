@@ -33,7 +33,7 @@ def run_cluster2(config, logger, flnc_bams: List[str]) -> bool:
     cluster2输入:单文件直接传,多文件写fofn(原生支持)|Single file passed
     directly, multiple via fofn (native support)
     """
-    out_bam = os.path.join(config.isoseq3_dir, f"{config.prefix}.transcripts.bam")
+    out_bam = os.path.join(config.isoseq3_dir, f"{config.prefix}_transcripts.bam")
     if _is_done(out_bam):
         logger.info(f"跳过已完成cluster2|Skipping completed cluster2: {out_bam}")
         return True

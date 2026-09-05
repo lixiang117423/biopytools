@@ -201,9 +201,16 @@ class MicrosyntenyAnalyzer:
                 os.chdir(original_cwd)
 
             # 移动生成的文件到synteny目录|Move generated files to synteny dir
-            for ext in ['.last', '.last.filtered', '.anchors', '.lifted.anchors']:
-                src = os.path.join(preprocess_abs, f"{sp1}.{sp2}{ext}")
-                dst = str(self.config.synteny_dir / f"{sp1}.{sp2}{ext}")
+            # JCVI 原生 {sp1}.{sp2}{src_ext} 重命名为下划线分隔|rename to underscore-separated stem
+            move_suffixes = {
+                '.last': '.last',
+                '.last.filtered': '_last.filtered',
+                '.anchors': '.anchors',
+                '.lifted.anchors': '_lifted.anchors',
+            }
+            for src_ext, dst_ext in move_suffixes.items():
+                src = os.path.join(preprocess_abs, f"{sp1}.{sp2}{src_ext}")
+                dst = str(self.config.synteny_dir / f"{sp1}_{sp2}{dst_ext}")
 
                 if os.path.exists(src):
                     os.rename(src, dst)
@@ -238,7 +245,7 @@ class MicrosyntenyAnalyzer:
         for sp1, sp2 in species_pairs:
             self.logger.info(f"提取区块|Extracting blocks: {sp1} vs {sp2}")
 
-            lifted_anchors = self.config.synteny_dir / f"{sp1}.{sp2}.lifted.anchors"
+            lifted_anchors = self.config.synteny_dir / f"{sp1}_{sp2}_lifted.anchors"
             bed1 = str(self.config.preprocess_dir / f"{sp1}.bed")
 
             if not os.path.exists(lifted_anchors):
@@ -246,7 +253,7 @@ class MicrosyntenyAnalyzer:
                 continue
 
             # 使用mcscan提取微观区块
-            blocks_file = self.config.blocks_dir / f"{sp1}.{sp2}.blocks"
+            blocks_file = self.config.blocks_dir / f"{sp1}_{sp2}.blocks"
 
             args = [
                 bed1,
@@ -272,7 +279,7 @@ class MicrosyntenyAnalyzer:
         blocks_index = self.config.blocks_dir / "blocks_index.txt"
         with open(blocks_index, 'w') as f:
             for sp1, sp2 in species_pairs:
-                blocks_file = self.config.blocks_dir / f"{sp1}.{sp2}.blocks"
+                blocks_file = self.config.blocks_dir / f"{sp1}_{sp2}.blocks"
                 if os.path.exists(blocks_file):
                     f.write(f"{sp1}\t{sp2}\t{blocks_file}\n")
 

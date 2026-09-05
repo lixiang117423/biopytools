@@ -35,7 +35,7 @@ def prepare_unique_bam(rnaseq_bam: Optional[List[str]], config,
         return src
     tmp_dir = os.path.join(config.output_dir, 'tmp')
     os.makedirs(tmp_dir, exist_ok=True)
-    unique_bam = os.path.join(tmp_dir, 'rnaseq.unique.bam')
+    unique_bam = os.path.join(tmp_dir, 'rnaseq_unique.bam')
     # 优先 NH==1 | prefer NH==1
     cmd_nh = f"{config.samtools_bin} view -b -e '[NH]==1' {src} -o {unique_bam}"
     if cmd_runner.run_command(cmd_nh, "唯一比对过滤(NH==1)|unique filter (NH==1)"):
@@ -95,7 +95,7 @@ def compute_hit_depth_breadth(hits, bam: Optional[str], config,
     with open(bed, 'w') as f:
         for chrom, s, e in bed_rows:
             f.write(f"{chrom}\t{s - 1}\t{e}\n")
-    depth_tsv = bed + '.depth.tsv'
+    depth_tsv = bed.rsplit('.', 1)[0] + '_depth.tsv'
 
     # 3. samtools depth -a -b|run depth
     cmd = f"{config.samtools_bin} depth -a -b {bed} {bam} > {depth_tsv}"

@@ -37,7 +37,7 @@ class StringTieRunner:
             '-o', gtf_file,
             '-p', str(self.config.threads),
             '-l', sample_name,
-            '-A', os.path.join(out_dir, f"{sample_name}.abundance.tsv"),
+            '-A', os.path.join(out_dir, f"{sample_name}_abundance.tsv"),
         ]
 
         # 链特异性参数|Strandness parameter

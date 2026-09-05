@@ -39,7 +39,7 @@ def vcf2pav(**kwargs):
     """VCF转PAV(Presence/Absence Variation)矩阵,行=SV,列=样本,值=0/1.
     |Convert SURVIVOR-merged VCF to PAV matrix: rows=SVs, columns=samples, values=0/1.
 
-    示例|Examples: biopytools vcf2pav -i pan_sv.survivor.vcf -o output_dir/
+    示例|Examples: biopytools vcf2pav -i pan_sv_survivor.vcf -o output_dir/
     """
     vcf2pav_main = _lazy_import_main()
     args = ["vcf2pav.py",

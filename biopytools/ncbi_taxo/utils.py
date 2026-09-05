@@ -16,7 +16,7 @@ class NCBITaxoLogger:
     """NCBI分类学注释日志管理器|NCBI Taxonomy Annotation Logger Manager"""
 
     def __init__(self, output_prefix: str, log_name: str = "ncbi_taxo.log"):
-        self.log_file = f"{output_prefix}.{log_name}"
+        self.log_file = f"{output_prefix}_{log_name}"
         self.setup_logging()
 
     def setup_logging(self):

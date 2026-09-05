@@ -123,7 +123,7 @@ class MacroRunner:
                 for sp_a, sp_b in pair_list:
                     stem_a = get_jcvi_stem(sp_a)
                     stem_b = get_jcvi_stem(sp_b)
-                    pprefix = f"{stem_a}.{stem_b}"
+                    pprefix = f"{stem_a}_{stem_b}"
 
                     pair_dir = pipeline_result.pair_dirs.get((sp_a, sp_b))
                     if not pair_dir:

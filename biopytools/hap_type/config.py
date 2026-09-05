@@ -140,11 +140,11 @@ class HapTypeConfig:
         output_dir = self.get_output_dir()
         base = str(output_dir / region_name)
         return {
-            'hap_result': f"{base}.hapResult.txt",
-            'hap_result_xlsx': f"{base}.hapResult.xlsx",
-            'hap_summary': f"{base}.hapSummary.txt",
-            'hap_summary_xlsx': f"{base}.hapSummary.xlsx",
-            'sample_hap': f"{base}.sampleHap.txt",
-            'sample_hap_xlsx': f"{base}.sampleHap.xlsx",
+            'hap_result': f"{base}_hapResult.txt",
+            'hap_result_xlsx': f"{base}_hapResult.xlsx",
+            'hap_summary': f"{base}_hapSummary.txt",
+            'hap_summary_xlsx': f"{base}_hapSummary.xlsx",
+            'sample_hap': f"{base}_sampleHap.txt",
+            'sample_hap_xlsx': f"{base}_sampleHap.xlsx",
             'log': f"{base}.log",
         }

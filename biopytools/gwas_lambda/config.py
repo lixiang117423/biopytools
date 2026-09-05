@@ -13,7 +13,7 @@ class GWASLambdaConfig:
     """GWAS Lambda计算配置类|GWAS Lambda Calculator Configuration Class"""
 
     # 必需参数|Required parameters
-    search_pattern: str = "feture_*/GWAS_Result.mlm.manht_input"
+    search_pattern: str = "feture_*/GWAS_Result_mlm_manht_input"
 
     # 可选参数|Optional parameters
     output_file: str = "Batch_Lambda_Assessment.txt"

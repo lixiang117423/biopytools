@@ -86,8 +86,8 @@ class Vcf2TreeConfig:
             d.mkdir(parents=True, exist_ok=True)
 
         # 关键输出文件|Key output files
-        self.snps_fa = self.step1_dir / f"{self.base_name}.snps.fa"
-        self.tree_nwk = self.step2_dir / f"{self.base_name}.{self.method}.nwk"
+        self.snps_fa = self.step1_dir / f"{self.base_name}_snps.fa"
+        self.tree_nwk = self.step2_dir / f"{self.base_name}_{self.method}.nwk"
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

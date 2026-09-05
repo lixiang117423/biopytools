@@ -125,8 +125,8 @@ class DualRNASeqAnalyzer:
 
             for sample in samples:
                 sample_name = sample["name"]
-                species1_bam = os.path.join(temp_dir, sample_name, f"{sample_name}.{self.config.species1_name}.raw.bam")
-                species2_bam = os.path.join(temp_dir, sample_name, f"{sample_name}.{self.config.species2_name}.raw.bam")
+                species1_bam = os.path.join(temp_dir, sample_name, f"{sample_name}_{self.config.species1_name}_raw.bam")
+                species2_bam = os.path.join(temp_dir, sample_name, f"{sample_name}_{self.config.species2_name}_raw.bam")
                 bam_files.append((sample_name, species1_bam, species2_bam))
 
             # 生成比对统计报告|Generate alignment statistics report
@@ -159,8 +159,8 @@ class DualRNASeqAnalyzer:
 
             for sample in samples:
                 sample_name = sample["name"]
-                species1_fpkm = os.path.join(quant_dir, self.config.species1_name, f"{sample_name}.fpkm.txt")
-                species2_fpkm = os.path.join(quant_dir, self.config.species2_name, f"{sample_name}.fpkm.txt")
+                species1_fpkm = os.path.join(quant_dir, self.config.species1_name, f"{sample_name}_fpkm.txt")
+                species2_fpkm = os.path.join(quant_dir, self.config.species2_name, f"{sample_name}_fpkm.txt")
 
                 if os.path.exists(species1_fpkm):
                     species1_fpkm_files.append(species1_fpkm)
@@ -235,7 +235,7 @@ def main():
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
 
-    optional.add_argument("-p", "--pattern", default="*_1.clean.fq.gz",
+    optional.add_argument("-p", "--pattern", default="*_1_clean.fq.gz",
                          help='FASTQ文件命名模式|FASTQ file naming pattern (e.g., "*.R1.fastq.gz")')
     optional.add_argument("-t", "--threads", type=int, default=12,
                          help="线程数|Number of threads")

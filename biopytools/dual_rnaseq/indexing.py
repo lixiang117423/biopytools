@@ -97,7 +97,7 @@ class DualIndexBuilder:
         os.makedirs(index_dir, exist_ok=True)
 
         genome_basename = os.path.splitext(os.path.basename(genome_file))[0]
-        index_prefix = os.path.join(index_dir, f"{species_name}.hisat2.index")
+        index_prefix = os.path.join(index_dir, f"{species_name}_hisat2_index")
 
         # 检查索引是否已存在|Check if index already exists
         if os.path.exists(f"{index_prefix}.1.ht2"):
@@ -105,7 +105,7 @@ class DualIndexBuilder:
             return index_prefix
 
         # 标准化基因组文件（将小写转为大写）|Normalize genome file (convert lowercase to uppercase)
-        normalized_genome = os.path.join(index_dir, f"{species_name}.normalized.fa")
+        normalized_genome = os.path.join(index_dir, f"{species_name}_normalized.fa")
         self.logger.info(f"标准化{species_name}基因组文件|Normalizing {species_name} genome file")
         if not self.normalize_genome_fasta(genome_file, normalized_genome):
             self.logger.error(f"{species_name}基因组文件标准化失败|{species_name} genome file normalization failed")

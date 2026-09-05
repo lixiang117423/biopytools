@@ -70,10 +70,10 @@ class ReadsClassifier:
         self.logger.info(f"开始分类样本reads|Starting to classify sample reads: {sample_name}")
 
         # 输出文件路径|Output file paths
-        species1_out = os.path.join(output_dir, f"{sample_name}.{self.config.species1_name}.bam")
-        species2_out = os.path.join(output_dir, f"{sample_name}.{self.config.species2_name}.bam")
-        ambiguous_out = os.path.join(output_dir, f"{sample_name}.ambiguous.bam")
-        unassigned_out = os.path.join(output_dir, f"{sample_name}.unassigned.bam")
+        species1_out = os.path.join(output_dir, f"{sample_name}_{self.config.species1_name}.bam")
+        species2_out = os.path.join(output_dir, f"{sample_name}_{self.config.species2_name}.bam")
+        ambiguous_out = os.path.join(output_dir, f"{sample_name}_ambiguous.bam")
+        unassigned_out = os.path.join(output_dir, f"{sample_name}_unassigned.bam")
 
         # 统计信息|Statistics
         stats = {
@@ -181,7 +181,7 @@ class ReadsClassifier:
             for bam_file in [species1_out, species2_out, ambiguous_out]:
                 if os.path.exists(bam_file) and os.path.getsize(bam_file) > 0:
                     # 排序BAM文件|Sort BAM file
-                    sorted_bam = bam_file.replace('.bam', '.sorted.bam')
+                    sorted_bam = bam_file.replace('.bam', '_sorted.bam')
                     sort_cmd = f"samtools sort -@ {self.config.threads} -O BAM -o {sorted_bam} {bam_file}"
                     sort_success = self.cmd_runner.run(sort_cmd, f"排序BAM文件|Sorting BAM file: {bam_file}")
 
@@ -229,8 +229,8 @@ class ReadsClassifier:
         os.makedirs(temp_dir, exist_ok=True)
 
         # 临时BAM文件路径|Temporary BAM file paths
-        species1_raw_bam = os.path.join(temp_dir, f"{sample_name}.{self.config.species1_name}.raw.bam")
-        species2_raw_bam = os.path.join(temp_dir, f"{sample_name}.{self.config.species2_name}.raw.bam")
+        species1_raw_bam = os.path.join(temp_dir, f"{sample_name}_{self.config.species1_name}_raw.bam")
+        species2_raw_bam = os.path.join(temp_dir, f"{sample_name}_{self.config.species2_name}_raw.bam")
 
         # 输出分类结果目录|Output classification directory
         classification_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), sample_name)

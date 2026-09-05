@@ -23,7 +23,7 @@ class TranscriptAssemblyConfig:
 
     # 处理参数|Processing parameters
     threads: int = 12
-    fastq_pattern: str = '*_1.clean.fq.gz'
+    fastq_pattern: str = '*_1_clean.fq.gz'
     sample_timeout: int = 43200  # 单样本超时秒|sample timeout seconds
     read_type: str = "auto"  # auto|short|long
     guide_gff: Optional[str] = None  # -G 参考注释|reference annotation

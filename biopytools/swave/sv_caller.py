@@ -310,7 +310,7 @@ class SwaveSVCaller:
             return self.config.ref_fasta
 
         # 创建重命名的FASTA
-        renamed_fasta = os.path.join(self.config.output_dir, 'ref.renamed.fa')
+        renamed_fasta = os.path.join(self.config.output_dir, 'ref_renamed.fa')
         self.logger.info(f"创建重命名FASTA: {renamed_fasta}|Creating renamed FASTA")
 
         try:

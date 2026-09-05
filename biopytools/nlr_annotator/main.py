@@ -74,7 +74,7 @@ def _run_single(config: NLRAnnotatorConfig, input_file: str, sample_name: str,
         输出TSV文件路径|Output TSV file path
     """
     sample_output_dir.mkdir(parents=True, exist_ok=True)
-    output_file = str(sample_output_dir / f"{sample_name}.nlr_annotator.tsv")
+    output_file = str(sample_output_dir / f"{sample_name}_nlr_annotator.tsv")
 
     # 断点续传：输出已存在则跳过java(冗余包含过滤在下方对新旧结果统一应用)
     # |Checkpoint resume: skip java if output exists (containment filtering below applies to both fresh & existing results)
@@ -155,13 +155,13 @@ def main():
                         help='目录模式下文件匹配后缀|File match suffix for directory mode (default: *.fa)')
 
     parser.add_argument('--merge-only', action='store_true',
-                        help='只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator'
+                        help='只合并已有结果TSV(*_nlr_annotator.tsv),不运行NLR-Annotator'
                              '|Merge existing result TSVs only, skip NLR-Annotator')
 
     parser.add_argument('--no-filter-contained', action='store_true',
                         help='关闭被包含冗余调用过滤(默认开启:剔除同序列上被完整基因完全包含的短片段调用,'
-                             '被剔除记录留档为*.nlr_annotator.removed.tsv)'
-                             '|Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *.removed.tsv)')
+                             '被剔除记录留档为*_nlr_annotator_removed.tsv)'
+                             '|Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *_removed.tsv)')
 
     parser.add_argument('--jar-path', default='',
                         help='NLR-Annotator JAR文件路径|NLR-Annotator JAR file path')
@@ -253,7 +253,7 @@ def main():
             sample_output_dir = config.output_path / sample_name
             sample_log_dir = sample_output_dir / "99_logs"
             sample_log_dir.mkdir(parents=True, exist_ok=True)
-            sample_log_manager = NLRLogger(str(sample_output_dir), f"{sample_name}.nlr_annotator.log")
+            sample_log_manager = NLRLogger(str(sample_output_dir), f"{sample_name}_nlr_annotator.log")
             sample_logger = sample_log_manager.get_logger()
         else:
             sample_output_dir = config.output_path

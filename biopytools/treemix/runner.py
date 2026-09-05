@@ -93,8 +93,8 @@ class TreemixRunner:
             if not treemix_frq:
                 return False
 
-            # 步骤6/6: 生成pop.order.txt
-            self.logger.info("  步骤6/6: 生成pop.order.txt|Generate pop.order.txt")
+            # 步骤6/6: 生成pop_order.txt
+            self.logger.info("  步骤6/6: 生成pop_order.txt|Generate pop_order.txt")
             self._generate_pop_order(cluster_data)
 
             self._print_footer(True)
@@ -152,7 +152,7 @@ class TreemixRunner:
         if not self.run_prepare():
             return False
 
-        treemix_frq = os.path.join(self.config.prepare_dir, "input.treemix.frq.gz")
+        treemix_frq = os.path.join(self.config.prepare_dir, "input_treemix_frq.gz")
         if os.path.exists(treemix_frq):
             self.config.treemix_input = treemix_frq
         else:
@@ -371,7 +371,7 @@ class TreemixRunner:
 
     def _convert_to_treemix(self, frq_file: str) -> Optional[str]:
         """步骤4: 转换为TreeMix格式 (plink2treemix)|Step 4: Convert to TreeMix format"""
-        out_file = os.path.join(self.config.prepare_dir, "input.treemix.frq.gz")
+        out_file = os.path.join(self.config.prepare_dir, "input_treemix_frq.gz")
 
         if os.path.exists(out_file):
             self.logger.info("    跳过已完成|Skipping completed: format conversion")
@@ -386,8 +386,8 @@ class TreemixRunner:
             return None
 
     def _generate_pop_order(self, cluster_data: List[Tuple[str, str]]):
-        """步骤5: 生成pop.order.txt|Step 5: Generate pop.order.txt"""
-        pop_order_file = os.path.join(self.config.prepare_dir, "pop.order.txt")
+        """步骤5: 生成pop_order.txt|Step 5: Generate pop_order.txt"""
+        pop_order_file = os.path.join(self.config.prepare_dir, "pop_order.txt")
         generate_pop_order(cluster_data, pop_order_file)
         self.logger.info(f"    生成|Generated: {pop_order_file}")
 
@@ -844,9 +844,9 @@ cat("OptM图已保存|OptM plot saved: {optm_plot_pdf}\\n")
             self.logger.warning(f"  R不存在, 跳过绘图|R not found: {self.config.r_path}")
             return
 
-        pop_order_file = os.path.join(self.config.prepare_dir, "pop.order.txt")
+        pop_order_file = os.path.join(self.config.prepare_dir, "pop_order.txt")
         if not os.path.exists(pop_order_file):
-            self.logger.warning("  未找到pop.order.txt, 跳过绘图|pop.order.txt not found")
+            self.logger.warning("  未找到pop_order.txt, 跳过绘图|pop_order.txt not found")
             return
 
         plot_dir = os.path.join(self.config.output_dir, "04_plot")

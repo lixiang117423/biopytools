@@ -83,7 +83,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
                 for s, e, _ in h.cds_exons:
                     regions.append((h.chrom, s, e))
                     seg_map.append(hit_key(h))
-            regions_bed = out_tsv + '.regions.bed'
+            regions_bed = out_tsv.rsplit('.', 1)[0] + '_regions.bed'
             with open(regions_bed, 'w') as f:
                 for chrom, s, e in regions:
                     f.write(f"{chrom}\t{s - 1}\t{e}\n")
@@ -107,7 +107,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
     fpkm_tpm: Dict[str, Tuple[float, float]] = {}
     bam_for_quant = unique_bam or (rnaseq_bam[0] if rnaseq_bam else None)
     if bam_for_quant and gap_filled_gff3 and os.path.exists(gap_filled_gff3):
-        stringtie_gtf = out_tsv + '.stringtie.gtf'
+        stringtie_gtf = out_tsv.rsplit('.', 1)[0] + '_stringtie.gtf'
         cmd = (f"{config.stringtie_bin} {bam_for_quant} -e "
                f"-G {gap_filled_gff3} -o {stringtie_gtf}")
         if cmd_runner.run_command(cmd, "StringTie FPKM/TPM 定量|StringTie quant"):

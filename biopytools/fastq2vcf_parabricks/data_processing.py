@@ -192,14 +192,14 @@ class ParabricksMapper:
             f"--workflow all "
             f"--gvcf "
             f"--no-joint-calling "
-            f"--read1-pattern '*_1.clean.fq.gz' "
-            f"--read2-pattern '*_2.clean.fq.gz'"
+            f"--read1-pattern '*_1_clean.fq.gz' "
+            f"--read2-pattern '*_2_clean.fq.gz'"
         )
 
         success = self.cmd_runner.run_with_progress(command, " Parabricks比对|Parabricks Mapping")
 
         if success:
-            gvcf_count = FileManager.count_files(self.config.gvcf_dir, "*.g.vcf.gz")
+            gvcf_count = FileManager.count_files(self.config.gvcf_dir, "*_g.vcf.gz")
             bam_count = FileManager.count_files(self.config.bam_dir, "*.bam")
             self.logger.info(f" 比对完成: {gvcf_count} 个 gVCF 文件, {bam_count} 个 BAM 文件|Mapping completed: {gvcf_count} gVCF files, {bam_count} BAM files")
 
@@ -248,7 +248,7 @@ class JointCaller:
                 return True, ""
 
         # 统计gVCF文件数量|Count gVCF files
-        sample_count = FileManager.count_files(self.config.gvcf_dir, "*.g.vcf.gz")
+        sample_count = FileManager.count_files(self.config.gvcf_dir, "*_g.vcf.gz")
         if sample_count == 0:
             self.logger.error(" 未找到任何 gVCF 文件|No gVCF files found")
             return False, ""
@@ -326,7 +326,7 @@ class JointCaller:
         ]
 
         # 添加gVCF文件|Add gVCF files
-        gvcf_files = FileManager.find_files(self.config.gvcf_dir, "*.g.vcf.gz")
+        gvcf_files = FileManager.find_files(self.config.gvcf_dir, "*_g.vcf.gz")
         for gvcf_file in gvcf_files:
             gtx_args.append(f"-v {gvcf_file}")
 

@@ -182,7 +182,7 @@ def main():
     )
 
     parser.add_argument('--pattern', '-p',
-                       default="feture_*/GWAS_Result.mlm.manht_input",
+                       default="feture_*/GWAS_Result_mlm_manht_input",
                        help='文件搜索模式|File search pattern')
 
     parser.add_argument('--output', '-o',

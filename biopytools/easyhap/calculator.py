@@ -72,7 +72,7 @@ class EasyHapCalculator:
         # 包装层自管 done-marker, 不用 HapSummary.tsv:
         # --plot 出图阶段失败时 HapSummary 可能已写出, 以它判断会永久跳过缺图的区域
         # |Wrapper-owned marker: HapSummary may exist even when plotting failed
-        return self.config.haplotypes_dir / f"{label}.easyhap.done"
+        return self.config.haplotypes_dir / f"{label}_easyhap.done"
 
     def _is_done(self, label: str) -> bool:
         return self._done_marker(label).exists()

@@ -31,9 +31,9 @@ def _lazy_import_main():
               help="三代转录本文件(Phase2)|Long-read transcripts (P2)")
 @click.option("--effectors", default=None,
               help="已知效应子蛋白(Phase3 救援)|Known effectors (P3 rescue)")
-@click.option("--read1-pattern", default="_1.clean.fq.gz", show_default=True,
+@click.option("--read1-pattern", default="_1_clean.fq.gz", show_default=True,
               help="R1 文件后缀模式|R1 suffix pattern")
-@click.option("--read2-pattern", default="_2.clean.fq.gz", show_default=True,
+@click.option("--read2-pattern", default="_2_clean.fq.gz", show_default=True,
               help="R2 文件后缀模式|R2 suffix pattern")
 @click.option("--rna-strandness", default="", show_default=True,
               help="链特异性: ''(非链特异性)/FR/RF|Strandness: ''/FR/RF")

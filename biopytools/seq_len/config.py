@@ -26,9 +26,9 @@ def _looks_like_file(path: str) -> bool:
 
 
 def _summary_path_from_tsv(tsv_path: str) -> str:
-    """由主表路径推导汇总表路径(X.tsv → X.summary.tsv)|Derive summary path from main tsv"""
+    """由主表路径推导汇总表路径(X.tsv → X_summary.tsv)|Derive summary path from main tsv"""
     root, ext = os.path.splitext(tsv_path)
-    return f"{root}.summary{ext}"
+    return f"{root}_summary{ext}"
 
 
 @dataclass
@@ -76,7 +76,7 @@ class SeqLenConfig:
         return base  # 目录名或无 FASTA 扩展名|dir name or no fasta ext
 
     def _resolve_output(self):
-        """智能 -o:目录(写 {prefix}.seq_len.tsv)vs 文件(直接当主表)|Smart -o: dir vs file"""
+        """智能 -o:目录(写 {prefix}_seq_len.tsv)vs 文件(直接当主表)|Smart -o: dir vs file"""
         raw = self.output
         expanded = expand_path(raw)
         is_dir_target = (raw.endswith(os.sep) or raw.endswith('/')
@@ -87,7 +87,7 @@ class SeqLenConfig:
             self.prefix = self.prefix or self._derive_prefix()
             output_dir = expand_path(raw.rstrip('/').rstrip(os.sep) or '.')
             os.makedirs(output_dir, exist_ok=True)
-            self.tsv_path = os.path.join(output_dir, f"{self.prefix}.seq_len.tsv")
+            self.tsv_path = os.path.join(output_dir, f"{self.prefix}_seq_len.tsv")
         else:
             self.tsv_path = expanded
             output_dir = os.path.dirname(expanded) or '.'

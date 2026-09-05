@@ -89,7 +89,7 @@ class GFF3Processor:
         output_file = os.path.join(output_dir, f"{build_ver}_refGene.txt")
 
         # 工作副本(始终在output_dir,输入文件保持不动)|working copy in output_dir, input untouched
-        working_gff = os.path.join(output_dir, f"{build_ver}.cleaned.gff3")
+        working_gff = os.path.join(output_dir, f"{build_ver}_cleaned.gff3")
 
         self.logger.info(f"GFF3文件(输入)|GFF3 file (input): {gff3_file}")
         self.logger.info(f"工作副本|Working copy: {working_gff}")
@@ -228,7 +228,7 @@ class VCFProcessor:
             filtered_vcf = vcf_file
         else:
             # 步骤3a: 过滤VCF文件|Step 3a: Filter VCF file
-            filtered_vcf = os.path.join(output_dir, f"{vcf_basename}.filtered.gz")
+            filtered_vcf = os.path.join(output_dir, f"{vcf_basename}_filtered.gz")
             filter_command = ' '.join(build_conda_command(
                 'bcftools',
                 ['filter', '-i', f'QUAL>={qual_threshold}', vcf_file, '-O', 'z', '-o', filtered_vcf]
@@ -240,7 +240,7 @@ class VCFProcessor:
                 return False
 
         # 步骤3b: 转换为ANNOVAR格式|Step 3b: Convert to ANNOVAR format
-        annovar_vcf = os.path.join(output_dir, f"{vcf_basename}.annovar.vcf")
+        annovar_vcf = os.path.join(output_dir, f"{vcf_basename}_annovar.vcf")
         convert_command = (f"perl {annovar_path}/convert2annovar.pl "
                            f"-format vcf4 -allsample -withfreq {filtered_vcf} > {annovar_vcf}")
 

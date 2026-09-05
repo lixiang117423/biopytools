@@ -166,7 +166,7 @@ class HiCProPipeline:
         try:
             import subprocess
 
-            chrom_sizes_file = self.config.output_path / f"{self.config.genome_id}.chrom.sizes"
+            chrom_sizes_file = self.config.output_path / f"{self.config.genome_id}_chrom.sizes"
 
             # 检查文件是否存在且非空|Check if file exists and is not empty
             if chrom_sizes_file.exists() and not self.config.force_hicpro:
@@ -347,7 +347,7 @@ class HiCProPipeline:
             # 我们在output外创建临时输入目录，避免与输出冲突|Create temp input dir outside output to avoid conflicts
 
             # 提取样本名|Extract sample name from fastq filename
-            # 例如: eca_hic_1.clean.fq.gz -> eca_hic|e.g. eca_hic_1.clean.fq.gz -> eca_hic
+            # 例如: eca_hic_1_clean.fq.gz -> eca_hic|e.g. eca_hic_1_clean.fq.gz -> eca_hic
             r1_name = Path(self.config.fastq_r1).stem  # 去掉.gz|Remove .gz
             if r1_name.endswith('.fastq') or r1_name.endswith('.fq'):
                 r1_name = Path(r1_name).stem  # 再去掉.fastq或.fq|Remove .fastq or .fq
@@ -356,7 +356,7 @@ class HiCProPipeline:
             base_name = (r1_name
                         .replace('_R1', '').replace('_R2', '')
                         .replace('_1', '').replace('_2', '')
-                        .replace('.clean', ''))  # 处理.clean.fq|Handle .clean.fq
+                        .replace('.clean', ''))  # 处理_clean.fq|Handle _clean.fq
 
             # 创建临时输入目录|Create temporary input directory
             temp_input_dir = self.config.output_path / "hicpro_input"

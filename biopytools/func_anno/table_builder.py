@@ -227,7 +227,7 @@ def build_tables(
 
     # GO 表|GO table
     go_recs, go_miss = build_go_table(headers, rows, go_dict)
-    go_path = out / f"{sample}.go.tsv"
+    go_path = out / f"{sample}_go.tsv"
     write_tsv(str(go_path), GO_HEADER, go_recs)
 
     # KEGG name 黑名单: None → 内置植物无关词|None → built-in plant-irrelevant
@@ -241,7 +241,7 @@ def build_tables(
         headers, rows, kegg_db,
         exclude_keywords=kw_list, exclude_categories=cat_list,
     )
-    kegg_path = out / f"{sample}.kegg.tsv"
+    kegg_path = out / f"{sample}_kegg.tsv"
     write_tsv(str(kegg_path), KEGG_HEADER, kegg_recs)
 
     stats = {

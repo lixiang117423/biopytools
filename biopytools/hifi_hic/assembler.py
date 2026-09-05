@@ -83,17 +83,17 @@ class HifiasmAssembler:
         if self.config.has_hic:
             # 单倍型文件|Haplotype files
             for i in range(1, self.config.n_hap + 1):
-                gfa_files[f"{prefix}.hic.hap{i}.p_ctg.gfa"] = f"{prefix}.hap{i}.fa"
+                gfa_files[f"{prefix}.hic.hap{i}.p_ctg.gfa"] = f"{prefix}_hap{i}.fa"
             # primary和alternate文件|Primary and alternate files
-            gfa_files[f"{prefix}.hic.p_ctg.gfa"] = f"{prefix}.primary.fa"
-            gfa_files[f"{prefix}.hic.a_ctg.gfa"] = f"{prefix}.alternate.fa"
+            gfa_files[f"{prefix}.hic.p_ctg.gfa"] = f"{prefix}_primary.fa"
+            gfa_files[f"{prefix}.hic.a_ctg.gfa"] = f"{prefix}_alternate.fa"
         else:
             # 单倍型文件|Haplotype files
             for i in range(1, self.config.n_hap + 1):
-                gfa_files[f"{prefix}.hap{i}.p_ctg.gfa"] = f"{prefix}.hap{i}.fa"
+                gfa_files[f"{prefix}.hap{i}.p_ctg.gfa"] = f"{prefix}_hap{i}.fa"
             # primary和alternate文件|Primary and alternate files
-            gfa_files[f"{prefix}.p_ctg.gfa"] = f"{prefix}.primary.fa"
-            gfa_files[f"{prefix}.a_ctg.gfa"] = f"{prefix}.alternate.fa"
+            gfa_files[f"{prefix}.p_ctg.gfa"] = f"{prefix}_primary.fa"
+            gfa_files[f"{prefix}.a_ctg.gfa"] = f"{prefix}_alternate.fa"
 
         return gfa_files
 
@@ -208,10 +208,10 @@ class HifiasmAssembler:
                 continue
 
             # 确定输出文件名|Determine output file name
-            # 例如: OV53.hic.p_ctg.gfa -> OV53.p_ctg.contig_reads.tsv
-            #      OV53.hic.hap1.p_ctg.gfa -> OV53.hap1.p_ctg.contig_reads.tsv
-            #      OV53.bp.p_ctg.gfa -> OV53.p_ctg.contig_reads.tsv (去掉.bp.)
-            # e.g.: OV53.hic.p_ctg.gfa -> OV53.p_ctg.contig_reads.tsv
+            # 例如: OV53.hic.p_ctg.gfa -> OV53_p_ctg_contig_reads.tsv
+            #      OV53.hic.hap1.p_ctg.gfa -> OV53_hap1_p_ctg_contig_reads.tsv
+            #      OV53.bp.p_ctg.gfa -> OV53_p_ctg_contig_reads.tsv (去掉.bp.)
+            # e.g.: OV53.hic.p_ctg.gfa -> OV53_p_ctg_contig_reads.tsv
             # 去掉所有特殊前缀（.hic., .bp., .bp.hic.）
             base_name = actual_gfa_file
             # 移除.hic.或.bp.hic.
@@ -220,8 +220,8 @@ class HifiasmAssembler:
             # 移除剩余的.bp.
             base_name = base_name.replace(f"{self.config.prefix}.bp.", f"{self.config.prefix}.")
 
-            # 去掉.gfa后缀，添加.contig_reads.tsv|Remove .gfa suffix, add .contig_reads.tsv
-            output_name = base_name.replace(".gfa", ".contig_reads.tsv")
+            # 去掉.gfa后缀，其余点号转下划线，添加_contig_reads.tsv|Drop .gfa, dots to underscores, add _contig_reads.tsv
+            output_name = base_name.replace(".gfa", "").replace(".", "_") + "_contig_reads.tsv"
             output_path = os.path.join(self.config.fasta_dir, output_name)
 
             self.logger.info(f"处理|Processing: {actual_gfa_file}")

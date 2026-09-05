@@ -106,7 +106,7 @@ class FastpCore:
     def _process_single_end(self, sample_name: str, read1_file: Path) -> bool:
         """处理单末端样本|Process single-end sample"""
         # 构建输出文件路径|Construct output file paths
-        final_read1 = self.config.output_path / f"{sample_name}.clean.fq.gz"
+        final_read1 = self.config.output_path / f"{sample_name}_clean.fq.gz"
         html_report = self.config.report_path / f"{sample_name}.html"
         json_report = self.config.report_path / f"{sample_name}.json"
 
@@ -167,8 +167,8 @@ class FastpCore:
         json_report = self.config.report_path / f"{sample_name}.json"
 
         # 检查最终输出文件是否已存在|Check if final output files already exist
-        final_read1 = self.config.output_path / f"{sample_name}_1.clean.fq.gz"
-        final_read2 = self.config.output_path / f"{sample_name}_2.clean.fq.gz"
+        final_read1 = self.config.output_path / f"{sample_name}_1_clean.fq.gz"
+        final_read2 = self.config.output_path / f"{sample_name}_2_clean.fq.gz"
         if final_read1.exists() and final_read2.exists():
             if not self.config.force:
                 self.logger.info(f"样本 {sample_name} 的输出文件已存在，跳过处理|Output files exist for sample {sample_name}, skipping")
@@ -197,8 +197,8 @@ class FastpCore:
         self.logger.info(f"步骤1: FASTP质控|Step 1: FASTP QC -> {sample_name}")
         self.logger.info("=" * 60)
 
-        fastp_read1 = self.config.temp_fastp_path / f"{sample_name}_1.fastp.fq.gz"
-        fastp_read2 = self.config.temp_fastp_path / f"{sample_name}_2.fastp.fq.gz"
+        fastp_read1 = self.config.temp_fastp_path / f"{sample_name}_1_fastp.fq.gz"
+        fastp_read2 = self.config.temp_fastp_path / f"{sample_name}_2_fastp.fq.gz"
 
         if not self._run_fastp(read1_file, read2_file, fastp_read1, fastp_read2,
                               html_report, json_report, sample_name):
@@ -209,8 +209,8 @@ class FastpCore:
         self.logger.info(f"步骤2: SEQKIT PAIR配对修复|Step 2: SEQKIT PAIR -> {sample_name}")
         self.logger.info("=" * 60)
 
-        final_read1 = self.config.output_path / f"{sample_name}_1.clean.fq.gz"
-        final_read2 = self.config.output_path / f"{sample_name}_2.clean.fq.gz"
+        final_read1 = self.config.output_path / f"{sample_name}_1_clean.fq.gz"
+        final_read2 = self.config.output_path / f"{sample_name}_2_clean.fq.gz"
 
         if not self._run_seqkit_pair(fastp_read1, fastp_read2, final_read1, final_read2, sample_name):
             return False

@@ -162,8 +162,8 @@ def removed_tsv_path(output_file: str) -> str:
         output_file: 结果TSV路径|Result TSV path
     """
     if output_file.endswith('.tsv'):
-        return output_file[:-len('.tsv')] + '.removed.tsv'
-    return output_file + '.removed.tsv'
+        return output_file[:-len('.tsv')] + '_removed.tsv'
+    return output_file + '_removed.tsv'
 
 
 def gff_path_for(output_file: str) -> str:
@@ -350,12 +350,12 @@ def filter_contained_calls(output_file: str, logger: logging.Logger) -> Tuple[in
     NLR-Annotator的motif链接算法在密集/串联NLR位点会把同一基因内部的motif子集
     (如TIR-only短片段)单独打包成一条记录;本函数按"同序列上坐标完全包含"关系
     剔除这些冗余调用(链式包含只留最外层,同坐标重复留靠前一条),被剔除记录
-    留档到 *.removed.tsv(含contained_by列)。幂等:重复运行对已过滤文件无副作用
+    留档到 *_removed.tsv(含contained_by列)。幂等:重复运行对已过滤文件无副作用
     |The motif-chaining step of NLR-Annotator can emit sub-calls of the same gene
     (e.g. TIR-only fragments) at dense/clustered loci; this drops calls whose
     interval is fully contained in another call on the same sequence (chained
     containment keeps the outermost; identical intervals keep the first),
-    archiving removals to *.removed.tsv (with a contained_by column). Idempotent.
+    archiving removals to *_removed.tsv (with a contained_by column). Idempotent.
 
     Args:
         output_file: 结果TSV路径|Result TSV path
@@ -483,15 +483,15 @@ def collect_input_files(input_path: str, sample_suffix: str, logger: logging.Log
 
 
 # 结果文件后缀(merge-only 模式按此收集已有结果)|Result file suffix for merge-only collection
-RESULT_SUFFIX = '.nlr_annotator.tsv'
+RESULT_SUFFIX = '_nlr_annotator.tsv'
 
 
 def _sample_from_result_name(filename: str) -> str:
     """
-    从 {sample}.nlr_annotator.tsv 提取样本名|Extract sample name from result filename
+    从 {sample}_nlr_annotator.tsv 提取样本名|Extract sample name from result filename
 
     Args:
-        filename: 结果文件名(如 S01.nlr_annotator.tsv)|Result filename
+        filename: 结果文件名(如 S01_nlr_annotator.tsv)|Result filename
     """
     if filename.endswith(RESULT_SUFFIX):
         return filename[:-len(RESULT_SUFFIX)]
@@ -503,8 +503,8 @@ def collect_result_files(input_path: str, logger: logging.Logger) -> List[Tuple[
     收集已有NLR结果TSV(merge-only用)|Collect existing NLR result TSVs for merge-only
 
     自动识别两种目录形态|Auto-detects two directory shapes:
-      - by-sample(批处理输出): dir/{sample}/{sample}.nlr_annotator.tsv
-      - 平铺|flat: dir/{sample}.nlr_annotator.tsv
+      - by-sample(批处理输出): dir/{sample}/{sample}_nlr_annotator.tsv
+      - 平铺|flat: dir/{sample}_nlr_annotator.tsv
 
     Args:
         input_path: 结果文件或目录|Result file or directory
@@ -526,14 +526,14 @@ def collect_result_files(input_path: str, logger: logging.Logger) -> List[Tuple[
     if path.is_dir():
         # 同时收集平铺与子目录形态,按绝对路径去重|collect flat + subdir shapes, dedup by abspath
         candidates = set()
-        for pattern in ('*.nlr_annotator.tsv', '*/*.nlr_annotator.tsv'):
+        for pattern in ('*_nlr_annotator.tsv', '*/*_nlr_annotator.tsv'):
             for f in glob.glob(str(path / pattern)):
                 candidates.add(os.path.abspath(f))
 
         if not candidates:
             raise ValueError(
-                f"目录中未找到结果文件 '*.nlr_annotator.tsv'|"
-                f"No '*.nlr_annotator.tsv' result files found in: {input_path}"
+                f"目录中未找到结果文件 '*_nlr_annotator.tsv'|"
+                f"No '*_nlr_annotator.tsv' result files found in: {input_path}"
             )
 
         results = [(_sample_from_result_name(os.path.basename(f)), f) for f in candidates]

@@ -73,7 +73,7 @@ class PanBlockBuilder:
 
     def _run_with_checkpoint(self, chrom: str) -> bool:
         """带断点续传的染色体构建|Chromosome build with checkpoint resume"""
-        output_file = self.blocks_dir / f"{chrom}.pan_blocks.bed"
+        output_file = self.blocks_dir / f"{chrom}_pan_blocks.bed"
         if output_file.exists() and output_file.stat().st_size > 0:
             self.logger.info(f"跳过已完成染色体|Skipping completed chromosome: {chrom}")
             return True
@@ -105,7 +105,7 @@ class PanBlockBuilder:
         self.logger.info(f"迭代去重完成|Iterative subtraction completed")
 
         # Phase 4: 合并输出
-        pan_blocks_file = self.blocks_dir / f"{chrom}.pan_blocks.bed"
+        pan_blocks_file = self.blocks_dir / f"{chrom}_pan_blocks.bed"
         self._write_pan_blocks(pan_blocks_file, filtered_results, genome_order)
         block_count = sum(len(v) for v in filtered_results.values())
         self.logger.info(f"染色体 {chrom} 完成|Chromosome {chrom} done: {format_number(block_count)} Pan-Blocks")
@@ -115,7 +115,7 @@ class PanBlockBuilder:
     def _collect_regions(self, chrom: str, genome_order: List[str]) -> Dict:
         """收集所有两两比对中的共线性区域|Collect syntenic regions from all pairwise alignments
 
-        从每个 ref.vs.query.filtered.coords 中提取同染色体比对，
+        从每个 ref_vs_query_filtered.coords 中提取同染色体比对，
         记录 ref 和 query 上对应的区域，标记 contributor。
 
         Returns:
@@ -129,7 +129,7 @@ class PanBlockBuilder:
                 if ref_genome == query_genome:
                     continue
 
-                coords_file = self.coords_dir / f"{ref_genome}.vs.{query_genome}.filtered.coords"
+                coords_file = self.coords_dir / f"{ref_genome}_vs_{query_genome}_filtered.coords"
                 if not coords_file.exists():
                     continue
 
@@ -222,12 +222,12 @@ class PanBlockBuilder:
 
             if m == 0:
                 # 第一个基因组：保留全部
-                filtered_bed = os.path.join(self.tmp_dir, f"{genome}_{chrom}.filtered")
+                filtered_bed = os.path.join(self.tmp_dir, f"{genome}_{chrom}_filtered")
                 cmd = ['sort', '-k1,1', '-k2,2n', '-k3,3n', genome_all_bed]
                 self._run_shell_to_file(cmd, filtered_bed)
             else:
                 # 后续基因组：减去 accumulated
-                filtered_bed = os.path.join(self.tmp_dir, f"{genome}_{chrom}.filtered")
+                filtered_bed = os.path.join(self.tmp_dir, f"{genome}_{chrom}_filtered")
                 cmd = [self.config.bedtools_path, 'subtract', '-a', genome_all_bed, '-b', accumulated_bed]
                 self._run_bedtools_to_file(cmd, filtered_bed)
 

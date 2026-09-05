@@ -54,7 +54,7 @@ def _validate_file_exists(file_path):
               help='输出目录|Output directory')
 @click.option('--pattern', '-p',
               type=str,
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               show_default=True,
               help='FASTQ文件命名模式|Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name')
 @click.option('--remove', '-r',
@@ -115,7 +115,7 @@ def rnaseq(genome, gtf, input, output, pattern, remove, verbose, quiet,
     args.extend(['-o', output])
 
     # 可选参数(仅在非默认时添加)|Optional parameters (add only when non-default)
-    if pattern != '*_1.clean.fq.gz':
+    if pattern != '*_1_clean.fq.gz':
         args.extend(['-p', pattern])
 
     if remove != 'no':

@@ -2,8 +2,8 @@
 BAM文件批量统计处理器|BAM File Batch Statistics Processor
 
 输出两个文件:
-  1. {prefix}.summary.tsv        - 全局统计长表（样本为行，指标为列）
-  2. {prefix}.per_chromosome.tsv  - 染色体级别统计
+  1. {prefix}_summary.tsv        - 全局统计长表（样本为行，指标为列）
+  2. {prefix}_per_chromosome.tsv  - 染色体级别统计
 """
 
 import json
@@ -123,7 +123,7 @@ class BAMBatchProcessor:
         """生成统计报告|Generate statistics reports"""
         try:
             summary_file = Path(output_file)
-            chrom_file = Path(output_dir) / f"{prefix}.per_chromosome.tsv"
+            chrom_file = Path(output_dir) / f"{prefix}_per_chromosome.tsv"
 
             summary_df = self._build_summary_df(results)
             summary_df.to_csv(summary_file, sep='\t', index=False)
@@ -139,7 +139,7 @@ class BAMBatchProcessor:
                     f"Chromosome report saved: {chrom_file}"
                 )
 
-            genome_json = Path(output_dir) / f"{prefix}.genome_stats.json"
+            genome_json = Path(output_dir) / f"{prefix}_genome_stats.json"
             self._save_genome_stats(results, genome_json)
 
             return True

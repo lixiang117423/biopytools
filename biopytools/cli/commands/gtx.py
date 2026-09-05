@@ -108,12 +108,12 @@ def _validate_joint_output(joint_output):
               type=click.Choice(['CONSERVATIVE', 'AGGRESSIVE']),
               help='PCR indel模型|PCR indel model')
 @click.option('--read1-pattern',
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               show_default=True,
               type=str,
               help='R1文件匹配模式|R1 file pattern')
 @click.option('--read2-pattern',
-              default='*_2.clean.fq.gz',
+              default='*_2_clean.fq.gz',
               show_default=True,
               type=str,
               help='R2文件匹配模式|R2 file pattern')
@@ -174,10 +174,10 @@ def gtx(input_dir, output_dir, reference, threads, gtx_path, tmp_dir,
         args.extend(['--pcr-indel-model', pcr_indel_model])
 
     # 文件模式参数|File pattern parameters
-    if read1_pattern != '*_1.clean.fq.gz':
+    if read1_pattern != '*_1_clean.fq.gz':
         args.extend(['--read1-pattern', read1_pattern])
 
-    if read2_pattern != '*_2.clean.fq.gz':
+    if read2_pattern != '*_2_clean.fq.gz':
         args.extend(['--read2-pattern', read2_pattern])
 
     # 保存并恢复sys.argv|Save and restore sys.argv

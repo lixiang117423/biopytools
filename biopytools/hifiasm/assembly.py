@@ -286,7 +286,7 @@ class GFAConverter:
             self.logger.info(f"转换 {file_type}: {gfa_path.name}|Converting {file_type}: {gfa_path.name}")
             
             # 生成输出文件名
-            fasta_name = gfa_path.stem.replace('.bp', '').replace('.hic', '') + '.fasta'
+            fasta_name = gfa_path.stem.replace('.bp', '').replace('.hic', '').replace('.', '_') + '.fasta'
             fasta_path = self.fasta_dir / fasta_name
             
             # 使用awk命令转换GFA到FASTA
@@ -321,7 +321,7 @@ class GFAConverter:
     def _create_primary_assembly(self, converted_files: Dict[str, Path]):
         """创建主要组装文件|Create primary assembly file"""
         try:
-            primary_path = self.fasta_dir / f"{self.config.prefix}.primary.fasta"
+            primary_path = self.fasta_dir / f"{self.config.prefix}_primary.fasta"
             
             # 如果有primary_contigs文件，直接复制
             if 'primary_contigs' in converted_files:
@@ -341,7 +341,7 @@ class GFAConverter:
         try:
             for hap_type in ['haplotype1', 'haplotype2']:
                 if hap_type in converted_files:
-                    hap_path = self.fasta_dir / f"{self.config.prefix}.{hap_type}.fasta"
+                    hap_path = self.fasta_dir / f"{self.config.prefix}_{hap_type}.fasta"
                     import shutil
                     shutil.copy2(converted_files[hap_type], hap_path)
                     self.logger.info(f"创建单倍型文件|Created haplotype file: {hap_path.name}")

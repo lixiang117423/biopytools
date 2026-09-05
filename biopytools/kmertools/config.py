@@ -58,8 +58,8 @@ class BuildConfig(KmerToolsConfig):
     bgzip_path: Optional[str] = None
 
     # FOF参数|FOF parameters
-    fof_suffix_1: str = "_1.clean.fq.gz"  # R1后缀|R1 suffix
-    fof_suffix_2: str = "_2.clean.fq.gz"  # R2后缀|R2 suffix
+    fof_suffix_1: str = "_1_clean.fq.gz"  # R1后缀|R1 suffix
+    fof_suffix_2: str = "_2_clean.fq.gz"  # R2后缀|R2 suffix
     fof_file: str = ""  # 预存的FOF文件路径（如果已存在）|Pre-existing FOF file path (if exists)
     header_file: str = ""  # 预存的header文件路径|Pre-existing header file path
 
@@ -304,8 +304,8 @@ class GenFofConfig(KmerToolsConfig):
     output_file: str = ""  # 输出FOF文件|Output FOF file
 
     # FOF参数|FOF parameters
-    suffix_1: str = "_1.clean.fq.gz"  # R1后缀|R1 suffix
-    suffix_2: str = "_2.clean.fq.gz"  # R2后缀|R2 suffix
+    suffix_1: str = "_1_clean.fq.gz"  # R1后缀|R1 suffix
+    suffix_2: str = "_2_clean.fq.gz"  # R2后缀|R2 suffix
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""

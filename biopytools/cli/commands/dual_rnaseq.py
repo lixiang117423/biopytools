@@ -66,7 +66,7 @@ def _validate_file_exists(file_path):
               type=click.Path(),
               help='输出目录|Output directory')
 @click.option('--pattern', '-p',
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               show_default=True,
               help='FASTQ文件命名模式|FASTQ file naming pattern')
 @click.option('--threads', '-t',
@@ -118,7 +118,7 @@ def dual_rnaseq(species1_name, species1_genome, species1_gtf,
     if output_dir != './dual_rnaseq_output':
         args.extend(['-o', output_dir])
 
-    if pattern != '*_1.clean.fq.gz':
+    if pattern != '*_1_clean.fq.gz':
         args.extend(['-p', pattern])
 
     if threads != 12:

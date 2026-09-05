@@ -8,7 +8,7 @@ from ..common.paths import expand_path, get_domain_tool_path
 
 # 配对后缀候选(检测顺序即优先级)|Paired suffix candidates (order = priority)
 SUFFIX_CANDIDATES = [
-    ("_1.clean.fq.gz", "_2.clean.fq.gz"),
+    ("_1_clean.fq.gz", "_2_clean.fq.gz"),
     ("_1.fq.gz", "_2.fq.gz"),
 ]
 

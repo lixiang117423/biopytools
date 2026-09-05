@@ -57,8 +57,8 @@ class PurgeDupsWrapper:
             f"{input_stem}_purged.purged.fa",  # get_seqs默认输出|get_seqs default output
             f"{input_stem}_purged.purge.fa",   # 旧版本格式|Legacy format
             f"{Path(input_fa).name}_purged.purged.fa",
-            f"{input_stem.replace('.primary', '')}_purged.purged.fa",
-            f"{input_stem.replace('.hap', '')}_purged.purged.fa",
+            f"{input_stem.replace('_primary', '')}_purged.purged.fa",
+            f"{input_stem.replace('_hap', '')}_purged.purged.fa",
         ]
         for filename in possible_filenames:
             candidate = os.path.join(sequences_dir, filename)

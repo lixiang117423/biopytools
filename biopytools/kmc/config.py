@@ -33,8 +33,8 @@ class KMCConfig:
     memory_limit: Optional[str] = None  # 例如: "12G", "16G"
 
     # 双末端测序参数|Paired-end sequencing parameters
-    read1_suffix: str = '_1.clean.fq.gz'  # read1文件后缀|read1 file suffix
-    read2_suffix: str = '_2.clean.fq.gz'  # read2文件后缀|read2 file suffix
+    read1_suffix: str = '_1_clean.fq.gz'  # read1文件后缀|read1 file suffix
+    read2_suffix: str = '_2_clean.fq.gz'  # read2文件后缀|read2 file suffix
     single_end: bool = False  # 是否为单末端测序|Is single-end sequencing
 
     # 矩阵参数|Matrix parameters

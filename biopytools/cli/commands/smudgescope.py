@@ -99,7 +99,7 @@ def _validate_input(input_path):
               show_default=True,
               help='FastK内存大小|FastK memory size')
 @click.option('--read1-suffix',
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               show_default=True,
               help='Read1文件后缀模式|Read1 file suffix pattern')
 def smudgescope(input, output_dir, read_length, kmer_size, threads,
@@ -150,7 +150,7 @@ def smudgescope(input, output_dir, read_length, kmer_size, threads,
     if fastk_memory != '16G':
         args.extend(['--fastk-memory', fastk_memory])
 
-    if read1_suffix != '*_1.clean.fq.gz':
+    if read1_suffix != '*_1_clean.fq.gz':
         args.extend(['--read1-suffix', read1_suffix])
 
     # 保存和恢复sys.argv|Save and restore sys.argv

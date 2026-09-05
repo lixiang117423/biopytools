@@ -137,11 +137,11 @@ def kmc():
               multiple=True,
               help='样本名称，可多次使用(默认使用文件名)|Sample names, can be used multiple times (default: use filename)')
 @click.option('--read1-suffix',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               help='Read1文件后缀|Read1 file suffix')
 @click.option('--read2-suffix',
-              default='_2.clean.fq.gz',
+              default='_2_clean.fq.gz',
               show_default=True,
               help='Read2文件后缀|Read2 file suffix')
 @click.option('--single-end',
@@ -303,11 +303,11 @@ def query(input_fasta, output_file, output_dir, threads):
               multiple=True,
               help='新样本名称(可选)|New sample names (optional)')
 @click.option('--read1-suffix',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               help='Read1文件后缀|Read1 file suffix')
 @click.option('--read2-suffix',
-              default='_2.clean.fq.gz',
+              default='_2_clean.fq.gz',
               show_default=True,
               help='Read2文件后缀|Read2 file suffix')
 @click.option('--single-end',
@@ -430,10 +430,10 @@ def _build_args(mode, params):
             args.extend(['-n', sample_name])
 
     # 双末端测序参数|Paired-end parameters
-    if 'read1_suffix' in params and params['read1_suffix'] != '_1.clean.fq.gz':
+    if 'read1_suffix' in params and params['read1_suffix'] != '_1_clean.fq.gz':
         args.extend(['--read1-suffix', params['read1_suffix']])
 
-    if 'read2_suffix' in params and params['read2_suffix'] != '_2.clean.fq.gz':
+    if 'read2_suffix' in params and params['read2_suffix'] != '_2_clean.fq.gz':
         args.extend(['--read2-suffix', params['read2_suffix']])
 
     if 'single_end' in params and params['single_end']:

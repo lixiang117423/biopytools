@@ -145,7 +145,7 @@ class PangenomeConstructor:
                 # 推进指针|advance pointers
                 ref_fa = os.path.join(cfg.pan_dir, f'ref{n}.fa')
                 prev_gff = os.path.join(cfg.pan_dir, f'ref{n}.gff')
-                prev_pav = os.path.join(cfg.pan_dir, f'ref{n}.pav.gff')
+                prev_pav = os.path.join(cfg.pan_dir, f'ref{n}_pav.gff')
 
             self._finalize(len(queries))
             return True
@@ -164,7 +164,7 @@ class PangenomeConstructor:
         # 链式产物放 pan_dir(原始)|chain artifacts in pan_dir (original)
         chain_fa = os.path.join(cfg.pan_dir, f'{chain}.fa')
         chain_gff = os.path.join(cfg.pan_dir, f'{chain}.gff')
-        chain_pav = os.path.join(cfg.pan_dir, f'{chain}.pav.gff')
+        chain_pav = os.path.join(cfg.pan_dir, f'{chain}_pav.gff')
 
         refN_fa = os.path.join(cfg.pan_dir, f'ref{n}.fa')
         # 逐轮断点续传|per-round checkpoint
@@ -255,7 +255,7 @@ class PangenomeConstructor:
         # ref{N}.* = 链接到 chain.*|ref{N}.* link to chain.*
         self._link(chain_fa, refN_fa)
         self._link(chain_gff, os.path.join(cfg.pan_dir, f'ref{n}.gff'))
-        self._link(chain_pav, os.path.join(cfg.pan_dir, f'ref{n}.pav.gff'))
+        self._link(chain_pav, os.path.join(cfg.pan_dir, f'ref{n}_pav.gff'))
         return True
 
     def _incorporate_insertions(self, n: int, work: str, chain: str, q_stem: str,
@@ -273,16 +273,16 @@ class PangenomeConstructor:
                      f"6update_ref {chain}")
         # 7. bed2_update_bed3.R → bed3|bed3
         self._run_r('7bed2_update_bed3.R', [bed2], f"7bed2_to_bed3 {chain}")
-        # 7.2 bed3_to_gff → bed3.pav.gff(放 work)|bed3.pav.gff (in work)
-        bed3_pav_gff = os.path.join(work, f'{chain}.bed3.pav.gff')
+        # 7.2 bed3_to_gff → bed3_pav.gff(放 work)|bed3_pav.gff (in work)
+        bed3_pav_gff = os.path.join(work, f'{chain}_bed3_pav.gff')
         self._run_py('7.2bed3_to_gff.py', [bed3, bed3_pav_gff],
                      f"7.2bed3_to_gff {chain}")
 
-        # pav.gff 更新|update pav.gff
+        # pav 更新|update pav
         if n == 1:
             self._link(bed3_pav_gff, chain_pav)
         else:
-            update1_pav = os.path.join(work, 'update1.pav.gff')
+            update1_pav = os.path.join(work, 'update1_pav.gff')
             self._run_py('8gff_update.py',
                         [prev_pav, bed2, update1_pav], f"8.2pav_gff_update {chain}")
             self._cat([update1_pav, bed3_pav_gff], chain_pav)
@@ -295,10 +295,10 @@ class PangenomeConstructor:
         update2_gff = os.path.join(work, 'update2.gff')
         self._run_py('9gff_split.py',
                     [update1_gff, bed3, update2_gff], f"9gff_split {chain}")
-        # 10. gene_in_pv_from_gff → {q_stem}.gff.in_pv|genes in PAV
+        # 10. gene_in_pv_from_gff → {q_stem}_gff.in_pv|genes in PAV
         # 注:R 脚本仅当有基因与 PAV 重叠(nrow>0)时才写文件,否则不产出 .in_pv
         # |R script writes .in_pv only if genes overlap PAVs; otherwise no file
-        in_pv = os.path.join(work, f'{q_stem}.gff.in_pv')
+        in_pv = os.path.join(work, f'{q_stem}_gff.in_pv')
         self._run_py('10gene_in_pv.py',
                     [query_gff, bed3, in_pv], f"10gene_in_pv {chain}")
 
@@ -306,12 +306,12 @@ class PangenomeConstructor:
         # |original 3-level guard: no overlap / no fully-in-PAV gene → link update2.gff
         if os.path.isfile(in_pv):
             # 11. gene_in_pv_screen → absolutly|absolutely-in-pv genes
-            absolutly = os.path.join(work, f'{q_stem}.gff_gene_absolutly.in_pv')
+            absolutly = os.path.join(work, f'{q_stem}_gff_gene_absolutly.in_pv')
             self._run_py('11gene_in_pv_screen.py', [in_pv, absolutly],
                          f"11gene_in_pv_screen {chain}")
             if self._is_nonempty(absolutly):
                 # 12. bed3_update_gff → gene_absolutly_in_pv.gff|update gene coords
-                gene_in_pv_gff = os.path.join(work, f'{chain}.gene_absolutly_in_pv.gff')
+                gene_in_pv_gff = os.path.join(work, f'{chain}_gene_absolutly_in_pv.gff')
                 self._run_r('12bed3_update_gff.R', [bed3, absolutly, gene_in_pv_gff],
                             f"12bed3_update_gff {chain}")
                 if os.path.isfile(gene_in_pv_gff):
@@ -340,20 +340,20 @@ class PangenomeConstructor:
         refN = n_rounds  # 最后一轮的 N|last round N
         pan_fa = os.path.join(cfg.output_dir, 'pan.fa')
         pan_gff = os.path.join(cfg.output_dir, 'pan.gff')
-        pan_pav = os.path.join(cfg.output_dir, 'pan.pav.gff')
+        pan_pav = os.path.join(cfg.output_dir, 'pan_pav.gff')
         self._link(os.path.join(cfg.pan_dir, f'ref{refN}.fa'), pan_fa)
         self._link(os.path.join(cfg.pan_dir, f'ref{refN}.gff'), pan_gff)
-        self._link(os.path.join(cfg.pan_dir, f'ref{refN}.pav.gff'), pan_pav)
+        self._link(os.path.join(cfg.pan_dir, f'ref{refN}_pav.gff'), pan_pav)
         # 排序 pav(原始 sort -k1.4,1n -k4,4n)|sort pav
-        pan_pav_sorted = os.path.join(cfg.output_dir, 'pan.pav.sorted.gff')
+        pan_pav_sorted = os.path.join(cfg.output_dir, 'pan_pav_sorted.gff')
         self._run_shell(
             f"sort -k1.4,1n -k4,4n {pan_pav} > {pan_pav_sorted}",
-            "sort pan.pav.gff"
+            "sort pan_pav.gff"
         )
         # PAV 信息表 + 0/1 矩阵(纯 Python; 非致命: 失败不影响主产物)
         # |PAV info table + 0/1 matrix (pure Python; non-fatal on failure)
-        info_tsv = os.path.join(cfg.output_dir, 'pan.pav.info.tsv')
-        matrix_tsv = os.path.join(cfg.output_dir, 'pan.pav.matrix.tsv')
+        info_tsv = os.path.join(cfg.output_dir, 'pan_pav_info.tsv')
+        matrix_tsv = os.path.join(cfg.output_dir, 'pan_pav_matrix.tsv')
         try:
             from .pav_table import generate_pav_info, generate_pav_matrix
             n_info = generate_pav_info(pan_pav_sorted, info_tsv)
@@ -365,7 +365,7 @@ class PangenomeConstructor:
         self.logger.info(f"泛基因组构建完成|Pangenome construction completed")
         self.logger.info(f"  pan.fa         : {pan_fa}")
         self.logger.info(f"  pan.gff        : {pan_gff}")
-        self.logger.info(f"  pan.pav.gff    : {pan_pav}")
-        self.logger.info(f"  pan.pav.sorted : {pan_pav_sorted}")
-        self.logger.info(f"  pan.pav.info   : {info_tsv} ({n_info} PAV)")
-        self.logger.info(f"  pan.pav.matrix : {matrix_tsv} ({n_mat} PAV × 样本|samples)")
+        self.logger.info(f"  pan_pav.gff    : {pan_pav}")
+        self.logger.info(f"  pan_pav.sorted : {pan_pav_sorted}")
+        self.logger.info(f"  pan_pav.info   : {info_tsv} ({n_info} PAV)")
+        self.logger.info(f"  pan_pav.matrix : {matrix_tsv} ({n_mat} PAV × 样本|samples)")

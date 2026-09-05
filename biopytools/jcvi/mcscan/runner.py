@@ -67,7 +67,7 @@ class McscanRunner:
             fout.write("#sample_a\tsample_b\tblocks\tgene_pairs\tavg_block_size\tmax_block_size\n")
 
             for (name_a, name_b), pair_dir in sorted(pair_dirs.items()):
-                anchors_file = pair_dir / f"{name_a}.{name_b}.anchors"
+                anchors_file = pair_dir / f"{name_a}_{name_b}.anchors"
                 stats = self._parse_anchors(str(anchors_file))
 
                 if stats:

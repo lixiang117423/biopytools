@@ -86,10 +86,10 @@ class GTXJointScanner:
             GVCF文件列表|List of GVCF files
         """
         self.logger.info(f"正在扫描 GVCF 文件...|Scanning GVCF files...")
-        gvcf_files = sorted(Path(gvcf_dir).glob("*.g.vcf.gz"))
+        gvcf_files = sorted(Path(gvcf_dir).glob("*_g.vcf.gz"))
 
         if not gvcf_files:
-            self.logger.error(f"未找到任何 *.g.vcf.gz 文件|No *.g.vcf.gz files found")
+            self.logger.error(f"未找到任何 *_g.vcf.gz 文件|No *_g.vcf.gz files found")
             return []
 
         # 检查索引文件
@@ -273,10 +273,10 @@ class GTXJointScanner:
             GVCF文件列表|List of GVCF files
         """
         self.logger.info(f"正在扫描 GVCF 文件...|Scanning GVCF files...")
-        gvcf_files = sorted(Path(gvcf_dir).glob("*.g.vcf.gz"))
+        gvcf_files = sorted(Path(gvcf_dir).glob("*_g.vcf.gz"))
 
         if not gvcf_files:
-            self.logger.error(f"未找到任何 *.g.vcf.gz 文件|No *.g.vcf.gz files found")
+            self.logger.error(f"未找到任何 *_g.vcf.gz 文件|No *_g.vcf.gz files found")
             return []
 
         valid_files = []

@@ -256,9 +256,9 @@
 #                        help=' PCR indel模型|PCR indel model')
     
 #     # 文件模式参数 |File pattern parameters
-#     parser.add_argument('--read1-pattern', default='*_1.clean.fq.gz', 
+#     parser.add_argument('--read1-pattern', default='*_1_clean.fq.gz', 
 #                        help=' R1文件匹配模式|R1 file pattern')
-#     parser.add_argument('--read2-pattern', default='*_2.clean.fq.gz', 
+#     parser.add_argument('--read2-pattern', default='*_2_clean.fq.gz', 
 #                        help=' R2文件匹配模式|R2 file pattern')
     
     
@@ -346,8 +346,8 @@ class parabricksAnalyzer:
                 self.logger.info(" 仅执行genotypegvcf步骤|Running genotypegvcf only")
                 
                 # 自动检测所有已有的GVCF文件
-                gvcf_files = list(self.config.vcf_output_dir.glob("*.g.vcf.gz"))
-                sample_names = [f.stem.replace(".g.vcf", "") for f in gvcf_files]
+                gvcf_files = list(self.config.vcf_output_dir.glob("*_g.vcf.gz"))
+                sample_names = [f.stem.replace("_g.vcf", "") for f in gvcf_files]
                 
                 if not sample_names:
                     raise RuntimeError(" 未找到GVCF文件|No GVCF files found")
@@ -411,8 +411,8 @@ class parabricksAnalyzer:
                     # 如果是all workflow，使用处理过的样品名
                     # 如果是genotypegvcf，自动检测所有GVCF
                     if self.config.workflow == "genotypegvcf":
-                        gvcf_files = list(self.config.vcf_output_dir.glob("*.g.vcf.gz"))
-                        sample_names_for_joint = [f.stem.replace(".g.vcf", "") for f in gvcf_files]
+                        gvcf_files = list(self.config.vcf_output_dir.glob("*_g.vcf.gz"))
+                        sample_names_for_joint = [f.stem.replace("_g.vcf", "") for f in gvcf_files]
                     else:
                         sample_names_for_joint = processed_sample_names
                     
@@ -438,11 +438,11 @@ class parabricksAnalyzer:
         self.logger.info(" 输出目录结构|Output structure:")
         self.logger.info(f"  {self.config.output_dir}/")
         
-        bam_count = len(list(self.config.bam_output_dir.glob('*.sorted.bam')))
+        bam_count = len(list(self.config.bam_output_dir.glob('*_sorted.bam')))
         self.logger.info(f"  ├── bam/     ( BAM: {bam_count} 个|BAM files: {bam_count})")
         
         if self.config.gvcf:
-            gvcf_count = len(list(self.config.vcf_output_dir.glob('*.g.vcf.gz')))
+            gvcf_count = len(list(self.config.vcf_output_dir.glob('*_g.vcf.gz')))
             if self.config.joint_calling:
                 individual_gvcf = gvcf_count - (1 if (self.config.vcf_output_dir / 
                     Path(self.config.combined_output_name).with_suffix('').with_suffix('.vcf.gz').name).exists() else 0)
@@ -501,9 +501,9 @@ def main():
                        help=' PCR indel模型|PCR indel model')
     
     # 文件模式参数 |File pattern parameters
-    parser.add_argument('--read1-pattern', default='*_1.clean.fq.gz',
+    parser.add_argument('--read1-pattern', default='*_1_clean.fq.gz',
                        help=' R1文件模式|R1 pattern')
-    parser.add_argument('--read2-pattern', default='*_2.clean.fq.gz',
+    parser.add_argument('--read2-pattern', default='*_2_clean.fq.gz',
                        help=' R2文件模式|R2 pattern')
     
     # GVCF和Joint Calling参数 |GVCF and Joint Calling parameters
@@ -511,7 +511,7 @@ def main():
                        help=' 输出VCF而非GVCF|Output VCF instead of GVCF')
     parser.add_argument('--no-joint-calling', action='store_false', dest='joint_calling', default=True,
                        help=' 禁用Joint Calling|Disable Joint Calling')
-    parser.add_argument('--combined-output', default='combined.g.vcf',
+    parser.add_argument('--combined-output', default='combined_g.vcf',
                        help=' Joint Calling输出文件名|Joint Calling output filename')
     
     args = parser.parse_args()

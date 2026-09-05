@@ -103,7 +103,7 @@ class GTXProcessor:
         
         # 定义输出文件路径 |Define output file paths
         output_vcf = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
-        output_bam = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
+        output_bam = self.config.bam_output_dir / f"{sample_name}_sorted.bam"
         
         # 构建Read Group信息 |Build Read Group information
         read_group = f"@RG\\tID:{sample_name}\\tSM:{sample_name}\\tPL:ILLUMINA\\tLB:{sample_name}"

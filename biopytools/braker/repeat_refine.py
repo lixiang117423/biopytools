@@ -223,7 +223,7 @@ def write_refined_masked(masked_fa: str, rescue_regions: List[Tuple[str, int, in
         rescue_by_chrom.setdefault(chrom, []).append((s - 1, e))  # 0-based [s-1, e)
 
     total_unmasked = 0
-    tmp_out = refined_fa + '.tmp'
+    tmp_out = refined_fa.rsplit('.', 1)[0] + '_tmp.fa'
     with open(tmp_out, 'w') as out:
         for rec in SeqIO.parse(masked_fa, 'fasta'):
             # bytearray 高效原地修改|Efficient in-place edit via bytearray
@@ -313,7 +313,7 @@ def compute_region_mean_depth(bam_files: List[str], regions: List[Tuple[str, int
         for chrom, s, e in regions:
             f.write(f"{chrom}\t{s - 1}\t{e}\n")
 
-    depth_tsv = regions_bed + '.depth.tsv'
+    depth_tsv = regions_bed.rsplit('.', 1)[0] + '_depth.tsv'
     # samtools depth -a 输出所有 position(含 0)|-a outputs all positions incl. 0
     bam_arg = ' '.join(bam_files)
     cmd = f"{samtools_bin} depth -a -b {regions_bed} {bam_arg} > {depth_tsv}"
@@ -432,7 +432,7 @@ def filter_repeat_library(consensi_fa: str, output_dir: str, config, cmd_runner,
     os.makedirs(output_dir, exist_ok=True)
     orfs_fa = os.path.join(output_dir, "consensi_orfs.fa")
     domtblout = os.path.join(output_dir, "consensi_orfs.domtblout")
-    filtered_fa = os.path.join(output_dir, "filtered_consensi.fa.classified")
+    filtered_fa = os.path.join(output_dir, "filtered_consensi_fa.classified")
     report_tsv = os.path.join(output_dir, "filtered_families.tsv")
 
     # 1. 读 consensi,六框翻译,写 ORF FASTA|Read consensi, six-frame translate

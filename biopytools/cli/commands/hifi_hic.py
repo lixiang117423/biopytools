@@ -69,10 +69,10 @@ def _lazy_import_assembler_main():
               type=click.Path(exists=True, file_okay=False, dir_okay=True),
               help='NGS二代数据目录（可选）|NGS second-generation data directory (optional)')
 @click.option('--ngs-pattern',
-              default="_1.clean.fq.gz",
+              default="_1_clean.fq.gz",
               type=str,
               show_default=True,
-              help='NGS文件匹配模式|NGS file matching pattern (default: _1.clean.fq.gz)')
+              help='NGS文件匹配模式|NGS file matching pattern (default: _1_clean.fq.gz)')
 @click.option('--high-cov',
               default=95.0,
               type=float,
@@ -160,7 +160,7 @@ def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
     if ngs:
         args.extend(['--ngs', ngs])
 
-    if ngs_pattern != "_1.clean.fq.gz":
+    if ngs_pattern != "_1_clean.fq.gz":
         args.extend(['--ngs-pattern', ngs_pattern])
 
     if high_cov != 95.0:

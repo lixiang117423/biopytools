@@ -50,7 +50,7 @@ class FileTypeDetector:
         
         #  优先检测GVCF文件（包含所有位点）| Check GVCF files first (contains all sites)
         gvcf_files = []
-        for ext in ['*.g.vcf.gz', '*.g.vcf', '*.gvcf.gz', '*.gvcf']:
+        for ext in ['*_g.vcf.gz', '*.g.vcf.gz', '*_g.vcf', '*.g.vcf', '*.gvcf.gz', '*.gvcf']:
             gvcf_files.extend(glob.glob(os.path.join(self.config.input_dir, ext)))
         
         # 过滤掉索引文件|Filter out index files
@@ -93,7 +93,7 @@ class FileTypeDetector:
             for vcf_file in vcf_files:
                 sample_name = Path(vcf_file).stem
                 # 移除.g或.gvcf后缀|Remove .g or .gvcf suffix
-                sample_name = sample_name.replace('.g.vcf', '').replace('.g', '').replace('.vcf', '')
+                sample_name = sample_name.replace('_g.vcf', '').replace('.g.vcf', '').replace('.g', '').replace('.vcf', '')
                 f.write(f"{sample_name}\t{vcf_file}\n")
         
         self.logger.info(f" 样本映射文件已创建|Sample map created: {sample_map_file}")

@@ -107,7 +107,7 @@ class GenomeAssembler:
 
                 # 更新fasta_results为polish后的结果|Update fasta_results to polished results
                 polished_genome = os.path.join(self.config.ngs_polish_dir,
-                                             f"{self.config.prefix}.polished.fa")
+                                             f"{self.config.prefix}_polished.fa")
                 if os.path.exists(polished_genome):
                     # 可以选择使用polish后的结果|Optionally use polished results
                     self.logger.info(f"Polished基因组|Polished genome: {polished_genome}")
@@ -124,23 +124,23 @@ class GenomeAssembler:
                 # Prefer NGS polished result, otherwise use assembly result
                 if self.config.has_ngs:
                     polished_genome = os.path.join(self.config.ngs_polish_dir,
-                                                 f"{self.config.prefix}.polished.fa")
+                                                 f"{self.config.prefix}_polished.fa")
                     if os.path.exists(polished_genome):
                         purge_input = polished_genome
                         self.logger.info(f"使用Polished基因组进行去冗余|Using Polished genome for deduplication: {purge_input}")
                     else:
                         # 使用primary.fa|Use primary.fa
                         if self.config.has_hic:
-                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa")
+                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
                         else:
-                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa")
+                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
                         self.logger.info(f"使用Assembly基因组进行去冗余|Using Assembly genome for deduplication: {purge_input}")
                 else:
                     # 没有NGS polish，直接使用组装结果|No NGS polish, use assembly result directly
                     if self.config.has_hic:
-                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa")
+                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
                     else:
-                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa")
+                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
                     self.logger.info(f"使用Assembly基因组进行去冗余|Using Assembly genome for deduplication: {purge_input}")
 
                 # 运行去冗余|Run deduplication
@@ -306,8 +306,8 @@ def main():
     # NGS polish参数|NGS polish parameters
     parser.add_argument('--ngs',
                        help='NGS二代数据目录|NGS second-generation data directory (optional)')
-    parser.add_argument('--ngs-pattern', default="_1.clean.fq.gz",
-                       help='NGS文件匹配模式|NGS file matching pattern (default: _1.clean.fq.gz)')
+    parser.add_argument('--ngs-pattern', default="_1_clean.fq.gz",
+                       help='NGS文件匹配模式|NGS file matching pattern (default: _1_clean.fq.gz)')
     parser.add_argument('--high-cov', type=float, default=95.0,
                        help='高质量contig覆盖度阈值|High quality contig coverage threshold (default: 95.0)')
     parser.add_argument('--medium-cov-min', type=float, default=30.0,

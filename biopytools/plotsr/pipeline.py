@@ -404,7 +404,7 @@ class PlotSRPipeline:
 
             # 确定输出文件|Determine output file
             if self.config.syri_filter:
-                syri_out = os.path.join(syri_dir, f"{prefix_name}syri.filtered.out")
+                syri_out = os.path.join(syri_dir, f"{prefix_name}syri_filtered.out")
             else:
                 syri_out = os.path.join(syri_dir, f"{prefix_name}syri.out")
 
@@ -422,7 +422,7 @@ class PlotSRPipeline:
 
                 # 可选：过滤|Optional: filtering
                 if self.config.syri_filter:
-                    filtered_out = os.path.join(syri_dir, f"{prefix_name}syri.filtered.out")
+                    filtered_out = os.path.join(syri_dir, f"{prefix_name}syri_filtered.out")
                     self._filter_syri_output(raw_syri_out, filtered_out)
                     syri_files.append(filtered_out)
                 else:
@@ -592,7 +592,7 @@ class PlotSRPipeline:
             # 查找所有SyRI输出文件|Find all SyRI output files
             import glob
 
-            syri_pattern = os.path.join(self.config.output_dir, 'syri', '*syri.filtered.out')
+            syri_pattern = os.path.join(self.config.output_dir, 'syri', '*syri_filtered.out')
             syri_file_list = glob.glob(syri_pattern)
 
             if not syri_file_list:
@@ -609,7 +609,7 @@ class PlotSRPipeline:
                 expected_file = os.path.join(
                     self.config.output_dir,
                     'syri',
-                    f"{ref_name}_vs_{query_name}syri.filtered.out"
+                    f"{ref_name}_vs_{query_name}syri_filtered.out"
                 )
                 if expected_file in syri_file_list:
                     syri_file_list_sorted.append(expected_file)

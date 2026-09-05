@@ -91,9 +91,9 @@ def scan_fastq_dir(
 
     支持多级子目录(如 raw/、clean/);非 fastq 文件与空目录忽略(容错不报错)。
     配对规则复用 eviann(支持 _R1/_R2、_1/_2、.R1.、read1/read2、_R1_001、
-    _1.clean.fq.gz 等形态);同一样本多 lane 归入同组;缺一侧的归单端。
+    _1_clean.fq.gz 等形态);同一样本多 lane 归入同组;缺一侧的归单端。
     |Multi-level subdirs supported (e.g. raw/, clean/); non-fastq files ignored.
-    Pairing reuses eviann rules (incl. _1.clean.fq.gz); multi-lane samples group
+    Pairing reuses eviann rules (incl. _1_clean.fq.gz); multi-lane samples group
     together; one-sided pairs fall back to single-end.
 
     Raises:
@@ -198,7 +198,7 @@ def merge_paired_reads(
 
     parts = []
     for i, (r1, r2) in enumerate(zip(r1_files, r2_files)):
-        part = os.path.join(dest_dir, f"{sample}.lane{i}.merged.fq")
+        part = os.path.join(dest_dir, f"{sample}_lane{i}_merged.fq")
         cmd = [bbmerge_path, "-in1", r1, "-in2", r2, "-out", part]
         if logger:
             logger.info(f"命令|Command: {' '.join(cmd)}")

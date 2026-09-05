@@ -173,7 +173,7 @@ class VCFMerger:
 
         for chr_id in sorted(self.chr_groups.keys(), key=lambda x: (len(x), x)):
             vcf_list = self.chr_groups[chr_id]
-            output_file = self.config.output_dir / f"{chr_id}.joint.merged.vcf.gz"
+            output_file = self.config.output_dir / f"{chr_id}_joint_merged.vcf.gz"
 
             self.logger.info(f"处理染色体 {chr_id}|Processing chromosome {chr_id}")
 

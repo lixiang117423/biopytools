@@ -464,7 +464,7 @@ def main():
                          help='FastK表文件路径|FastK table file path')
     optional.add_argument('--fastk-memory', default='16G',
                          help='FastK内存大小|FastK memory size')
-    optional.add_argument('--read1-suffix', default='*_1.clean.fq.gz',
+    optional.add_argument('--read1-suffix', default='*_1_clean.fq.gz',
                          help='Read1文件后缀模式|Read1 file suffix pattern')
 
     args = parser.parse_args()
@@ -572,8 +572,8 @@ def main():
             # 创建各步骤的输出目录（添加数字前缀表示流程顺序）|Create output directories (with number prefix)
             jellyfish_dir = os.path.join(output_dir_abs, "01_jellyfish")
             os.makedirs(jellyfish_dir, exist_ok=True)
-            # 文件命名：样本名.工具名|File naming: sample.tool
-            output_prefix = os.path.join(jellyfish_dir, f"{sample_name}.jellyfish")
+            # 文件命名：样本名_工具名|File naming: sample_tool
+            output_prefix = os.path.join(jellyfish_dir, f"{sample_name}_jellyfish")
 
             # FastK目录：无编号前缀，因为：
             # 1) 仅在运行Smudgeplot时需要（条件性步骤）
@@ -812,8 +812,8 @@ class GenomeAnalysis:
             # 创建各步骤的输出目录（添加数字前缀表示流程顺序）|Create output directories (with number prefix)
             jellyfish_dir = os.path.join(output_dir_abs, "01_jellyfish")
             os.makedirs(jellyfish_dir, exist_ok=True)
-            # 文件命名：样本名.工具名|File naming: sample.tool
-            output_prefix = os.path.join(jellyfish_dir, f"{sample_name}.jellyfish")
+            # 文件命名：样本名_工具名|File naming: sample_tool
+            output_prefix = os.path.join(jellyfish_dir, f"{sample_name}_jellyfish")
 
             # 运行GenomeScope流程|Run GenomeScope pipeline
             # 步骤1: Jellyfish count

@@ -85,8 +85,8 @@ class Qiime2Config:
     classifier_cache_dir: Optional[str] = None  # 默认<database_dir>/classifier_cache|default
 
     # ===== 样品命名|Sample naming =====
-    r1_suffix: str = '_1.clean.fq.gz'
-    r2_suffix: str = '_2.clean.fq.gz'
+    r1_suffix: str = '_1_clean.fq.gz'
+    r2_suffix: str = '_2_clean.fq.gz'
 
     # ===== 跳过控制|Skip control =====
     skip_cutadapt: bool = False   # 跳过引物切除(数据已去引物)|skip primer trimming

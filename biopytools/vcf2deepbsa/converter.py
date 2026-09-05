@@ -25,7 +25,7 @@ SKIP_REASONS = {
 def make_output_name(vcf_path: str) -> str:
     """由输入名生成输出 CSV 名|Derive output CSV name from input name
 
-    input.vcf / input.vcf.gz → input.deepbsa.csv
+    input.vcf / input.vcf.gz → input_deepbsa.csv
     """
     name = Path(vcf_path).name
     if name.endswith(".vcf.gz"):
@@ -34,7 +34,7 @@ def make_output_name(vcf_path: str) -> str:
         stem = name[:-len(".vcf")]
     else:
         stem = Path(name).stem
-    return f"{stem}.deepbsa.csv"
+    return f"{stem}_deepbsa.csv"
 
 
 class Vcf2DeepBsaConverter:

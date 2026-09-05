@@ -22,17 +22,17 @@ class ParentAligner:
         self.cmd_runner = cmd_runner
 
         # 亲本合并 FASTA 路径（每个亲本一份）|Combined FASTA per parent
-        # {parent_name: combined.fa}
+        # {parent_name: _combined.fa}
         self.combined_paths = {}
 
     def combine_parent_haps(self) -> bool:
         """
-        合并每个亲本的 hap FASTA 到 01_alignment/<parent>.combined.fa
-        |Concatenate each parent's hap FASTAs to 01_alignment/<parent>.combined.fa
+        合并每个亲本的 hap FASTA 到 01_alignment/<parent>_combined.fa
+        |Concatenate each parent's hap FASTAs to 01_alignment/<parent>_combined.fa
         """
         self.logger.info("合并亲本 hap FASTA|Combining parental hap FASTAs")
         for name, haps in self.config.parents.items():
-            out = self.config.alignment_dir / f"{name}.combined.fa"
+            out = self.config.alignment_dir / f"{name}_combined.fa"
             self.combined_paths[name] = str(out)
 
             # 简单 cat 即可，FASTA 格式宽容|Simple cat works for FASTA

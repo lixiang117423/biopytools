@@ -63,7 +63,7 @@ class DownloadConfig:
 
         #  设置基础文件名与元数据文件名(按首个编号, 批量场景由流水线逐编号生成)|Base and metadata names from first accession; batch generates per-accession in pipeline
         self.base_name = self.accessions[0]
-        self.metadata_file = f"{self.base_name}.meta.{self.metadata_format}"
+        self.metadata_file = f"{self.base_name}_meta.{self.metadata_format}"
 
         #  验证协议设置|Validate protocol settings
         if self.protocol not in ["ftp", "aspera"]:

@@ -110,7 +110,7 @@ class BamViewCalculator:
 
         # 生成输出文件名|Generate output filename
         bam_basename = os.path.basename(self.config.bam_file).replace('.bam', '').replace('.sam', '').replace('.cram', '')
-        output_file = os.path.join(self.config.output_dir, f"{bam_basename}.vl.json")
+        output_file = os.path.join(self.config.output_dir, f"{bam_basename}_vl.json")
 
         # 执行命令并保存输出|Execute command and save output
         success, stdout = self.cmd_runner.run_with_output(cmd, "生成JSON可视化|Generate JSON visualization")

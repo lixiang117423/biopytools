@@ -126,7 +126,7 @@ class KmerQueryPipeline:
             if not tsv_file:
                 raise Exception("未找到kmindex查询结果|kmindex query results not found")
 
-            heatmap_file = self.config.output_path / "kmer_matrix.heatmap.txt"
+            heatmap_file = self.config.output_path / "kmer_matrix_heatmap.txt"
             if not self._convert_kmindex_to_heatmap(tsv_file, heatmap_file):
                 raise Exception("转换热图格式失败|Failed to convert to heatmap format")
 

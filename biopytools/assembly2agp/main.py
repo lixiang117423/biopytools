@@ -342,7 +342,7 @@ def main():
         # 确定输出文件路径|Determine output file paths
         prefix_clean = args.prefix.replace(".assembly", "").replace(".agp", "")
         agp_output = os.path.join(args.output_dir, f"{prefix_clean}.agp")
-        chr_list_output = os.path.join(args.output_dir, f"{prefix_clean}.chr.list")
+        chr_list_output = os.path.join(args.output_dir, f"{prefix_clean}_chr.list")
 
         # 检查输出文件是否存在|Check if output files exist
         if not args.force:

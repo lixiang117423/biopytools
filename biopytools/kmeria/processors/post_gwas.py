@@ -83,7 +83,7 @@ class PostGwasProcessor:
 
         # 创建所有k-mer的FASTA文件（带断点续传）|Create FASTA file for ALL k-mers (with resume)
         kmer_fasta = os.path.join(output_dir, 'all_kmers.fasta')
-        kmer_mapping_file = kmer_fasta.replace('.fasta', '.mapping.txt')
+        kmer_mapping_file = kmer_fasta.replace('.fasta', '_mapping.txt')
 
         # 检查FASTA和映射文件是否都已存在|Check if both FASTA and mapping files exist
         if not self.config.force and os.path.exists(kmer_fasta) and os.path.exists(kmer_mapping_file):
@@ -197,7 +197,7 @@ class PostGwasProcessor:
         self.logger.info("创建所有k-mer的FASTA文件|Creating FASTA file for all k-mers")
 
         # 同时创建映射文件|Also create mapping file
-        mapping_file = fasta_file.replace('.fasta', '.mapping.txt')
+        mapping_file = fasta_file.replace('.fasta', '_mapping.txt')
 
         kmer_count = 0
         with open(fasta_file, 'w') as out_f, open(mapping_file, 'w') as map_f:
@@ -448,7 +448,7 @@ class PostGwasProcessor:
             self.logger.info(f"=" * 60)
 
             batch_sam = os.path.join(batch_dir, f'batch_{batch_idx:03d}.sam')
-            batch_filtered = os.path.join(batch_dir, f'batch_{batch_idx:03d}.filtered.txt')
+            batch_filtered = os.path.join(batch_dir, f'batch_{batch_idx:03d}_filtered.txt')
 
             # 检查是否已存在过滤结果（断点续传）|Check if filtered result already exists (resume)
             if not self.config.force and os.path.exists(batch_filtered):

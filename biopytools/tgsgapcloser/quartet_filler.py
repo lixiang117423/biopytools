@@ -482,7 +482,7 @@ class QuartetGapFiller:
 
             # 步骤5: 生成填充后的基因组
             self.logger.info(f"步骤5: 生成填充后的基因组|Step 5: Generating filled genome")
-            output_fa = f'{output_prefix}.filled.fasta'
+            output_fa = f'{output_prefix}_filled.fasta'
             draft_dict = self.read_fasta(draft_genome)
 
             with open(output_fa, 'w') as w:

@@ -76,7 +76,7 @@
 #             r1_filename = os.path.basename(r1_file)
             
 #             # 提取样本名：去掉模式中*后面的部分
-#             pattern_suffix = self.config.pattern.split('*')[1]  # 例如："_1.clean.fq.gz"
+#             pattern_suffix = self.config.pattern.split('*')[1]  # 例如："_1_clean.fq.gz"
 #             sample_name = r1_filename.replace(pattern_suffix, "")  # 例如："OV8-105"
             
 #             self.logger.info(f" 提取样本名: {sample_name}")
@@ -378,7 +378,7 @@ class FileProcessor:
             r1_filename = os.path.basename(r1_file)
             
             # 提取样本名：去掉模式中*后面的部分
-            pattern_suffix = self.config.pattern.split('*')[1]  # 例如："_1.clean.fq.gz"
+            pattern_suffix = self.config.pattern.split('*')[1]  # 例如："_1_clean.fq.gz"
             sample_name = r1_filename.replace(pattern_suffix, "")  # 例如："OV8-105"
 
             self.logger.info(f" 提取样本名|Extracted sample name: {sample_name}")

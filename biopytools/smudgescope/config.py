@@ -20,7 +20,7 @@ class GenomeAnalysisConfig:
         threads: int = 64,
         hash_size: str = "10G",
         max_kmer_cov: int = 1000,
-        read1_suffix: str = "*_1.clean.fq.gz",
+        read1_suffix: str = "*_1_clean.fq.gz",
         skip_smudgeplot: bool = False,
         ploidy: int = 2,
         genomescope_env: str = "genomescope_v.2.0.1"
@@ -36,7 +36,7 @@ class GenomeAnalysisConfig:
             threads: 线程数 (默认: 64)|Number of threads (default: 64)
             hash_size: Jellyfish哈希表大小 (默认: 10G)|Jellyfish hash size (default: 10G)
             max_kmer_cov: GenomeScope最大覆盖度 (默认: 1000)|Max k-mer coverage (default: 1000)
-            read1_suffix: Read1文件后缀模式 (默认: *_1.clean.fq.gz)|Read1 file suffix pattern (default: *_1.clean.fq.gz)
+            read1_suffix: Read1文件后缀模式 (默认: *_1_clean.fq.gz)|Read1 file suffix pattern (default: *_1_clean.fq.gz)
             skip_smudgeplot: 跳过Smudgeplot倍性分析 (默认: False)|Skip Smudgeplot ploidy analysis (default: False)
             ploidy: 基因组倍性 1-6 (默认: 2)|Genome ploidy level 1-6 (default: 2)
             genomescope_env: GenomeScope conda环境名称 (默认: genomescope_v.2.0.1)|GenomeScope conda env name (default: genomescope_v.2.0.1)

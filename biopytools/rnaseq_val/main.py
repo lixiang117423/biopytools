@@ -342,7 +342,7 @@ def main():
     data.add_argument("--sr-dir", default=None,
                       help="二代 clean reads 目录（自动检测配对 fastq）|SR clean reads directory (auto-detect paired fastq)")
     data.add_argument("--sr-pattern", default=None,
-                      help="二代 fastq 自定义命名模式|SR fastq custom pattern (e.g. *_1.clean.fq.gz)")
+                      help="二代 fastq 自定义命名模式|SR fastq custom pattern (e.g. *_1_clean.fq.gz)")
     data.add_argument("--lr-dir", default=None,
                       help="三代 clean reads 目录（自动检测单端 fastq）|LR clean reads directory (auto-detect single fastq)")
     data.add_argument("--lr-platform", default="pacbio",

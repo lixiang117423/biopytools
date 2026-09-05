@@ -119,7 +119,7 @@
         
 #         # 尝试不同的R2命名模式|Try different R2 naming patterns
 #         r2_patterns = [
-#             r1_name.replace('_1.clean.fq.gz', '_2.clean.fq.gz'),
+#             r1_name.replace('_1_clean.fq.gz', '_2_clean.fq.gz'),
 #             r1_name.replace('_R1', '_R2'),
 #             r1_name.replace('_1.', '_2.'),
 #         ]

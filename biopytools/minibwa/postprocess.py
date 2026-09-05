@@ -29,12 +29,12 @@ class AlignmentStatsGenerator:
         sample_dir = Path(bam_file).parent
 
         # flagstat
-        flagstat_file = sample_dir / f"{sample_name}.minibwa.flagstat.txt"
+        flagstat_file = sample_dir / f"{sample_name}_minibwa_flagstat.txt"
         if not self._run_flagstat(bam_file, flagstat_file):
             return False
 
         # stats
-        stats_file = sample_dir / f"{sample_name}.minibwa.stats.txt"
+        stats_file = sample_dir / f"{sample_name}_minibwa_stats.txt"
         if not self._run_stats(bam_file, stats_file):
             return False
 
@@ -116,12 +116,12 @@ class CoverageAnalyzer:
         sample_dir = Path(bam_file).parent
 
         # 位点覆盖度|Per-base depth
-        depth_file = sample_dir / f"{sample_name}.minibwa.depth.txt"
+        depth_file = sample_dir / f"{sample_name}_minibwa_depth.txt"
         if not self._calculate_depth(bam_file, depth_file):
             return False
 
         # 滑窗覆盖度|Windowed coverage
-        window_file = sample_dir / f"{sample_name}.minibwa.window.bed"
+        window_file = sample_dir / f"{sample_name}_minibwa_window.bed"
         if not self._calculate_windowed_coverage(depth_file, window_file):
             return False
 

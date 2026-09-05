@@ -325,7 +325,7 @@ def parse_arguments():
                         help='启用三代数据Mapping评估（默认启用）|Enable long-read mapping evaluation (default: enabled)')
 
     parser.add_argument('--mapping-pattern',
-                        default='_1.clean.fq.gz',
+                        default='_1_clean.fq.gz',
                         help='FASTQ文件匹配模式|FASTQ file pattern')
 
     # Reads数据|Reads data

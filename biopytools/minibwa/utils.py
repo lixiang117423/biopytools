@@ -272,7 +272,7 @@ def find_fastq_pairs(input_dir: str, pattern: str, logger) -> List[Tuple[str, st
 
     Args:
         input_dir: FASTQ目录|FASTQ directory
-        pattern: R1匹配模式（如_1.fq.gz或_1.clean.fq.gz）|R1 pattern
+        pattern: R1匹配模式（如_1.fq.gz或_1_clean.fq.gz）|R1 pattern
         logger: 日志器|Logger
 
     Returns:

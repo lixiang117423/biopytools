@@ -8,7 +8,7 @@ from ..common.paths import expand_path, get_tool_path
 # 视为输出的 GFF 扩展名(用于从文件名推断 prefix)|GFF extensions stripped when deriving prefix
 _GFF_EXT = ('.gff3.gz', '.gff.gz', '.gff3', '.gff')
 # 表文件扩展名(用于剥离出 prefix)|table extensions stripped to derive prefix
-_TABLE_EXT = ('.gene_table.tsv', '.tsv')
+_TABLE_EXT = ('_gene_table.tsv', '.tsv')
 # 无样本语义的通用文件名(回退到 GFF 推断 prefix)|generic names that fall back to GFF-derived prefix
 _GENERIC_NAMES = ('gene_table', 'output', 'out', 'result', 'results')
 
@@ -65,7 +65,7 @@ class GeneTableConfig:
             # 当作输出目录|Treat as output directory
             self.output_dir = self.output.rstrip(os.sep) or '.'
             self.prefix = self.prefix or _derive_prefix_from_gff(self.gff_file)
-            self.tsv_path = os.path.join(self.output_dir, f"{self.prefix}.gene_table.tsv")
+            self.tsv_path = os.path.join(self.output_dir, f"{self.prefix}_gene_table.tsv")
         else:
             # 当作表文件路径|Treat as table file path
             self.tsv_path = self.output
@@ -85,10 +85,10 @@ class GeneTableConfig:
             # prefix_given 时 self.prefix 已是用户值,保持不变|user prefix kept as-is
 
         os.makedirs(self.output_dir, exist_ok=True)
-        self.gene_fa = os.path.join(self.output_dir, f"{self.prefix}.gene.fa")
-        self.cds_fa = os.path.join(self.output_dir, f"{self.prefix}.cds.fa")
-        self.pep_fa = os.path.join(self.output_dir, f"{self.prefix}.pep.fa")
-        self.region_fa = os.path.join(self.output_dir, f"{self.prefix}.region.fa")
+        self.gene_fa = os.path.join(self.output_dir, f"{self.prefix}_gene.fa")
+        self.cds_fa = os.path.join(self.output_dir, f"{self.prefix}_cds.fa")
+        self.pep_fa = os.path.join(self.output_dir, f"{self.prefix}_pep.fa")
+        self.region_fa = os.path.join(self.output_dir, f"{self.prefix}_region.fa")
 
     def validate(self):
         """校验输入文件存在|Validate that input files exist"""

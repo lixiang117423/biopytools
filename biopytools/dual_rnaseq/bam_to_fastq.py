@@ -30,12 +30,12 @@ class BamToFastqExtractor:
             threads = self.config.threads
 
             if paired:
-                r1_file = f"{output_prefix}_1.clean.{ext}"
-                r2_file = f"{output_prefix}_2.clean.{ext}"
+                r1_file = f"{output_prefix}_1_clean.{ext}"
+                r2_file = f"{output_prefix}_2_clean.{ext}"
 
                 if compress:
-                    r1_tmp = f"{output_prefix}_1.clean.fq"
-                    r2_tmp = f"{output_prefix}_2.clean.fq"
+                    r1_tmp = f"{output_prefix}_1_clean.fq"
+                    r2_tmp = f"{output_prefix}_2_clean.fq"
 
                     self.logger.info(f"从BAM提取FASTQ|Extracting FASTQ from BAM: {bam_file}")
                     cmd = f"samtools fastq -@ {threads} -1 {r1_tmp} -2 {r2_tmp} {bam_file}"
@@ -99,8 +99,8 @@ class BamToFastqExtractor:
 
         if paired:
             files_to_check = [
-                f"{output_prefix}_1.clean.{ext}",
-                f"{output_prefix}_2.clean.{ext}"
+                f"{output_prefix}_1_clean.{ext}",
+                f"{output_prefix}_2_clean.{ext}"
             ]
         else:
             files_to_check = [f"{output_prefix}.{ext}"]
@@ -124,10 +124,10 @@ class BamToFastqExtractor:
             os.makedirs(output_dir, exist_ok=True)
 
             bam_types = [
-                (self.config.species1_name, f"{sample_name}.{self.config.species1_name}.bam"),
-                (self.config.species2_name, f"{sample_name}.{self.config.species2_name}.bam"),
-                ("ambiguous", f"{sample_name}.ambiguous.bam"),
-                ("unassigned", f"{sample_name}.unassigned.bam")
+                (self.config.species1_name, f"{sample_name}_{self.config.species1_name}.bam"),
+                (self.config.species2_name, f"{sample_name}_{self.config.species2_name}.bam"),
+                ("ambiguous", f"{sample_name}_ambiguous.bam"),
+                ("unassigned", f"{sample_name}_unassigned.bam")
             ]
 
             all_success = True
@@ -139,9 +139,9 @@ class BamToFastqExtractor:
                     self.logger.warning(f"BAM文件不存在，跳过|BAM file not found, skipping: {bam_path}")
                     continue
 
-                output_prefix = os.path.join(output_dir, f"{sample_name}.{bam_type}")
-                output_r1 = f"{output_prefix}_1.clean.fq.gz"
-                output_r2 = f"{output_prefix}_2.clean.fq.gz"
+                output_prefix = os.path.join(output_dir, f"{sample_name}_{bam_type}")
+                output_r1 = f"{output_prefix}_1_clean.fq.gz"
+                output_r2 = f"{output_prefix}_2_clean.fq.gz"
 
                 if os.path.exists(output_r1) and os.path.exists(output_r2):
                     self.logger.info(f"跳过已完成|Skipping completed: {bam_type} ({sample_name})")

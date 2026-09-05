@@ -42,7 +42,7 @@ def _validate_exists(path):
 @click.option('--qd-threshold', type=float, default=2.0, help='QD 过滤阈值(标记小于此值)|QD filter threshold (mark if lower)')
 @click.option('--cluster-window', type=int, default=35, help='SNP cluster 过滤窗口(bp)|SNP cluster filter window (bp)')
 @click.option('--cluster-size', type=int, default=3, help='SNP cluster 过滤数量|SNP cluster filter count')
-@click.option('--read1-pattern', help='R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto-detected by default)')
+@click.option('--read1-pattern', help='R1 后缀(默认自动识别 _1_clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto-detected by default)')
 @click.option('--read2-pattern', help='R2 后缀(默认自动识别)|R2 suffix (auto-detected by default)')
 @click.option('-s', '--step', type=click.IntRange(0, 0),
               help='0=仅建索引|index only;省略=全流程|omit for full pipeline')

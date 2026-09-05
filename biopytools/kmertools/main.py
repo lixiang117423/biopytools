@@ -124,10 +124,10 @@ def parse_arguments():
                              help='kmindex路径 (默认按 KMINDEX_PATH环境变量>配置文件>内置默认 解析)|kmindex path (resolved via KMINDEX_PATH env>config>built-in)')
     build_parser.add_argument('--bgzip-path', default=None,
                              help='bgzip路径 (默认按 BGZIP_PATH环境变量>配置文件>内置默认 解析)|bgzip path (resolved via BGZIP_PATH env>config>built-in)')
-    build_parser.add_argument('--fof-suffix-1', default='_1.clean.fq.gz',
-                             help='R1文件后缀 (默认: _1.clean.fq.gz)|R1 file suffix (default: _1.clean.fq.gz)')
-    build_parser.add_argument('--fof-suffix-2', default='_2.clean.fq.gz',
-                             help='R2文件后缀 (默认: _2.clean.fq.gz)|R2 file suffix (default: _2.clean.fq.gz)')
+    build_parser.add_argument('--fof-suffix-1', default='_1_clean.fq.gz',
+                             help='R1文件后缀 (默认: _1_clean.fq.gz)|R1 file suffix (default: _1_clean.fq.gz)')
+    build_parser.add_argument('--fof-suffix-2', default='_2_clean.fq.gz',
+                             help='R2文件后缀 (默认: _2_clean.fq.gz)|R2 file suffix (default: _2_clean.fq.gz)')
 
     # ========== query命令|query command ==========
     query_parser = subparsers.add_parser('query', help='查询k-mer库|Query k-mer database')
@@ -181,10 +181,10 @@ def parse_arguments():
                            help='输入目录|Input directory')
     fof_parser.add_argument('-o', '--output', required=True,
                            help='输出FOF文件|Output FOF file')
-    fof_parser.add_argument('--suffix-1', default='_1.clean.fq.gz',
-                           help='R1文件后缀 (默认: _1.clean.fq.gz)|R1 file suffix (default: _1.clean.fq.gz)')
-    fof_parser.add_argument('--suffix-2', default='_2.clean.fq.gz',
-                           help='R2文件后缀 (默认: _2.clean.fq.gz)|R2 file suffix (default: _2.clean.fq.gz)')
+    fof_parser.add_argument('--suffix-1', default='_1_clean.fq.gz',
+                           help='R1文件后缀 (默认: _1_clean.fq.gz)|R1 file suffix (default: _1_clean.fq.gz)')
+    fof_parser.add_argument('--suffix-2', default='_2_clean.fq.gz',
+                           help='R2文件后缀 (默认: _2_clean.fq.gz)|R2 file suffix (default: _2_clean.fq.gz)')
 
     # ========== import-db命令|import-db command ==========
     import_parser = subparsers.add_parser('import-db', help='导入RocksDB|Import to RocksDB')

@@ -87,7 +87,7 @@ class TASSELGWASAnalyzer:
         self.config.validate()
 
         # 设置日志|Setup logging
-        self.logger_manager = TASSELLogger(self.config.output_dir, f"{self.config.output_prefix}.pipeline.log")
+        self.logger_manager = TASSELLogger(self.config.output_dir, f"{self.config.output_prefix}_pipeline.log")
         self.logger = self.logger_manager.get_logger()
 
         # 初始化TASSEL路径|Initialize TASSEL path
@@ -214,7 +214,7 @@ class TASSELGWASAnalyzer:
         if pheno_file is None:
             pheno_file = self.config.pheno_file
 
-        pheno_ready = self.config.output_dir / f"{self.config.output_prefix}.pheno_ready.txt"
+        pheno_ready = self.config.output_dir / f"{self.config.output_prefix}_pheno_ready.txt"
         # 注意：不将pheno_ready添加到temp_files，因为TASSEL需要访问它
         # Note: don't add pheno_ready to temp_files as TASSEL needs to access it
 
@@ -232,7 +232,7 @@ class TASSELGWASAnalyzer:
             self.logger.info(" 跳过VCF排序|Skipping VCF sorting (user requested)")
             return vcf_file
 
-        vcf_sorted = self.config.output_dir / f"{self.config.output_prefix}.sorted.vcf"
+        vcf_sorted = self.config.output_dir / f"{self.config.output_prefix}_sorted.vcf"
         self.temp_files.append(vcf_sorted)
 
         try:
@@ -375,7 +375,7 @@ class TASSELGWASAnalyzer:
 
     def calculate_kinship(self, vcf_file: Path) -> Path:
         """计算Kinship矩阵|Calculate Kinship matrix"""
-        kinship_file = self.config.output_dir / f"{self.config.output_prefix}.kinship.txt"
+        kinship_file = self.config.output_dir / f"{self.config.output_prefix}_kinship.txt"
         if not self.config.keep_temp:
             self.temp_files.append(kinship_file)
 
@@ -529,7 +529,7 @@ class TASSELGWASAnalyzer:
         """将VCF2PCACluster的PCA特征向量转换为TASSEL协变量格式|Convert VCF2PCACluster PCA eigenvectors to TASSEL covariate format"""
         try:
             # 输出文件路径
-            formatted_file = pca_file.parent / f"{pca_file.stem}.covariate.txt"
+            formatted_file = pca_file.parent / f"{pca_file.stem}_covariate.txt"
 
             with open(pca_file, 'r') as infile, open(formatted_file, 'w') as outfile:
                 lines = infile.readlines()
@@ -597,7 +597,7 @@ class TASSELGWASAnalyzer:
         start_time = time.time()
 
         glm_out = self.config.output_dir / f"{self.config.output_prefix}_GLM"
-        glm_log = self.config.output_dir / f"{self.config.output_prefix}.glm.log"
+        glm_log = self.config.output_dir / f"{self.config.output_prefix}_glm.log"
 
         try:
             # 构建TASSEL命令|Build TASSEL command
@@ -659,7 +659,7 @@ class TASSELGWASAnalyzer:
                     glm_result_file = direct_result2
 
             if glm_result_file and glm_result_file.exists():
-                output_file = self.config.output_dir / f"{self.config.output_prefix}.glm.manht_input"
+                output_file = self.config.output_dir / f"{self.config.output_prefix}_glm_manht_input"
                 self._extract_glm_results(glm_result_file, output_file)
 
                 # 统计信息|Statistics
@@ -716,7 +716,7 @@ class TASSELGWASAnalyzer:
         start_time = time.time()
 
         mlm_out = self.config.output_dir / f"{self.config.output_prefix}_MLM"
-        mlm_log = self.config.output_dir / f"{self.config.output_prefix}.mlm.log"
+        mlm_log = self.config.output_dir / f"{self.config.output_prefix}_mlm.log"
 
         try:
             # 处理PCA协变量|Handle PCA covariate
@@ -884,7 +884,7 @@ class TASSELGWASAnalyzer:
                             break
 
             if mlm_result_file and mlm_result_file.exists():
-                output_file = self.config.output_dir / f"{self.config.output_prefix}.mlm.manht_input"
+                output_file = self.config.output_dir / f"{self.config.output_prefix}_mlm_manht_input"
                 self._extract_mlm_results(mlm_result_file, output_file)
 
                 # 统计信息|Statistics
@@ -1089,7 +1089,7 @@ class TASSELGWASAnalyzer:
             })
             self.stats.update(results)
 
-            stats_file = self.config.output_dir / f"{self.config.output_prefix}.stats.txt"
+            stats_file = self.config.output_dir / f"{self.config.output_prefix}_stats.txt"
             if create_statistics_report(self.stats, stats_file):
                 self.logger.info(f" 统计报告已保存|Statistics report saved: {stats_file}")
 

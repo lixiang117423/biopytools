@@ -32,8 +32,8 @@ def _count_bam(runner, samtools_path: str, bam, excl_flags: str,
 
 # samtools 过滤旗标|samtools exclude flags
 _EXCL_MAPPED = "0x904"    # 排除 unmapped(0x4)+secondary(0x100)+supplementary(0x800)
-NOHOST_R1_SUFFIX = "_1.nohost.fq.gz"
-NOHOST_R2_SUFFIX = "_2.nohost.fq.gz"
+NOHOST_R1_SUFFIX = "_1_nohost.fq.gz"
+NOHOST_R2_SUFFIX = "_2_nohost.fq.gz"
 
 # 统计表字段顺序(全量表)|full stats table field order
 _STAT_FIELDS = ["sample", "total_reads", "host_mapped_reads", "host_rate", "nonhost_reads",
@@ -193,11 +193,11 @@ def _read_field_tsv(path) -> dict:
 def read_mapq_stats(config, sample: str) -> dict:
     """读比对阶段计数表|read align-stage counts.
 
-    v0.3 写在 04_het_eval/{sample}.mapq_stats.tsv;02_alignment 为 v0.2 遗留回退。
+    v0.3 写在 04_het_eval/{sample}_mapq_stats.tsv;02_alignment 为 v0.2 遗留回退。
     |v0.3 path first; 02_alignment kept as v0.2 legacy fallback.
     """
     for sub in ("04_het_eval", "02_alignment"):
-        d = _read_field_tsv(Path(config.output_dir) / sub / f"{sample}.mapq_stats.tsv")
+        d = _read_field_tsv(Path(config.output_dir) / sub / f"{sample}_mapq_stats.tsv")
         if d:
             return d
     return {}
@@ -233,7 +233,7 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
     tmp_dir.mkdir(parents=True, exist_ok=True)
     nohost_r1 = out_dir / f"{sample}{NOHOST_R1_SUFFIX}"
     nohost_r2 = out_dir / f"{sample}{NOHOST_R2_SUFFIX}"
-    partial_tsv = out_dir / f"{sample}.host_filter.tsv"
+    partial_tsv = out_dir / f"{sample}_host_filter.tsv"
     if config.enable_checkpoint and _done(ckpt, f"host_filter_{sample}", nohost_r1):
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: host_filter_{sample}")
         stats = _read_field_tsv(partial_tsv)
@@ -241,8 +241,8 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
                 "nohost_r2": str(nohost_r2)}
 
     fa = str(Path(host_index_dir) / os.path.basename(config.host_genome))
-    host_bam = tmp_dir / f"{sample}.host.bam"
-    names_file = tmp_dir / f"{sample}.host.names"
+    host_bam = tmp_dir / f"{sample}_host.bam"
+    names_file = tmp_dir / f"{sample}_host.names"
     runner.logger.info(f"开始步骤|Starting step: host filter {sample}")
     t = config.threads
     q = config.min_mapq
@@ -318,7 +318,7 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
 
 def pathogen_alignment_stats(config, runner, sample: str, bam: str,
                              genome_size: int, mean_depth=None) -> dict:
-    """合并寄主阶段+病原比对统计,写全量表 02_host_filter/{sample}.host_stats.tsv。
+    """合并寄主阶段+病原比对统计,写全量表 02_host_filter/{sample}_host_stats.tsv。
 
     寄主率来自 host_filter 阶段表;病原 mapped/总数来自 align 阶段 mapq_stats.tsv
     (缺失时对最终 BAM 现场计数,过滤后 BAM 无 unmapped,总数退化为 mapped 并告警)。
@@ -327,7 +327,7 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
     """
     out_dir = Path(config.output_dir) / "02_host_filter"
     out_dir.mkdir(parents=True, exist_ok=True)
-    host = _read_field_tsv(out_dir / f"{sample}.host_filter.tsv")
+    host = _read_field_tsv(out_dir / f"{sample}_host_filter.tsv")
     counts = read_mapq_stats(config, sample)
     pathogen_mapped = counts.get("mapped_q_reads")
     if host:
@@ -357,7 +357,7 @@ def pathogen_alignment_stats(config, runner, sample: str, bam: str,
     breadth = cov["covbases_total"] / genome_size * 100 if genome_size else 0.0
     stats = compute_host_stats(total_reads or 0, host_mapped, nonhost, pathogen_mapped)
     stats.update({"sample": sample, "mean_depth": mean_depth, "breadth_1x": breadth})
-    (out_dir / f"{sample}.host_stats.tsv").write_text(build_host_stats_tsv(stats),
+    (out_dir / f"{sample}_host_stats.tsv").write_text(build_host_stats_tsv(stats),
                                                       encoding="utf-8")
     runner.logger.info(
         f"{sample}: 病原mapping率|pathogen map rate: {stats['pathogen_map_rate'] * 100:.2f}%, "

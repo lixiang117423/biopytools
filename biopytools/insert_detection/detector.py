@@ -107,7 +107,7 @@ class InsertDetector:
         step_dir = sample_dir / "01_genome_alignment"
         step_dir.mkdir(parents=True, exist_ok=True)
 
-        bam_path = step_dir / f"{sample_id}.sorted.bam"
+        bam_path = step_dir / f"{sample_id}_sorted.bam"
 
         # 检查是否已存在|Check if already exists
         if self.config.skip_existing and bam_path.exists() and Path(f"{bam_path}.bai").exists():
@@ -157,7 +157,7 @@ class InsertDetector:
             "-U", files['r1'], files['r2'],
             "--very-sensitive-local",
             "-p", str(self.config.threads),
-            "--un", str(step_dir / f"{sample_id}.unmapped.fastq"),
+            "--un", str(step_dir / f"{sample_id}_unmapped.fastq"),
             "|", self.config.samtools_path, "sort", "-O", "bam", "-o", str(bam_path)
         ]
 
@@ -202,7 +202,7 @@ class InsertDetector:
         output_dir = sample_dir / "02_softclip_extraction"
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        output_fq = output_dir / f"{sample_id}.softclip.fastq"
+        output_fq = output_dir / f"{sample_id}_softclip.fastq"
 
         # 检查是否已存在|Check if already exists
         if self.config.skip_existing and output_fq.exists() and output_fq.stat().st_size > 0:
@@ -220,7 +220,7 @@ class InsertDetector:
         tmp_dir = Path(tempfile.mkdtemp(prefix=f"softclip_{sample_id}_", dir=str(tmp_root)))
 
         # 提取soft-clipped reads到SAM|Extract soft-clipped reads to SAM
-        sam_file = tmp_dir / f"{sample_id}.softclip.sam"
+        sam_file = tmp_dir / f"{sample_id}_softclip.sam"
         # 方案B(§13.2.2): 管道内samtools直接调用域环境二进制, awk为系统工具保持裸名
         # |Solution B: samtools in pipe calls domain-env binary; awk stays bare
         cmd1 = f"{self.config.samtools_path} view {bam_file} | awk '$6 ~ /S/' > {sam_file}"
@@ -278,7 +278,7 @@ for line in sys.stdin:
             self._extract_soft_clipped_from_sam(sam_file, output_fq)
 
             # 将soft-clipped序列转换为BAM并索引，供IGV查看|Convert soft-clipped to BAM for IGV
-            output_bam = output_dir / f"{sample_id}.softclip.bam"
+            output_bam = output_dir / f"{sample_id}_softclip.bam"
             self.logger.info(f"转换soft-clipped BAM用于IGV查看|Converting soft-clipped BAM for IGV...")
             # 方案B(§13.2.2): 管道内samtools直接调用域环境二进制, 严禁 conda run | conda run
             # |Solution B: samtools in pipe calls domain-env binary; conda run in pipes is forbidden
@@ -361,7 +361,7 @@ for line in sys.stdin:
         tmp_root = self.config.output_path / "tmp"
         tmp_root.mkdir(parents=True, exist_ok=True)
         tmp_dir = Path(tempfile.mkdtemp(prefix=f"tdna_{sample_id}_", dir=str(tmp_root)))
-        output_sam = tmp_dir / f"{sample_id}.tdna.sam"
+        output_sam = tmp_dir / f"{sample_id}_tdna.sam"
 
         # 检查是否已存在|Check if already exists
         if self.config.skip_existing and output_sam.exists() and output_sam.stat().st_size > 0:
@@ -403,7 +403,7 @@ for line in sys.stdin:
         self.logger.info(f"比对到插入序列|Aligning to insert sequence: {sample_id}")
 
         # 第一步：使用--local模式比对，同时生成SAM和BAM|Step 1: Align with --local mode, generate both SAM and BAM
-        output_bam = output_dir / f"{sample_id}.tdna.bam"
+        output_bam = output_dir / f"{sample_id}_tdna.bam"
         # 方案B(§13.2.2): 管道内bowtie2/samtools直接调用域环境二进制, awk/tee为系统工具保持裸名
         # |Solution B: bowtie2/samtools in pipe call domain-env binaries; awk/tee stay bare
         cmd1 = f"{self.config.bowtie2_path} -x {index_prefix} -U {softclip_fq} -L 10 --local -p {self.config.threads} | awk '$3!=\"*\"' | tee {output_sam} | {self.config.samtools_path} view -S - -b | {self.config.samtools_path} sort -o {output_bam} -"

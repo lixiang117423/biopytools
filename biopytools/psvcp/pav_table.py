@@ -1,9 +1,9 @@
 """PSVCP PAV 信息表与矩阵生成|PAV info table & matrix generation
 
-从 pan.pav.gff(Insertion PAV 清单)生成两张表:
+从 pan_pav.gff(Insertion PAV 清单)生成两张表:
 - 信息表: 每个 PAV 的 pan 区间 + 来源样本 + 原基因组位置 + 长度
 - 矩阵:   样本 × PAV 的 0/1 矩阵(来源样本语义)
-|Generate two tables from pan.pav.gff (Insertion PAV list):
+|Generate two tables from pan_pav.gff (Insertion PAV list):
 - info: per-PAV pan interval + source sample + orig-genome position + length
 - matrix: sample × PAV 0/1 matrix (source-sample semantics)
 
@@ -121,7 +121,7 @@ def main():
     """CLI: python pav_table.py <pav_gff> -l <genome_list> --info <out> --matrix <out>"""
     import argparse
     p = argparse.ArgumentParser(description='PSVCP PAV 信息表/矩阵生成|PAV info/matrix generator')
-    p.add_argument('pav_gff', help='pan.pav.gff 或 pan.pav.sorted.gff')
+    p.add_argument('pav_gff', help='pan_pav.gff 或 pan_pav_sorted.gff')
     p.add_argument('-l', '--genome-list', help='genome_list 文本(矩阵需要)')
     p.add_argument('--info', help='输出信息表 tsv 路径')
     p.add_argument('--matrix', help='输出矩阵 tsv 路径')

@@ -183,12 +183,12 @@ def main():
             # 确定比对输出文件|Determine alignment output file
             if args.keep_alignment:
                 # 保留比对文件到输出目录|Keep alignment file in output directory
-                alignment_file = outfile.parent / f"{outfile.stem}.aligned.fa"
+                alignment_file = outfile.parent / f"{outfile.stem}_aligned.fa"
             else:
                 # 使用临时文件|Use temp file
                 tmp_dir = outfile.parent / "tmp"
                 tmp_dir.mkdir(parents=True, exist_ok=True)
-                alignment_file = tmp_dir / f"{infile.stem}.aligned.fa"
+                alignment_file = tmp_dir / f"{infile.stem}_aligned.fa"
 
             # 运行MAFFT比对|Run MAFFT alignment
             if not aligner.run_alignment(

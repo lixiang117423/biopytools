@@ -75,7 +75,7 @@ def _validate_path_exists(path):
               show_default=True,
               help='启用Joint Calling|Enable Joint Calling')
 @click.option('--combined-output',
-              default='combined.g.vcf',
+              default='combined_g.vcf',
               show_default=True,
               help='Joint Calling输出文件名|Joint Calling output filename')
 @click.option('--min-confidence',
@@ -99,12 +99,12 @@ def _validate_path_exists(path):
               show_default=True,
               help='PCR indel模型|PCR indel model')
 @click.option('--read1-pattern',
-              default='*_1.clean.fq.gz',
+              default='*_1_clean.fq.gz',
               type=str,
               show_default=True,
               help='R1文件模式|R1 file pattern')
 @click.option('--read2-pattern',
-              default='*_2.clean.fq.gz',
+              default='*_2_clean.fq.gz',
               type=str,
               show_default=True,
               help='R2文件模式|R2 file pattern')
@@ -150,7 +150,7 @@ def parabricks(input_dir, output_dir, reference, workflow, threads, parabricks_p
         args.append('--no-gvcf')
     if not joint_calling:
         args.append('--no-joint-calling')
-    if combined_output != 'combined.g.vcf':
+    if combined_output != 'combined_g.vcf':
         args.extend(['--combined-output', combined_output])
 
     # 质控参数|Quality control parameters
@@ -164,9 +164,9 @@ def parabricks(input_dir, output_dir, reference, workflow, threads, parabricks_p
         args.extend(['--pcr-indel-model', pcr_indel_model])
 
     # 文件模式参数|File pattern parameters
-    if read1_pattern != '*_1.clean.fq.gz':
+    if read1_pattern != '*_1_clean.fq.gz':
         args.extend(['--read1-pattern', read1_pattern])
-    if read2_pattern != '*_2.clean.fq.gz':
+    if read2_pattern != '*_2_clean.fq.gz':
         args.extend(['--read2-pattern', read2_pattern])
 
     # 保存并恢复sys.argv|Save and restore sys.argv

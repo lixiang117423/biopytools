@@ -33,9 +33,9 @@ def parse_arguments():
                              "Known effectors (P3 rescue, used as gene models to fix loci)")
 
     # 文件模式/链特异性|file patterns / strandness
-    parser.add_argument("--read1-pattern", default="_1.clean.fq.gz",
+    parser.add_argument("--read1-pattern", default="_1_clean.fq.gz",
                         help="R1 文件后缀模式|R1 suffix pattern")
-    parser.add_argument("--read2-pattern", default="_2.clean.fq.gz",
+    parser.add_argument("--read2-pattern", default="_2_clean.fq.gz",
                         help="R2 文件后缀模式|R2 suffix pattern")
     parser.add_argument("--rna-strandness", default="",
                         help="链特异性: ''(非链特异性,默认) / FR / RF|Strandness: ''(unstranded,default)/FR/RF")

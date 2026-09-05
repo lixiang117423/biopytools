@@ -130,7 +130,7 @@ class PredGPIPredictor:
     def run(self) -> bool:
         """运行预测|Run prediction"""
         cfg = self.config
-        tsv_file = os.path.join(cfg.output_dir, f"{cfg.output_prefix}.predgpi.tsv")
+        tsv_file = os.path.join(cfg.output_dir, f"{cfg.output_prefix}_predgpi.tsv")
         start_time = time.time()
 
         self.logger.info("=" * 60)

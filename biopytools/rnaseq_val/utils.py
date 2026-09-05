@@ -214,7 +214,7 @@ class SampleParser:
 
         Args:
             sr_dir: 二代 reads 目录|Short-read directory
-            pattern: 自定义命名模式|Custom naming pattern (e.g. *_1.clean.fq.gz)
+            pattern: 自定义命名模式|Custom naming pattern (e.g. *_1_clean.fq.gz)
 
         Returns:
             List[Dict]: 样本列表，每项包含 name/fastq1/fastq2

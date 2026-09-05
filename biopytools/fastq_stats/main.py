@@ -118,7 +118,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例|Examples:
-  %(prog)s -i /data/fastq/ -o results.csv -p "*_1.clean.fq.gz"
+  %(prog)s -i /data/fastq/ -o results.csv -p "*_1_clean.fq.gz"
   %(prog)s -i sample_R1.fastq.gz -o stats.xlsx -t 8
   %(prog)s -i /data/ -o output.csv -p "*_R1.fastq.gz" -t 16
 
@@ -141,8 +141,8 @@ def main():
     parser.add_argument(
         '-p', '--pattern',
         default=None,
-        help='FASTQ文件匹配模式，如 "*_1.clean.fq.gz"，*代表样品名称|'
-             'FASTQ file matching pattern, e.g., "*_1.clean.fq.gz", * represents sample name'
+        help='FASTQ文件匹配模式，如 "*_1_clean.fq.gz"，*代表样品名称|'
+             'FASTQ file matching pattern, e.g., "*_1_clean.fq.gz", * represents sample name'
     )
     parser.add_argument(
         '-t', '--threads',

@@ -51,7 +51,7 @@ def main():
         config.validate()
 
         output_path = Path(config.output_dir)
-        log_file = output_path / "99_logs" / f"{config.output_prefix}.needle_identity.log"
+        log_file = output_path / "99_logs" / f"{config.output_prefix}_needle_identity.log"
 
         logger_manager = NeedleIdentityLogger(log_file=str(log_file))
         logger = logger_manager.get_logger()

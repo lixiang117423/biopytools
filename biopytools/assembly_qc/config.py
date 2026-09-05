@@ -72,7 +72,7 @@ class AssemblyQCConfig:
     enable_mapping: bool = True  # 启用NGS Mapping评估|Enable NGS mapping evaluation [default: True]
     enable_long_read_mapping: bool = True  # 启用三代数据Mapping评估|Enable long-read mapping evaluation [default: True]
     mapping_threads: int = 12  # Mapping线程数|Mapping threads
-    mapping_pattern: str = "_1.clean.fq.gz"  # FASTQ文件匹配模式（NGS）|FASTQ file pattern (NGS)
+    mapping_pattern: str = "_1_clean.fq.gz"  # FASTQ文件匹配模式（NGS）|FASTQ file pattern (NGS)
     long_read_mapping_pattern: str = "*.fq.gz"  # FASTQ文件匹配模式|FASTQ file pattern
 
     # Mapping工具conda环境路径|Mapping tool conda env paths

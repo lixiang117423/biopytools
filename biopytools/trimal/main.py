@@ -113,7 +113,7 @@ class TrimalRunner:
 
             ext = self._output_ext()
             sample = self.config.sample_name
-            trimmed = os.path.join(trimal_dir, f'{sample}.trimmed{ext}')
+            trimmed = os.path.join(trimal_dir, f'{sample}_trimmed{ext}')
 
             # 主修剪(断点续传)|Main trim (checkpoint resume)
             if os.path.exists(trimmed):
@@ -128,14 +128,14 @@ class TrimalRunner:
 
                 # colnumbering 从主调用 stdout 写入|colnumbering written from main-run stdout
                 if self.config.colnumbering:
-                    cn_file = os.path.join(trimal_dir, f'{sample}.colnumbering.tsv')
+                    cn_file = os.path.join(trimal_dir, f'{sample}_colnumbering.tsv')
                     with open(cn_file, 'w', encoding='utf-8') as f:
                         f.write(stdout)
                     self.logger.info(f"列号映射已保存|Column mapping saved: {cn_file}")
 
             # 互补比对(单独调用,-out 被其占用)|Complementary (separate run)
             if self.config.complementary:
-                comp = os.path.join(trimal_dir, f'{sample}.complementary{ext}')
+                comp = os.path.join(trimal_dir, f'{sample}_complementary{ext}')
                 self.logger.info("生成互补比对|Generating complementary alignment")
                 self._run_trimal(
                     self._build_args('complementary', comp),
@@ -145,7 +145,7 @@ class TrimalRunner:
 
             # 反向翻译(单独调用,-out 被其占用)|Backtranslation (separate run)
             if self.config.backtrans_file:
-                bt = os.path.join(trimal_dir, f'{sample}.backtrans{ext}')
+                bt = os.path.join(trimal_dir, f'{sample}_backtrans{ext}')
                 self.logger.info("生成反向翻译比对|Generating backtranslated alignment")
                 self._run_trimal(
                     self._build_args('backtrans', bt),

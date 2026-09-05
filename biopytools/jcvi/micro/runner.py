@@ -70,7 +70,7 @@ class MicroRunner:
                 return False
 
             stem_a, stem_b = get_jcvi_stem(name_a), get_jcvi_stem(name_b)
-            pprefix = f"{stem_a}.{stem_b}"
+            pprefix = f"{stem_a}_{stem_b}"
             anchors_file = self._find_anchors_file(pair_dir, pprefix)
             if not anchors_file:
                 self.logger.error(
@@ -162,7 +162,7 @@ class MicroRunner:
         """确保mcscan管道已运行, 自动检测或执行|Ensure mcscan pipeline is complete"""
         pair_dir = Path(self.config.output_dir) / "03_pairwise" / f"{name_a}_vs_{name_b}"
         stem_a, stem_b = get_jcvi_stem(name_a), get_jcvi_stem(name_b)
-        pprefix = f"{stem_a}.{stem_b}"
+        pprefix = f"{stem_a}_{stem_b}"
 
         lifted_anchors = self._find_anchors_file(pair_dir, pprefix)
 
@@ -603,7 +603,7 @@ class MicroRunner:
         last_file = (
             Path(self.config.output_dir) / "03_pairwise"
             / f"{self._current_name_a}_vs_{self._current_name_b}"
-            / f"{stem_a}.{stem_b}.last.filtered"
+            / f"{stem_a}_{stem_b}.last.filtered"
         )
         if not last_file.exists():
             self.logger.warning(f"    未找到filtered.last, C-score将为空|filtered.last not found: {last_file}")

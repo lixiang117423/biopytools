@@ -33,9 +33,9 @@ class PhobiusPredictor:
         """运行预测(带断点续传)|Run prediction (with checkpoint resume)"""
         cfg = self.config
         prefix = cfg.output_prefix
-        short_file = os.path.join(cfg.output_dir, f"{prefix}.phobius.short.txt")
-        long_file = os.path.join(cfg.output_dir, f"{prefix}.phobius.long.txt")
-        tsv_file = os.path.join(cfg.output_dir, f"{prefix}.phobius.tsv")
+        short_file = os.path.join(cfg.output_dir, f"{prefix}_phobius_short.txt")
+        long_file = os.path.join(cfg.output_dir, f"{prefix}_phobius_long.txt")
+        tsv_file = os.path.join(cfg.output_dir, f"{prefix}_phobius.tsv")
 
         self.logger.info("=" * 60)
         self.logger.info("Phobius跨膜拓扑+信号肽预测|Phobius TM topology & signal peptide prediction")

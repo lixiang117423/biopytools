@@ -209,9 +209,9 @@ class MappingEvaluator:
         # 定义输出文件|Define output files
         sam_file = self.bam_dir / f"{sample_name}.sam"
         bam_file = self.bam_dir / f"{sample_name}.bam"
-        sorted_bam = self.bam_dir / f"{sample_name}.sorted.bam"
-        flagstat_file = self.bam_dir / f"{sample_name}.flagstat.txt"
-        coverage_file = self.bam_dir / f"{sample_name}.coverage.txt"
+        sorted_bam = self.bam_dir / f"{sample_name}_sorted.bam"
+        flagstat_file = self.bam_dir / f"{sample_name}_flagstat.txt"
+        coverage_file = self.bam_dir / f"{sample_name}_coverage.txt"
 
         # 检查断点续传|Check resume
         if self.config.resume and sorted_bam.exists() and flagstat_file.exists() and coverage_file.exists():

@@ -21,7 +21,7 @@ class RnaseqValConfig:
 
     # ===== 二代数据|Short-read (2nd gen) data =====
     sr_dir: Optional[str] = None              # 二代 reads 目录（自动检测配对 fastq）
-    sr_pattern: Optional[str] = None           # 自定义 fastq 命名模式，如 *_1.clean.fq.gz
+    sr_pattern: Optional[str] = None           # 自定义 fastq 命名模式，如 *_1_clean.fq.gz
 
     # ===== 三代数据|Long-read (3rd gen) data =====
     lr_dir: Optional[str] = None              # 三代 reads 目录（自动检测单端 fastq）

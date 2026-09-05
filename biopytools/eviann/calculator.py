@@ -75,7 +75,7 @@ def classify_file(path: str) -> str:
     - fasta 一律视为三代|fasta is always long-read
     - bam 按关键词区分 bam/bam_isoseq|bam split by keyword
     - fastq 含三代关键词 → 三代|fastq with keyword → long
-    - fastq 无配对痕迹且含 .clean → 三代(用户默认三代后缀 *.clean.fq.gz)
+    - fastq 无配对痕迹且含 .clean → 三代(用户默认三代后缀 *_clean.fq.gz)
       |fastq without pair trace but with .clean → long (default long suffix)
     - 其余 fastq → 二代|otherwise → short
 
@@ -401,7 +401,7 @@ def merge_files(paths: List[str], dest_dir: str, sample: str,
         return None
     os.makedirs(dest_dir, exist_ok=True)
     ext = "".join(Path(paths[0]).suffixes)
-    merged = os.path.join(dest_dir, f"{sample}.{kind}.merged{ext}")
+    merged = os.path.join(dest_dir, f"{sample}_{kind}_merged{ext}")
     if os.path.exists(merged):
         return merged
     if len(paths) == 1:

@@ -350,7 +350,7 @@ def generate_contig_reads_map(raw_dir: str, prefix: str, fasta_dir: str, logger:
     # 文件路径|File paths
     read_to_tig_file = os.path.join(raw_dir, f'{prefix}.contigs.layout.readToTig')
     read_names_file = os.path.join(raw_dir, f'{prefix}.seqStore', 'readNames.txt')
-    output_file = os.path.join(fasta_dir, f'{prefix}.contig_reads.tsv')
+    output_file = os.path.join(fasta_dir, f'{prefix}_contig_reads.tsv')
 
     # 检查必需文件是否存在|Check if required files exist
     if not os.path.exists(read_to_tig_file):

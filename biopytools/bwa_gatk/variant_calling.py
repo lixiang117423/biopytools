@@ -40,7 +40,7 @@ class VariantCaller:
         """HaplotypeCaller生成GVCF|HaplotypeCaller to generate GVCF"""
         self.logger.info(f" HaplotypeCaller: {sample_name}")
         
-        gvcf_file = self.config.gvcf_dir / f"{sample_name}.g.vcf.gz"
+        gvcf_file = self.config.gvcf_dir / f"{sample_name}_g.vcf.gz"
         
         if not self.config.force_restart and check_file_exists(gvcf_file, self.logger):
             self.logger.info("跳过GVCF生成（文件已存在）| Skipping GVCF generation (file exists)")
@@ -69,7 +69,7 @@ class VariantCaller:
         """合并GVCF文件|Combine GVCF files"""
         self.logger.info("合并GVCF文件|Combining GVCF files")
         
-        combined_gvcf = self.config.gvcf_dir / "combined.g.vcf.gz"
+        combined_gvcf = self.config.gvcf_dir / "combined_g.vcf.gz"
         
         if not self.config.force_restart and check_file_exists(combined_gvcf, self.logger):
             self.logger.info("跳过GVCF合并（文件已存在）| Skipping GVCF combining (file exists)")

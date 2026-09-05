@@ -115,7 +115,7 @@ class LongRNASeqConfig:
             if name.endswith(pattern):
                 name = name[:-len(pattern)]
                 # 去掉后重新检查是否还有其他标记|After removal, recheck for other markers
-                # 例如 sample_1.clean.fastq -> sample_1 -> sample
+                # 例如 sample_1_clean.fastq -> sample_1 -> sample
                 break
 
         # 去除常见的测序标记|Remove common sequencing markers
@@ -147,7 +147,7 @@ class LongRNASeqConfig:
 
         # 支持的扩展名|Supported extensions
         bam_patterns = ['*.bam', '*.BAM']
-        fastq_patterns = ['*.fq', '*.fastq', '*.fq.gz', '*.fastq.gz', '*.FQ.gz', '*.FASTQ.GZ', '*.clean.fastq.gz']
+        fastq_patterns = ['*.fq', '*.fastq', '*.fq.gz', '*.fastq.gz', '*.FQ.gz', '*.FASTQ.GZ', '*_clean.fastq.gz']
 
         # 查找BAM文件|Find BAM files
         for pattern in bam_patterns:

@@ -81,7 +81,7 @@ class Genome2SVPipeline:
     def _align_command(self, sample: str, query_fasta: str) -> list:
         """构建单 conda run 包裹的 minimap2|samtools 管道
         |Build single-conda-run wrapped minimap2|samtools pipe."""
-        bam = str(self.config.alignment_dir / f"{sample}.sorted.bam")
+        bam = str(self.config.alignment_dir / f"{sample}_sorted.bam")
         ref = self.config.reference_fasta
         t = self.config.threads
         script = (
@@ -104,8 +104,8 @@ class Genome2SVPipeline:
 
     def align_sample(self, sample: str, query_fasta: str) -> bool:
         """比对单样本(断点续传)|Align one sample (checkpointed)."""
-        bam = self.config.alignment_dir / f"{sample}.sorted.bam"
-        bai = self.config.alignment_dir / f"{sample}.sorted.bam.bai"
+        bam = self.config.alignment_dir / f"{sample}_sorted.bam"
+        bai = self.config.alignment_dir / f"{sample}_sorted.bam.bai"
         if bam.exists() and bai.exists():
             self.logger.info(f"跳过已完成比对|Skipping completed alignment: {sample}")
             return True
@@ -129,7 +129,7 @@ class Genome2SVPipeline:
         Returns:
             VCF 路径或 None(失败)|VCF path or None on failure
         """
-        bam = str(self.config.alignment_dir / f"{sample}.sorted.bam")
+        bam = str(self.config.alignment_dir / f"{sample}_sorted.bam")
         out_dir = str(self.config.svim_dir / sample)
         os.makedirs(out_dir, exist_ok=True)
         existing = self._find_svim_vcf(out_dir)
@@ -159,7 +159,7 @@ class Genome2SVPipeline:
         """
         input_txt = str(self.config.merged_dir / "survivor_input.txt")
         paths = build_survivor_input(sample_vcf_map, input_txt)
-        merged_vcf = str(self.config.merged_dir / "pan_sv.survivor.vcf")
+        merged_vcf = str(self.config.merged_dir / "pan_sv_survivor.vcf")
         merge_ok = False
         if os.path.exists(merged_vcf):
             # 断点续传:合并是确定性输出,已有结果直接复用
@@ -200,7 +200,7 @@ class Genome2SVPipeline:
         self.logger.info(f"命令|Command: {' '.join(str(c) for c in cmd)}")
         try:
             r = subprocess.run(cmd, shell=False, capture_output=True, text=True)
-            (self.config.stats_dir / "pan_sv.survivor.stats").write_text(r.stdout)
+            (self.config.stats_dir / "pan_sv_survivor.stats").write_text(r.stdout)
         except FileNotFoundError as e:
             self.logger.warning(f"bcftools stats 跳过|bcftools stats skipped: {e}")
 
@@ -217,7 +217,7 @@ class Genome2SVPipeline:
         skipped with counts. PAV: GT with allele 1 → 1 else 0; shares the
         auto-increment sv_id with the FASTA for cross-reference.
         """
-        seq_fa = self.config.sv_seq_dir / "pan_sv.sequences.fa"
+        seq_fa = self.config.sv_seq_dir / "pan_sv_sequences.fa"
         pav_tsv = self.config.stats_dir / "pav_matrix.tsv"
         pav_bin = self.config.stats_dir / "pav_binary.tsv"
         if all(p.exists() for p in (seq_fa, pav_tsv, pav_bin)):
@@ -445,7 +445,7 @@ class Genome2SVPipeline:
             return 1
 
         self.merge_and_stats(sample_vcf_map)
-        merged_vcf = str(self.config.merged_dir / "pan_sv.survivor.vcf")
+        merged_vcf = str(self.config.merged_dir / "pan_sv_survivor.vcf")
         if os.path.exists(merged_vcf):
             self.generate_downstream_outputs(merged_vcf)
             self.generate_sv_flanks(merged_vcf)

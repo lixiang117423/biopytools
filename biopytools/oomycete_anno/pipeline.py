@@ -226,7 +226,7 @@ class OomyceteAnnoRunner:
         self.logger.info("步骤2: RNA-seq 比对|Step 2: RNA-seq alignment (HISAT2)")
         self.logger.info("-" * 70)
 
-        sorted_bam = os.path.join(c.rna_align_dir, "rnaseq.sorted.bam")
+        sorted_bam = os.path.join(c.rna_align_dir, "rnaseq_sorted.bam")
         if os.path.exists(sorted_bam) and os.path.exists(sorted_bam + ".bai"):
             self.logger.info(f"跳过(已完成)|Skipping (done): {sorted_bam}")
             return sorted_bam
@@ -587,7 +587,7 @@ class OomyceteAnnoRunner:
                 raise RuntimeError("etraining 失败|etraining failed")
             self.logger.info(f"etraining 完成|etraining done: {species_dir}")
 
-        out_gff = os.path.join(c.augustus_dir, f"{c.species}.augustus.gff")
+        out_gff = os.path.join(c.augustus_dir, f"{c.species}_augustus.gff")
         if os.path.exists(out_gff) and os.path.getsize(out_gff) > 0:
             self.logger.info(f"跳过预测(已完成)|Skip predict (done): {out_gff}")
             return out_gff
@@ -740,8 +740,8 @@ class OomyceteAnnoRunner:
         self.logger.info("步骤9: 效应子位点救援|Step 9: Effector rescue")
         self.logger.info("-" * 70)
 
-        rescued_gff = os.path.join(c.rescue_dir, f"{c.species}.rescued.gff")
-        miniprot_gff = os.path.join(c.rescue_dir, "effectors.miniprot.gff3")
+        rescued_gff = os.path.join(c.rescue_dir, f"{c.species}_rescued.gff")
+        miniprot_gff = os.path.join(c.rescue_dir, "effectors_miniprot.gff3")
 
         # 9.1 miniprot 效应子 vs 基因组(单独跑, 不与广同源集混合)|align effectors to genome
         if not os.path.exists(miniprot_gff) or os.path.getsize(miniprot_gff) == 0:

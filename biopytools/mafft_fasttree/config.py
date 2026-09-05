@@ -52,10 +52,10 @@ class PhyloConfig:
         self.base_name = os.path.splitext(input_basename)[0]
         
         # 设置输出文件路径|Set output file paths
-        self.cleaned_file = self.output_path / f"{self.base_name}.cleaned.fa"
-        self.mafft_file = self.output_path / f"{self.base_name}.mafft.fa"
-        self.tree_file = self.output_path / f"{self.base_name}.fasttree.nwk"
-        self.id_mapping_file = self.output_path / f"{self.base_name}.id_mapping.txt"
+        self.cleaned_file = self.output_path / f"{self.base_name}_cleaned.fa"
+        self.mafft_file = self.output_path / f"{self.base_name}_mafft.fa"
+        self.tree_file = self.output_path / f"{self.base_name}_fasttree.nwk"
+        self.id_mapping_file = self.output_path / f"{self.base_name}_id_mapping.txt"
 
         # 展开工具路径|Expand tool paths
         self.mafft_path = expand_path(self.mafft_path)

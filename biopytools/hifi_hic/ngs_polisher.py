@@ -100,7 +100,7 @@ class NGSPolisher:
 
             # 创建BWA比对器|Create BWA aligner
             bwa_aligner = BWAAligner(
-                genome=os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa"),
+                genome=os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa"),
                 input_dir=self.config.ngs_data,
                 pattern=self.config.ngs_pattern,
                 output_dir=bwa_output_dir,
@@ -159,7 +159,7 @@ class NGSPolisher:
                 self.logger.info(f"使用BAM文件|Using BAM file: {bam_file}")
             else:
                 # 合并多个BAM文件|Merge multiple BAM files
-                merged_bam = os.path.join(bam_dir, f"{self.config.prefix}.merged.bam")
+                merged_bam = os.path.join(bam_dir, f"{self.config.prefix}_merged.bam")
                 self.logger.info(f"发现{len(bam_files)}个BAM文件，正在合并|Found {len(bam_files)} BAM files, merging...")
 
                 # 使用samtools merge合并(同env管道GATK,完整路径+LD_LIBRARY_PATH,§13.2.1)
@@ -186,7 +186,7 @@ class NGSPolisher:
             # 创建coverage filter|Create coverage filter
             coverage_filter = CoverageFilter(
                 bam_file=bam_file,
-                fasta_file=os.path.join(self.config.fasta_dir, f"{self.config.prefix}.primary.fa"),
+                fasta_file=os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa"),
                 output_prefix=self.config.prefix,
                 output_dir=filter_output_dir,
                 threads=self.config.threads,
@@ -239,12 +239,12 @@ class NGSPolisher:
                                           f"{self.config.prefix}_high_quality_reads.fq.gz")
 
             # 获取contig-reads映射文件|Get contig-reads mapping file
-            # 注意：文件名格式是 {prefix}.p_ctg.contig_reads.tsv（去掉了.hic.和.bp.）
-            # Note: filename format is {prefix}.p_ctg.contig_reads.tsv (removed .hic. and .bp.)
+            # 注意：文件名格式是 {prefix}_p_ctg_contig_reads.tsv（去掉了.hic.和.bp.）
+            # Note: filename format is {prefix}_p_ctg_contig_reads.tsv (removed .hic. and .bp.)
             # assembler.py会去掉.hic.前缀，所以这里统一使用不带.hic.的文件名
             # assembler.py removes .hic. prefix, so we use the filename without .hic. here
             mapping_file = os.path.join(self.config.fasta_dir,
-                                       f"{self.config.prefix}.p_ctg.contig_reads.tsv")
+                                       f"{self.config.prefix}_p_ctg_contig_reads.tsv")
 
             if not os.path.exists(mapping_file):
                 self.logger.error(f"Contig-reads映射文件不存在|Contig-reads mapping file not found: {mapping_file}")
@@ -364,10 +364,10 @@ class NGSPolisher:
         reassembly_fasta_dir = resolve_legacy_path(reassembly_dir, "02_fasta")
 
         # 根据n_hap动态构建FASTA文件列表|Build FASTA file list dynamically based on n_hap
-        fasta_files = [f"{self.config.prefix}.primary.fa"]
+        fasta_files = [f"{self.config.prefix}_primary.fa"]
         for i in range(1, self.config.n_hap + 1):
-            fasta_files.append(f"{self.config.prefix}.hap{i}.fa")
-        fasta_files.append(f"{self.config.prefix}.alternate.fa")
+            fasta_files.append(f"{self.config.prefix}_hap{i}.fa")
+        fasta_files.append(f"{self.config.prefix}_alternate.fa")
 
         existing_files = []
         for fasta_name in fasta_files:

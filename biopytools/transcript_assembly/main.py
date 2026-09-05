@@ -105,7 +105,7 @@ class TranscriptAssembler:
         for sample_info in samples:
             sample_name = sample_info["name"]
             input_sam = os.path.join(output_dir, "02_hisat2_align", f"{sample_name}.sam")
-            output_bam = os.path.join(output_dir, "03_bam_sort", f"{sample_name}.sorted.bam")
+            output_bam = os.path.join(output_dir, "03_bam_sort", f"{sample_name}_sorted.bam")
 
             self.logger.info(f"排序样本|Sorting sample: {sample_name}")
 
@@ -123,7 +123,7 @@ class TranscriptAssembler:
             sample_name = sample_info["name"]
             # BAM 直入用样本自带 bam;FASTQ 模式用 03_bam_sort 产物|BAM mode uses sample bam; FASTQ uses 03_bam_sort output
             bam_file = sample_info.get('bam') or os.path.join(
-                output_dir, "03_bam_sort", f"{sample_name}.sorted.bam")
+                output_dir, "03_bam_sort", f"{sample_name}_sorted.bam")
             output_gtf = os.path.join(output_dir, "04_stringtie", f"{sample_name}.gtf")
             # FASTQ 模式恒 short(HISAT2 短读);BAM 模式用检测结果|FASTQ always short; BAM uses detected type
             read_type = sample_info.get('read_type', 'short')
@@ -353,7 +353,7 @@ class TranscriptAssembler:
             transcript_fa = os.path.join(self.config.output_dir, "06_transcripts", "transcripts.fa")
             merged_gtf = os.path.join(self.config.output_dir, "05_merge", "merged.gtf")
             td_gff3 = os.path.join(self.config.output_dir, "07_transdecoder",
-                                   "transcripts.fa.transdecoder.genome.gff3")
+                                   "transcripts_fa_transdecoder_genome.gff3")
             if os.path.exists(merged_gff3):
                 self.logger.info(f"GFF3基因结构|GFF3 gene structure: {merged_gff3}")
             if os.path.exists(transcript_fa):
@@ -448,7 +448,7 @@ def main():
 
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
-    optional.add_argument("-p", "--pattern", default="*_1.clean.fq.gz",
+    optional.add_argument("-p", "--pattern", default="*_1_clean.fq.gz",
                           help='FASTQ文件命名模式（*为样本名占位符）|FASTQ file naming pattern (* is sample name placeholder)')
     optional.add_argument("-t", "--threads", type=int, default=12,
                           help="线程数|Number of threads")

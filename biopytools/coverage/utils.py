@@ -170,7 +170,7 @@ def get_sample_name(file_path: str) -> str:
     """ 从文件路径提取样品名称|Extract sample name from file path"""
     basename = os.path.basename(file_path)
     # 移除常见的文件扩展名|Remove common file extensions
-    for ext in ['.bam', '.sam', '.sorted', '.dedup']:
+    for ext in ['.bam', '.sam', '_sorted', '.sorted', '_dedup', '.dedup']:
         if basename.endswith(ext):
             basename = basename[:-len(ext)]
     return basename

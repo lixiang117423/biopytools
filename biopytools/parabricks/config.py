@@ -27,8 +27,8 @@
 #     pcr_indel_model: str = "CONSERVATIVE"
     
 #     #  文件模式参数|File pattern parameters
-#     read1_pattern: str = "*_1.clean.fq.gz"
-#     read2_pattern: str = "*_2.clean.fq.gz"
+#     read1_pattern: str = "*_1_clean.fq.gz"
+#     read2_pattern: str = "*_2_clean.fq.gz"
     
 #     #  输出格式参数|Output format parameters
 #     gvcf: bool = True  # 是否输出GVCF格式|Whether to output GVCF format
@@ -138,13 +138,13 @@ class parabricksConfig:
     pcr_indel_model: str = "CONSERVATIVE"
     
     #  文件模式参数|File pattern parameters
-    read1_pattern: str = "*_1.clean.fq.gz"
-    read2_pattern: str = "*_2.clean.fq.gz"
+    read1_pattern: str = "*_1_clean.fq.gz"
+    read2_pattern: str = "*_2_clean.fq.gz"
     
     #  输出格式参数|Output format parameters
     gvcf: bool = True  # 是否输出GVCF格式|Whether to output GVCF format
     joint_calling: bool = True  # 是否进行joint calling|Whether to perform joint calling
-    combined_output_name: str = "combined.g.vcf"  # 合并输出文件名|Combined output filename
+    combined_output_name: str = "combined_g.vcf"  # 合并输出文件名|Combined output filename
     
     #  临时目录|Temporary directory
     tmp_dir: Optional[str] = None

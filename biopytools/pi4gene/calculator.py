@@ -110,7 +110,7 @@ class Pi4GeneCalculator:
         mafft_dir = self.config.output_path / '01_mafft'
 
         for group_name, fasta_path in sorted(group_fasta_map.items()):
-            aligned_path = mafft_dir / f"{group_name}.aligned.fasta"
+            aligned_path = mafft_dir / f"{group_name}_aligned.fasta"
 
             # 断点续传|Checkpoint resume
             if aligned_path.exists() and aligned_path.stat().st_size > 0:

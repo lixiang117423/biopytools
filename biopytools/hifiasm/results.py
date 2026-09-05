@@ -66,7 +66,7 @@ class ResultsProcessor:
             
             for assembly_type, fasta_path in fasta_files.items():
                 # 标准化文件名
-                standard_name = f"{self.config.prefix}.{assembly_type}.fasta"
+                standard_name = f"{self.config.prefix}_{assembly_type}.fasta"
                 target_path = assembly_results_dir / standard_name
                 
                 # 复制文件
@@ -683,9 +683,9 @@ class SummaryGenerator:
 ## 主要文件说明|Main Files Description
 
 ### 组装文件|Assembly Files
-- `*.primary.fasta`: 主要组装序列|Primary assembly sequences
-- `*.haplotype1.fasta`: 单倍型1序列|Haplotype 1 sequences  
-- `*.haplotype2.fasta`: 单倍型2序列|Haplotype 2 sequences
+- `*_primary.fasta`: 主要组装序列|Primary assembly sequences
+- `*_haplotype1.fasta`: 单倍型1序列|Haplotype 1 sequences  
+- `*_haplotype2.fasta`: 单倍型2序列|Haplotype 2 sequences
 
 ### 质量评估|Quality Assessment
 - `busco/`: BUSCO完整性评估结果|BUSCO completeness assessment results
@@ -729,8 +729,8 @@ For questions, please check log files or contact the analysis team.
 {'='*80}
 
 1. 选择合适的组装文件|Choose Appropriate Assembly File
-   - 基因注释: {self.config.prefix}.primary.fasta
-   - 变异检测: {self.config.prefix}.haplotype1.fasta, {self.config.prefix}.haplotype2.fasta
+   - 基因注释: {self.config.prefix}_primary.fasta
+   - 变异检测: {self.config.prefix}_haplotype1.fasta, {self.config.prefix}_haplotype2.fasta
    - 比较基因组学: 根据质量评估选择最佳组装
 
 2. 质量检查|Quality Check

@@ -97,8 +97,8 @@ class DualQuantifier:
 
         # 获取分类结果BAM文件|Get classified BAM files
         classification_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), sample_name)
-        species1_bam = os.path.join(classification_dir, f"{sample_name}.{self.config.species1_name}.bam")
-        species2_bam = os.path.join(classification_dir, f"{sample_name}.{self.config.species2_name}.bam")
+        species1_bam = os.path.join(classification_dir, f"{sample_name}_{self.config.species1_name}.bam")
+        species2_bam = os.path.join(classification_dir, f"{sample_name}_{self.config.species2_name}.bam")
 
         # 检查BAM文件是否存在|Check if BAM files exist
         if not os.path.exists(species1_bam):
@@ -119,7 +119,7 @@ class DualQuantifier:
         # 物种1定量|Species 1 quantification
         self.logger.info(f"定量{self.config.species1_name}|Quantifying {self.config.species1_name}")
         species1_gtf = os.path.join(species1_quant_dir, f"{sample_name}.gtf")
-        species1_fpkm = os.path.join(species1_quant_dir, f"{sample_name}.fpkm.txt")
+        species1_fpkm = os.path.join(species1_quant_dir, f"{sample_name}_fpkm.txt")
 
         if not self.run_stringtie(species1_bam, self.config.species1_gtf, species1_gtf, self.config.species1_name):
             self.logger.error(f"{self.config.species1_name} StringTie定量失败|{self.config.species1_name} StringTie quantification failed")
@@ -132,7 +132,7 @@ class DualQuantifier:
         # 物种2定量|Species 2 quantification
         self.logger.info(f"定量{self.config.species2_name}|Quantifying {self.config.species2_name}")
         species2_gtf = os.path.join(species2_quant_dir, f"{sample_name}.gtf")
-        species2_fpkm = os.path.join(species2_quant_dir, f"{sample_name}.fpkm.txt")
+        species2_fpkm = os.path.join(species2_quant_dir, f"{sample_name}_fpkm.txt")
 
         if not self.run_stringtie(species2_bam, self.config.species2_gtf, species2_gtf, self.config.species2_name):
             self.logger.error(f"{self.config.species2_name} StringTie定量失败|{self.config.species2_name} StringTie quantification failed")

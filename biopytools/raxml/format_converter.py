@@ -136,11 +136,11 @@ class FormatConverter:
         return effective
 
     def _converted_phylip_path(self) -> str:
-        """转换产物路径(vcf2phylip固定追加.min{{m}}后缀)
-        |Converted output path (vcf2phylip always appends .min{{m}})"""
+        """转换产物路径(vcf2phylip固定追加_min{{m}}后缀)
+        |Converted output path (vcf2phylip always appends _min{{m}})"""
         num_samples = count_vcf_samples(self.config.sequence_file)
         effective_min = min(self.config.min_samples_locus, num_samples)
         return str(
             self.config.output_path
-            / f"{self.config.output_name}_converted.min{effective_min}.phy"
+            / f"{self.config.output_name}_converted_min{effective_min}.phy"
         )

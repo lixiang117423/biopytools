@@ -32,7 +32,7 @@ class CoverageAnalyzer:
     
     def _calculate_depth(self, sample_name: str, bam_file: str) -> Path:
         """计算位点覆盖度|Calculate per-base depth"""
-        output_file = self.config.coverage_dir / f"{sample_name}.depth.txt"
+        output_file = self.config.coverage_dir / f"{sample_name}_depth.txt"
         
         # 构建samtools depth命令(conda环境自动包装, 输出重定向到文件)
         # |Build samtools depth command (auto conda wrap, redirect to file)
@@ -61,7 +61,7 @@ class CoverageAnalyzer:
     
     def _calculate_windowed_coverage(self, sample_name: str, depth_file: Path) -> bool:
         """计算滑窗覆盖度|Calculate windowed coverage"""
-        output_file = self.config.window_dir / f"{sample_name}.window.bed"
+        output_file = self.config.window_dir / f"{sample_name}_window.bed"
         
         self.logger.info(f"计算滑窗覆盖度|Calculating windowed coverage")
         self.logger.info(f"   窗口大小|Window size: {self.config.window_size:,} bp")

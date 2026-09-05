@@ -21,7 +21,7 @@ def _is_done(path: str) -> bool:
 def _movie_name(bam_path: str, suffix: str) -> str:
     """提取movie名(去.bam后缀链)|Extract movie name (strip .bam suffix chain)"""
     base = os.path.basename(bam_path)
-    for cut in (".subreads.bam.pbi", ".subreads.bam", ".ccs.bam", ".flnc.bam", suffix):
+    for cut in (".subreads.bam.pbi", ".subreads.bam", ".ccs.bam", "_ccs.bam", ".flnc.bam", "_flnc.bam", suffix):
         if base.endswith(cut):
             return base[: -len(cut)]
     return base
@@ -38,7 +38,7 @@ def run_ccs(config, logger) -> List[str]:
         if sub.endswith(".pbi"):
             continue
         movie = _movie_name(sub, "")
-        out = os.path.join(config.ccs_dir, f"{movie}.ccs.bam")
+        out = os.path.join(config.ccs_dir, f"{movie}_ccs.bam")
         if _is_done(out):
             logger.info(f"跳过已完成ccs|Skipping completed ccs: {movie}")
             outs.append(out)
@@ -69,7 +69,7 @@ def run_refine(config, logger, ccs_bams: List[str]) -> List[str]:
     flncs = []
     for ccs_bam in ccs_bams:
         movie = _movie_name(ccs_bam, "")
-        out = os.path.join(config.refine_dir, f"{movie}.flnc.bam")
+        out = os.path.join(config.refine_dir, f"{movie}_flnc.bam")
         if _is_done(out):
             logger.info(f"跳过已完成refine|Skipping completed refine: {movie}")
             flncs.append(out)
@@ -95,7 +95,7 @@ def flnc_to_fasta(config, logger, flnc_bams: List[str]) -> List[str]:
     outs = []
     for flnc in flnc_bams:
         movie = _movie_name(flnc, "")
-        out = os.path.join(config.refine_dir, f"{movie}.flnc.fa")
+        out = os.path.join(config.refine_dir, f"{movie}_flnc.fa")
         if _is_done(out):
             logger.info(f"跳过已完成fasta转换|Skipping completed fasta: {movie}")
             outs.append(out)

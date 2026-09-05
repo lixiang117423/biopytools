@@ -150,7 +150,7 @@ class HISAT2Aligner:
 
     def _run_hisat2_split_pipeline(self, index_prefix: str, fastq1: str, fastq2: str, output_bam: str, threads: int, timeout: int) -> bool:
         """逐步执行，无管道，适用于大数据量|Step-by-step execution without pipe for large data"""
-        sam_file = output_bam.replace(".sorted.bam", ".sam")
+        sam_file = output_bam.replace("_sorted.bam", ".sam")
 
         # 第一步：HISAT2比对输出SAM文件|Step 1: HISAT2 alignment to SAM file
         hisat2_cmd = (

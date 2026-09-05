@@ -49,7 +49,7 @@ class PanBlocksPlotter:
 
         # 读取 Pan-Blocks 数据（含 contributor 信息）
         genome_blocks = {}
-        pan_blocks_file = self.blocks_dir / f"{chrom}.pan_blocks.bed"
+        pan_blocks_file = self.blocks_dir / f"{chrom}_pan_blocks.bed"
         if not pan_blocks_file.exists():
             self.logger.warning(f"Pan-Blocks文件不存在|Pan-blocks file not found: {chrom}, 跳过|skipping")
             return
@@ -153,7 +153,7 @@ class PanBlocksPlotter:
                             spacing: float, bar_height: float, chrom: str,
                             max_chr_len: int, genome_color: dict):
         """绘制两基因组间的共线性连线|Draw synteny links between two genomes"""
-        coords_file = self.coords_dir / f"{genome_a}.vs.{genome_b}.filtered.coords"
+        coords_file = self.coords_dir / f"{genome_a}_vs_{genome_b}_filtered.coords"
         if not coords_file.exists():
             return
 

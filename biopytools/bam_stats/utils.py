@@ -153,7 +153,7 @@ class CommandRunner:
 
 def get_sample_name(bam_file: str) -> str:
     """从BAM文件路径提取样品名称|Extract sample name from BAM file path"""
-    return Path(bam_file).stem.replace('.sorted', '')
+    return Path(bam_file).stem.replace('_sorted', '').replace('.sorted', '')
 
 
 def check_dependencies(config, logger: logging.Logger) -> bool:

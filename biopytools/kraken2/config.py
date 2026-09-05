@@ -26,8 +26,8 @@ class Kraken2Config:
     bracken_level: str = 'S'
     bracken_threshold: int = 10
     run_bracken: bool = True
-    r1_suffix: str = '_1.clean.fq.gz'
-    r2_suffix: str = '_2.clean.fq.gz'
+    r1_suffix: str = '_1_clean.fq.gz'
+    r2_suffix: str = '_2_clean.fq.gz'
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""

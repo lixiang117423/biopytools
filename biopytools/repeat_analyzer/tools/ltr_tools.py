@@ -147,7 +147,7 @@ class LTRRetrieverRunner:
         if success:
             # 查找生成的库文件|Find generated library file
             expected_lib = Path(f"{self.config.genome_file}.mod.EDTA.intact.fa")
-            alt_lib = self.config.output_path / f"{self.config.base_name}.LTRlib.fa"
+            alt_lib = self.config.output_path / f"{self.config.base_name}_LTRlib.fa"
             
             if expected_lib.exists():
                 self.output_lib = expected_lib

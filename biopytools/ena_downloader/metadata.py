@@ -85,7 +85,7 @@ class MetadataDownloader:
     def download_metadata(self, accession: Optional[str] = None) -> Optional[Path]:
         """ 下载元数据文件(默认首个编号)|Download metadata file (defaults to first accession)"""
         accession = accession or self.config.accessions[0]
-        output_file = self.config.output_path / f"{accession}.meta.{self.config.metadata_format}"
+        output_file = self.config.output_path / f"{accession}_meta.{self.config.metadata_format}"
 
         #  断点续传: 元数据已存在且含数据行则跳过|Checkpoint resume: skip when metadata exists with data rows
         if self._has_data_rows(output_file):

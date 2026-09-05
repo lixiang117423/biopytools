@@ -18,14 +18,14 @@ class FastaniLogger:
     """fastANI日志管理器|fastANI Logger Manager
 
     stdout(<=INFO) + stderr(>=WARNING) + 三个日志文件:
-    fastani.log(全量) fastani.out.log(<=INFO) fastani.err.log(>=WARNING)
+    fastani.log(全量) fastani_out.log(<=INFO) fastani_err.log(>=WARNING)
     |stdout (<=INFO) + stderr (>=WARNING) + three log files
     """
 
     def __init__(self, logs_dir: str, log_level: str = 'INFO'):
         self.log_file = os.path.join(logs_dir, 'fastani.log')
-        self.out_log_file = os.path.join(logs_dir, 'fastani.out.log')
-        self.err_log_file = os.path.join(logs_dir, 'fastani.err.log')
+        self.out_log_file = os.path.join(logs_dir, 'fastani_out.log')
+        self.err_log_file = os.path.join(logs_dir, 'fastani_err.log')
         os.makedirs(logs_dir, exist_ok=True)
         self.logger = self._setup_logging(log_level)
 

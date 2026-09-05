@@ -67,7 +67,7 @@ class BrakerPipeline:
         # 检查三代转录本处理|Check long-read processing
         long_reads_done = check_step_completed(
             self.config.long_reads_dir,
-            ["isoseq.sorted.bam"],
+            ["isoseq_sorted.bam"],
             self.logger
         )
         self.completed_steps['long_reads'] = long_reads_done
@@ -76,7 +76,7 @@ class BrakerPipeline:
         # 检查排序后的BAM文件和索引|Check sorted BAM file and index
         short_reads_done = check_step_completed(
             self.config.short_reads_dir,
-            ["rnaseq.sorted.bam", "rnaseq.sorted.bam.bai"],
+            ["rnaseq_sorted.bam", "rnaseq_sorted.bam.bai"],
             self.logger
         )
         self.completed_steps['short_reads'] = short_reads_done
@@ -324,7 +324,7 @@ class BrakerPipeline:
 
         if self.completed_steps['long_reads']:
             self.logger.info("检测到三代转录本处理已完成，跳过|Long-read processing already completed, skipping")
-            bam_file = os.path.join(self.config.long_reads_dir, "isoseq.sorted.bam")
+            bam_file = os.path.join(self.config.long_reads_dir, "isoseq_sorted.bam")
             if os.path.exists(bam_file):
                 return bam_file
 
@@ -343,13 +343,13 @@ class BrakerPipeline:
             raise RuntimeError("三代转录本比对失败|Long-read alignment failed")
 
         # 将SAM转为sorted BAM|Convert SAM to sorted BAM
-        bam_out = os.path.abspath(os.path.join(self.config.long_reads_dir, "isoseq.sorted.bam"))
-        view_cmd = f"samtools view -bS {sam_out} > {bam_out.replace('.sorted.bam', '.bam')}"
+        bam_out = os.path.abspath(os.path.join(self.config.long_reads_dir, "isoseq_sorted.bam"))
+        view_cmd = f"samtools view -bS {sam_out} > {bam_out.replace('_sorted.bam', '.bam')}"
 
         if not self.cmd_runner.run_command(view_cmd, "SAM转BAM|Convert SAM to BAM"):
             raise RuntimeError("SAM转BAM失败|SAM to BAM conversion failed")
 
-        unsorted_bam = bam_out.replace('.sorted.bam', '.bam')
+        unsorted_bam = bam_out.replace('_sorted.bam', '.bam')
         sort_cmd = f"samtools sort -@ {self.config.threads} -o {bam_out} {unsorted_bam}"
 
         if not self.cmd_runner.run_command(sort_cmd, "排序三代BAM|Sort long-read BAM"):
@@ -385,7 +385,7 @@ class BrakerPipeline:
         if self.completed_steps['short_reads']:
             self.logger.info("检测到二代RNA-seq处理已完成，跳过|Short-read processing already completed, skipping")
             # 使用排序后的BAM文件|Use sorted BAM file
-            bam_file = os.path.join(self.config.short_reads_dir, "rnaseq.sorted.bam")
+            bam_file = os.path.join(self.config.short_reads_dir, "rnaseq_sorted.bam")
             if os.path.exists(bam_file):
                 self.logger.info(f"使用已有的RNA-seq比对文件|Using existing RNA-seq alignment: {bam_file}")
                 return bam_file
@@ -477,7 +477,7 @@ class BrakerPipeline:
             raise RuntimeError("HISAT2比对失败|HISAT2 alignment failed")
 
         # SAM转BAM并排序|Convert SAM to sorted BAM
-        sorted_bam = os.path.abspath(os.path.join(self.config.short_reads_dir, "rnaseq.sorted.bam"))
+        sorted_bam = os.path.abspath(os.path.join(self.config.short_reads_dir, "rnaseq_sorted.bam"))
         sort_cmd = f"samtools sort -@ {self.config.threads} -o {sorted_bam} {sam_file}"
 
         if not self.cmd_runner.run_command(sort_cmd, "SAM转排序BAM|Sort SAM to BAM"):

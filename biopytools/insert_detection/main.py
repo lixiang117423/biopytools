@@ -88,14 +88,14 @@ def parse_arguments():
     # FASTQ文件模式|FASTQ file patterns
     parser.add_argument(
         '--read1-suffix',
-        default='_1.clean.fq.gz',
-        help='R1文件后缀（包含扩展名，默认匹配fastp输出）|Read 1 file suffix with extension (default: _1.clean.fq.gz, matches fastp output)'
+        default='_1_clean.fq.gz',
+        help='R1文件后缀（包含扩展名，默认匹配fastp输出）|Read 1 file suffix with extension (default: _1_clean.fq.gz, matches fastp output)'
     )
 
     parser.add_argument(
         '--read2-suffix',
-        default='_2.clean.fq.gz',
-        help='R2文件后缀（包含扩展名，默认匹配fastp输出）|Read 2 file suffix with extension (default: _2.clean.fq.gz, matches fastp output)'
+        default='_2_clean.fq.gz',
+        help='R2文件后缀（包含扩展名，默认匹配fastp输出）|Read 2 file suffix with extension (default: _2_clean.fq.gz, matches fastp output)'
     )
 
     # 流程控制|Process control

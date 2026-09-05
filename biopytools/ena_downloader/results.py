@@ -20,7 +20,7 @@ class ResultsSummary:
 
     def generate_summary(self, accession: str, metadata_file: Path, script_file: Path = None, download_links_count: int = 0):
         """ 生成单个编号的汇总报告|Generate summary report for one accession"""
-        summary_file = self.config.output_path / f'{accession}.download_summary.txt'
+        summary_file = self.config.output_path / f'{accession}_download_summary.txt'
 
         try:
             with summary_file.open('w', encoding='utf-8') as f:
@@ -99,7 +99,7 @@ class ResultsSummary:
 
                 ok = 0
                 for accession in accessions:
-                    meta = self.config.output_path / f"{accession}.meta.{self.config.metadata_format}"
+                    meta = self.config.output_path / f"{accession}_meta.{self.config.metadata_format}"
                     status = "成功|ok"
                     if not _has_data_rows_file(meta):
                         status = "无元数据|no metadata"

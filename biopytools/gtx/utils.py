@@ -567,7 +567,7 @@ class FileProcessor:
     def check_output_exists(self, sample_name: str) -> bool:
         """检查输出文件是否已存在 |Check if output files already exist"""
         vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
-        bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
+        bam_file = self.config.bam_output_dir / f"{sample_name}_sorted.bam"
         
         return vcf_file.exists() and bam_file.exists()
     

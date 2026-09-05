@@ -295,7 +295,7 @@ class OcbsaCalculator:
             chr_geno_dict_filter[chr_list[0]] = chr_list[1]
 
         # 输出OcValue文件|Output OcValue file
-        ocvalue_file = str(cfg.output_path / "ocbsa.OcValue")
+        ocvalue_file = str(cfg.output_path / "ocbsa_OcValue")
         with open(ocvalue_file, 'w') as out_file:
             out_file.write('#chr.\tpos\tref\talt\tP1\tP2\tPool1\tPool2\tthresholds\tOcValue\tmarker_type\n')
             for key, value in chr_geno_dict_filter.items():
@@ -316,7 +316,7 @@ class OcbsaCalculator:
         pool.close()
         pool.join()
 
-        smoothed_file = str(cfg.output_path / "ocbsa.smoothed")
+        smoothed_file = str(cfg.output_path / "ocbsa_smoothed")
         with open(smoothed_file, 'w') as file3:
             file3.write('#chr.\tpos\tthresholds\tsmoothed_OcValue\tmarker_number\n')
             for i_list in result:
@@ -330,7 +330,7 @@ class OcbsaCalculator:
 
         # 输出R绘图用汇总数据|Output summary data for R plotting
         import re
-        summary_file = str(cfg.output_path / "ocbsa.summary.tsv")
+        summary_file = str(cfg.output_path / "ocbsa_summary.tsv")
         chr_sorted = sorted(chr_geno_dict_filter.keys(), key=lambda x: int(re.findall(r'\d+', x)[0]))
         chr_len_dict = {}
         for ch in chr_sorted:
@@ -351,7 +351,7 @@ class OcbsaCalculator:
         from .config import BsaFigConfig
         from .fig import BsaFigPlotter
 
-        fig_file = str(cfg.output_path / "ocbsa.OcValue.png")
+        fig_file = str(cfg.output_path / "ocbsa_OcValue.png")
         fig_config = BsaFigConfig(
             input_file=smoothed_file,
             output_file=fig_file,

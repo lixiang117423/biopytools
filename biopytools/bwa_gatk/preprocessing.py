@@ -61,7 +61,7 @@ class BAMPreprocessor:
         """排序BAM|Sort BAM"""
         self.logger.info(" 排序BAM|Sorting BAM")
         
-        sorted_bam = self.config.temp_dir / f"{sample_name}.sorted.bam"
+        sorted_bam = self.config.temp_dir / f"{sample_name}_sorted.bam"
         
         if not self.config.force_restart and check_file_exists(sorted_bam, self.logger):
             return sorted_bam
@@ -80,8 +80,8 @@ class BAMPreprocessor:
         """标记重复|Mark duplicates"""
         self.logger.info("标记重复序列|Marking duplicates")
         
-        dedup_bam = self.config.bam_dir / f"{sample_name}.dedup.bam"
-        metrics_file = self.config.stats_dir / f"{sample_name}.dedup_metrics.txt"
+        dedup_bam = self.config.bam_dir / f"{sample_name}_dedup.bam"
+        metrics_file = self.config.stats_dir / f"{sample_name}_dedup_metrics.txt"
         
         if not self.config.force_restart and check_file_exists(dedup_bam, self.logger):
             return dedup_bam

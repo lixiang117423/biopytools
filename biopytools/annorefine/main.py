@@ -38,11 +38,11 @@ class AnnorefineRunner:
         self.cmd_runner = CommandRunner(self.logger, config.output_dir)
         # 输出路径(GFF3)|output paths (GFF3)
         self.miniprot_gff = os.path.join(
-            config.evidence_dir, f"{config.prefix}.miniprot.gff3")
+            config.evidence_dir, f"{config.prefix}_miniprot.gff3")
         self.gap_filled_gff3 = os.path.join(
-            config.gap_filled_dir, f"{config.prefix}.gap_filled.gff3")
+            config.gap_filled_dir, f"{config.prefix}_gap_filled.gff3")
         self.merged_gff3 = os.path.join(
-            config.merged_dir, f"{config.prefix}.merged.gff3")
+            config.merged_dir, f"{config.prefix}_merged.gff3")
 
     def _probe_version(self, tool_path: str) -> str:
         """获取工具版本(conda 包装, §13)|probe tool version (conda-wrapped)"""
@@ -292,7 +292,7 @@ class AnnorefineRunner:
 
         # Step5 gap 验证报告(复用 expression)|report (reuse expression)
         report_tsv = os.path.join(self.config.gap_dir,
-                                  f"{self.config.prefix}.gap_report.tsv")
+                                  f"{self.config.prefix}_gap_report.tsv")
         from .report import build_gap_report
         build_gap_report(passed, self.config.prefix, self.config.rnaseq_bam,
                          self.config.repeat_out, report_tsv, self.gap_filled_gff3,
@@ -497,7 +497,7 @@ def run_end_to_end(args, prog_name: str = "annorefine"):
         filling_output = os.path.join(args.output_dir, '05_gap_filling')
         # braker 的 RNA-seq BAM(给查漏补缺做表达验证)|braker's RNA-seq BAM for expression
         rnaseq_bam_path = os.path.join(args.output_dir, '03_short_reads',
-                                       'rnaseq.sorted.bam')
+                                       'rnaseq_sorted.bam')
         rnaseq_bam = [rnaseq_bam_path] if os.path.exists(rnaseq_bam_path) else None
         if rnaseq_bam:
             logger.info(f'表达验证用 RNA-seq BAM|expression BAM: {rnaseq_bam_path}')

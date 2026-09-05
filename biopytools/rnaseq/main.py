@@ -238,9 +238,9 @@ class RNASeqAnalyzer:
         fastq2 = sample_info["fastq2"]
 
         # 设置文件路径|Set file paths
-        bam_file = os.path.join(resolve_legacy_path(self.config.output_dir, "01_bam"), f"{sample_name}.sorted.bam")
+        bam_file = os.path.join(resolve_legacy_path(self.config.output_dir, "01_bam"), f"{sample_name}_sorted.bam")
         stringtie_output = os.path.join(resolve_legacy_path(self.config.output_dir, "02_stringtie"), f"{sample_name}.gtf")
-        fpkm_output = os.path.join(resolve_legacy_path(self.config.output_dir, "03_fpkm_tpm"), f"{sample_name}.fpkm.txt")
+        fpkm_output = os.path.join(resolve_legacy_path(self.config.output_dir, "03_fpkm_tpm"), f"{sample_name}_fpkm.txt")
 
         # 检查样本是否已完成处理|Check if sample processing is already completed
         if os.path.exists(fpkm_output) and os.path.getsize(fpkm_output) > 0:
@@ -389,7 +389,7 @@ def main():
 
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
-    optional.add_argument("-p", "--pattern", default="*_1.clean.fq.gz",
+    optional.add_argument("-p", "--pattern", default="*_1_clean.fq.gz",
                        help='Fastq文件命名模式|Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name')
     optional.add_argument("-r", "--remove", default="no", choices=["yes", "y", "no", "n"],
                        help="处理后删除BAM文件|Remove BAM files after processing")

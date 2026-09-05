@@ -54,9 +54,9 @@ class Genome2TreeConfig:
         # 关键产物路径|key artifact paths
         self.input_tsv = str(self.step_input_dir / "input.tsv")
         self.samples_map_tsv = str(self.step_input_dir / "samples_map.tsv")
-        self.species_tree = str(self.waster_dir / "waster.species_tree.nw")
+        self.species_tree = str(self.waster_dir / "waster_species_tree.nw")
         self.waster_log = str(self.waster_dir / "waster.log")
-        self.bl_tree = str(self.branch_dir / "waster_branchlength.species_tree.nw")
+        self.bl_tree = str(self.branch_dir / "waster_branchlength_species_tree.nw")
         self.bl_log = str(self.branch_dir / "waster_branchlength.log")
 
         # 扫描输入(目录不存在则留空,交 validate 报错)|scan input

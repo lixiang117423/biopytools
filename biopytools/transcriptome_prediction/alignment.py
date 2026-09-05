@@ -143,14 +143,14 @@ class HISAT2Aligner:
                         '_f1.fq', '_r1.fq', '_1.fq', '.1.fq', 
                         '_f1.fastq', '_r1.fastq', '_1.fastq', '.1.fastq',
                         '_forward.fq', '_left.fq',
-                        '_f1.clean.fq', '_1.clean.fq'
+                        '_f1_clean.fq', '_1_clean.fq'
                     ]):
                         r1_file = file_path
                     elif any(pattern in filename for pattern in [
                         '_r2.fq', '_f2.fq', '_2.fq', '.2.fq',
                         '_r2.fastq', '_f2.fastq', '_2.fastq', '.2.fastq', 
                         '_reverse.fq', '_right.fq',
-                        '_r2.clean.fq', '_2.clean.fq'
+                        '_r2_clean.fq', '_2_clean.fq'
                     ]):
                         r2_file = file_path
                 
@@ -303,9 +303,9 @@ class HISAT2Aligner:
                 
     #             for file_path in files:
     #                 filename = Path(file_path).name.lower()
-    #                 if any(pattern in filename for pattern in ['_1.clean.fq', '_r1', '_f1', '_1.fq', '.1.fq', '_forward']):
+    #                 if any(pattern in filename for pattern in ['_1_clean.fq', '_r1', '_f1', '_1.fq', '.1.fq', '_forward']):
     #                     r1_file = file_path
-    #                 elif any(pattern in filename for pattern in ['_2.clean.fq', '_r2', '_r2', '_2.fq', '.2.fq', '_reverse']):
+    #                 elif any(pattern in filename for pattern in ['_2_clean.fq', '_r2', '_r2', '_2.fq', '.2.fq', '_reverse']):
     #                     r2_file = file_path
                 
     #             if r1_file and r2_file:

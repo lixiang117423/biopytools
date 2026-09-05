@@ -20,10 +20,10 @@ class BlastTaxonomyProcessor:
         self.cmd_runner = cmd_runner
 
         # 输出文件路径|Output file paths
-        self.accessions_file = f"{self.config.output_prefix}.accessions.txt"
-        self.acc2taxid_file = f"{self.config.output_prefix}.acc2taxid.txt"
-        self.taxonomy_file = f"{self.config.output_prefix}.taxonomy.txt"
-        self.accession2title_file = f"{self.config.output_prefix}.accession2title.txt"
+        self.accessions_file = f"{self.config.output_prefix}_accessions.txt"
+        self.acc2taxid_file = f"{self.config.output_prefix}_acc2taxid.txt"
+        self.taxonomy_file = f"{self.config.output_prefix}_taxonomy.txt"
+        self.accession2title_file = f"{self.config.output_prefix}_accession2title.txt"
 
     def extract_accessions(self) -> List[str]:
         """步骤1: 提取accession列表|Step 1: Extract accession list"""
@@ -434,7 +434,7 @@ class BlastTaxonomyProcessor:
         self.logger.info("")
 
         # 写入分类统计文件
-        summary_file = f"{self.config.output_prefix}.sequence_types.txt"
+        summary_file = f"{self.config.output_prefix}_sequence_types.txt"
         with open(summary_file, 'w', encoding='utf-8') as f:
             f.write("=" * 80 + "\n")
             f.write("序列类型统计分析|Sequence Type Analysis\n")

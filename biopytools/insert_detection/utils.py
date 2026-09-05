@@ -59,15 +59,15 @@ def identify_samples(fastq_dir: str, read1_suffix: str, read2_suffix: str, logge
 
     Args:
         fastq_dir: FASTQ文件目录|FASTQ file directory
-        read1_suffix: R1后缀（包括扩展名，如 _1.fq.gz 或 _1.clean.fq.gz）|R1 suffix with extension
-        read2_suffix: R2后缀（包括扩展名，如 _2.fq.gz 或 _2.clean.fq.gz）|R2 suffix with extension
+        read1_suffix: R1后缀（包括扩展名，如 _1.fq.gz 或 _1_clean.fq.gz）|R1 suffix with extension
+        read2_suffix: R2后缀（包括扩展名，如 _2.fq.gz 或 _2_clean.fq.gz）|R2 suffix with extension
         logger: 日志器|Logger
 
     Returns:
         dict: 样品信息字典|Sample information dictionary
         {
-            'OV8-276': {'r1': 'path/to/OV8-276_1.clean.fq.gz', 'r2': 'path/to/OV8-276_2.clean.fq.gz'},
-            'OV8-277': {'r1': 'path/to/OV8-277_1.clean.fq.gz', 'r2': 'path/to/OV8-277_2.clean.fq.gz'}
+            'OV8-276': {'r1': 'path/to/OV8-276_1_clean.fq.gz', 'r2': 'path/to/OV8-276_2_clean.fq.gz'},
+            'OV8-277': {'r1': 'path/to/OV8-277_1_clean.fq.gz', 'r2': 'path/to/OV8-277_2_clean.fq.gz'}
         }
     """
     fastq_path = Path(fastq_dir)

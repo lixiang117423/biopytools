@@ -96,7 +96,7 @@ class JellyfishProcessor:
 
         # 输出文件：使用持久化cache目录|Output file: use persistent cache directory
         cache_dir = self.config.output_dir / "jellyfish_cache"
-        count_file = cache_dir / f"{sample_name}.kmers.count"
+        count_file = cache_dir / f"{sample_name}_kmers.count"
 
         # 检查是否已存在（断点续传）|Check if already exists for checkpoint resumption
         if count_file.exists() and count_file.stat().st_size > 0:

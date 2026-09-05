@@ -17,8 +17,8 @@ def parse_arguments():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例|Examples:
-  %(prog)s -i ./bam_files -o result.summary.tsv
-  %(prog)s -i sample.bam -o result.summary.tsv -g reference.fa
+  %(prog)s -i ./bam_files -o result_summary.tsv
+  %(prog)s -i sample.bam -o result_summary.tsv -g reference.fa
         '''
     )
 
@@ -27,8 +27,8 @@ def parse_arguments():
         help='BAM文件或目录|BAM file or directory containing BAM files'
     )
     parser.add_argument(
-        '-o', '--output', default='bam_stats.summary.tsv',
-        help='输出文件|Output file (default: bam_stats.summary.tsv)'
+        '-o', '--output', default='bam_stats_summary.tsv',
+        help='输出文件|Output file (default: bam_stats_summary.tsv)'
     )
     parser.add_argument(
         '-t', '--threads', type=int, default=12,

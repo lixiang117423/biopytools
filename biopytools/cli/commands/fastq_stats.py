@@ -44,7 +44,7 @@ def _validate_path_exists(path):
               help='输出文件路径(.csv或.xlsx)|Output file path (.csv or .xlsx)')
 @click.option('--pattern', '-p',
               default=None,
-              help='FASTQ文件匹配模式，如"*_1.clean.fq.gz"|FASTQ file matching pattern, e.g., "*_1.clean.fq.gz"')
+              help='FASTQ文件匹配模式，如"*_1_clean.fq.gz"|FASTQ file matching pattern, e.g., "*_1_clean.fq.gz"')
 @click.option('--threads', '-t',
               default=12,
               type=int,
@@ -57,7 +57,7 @@ def fastq_stats(input, output, pattern, threads):
     基于seqkit的高性能FASTQ文件统计工具，支持自动配对双末端文件，输出CSV/Excel格式
     High-performance FASTQ file statistics tool based on seqkit, supports automatic paired-end file matching, outputs CSV/Excel format
 
-    示例|Examples: biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1.clean.fq.gz"
+    示例|Examples: biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1_clean.fq.gz"
     """
 
     # 延迟加载|Lazy loading

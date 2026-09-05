@@ -97,10 +97,10 @@ class NCBIDatasetsConfig:
             d.mkdir(parents=True, exist_ok=True)
 
         self.base_name = str(self.taxon)
-        self.manifest_file = self.info_dir / f'{self.base_name}.assemblies.tsv'
-        self.zip_file = self.download_dir / f'{self.base_name}.genomes.zip'
+        self.manifest_file = self.info_dir / f'{self.base_name}_assemblies.tsv'
+        self.zip_file = self.download_dir / f'{self.base_name}_genomes.zip'
         self.dataset_dir = self.download_dir / f'{self.base_name}.ncbi_dataset'
-        self.log_file = self.logs_dir / f'{self.base_name}.ncbi_datasets.log'
+        self.log_file = self.logs_dir / f'{self.base_name}_ncbi_datasets.log'
         self.versions_file = self.info_dir / 'software_versions.yml'
         self.index_file = self.organized_dir / 'files.tsv'
 

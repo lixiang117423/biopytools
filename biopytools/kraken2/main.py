@@ -114,9 +114,9 @@ def main():
                         help='Bracken最小读数阈值|Bracken minimum read threshold')
     parser.add_argument('--no-bracken', action='store_true',
                         help='跳过Bracken分析|Skip Bracken analysis')
-    parser.add_argument('--r1-suffix', default='_1.clean.fq.gz',
+    parser.add_argument('--r1-suffix', default='_1_clean.fq.gz',
                         help='R1文件后缀|R1 file suffix')
-    parser.add_argument('--r2-suffix', default='_2.clean.fq.gz',
+    parser.add_argument('--r2-suffix', default='_2_clean.fq.gz',
                         help='R2文件后缀|R2 file suffix')
 
     args = parser.parse_args()

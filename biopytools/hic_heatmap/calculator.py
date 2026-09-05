@@ -98,7 +98,7 @@ class HiCPipeline:
         sites_dir.mkdir(exist_ok=True)
 
         # 1. 生成染色体大小文件|Generate chromosome sizes file
-        chrom_sizes_file = refs_dir / f"{self.config.genome_id}.chrom.sizes"
+        chrom_sizes_file = refs_dir / f"{self.config.genome_id}_chrom.sizes"
         if not chrom_sizes_file.exists() or self.config.force_juicer:
             self.logger.info(f"生成染色体大小文件|Generating chromosome sizes: {chrom_sizes_file}")
             if not self._generate_chrom_sizes(chrom_sizes_file):

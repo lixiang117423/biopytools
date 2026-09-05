@@ -43,7 +43,7 @@ class TASSELBatchProcessor:
             trait_name_clean = trait_name.replace('/', '_').replace('\\', '_').replace(' ', '_')
 
             # 创建表型文件|Create phenotype file
-            single_pheno_file = output_dir / f"{trait_name_clean}.pheno.txt"
+            single_pheno_file = output_dir / f"{trait_name_clean}_pheno.txt"
 
             self.logger.info(f"正在处理表型|Processing trait: {trait_name} (列索引|column index: {trait_column + 1})")
 

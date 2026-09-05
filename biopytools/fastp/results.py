@@ -69,8 +69,8 @@ class SummaryGenerator:
 
                 # 输出文件说明|Output file description
                 f.write("输出文件说明|Output File Description:\n")
-                f.write("  - *_1.clean.fq.gz: 质控后的Read1文件|Quality-controlled Read1 files\n")
-                f.write("  - *_2.clean.fq.gz: 质控后的Read2文件|Quality-controlled Read2 files\n")
+                f.write("  - *_1_clean.fq.gz: 质控后的Read1文件|Quality-controlled Read1 files\n")
+                f.write("  - *_2_clean.fq.gz: 质控后的Read2文件|Quality-controlled Read2 files\n")
                 f.write("  - fastp_reports/*.html: 质控报告HTML文件|Quality control HTML reports\n")
                 f.write("  - fastp_reports/*.json: 质控报告JSON文件|Quality control JSON reports\n")
 

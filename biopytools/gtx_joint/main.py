@@ -203,7 +203,7 @@ class GTXJointGenerator:
         faketime_prefix = f"faketime '{self.config.faketime}' " if self.config.use_faketime else ""
 
         for chr_name in self.config.chromosomes:
-            output_file = os.path.join(self.config.output_dir, f"{chr_name}.joint.vcf.gz")
+            output_file = os.path.join(self.config.output_dir, f"{chr_name}_joint.vcf.gz")
 
             # 生成命令|Generate command
             command = (
@@ -263,7 +263,7 @@ class GTXJointGenerator:
 
                 output_file = os.path.join(
                     self.config.output_dir,
-                    f"{chr_name}_{start}-{end}.joint.vcf.gz"
+                    f"{chr_name}_{start}-{end}_joint.vcf.gz"
                 )
                 region = f"{chr_name}:{start}-{end}"
 
@@ -335,7 +335,7 @@ class GTXJointGenerator:
                 self.logger.info("区间拆分模式提示|Window mode tip:")
                 self.logger.info("   运行完成后需要合并同一染色体的所有区间VCF文件|After completion, merge all window VCF files for the same chromosome")
                 self.logger.info("   推荐使用 bcftools concat 进行合并|Use bcftools concat to merge:")
-                self.logger.info(f"   bcftools concat -o Chr01.merged.vcf.gz {self.config.output_dir}/Chr01_*.joint.vcf.gz")
+                self.logger.info(f"   bcftools concat -o Chr01_merged.vcf.gz {self.config.output_dir}/Chr01_*_joint.vcf.gz")
                 self.logger.info("")
 
         self.logger.info("=" * 60)

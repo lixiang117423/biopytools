@@ -52,7 +52,7 @@ class ReportGenerator:
             suffixes = [f"hap{i}" for i in range(1, self.config.n_hap + 1)] + ["primary", "alternate"]
 
             for suffix in suffixes:
-                fasta_name = f"{self.config.prefix}.{suffix}.fa"
+                fasta_name = f"{self.config.prefix}_{suffix}.fa"
                 if fasta_name in fasta_results:
                     stats = fasta_results[fasta_name]
                     if stats:
@@ -110,12 +110,12 @@ class ReportGenerator:
         # 构建FASTA文件列表|Build FASTA file list
         fasta_lines = []
         for i in range(1, n_hap + 1):
-            fasta_lines.append(f"│   ├──  {prefix}.hap{i}.fa")
-        fasta_lines.append(f"│   ├──  {prefix}.primary.fa")
-        fasta_lines.append(f"│   ├──  {prefix}.alternate.fa")
-        fasta_lines.append(f"│   ├──  {prefix}.p_ctg.contig_reads.tsv (contig-reads映射|mapping)")
+            fasta_lines.append(f"│   ├──  {prefix}_hap{i}.fa")
+        fasta_lines.append(f"│   ├──  {prefix}_primary.fa")
+        fasta_lines.append(f"│   ├──  {prefix}_alternate.fa")
+        fasta_lines.append(f"│   ├──  {prefix}_p_ctg_contig_reads.tsv (contig-reads映射|mapping)")
         for i in range(1, n_hap + 1):
-            fasta_lines.append(f"│   ├──  {prefix}.hap{i}.p_ctg.contig_reads.tsv")
+            fasta_lines.append(f"│   ├──  {prefix}_hap{i}_p_ctg_contig_reads.tsv")
         # 移除最后一个├──改为└──|Replace last ├── with └──
         fasta_lines[-1] = fasta_lines[-1].replace("├──", "└──")
         fasta_block = "\n".join(fasta_lines)
@@ -132,7 +132,7 @@ class ReportGenerator:
    │   ├──  04.reassembly/                 (重新组装结果|Reassembly)
    │   │   ├──  01.raw_output/
    │   │   └──  02.fasta/
-   │   └──  {prefix}.polished.fa (最终polished基因组|Final polished genome)
+   │   └──  {prefix}_polished.fa (最终polished基因组|Final polished genome)
    │
    ├──  04.statistics/     (统计信息|Statistics)
    │   └──  {prefix}_assembly_statistics.txt
@@ -171,7 +171,7 @@ class ReportGenerator:
         self.logger.info(" 下一步建议|Next Steps:")
         if self.config.has_ngs:
             self.logger.info("   1. 查看polished基因组|1. View polished genome")
-            self.logger.info(f"      {self.config.ngs_polish_dir}/{self.config.prefix}.polished.fa")
+            self.logger.info(f"      {self.config.ngs_polish_dir}/{self.config.prefix}_polished.fa")
         self.logger.info("   2. 查看统计报告|2. View statistics report")
         self.logger.info("   3. 检查组装质量|3. Check assembly quality (QUAST/BUSCO)")
         self.logger.info("   4. 可视化组装|4. Visualize assembly (Bandage)")

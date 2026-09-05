@@ -37,7 +37,7 @@ class LongestMRNAConfig:
         if self.gene_info_file is None:
             genome_dir = os.path.dirname(self.genome_file)
             genome_basename = os.path.basename(self.genome_file).split('.')[0]
-            self.gene_info_file = os.path.join(genome_dir, f'{genome_basename}.gene.info.txt')
+            self.gene_info_file = os.path.join(genome_dir, f'{genome_basename}_gene_info.txt')
         else:
             self.gene_info_file = os.path.normpath(os.path.abspath(expand_path(self.gene_info_file)))
 

@@ -18,7 +18,7 @@ class SummaryGenerator:
         
         # 统计输出文件 |Count output files
         vcf_files = list(self.config.vcf_output_dir.glob("*.vcf.gz"))
-        bam_files = list(self.config.bam_output_dir.glob("*.sorted.bam"))
+        bam_files = list(self.config.bam_output_dir.glob("*_sorted.bam"))
         
         vcf_count = len(vcf_files)
         bam_count = len(bam_files)

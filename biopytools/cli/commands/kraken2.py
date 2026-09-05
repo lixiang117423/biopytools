@@ -76,11 +76,11 @@ def _validate_dir_exists(dir_path):
               is_flag=True,
               help='跳过Bracken分析|Skip Bracken analysis')
 @click.option('--r1-suffix',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               help='R1文件后缀|R1 file suffix')
 @click.option('--r2-suffix',
-              default='_2.clean.fq.gz',
+              default='_2_clean.fq.gz',
               show_default=True,
               help='R2文件后缀|R2 file suffix')
 def kraken2(input_dir, db_path, output_dir, threads, read_len, confidence,
@@ -111,9 +111,9 @@ def kraken2(input_dir, db_path, output_dir, threads, read_len, confidence,
         args.extend(['--bracken-level', bracken_level])
     if bracken_threshold != 10:
         args.extend(['--bracken-threshold', str(bracken_threshold)])
-    if r1_suffix != '_1.clean.fq.gz':
+    if r1_suffix != '_1_clean.fq.gz':
         args.extend(['--r1-suffix', r1_suffix])
-    if r2_suffix != '_2.clean.fq.gz':
+    if r2_suffix != '_2_clean.fq.gz':
         args.extend(['--r2-suffix', r2_suffix])
     if no_bracken:
         args.append('--no-bracken')

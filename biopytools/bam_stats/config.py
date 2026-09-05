@@ -20,7 +20,7 @@ class BAMStatsConfig:
     bed_file: Optional[str] = None
 
     # 输出|Output
-    output_file: str = 'bam_stats.summary.tsv'
+    output_file: str = 'bam_stats_summary.tsv'
 
     # 分析参数|Analysis parameters
     min_mapq: int = 20

@@ -111,7 +111,7 @@ class SummaryGenerator:
         
         # 统计输出文件 |Count output files
         vcf_files = list(self.config.vcf_output_dir.glob("*.vcf.gz"))
-        bam_files = list(self.config.bam_output_dir.glob("*.sorted.bam"))
+        bam_files = list(self.config.bam_output_dir.glob("*_sorted.bam"))
         
         vcf_count = len(vcf_files)
         bam_count = len(bam_files)
@@ -218,7 +218,7 @@ class SummaryGenerator:
                     vcf_size = self._get_file_size(str(vcf_file))
                     
                     # 查找对应的BAM文件
-                    bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
+                    bam_file = self.config.bam_output_dir / f"{sample_name}_sorted.bam"
                     bam_size = self._get_file_size(str(bam_file)) if bam_file.exists() else "N/A"
                     
                     f.write(f"  {i:2d}. {sample_name}\n")

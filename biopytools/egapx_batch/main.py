@@ -226,7 +226,7 @@ class EGAPxBatchGenerator:
             self.logger.info("=" * 60)
 
             # 任务列表放在输出目录的上一层|Job list in parent directory of output
-            job_list_path = os.path.join(os.path.dirname(self.config.output_dir), "all_jobs_submit.list.sh")
+            job_list_path = os.path.join(os.path.dirname(self.config.output_dir), "all_jobs_submit_list.sh")
 
             with open(job_list_path, 'w') as job_list:
                 for chr_file, chr_size in split_files:

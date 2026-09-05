@@ -14,14 +14,14 @@ from ..common.paths import resolve_legacy_path
 
 # 输入发现后缀(寄主剔除产物 nohost 需与 clean/raw 同列)|input discovery suffixes
 # |nohost = host-depleted output of biopytools mixrace (02_host_filter)
-R1_PATTERNS_CLEAN = ['*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
-R2_PATTERNS_CLEAN = ['*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
+R1_PATTERNS_CLEAN = ['*_1_clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz', '*_1.fastq.gz']
+R2_PATTERNS_CLEAN = ['*_2_clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz', '*_2.fastq.gz']
 R1_PATTERNS_SKIP_QC = R1_PATTERNS_CLEAN
 R2_PATTERNS_SKIP_QC = R2_PATTERNS_CLEAN
-R1_PATTERNS_QC = ['*_1.clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz']
-R2_PATTERNS_QC = ['*_2.clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz']
-R1_STRIP_SUFFIXES = ['_1.clean.fq.gz', '_1.nohost.fq.gz', '_1.fq.gz', '_1.fastq.gz']
-R2_BUILD_SUFFIXES = ['_2.clean.fq.gz', '_2.nohost.fq.gz', '_2.fq.gz', '_2.fastq.gz']
+R1_PATTERNS_QC = ['*_1_clean.fq.gz', '*_1.nohost.fq.gz', '*_1.fq.gz']
+R2_PATTERNS_QC = ['*_2_clean.fq.gz', '*_2.nohost.fq.gz', '*_2.fq.gz']
+R1_STRIP_SUFFIXES = ['_1_clean.fq.gz', '_1.nohost.fq.gz', '_1.fq.gz', '_1.fastq.gz']
+R2_BUILD_SUFFIXES = ['_2_clean.fq.gz', '_2.nohost.fq.gz', '_2.fq.gz', '_2.fastq.gz']
 from ..common.conda_runner import build_pipeline_command
 
 
@@ -251,7 +251,7 @@ class GTXMapper:
             success = self._run_standard_mapping()
 
         if success:
-            gvcf_count = FileManager.count_files(self.config.gvcf_dir, "*.g.vcf.gz")
+            gvcf_count = FileManager.count_files(self.config.gvcf_dir, "*_g.vcf.gz")
             bam_count = FileManager.count_files(self.config.bam_dir, "*.bam")
             self.logger.info(f"比对完成: {gvcf_count} 个 gVCF 文件, {bam_count} 个 BAM 文件|Mapping completed: {gvcf_count} gVCF files, {bam_count} BAM files")
 
@@ -354,8 +354,8 @@ class GTXMapper:
                 continue
 
             # 定义输出文件|Define output files
-            output_vcf = os.path.join(self.config.gvcf_dir, f"{sample_name}.g.vcf.gz")
-            output_bam = os.path.join(self.config.bam_dir, f"{sample_name}.sorted.bam")
+            output_vcf = os.path.join(self.config.gvcf_dir, f"{sample_name}_g.vcf.gz")
+            output_bam = os.path.join(self.config.bam_dir, f"{sample_name}_sorted.bam")
 
             # 检查是否已完成|Check if already completed
             if os.path.exists(output_vcf) and os.path.exists(output_bam):
@@ -465,7 +465,7 @@ class JointCaller:
                 return True, ""
 
         # 统计gVCF文件数量|Count gVCF files
-        sample_count = FileManager.count_files(self.config.gvcf_dir, "*.g.vcf.gz")
+        sample_count = FileManager.count_files(self.config.gvcf_dir, "*_g.vcf.gz")
         if sample_count == 0:
             self.logger.error("未找到任何 gVCF 文件|No gVCF files found")
             return False, ""
@@ -508,7 +508,7 @@ class JointCaller:
         ]
 
         # 添加gVCF文件|Add gVCF files
-        gvcf_files = FileManager.find_files(self.config.gvcf_dir, "*.g.vcf.gz")
+        gvcf_files = FileManager.find_files(self.config.gvcf_dir, "*_g.vcf.gz")
         for gvcf_file in gvcf_files:
             gtx_args.append(f"-v {gvcf_file}")
 

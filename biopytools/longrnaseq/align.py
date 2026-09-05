@@ -169,7 +169,7 @@ class LongRNASeqAligner:
         # 分步骤文件
         sam_file = self.config.tmp_dir / f"{self.config.sample_name}.sam"
         bam_file = self.config.tmp_dir / f"{self.config.sample_name}.bam"
-        sorted_bam = self.config.result_dir / f"{self.config.sample_name}.sorted.bam"
+        sorted_bam = self.config.result_dir / f"{self.config.sample_name}_sorted.bam"
         tmp_prefix = self.config.tmp_dir / self.config.sample_name
 
         self.logger.info(f"比对参数|Alignment parameters: {' '.join(self.config.get_minimap2_params())}")
@@ -416,7 +416,7 @@ class LongRNASeqAligner:
         with open(summary_file, 'w') as f:
             f.write(f"样本|Sample: {self.config.sample_name}\n")
             f.write(f"输入文件|Input file: {self.config.input_file}\n")
-            f.write(f"输出文件|Output file: {self.config.result_dir / f'{self.config.sample_name}.sorted.bam'}\n")
+            f.write(f"输出文件|Output file: {self.config.result_dir / f'{self.config.sample_name}_sorted.bam'}\n")
 
             with open(stats_file, 'r') as stats:
                 for line in stats:

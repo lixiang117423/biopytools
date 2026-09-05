@@ -151,9 +151,9 @@ def run_mapping_stage(cfg, logger, runner, sample: str, r1: Path, r2: Path,
                       sdir: Path) -> Dict[str, Path]:
     """01:比对到insert伪基因组|01: map to insert pseudo-genome"""
     mdir = sdir / "01_mapping"
-    bam = mdir / f"{sample}.vs_insert.sorted.bam"
-    flagstat = mdir / f"{sample}.vs_insert.flagstat.txt"
-    cov_tsv = mdir / f"{sample}.insert_coverage.tsv"
+    bam = mdir / f"{sample}_vs_insert_sorted.bam"
+    flagstat = mdir / f"{sample}_vs_insert_flagstat.txt"
+    cov_tsv = mdir / f"{sample}_insert_coverage.tsv"
 
     if not Path(str(cfg.insert_fasta) + ".bwt").exists():
         if not runner.run([cfg.bwa_path, "index", str(cfg.insert_fasta)],
@@ -289,10 +289,10 @@ def run_junction_stage(cfg, logger, runner, sample: str,
                        bam: Path, r1: Path, r2: Path, sdir: Path) -> Dict[str, Path]:
     """02:soft-clip与mate-unmapped钓取|02: soft-clip & mate-unmapped fishing"""
     jdir = sdir / "02_junction_reads"
-    sc_fq = jdir / f"{sample}.softclip.fastq"
-    pe1 = jdir / f"{sample}.flank_candidates_R1.fastq"
-    pe2 = jdir / f"{sample}.flank_candidates_R2.fastq"
-    mate_bam = jdir / f"{sample}.mate_unmapped.bam"
+    sc_fq = jdir / f"{sample}_softclip.fastq"
+    pe1 = jdir / f"{sample}_flank_candidates_R1.fastq"
+    pe2 = jdir / f"{sample}_flank_candidates_R2.fastq"
+    mate_bam = jdir / f"{sample}_mate_unmapped.bam"
 
     # soft-clip reads:CIGAR含S|Soft-clip reads: CIGAR with S
     sam_out = runner.run_capture(
@@ -301,20 +301,20 @@ def run_junction_stage(cfg, logger, runner, sample: str,
         description="提取softclip候选|Extract soft-clip candidates")
     if sam_out is None:
         raise RuntimeError("读取bam失败|Read bam failed")
-    sc_sam = jdir / f"{sample}.softclip_reads.sam"
+    sc_sam = jdir / f"{sample}_softclip_reads.sam"
     with open(sc_sam, "w") as fh:
         for line in sam_out.splitlines():
             if line.startswith("@") or "S" in line.split("\t")[5]:
                 fh.write(line + "\n")
     ok = runner.run_pipeline(
         [[cfg.samtools_path, "sort", "-@", str(cfg.threads), "-o",
-          str(jdir / f"{sample}.softclip.sorted.bam"), str(sc_sam)]],
+          str(jdir / f"{sample}_softclip_sorted.bam"), str(sc_sam)]],
         description="softclip排序|Sort softclip")
     if not ok:
         raise RuntimeError("softclip排序失败|Sort softclip failed")
     fq_out = runner.run_capture(
         [cfg.samtools_path, "bam2fq",
-         str(jdir / f"{sample}.softclip.sorted.bam")],
+         str(jdir / f"{sample}_softclip_sorted.bam")],
         description="softclip转fastq|softclip to fastq")
     if fq_out is None:
         raise RuntimeError("bam2fq失败|bam2fq failed")
@@ -335,7 +335,7 @@ def run_junction_stage(cfg, logger, runner, sample: str,
                 f"Junction fishing: {format_number(len(names))} read names")
     for mate, fastq, out in [(1, r1, pe1), (2, r2, pe2)]:
         if not fish_mates(cfg.seqkit_path, runner, names, mate, fastq,
-                          jdir / f"{sample}.pat_mate{mate}.txt", out,
+                          jdir / f"{sample}_pat_mate{mate}.txt", out,
                           append=False):
             raise RuntimeError(f"钓mate/{mate}失败|Fish mate/{mate} failed")
     return {"softclip_fastq": sc_fq, "pe1": pe1, "pe2": pe2,
@@ -347,9 +347,9 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
                     insert_regions=None) -> dict:
     """04:招募全部覆盖reads重组装,判完整locus|04: recruit all, rebuild, find locus"""
     ldir = sdir / "04_locus"
-    pool1 = ldir / f"{sample}.locus_pool_R1.fastq"
-    pool2 = ldir / f"{sample}.locus_pool_R2.fastq"
-    contigs = ldir / f"{sample}.contigs.fasta"
+    pool1 = ldir / f"{sample}_locus_pool_R1.fastq"
+    pool2 = ldir / f"{sample}_locus_pool_R2.fastq"
+    contigs = ldir / f"{sample}_contigs.fasta"
     if insert_regions is None:
         insert_regions = _compute_insert_regions(cfg, runner, sdir)
 
@@ -376,7 +376,7 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
                 f"Recruited {format_number(len(names))} read names (incl. MAPQ0)")
     for mate, fastq, out in [(1, r1, pool1), (2, r2, pool2)]:
         if not fish_mates(cfg.seqkit_path, runner, names, mate, fastq,
-                          ldir / f"{sample}.pat_locus_mate{mate}.txt", out,
+                          ldir / f"{sample}_pat_locus_mate{mate}.txt", out,
                           append=False):
             raise RuntimeError(f"钓locus mate/{mate}失败|Fish locus mate/{mate} failed")
     # 并入步移招募池|Merge walking recruited pools
@@ -395,7 +395,7 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
     if not walker.run_spades(sc_fq, pool1, pool2, contigs,
                              trusted_contigs=trusted):
         raise RuntimeError("最终组装失败|Final assembly failed")
-    contig_bam = ldir / f"{sample}.contigs_vs_insert.sorted.bam"
+    contig_bam = ldir / f"{sample}_contigs_vs_insert_sorted.bam"
     if not walker.align_to_insert(contigs, contig_bam):
         raise RuntimeError("contigs比对失败|Contig alignment failed")
     sam_out = runner.run_capture(
@@ -407,7 +407,7 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
     # 完整locus锚定目标:有tdna锚tdna(区分骨架),否则锚构建|
     # Locus anchor: tdna when provided (distinguishes backbone), else construct
     if cfg.tdna_fasta:
-        tdna_bam = ldir / f"{sample}.contigs_vs_tdna.sorted.bam"
+        tdna_bam = ldir / f"{sample}_contigs_vs_tdna_sorted.bam"
         if not Path(str(cfg.tdna_fasta) + ".bwt").exists():
             if not runner.run([cfg.bwa_path, "index", str(cfg.tdna_fasta)],
                               description="bwa索引tdna|bwa index tdna"):
@@ -445,8 +445,8 @@ def run_verify_stage(cfg, logger, runner, sample: str, locus, r1: Path,
                      r2: Path, record_depth: dict, sdir: Path) -> dict:
     """05:WGS比回locus覆盖验证|05: verify coverage against rebuilt locus"""
     vdir = sdir / "05_verify"
-    summary_tsv = vdir / f"{sample}.verification_summary.tsv"
-    cov_tsv = vdir / f"{sample}.coverage.tsv"
+    summary_tsv = vdir / f"{sample}_verification_summary.tsv"
+    cov_tsv = vdir / f"{sample}_coverage.tsv"
     if locus is None:
         grade = "FAIL"
         with open(summary_tsv, "w") as fh:
@@ -456,8 +456,8 @@ def run_verify_stage(cfg, logger, runner, sample: str, locus, r1: Path,
         return {"grade": grade, "segments": [], "lb_junction_reads": 0,
                 "rb_junction_reads": 0, "summary": summary_tsv}
 
-    locus_fa = sdir / "04_locus" / f"{sample}.complete_locus.fasta"
-    vs_bam = vdir / f"{sample}.vs_locus.sorted.bam"
+    locus_fa = sdir / "04_locus" / f"{sample}_complete_locus.fasta"
+    vs_bam = vdir / f"{sample}_vs_locus_sorted.bam"
     if not runner.run([cfg.bwa_path, "index", str(locus_fa)],
                       description="索引locus|Index locus"):
         raise RuntimeError("locus索引失败|Index locus failed")
@@ -523,7 +523,7 @@ def _check_flanks_plant(cfg, logger, runner, locus, sdir: Path, sample: str):
     Align locus flanks back to construct; >=50bp match means backbone origin"""
     if locus is None:
         return None
-    flank_fa = sdir / "05_verify" / f"{sample}.flank_check.fasta"
+    flank_fa = sdir / "05_verify" / f"{sample}_flank_check.fasta"
     flank_fa.parent.mkdir(parents=True, exist_ok=True)
     with open(flank_fa, "w") as fh:
         fh.write(f">lb_flank\n{locus.seq[:locus.lead]}\n")
@@ -567,16 +567,16 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
     m = {}
     run_stage_with_checkpoint(
         "01_mapping",
-        [sdir / "01_mapping" / f"{sample}.vs_insert.sorted.bam",
-         sdir / "01_mapping" / f"{sample}.vs_insert.flagstat.txt",
-         sdir / "01_mapping" / f"{sample}.insert_coverage.tsv"],
+        [sdir / "01_mapping" / f"{sample}_vs_insert_sorted.bam",
+         sdir / "01_mapping" / f"{sample}_vs_insert_flagstat.txt",
+         sdir / "01_mapping" / f"{sample}_insert_coverage.tsv"],
         cfg.force,
         lambda: m.update(run_mapping_stage(cfg, logger, runner, sample, r1, r2, sdir)),
         logger)
     if not m:
         cov = _read_coverage_tsv(
-            sdir / "01_mapping" / f"{sample}.insert_coverage.tsv")
-        bam = sdir / "01_mapping" / f"{sample}.vs_insert.sorted.bam"
+            sdir / "01_mapping" / f"{sample}_insert_coverage.tsv")
+        bam = sdir / "01_mapping" / f"{sample}_vs_insert_sorted.bam"
         anchor_label = "insert区|insert" if "insert区|insert" in cov else None
         regions = None
         # 旧tsv缺region行(01中途崩过)→重算region统计防backbone误报|
@@ -594,17 +594,17 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
     j = {}
     run_stage_with_checkpoint(
         "02_junction_reads",
-        [sdir / "02_junction_reads" / f"{sample}.softclip.fastq",
-         sdir / "02_junction_reads" / f"{sample}.flank_candidates_R1.fastq",
-         sdir / "02_junction_reads" / f"{sample}.flank_candidates_R2.fastq"],
+        [sdir / "02_junction_reads" / f"{sample}_softclip.fastq",
+         sdir / "02_junction_reads" / f"{sample}_flank_candidates_R1.fastq",
+         sdir / "02_junction_reads" / f"{sample}_flank_candidates_R2.fastq"],
         cfg.force,
         lambda: j.update(run_junction_stage(
             cfg, logger, runner, sample, m["bam"], r1, r2, sdir)),
         logger)
     if not j:
-        j = {"softclip_fastq": sdir / "02_junction_reads" / f"{sample}.softclip.fastq",
-             "pe1": sdir / "02_junction_reads" / f"{sample}.flank_candidates_R1.fastq",
-             "pe2": sdir / "02_junction_reads" / f"{sample}.flank_candidates_R2.fastq"}
+        j = {"softclip_fastq": sdir / "02_junction_reads" / f"{sample}_softclip.fastq",
+             "pe1": sdir / "02_junction_reads" / f"{sample}_flank_candidates_R1.fastq",
+             "pe2": sdir / "02_junction_reads" / f"{sample}_flank_candidates_R2.fastq"}
 
     # 03 迭代步移|Walking
     # 中间文件整体进样本子目录:master/recruited/bait等无样本前缀,
@@ -619,7 +619,7 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
     walker = WalkingRunner(cfg, logger, runner)
     run_stage_with_checkpoint(
         "03_walking",
-        [walk_dir / f"{sample}.walk_done.flag"],
+        [walk_dir / f"{sample}_walk_done.flag"],
         cfg.force,
         lambda: walker.run(sample, r1, r2, j["softclip_fastq"],
                            j["pe1"], j["pe2"], walk_dir),
@@ -632,8 +632,8 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
     l = {}
     run_stage_with_checkpoint(
         "04_locus",
-        [sdir / "04_locus" / f"{sample}.junction_report.tsv",
-         sdir / "04_locus" / f"{sample}.contigs.fasta"],
+        [sdir / "04_locus" / f"{sample}_junction_report.tsv",
+         sdir / "04_locus" / f"{sample}_contigs.fasta"],
         cfg.force,
         lambda: l.update(run_locus_stage(
             cfg, logger, runner, sample, m["bam"], r1, r2,
@@ -642,15 +642,15 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
         logger)
     if not l:
         # 续跑场景:重读产物|Resume: reload artifacts
-        contigs = sdir / "04_locus" / f"{sample}.contigs.fasta"
+        contigs = sdir / "04_locus" / f"{sample}_contigs.fasta"
         contig_seqs = read_fasta_dict(contigs) if contigs.exists() else {}
-        contig_bam = sdir / "04_locus" / f"{sample}.contigs_vs_insert.sorted.bam"
+        contig_bam = sdir / "04_locus" / f"{sample}_contigs_vs_insert_sorted.bam"
         sam_out = runner.run_capture(
             [cfg.samtools_path, "view", str(contig_bam)],
             description="读contigs比对(续跑)|Read contig alignment (resume)")
         sam_lines = sam_out.splitlines() if sam_out else []
         if cfg.tdna_fasta:
-            tdna_bam = sdir / "04_locus" / f"{sample}.contigs_vs_tdna.sorted.bam"
+            tdna_bam = sdir / "04_locus" / f"{sample}_contigs_vs_tdna_sorted.bam"
             tdna_sam_out = runner.run_capture(
                 [cfg.samtools_path, "view", str(tdna_bam)],
                 description="读contigs_vs_tdna(续跑)|Read vs tdna (resume)")
@@ -672,7 +672,7 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
     v = {}
     run_stage_with_checkpoint(
         "05_verify",
-        [sdir / "05_verify" / f"{sample}.verification_summary.tsv"],
+        [sdir / "05_verify" / f"{sample}_verification_summary.tsv"],
         cfg.force,
         lambda: v.update(run_verify_stage(
             cfg, logger, runner, sample, l["locus"], r1, r2,
@@ -682,9 +682,9 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
         # 05断点跳过:从结果文件读回真实分级(不能硬编码FAIL)|
         # Stage 05 skipped: reload the real grade from result files
         v = _read_verify_summary(
-            sdir / "05_verify" / f"{sample}.verification_summary.tsv")
+            sdir / "05_verify" / f"{sample}_verification_summary.tsv")
         v["segments"] = _read_coverage_segments(
-            sdir / "05_verify" / f"{sample}.coverage.tsv")
+            sdir / "05_verify" / f"{sample}_coverage.tsv")
 
     # 06 报告:不再逐样本写文件,由main汇总成单一HTML|
     # Report: no per-sample file; main() writes one combined HTML
@@ -806,7 +806,7 @@ def main():
 
     # 单一HTML报告(单样本即完整报告,多样本顶部导航)|Single combined HTML
     report_path = report.write_combined_report(
-        results + failed, cfg.output_path / "insert2locus.report.html",
+        results + failed, cfg.output_path / "insert2locus_report.html",
         tool_versions=versions)
     logger.info(f"整合报告|Combined report: {report_path}")
     # 清理临时目录|Clean tmp

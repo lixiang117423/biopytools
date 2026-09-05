@@ -81,7 +81,7 @@ class SeqExtractConfig:
 
         query_stem = Path(self.input_query).stem if os.path.isfile(self.input_query) else self.input_query
         subject_stem = Path(self.sequence_file).stem
-        self.effective_output = f"{query_stem}.{subject_stem}.fa"
+        self.effective_output = f"{query_stem}_{subject_stem}.fa"
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

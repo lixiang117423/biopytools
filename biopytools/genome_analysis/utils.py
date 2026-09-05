@@ -700,7 +700,7 @@ def extract_sample_name(filename: str, pattern: str) -> str:
 class SampleFinder:
     """样本查找器|Sample Finder for genome analysis"""
 
-    def __init__(self, logger, read1_suffix: str = "*_1.clean.fq.gz"):
+    def __init__(self, logger, read1_suffix: str = "*_1_clean.fq.gz"):
         """
         初始化样本查找器|Initialize sample finder
 
@@ -791,12 +791,12 @@ class SampleFinder:
             样品名|Sample name
         """
         # 从 read1_suffix 中提取模式|Extract pattern from read1_suffix
-        # 例如 *_1.clean.fq.gz → 需要匹配 *_1 或 *_2
-        # For example *_1.clean.fq.gz → need to match *_1 or *_2
+        # 例如 *_1_clean.fq.gz → 需要匹配 *_1 或 *_2
+        # For example *_1_clean.fq.gz → need to match *_1 or *_2
 
         # 构建可能的模式列表|Build list of possible patterns
         patterns = []
-        patterns.append(self.read1_suffix)  # 原始模式，如 *_1.clean.fq.gz
+        patterns.append(self.read1_suffix)  # 原始模式，如 *_1_clean.fq.gz
 
         # 生成配对模式|Generate paired patterns
         if '_1' in self.read1_suffix:
@@ -822,7 +822,7 @@ class SampleFinder:
 
         Args:
             filename: 文件名|Filename
-            pattern: 模式（如 *_1.clean.fq.gz）|Pattern (e.g. *_1.clean.fq.gz)
+            pattern: 模式（如 *_1_clean.fq.gz）|Pattern (e.g. *_1_clean.fq.gz)
 
         Returns:
             提取的样品名或None|Extracted sample name or None

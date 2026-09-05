@@ -342,7 +342,7 @@ class TransDecoderRunner:
         """
         os.makedirs(output_dir, exist_ok=True)
         base = os.path.basename(transcripts_fa)  # transcripts.fa
-        genome_gff3 = os.path.join(output_dir, f"{base}.transdecoder.genome.gff3")
+        genome_gff3 = os.path.join(output_dir, f"{base}_transdecoder_genome.gff3")
 
         # 断点续传:最终基因组坐标 GFF3 存在则跳过|Checkpoint
         if os.path.exists(genome_gff3) and os.path.getsize(genome_gff3) > 0:
@@ -541,7 +541,7 @@ class SampleParser:
         patterns = [
             "*_1.fq.gz", "*_R1.fq.gz", "*.R1.fastq.gz",
             "*_1.fastq.gz", "*.1.fq.gz", "*_R1.fq",
-            "*_1.clean.fq.gz", "*_f1.fq.gz",
+            "*_1_clean.fq.gz", "*_f1.fq.gz",
         ]
 
         for pattern in patterns:

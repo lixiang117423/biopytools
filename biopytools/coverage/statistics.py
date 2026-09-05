@@ -44,7 +44,7 @@ class DepthStatistics:
                             continue
             
             # 生成统计报告|Generate statistics report
-            stats_file = Path(self.config.output_file).with_suffix('.stats.txt')
+            stats_file = Path(self.config.output_file).with_name(f"{Path(self.config.output_file).stem}_stats.txt")
             
             with open(stats_file, 'w') as f:
                 f.write(" 覆盖度统计报告|Depth Statistics Report\n")

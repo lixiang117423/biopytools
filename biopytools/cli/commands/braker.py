@@ -58,12 +58,12 @@ def _validate_file_exists(file_path):
               help='二代RNA-seq目录列表(逗号分隔)|Comma-separated RNA-seq directories')
 
 @click.option('--read1_pattern',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               help='R1文件模式|R1 file pattern')
 
 @click.option('--read2_pattern',
-              default='_2.clean.fq.gz',
+              default='_2_clean.fq.gz',
               show_default=True,
               help='R2文件模式|R2 file pattern')
 
@@ -168,10 +168,10 @@ def braker(genome, species, prot_seq, isoseq, rnaseq_dirs,
     if rnaseq_dirs:
         args.extend(['--rnaseq_dirs', rnaseq_dirs])
 
-    if read1_pattern != '_1.clean.fq.gz':
+    if read1_pattern != '_1_clean.fq.gz':
         args.extend(['--read1_pattern', read1_pattern])
 
-    if read2_pattern != '_2.clean.fq.gz':
+    if read2_pattern != '_2_clean.fq.gz':
         args.extend(['--read2_pattern', read2_pattern])
 
     # 输出配置|Output configuration

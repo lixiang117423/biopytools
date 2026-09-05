@@ -66,8 +66,8 @@ class LAIEvaluator:
 
         # 需要改名: 生成唯一短名副本|Need rename: create uniquely-renamed copy
         genome_stem = Path(genome).stem
-        renamed_path = self.working_dir / f"{genome_stem}.edta_renamed.fa"
-        map_path = self.working_dir / f"{genome_stem}.edta_renamed.map.tsv"
+        renamed_path = self.working_dir / f"{genome_stem}_edta_renamed.fa"
+        map_path = self.working_dir / f"{genome_stem}_edta_renamed_map.tsv"
 
         # 断点续传: 已存在则直接复用|Checkpoint resume: reuse if already exists
         if renamed_path.exists() and map_path.exists():
@@ -626,7 +626,7 @@ class LAIEvaluator:
             return None
 
         # 运行harvest|Run harvest
-        output_file = self.working_dir / f"{Path(self.config.genome).name}.harvest.scn"
+        output_file = self.working_dir / f"{Path(self.config.genome).name}_harvest.scn"
         harvest_args = [
             "ltrharvest",
             "-index", index_name,
@@ -663,7 +663,7 @@ class LAIEvaluator:
         """运行LTR_retriever流程|Run LTR_retriever pipeline"""
         self.logger.info("运行LTR_retriever|Running LTR_retriever")
 
-        harvest_file = self.working_dir / f"{Path(self.config.genome).name}.harvest.scn"
+        harvest_file = self.working_dir / f"{Path(self.config.genome).name}_harvest.scn"
         if not harvest_file.exists():
             self.logger.error(f"Harvest文件不存在|Harvest file not found: {harvest_file}")
             return None

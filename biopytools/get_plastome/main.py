@@ -106,8 +106,8 @@ class PlastomeAssembler:
 
         # 检测所有样品|Detect all samples
         # 从 kwargs 中获取后缀配置，如果没有则使用默认值|Get suffix config from kwargs, use defaults if not specified
-        read1_suffix = kwargs.get('read1_suffix', '_1.clean.fq.gz')
-        read2_suffix = kwargs.get('read2_suffix', '_2.clean.fq.gz')
+        read1_suffix = kwargs.get('read1_suffix', '_1_clean.fq.gz')
+        read2_suffix = kwargs.get('read2_suffix', '_2_clean.fq.gz')
         samples = detect_samples_and_reads(input_dir, detection_logger, read1_suffix, read2_suffix)
 
         if not samples:
@@ -180,7 +180,7 @@ class PlastomeAssembler:
         for sample_name in sorted(results.keys()):
             if results[sample_name]:
                 # 查找最终文件|Find final file
-                final_file = os.path.join(output_dir, sample_name, f"{sample_name}.plastome.fasta")
+                final_file = os.path.join(output_dir, sample_name, f"{sample_name}_plastome.fasta")
                 if os.path.exists(final_file):
                     detection_logger.info(f"[OK] {sample_name}: {final_file}")
                 else:
@@ -373,13 +373,13 @@ class PlastomeAssembler:
             final_file = fasta_files[0]
 
         # 在样品目录内创建易于识别的文件名|Create easy-to-recognize filename within sample directory
-        final_output = output_dir / f"{self.config.output_prefix}.plastome.fasta"
+        final_output = output_dir / f"{self.config.output_prefix}_plastome.fasta"
         final_gfa = None
 
         # 查找 GFA 文件|Find GFA file
         gfa_files = sorted(output_dir.glob("*.selected_graph.gfa"))
         if gfa_files:
-            final_gfa = output_dir / f"{self.config.output_prefix}.graph.gfa"
+            final_gfa = output_dir / f"{self.config.output_prefix}_graph.gfa"
 
         try:
             # 处理叶绿体基因组序列文件|Process plastome sequence file
@@ -509,9 +509,9 @@ def main():
 
     # Reads文件识别参数|Reads file detection parameters
     reads_group = parser.add_argument_group('Reads文件识别|Reads file detection')
-    reads_group.add_argument('--read1-suffix', default='_1.clean.fq.gz',
+    reads_group.add_argument('--read1-suffix', default='_1_clean.fq.gz',
                              help='R1文件后缀模式|R1 file suffix pattern (default: %(default)s)')
-    reads_group.add_argument('--read2-suffix', default='_2.clean.fq.gz',
+    reads_group.add_argument('--read2-suffix', default='_2_clean.fq.gz',
                              help='R2文件后缀模式|R2 file suffix pattern (default: %(default)s)')
 
     # 软件配置|Software configuration

@@ -152,9 +152,9 @@ class StringTieAssembler:
             sample_names = []
             for bam in bam_files:
                 base = os.path.splitext(os.path.basename(bam))[0]
-                # 移除 .sorted 后缀|Remove .sorted suffix
-                if base.endswith(".sorted"):
-                    base = base[: -len(".sorted")]
+                # 移除 _sorted 后缀|Remove _sorted suffix
+                if base.endswith("_sorted"):
+                    base = base[: -len("_sorted")]
                 sample_names.append(base)
 
         self.logger.step("步骤: 二代转录本组装|Step: 2nd gen transcript assembly")

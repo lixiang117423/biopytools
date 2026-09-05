@@ -173,10 +173,10 @@
 # #         file_pairs = []
 # #         for r1_file in r1_files:
 # #             # 提取样品名 |Extract sample name
-# #             sample_name = r1_file.name.replace("_1.clean.fq.gz", "")
+# #             sample_name = r1_file.name.replace("_1_clean.fq.gz", "")
             
 # #             # 构建R2文件路径 |Build R2 file path
-# #             r2_file = input_path / f"{sample_name}_2.clean.fq.gz"
+# #             r2_file = input_path / f"{sample_name}_2_clean.fq.gz"
             
 # #             if not r2_file.exists():
 # #                 self.logger.warning(f" 找不到对应的R2文件|Cannot find R2 file: {r2_file}")
@@ -731,11 +731,11 @@ class FileProcessor:
         """检查输出文件是否已存在 |Check if output files already exist"""
         # --- MODIFIED: 根据配置决定检查VCF还是GVCF ---
         if self.config.gvcf:
-            vcf_file = self.config.vcf_output_dir / f"{sample_name}.g.vcf.gz"
+            vcf_file = self.config.vcf_output_dir / f"{sample_name}_g.vcf.gz"
         else:
             vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
             
-        bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
+        bam_file = self.config.bam_output_dir / f"{sample_name}_sorted.bam"
         
         return vcf_file.exists() and bam_file.exists()
     

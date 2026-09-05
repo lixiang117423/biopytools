@@ -90,7 +90,7 @@ class ResultsManager:
         # 根据报告中的上下文 ('CG', 'CHG', 'CHH') 创建文件句柄
         # The keys of this dictionary MUST match the context strings from the report file
         output_files = {
-            report_context: open(cx_report_path.with_name(f"{base_name}.{friendly_name}.txt"), 'w')
+            report_context: open(cx_report_path.with_name(f"{base_name}_{friendly_name}.txt"), 'w')
             for report_context, friendly_name in context_map.items()
         }
         

@@ -207,7 +207,7 @@ class PathorepeatPipeline:
         """RepeatMasker 原生输出名改为 {name}.* 前缀|Rename RM outputs"""
         base = os.path.basename(genome)
         mapping = {
-            f'{base}.masked': f'{name}.masked.fa',
+            f'{base}.masked': f'{name}_masked.fa',
             f'{base}.out': f'{name}.out',
             f'{base}.gff': f'{name}.gff',
             f'{base}.tbl': f'{name}.tbl',
@@ -221,7 +221,7 @@ class PathorepeatPipeline:
     def _run_masker(self, genome: str, name: str, lib: str) -> Optional[str]:
         """RepeatMasker 软屏蔽;返回 masked 路径或 None|Returns masked path"""
         masker_dir = self.dirs['masker']
-        marker = os.path.join(masker_dir, f'{name}.masked.fa')
+        marker = os.path.join(masker_dir, f'{name}_masked.fa')
         if self._step_done(marker):
             self.logger.info(f"跳过已完成步骤|Skipping completed step: "
                              f"masker ({name})")
@@ -246,7 +246,7 @@ class PathorepeatPipeline:
         """TEsorter 分类;失败返回 None(降级继续)|Returns cls.tsv path or None"""
         db = self.config.tesorter_db
         prefix = os.path.join(self.dirs['tesorter'],
-                              f'{name}_db-families.{db}')
+                              f'{name}_db-families_{db}')
         marker = f'{prefix}.cls.tsv'
         if self._step_done(marker):
             self.logger.info(f"跳过已完成步骤|Skipping completed step: "
@@ -283,20 +283,20 @@ class PathorepeatPipeline:
                                                    f'{name}.out'))
         cls_map = (parse_tesorter_cls_tsv(cls_path) if cls_path else {})
         write_repeat_summary(
-            os.path.join(summary_dir, f'{name}.repeat_summary.tsv'),
+            os.path.join(summary_dir, f'{name}_repeat_summary.tsv'),
             tbl, hits, cls_map, lib, genome_fasta=genome)
         write_families_classified(
-            os.path.join(summary_dir, f'{name}.families_classified.tsv'),
+            os.path.join(summary_dir, f'{name}_families_classified.tsv'),
             lib, cls_map)
         if self.config.effector_bed:
             regions = load_effector_regions(self.config.effector_bed)
             write_effector_overlap(
-                os.path.join(summary_dir, f'{name}.effector_overlap.tsv'),
+                os.path.join(summary_dir, f'{name}_effector_overlap.tsv'),
                 regions, hits)
         elif self.config.effector_gff:
             regions = load_effector_regions(self.config.effector_gff)
             write_effector_overlap(
-                os.path.join(summary_dir, f'{name}.effector_overlap.tsv'),
+                os.path.join(summary_dir, f'{name}_effector_overlap.tsv'),
                 regions, hits)
 
         families = fasta_ids(lib)

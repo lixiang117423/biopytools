@@ -187,7 +187,7 @@ class NeedleIdentityCalculator:
 
     def _write_result_table(self, pair_results: List[dict], output_path: Path) -> Path:
         """写入结果表格(TSV)|Write result table (TSV)"""
-        result_file = output_path / f"{self.config.output_prefix}.needle_identity.tsv"
+        result_file = output_path / f"{self.config.output_prefix}_needle_identity.tsv"
         header = [
             "seq1", "seq2", "identity_percent", "matches",
             "aligned_length", "gaps", "similarity_percent", "score",

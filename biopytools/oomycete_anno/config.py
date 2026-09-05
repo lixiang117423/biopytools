@@ -31,8 +31,8 @@ class OomyceteAnnoConfig:
     effectors: Optional[str] = None
 
     # ===== 文件识别|File patterns =====
-    read1_pattern: str = "_1.clean.fq.gz"  # R1 后缀|R1 suffix
-    read2_pattern: str = "_2.clean.fq.gz"  # R2 后缀|R2 suffix
+    read1_pattern: str = "_1_clean.fq.gz"  # R1 后缀|R1 suffix
+    read2_pattern: str = "_2_clean.fq.gz"  # R2 后缀|R2 suffix
     # 链特异性: '' = 非链特异性(用户数据), 'RF'/'FR' = 链特异性
     # |Strandness: '' = unstranded (user data), 'RF'/'FR' = stranded
     rna_strandness: str = ""

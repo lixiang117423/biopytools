@@ -93,7 +93,7 @@ class FastqFileFinder:
 
         Args:
             input_path: 输入文件或目录|Input file or directory
-            pattern: 文件匹配模式|File matching pattern (e.g., "*_1.clean.fq.gz")
+            pattern: 文件匹配模式|File matching pattern (e.g., "*_1_clean.fq.gz")
 
         Returns:
             字典格式: {sample_name: {'R1': r1_path, 'R2': r2_path}}

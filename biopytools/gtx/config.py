@@ -143,8 +143,8 @@ class GTXConfig:
     pcr_indel_model: str = "CONSERVATIVE"
     
     #  文件模式参数|File pattern parameters
-    read1_pattern: str = "*_1.clean.fq.gz"
-    read2_pattern: str = "*_2.clean.fq.gz"
+    read1_pattern: str = "*_1_clean.fq.gz"
+    read2_pattern: str = "*_2_clean.fq.gz"
     
     #  Joint calling参数|Joint calling parameters
     enable_joint_calling: bool = True

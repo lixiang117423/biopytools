@@ -101,9 +101,9 @@ def _validate_file_exists(file_path):
               help='qiime可执行文件路径|qiime executable path')
 @click.option('--classifier-cache-dir',
               help='分类器缓存目录|Classifier cache directory')
-@click.option('--r1-suffix', default='_1.clean.fq.gz', show_default=True,
+@click.option('--r1-suffix', default='_1_clean.fq.gz', show_default=True,
               help='R1文件后缀|R1 file suffix')
-@click.option('--r2-suffix', default='_2.clean.fq.gz', show_default=True,
+@click.option('--r2-suffix', default='_2_clean.fq.gz', show_default=True,
               help='R2文件后缀|R2 file suffix')
 @click.option('--skip-cutadapt', is_flag=True,
               help='跳过引物切除|Skip primer trimming')
@@ -176,9 +176,9 @@ def qiime2(input_dir, output_dir, amplicon, method, fwd_primer, rev_primer,
         args.extend(['--qiime-path', qiime_path])
     if classifier_cache_dir:
         args.extend(['--classifier-cache-dir', classifier_cache_dir])
-    if r1_suffix != '_1.clean.fq.gz':
+    if r1_suffix != '_1_clean.fq.gz':
         args.extend(['--r1-suffix', r1_suffix])
-    if r2_suffix != '_2.clean.fq.gz':
+    if r2_suffix != '_2_clean.fq.gz':
         args.extend(['--r2-suffix', r2_suffix])
     if skip_cutadapt:
         args.append('--skip-cutadapt')

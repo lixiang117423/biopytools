@@ -52,7 +52,7 @@ class Minimap2Aligner:
 
         out_dir = os.path.join(self.config.output_dir, "03_align_3rd")
         os.makedirs(out_dir, exist_ok=True)
-        bam_file = os.path.join(out_dir, f"{sample_name}.sorted.bam")
+        bam_file = os.path.join(out_dir, f"{sample_name}_sorted.bam")
         flagstat_file = os.path.join(out_dir, f"{sample_name}.flagstat")
 
         # 断点续传|Checkpoint

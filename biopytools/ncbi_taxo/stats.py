@@ -230,10 +230,10 @@ class TaxonomyStatsCalculator:
 
         # 确定输出文件路径|Determine output file path
         if self.config.stats_output == 'csv':
-            stats_file = f"{self.config.output_prefix}.statistics.csv"
+            stats_file = f"{self.config.output_prefix}_statistics.csv"
             content = self._format_csv(stats, accession_lineage, blast_hits)
         else:
-            stats_file = f"{self.config.output_prefix}.statistics.txt"
+            stats_file = f"{self.config.output_prefix}_statistics.txt"
             content = self.format_output(stats, accession_lineage, blast_hits)
 
         # 写入主要统计文件|Write main statistics file

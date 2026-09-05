@@ -30,8 +30,8 @@ class InsertDetectionConfig:
     score_threshold: int = 1000    # 得分阈值
 
     # 文件模式|File patterns（默认匹配fastp输出|Default matches fastp output）
-    read1_suffix: str = "_1.clean.fq.gz"  # R1后缀（包含扩展名）
-    read2_suffix: str = "_2.clean.fq.gz"  # R2后缀（包含扩展名）
+    read1_suffix: str = "_1_clean.fq.gz"  # R1后缀（包含扩展名）
+    read2_suffix: str = "_2_clean.fq.gz"  # R2后缀（包含扩展名）
 
     # 工具路径|Tool paths
     bowtie2_path: str = field(default_factory=lambda: get_domain_tool_path(

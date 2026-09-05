@@ -62,7 +62,7 @@ class VCFFilterAnalyzer:
             # 步骤0: 检查并修复VCF文件（如果需要）|Step 0: Check and repair VCF file (if needed)
             if self.config.auto_repair_vcf:
                 self.logger.info("检查VCF文件完整性|Checking VCF file integrity")
-                repaired_file = f"{self.config.base_name}.repaired.vcf.gz"
+                repaired_file = f"{self.config.base_name}_repaired.vcf.gz"
 
                 needs_repair, repair_result = self.repairer.check_and_repair(
                     self.config.vcf_file,

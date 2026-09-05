@@ -360,7 +360,7 @@ class GTXAnalyzer:
         self.logger.info("最终输出目录结构|Final output directory structure:")
         self.logger.info(f"  {self.config.output_dir}/")
         
-        bam_count = len(list(self.config.bam_output_dir.glob('*.sorted.bam')))
+        bam_count = len(list(self.config.bam_output_dir.glob('*_sorted.bam')))
         vcf_count = len(list(self.config.vcf_output_dir.glob('*.vcf.gz')))
         
         self.logger.info(f"  ├── bam/     (BAM文件: {bam_count} 个|BAM files: {bam_count})")

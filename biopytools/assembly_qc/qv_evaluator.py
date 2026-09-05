@@ -313,7 +313,7 @@ class QVEvaluator:
             "*.fq", "*.fq.gz",
             "*.fastq", "*.fastq.gz",
             "*_1.fq.gz", "*_2.fq.gz",
-            "*_1.clean.fq.gz", "*_2.clean.fq.gz"
+            "*_1_clean.fq.gz", "*_2_clean.fq.gz"
         ]
 
         files = []

@@ -66,7 +66,7 @@ class TGSGapCloser:
             filler = QuartetGapFiller(self.logger)
             # 检查断点续传|Check for resume capability
             round1_backup = f"{self.output_gapclosed}.round1"
-            round2_tmp_file = f"{self.config.output_prefix}.round2.filled.fasta"
+            round2_tmp_file = f"{self.config.output_prefix}_round2_filled.fasta"
 
             # 如果最终输出已存在且有round1备份(且未强制重跑),说明流程已完成
             # Completed if final output + round1 backup exist (and not forced)
@@ -123,7 +123,7 @@ class TGSGapCloser:
                     round2_output = filler.fill_gaps(
                         draft_genome=round1_backup,
                         unitig_file=self.config.unitig_file,
-                        output_prefix=f"{self.config.output_prefix}.round2",
+                        output_prefix=f"{self.config.output_prefix}_round2",
                         flanking_len=self.config.flanking_len,
                         min_align_len=self.config.min_align_len,
                         min_identity=self.config.min_identity / 100.0,
@@ -275,7 +275,7 @@ class TGSGapCloser:
                           min_gap_length: int, filler) -> str:
         """生成 gap 处理前后对比报告(数量/长度分布/top/填充效果)|
         Write before/after gap comparison (counts / length dist / top / fill effect)."""
-        report_file = f"{self.config.output_prefix}.gap_report.txt"
+        report_file = f"{self.config.output_prefix}_gap_report.txt"
         before = filler.analyze_gaps(before_file, min_gap_length)
         after = filler.analyze_gaps(after_file, min_gap_length)
 
@@ -321,7 +321,7 @@ class TGSGapCloser:
                          min_gap_length: int, filler) -> str:
         """生成 per-gap 明细 TSV(每个 gap: 处理前长度 + 填充状态 + 处理后残留长度)|
         Per-gap detail TSV (length + fill status + residual length)."""
-        table_file = f"{self.config.output_prefix}.gap_table.tsv"
+        table_file = f"{self.config.output_prefix}_gap_table.tsv"
         rows = filler.track_gaps(before_file, after_file, min_gap_length)
         with open(table_file, 'w', encoding='utf-8') as f:
             f.write("seq\tgap_idx\tbefore_start\tbefore_end\tbefore_length\tstatus\tafter_length\n")

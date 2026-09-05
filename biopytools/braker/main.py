@@ -126,12 +126,12 @@ def parse_arguments():
                        help='二代RNA-seq数据目录列表，逗号分隔|Comma-separated list of RNA-seq directories')
 
     parser.add_argument('--read1_pattern',
-                       default='_1.clean.fq.gz',
-                       help='R1文件模式|R1 file pattern (default: _1.clean.fq.gz)')
+                       default='_1_clean.fq.gz',
+                       help='R1文件模式|R1 file pattern (default: _1_clean.fq.gz)')
 
     parser.add_argument('--read2_pattern',
-                       default='_2.clean.fq.gz',
-                       help='R2文件模式|R2 file pattern (default: _2.clean.fq.gz)')
+                       default='_2_clean.fq.gz',
+                       help='R2文件模式|R2 file pattern (default: _2_clean.fq.gz)')
 
     # 输出配置|Output configuration
     parser.add_argument('--output_dir', '-o',

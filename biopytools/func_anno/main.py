@@ -112,7 +112,7 @@ def parse_arguments():
 def _find_ips_tsv(ips_dir: str, sample: str, logger) -> str:
     """在已有 IPS 目录找 TSV(优先 {sample}.tsv, 否则任意非 cn.tsv)|Find IPS TSV."""
     d = Path(ips_dir)
-    candidates = [d / f"{sample}.tsv", d / f"{sample}.proteins.tsv"]
+    candidates = [d / f"{sample}.tsv", d / f"{sample}_proteins.tsv"]
     for c in candidates:
         if c.exists():
             return str(c)

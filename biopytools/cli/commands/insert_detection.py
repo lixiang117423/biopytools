@@ -72,11 +72,11 @@ def _validate_path_exists(path):
               show_default=True,
               help='samtools可执行文件路径|samtools executable path')
 @click.option('--read1-suffix',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               help='R1文件后缀（包含扩展名）|Read 1 file suffix with extension')
 @click.option('--read2-suffix',
-              default='_2.clean.fq.gz',
+              default='_2_clean.fq.gz',
               show_default=True,
               help='R2文件后缀（包含扩展名）|Read 2 file suffix with extension')
 @click.option('--force',
@@ -97,7 +97,7 @@ def insert_detection(genome, insert, fastq_dir, output_dir, threads,
 
     检测插入序列在基因组中的插入位置，自动识别配对的FASTQ文件|Detect insertion sites of insert sequence in genome, auto-identify paired FASTQ files
 
-    默认使用biopytools fastp输出格式（_1.clean.fq.gz / _2.clean.fq.gz），支持自定义R1/R2后缀|Default uses biopytools fastp output format, supports custom R1/R2 suffixes
+    默认使用biopytools fastp输出格式（_1_clean.fq.gz / _2_clean.fq.gz），支持自定义R1/R2后缀|Default uses biopytools fastp output format, supports custom R1/R2 suffixes
 
     示例|Examples: biopytools insert-detection -i genome.fa --insert tdna.fa --fastq-dir fastq_output/ -o output/
     """

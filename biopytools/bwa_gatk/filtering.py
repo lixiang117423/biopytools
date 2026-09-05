@@ -69,7 +69,7 @@ class VariantFilter:
     
     def _hard_filter(self, vcf_file: Path, variant_type: str) -> Path:
         """硬过滤|Hard filtering"""
-        output_vcf = self.config.vcf_dir / f"filtered.hard.{variant_type}.vcf.gz"
+        output_vcf = self.config.vcf_dir / f"filtered_hard_{variant_type}.vcf.gz"
         
         if not self.config.force_restart and check_file_exists(output_vcf, self.logger):
             return output_vcf
@@ -88,7 +88,7 @@ class VariantFilter:
         self.cmd_runner.run(cmd, f"硬过滤{variant_type}|Hard filter {variant_type}")
         
         # 移除过滤掉的位点|Remove filtered sites
-        passed_vcf = self.config.vcf_dir / f"all_samples.filtered.{variant_type}.vcf.gz"
+        passed_vcf = self.config.vcf_dir / f"all_samples_filtered_{variant_type}.vcf.gz"
         
         cmd_exclude = build_conda_command(
             self.config.gatk_path,
@@ -101,7 +101,7 @@ class VariantFilter:
     
     def _soft_filter(self, vcf_file: Path, variant_type: str) -> Path:
         """软过滤（仅标记）| Soft filtering (mark only)"""
-        output_vcf = self.config.vcf_dir / f"filtered.soft.{variant_type}.vcf.gz"
+        output_vcf = self.config.vcf_dir / f"filtered_soft_{variant_type}.vcf.gz"
         
         if not self.config.force_restart and check_file_exists(output_vcf, self.logger):
             return output_vcf

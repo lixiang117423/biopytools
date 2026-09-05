@@ -255,7 +255,7 @@ class SummaryGenerator:
                 f.write(f"  - 03.fpkm_tpm/: 各样本的FPKM文件|FPKM files for each sample\n")
 
                 if self.config.remove_bam.lower() not in ['yes', 'y']:
-                    f.write(f"  - 01.bam/*.sorted.bam: 比对结果BAM文件|Alignment result BAM files\n")
+                    f.write(f"  - 01.bam/*_sorted.bam: 比对结果BAM文件|Alignment result BAM files\n")
 
                 f.write("=" * 60 + "\n")
 

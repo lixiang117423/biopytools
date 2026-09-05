@@ -213,8 +213,8 @@ def parse_arguments():
     )
     ngs_group.add_argument(
         '--ngs-pattern',
-        default='_1.clean.fq.gz',
-        help='NGS文件匹配模式|NGS file matching pattern (default: _1.clean.fq.gz)'
+        default='_1_clean.fq.gz',
+        help='NGS文件匹配模式|NGS file matching pattern (default: _1_clean.fq.gz)'
     )
 
     # ==================== Step 2: HapHiC参数 | Step 2: HapHiC Parameters ====================

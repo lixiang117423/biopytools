@@ -150,7 +150,7 @@ class StatisticsGenerator:
                     stats['properly_paired'] = line.split()[4].strip('()')
             
             # 获取重复率|Get duplicate rate
-            metrics_file = self.config.stats_dir / f"{bam_file.stem.replace('.dedup', '')}.dedup_metrics.txt"
+            metrics_file = self.config.stats_dir / f"{bam_file.stem}_metrics.txt"
             if metrics_file.exists():
                 with open(metrics_file) as f:
                     for line in f:

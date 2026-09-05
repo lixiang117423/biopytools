@@ -120,7 +120,7 @@ class HISAT2Aligner:
             BAM文件路径|BAM file path, None on failure
         """
         output_dir = os.path.join(self.config.output_dir, '01_align')
-        bam_file = os.path.join(output_dir, f"{sample['name']}.sorted.bam")
+        bam_file = os.path.join(output_dir, f"{sample['name']}_sorted.bam")
         sam_file = os.path.join(output_dir, f"{sample['name']}.sam")
 
         # 断点续传|Checkpoint resume

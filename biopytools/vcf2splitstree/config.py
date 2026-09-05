@@ -40,7 +40,7 @@ class Vcf2SplitstreeConfig:
             if name.lower().endswith(suffix.lower()):
                 name = name[: -len(suffix)]
                 break
-        self.output_csv = out / f'{name}.distances.csv'
+        self.output_csv = out / f'{name}_distances.csv'
         self.log_file = logs_dir / 'vcf2splitstree.log'
 
     def validate(self):

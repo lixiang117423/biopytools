@@ -165,7 +165,7 @@ class RepeatMaskerRunner:
         # 检查 masked 文件（支持新旧格式）|Check masked file (support both old and new formats)
         if genome_name.endswith('.fa'):
             base_name = genome_name[:-3]
-            masked_file = (output_dir / f"{base_name}.masked.fa") if (output_dir / f"{base_name}.masked.fa").exists() else (output_dir / f"{genome_name}.masked")
+            masked_file = (output_dir / f"{base_name}_masked.fa") if (output_dir / f"{base_name}_masked.fa").exists() else (output_dir / f"{genome_name}.masked")
         else:
             masked_file = output_dir / f"{genome_name}.masked"
 
@@ -234,12 +234,12 @@ class RepeatMaskerRunner:
         """复制输出文件为标准格式（保留原文件）|Copy output files to standard format (keep original)"""
         genome_name = Path(self.config.genome).name
 
-        # 复制 .fa.masked 为 .masked.fa（保留原始文件）|Copy .fa.masked to .masked.fa (keep original)
+        # 复制 .fa.masked 为 _masked.fa（保留原始文件）|Copy .fa.masked to _masked.fa (keep original)
         masked_file_old = output_dir / f"{genome_name}.masked"
         if genome_name.endswith('.fa'):
-            # 去掉 .fa 后缀，添加 .masked.fa|Remove .fa suffix, add .masked.fa
+            # 去掉 .fa 后缀，添加 _masked.fa|Remove .fa suffix, add _masked.fa
             base_name = genome_name[:-3]
-            masked_file_new = output_dir / f"{base_name}.masked.fa"
+            masked_file_new = output_dir / f"{base_name}_masked.fa"
 
             if masked_file_old.exists() and not masked_file_new.exists():
                 shutil.copy2(str(masked_file_old), str(masked_file_new))
@@ -262,8 +262,8 @@ class RepeatMaskerRunner:
         # 处理 masked 文件的特殊命名规则|Handle special naming for masked file
         if genome_name.endswith('.fa'):
             base_name = genome_name[:-3]
-            # 优先使用新格式 .masked.fa，兼容旧格式 .fa.masked|Prefer new format .masked.fa, fallback to old .fa.masked
-            masked_new = output_dir / f"{base_name}.masked.fa"
+            # 优先使用新格式 _masked.fa，兼容旧格式 .fa.masked|Prefer new format _masked.fa, fallback to old .fa.masked
+            masked_new = output_dir / f"{base_name}_masked.fa"
             masked_old = output_dir / f"{genome_name}.masked"
             possible_outputs['masked'] = masked_new if masked_new.exists() else masked_old
         else:

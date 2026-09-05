@@ -43,7 +43,7 @@ def _validate_path_exists(path):
               callback=lambda ctx, param, value: _validate_path_exists(value) if value else None,
               help='输入FASTQ目录|Input FASTQ directory')
 @click.option('--pattern', '-p',
-              default='_1.clean.fq.gz',
+              default='_1_clean.fq.gz',
               show_default=True,
               type=str,
               help='FASTQ文件匹配模式|FASTQ file pattern')
@@ -209,7 +209,7 @@ def bwa(genome, input, pattern, output_dir, threads,
     args = ['bwa_align.py']
     args.extend(['-g', genome])
     args.extend(['-i', input])
-    if pattern != '_1.clean.fq.gz':
+    if pattern != '_1_clean.fq.gz':
         args.extend(['-p', pattern])
 
     if output_dir != './bwa_output':

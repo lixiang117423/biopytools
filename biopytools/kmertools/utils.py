@@ -270,8 +270,8 @@ class KmindexChecker:
 
 
 def generate_fof_file(input_dir: Path, output_file: Path,
-                      suffix_1: str = "_1.clean.fq.gz",
-                      suffix_2: str = "_2.clean.fq.gz",
+                      suffix_1: str = "_1_clean.fq.gz",
+                      suffix_2: str = "_2_clean.fq.gz",
                       logger: logging.Logger = None) -> bool:
     """
     生成FOF文件|Generate FOF file

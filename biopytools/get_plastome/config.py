@@ -27,8 +27,8 @@ class PlastomeConfig:
     threads: int = 12  # 线程数|Threads
 
     # Reads文件后缀模式|Reads file suffix patterns (支持通配符|Supports wildcards)
-    read1_suffix: str = '_1.clean.fq.gz'  # R1文件后缀|R1 file suffix
-    read2_suffix: str = '_2.clean.fq.gz'  # R2文件后缀|R2 file suffix
+    read1_suffix: str = '_1_clean.fq.gz'  # R1文件后缀|R1 file suffix
+    read2_suffix: str = '_2_clean.fq.gz'  # R2文件后缀|R2 file suffix
 
     # 自动检测的文件|Auto-detected files
     r1_file: Optional[str] = None

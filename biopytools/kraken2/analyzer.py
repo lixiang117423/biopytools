@@ -77,7 +77,7 @@ class Kraken2Analyzer:
             self.kraken2_dir, f"{sample_name}.kraken"
         )
         report_output = os.path.join(
-            self.kraken2_dir, f"{sample_name}.kraken_report.txt"
+            self.kraken2_dir, f"{sample_name}_kraken_report.txt"
         )
 
         if (self._is_step_completed(kraken_output)
@@ -128,13 +128,13 @@ class Kraken2Analyzer:
             return True
 
         bracken_report = os.path.join(
-            self.kraken2_dir, f"{sample_name}.kraken_report.txt"
+            self.kraken2_dir, f"{sample_name}_kraken_report.txt"
         )
         bracken_output = os.path.join(
-            self.bracken_dir, f"{sample_name}.bracken.txt"
+            self.bracken_dir, f"{sample_name}_bracken.txt"
         )
         bracken_new_report = os.path.join(
-            self.bracken_dir, f"{sample_name}.bracken_report.txt"
+            self.bracken_dir, f"{sample_name}_bracken_report.txt"
         )
 
         if (self._is_step_completed(bracken_output)
@@ -200,7 +200,7 @@ class Kraken2Analyzer:
 
         for sample_name in sorted(self._pairs.keys()):
             report = os.path.join(
-                self.kraken2_dir, f"{sample_name}.kraken_report.txt"
+                self.kraken2_dir, f"{sample_name}_kraken_report.txt"
             )
 
             if not os.path.exists(report):
@@ -228,7 +228,7 @@ class Kraken2Analyzer:
 
             # 收集Bracken结果|Collect Bracken results
             bracken_file = os.path.join(
-                self.bracken_dir, f"{sample_name}.bracken.txt"
+                self.bracken_dir, f"{sample_name}_bracken.txt"
             )
             if os.path.exists(bracken_file):
                 all_species[sample_name] = self._parse_bracken(bracken_file)

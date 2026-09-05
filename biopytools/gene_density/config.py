@@ -50,10 +50,10 @@ class GeneDensityConfig:
 
         # by-step输出路径|By-step output paths (§12)
         self.density_tsv = str(
-            Path(self.output_dir) / "01_density" / f"{self.prefix}.gene_density.tsv"
+            Path(self.output_dir) / "01_density" / f"{self.prefix}_gene_density.tsv"
         )
         self.plot_png = str(
-            Path(self.output_dir) / "02_plot" / f"{self.prefix}.gene_density.png"
+            Path(self.output_dir) / "02_plot" / f"{self.prefix}_gene_density.png"
         )
         self.versions_yml = str(
             Path(self.output_dir) / "00_pipeline_info" / "software_versions.yml"

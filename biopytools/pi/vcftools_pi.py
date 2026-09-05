@@ -75,11 +75,11 @@ class VcftoolsPiCalculator:
             samples: 样本列表|Sample list
         """
         output_prefix = str(self.config.output_path / '01_vcftools' / pop_name)
-        keep_file = f"{output_prefix}.keep.txt"
+        keep_file = f"{output_prefix}_keep.txt"
 
         # 断点续传：检查输出文件是否已存在
         # Checkpoint resume: check if output file already exists
-        output_file = f"{output_prefix}.windowed.pi"
+        output_file = f"{output_prefix}_windowed.pi"
         if is_step_completed(output_file):
             self.logger.info(f"跳过已完成步骤|Skipping completed step: {pop_name} windowed pi")
             self._parse_windowed_output(output_file, pop_name)
@@ -112,6 +112,11 @@ class VcftoolsPiCalculator:
         cmd = build_conda_command(self.config.vcftools_path, args)
         success = self.runner.run(cmd, f"vcftools窗口pi计算|vcftools windowed pi for {pop_name}")
 
+        # vcftools 原生写出 <output_prefix>.windowed.pi，重命名为下划线形式
+        native_file = f"{output_prefix}.windowed.pi"
+        if success and os.path.exists(native_file):
+            os.rename(native_file, output_file)
+
         if success and os.path.exists(output_file):
             self._parse_windowed_output(output_file, pop_name)
         else:
@@ -133,10 +138,10 @@ class VcftoolsPiCalculator:
             samples: 样本列表|Sample list
         """
         output_prefix = str(self.config.output_path / '01_vcftools' / pop_name)
-        keep_file = f"{output_prefix}.keep.txt"
+        keep_file = f"{output_prefix}_keep.txt"
 
         # 断点续传|Checkpoint resume
-        output_file = f"{output_prefix}.sites.pi"
+        output_file = f"{output_prefix}_sites.pi"
         if is_step_completed(output_file):
             self.logger.info(f"跳过已完成步骤|Skipping completed step: {pop_name} site pi")
             self._parse_site_pi_output(output_file, pop_name)
@@ -163,6 +168,11 @@ class VcftoolsPiCalculator:
 
         cmd = build_conda_command(self.config.vcftools_path, args)
         success = self.runner.run(cmd, f"vcftools site pi计算|vcftools site pi for {pop_name}")
+
+        # vcftools 原生写出 <output_prefix>.sites.pi，重命名为下划线形式
+        native_file = f"{output_prefix}.sites.pi"
+        if success and os.path.exists(native_file):
+            os.rename(native_file, output_file)
 
         if success and os.path.exists(output_file):
             self._parse_site_pi_output(output_file, pop_name)

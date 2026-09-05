@@ -81,7 +81,7 @@ class ANNOVARAnnotator:
             2: ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
                 lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneCds.fa")),
             3: ("过滤并转换VCF|Filter and convert VCF", self.step3_filter_and_convert_vcf,
-                lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
+                lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}_annovar.vcf")),
             4: ("注释变异|Annotate variants", self.step4_annotate_variants,
                 lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.exonic_variant_function")),
         }
@@ -110,7 +110,7 @@ class ANNOVARAnnotator:
             ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
              os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneCds.fa")),
             ("处理并转换VCF|Process and convert VCF", self.step3_filter_and_convert_vcf,
-             os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
+             os.path.join(self.config.output_dir, f"{self.config.vcf_basename}_annovar.vcf")),
             ("变异注释|Variant annotation", self.step4_annotate_variants,
              os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.exonic_variant_function")),
         ]

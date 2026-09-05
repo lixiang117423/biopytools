@@ -40,7 +40,7 @@ class VCFProcessor:
         
         #  使用位点记录文件|Used sites record file
         if self.config.write_used_sites:
-            used_sites_file = outfile_base + ".used_sites.tsv"
+            used_sites_file = outfile_base + "_used_sites.tsv"
             used_sites_handle = open(used_sites_file, "w")
             used_sites_handle.write("#CHROM\tPOS\tNUM_SAMPLES\n")
         

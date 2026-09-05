@@ -77,7 +77,7 @@ class PairwiseAligner:
         pending = []
         for pair in pairs:
             ref_name, query_name = pair[0], pair[1]
-            coords_file = self.coords_dir / f"{ref_name}.vs.{query_name}.filtered.coords"
+            coords_file = self.coords_dir / f"{ref_name}_vs_{query_name}_filtered.coords"
             if coords_file.exists() and coords_file.stat().st_size > 0:
                 self.logger.info(f"跳过已完成比对|Skipping completed: {ref_name} vs {query_name}")
             else:
@@ -87,10 +87,10 @@ class PairwiseAligner:
     def _run_single_alignment(self, ref_name: str, query_name: str,
                               ref_path: str, query_path: str) -> bool:
         """运行单个两两比对|Run single pairwise alignment"""
-        prefix = self.coords_dir / f"{ref_name}.vs.{query_name}"
+        prefix = self.coords_dir / f"{ref_name}_vs_{query_name}"
         delta_file = f"{prefix}.delta"
-        filtered_delta_file = f"{prefix}.filtered.delta"
-        coords_file = f"{prefix}.filtered.coords"
+        filtered_delta_file = f"{prefix}_filtered.delta"
+        coords_file = f"{prefix}_filtered.coords"
 
         nucmer_threads = max(1, self.config.threads // self.config.parallel_alignments)
 

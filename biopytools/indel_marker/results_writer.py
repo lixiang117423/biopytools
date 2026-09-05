@@ -43,7 +43,7 @@ class ResultsWriter:
         so a missing upstream step never blocks the whole table.
         """
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        out = self.results_dir / 'indel_marker.candidates.tsv'
+        out = self.results_dir / 'indel_marker_candidates.tsv'
         with open(out, 'w', encoding='utf-8') as f:
             f.write('\t'.join(self.CANDIDATE_HEADER) + '\n')
             for c in candidates:
@@ -73,7 +73,7 @@ class ResultsWriter:
     def write_bed(self, candidates: List[Candidate]) -> str:
         """候选区间BED（起始0-based）|Candidate BED (0-based start)"""
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        out = self.results_dir / 'indel_marker.candidates.bed'
+        out = self.results_dir / 'indel_marker_candidates.bed'
         with open(out, 'w', encoding='utf-8') as f:
             for c in candidates:
                 cid = candidate_id(c)
@@ -86,7 +86,7 @@ class ResultsWriter:
     def write_fasta(self, sequences: Dict[str, str]) -> str:
         """侧翼序列FASTA（header=candidate_id）|Flank FASTA (header=candidate_id)"""
         self.sequence_dir.mkdir(parents=True, exist_ok=True)
-        out = self.sequence_dir / 'indels.flank.fa'
+        out = self.sequence_dir / 'indels_flank.fa'
         with open(out, 'w', encoding='utf-8') as f:
             for cid, seq in sequences.items():
                 f.write(f">{cid}\n{seq}\n")
@@ -99,7 +99,7 @@ class ResultsWriter:
         """覆盖度矩阵（行=candidate_id，列=样品）|Coverage matrix (row=cid, col=sample)"""
         out_dir = Path(self.config.output_dir) / '03_coverage'
         out_dir.mkdir(parents=True, exist_ok=True)
-        out = out_dir / 'indels.coverage.tsv'
+        out = out_dir / 'indels_coverage.tsv'
         with open(out, 'w', encoding='utf-8') as f:
             f.write('\t'.join(['candidate_id'] + sample_names) + '\n')
             for cid, depths in coverage.items():
@@ -113,7 +113,7 @@ class ResultsWriter:
                       n_pass_qc: int, n_with_primer: int) -> str:
         """摘要报告|Summary report"""
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        out = self.results_dir / 'indel_marker.summary.txt'
+        out = self.results_dir / 'indel_marker_summary.txt'
         with open(out, 'w', encoding='utf-8') as f:
             f.write("INDEL分子标记筛选摘要|INDEL Marker Summary\n")
             f.write("=" * 50 + "\n")

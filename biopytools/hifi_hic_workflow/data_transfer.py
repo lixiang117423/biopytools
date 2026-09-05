@@ -83,7 +83,7 @@ class DataTransferManager:
                     "04_reassembly",
                     "02_fasta",
                 ),
-                f"{self.config.prefix}.primary.fa"
+                f"{self.config.prefix}_primary.fa"
             )
 
             if os.path.exists(polished_fa):
@@ -99,7 +99,7 @@ class DataTransferManager:
                 self.config.prefix,
                 "02_fasta",
             ),
-            f"{self.config.prefix}.primary.fa"
+            f"{self.config.prefix}_primary.fa"
         )
 
         if os.path.exists(primary_fa):
@@ -219,7 +219,7 @@ class DataTransferManager:
         """
         output_fa = os.path.join(
             self.config.rename_output_dir,
-            f"{self.config.prefix}.renamed.fa"
+            f"{self.config.prefix}_renamed.fa"
         )
 
         params = {
@@ -241,7 +241,7 @@ class DataTransferManager:
         """
         renamed_fa = os.path.join(
             self.config.rename_output_dir,
-            f"{self.config.prefix}.renamed.fa"
+            f"{self.config.prefix}_renamed.fa"
         )
 
         self.logger.info(f"rename_chromosomes输出|rename_chromosomes output: {renamed_fa}")

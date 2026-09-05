@@ -197,7 +197,7 @@ class HiCanuConfig:
             steps['fasta_copied'] = True
 
         # 检查contig-reads映射是否已生成|Check if contig-reads mapping is generated
-        mapping_file = os.path.join(self.fasta_dir, f'{self.prefix}.contig_reads.tsv')
+        mapping_file = os.path.join(self.fasta_dir, f'{self.prefix}_contig_reads.tsv')
         if os.path.exists(mapping_file):
             file_size = os.path.getsize(mapping_file)
             if file_size > 0:
