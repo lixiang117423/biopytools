@@ -16,7 +16,7 @@
 biopytools gwas-lambda
 ```
 
-默认按 feture_*/GWAS_Result.mlm.manht_input 模式搜索文件；也可用 -p 指定你自己的文件模式。
+默认按 feture_*/GWAS_Result_mlm_manht_input 模式搜索文件；也可用 -p 指定你自己的文件模式。
 
 ## 零基础概念速览 | Concepts in plain words
 
@@ -80,7 +80,7 @@ trait_3   NA           0                   1057153       No Signals (无显著�
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `--pattern, -p` | `feture_*/GWAS_Result.mlm.manht_input` |  | 文件搜索模式｜File search pattern |
+| `--pattern, -p` | `feture_*/GWAS_Result_mlm_manht_input` |  | 文件搜索模式｜File search pattern |
 | `--output, -o` | `Batch_Lambda_Assessment.txt` |  | 输出文件名｜Output filename |
 | `--threshold, -t` | `1e-05` | float | 显著性阈值｜Significance threshold |
 | `--p-column, -c` | `3` | int | P值列索引｜P-value column index (0-based) |
@@ -90,7 +90,7 @@ trait_3   NA           0                   1057153       No Signals (无显著�
 
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
-| `--pattern, -p` | `feture_*/GWAS_Result.mlm.manht_input` |  | 文件搜索模式｜File search pattern |
+| `--pattern, -p` | `feture_*/GWAS_Result_mlm_manht_input` |  | 文件搜索模式｜File search pattern |
 | `--output, -o` | `Batch_Lambda_Assessment.txt` |  | 输出文件名｜Output filename |
 | `--threshold, -t` | `1e-05` | float | 显著性阈值｜Significance threshold |
 | `--p-column, -c` | `3` | int | P值所在列索引｜P-value column index (0-based) |

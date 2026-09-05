@@ -86,7 +86,7 @@ q2.fa
        5. 用 query 序列拼接插入片段进 ref
        6. 更新 GFF 注释与 PAV 清单
        7. ref{N-1} + query -> ref{N}
-  -> 终化：pan.fa / pan.gff / pan.pav.gff 链接 + 排序
+  -> 终化：pan.fa / pan.gff / pan_pav.gff 链接 + 排序
   -> 生成 PAV 信息表与 0/1 矩阵
 ```
 
@@ -96,16 +96,16 @@ q2.fa
 output_dir/
 ├── pan.fa                    # 最终线性泛基因组序列
 ├── pan.gff                   # 最终注释
-├── pan.pav.gff               # 插入片段（PAV）清单，未排序
-├── pan.pav.sorted.gff        # 按位置排序后的 PAV
-├── pan.pav.info.tsv          # PAV 信息表：pan 区间/来源/原基因组位置/长度
-├── pan.pav.matrix.tsv        # 样本 × PAV 的 0/1 来源矩阵
+├── pan_pav.gff               # 插入片段（PAV）清单，未排序
+├── pan_pav_sorted.gff        # 按位置排序后的 PAV
+├── pan_pav_info.tsv          # PAV 信息表：pan 区间/来源/原基因组位置/长度
+├── pan_pav_matrix.tsv        # 样本 × PAV 的 0/1 来源矩阵
 ├── 00_pipeline_info/
 │   └── software_versions.yml # 软件版本与运行参数记录
 ├── pan_dir_result/           # 中间工作目录
 │   ├── ref0.fa / ref0.gff    # 参考基因组（符号链接）
-│   ├── ref{N}.fa/.gff/.pav.gff  # 每轮并入后的累积参考
-│   ├── {ref}{q}.fa/.gff/.pav.gff # 每轮链式产物
+│   ├── ref{N}.fa/.gff/_pav.gff  # 每轮并入后的累积参考
+│   ├── {ref}{q}.fa/.gff/_pav.gff # 每轮链式产物
 │   └── {ref}_{q}/             # 每轮工作子目录（nucmer/assemblytics 中间文件）
 └── psvcp.log                 # 运行日志
 ```
@@ -116,15 +116,15 @@ output_dir/
 
 **通俗理解|In plain words:** 这是最终成品——一条包含所有并入片段的线性泛基因组序列及其注释。下游分析（比对、注释、比较）都从这里出发。
 
-### 2. pan.pav.gff（及其 sorted 版）
+### 2. pan_pav.gff（及其 sorted 版）
 
 **通俗理解|In plain words:** 泛基因组里每个「独有插入片段」的清单，一行一个 PAV，记录它在 pan 上的区间和来自哪个样本。第 9 列 `ID=` 形如 `样本_染色体_起点`。
 
-### 3. pan.pav.info.tsv
+### 3. pan_pav_info.tsv
 
 每行一个 PAV 的信息表，列：`pav_id`（pan 上的区间）、`pan_chr/pan_start/pan_end`、`length_bp`（长度）、`source`（来源样本）、`orig_chr/orig_start/orig_end`（在原基因组上的位置）。
 
-### 4. pan.pav.matrix.tsv
+### 4. pan_pav_matrix.tsv
 
 样本 × PAV 的 0/1 矩阵。**注意语义**：1 = 该样本贡献了这个插入（来源），0 = 其余样本（含参考及未参与该轮比对的 query）。这是「来源标注」矩阵，不是样本间的真实共享性（PSVCP 原始流程只做 query vs 参考两两比对，未做样本两两比较）。
 
@@ -188,5 +188,5 @@ assemblytics 依赖 numpy，若 `psvcp_v.1.0.1` 环境的 python 被 GraalPy 顶
 **Q4：为什么报某个基因组「gff 不存在」？**
 每个 genome_list 里的名字都要在 genome 目录下有同名 `.fa` 和 `.gff`（或 `.gff3`）。注意文件名要完全一致（仅后缀不同），且程序优先找 `.gff`。
 
-**Q5：pan.pav.matrix.tsv 里的 0 表示「没有这个片段」吗？**
+**Q5：pan_pav_matrix.tsv 里的 0 表示「没有这个片段」吗？**
 不完全是。矩阵是「来源标注」：只有贡献该插入的样本标 1，其余一律 0（含参考，以及没参与该轮比对的 query）。它不等同于样本间真实的 presence/absence。

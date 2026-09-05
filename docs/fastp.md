@@ -109,9 +109,9 @@ biopytools fastp -i raw_data/ -o clean_data/
 
 ```text
 clean_data/
-├── sample1_1.clean.fq.gz          # 样本1的 clean R1(双末端)
-├── sample1_2.clean.fq.gz          # 样本1的 clean R2(双末端)
-├── sample2.clean.fq.gz            # 单末端样本的 clean 数据
+├── sample1_1_clean.fq.gz          # 样本1的 clean R1(双末端)
+├── sample1_2_clean.fq.gz          # 样本1的 clean R2(双末端)
+├── sample2_clean.fq.gz            # 单末端样本的 clean 数据
 ├── fastp_reports/
 │   ├── sample1.html               # 质控报告(浏览器打开)
 │   └── sample1.json               # 质控报告(机器可读)
@@ -120,7 +120,7 @@ clean_data/
 └── fastp_processing.log           # 运行日志
 ```
 
-（双末端样本命名 `{sample}_1.clean.fq.gz` + `{sample}_2.clean.fq.gz`；单末端命名 `{sample}.clean.fq.gz`。）
+（双末端样本命名 `{sample}_1_clean.fq.gz` + `{sample}_2_clean.fq.gz`；单末端命名 `{sample}_clean.fq.gz`。）
 
 - **clean 文件**：质控后的干净数据，是下游分析的直接输入
 - **fastp_reports/*.html**：fastp 的图形化质控报告，含碱基质量、GC 含量、接头含量、过滤统计等

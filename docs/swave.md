@@ -125,7 +125,7 @@ swave_output/
     └── swave_pipeline.log                    # 流程日志
 ```
 
-（若 VCF 与 FASTA 的染色体名不一致，会临时生成 `ref.renamed.fa` 并自动清理。）
+（若 VCF 与 FASTA 的染色体名不一致，会临时生成 `ref_renamed.fa` 并自动清理。）
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 

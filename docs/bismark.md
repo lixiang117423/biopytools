@@ -88,9 +88,9 @@ bismark_results/
 ├── result/
 │   └── <sample>/
 │       ├── <...>.CX_report.txt      # 全背景甲基化报告（核心）
-│       ├── <...>.CpG.txt            # 按CG背景拆分
-│       ├── <...>.CHG.txt            # 按CHG背景拆分
-│       ├── <...>.CHH.txt            # 按CHH背景拆分
+│       ├── <...>_CpG.txt            # 按CG背景拆分
+│       ├── <...>_CHG.txt            # 按CHG背景拆分
+│       ├── <...>_CHH.txt            # 按CHH背景拆分
 │       ├── <...>.bedGraph           # 甲基化bedGraph
 │       ├── <...>_splitting_report.txt  # 拆分统计报告
 │       └── <...>M-bias.txt          # M-bias 报告

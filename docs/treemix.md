@@ -50,7 +50,7 @@ sample3	popB
 
 ## 子命令 | Subcommands
 
-- `prepare`：VCF → 筛选样品 → LD 过滤 → plink 频率计算 → TreeMix 格式(`input.treemix.frq.gz`)
+- `prepare`：VCF → 筛选样品 → LD 过滤 → plink 频率计算 → TreeMix 格式(`input_treemix_frq.gz`)
 - `run`：对已有 `.frq.gz` 输入做 m 值扫描 + OptM + 绘图
 - `all`：prepare + run 一步完成
 
@@ -58,7 +58,7 @@ sample3	popB
 
 ```text
 prepare(输入准备):
-  VCF → bcftools 筛选样品 → LD 过滤 → plink 频率(--freq) → plink2treemix → input.treemix.frq.gz
+  VCF → bcftools 筛选样品 → LD 过滤 → plink 频率(--freq) → plink2treemix → input_treemix_frq.gz
 
 run(核心分析):
   阶段1: 扫描 m=0..m_max，每个 m 跑 N 次重复(含 bootstrap)
@@ -74,8 +74,8 @@ treemix_output/
 │   ├── selected_samples.vcf.gz        # 按分组筛选后的 VCF
 │   ├── pop.cov                        # 群体分组文件
 │   ├── input.frq.strat.gz             # plink 频率输出
-│   ├── input.treemix.frq.gz           # TreeMix 输入格式(核心中间产物)
-│   └── pop.order.txt                  # 群体排序
+│   ├── input_treemix_frq.gz           # TreeMix 输入格式(核心中间产物)
+│   └── pop_order.txt                  # 群体排序
 ├── 02_treemix/m{m}/                   # 每个 m 值一个目录
 │   └── rep_XXXX.{treeout,vertices,edges,cov,llik}.gz  # 各重复的树/边/协方差/似然
 ├── 03_optm/
@@ -140,4 +140,4 @@ run 阶段有断点续传：某个 m 值下已完成的重复(`rep_XXXX.treeout.
 程序会跳过绘图但保留扫描结果(`02_treemix/` 和 `treemix_llik_summary.txt`)，并在日志里提示。常见原因是 R 环境缺 OptM 包，检查 `--r-path` 指向的环境。
 
 **Q4：prepare 和 run 能分开跑吗？**
-能。先 `prepare` 生成 `input.treemix.frq.gz`，之后随时 `run -i input.treemix.frq.gz` 复用它，不必每次从 VCF 重做。
+能。先 `prepare` 生成 `input_treemix_frq.gz`，之后随时 `run -i input_treemix_frq.gz` 复用它，不必每次从 VCF 重做。

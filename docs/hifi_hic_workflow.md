@@ -71,13 +71,13 @@ biopytools hifi-hic-workflow --hifi hifi.fq.gz --hic-r1 R1.fq.gz --hic-r2 R2.fq.
 HiFi reads + Hi-C R1/R2 + 参考基因组(仅命名)
     │
     ▼
-步骤1: HiFi 组装(复用 hifi_hic) → 01_hifi_assembly/{prefix}/02_fasta/{prefix}.primary.fa
+步骤1: HiFi 组装(复用 hifi_hic) → 01_hifi_assembly/{prefix}/02_fasta/{prefix}_primary.fa
     │
     ▼
 步骤2: HapHiC 挂载 → 02_hic_scaffolding/04_build/{prefix}.fa
     │
     ▼
-步骤3: 染色体重命名 → 03_chromosome_rename/{prefix}.renamed.fa
+步骤3: 染色体重命名 → 03_chromosome_rename/{prefix}_renamed.fa
     │
     ▼
 步骤4: Hi-C 热图 → 04_hic_heatmap/plot/{prefix}_hic_heatmap.pdf
@@ -89,11 +89,11 @@ HiFi reads + Hi-C R1/R2 + 参考基因组(仅命名)
 workflow_output/
 ├── 00_pipeline_info/                   # 各步骤信息文件({step}_info.txt)
 ├── 01_hifi_assembly/
-│   └── {prefix}/02_fasta/{prefix}.primary.fa    # HiFi 组装结果
+│   └── {prefix}/02_fasta/{prefix}_primary.fa    # HiFi 组装结果
 ├── 02_hic_scaffolding/
 │   └── 04_build/{prefix}.fa                     # Hi-C 挂载后的 scaffold
 ├── 03_chromosome_rename/
-│   └── {prefix}.renamed.fa                      # 重命名后的染色体级基因组(最终)
+│   └── {prefix}_renamed.fa                      # 重命名后的染色体级基因组(最终)
 ├── 04_hic_heatmap/
 │   └── plot/{prefix}_hic_heatmap.pdf            # Hi-C 热图
 ├── logs/
@@ -103,9 +103,9 @@ workflow_output/
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 最终基因组是 `03_chromosome_rename/{prefix}.renamed.fa`；热图用来「验收」挂载是否正确。
+**通俗理解|In plain words:** 最终基因组是 `03_chromosome_rename/{prefix}_renamed.fa`；热图用来「验收」挂载是否正确。
 
-- **`{prefix}.renamed.fa`**：最终染色体级基因组，序列名应为 chr01/chr02…，可直接下游使用
+- **`{prefix}_renamed.fa`**：最终染色体级基因组，序列名应为 chr01/chr02…，可直接下游使用
 - **序列数 vs 染色体数**：重命名后染色体条数应接近 `--nchrs`（自动统计值）；若还残留大量 scaffold，说明挂载未完全
 - **Hi-C 热图**：理想情况是对角线清晰、对角线两侧（近距离互作）有信号、远距离噪音少；若出现大片「十字」或非对角线块，提示有 mis-join（挂错）或易位
 - **`workflow_report.txt`**：汇总每一步完成状态与主要输出路径，先看它快速定位哪步出问题
@@ -171,7 +171,7 @@ workflow_output/
 | `--use-ngs-polish` | — | store_true | 启用NGS polish｜Enable NGS polish |
 | `--ngs-data` | — |  | NGS二代数据目录｜NGS second-generation data directory |
 | `--ngs-high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
-| `--ngs-pattern` | `_1.clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--ngs-pattern` | `_1_clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1_clean.fq.gz) |
 | `--nchrs` | — | int | 染色体数量（如不指定，从reference统计）｜Number of chromosomes (count from reference if not specified) |
 | `--haphic-bin` | — |  | HapHiC可执行文件路径｜HapHiC executable path |
 | `--bwa-bin` | — |  | BWA可执行文件路径｜BWA executable path |

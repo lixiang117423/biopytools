@@ -147,29 +147,29 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 
 ## 3. 完整输出结构示例|Complete Output Structure
 
-> 注|Note: 以下为 genomescope **既有模块**的实际结构（by-sample，样本目录套步骤）；**新模块默认按 CLAUDE.md §12.2.1 用 by-step**（步骤目录共享、文件名带样本前缀）。此处保留以展示完整的步骤目录与 `{Sample}.{Tool}.{State}.{Ext}` 文件命名规范。
+> 注|Note: 以下为 genomescope **既有模块**的实际结构（by-sample，样本目录套步骤）；**新模块默认按 CLAUDE.md §12.2.1 用 by-step**（步骤目录共享、文件名带样本前缀）。此处保留以展示完整的步骤目录与 `{Sample}_{Tool}_{State}.{Ext}` 文件命名规范。
 
 ```
-02.output/R0590-6/
+02_output/R0590-6/
 ├── 00_pipeline_info/                      # 流程元数据
 │   ├── software_versions.yml              # 软件版本
 │   └── pipeline_params.yaml               # 运行参数
 │
 ├── 01_jellyfish/                           # 步骤1：K-mer计数
-│   ├── R0590-6.jellyfish.jf
-│   └── R0590-6.jellyfish.histo
+│   ├── R0590-6_jellyfish.jf
+│   └── R0590-6_jellyfish.histo
 │
 ├── 02_genomescope/                         # 步骤2：基因组特征分析
-│   ├── R0590-6.genomescope.model.txt
-│   ├── R0590-6.genomescope.summary.txt
-│   ├── R0590-6.genomescope.linear.png
-│   └── R0590-6.genomescope.log.png
+│   ├── R0590-6_genomescope_model.txt
+│   ├── R0590-6_genomescope_summary.txt
+│   ├── R0590-6_genomescope_linear.png
+│   └── R0590-6_genomescope_log.png
 │
 ├── 03_smudgeplot/                          # 步骤3：倍性分析
-│   ├── R0590-6.smudgeplot.kmerpairs.smu
-│   ├── R0590-6.smudgeplot.report.tsv
-│   ├── R0590-6.smudgeplot.linear.png
-│   └── R0590-6.smudgeplot.log10.png
+│   ├── R0590-6_smudgeplot_kmerpairs.smu
+│   ├── R0590-6_smudgeplot_report.tsv
+│   ├── R0590-6_smudgeplot_linear.png
+│   └── R0590-6_smudgeplot_log10.png
 │
 └── 99_logs/                                # 日志文件
     └── genomescope_pipeline.log
@@ -182,11 +182,11 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 | **目录结构**<br>Directory | `jellyfish/` | `01_jellyfish/` | 添加序号前缀<br>Add number prefix |
 | | | `genomescope_output/` | `02_genomescope/` | 简化+序号<br>Simplify + number |
 | | | `smudgeplot_output/` | `03_smudgeplot/` | 简化+序号<br>Simplify + number |
-| **文件命名**<br>File Names | `genome_analysis.jf` | `R0590-6.jellyfish.jf` | 样本名.工具名<br>Sample.tool |
-| | | `genome_analysis.histo` | `R0590-6.jellyfish.histo` | 样本名.工具名<br>Sample.tool |
-| | | `model.txt` | `R0590-6.genomescope.model.txt` | 明确文件类型<br>Specify file type |
-| | | `plot.png` | `R0590-6.genomescope.linear.png` | 明确比例尺<br>Specify scale |
-| | | `smudgeplot_smudgeplot.png` | `R0590-6.smudgeplot.linear.png` | 去除重复<br>Remove duplicate |
+| **文件命名**<br>File Names | `genome_analysis.jf` | `R0590-6_jellyfish.jf` | 样本名_工具名<br>Sample_tool |
+| | | `genome_analysis.histo` | `R0590-6_jellyfish.histo` | 样本名_工具名<br>Sample_tool |
+| | | `model.txt` | `R0590-6_genomescope_model.txt` | 明确文件类型<br>Specify file type |
+| | | `plot.png` | `R0590-6_genomescope_linear.png` | 明确比例尺<br>Specify scale |
+| | | `smudgeplot_smudgeplot.png` | `R0590-6_smudgeplot_linear.png` | 去除重复<br>Remove duplicate |
 | **临时文件**<br>Temp Files | `fastk/*.fq` (68GB) | `<output>/tmp/*.fq` (运行结束清理) | output_dir/tmp子目录<br>Use output/tmp |
 | **版本信息**<br>Version Info | ❌ 无<br>Missing | `software_versions.yml` | 添加版本文件<br>Add version file |
 | **日志管理**<br>Log Management | 散落各处<br>Scattered | `99_logs/pipeline.log` | 集中管理<br>Centralize |

@@ -34,13 +34,13 @@ biopytools gene-table -g genome.fa -f input.gff -o out.tsv
 
 - **基因组** `-g`：FASTA（序列 ID 须与 GFF 第 1 列一致）
 - **GFF3** `-f`：含 gene / mRNA / transcript / CDS 特征，支持 `.gz` 压缩
-- 输出路径 `-o` 可以是文件（`out.tsv`）或目录（自动命名 `{prefix}.gene_table.tsv`）
+- 输出路径 `-o` 可以是文件（`out.tsv`）或目录（自动命名 `{prefix}_gene_table.tsv`）
 
 ## 参数说明 | Parameters { #parameters }
 
 ### 输出与样本列 | Output & sample
 
-**通俗理解|In plain words:** `-o` 给文件就用它当表名、目录就自动生成 `{prefix}.gene_table.tsv`；`--prefix` 同时决定各 .fa 文件名和表里的 Sample 列，默认从 GFF 文件名推断。**一般不用动。**
+**通俗理解|In plain words:** `-o` 给文件就用它当表名、目录就自动生成 `{prefix}_gene_table.tsv`；`--prefix` 同时决定各 .fa 文件名和表里的 Sample 列，默认从 GFF 文件名推断。**一般不用动。**
 
 相关参数：`-o/--output`（必需）、`--prefix`。
 
@@ -84,11 +84,11 @@ gffread 出 CDS / 蛋白
 
 ```text
 输出目录/
-├── {prefix}.gene_table.tsv    # 合并表(主结果,每行一个转录本)
-├── {prefix}.gene.fa           # 基因全长 DNA
-├── {prefix}.region.fa         # 上游+基因+下游区间
-├── {prefix}.cds.fa            # CDS 序列(gffread)
-└── {prefix}.pep.fa            # 蛋白序列(gffread)
+├── {prefix}_gene_table.tsv    # 合并表(主结果,每行一个转录本)
+├── {prefix}_gene.fa           # 基因全长 DNA
+├── {prefix}_region.fa         # 上游+基因+下游区间
+├── {prefix}_cds.fa            # CDS 序列(gffread)
+└── {prefix}_pep.fa            # 蛋白序列(gffread)
 ```
 
 TSV 列（13 列）：`Sample`、`Gene_ID`、`Transcript_ID`、`Chromosome`、`Strand`、`Gene_Start`、`Gene_End`、`Transcript_Start`、`Transcript_End`、`Gene_DNA`、`Region`、`CDS`、`Protein`。缺失的序列填 `NA`。

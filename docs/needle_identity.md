@@ -47,7 +47,7 @@ ATGGCTAGCGAGCTAGCTA
 
 ### 必需与输出 | Required & output
 
-**通俗理解|In plain words:** -i 是输入 FASTA，-o 是输出目录（默认 ./output）。输出文件名为「输入文件名（去扩展名）.needle_identity.tsv」，日志在 99_logs/ 下。这两个必填，其余都有合理默认。
+**通俗理解|In plain words:** -i 是输入 FASTA，-o 是输出目录（默认 ./output）。输出文件名为「输入文件名（去扩展名）_needle_identity.tsv」，日志在 99_logs/ 下。这两个必填，其余都有合理默认。
 
 ### 比对罚分 | Gap penalties
 
@@ -72,7 +72,7 @@ ATGGCTAGCGAGCTAGCTA
 解析 needle 报告(Length/Identity/Similarity/Gaps/Score)
     |
     v
-写结果表 {stem}.needle_identity.tsv 与版本信息、日志
+写结果表 {stem}_needle_identity.tsv 与版本信息、日志
     |
     v
 清理 tmp/
@@ -84,9 +84,9 @@ ATGGCTAGCGAGCTAGCTA
 output_dir/
 |-- 00_pipeline_info/
 |   -- software_versions.yml               # EMBOSS 版本与参数存档
-|-- {输入文件名去扩展名}.needle_identity.tsv   # 两两一致性结果表（核心）
+|-- {输入文件名去扩展名}_needle_identity.tsv   # 两两一致性结果表（核心）
 -- 99_logs/
-    -- {输入文件名去扩展名}.needle_identity.log
+    -- {输入文件名去扩展名}_needle_identity.log
 ```
 
 结果表（TSV，制表符分隔）列：

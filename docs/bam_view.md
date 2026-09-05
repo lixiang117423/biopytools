@@ -72,7 +72,7 @@ BAM(+索引) + 参考FASTA + 区间
     ▼
 构建 alignoth 命令（按输出格式走不同管道）
     ├─ html → alignoth stdout 直接存为 {bam}.html
-    ├─ json → alignoth stdout 存为 {bam}.vl.json
+    ├─ json → alignoth stdout 存为 {bam}_vl.json
     ├─ svg  → alignoth | vl2vg > {bam}.svg
     └─ pdf  → alignoth | vl2vg | vg2pdf > {bam}.pdf
     │
@@ -85,7 +85,7 @@ BAM(+索引) + 参考FASTA + 区间
 ```text
 bam_view_output/
 ├── {bam前缀}.html            # html 格式（默认，交互式）
-├── {bam前缀}.vl.json         # json 格式（Vega-Lite）
+├── {bam前缀}_vl.json         # json 格式（Vega-Lite）
 ├── {bam前缀}.svg             # svg 格式（矢量）
 ├── {bam前缀}.pdf             # pdf 格式（论文）
 └── bam_view.log              # 运行日志

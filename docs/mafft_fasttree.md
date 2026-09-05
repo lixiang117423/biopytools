@@ -71,12 +71,12 @@ MSTNPKPQRKTKRS
    |
    v
 步骤3: 清理序列 + 处理 ID（特殊字符换下划线、重复 ID 加后缀）
-   |     -> {base}.cleaned.fa 与 {base}.id_mapping.txt
+   |     -> {base}_cleaned.fa 与 {base}_id_mapping.txt
    v
-步骤4: MAFFT 多序列比对 -> {base}.mafft.fa
+步骤4: MAFFT 多序列比对 -> {base}_mafft.fa
    |
    v
-步骤5: FastTree 建树 -> {base}.fasttree.nwk
+步骤5: FastTree 建树 -> {base}_fasttree.nwk
 ```
 
 ## 输出 | Output { #output }
@@ -85,18 +85,18 @@ MSTNPKPQRKTKRS
 
 ```text
 output_dir/
-|-- {base}.cleaned.fa        # 清理后的序列（ID 已规范化）
-|-- {base}.mafft.fa          # MAFFT 比对结果（FASTA）
-|-- {base}.fasttree.nwk      # FastTree 系统发育树（Newick 格式）
-|-- {base}.id_mapping.txt    # 新旧 ID 对照表（含 Modified/Unchanged 状态）
+|-- {base}_cleaned.fa        # 清理后的序列（ID 已规范化）
+|-- {base}_mafft.fa          # MAFFT 比对结果（FASTA）
+|-- {base}_fasttree.nwk      # FastTree 系统发育树（Newick 格式）
+|-- {base}_id_mapping.txt    # 新旧 ID 对照表（含 Modified/Unchanged 状态）
 +-- mafft_fasttree.log       # 运行日志
 ```
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-- **`{base}.fasttree.nwk`**：最终的系统发育树（Newick 文本）。用 iTOL、FigTree、ggtree 等打开即可看拓扑与枝长。**注意**：FastTree 默认不输出 bootstrap 支持值，只有拓扑和枝长；需要支持值请改用 `biopytools iqtree`。
-- **`{base}.mafft.fa`**：比对结果，可留作下游分析（如再修剪、再建树）。
-- **`{base}.cleaned.fa`** 与 **`{base}.id_mapping.txt`**：若建树后发现有序列名对不上原始样本，查 id_mapping.txt 就能还原「新 ID 对应原来的哪个 ID」。
+- **`{base}_fasttree.nwk`**：最终的系统发育树（Newick 文本）。用 iTOL、FigTree、ggtree 等打开即可看拓扑与枝长。**注意**：FastTree 默认不输出 bootstrap 支持值，只有拓扑和枝长；需要支持值请改用 `biopytools iqtree`。
+- **`{base}_mafft.fa`**：比对结果，可留作下游分析（如再修剪、再建树）。
+- **`{base}_cleaned.fa`** 与 **`{base}_id_mapping.txt`**：若建树后发现有序列名对不上原始样本，查 id_mapping.txt 就能还原「新 ID 对应原来的哪个 ID」。
 - **好坏判据**：先看树上亲缘近的物种是否聚在一起（符合生物学预期）；若拓扑异常，多半是序列 ID 清理、或输入里混了反向/污染序列。
 
 ## 参数选择建议 | Parameter Guidance { #guidance }
@@ -150,10 +150,10 @@ output_dir/
 ## 常见问题 | FAQ { #faq }
 
 **Q1：我的序列名带冒号/空格，会不会出错？**
-程序会把 ID 里的 `:`、`|`、空格、`;`、`,`、括号等换成下划线，重复 ID 自动加 `_1`、`_2` 后缀。对照关系都写在 `{base}.id_mapping.txt` 里，不会丢信息。但为了下游省心，最好输入前就把序列名规范好。
+程序会把 ID 里的 `:`、`|`、空格、`;`、`,`、括号等换成下划线，重复 ID 自动加 `_1`、`_2` 后缀。对照关系都写在 `{base}_id_mapping.txt` 里，不会丢信息。但为了下游省心，最好输入前就把序列名规范好。
 
 **Q2：树上的名字和我的样本名对不上？**
-查 `{base}.id_mapping.txt`：里面一行一个 `新ID 原始ID 状态`，Modified 的就是被改动过的，用原始ID 去对应你的样本。
+查 `{base}_id_mapping.txt`：里面一行一个 `新ID 原始ID 状态`，Modified 的就是被改动过的，用原始ID 去对应你的样本。
 
 **Q3：能输出带 bootstrap 的树吗？**
 不能，FastTree 默认只给拓扑和枝长。需要支持值请用 `biopytools iqtree`。

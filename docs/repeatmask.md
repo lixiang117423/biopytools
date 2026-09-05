@@ -101,13 +101,13 @@ TTGCAAGCTAGCATCGATC...
     ├── <基因组>.out.gff              # 注释 GFF
     ├── <基因组>.tbl                  # 统计表(重复分类占比)
     ├── <基因组>.masked               # 屏蔽后基因组(原始名)
-    ├── <基因组>.masked.fa            # 屏蔽后基因组(标准名, 核心)
+    ├── <基因组>_masked.fa            # 屏蔽后基因组(标准名, 核心)
     └── repeatmasker_run.log          # RepeatMasker 日志
 ```
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-### 1. 屏蔽后基因组（`<基因组>.masked.fa`）
+### 1. 屏蔽后基因组（`<基因组>_masked.fa`）
 
 **通俗理解|In plain words:** 最核心产物——重复区已按所选模式标记的基因组，直接喂给基因预测软件（BRAKER/AUGUSTUS 等）。
 

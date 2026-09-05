@@ -89,13 +89,13 @@ hicanu_output/
     ├── 02_fasta/                      # 整理后的结果
     │   ├── {prefix}.contigs.fasta     # 复制的 contigs
     │   ├── {prefix}.unitigs.fasta     # 复制的 unitigs
-    │   └── {prefix}.contig_reads.tsv  # contig→reads 映射
+    │   └── {prefix}_contig_reads.tsv  # contig→reads 映射
     ├── 03_logs/                       # 模块日志(hicanu_时间戳.log)
     └── 04_statistics/                 # 统计目录
 ```
 
 - `01_raw_output/{prefix}.contigs.fasta`：最终组装结果，最常用
-- `02_fasta/{prefix}.contig_reads.tsv`：两列（`contig_id`、`read_name`），记录每条 contig 由哪些 reads 组成，供下游追溯
+- `02_fasta/{prefix}_contig_reads.tsv`：两列（`contig_id`、`read_name`），记录每条 contig 由哪些 reads 组成，供下游追溯
 
 ## 结果解读 | Interpreting Results
 

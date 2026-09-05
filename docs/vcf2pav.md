@@ -13,7 +13,7 @@
 ## 快速开始 | Quick Start { #quick-start }
 
 ```bash
-biopytools vcf2pav -i pan_sv.survivor.vcf -o output_dir
+biopytools vcf2pav -i pan_sv_survivor.vcf -o output_dir
 ```
 
 最小输入：一个 VCF 文件（如 SURVIVOR 合并后的 SV VCF）。

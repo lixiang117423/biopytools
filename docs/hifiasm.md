@@ -83,8 +83,8 @@ hifiasm_output/
 │   ├── {prefix}.log                   # hifiasm 日志
 │   └── (三倍体另有 .bp.hap1/hap2.p_ctg.gfa)
 ├── final_results/                     # 整理后的最终结果
-│   ├── {prefix}.primary.fasta         # 主组装 FASTA(最常用)
-│   ├── {prefix}.alternate.fasta       # 备选组装
+│   ├── {prefix}_primary.fasta         # 主组装 FASTA(最常用)
+│   ├── {prefix}_alternate.fasta       # 备选组装
 │   ├── assemblies/                    # 标准化命名的组装文件
 │   ├── quality_assessment/            # busco/ quast/ statistics/ 汇总
 │   ├── file_manifest.txt              # 文件清单
@@ -101,13 +101,13 @@ hifiasm_output/
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 先看 `final_results/{prefix}.primary.fasta` 的 N50 和 BUSCO 完整度——N50 大 + BUSCO 完整度高，就是好组装。
+**通俗理解|In plain words:** 先看 `final_results/{prefix}_primary.fasta` 的 N50 和 BUSCO 完整度——N50 大 + BUSCO 完整度高，就是好组装。
 
 - **N50 / contig 数**（`statistics/assembly_statistics_report.txt`）：N50 越大、contig 越少越完整
 - **BUSCO 完整度**（`final_results/quality_assessment/busco/` 的 CSV/TXT）：`C:`（完整）比例 >90% 算好，<80% 提示组装或谱系选择有问题
 - **N 含量**：代表组装里的空洞，越低越好（接近 0 最佳）
 - **GC 含量**：应与该物种预期一致，异常偏离提示污染
-- `{prefix}.primary.fasta` 是「主组装」，下游分析优先用它；`alternate.fasta` 是备选/次要单倍型
+- `{prefix}_primary.fasta` 是「主组装」，下游分析优先用它；`alternate.fasta` 是备选/次要单倍型
 
 ## 参数选择建议 | Parameter Guidance
 

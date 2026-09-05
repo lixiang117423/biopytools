@@ -87,9 +87,9 @@ VCF 文件
 ```text
 tree_output/
 ├── 01_vcf2fasta/
-│   └── <base>.snps.fa            # SNP 的 IUPAC FASTA 比对
+│   └── <base>_snps.fa            # SNP 的 IUPAC FASTA 比对
 ├── 02_tree/
-│   ├── <base>.<method>.nwk       # 最终进化树(Newick)
+│   ├── <base>_<method>.nwk       # 最终进化树(Newick)
 │   └── <base>.treefile 等        # IQ-TREE 中间文件(仅 iqtree 后端)
 ├── 00_pipeline_info/
 │   └── software_versions.yml     # 软件版本与参数记录
@@ -101,11 +101,11 @@ tree_output/
 
 ## 结果解读 | Interpreting Results
 
-### 1. 进化树(<base>.<method>.nwk)
+### 1. 进化树(<base>_<method>.nwk)
 
 **通俗理解|In plain words:** 最终结果，Newick 格式，用 FigTree、iTOL 打开即见树形图。IQ-TREE 后端的分叉上带 UFBoot 支持值(越高越可信)。
 
-### 2. SNP FASTA 比对(<base>.snps.fa)
+### 2. SNP FASTA 比对(<base>_snps.fa)
 
 **通俗理解|In plain words:** 中间产物，VCF 转成的 IUPAC 比对。杂合位点用模糊码(如 R、Y)表示。可以单独拿去给其它建树软件用。
 
@@ -176,7 +176,7 @@ tree_output/
 
 ### 1. 会断点续传吗？
 
-会。**步骤1(VCF->FASTA)和步骤2(建树)各自独立续传**：对应输出文件已存在且非空时自动跳过。想强制重跑，删除 `01_vcf2fasta/<base>.snps.fa` 或 `02_tree/<base>.<method>.nwk` 即可。
+会。**步骤1(VCF->FASTA)和步骤2(建树)各自独立续传**：对应输出文件已存在且非空时自动跳过。想强制重跑，删除 `01_vcf2fasta/<base>_snps.fa` 或 `02_tree/<base>_<method>.nwk` 即可。
 
 ### 2. 为什么用 SNP 数据建树要开 ASC 校正？
 

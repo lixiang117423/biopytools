@@ -76,25 +76,25 @@ chr07_1-10000000.joint.vcf.gz         -> 归到染色体 chr07
 步骤2: 从文件名提取染色体编号，按染色体分组
     │
     ▼
-步骤3: 逐染色体用 bcftools concat 合并 -> {chr}.joint.merged.vcf.gz
+步骤3: 逐染色体用 bcftools concat 合并 -> {chr}_joint_merged.vcf.gz
     │
     ▼
-步骤4: 为每个结果创建索引 -> {chr}.joint.merged.vcf.gz.csi
+步骤4: 为每个结果创建索引 -> {chr}_joint_merged.vcf.gz.csi
 ```
 
 ## 输出 | Output { #output }
 
 ```text
 output/
-├── Chr19.joint.merged.vcf.gz        # 染色体 Chr19 合并结果
-├── Chr19.joint.merged.vcf.gz.csi    # 对应索引
-├── chr07.joint.merged.vcf.gz        # 染色体 chr07 合并结果
-├── chr07.joint.merged.vcf.gz.csi
+├── Chr19_joint_merged.vcf.gz        # 染色体 Chr19 合并结果
+├── Chr19_joint_merged.vcf.gz.csi    # 对应索引
+├── chr07_joint_merged.vcf.gz        # 染色体 chr07 合并结果
+├── chr07_joint_merged.vcf.gz.csi
 └── ...                              # 每条识别出的染色体各一个 .gz + .csi
 ```
 
-- 合并过程中会在输出目录生成临时的 `{chr}.joint.merged.vcf_filelist.txt`（文件清单），合并成功后自动删除。
-- 文件名里的 `joint.merged` 是固定后缀，染色体号来自输入文件名。
+- 合并过程中会在输出目录生成临时的 `{chr}_joint_merged.vcf_filelist.txt`（文件清单），合并成功后自动删除。
+- 文件名里的 `joint_merged` 是固定后缀，染色体号来自输入文件名。
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 

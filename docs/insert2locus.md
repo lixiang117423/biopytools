@@ -39,7 +39,7 @@ biopytools insert2locus -i fq_dir/ -f insert.fasta -o output/
 ### 测序数据（-i, --input）
 
 fastq 目录或单个 R1 文件。目录模式下自动识别配对样本，支持的配对后缀（按优先级）：
-`_1.clean.fq.gz` / `_2.clean.fq.gz`，其次 `_1.fq.gz` / `_2.fq.gz`。
+`_1_clean.fq.gz` / `_2_clean.fq.gz`，其次 `_1.fq.gz` / `_2.fq.gz`。
 
 ### 插入序列（-f, --insert-fasta）
 
@@ -109,35 +109,35 @@ output_dir/
 ├── 00_pipeline_info/
 │   └── software_versions.yml            # 工具版本与运行参数
 ├── 01_mapping/
-│   ├── {sample}.vs_insert.sorted.bam    # 比对到插入序列的 BAM
-│   ├── {sample}.vs_insert.flagstat.txt  # 比对统计
-│   └── {sample}.insert_coverage.tsv     # 逐 record / 分区覆盖统计
+│   ├── {sample}_vs_insert_sorted.bam    # 比对到插入序列的 BAM
+│   ├── {sample}_vs_insert_flagstat.txt  # 比对统计
+│   └── {sample}_insert_coverage.tsv     # 逐 record / 分区覆盖统计
 ├── 02_junction_reads/
-│   ├── {sample}.softclip.fastq          # 悬空半截 reads
-│   ├── {sample}.mate_unmapped.bam       # 另一端未比对的 reads
-│   └── {sample}.flank_candidates_R{1,2}.fastq  # 候选侧翼 reads
+│   ├── {sample}_softclip.fastq          # 悬空半截 reads
+│   ├── {sample}_mate_unmapped.bam       # 另一端未比对的 reads
+│   └── {sample}_flank_candidates_R{1,2}.fastq  # 候选侧翼 reads
 ├── 03_walking/
 │   └── rounds/{sample}/                 # 步移中间文件（recruited/bait 等）
 ├── 04_locus/
-│   ├── {sample}.contigs.fasta           # SPAdes 组装出的 contigs
-│   ├── {sample}.junction_contigs.fasta  # 跨界 contig 序列
-│   ├── {sample}.junction_report.tsv     # 边界报告（核心）
-│   └── {sample}.complete_locus.fasta    # 完整 locus 序列（核心）
+│   ├── {sample}_contigs.fasta           # SPAdes 组装出的 contigs
+│   ├── {sample}_junction_contigs.fasta  # 跨界 contig 序列
+│   ├── {sample}_junction_report.tsv     # 边界报告（核心）
+│   └── {sample}_complete_locus.fasta    # 完整 locus 序列（核心）
 ├── 05_verify/
-│   ├── {sample}.verification_summary.tsv  # 分级结果（核心）
-│   ├── {sample}.coverage.tsv            # LB/insert/RB 分段覆盖
-│   └── {sample}.vs_locus.sorted.bam     # 比回 locus 的 BAM
+│   ├── {sample}_verification_summary.tsv  # 分级结果（核心）
+│   ├── {sample}_coverage.tsv            # LB/insert/RB 分段覆盖
+│   └── {sample}_vs_locus_sorted.bam     # 比回 locus 的 BAM
 ├── 99_logs/
 │   └── insert2locus_YYYYMMDD_HHMMSS.log
-└── insert2locus.report.html             # 整合 HTML 报告（核心）
+└── insert2locus_report.html             # 整合 HTML 报告（核心）
 ```
 
 ### 关键文件说明 | Key files
 
-- `{sample}.complete_locus.fasta`：重构出的完整插入位点，FASTA 头里带 `LB=xxxbp insert=xxxbp RB=xxxbp` 三段长度，是最核心的结果
-- `{sample}.junction_report.tsv`：边界报告，列出每个跨界 contig 的 border（L/R/LR/unmapped）、在插入序列上的位置、锚定长度与侧翼长度
-- `{sample}.verification_summary.tsv`：分级（grade）、左右跨界 reads 数、LB/insert/RB 三段平均深度、左右侧翼是否为植物来源
-- `insert2locus.report.html`：所有样本汇总的可视化报告，含分级徽章、locus 结构示意图、序列卡片
+- `{sample}_complete_locus.fasta`：重构出的完整插入位点，FASTA 头里带 `LB=xxxbp insert=xxxbp RB=xxxbp` 三段长度，是最核心的结果
+- `{sample}_junction_report.tsv`：边界报告，列出每个跨界 contig 的 border（L/R/LR/unmapped）、在插入序列上的位置、锚定长度与侧翼长度
+- `{sample}_verification_summary.tsv`：分级（grade）、左右跨界 reads 数、LB/insert/RB 三段平均深度、左右侧翼是否为植物来源
+- `insert2locus_report.html`：所有样本汇总的可视化报告，含分级徽章、locus 结构示意图、序列卡片
 
 ## 结果解读 | Interpreting Results
 

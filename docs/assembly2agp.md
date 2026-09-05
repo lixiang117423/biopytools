@@ -67,7 +67,7 @@ biopytools assembly2agp -a corrected_asm.FINAL.assembly -p output_prefix -n 12
 ```text
 输出目录/
 ├── {prefix}.agp       # 标准 9 列 AGP 文件
-└── {prefix}.chr.list  # 染色体清单：scaffold名 <TAB> 长度（按长度降序，取前 N 条）
+└── {prefix}_chr.list  # 染色体清单：scaffold名 <TAB> 长度（按长度降序，取前 N 条）
 ```
 
 - AGP 文件 9 列：Chromosome、Start、End、Order、Tag（W=contig / U=gap）、Contig_ID、Contig_start、Contig_end、Orientation（+/-）。每条 contig（W）后跟一个缺口（U）行，缺口长度即 `-g` 的值

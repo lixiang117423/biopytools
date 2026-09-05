@@ -81,7 +81,7 @@ ERR204944
   |
   v
 对每个编号循环 | for each accession:
-  1. 请求 ENA filereport API 下载元数据 -> <accession>.meta.<format>
+  1. 请求 ENA filereport API 下载元数据 -> <accession>_meta.<format>
      (已有含数据行的元数据则跳过, 断点续传)
   |
   v
@@ -93,7 +93,7 @@ ERR204944
      run  -> 当场逐条下载
   |
   v
-  4. 生成该编号的汇总报告 -> <accession>.download_summary.txt
+  4. 生成该编号的汇总报告 -> <accession>_download_summary.txt
   (某个编号失败只跳过它, 不影响其余编号继续)
 批量(ID文件)时最后生成总览 -> batch_overview.txt
 ```
@@ -102,23 +102,23 @@ ERR204944
 
 ```text
 输出目录/
-├── PRJNA661210.meta.tsv                          # 元数据表(格式由 -f 决定), 每个编号一份
+├── PRJNA661210_meta.tsv                          # 元数据表(格式由 -f 决定), 每个编号一份
 ├── download_PRJNA661210_fastq_by_wget.sh         # 下载脚本(ftp 协议), 每个编号一份
 ├── download_PRJNA661210_fastq_by_aspera.sh       # 下载脚本(aspera 协议,二选一)
-├── PRJNA661210.download_summary.txt              # 该编号的汇总报告
+├── PRJNA661210_download_summary.txt              # 该编号的汇总报告
 ├── batch_overview.txt                            # 批量(ID文件)时的总览: 各编号状态
 └── ena_download.log                              # 运行日志
 ```
 
-- `*.meta.tsv / .csv / .xlsx`：从 ENA API 拉回的元数据表，含 run、样本、物种、fastq_ftp 下载链接等列；文件名以编号开头，批量时互不覆盖
+- `*_meta.tsv / _meta.csv / _meta.xlsx`：从 ENA API 拉回的元数据表，含 run、样本、物种、fastq_ftp 下载链接等列；文件名以编号开头，批量时互不覆盖
 - `download_*_fastq_by_wget.sh`：save 模式生成的下载脚本，内含逐条 `wget -c` 命令（`-c` 支持断点续传），执行 `bash download_xxx.sh` 即可开始下载
 - `download_*_fastq_by_aspera.sh`：aspera 协议对应的脚本（含 ascp 命令）
-- `<accession>.download_summary.txt`：每个编号一份，记录协议、方式、发现的 FASTQ 文件数、下一步操作提示
+- `<accession>_download_summary.txt`：每个编号一份，记录协议、方式、发现的 FASTQ 文件数、下一步操作提示
 - `batch_overview.txt`：仅 ID 文件批量时生成，逐行列出每个编号「成功|ok / 无元数据|no metadata」及成功计数
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 先看每个编号的 `<accession>.download_summary.txt` 里「发现的 FASTQ 文件数量」，确认抓到的东西符合预期；再跑下载脚本，下载完核对文件数是否与元数据行数一致。批量时最后扫一眼 `batch_overview.txt`，哪行不是「成功|ok」就单独补跑哪个编号。
+**通俗理解|In plain words:** 先看每个编号的 `<accession>_download_summary.txt` 里「发现的 FASTQ 文件数量」，确认抓到的东西符合预期；再跑下载脚本，下载完核对文件数是否与元数据行数一致。批量时最后扫一眼 `batch_overview.txt`，哪行不是「成功|ok」就单独补跑哪个编号。
 
 - **FASTQ 文件数**：汇总报告中的「发现的FASTQ文件数量」。为 0 通常说明该 accession 没有公开的 FASTQ（可能是项目元数据问题或选错了编号）
 - **下载脚本**：save 模式下报告里会提示「执行以下命令开始下载」。脚本带 `set -e`，某条下载失败会中止，可单独重跑

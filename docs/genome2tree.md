@@ -58,17 +58,17 @@ results/
 ├── 01_input/input.tsv                       # 最终生效的样本→文件清单
 │   ├── samples_map.tsv                      # (有 --samples-map 时)个体→物种映射
 │   └── uncompressed/                        # .gz 输入的解压副本
-├── 02_waster/waster.species_tree.nw         # 物种树(Newick,含支持度)|species tree (key output)
-│   ├── waster.species_tree.nw.snps.fa       # 内部 SNP 矩阵(调试用)
+├── 02_waster/waster_species_tree.nw        # 物种树(Newick,含支持度)|species tree (key output)
+│   ├── waster_species_tree.nw.snps.fa      # 内部 SNP 矩阵(调试用)
 │   └── waster.log
 ├── 03_branch_length/                        # (--branch-length 时)
-│   └── waster_branchlength.species_tree.nw  # 带枝长的树|tree with branch lengths
+│   └── waster_branchlength_species_tree.nw # 带枝长的树|tree with branch lengths
 └── 99_logs/genome2tree.log                  # 模块全量日志
 ```
 
 ## 结果解读 | Interpreting Results
 
-- `waster.species_tree.nw`:Newick 格式,枝上方括号数字即 local bootstrap
+- `waster_species_tree.nw`:Newick 格式,枝上方括号数字即 local bootstrap
   - >95:分支很可靠;70-95:可用但需谨慎;<70:该分支关系存疑
 - 好坏判据:支持度普遍高=数据量足够;低支持度多半是样本太少(<4 警告)或物种间太远/太近
 - `03_branch_length` 的枝长为 coalescent/substitution 单位,不是年代;仅用于相对分化深浅

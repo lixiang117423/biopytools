@@ -44,12 +44,12 @@ biopytools dual-rnaseq --species1-name host --species1-genome host.fa --species1
 
 ### 测序数据（二选一）
 
-1. **FASTQ 目录**：目录内放成对的双端 FASTQ 文件，按 `-p/--pattern` 命名（默认 `*_1.clean.fq.gz`，`*` 是样本名，R2 会自动替换为 `_2.clean.fq.gz`）
+1. **FASTQ 目录**：目录内放成对的双端 FASTQ 文件，按 `-p/--pattern` 命名（默认 `*_1_clean.fq.gz`，`*` 是样本名，R2 会自动替换为 `_2_clean.fq.gz`）
 2. **样本信息文件**：制表符分隔三列 `样本名\tR1路径\tR2路径`，一行一个样本
 
 ```text
-sampleA    /data/sampleA_1.clean.fq.gz    /data/sampleA_2.clean.fq.gz
-sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
+sampleA    /data/sampleA_1_clean.fq.gz    /data/sampleA_2_clean.fq.gz
+sampleB    /data/sampleB_1_clean.fq.gz    /data/sampleB_2_clean.fq.gz
 ```
 
 ## 参数说明 | Parameters
@@ -63,7 +63,7 @@ sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
 
 ### 输入与输出 | Input & output
 
-**通俗理解|In plain words:** `-i` 告诉程序去哪找测序数据（目录或样本清单文件），`-o` 是结果放哪。`-p` 是「文件名长什么样」的模板——你的文件命名跟默认不一致时才需要改。**默认命名 `*_1.clean.fq.gz` 是标准质控产物命名，一般不用动。**
+**通俗理解|In plain words:** `-i` 告诉程序去哪找测序数据（目录或样本清单文件），`-o` 是结果放哪。`-p` 是「文件名长什么样」的模板——你的文件命名跟默认不一致时才需要改。**默认命名 `*_1_clean.fq.gz` 是标准质控产物命名，一般不用动。**
 
 - `-i/--input`：输入 FASTQ 目录或样本信息文件
 - `-o/--output-dir`：输出目录（默认 `./dual_rnaseq_output`）
@@ -126,29 +126,29 @@ sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
 ```text
 output_dir/
 +-- 01_index/                              # 两个物种的 HISAT2 索引
-|   +-- {species1}.hisat2.index.*.ht2      # 物种1索引(多份分片)
-|   +-- {species1}.normalized.fa           # 大写标准化后的基因组
+|   +-- {species1}_hisat2_index.*.ht2      # 物种1索引(多份分片)
+|   +-- {species1}_normalized.fa           # 大写标准化后的基因组
 |   +-- {species1}.ss / {species1}.exon    # 剪接位点/外显子
 |   +-- {species2}...(同上)
 +-- 02_classification/                     # 读段分类结果(按样本分目录)
 |   +-- {sample}/
-|   |   +-- {sample}.{species1}.bam        # 归物种1的读段
-|   |   +-- {sample}.{species2}.bam        # 归物种2的读段
-|   |   +-- {sample}.ambiguous.bam         # 模棱两可
-|   |   +-- {sample}.unassigned.bam        # 未归属
+|   |   +-- {sample}_{species1}.bam        # 归物种1的读段
+|   |   +-- {sample}_{species2}.bam        # 归物种2的读段
+|   |   +-- {sample}_ambiguous.bam         # 模棱两可
+|   |   +-- {sample}_unassigned.bam        # 未归属
 |   +-- .temp/                             # 中间原始比对(可删)
 +-- 03_alignment_statistics/
 |   +-- mapping_statistics.tsv             # 比对统计(中英列表头)
 |   +-- mapping_statistics_en.tsv          # 纯英文版(供下游脚本)
 +-- 04_quantification/                     # 定量结果
 |   +-- {species1}/{sample}.gtf            # StringTie 定量 GTF
-|   +-- {species1}/{sample}.fpkm.txt       # 该样本 FPKM/TPM 表
+|   +-- {species1}/{sample}_fpkm.txt       # 该样本 FPKM/TPM 表
 |   +-- {species2}/...(同上)
 +-- 05_expression_matrix/                  # 表达矩阵
 |   +-- {species1}_matrix.txt              # 物种1合并表达表
 |   +-- {species2}_matrix.txt              # 物种2合并表达表
 +-- 06_extracted_fastq/                    # (默认开启)反提取的 FASTQ
-|   +-- {sample}.{species1}_1.clean.fq.gz  # 等
+|   +-- {sample}_{species1}_1_clean.fq.gz  # 等
 +-- dual_rnaseq_summary.txt                # 总结报告
 +-- dual_rnaseq_processing_*.log           # 运行日志
 ```
@@ -161,7 +161,7 @@ output_dir/
 
 关键列：总读段数、仅物种1、仅物种2、同时比对（both）、未比对（neither），以及各自的百分比。**「同时比对」比例高，说明两个基因组有较多相似序列（如保守基因），属正常**；「未比对」比例高则提示测序质量问题或还混有其他物种。
 
-### 2. 表达量文件（`04_quantification/{species}/{sample}.fpkm.txt`）
+### 2. 表达量文件（`04_quantification/{species}/{sample}_fpkm.txt`）
 
 **通俗理解|In plain words:** 每个基因/转录本一行，记录它在这个样本里的表达量。
 
@@ -186,7 +186,7 @@ gene1      gene1.1          12.3   3.45    5.67   sampleA
 - **`--min-mapq`**：默认 20。若宿主与病原体亲缘较近（基因组相似度高）、想让分类更保守，可调到 30 甚至 40；反之想保留更多读段可降到 10~15
 - **`--no-unique-only`**：仅当你想关掉 MAPQ 门槛、观察「全量读段」的归属分布时用；正常分析不要加
 - **`--no-extract-fastq`**：不需要下游对分类读段二次组装/比对时加，省磁盘和时间
-- **`-p/--pattern`**：你的文件不是 `*_1.clean.fq.gz` 命名时才改，`*` 只允许一个，且必须能识别 R1/R2 标识
+- **`-p/--pattern`**：你的文件不是 `*_1_clean.fq.gz` 命名时才改，`*` 只允许一个，且必须能识别 R1/R2 标识
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -206,7 +206,7 @@ gene1      gene1.1          12.3   3.45    5.67   sampleA
 | `--species2-gtf` | 必填 |  | 物种2GTF注释文件｜Species 2 GTF annotation file |
 | `--input, -i` | 必填 |  | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
 | `--output-dir, -o` | `./dual_rnaseq_output` | Path | 输出目录｜Output directory |
-| `--pattern, -p` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern |
+| `--pattern, -p` | `*_1_clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--min-mapq` | `20` | int | 最小mapping quality值｜Minimum mapping quality value |
 | `--no-unique-only` | — |  | 不禁用非唯一比对｜Do not disable non-unique mappings |
@@ -224,7 +224,7 @@ gene1      gene1.1          12.3   3.45    5.67   sampleA
 | `--species2-gtf` | 必填 |  | 物种2GTF注释文件｜Species 2 GTF annotation file |
 | `-i, --input` | 必填 |  | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
 | `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
-| `-p, --pattern` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern (e.g., "*.R1.fastq.gz") |
+| `-p, --pattern` | `*_1_clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern (e.g., "*.R1.fastq.gz") |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--min-mapq` | `20` | int | 最小mapping quality值｜Minimum mapping quality value |
 | `--no-unique-only` | — | store_false | 不禁用非唯一比对｜Do not disable non-unique mappings |
@@ -246,7 +246,7 @@ gene1      gene1.1          12.3   3.45    5.67   sampleA
 断点续传按「输出文件是否存在」判断。改过滤参数（如 `--min-mapq`）重跑前，先删除旧输出（尤其是 `02_classification/`、`04_quantification/`），否则会复用旧结果。
 
 **Q2：两个物种的 name 可以随便起吗？**
-name 会直接作为输出文件名前缀（如 `{species}_matrix.txt`、`{sample}.{species}.bam`）。建议用 host/pathogen 这类简单英文，避免空格、特殊字符，否则文件名难看且易出问题。
+name 会直接作为输出文件名前缀（如 `{species}_matrix.txt`、`{sample}_{species}.bam`）。建议用 host/pathogen 这类简单英文，避免空格、特殊字符，否则文件名难看且易出问题。
 
 **Q3：为什么会有「同时比对到两个物种」的读段？**
 两个物种存在同源基因（序列相似），读段在两边都能高质量比对。程序会把两边 MAPQ 相同、都达到阈值的归为 ambiguous。这类读段比例不高属正常。

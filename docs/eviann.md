@@ -45,7 +45,7 @@ biopytools eviann -g genome.fa --rnaseq-data ./rna_data/ -p proteins.fa -t 12 -o
 接受单个文件、多个文件或目录（逗号分隔可混合传多个目录/文件）。模块自动完成：
 
 1. **类型识别**：文件名含 `isoseq/ccs/hifi/pacbio/nanopore/ont/dorado` 等关键词或为 FASTA → 三代；BAM 按关键词区分二代/三代
-2. **命名惯例识别**：本实验室默认命名——三代 `*.clean.fq.gz`、二代 `*_1.clean.fq.gz` / `*_2.clean.fq.gz`；无关键词时按此规则分类
+2. **命名惯例识别**：本实验室默认命名——三代 `*_clean.fq.gz`、二代 `*_1_clean.fq.gz` / `*_2_clean.fq.gz`；无关键词时按此规则分类
 3. **双端自动配对**：支持 `_R1/_R2`、`_1/_2`、`.R1.`、`read1/read2`、`_R1_001` 等常见后缀
 4. **多样本合并**：同一样本多次测序的文件（如多个三代 cell）自动二进制拼接为一个文件（gzip 可直接拼接）
 5. **mix 自动配对**：二代样本名与三代样本名做前缀匹配，配上的组成混合行（效果最好），配不上的各自独立
@@ -57,9 +57,9 @@ TSV 格式，每行一个样本，`#` 开头为注释行，列间用 Tab 分隔�
 
 ```text
 # sample_id	r1	r2	long_reads	tag(可省)
-S1	/x/S1_1.clean.fq.gz	/x/S1_2.clean.fq.gz	/x/S1.clean.fq.gz
-S2	/x/S2_1.clean.fq.gz	/x/S2_2.clean.fq.gz
-S3		/x/S3.clean.fq.gz
+S1	/x/S1_1_clean.fq.gz	/x/S1_2_clean.fq.gz	/x/S1_clean.fq.gz
+S2	/x/S2_1_clean.fq.gz	/x/S2_2_clean.fq.gz
+S3		/x/S3_clean.fq.gz
 ```
 
 - 列可留空（纯三代样本 r1/r2 留空）；每格支持逗号分隔多个文件（自动合并）
@@ -144,7 +144,7 @@ output_dir/
 
 ## 参数选择建议 | Parameter Guidance { #parameter-guidance }
 
-- 文件名规范（`*.clean.fq.gz` 三代 / `*_1.clean.fq.gz`+`*_2.clean.fq.gz` 二代）：直接 `--rnaseq-data 目录/` 全自动
+- 文件名规范（`*_clean.fq.gz` 三代 / `*_1_clean.fq.gz`+`*_2_clean.fq.gz` 二代）：直接 `--rnaseq-data 目录/` 全自动
 - 文件名不规范或 mix 配对结果不对：看 `01_inputs/sample_sheet.tsv`，改对后用 `--sample-sheet` 重跑
 - 只有二代 RNA-seq：`--rnaseq-data` 指向目录即可，自动配对成双端行；只有三代全长：同样全自动识别
 - 有近缘物种注释：用 `gffread` 提取转录本+蛋白，`-e` + `-p` 直接喂（lift-over 模式），无需 RNA-seq
@@ -219,11 +219,11 @@ output_dir/
 **Q1：三种输入模式能给多个吗？**
 不能，`--rnaseq-data` / `--sample-sheet` / `-r` 互斥，程序会报错。全自动结果不满意时，改 `01_inputs/sample_sheet.tsv` 换 `--sample-sheet` 模式重跑。
 
-**Q2：我的三代文件叫 `S1.clean.fq.gz`，没带 isoseq 关键词，能识别吗？**
-能。无关键词时按本实验室命名惯例识别：`*.clean.fq.gz`（无 `_1`/`_2` 配对痕迹）→ 三代；`*_1.clean.fq.gz`/`*_2.clean.fq.gz` → 二代双端。
+**Q2：我的三代文件叫 `S1_clean.fq.gz`，没带 isoseq 关键词，能识别吗？**
+能。无关键词时按本实验室命名惯例识别：`*_clean.fq.gz`（无 `_1`/`_2` 配对痕迹）→ 三代；`*_1_clean.fq.gz`/`*_2_clean.fq.gz` → 二代双端。
 
 **Q3：同一样本多个三代文件会怎样？**
-样本名一致时（如 `S3_iso1.clean.fq.gz`/`S3_iso2.clean.fq.gz`，剥掉关键词后都叫 S3）自动二进制拼接成一个文件（gzip 流可直接拼接，安全），合并文件在 `work/merged/`。注意：如果批次后缀会残留在样本名里（如 `S3_iso_a` → 样本名 `S3_a`、`S3_iso_b` → `S3_b`），自动聚类会拆成两个实验——这不会报错但会拆散证据，此时在 `sample_sheet.tsv` 里把两个文件写进同一行逗号分隔，用 `--sample-sheet` 重跑。
+样本名一致时（如 `S3_iso1_clean.fq.gz`/`S3_iso2_clean.fq.gz`，剥掉关键词后都叫 S3）自动二进制拼接成一个文件（gzip 流可直接拼接，安全），合并文件在 `work/merged/`。注意：如果批次后缀会残留在样本名里（如 `S3_iso_a` → 样本名 `S3_a`、`S3_iso_b` → `S3_b`），自动聚类会拆成两个实验——这不会报错但会拆散证据，此时在 `sample_sheet.tsv` 里把两个文件写进同一行逗号分隔，用 `--sample-sheet` 重跑。
 
 **Q4：会断点续传吗？**
 两层：模块层面 `results/` 三件套齐全时重跑直接跳过；EviAnn 层面 `work/` 中间文件保留，中断后重跑同一条命令会从最后完成的阶段继续。

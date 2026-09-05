@@ -65,13 +65,13 @@ MSTNPKPQRKTKRS
    |
    v
 步骤2: 前流程 = MAFFT 比对 -> FastTree 建树（修剪前树）
-   |     -> 01_mafft_fasttree/{sample}.mafft.fa / .fasttree.nwk
+   |     -> 01_mafft_fasttree/{sample}_mafft.fa / _fasttree.nwk
    v
 步骤3: trimAl 修剪（可 --skip-trimal 跳过）
-   |     -> 02_trimal/01_trimal/{sample}.trimmed{ext}
+   |     -> 02_trimal/01_trimal/{sample}_trimmed{ext}
    v
 步骤4: 后流程 = FastTree 在修剪后比对再建树（修剪后树）
-   |     -> 03_fasttree_trimmed/{sample}.fasttree.trimmed.nwk
+   |     -> 03_fasttree_trimmed/{sample}_fasttree_trimmed.nwk
    v
 步骤5: 写 software_versions.yml
 `@
@@ -83,24 +83,24 @@ output_dir/
 |-- 00_pipeline_info/
 |   +-- software_versions.yml           # 软件版本与参数记录
 |-- 01_mafft_fasttree/                  # 前流程（修剪前）
-|   |-- {sample}.cleaned.fa             # 清理后的序列
-|   |-- {sample}.mafft.fa               # MAFFT 比对
-|   |-- {sample}.fasttree.nwk           # 修剪前的树
-|   +-- {sample}.id_mapping.txt         # 新旧 ID 对照
+|   |-- {sample}_cleaned.fa             # 清理后的序列
+|   |-- {sample}_mafft.fa               # MAFFT 比对
+|   |-- {sample}_fasttree.nwk           # 修剪前的树
+|   +-- {sample}_id_mapping.txt         # 新旧 ID 对照
 |-- 02_trimal/
 |   +-- 01_trimal/
-|       +-- {sample}.trimmed{ext}       # trimAl 修剪后的比对
+|       +-- {sample}_trimmed{ext}       # trimAl 修剪后的比对
 |-- 03_fasttree_trimmed/
-|   +-- {sample}.fasttree.trimmed.nwk   # 修剪后的树
+|   +-- {sample}_fasttree_trimmed.nwk   # 修剪后的树
 +-- 99_logs/
     +-- phylo_trim.log                  # 运行日志
 `@
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-- **`01_mafft_fasttree/{sample}.fasttree.nwk`**：修剪前的树（用未修剪的完整比对建的）。
-- **`03_fasttree_trimmed/{sample}.fasttree.trimmed.nwk`**：修剪后的树（用 trimAl 清理过的比对建的），一般更可靠。
-- **`02_trimal/01_trimal/{sample}.trimmed{ext}`**：修剪后的比对，可直接看删掉了多少列（比对长度变短）。
+- **`01_mafft_fasttree/{sample}_fasttree.nwk`**：修剪前的树（用未修剪的完整比对建的）。
+- **`03_fasttree_trimmed/{sample}_fasttree_trimmed.nwk`**：修剪后的树（用 trimAl 清理过的比对建的），一般更可靠。
+- **`02_trimal/01_trimal/{sample}_trimmed{ext}`**：修剪后的比对，可直接看删掉了多少列（比对长度变短）。
 - **两棵树对比**：若两棵树拓扑一致，说明结果稳健、噪声列没影响结论；若差异大，说明那些 gap 多的列在干扰信号，**应以修剪后树为准**。
 - **`00_pipeline_info/software_versions.yml`**：记录了 mafft/fasttree/trimal 的版本和关键参数，写论文 Methods 时从这里抄。
 

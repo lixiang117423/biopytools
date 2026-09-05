@@ -52,7 +52,7 @@ biopytools oomycete-anno -g genome.fa -s phytophthora --rnaseq-dirs rna1/ rna2/ 
 - `--isoseq`：三代转录本文件（Phase2，供 TransDecoder 生成训练集）
 - `--effectors`：已知效应子蛋白（Phase3 救援）
 
-RNA-seq 配对默认按 `_1.clean.fq.gz` / `_2.clean.fq.gz` 识别，可用 `--read1-pattern` / `--read2-pattern` 调整。
+RNA-seq 配对默认按 `_1_clean.fq.gz` / `_2_clean.fq.gz` 识别，可用 `--read1-pattern` / `--read2-pattern` 调整。
 
 ## 参数说明 | Parameters
 
@@ -114,23 +114,23 @@ out/
 ├── 00_pipeline_info/
 │   └── software_versions.yml          # 软件版本与参数
 ├── 01_repeat_masking/                 # 屏蔽后的基因组 + RepeatModeler 库
-├── 02_rna_align/                      # rnaseq.sorted.bam + 索引
+├── 02_rna_align/                      # rnaseq_sorted.bam + 索引
 ├── 03_iso_align/                      # iso.gff3（三代转录本，可选）
 ├── 04_protein_align/                  # miniprot.gff3（蛋白，可选）
 ├── 05_hints/                          # intron.gff / protein.gff / hintsfile.gff
 ├── 06_training/                       # genemark.gtf 或 iso_training.gff3
 ├── 07_augustus/
-│   └── {species}.augustus.gff         # 最终基因注释 GFF（核心）
+│   └── {species}_augustus.gff         # 最终基因注释 GFF（核心）
 ├── 08_ltr/                            # LTR 注释产物（可选）
 ├── 09_effector_rescue/
-│   └── {species}.rescued.gff          # 救援后的最终 GFF（核心，有 --effectors 时）
+│   └── {species}_rescued.gff          # 救援后的最终 GFF（核心，有 --effectors 时）
 └── 99_logs/                           # 运行日志
 ```
 
 ### 关键文件说明 | Key files
 
-- `{species}.augustus.gff`：Augustus 预测的基因注释，标准 GFF 格式，是主结果
-- `{species}.rescued.gff`：提供 `--effectors` 且未 `--skip-rescue` 时生成，在 Augustus 结果基础上替换/补回了效应子位点的基因模型，**用它作最终注释**
+- `{species}_augustus.gff`：Augustus 预测的基因注释，标准 GFF 格式，是主结果
+- `{species}_rescued.gff`：提供 `--effectors` 且未 `--skip-rescue` 时生成，在 Augustus 结果基础上替换/补回了效应子位点的基因模型，**用它作最终注释**
 - `hintsfile.gff`：合并后的证据 hints，可观察哪些位点有 RNA-seq / 蛋白证据支撑
 - `software_versions.yml`：记录所有软件版本与运行参数，便于论文 Methods 复现
 
@@ -167,8 +167,8 @@ out/
 | `--prot-seq` | — |  | 同源蛋白文件(Phase2)｜Homologous proteins (P2) |
 | `--isoseq` | — |  | 三代转录本文件(Phase2)｜Long-read transcripts (P2) |
 | `--effectors` | — |  | 已知效应子蛋白(Phase3 救援)｜Known effectors (P3 rescue) |
-| `--read1-pattern` | `_1.clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
-| `--read2-pattern` | `_2.clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
+| `--read1-pattern` | `_1_clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
+| `--read2-pattern` | `_2_clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
 | `--rna-strandness` | `` |  | 链特异性: ''(非链特异性)/FR/RF｜Strandness: ''/FR/RF |
 | `-o, --output-dir` | `./oomycete_anno_output` |  | 输出目录｜Output directory |
 | `-t, --threads` | `12` |  | 线程数｜Threads |
@@ -194,8 +194,8 @@ out/
 | `--prot-seq` | — |  | 同源蛋白文件(Phase2)｜Homologous proteins (P2) |
 | `--isoseq` | — |  | 三代转录本文件(Phase2)｜Long-read transcripts (P2) |
 | `--effectors` | — |  | 已知效应子蛋白(Phase3 救援, 直接当基因模型替换错注/漏注位点)｜Known effectors (P3 rescue, used as gene models to fix loci) |
-| `--read1-pattern` | `_1.clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
-| `--read2-pattern` | `_2.clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
+| `--read1-pattern` | `_1_clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
+| `--read2-pattern` | `_2_clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
 | `--rna-strandness` | `` |  | 链特异性: ''(非链特异性,默认) / FR / RF｜Strandness: ''(unstranded,default)/FR/RF |
 | `-o, --output-dir` | `./oomycete_anno_output` |  | 输出目录｜Output directory |
 | `-t, --threads` | `12` | int | 线程数｜Threads |
@@ -240,7 +240,7 @@ Augustus 环境缺这个库，程序会自动从其它环境软链一个 ABI 兼
 conda run 的激活会把 `AUGUSTUS_CONFIG_PATH` 覆盖成环境自带的 config，破坏程序准备好的物种 config，所以 Augustus/etraining 直接调二进制并手动注入环境变量。
 
 **Q5：换参数重跑，为什么有些步骤没重新跑？**
-断点续传按关键输出文件存在性跳过。要强制重跑某步，先删除对应步骤目录里的关键产物（如 `07_augustus/{species}.augustus.gff`），或整体换输出目录。
+断点续传按关键输出文件存在性跳过。要强制重跑某步，先删除对应步骤目录里的关键产物（如 `07_augustus/{species}_augustus.gff`），或整体换输出目录。
 
 **Q6：效应子救援失败了，整个注释会失败吗？**
 不会。救援和 LTR 都是「失败不阻断」的可选步骤，失败会打警告并保留 Augustus 结果。

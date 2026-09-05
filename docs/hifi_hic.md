@@ -47,7 +47,7 @@ IIIIIIII...
 ### 可选输入
 
 - Hi-C：`--hic-r1` / `--hic-r2`（两端成对）
-- NGS：`--ngs` 指定二代数据目录，`--ngs-pattern` 指定 R1 文件匹配模式（默认 `_1.clean.fq.gz`）
+- NGS：`--ngs` 指定二代数据目录，`--ngs-pattern` 指定 R1 文件匹配模式（默认 `_1_clean.fq.gz`）
 
 ## 参数说明 | Parameters
 
@@ -79,7 +79,7 @@ HiFi reads (+ Hi-C 可选)
 步骤2: GFA → FASTA 转换(02_fasta, primary/hap1/hap2/alternate)
     │
     ▼
-步骤3: 生成 contig-reads 映射(02_fasta/*.contig_reads.tsv)
+步骤3: 生成 contig-reads 映射(02_fasta/*_contig_reads.tsv)
     │
     ▼
 步骤4: NGS polish(可选, 03_ngs_polish)
@@ -101,11 +101,11 @@ assembly_output/
     │   ├── {prefix}.hic.hap2.p_ctg.gfa  # 单倍型2
     │   └── {prefix}.hic.a_ctg.gfa       # alternate
     ├── 02_fasta/                        # 转换后的 FASTA
-    │   ├── {prefix}.primary.fa          # 主组装(最常用)
-    │   ├── {prefix}.hap1.fa / {prefix}.hap2.fa / {prefix}.alternate.fa
-    │   └── {prefix}.p_ctg.contig_reads.tsv  # contig→reads 映射
+    │   ├── {prefix}_primary.fa          # 主组装(最常用)
+    │   ├── {prefix}_hap1.fa / {prefix}_hap2.fa / {prefix}_alternate.fa
+    │   └── {prefix}_p_ctg_contig_reads.tsv  # contig→reads 映射
     ├── 03_ngs_polish/                   # (仅给 --ngs 时)
-    │   └── {prefix}.polished.fa         # NGS 校正后的基因组
+    │   └── {prefix}_polished.fa         # NGS 校正后的基因组
     ├── 04_purge_dups/                   # 去冗余(默认)
     │   └── sequences/{prefix}_purged.purge.fa  # 去冗余最终结果
     └── 99_logs/
@@ -116,7 +116,7 @@ assembly_output/
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 先看 `04_purge_dups/sequences/{prefix}_purged.purge.fa`（去冗余后的最终基因组），再看 `02_fasta/{prefix}.primary.fa`（主组装）。
+**通俗理解|In plain words:** 先看 `04_purge_dups/sequences/{prefix}_purged.purge.fa`（去冗余后的最终基因组），再看 `02_fasta/{prefix}_primary.fa`（主组装）。
 
 - **去冗余后的 purged.fa**：最终推荐使用的基因组，冗余少、更接近真实一套
 - **primary.fa vs hap1/hap2.fa**：primary 是主组装；hap1/hap2 是拆分出的两套单倍型，供研究等位差异用
@@ -152,7 +152,7 @@ assembly_output/
 | `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |
 | `--output, -o` | `./assembly_output` | Path | 输出目录｜Output directory |
 | `--ngs` | — | Path | NGS二代数据目录（可选）｜NGS second-generation data directory (optional) |
-| `--ngs-pattern` | `_1.clean.fq.gz` | str | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--ngs-pattern` | `_1_clean.fq.gz` | str | NGS文件匹配模式｜NGS file matching pattern (default: _1_clean.fq.gz) |
 | `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
 | `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
 | `--no-purge-dups` | `False` |  | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
@@ -176,7 +176,7 @@ assembly_output/
 | `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |
 | `--output, -o` | `./assembly_output` |  | 输出目录｜Output directory |
 | `--ngs` | — |  | NGS二代数据目录｜NGS second-generation data directory (optional) |
-| `--ngs-pattern` | `_1.clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--ngs-pattern` | `_1_clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1_clean.fq.gz) |
 | `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
 | `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
 | `--no-purge-dups` | — | store_true | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
@@ -207,8 +207,8 @@ hifiasm 使用 purge 时会在前缀后加 `.bp.`（如 `{prefix}.bp.hic.p_ctg.g
 Purge_Dups 会基于覆盖度把「多拼的一份」（杂合冗余）删掉，purged.fa 通常更短、序列更少、更接近真实单套基因组，推荐作为最终结果。
 
 **Q4：只想组装、不想去冗余怎么办？**
-加 `--no-purge-dups` 关闭去冗余，最终结果用 `02_fasta/{prefix}.primary.fa`。
+加 `--no-purge-dups` 关闭去冗余，最终结果用 `02_fasta/{prefix}_primary.fa`。
 
 **Q5：NGS polish 需要什么命名？**
-`--ngs` 目录里的二代数据需按 `--ngs-pattern`（默认 `_1.clean.fq.gz`）匹配 R1，程序自动推导 R2。
+`--ngs` 目录里的二代数据需按 `--ngs-pattern`（默认 `_1_clean.fq.gz`）匹配 R1，程序自动推导 R2。
 

@@ -121,11 +121,11 @@ microsynteny_output/
 │   ├── Ccu.cds            # 各物种提取的 CDS 序列
 │   └── all_species.bed    # 合并后的 BED
 ├── 2_synteny/
-│   ├── Ccu.Ceq.last       # LAST 比对原始结果
-│   ├── Ccu.Ceq.anchors    # 过滤后的锚点
-│   └── Ccu.Ceq.lifted.anchors  # 抬升后的锚点
+│   ├── Ccu_Ceq.last       # LAST 比对原始结果
+│   ├── Ccu_Ceq.anchors    # 过滤后的锚点
+│   └── Ccu_Ceq_lifted.anchors  # 抬升后的锚点
 ├── 3_blocks/
-│   ├── Ccu.Ceq.blocks     # 共线性块（基因串）
+│   ├── Ccu_Ceq.blocks     # 共线性块（基因串）
 │   └── blocks_index.txt   # 块文件索引
 ├── 4_plot/
 │   ├── multi_species_synteny.png   # 最终圈图（300 dpi）

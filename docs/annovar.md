@@ -82,7 +82,7 @@ Chr01   732093  .   G    A    99    PASS    .
 步骤2: 提取转录本/蛋白/CDS 序列 (retrieve_seq_from_fasta.pl + gffread)
     │
     ▼
-步骤3: VCF 处理(可选过滤 QUAL) → 转 ANNOVAR 格式 ({vcf}.annovar.vcf)
+步骤3: VCF 处理(可选过滤 QUAL) → 转 ANNOVAR 格式 ({vcf}_annovar.vcf)
     │
     ▼
 步骤4: annotate_variation.pl --geneanno 基因注释
@@ -96,11 +96,11 @@ Chr01   732093  .   G    A    99    PASS    .
 ```text
 output_dir/
 ├── {buildver}_refGene.txt            # 转换后的基因注释(ANNOVAR 数据库)
-├── {buildver}.cleaned.gff3           # GFF3 清理后的工作副本
+├── {buildver}_cleaned.gff3           # GFF3 清理后的工作副本
 ├── {buildver}_refGeneMrna.fa         # 转录本序列
 ├── {buildver}_refGenePep.fa          # 蛋白序列
 ├── {buildver}_refGeneCds.fa          # CDS 序列
-├── {vcf}.annovar.vcf                 # 转成 ANNOVAR 格式的变异
+├── {vcf}_annovar.vcf                 # 转成 ANNOVAR 格式的变异
 ├── {vcf}.exonic_variant_function     # 外显子区变异注释(核心结果)
 ├── {vcf}.variant_function            # 全变异功能注释
 ├── {vcf}.log                         # ANNOVAR 运行日志
@@ -189,7 +189,7 @@ output_dir/
 ## 常见问题 | FAQ { #faq }
 
 **Q1：换参数重跑，结果没变？**
-断点续传按「输出文件是否存在」判断。换过滤参数（如 --qual-threshold）重跑前，先删除旧的 {vcf}.annovar.vcf 等对应产物，否则会复用旧结果。
+断点续传按「输出文件是否存在」判断。换过滤参数（如 --qual-threshold）重跑前，先删除旧的 {vcf}_annovar.vcf 等对应产物，否则会复用旧结果。
 
 **Q2：报错「GenePred 缺失某些染色体的基因模型」？**
 GFF3 转 GenePred 不完整，通常是 GFF3 格式不规范（坐标、feature 类型问题）。先别急着 --skip-gff-fix，检查输入 GFF3；程序默认会自动清理修复。
@@ -201,4 +201,4 @@ GFF3 转 GenePred 不完整，通常是 GFF3 格式不规范（坐标、feature 
 因为多数人输入的 VCF 已经是过滤后的；--qual-threshold 只在 --enable-vcf-filter 打开时才生效。
 
 **Q5：会改我的 GFF3 吗？**
-不会。所有清理/修复都在 output_dir 内的 {buildver}.cleaned.gff3 工作副本上进行，输入文件保持原样。
+不会。所有清理/修复都在 output_dir 内的 {buildver}_cleaned.gff3 工作副本上进行，输入文件保持原样。

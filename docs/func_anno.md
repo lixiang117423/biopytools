@@ -83,7 +83,7 @@ MREIVHIQAGQCGNQIGAKFWEVISDEHGIDPTGSYH
 阶段3: 建 GO/KEGG 标准表(秒级,每次重跑)
     │
     ▼
-{prefix}.go.tsv + {prefix}.kegg.tsv
+{prefix}_go.tsv + {prefix}_kegg.tsv
 ```
 
 ## 输出 | Output { #output }
@@ -98,8 +98,8 @@ out/
 │   └── 01_emapper/
 │       └── sample.emapper.annotations   # eggNOG 原始注释
 ├── 03_tables/
-│   ├── sample.go.tsv         # GO 表(gene/go_id/go_term/go_ontology)
-│   └── sample.kegg.tsv       # KEGG 表(gene/kegg_id/kegg_term/kegg_category)
+│   ├── sample_go.tsv          # GO 表(gene/go_id/go_term/go_ontology)
+│   └── sample_kegg.tsv        # KEGG 表(gene/kegg_id/kegg_term/kegg_category)
 └── 99_logs/
     └── func_anno.log         # 运行日志
 ```

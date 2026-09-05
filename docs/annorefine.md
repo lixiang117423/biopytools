@@ -47,7 +47,7 @@ biopytools annorefine -g genome.fa -s psojae -p prot.fa -o out/
 
 ### RNA-seq(可选，强烈建议)
 
-`--rnaseq-dirs` 逗号分隔的目录列表，目录里是成对的二代测序数据，默认按 `_1.clean.fq.gz` / `_2.clean.fq.gz` 识别双端文件。
+`--rnaseq-dirs` 逗号分隔的目录列表，目录里是成对的二代测序数据，默认按 `_1_clean.fq.gz` / `_2_clean.fq.gz` 识别双端文件。
 
 ### 三代转录本(可选)
 
@@ -105,9 +105,9 @@ out/
 ├── 01_repeat_masking/               # BRAKER 阶段: 屏蔽后的基因组
 │   └── genome.fa.masked             # 屏蔽后基因组(软屏蔽)
 ├── 02_long_reads/                   # 三代转录本比对产物(给了 isoseq 才有)
-│   └── isoseq.sorted.bam
+│   └── isoseq_sorted.bam
 ├── 03_short_reads/                  # 二代 RNA-seq 比对产物(给了 rnaseq-dirs 才有)
-│   └── rnaseq.sorted.bam            # 也用作查漏补缺的表达证据
+│   └── rnaseq_sorted.bam            # 也用作查漏补缺的表达证据
 ├── 04_braker_annotation/            # BRAKER 预测结果
 │   ├── braker.gtf                   # 基因结构(GTF 格式)
 │   ├── braker.gff3                  # 基因结构(GFF3 格式)
@@ -119,27 +119,27 @@ out/
     ├── 00_pipeline_info/
     │   └── software_versions.yml    # 软件版本与关键参数
     ├── 01_evidence_scan/
-    │   └── <prefix>.miniprot.gff3   # 蛋白证据扫描结果
+    │   └── <prefix>_miniprot.gff3   # 蛋白证据扫描结果
     ├── 02_gap_analysis/
-    │   └── <prefix>.gap_report.tsv  # 每个补入基因的证据验证报告
+    │   └── <prefix>_gap_report.tsv  # 每个补入基因的证据验证报告
     ├── 03_gap_filled/
-    │   └── <prefix>.gap_filled.gff3 # 只含查漏补缺新增的基因
+    │   └── <prefix>_gap_filled.gff3 # 只含查漏补缺新增的基因
     ├── 04_merged/
-    │   └── <prefix>.merged.gff3     # 最终整合结果(BRAKER + 新增)
+    │   └── <prefix>_merged.gff3     # 最终整合结果(BRAKER + 新增)
     └── 99_logs/
         └── annorefine.log           # 查漏补缺日志
 ```
 
 ## 结果解读 | Interpreting Results { #results }
 
-### 1. 最终结果(`04_merged/<prefix>.merged.gff3`)
+### 1. 最终结果(`04_merged/<prefix>_merged.gff3`)
 
 **通俗理解|In plain words:** 这是要交给下游分析的最终答案——BRAKER 的预测加上查漏补缺新增的基因，合在一个文件里。基因 ID 前缀是 `<prefix>_gap_N`(新增常规基因)或 `<prefix>_small_gap_N`(新增小蛋白)。
 
-- 用 `<prefix>.gap_filled.gff3` 单独看「这次补了哪些基因」
-- 用 `<prefix>.merged.gff3` 做下游分析(功能注释、比较基因组等)
+- 用 `<prefix>_gap_filled.gff3` 单独看「这次补了哪些基因」
+- 用 `<prefix>_merged.gff3` 做下游分析(功能注释、比较基因组等)
 
-### 2. 证据验证报告(`02_gap_analysis/<prefix>.gap_report.tsv`)
+### 2. 证据验证报告(`02_gap_analysis/<prefix>_gap_report.tsv`)
 
 **通俗理解|In plain words:** 每个补入基因的「简历」——它靠什么证据被认定是真基因。一列一个证据，方便人工复核可疑的条目。
 

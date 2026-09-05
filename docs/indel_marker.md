@@ -116,24 +116,24 @@ out/
 │   ├── software_versions.yml    # 软件版本与运行参数
 │   └── pipeline_params.yaml     # 关键运行参数
 ├── 01_vcf_extract/
-│   └── indels.gt_matrix.tsv     # 提取的 INDEL 基因型矩阵
+│   └── indels_gt_matrix.tsv     # 提取的 INDEL 基因型矩阵
 ├── 02_genotype_call/
 ├── 03_coverage/
-│   └── indels.coverage.tsv      # 每候选每样本的平均覆盖度矩阵
+│   └── indels_coverage.tsv      # 每候选每样本的平均覆盖度矩阵
 ├── 04_sequence/
-│   └── indels.flank.fa          # 每候选的侧翼序列(FASTA)
+│   └── indels_flank.fa          # 每候选的侧翼序列(FASTA)
 ├── 05_primer/
 ├── 06_results/
-│   ├── indel_marker.candidates.tsv  # 候选主表(核心结果)
-│   ├── indel_marker.candidates.bed  # 候选区间 BED
-│   └── indel_marker.summary.txt     # 筛选摘要
+│   ├── indel_marker_candidates.tsv  # 候选主表(核心结果)
+│   ├── indel_marker_candidates.bed  # 候选区间 BED
+│   └── indel_marker_summary.txt     # 筛选摘要
 └── 99_logs/
     └── indel_marker.log         # 运行日志
 ```
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-### 1. indel_marker.candidates.tsv(候选主表，核心)
+### 1. indel_marker_candidates.tsv(候选主表，核心)
 
 **通俗理解|In plain words:** 一张「哪些 INDEL 能当标记」的最终清单，一行一个候选，含方向、两组基因型比例、覆盖度、引物序列。
 
@@ -145,19 +145,19 @@ out/
 - `passes_coverage_qc`：是否通过最低覆盖度质控；`passes_deletion_drop`：是否通过 deletion 骤降验证(insertion 为 NA)
 - `left_primer` / `right_primer` / `product_size`：设计出的左右引物和产物长度；`primer_status` 为 `ok` 表示设计成功
 
-### 2. indel_marker.candidates.bed
+### 2. indel_marker_candidates.bed
 
 **通俗理解|In plain words:** 候选区间转成 BED 格式(0-based 起点)，可直接丢给 IGV 等可视化工具看。
 
-### 3. indels.flank.fa
+### 3. indels_flank.fa
 
 **通俗理解|In plain words:** 每个候选的侧翼序列，FASTA 头的名字就是 candidate_id，用于后续引物设计或人工核对。
 
-### 4. indels.coverage.tsv
+### 4. indels_coverage.tsv
 
 **通俗理解|In plain words:** 每个候选在每个样本里的平均覆盖度矩阵，可核对「携带组覆盖度确实更低」的预期。
 
-### 5. indel_marker.summary.txt
+### 5. indel_marker_summary.txt
 
 **通俗理解|In plain words:** 一份数字汇总：合格 INDEL 总数、群体判定候选数、通过覆盖度质控数、成功设计引物数。
 
@@ -224,7 +224,7 @@ out/
 ## 常见问题 | FAQ { #faq }
 
 **Q1：支持断点续传吗？**
-支持 VCF 提取这一最耗时步骤：`01_vcf_extract/indels.gt_matrix.tsv` 已存在则跳过。其余步骤(覆盖度/引物)每次重跑。换过滤参数重跑前需先删除该矩阵文件。
+支持 VCF 提取这一最耗时步骤：`01_vcf_extract/indels_gt_matrix.tsv` 已存在则跳过。其余步骤(覆盖度/引物)每次重跑。换过滤参数重跑前需先删除该矩阵文件。
 
 **Q2：引物那列全是空的？**
 多半是 primer3-py 没装，或本地仓库里的 `biopytools/primer3/` 子包覆盖了 `primer3` 包名。请确认 `pip install primer3-py` 且运行目录不含同名子包。

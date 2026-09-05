@@ -124,17 +124,17 @@ raw fastq ─fastp→ clean ─[寄主剔除]→ nohost fastq
 out/                          # by-step:所有样本共享编号步骤目录,文件名用 {sample}_ 前缀区分
 ├── 00_pipeline_info/   index_host/ checkpoints/ software_versions.yml(含全部阈值)
 ├── 01_qc/              fastp 产物
-├── 02_host_filter/     (仅给 --host-genome 时存在){sample}_1/2.nohost.fq.gz · host_filter.tsv · host_stats.tsv(reads账本)
+├── 02_host_filter/     (仅给 --host-genome 时存在){sample}_1/2_nohost.fq.gz · host_filter.tsv · host_stats.tsv(reads账本)
 ├── 03_gtx/             03_mapping/bam/{sample}.bam · 04_joint_calling/gtx_joint_raw.vcf.gz
 ├── 04_het_eval/        gt_ad_dp.tsv · L1_杂合统计 · L2_shared_private · L2_shared_only评估
 │                       混合伴侣矩阵 · 混合伴侣top · L3_窗口杂合率 · L4_共享热点窗口
 │                       hotspots.bed · L4_排除热点前后对比 · 距离矩阵 · PCA坐标 · nj_tree.nwk
 │                       verdict_table.tsv(判读+证据链+建议) ·
-│                       alignment_qc/{sample}.stats.txt(深度缓存)
-├── 05_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
+│                       alignment_qc/{sample}_stats.txt(深度缓存)
+├── 05_kmer/            mapped_fastq/{sample}_1/2_mapped.fq.gz + smudgescope 输出
 ├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
-├── 07_report/          {sample}.report.md(证据链)
-├── 08_contamination/   kraken2/{sample}.k2.report.txt · bracken/{sample}.bracken.S.txt ·
+├── 07_report/          {sample}_report.md(证据链)
+├── 08_contamination/   kraken2/{sample}_k2_report.txt · bracken/{sample}_bracken_S.txt ·
 │                       contamination_summary.tsv(每样本一行) · contamination_detail.tsv(样本×物种长表)
 ├── summary/            verdict_summary.tsv · verdict_summary.xlsx(中文/英文双sheet) · mixrace_report.html(自包含交互报告) · verdict_summary.html(汇总表独立页)
 ├── tmp/                临时文件(运行中,结束清理)

@@ -92,20 +92,20 @@ XP_003456
 ## 输出 | Output { #output }
 
 `@text
-<前缀>.accessions.txt       # 提取到的唯一 accession 列表
-<前缀>.acc2taxid.txt        # accession -> TaxID 映射（查不到的 TaxID 为空）
-<前缀>.taxonomy.txt         # accession / TaxID / 完整 lineage（三列）
-<前缀>.statistics.txt       # 统计表（txt；--stats-output csv 时为 .statistics.csv）
-<前缀>.accession2title.txt  # accession -> 序列描述（仅 --fetch-titles）
-<前缀>.sequence_types.txt   # 序列类型归类统计（仅 --fetch-titles）
-<前缀>.ncbi_taxo.log        # 运行日志
+<前缀>_accessions.txt       # 提取到的唯一 accession 列表
+<前缀>_acc2taxid.txt        # accession -> TaxID 映射（查不到的 TaxID 为空）
+<前缀>_taxonomy.txt         # accession / TaxID / 完整 lineage（三列）
+<前缀>_statistics.txt       # 统计表（txt；--stats-output csv 时为 _statistics.csv）
+<前缀>_accession2title.txt  # accession -> 序列描述（仅 --fetch-titles）
+<前缀>_sequence_types.txt   # 序列类型归类统计（仅 --fetch-titles）
+<前缀>_ncbi_taxo.log        # 运行日志
 `@
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-- **`<前缀>.taxonomy.txt`**：最核心结果，三列——accession、TaxID、完整 lineage。用「科/属/种」列对应回你关心的物种即可。
-- **`<前缀>.statistics.txt`**：按层级的统计表，含每个分类名的数量与百分比。看「哪个属/种占大头」——占比高的就是你的数据里最主要的类群。
-- **`<前缀>.acc2taxid.txt`**：查 TaxID 的中间表。**若某行 TaxID 为空，说明该 accession 没在数据库里查到**（可能是新提交序列、或库太旧），需要更新 `--taxid-db`。
+- **`<前缀>_taxonomy.txt`**：最核心结果，三列——accession、TaxID、完整 lineage。用「科/属/种」列对应回你关心的物种即可。
+- **`<前缀>_statistics.txt`**：按层级的统计表，含每个分类名的数量与百分比。看「哪个属/种占大头」——占比高的就是你的数据里最主要的类群。
+- **`<前缀>_acc2taxid.txt`**：查 TaxID 的中间表。**若某行 TaxID 为空，说明该 accession 没在数据库里查到**（可能是新提交序列、或库太旧），需要更新 `--taxid-db`。
 - **好坏判据**：统计里「unclassified」或空 TaxID 比例越低，注释越完整；若大片查不到，先检查数据库是否最新、accession 列是否取错（比如取成了 query 列）。
 
 ## 参数选择建议 | Parameter Guidance { #guidance }

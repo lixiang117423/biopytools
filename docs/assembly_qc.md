@@ -36,10 +36,10 @@ biopytools assembly-qc --genome genome.fa --lineage embryophyta_odb10 --ngs-read
 
 - `--genome`：基因组 FASTA（必需）
 - `--lineage`：BUSCO 谱系名（如 `embryophyta_odb10`）或完整路径（必需，哪怕 `--skip-busco`）
-- `--ngs-reads`：Illumina 短读文件或目录（可选，用于 QV + NGS 比对；文件名默认匹配 `_1.clean.fq.gz`）
+- `--ngs-reads`：Illumina 短读文件或目录（可选，用于 QV + NGS 比对；文件名默认匹配 `_1_clean.fq.gz`）
 - `--long-reads`：三代 reads 文件或目录（可选，用于三代 QV + 比对；类型由 `--long-read-type` 指定）
 
-目录下按命名规则自动发现样本：NGS 找 `*_1.clean.fq.gz` 并推断对应的 `_2` 文件；三代按 `*.fq.gz` 收集。
+目录下按命名规则自动发现样本：NGS 找 `*_1_clean.fq.gz` 并推断对应的 `_2` 文件；三代按 `*.fq.gz` 收集。
 
 ## 参数说明 | Parameters { #parameters }
 
@@ -90,7 +90,7 @@ qc_results/
 ├── 01_busco_evaluation/               # BUSCO 结果（busco_output/ 内 short_summary.*.json/txt）
 ├── 02_lai_evaluation/                 # LAI 结果（EDTA 输出 + *.LAI）
 ├── 03_qv_evaluation/                  # QV 结果（reads.meryl + qv_result_*.qv）
-├── 04_mapping_evaluation/             # NGS 比对（bam_files/ 内各样本 sorted.bam/flagstat/coverage）
+├── 04_mapping_evaluation/             # NGS 比对（bam_files/ 内各样本 {sample}_sorted.bam/{sample}_flagstat.txt/{sample}_coverage.txt）
 ├── 05_long_read_mapping_evaluation/   # 三代比对（bam_files/ 内各样本）
 ├── assembly_qc_report.html            # 综合 HTML 报告
 ├── assembly_qc_table.tsv              # 发表用表格（TSV）
@@ -138,7 +138,7 @@ qc_results/
 | `--qv-kmer-size` | — | int | k-mer大小（None表示自动选择）｜K-mer size (None for auto) |
 | `--enable-mapping` | — |  | 启用NGS Mapping评估（默认启用）｜Enable NGS mapping evaluation (default: enabled) |
 | `--enable-long-read-mapping` | — |  | 启用三代数据Mapping评估（默认启用）｜Enable long-read mapping evaluation (default: enabled) |
-| `--mapping-pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--mapping-pattern` | `_1_clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
 | `--ngs-reads` | — | Path | NGS reads文件或目录（用于QV和mapping）｜NGS reads file or directory (for QV and mapping) |
 | `--long-reads` | — | Path | Long-reads文件或目录（用于QV和mapping）｜Long-reads file or directory (for QV and mapping) |
 | `--long-read-type` | `hifi` | ont/pacbio/hifi | Long-read数据类型｜Long-read data type |
@@ -163,7 +163,7 @@ qc_results/
 | `--qv-kmer-size` | — | int | k-mer大小（None表示自动选择）｜K-mer size (None for auto) |
 | `--enable-mapping` | — | store_true | 启用NGS Mapping评估（默认启用）｜Enable NGS mapping evaluation (default: enabled) |
 | `--enable-long-read-mapping` | — | store_true | 启用三代数据Mapping评估（默认启用）｜Enable long-read mapping evaluation (default: enabled) |
-| `--mapping-pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--mapping-pattern` | `_1_clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
 | `--ngs-reads` | — |  | NGS reads文件或目录（用于QV和mapping）｜NGS reads file or directory (for QV and mapping) |
 | `--long-reads` | — |  | Long-reads文件或目录（用于QV和mapping）｜Long-reads file or directory (for QV and mapping) |
 | `--long-read-type` | `hifi` | ont/pacbio/hifi | Long-read数据类型｜Long-read data type |
@@ -189,7 +189,7 @@ qc_results/
 默认在 `~/database/busco` 找数据集。把 `--lineage` 对应的数据集目录放到该路径下，或用 `--lineage` 传完整路径（程序会取目录名作谱系名）。
 
 **Q2：NGS mapping 没发现样本？**
-确认 reads 文件名匹配默认模式 `_1.clean.fq.gz`，且同一目录有对应的 `_2.clean.fq.gz`；命名不同就用 `--mapping-pattern` 指定。
+确认 reads 文件名匹配默认模式 `_1_clean.fq.gz`，且同一目录有对应的 `_2_clean.fq.gz`；命名不同就用 `--mapping-pattern` 指定。
 
 **Q3：LAI 返回「不适用（LTR 含量低于 5%）」？**
 这是正常结果，不是错误——重复序列太少时 LAI 指标无意义，应改用其他指标评估该基因组。

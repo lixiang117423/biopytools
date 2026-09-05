@@ -57,7 +57,7 @@ chr1    source    CDS     1100    2000    .    +    0    Parent=gene1.t2
 
 ### 可选输出 | Optional outputs
 
-**通俗理解|In plain words:** 这两个是「加菜」。`--gene-info` 指定基因信息表的输出位置（不指定会自动生成在基因组同目录下，名为 `{基因组名}.gene.info.txt`）；`--cds-output` 指定后才会额外提取 CDS 核苷酸序列。**一般只需要蛋白序列时，这两个都不必写。**
+**通俗理解|In plain words:** 这两个是「加菜」。`--gene-info` 指定基因信息表的输出位置（不指定会自动生成在基因组同目录下，名为 `{基因组名}_gene_info.txt`）；`--cds-output` 指定后才会额外提取 CDS 核苷酸序列。**一般只需要蛋白序列时，这两个都不必写。**
 
 ## 分析流程 | Pipeline
 
@@ -89,7 +89,7 @@ chr1    source    CDS     1100    2000    .    +    0    Parent=gene1.t2
 
 ```text
 longest_proteins.fasta            # 每个基因最长转录本的蛋白质序列（核心）
-{基因组名}.gene.info.txt          # 基因信息表（默认与基因组同目录）
+{基因组名}_gene_info.txt          # 基因信息表（默认与基因组同目录）
 {指定路径}.fasta                  # CDS 序列（仅 --cds-output 时）
 tmp/                              # 运行期临时文件（结束后清理）
 ```
@@ -111,7 +111,7 @@ tmp/                              # 运行期临时文件（结束后清理）
 ## 参数选择建议 | Parameter Guidance
 
 - **只要代表蛋白序列**：三个必填参数即可，其余不用管
-- **还要建基因到坐标的对照表**：留意自动生成的 `{基因组名}.gene.info.txt` 位置，或用 `--gene-info` 指定到指定目录
+- **还要建基因到坐标的对照表**：留意自动生成的 `{基因组名}_gene_info.txt` 位置，或用 `--gene-info` 指定到指定目录
 - **还要编码区核酸序列**：加 `--cds-output`
 - **GFF 里有非编码基因**：无需处理，程序自动跳过并给出计数
 

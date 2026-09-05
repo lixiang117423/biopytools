@@ -67,7 +67,7 @@ biopytools transcript-assembly -b sample.bam -o ./out
 
 **通俗理解|In plain words:** `-p` 是 FASTQ 命名模式（`*` 为样本名）。`-t` 线程数。`--sample-timeout` 是单样本超时（默认 43200 秒 = 12 小时）。**默认值一般不用动。**
 
-- `-p/--pattern`：FASTQ 命名模式（默认 `*_1.clean.fq.gz`）
+- `-p/--pattern`：FASTQ 命名模式（默认 `*_1_clean.fq.gz`）
 - `-t/--threads`：线程数（默认 12）
 - `--sample-timeout`：单样本超时秒数（默认 43200）
 
@@ -119,7 +119,7 @@ output_dir/
 +-- 00_pipeline_info/software_versions.yml  # 软件版本记录
 +-- 01_hisat2_index/                        # HISAT2 索引(仅 FASTQ 模式)
 +-- 02_hisat2_align/{sample}.sam            # 比对 SAM(仅 FASTQ 模式)
-+-- 03_bam_sort/{sample}.sorted.bam(.bai)   # 排序 BAM(仅 FASTQ 模式)
++-- 03_bam_sort/{sample}_sorted.bam(.bai)  # 排序 BAM(仅 FASTQ 模式)
 +-- 04_stringtie/
 |   +-- {sample}.gtf                       # 逐样本组装 GTF
 |   +-- gtf_list.txt                       # GTF 列表(供合并)
@@ -128,7 +128,7 @@ output_dir/
 +-- 06_transcripts/transcripts.fa          # (可选)cDNA 序列
 +-- 07_transdecoder/                       # (可选)CDS 预测结果
 |   +-- transcripts.fa.transdecoder.gff3
-|   +-- transcripts.fa.transdecoder.genome.gff3
+|   +-- transcripts_fa_transdecoder_genome.gff3
 |   +-- transcripts.fa.transdecoder.pep / .cds
 +-- 99_logs/pipeline.log                    # 运行日志
 ```
@@ -145,7 +145,7 @@ output_dir/
 
 ### 3. CDS 预测（`07_transdecoder/`，可选）
 
-- `transcripts.fa.transdecoder.genome.gff3`：映射回基因组坐标的 CDS 结构（gene/mRNA/CDS）
+- `transcripts_fa_transdecoder_genome.gff3`：映射回基因组坐标的 CDS 结构（gene/mRNA/CDS）
 - `.pep`：预测的蛋白序列；`.cds`：编码区核酸序列
 - 注意：本流程的 TransDecoder 为基础版，未使用 blastp/hmmscan 同源数据库，CDS 预测偏保守
 
@@ -179,7 +179,7 @@ output_dir/
 | `--read-type` | `auto` | auto/short/long | 读长类型｜Read type |
 | `--transcripts` | — |  | 额外输出transcripts.fa(需-g)｜Also output cDNA (needs -g) |
 | `--predict-cds` | — |  | TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)｜TransDecoder CDS prediction (needs -g) |
-| `--pattern, -p` | `*_1.clean.fq.gz` | str | FASTQ文件命名模式｜FASTQ file naming pattern (* is sample name placeholder) |
+| `--pattern, -p` | `*_1_clean.fq.gz` | str | FASTQ文件命名模式｜FASTQ file naming pattern (* is sample name placeholder) |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--sample-timeout` | `43200` | int | 单个样本处理超时时间（秒）｜Sample processing timeout in seconds |
 | `--step, -s` | — | 1/2/3/4/5/6/7 | 运行指定步骤｜Run only specified step |
@@ -199,7 +199,7 @@ output_dir/
 | `--read-type` | `auto` | auto/short/long | 读长类型(auto=自动检测)｜Read type (auto=auto-detect) |
 | `--transcripts` | — | store_true | 额外输出transcripts.fa cDNA(需-g)｜Also output cDNA transcripts.fa (needs -g) |
 | `--predict-cds` | — | store_true | TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)｜TransDecoder CDS prediction (needs -g) |
-| `-p, --pattern` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式（*为样本名占位符）｜FASTQ file naming pattern (* is sample name placeholder) |
+| `-p, --pattern` | `*_1_clean.fq.gz` |  | FASTQ文件命名模式（*为样本名占位符）｜FASTQ file naming pattern (* is sample name placeholder) |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads |
 | `--sample-timeout` | `43200` | int | 单个样本处理超时时间（秒）｜Sample processing timeout in seconds |
 | `-s, --step` | — | 1/2/3/4/5/6/7 | 运行指定步骤｜Run only specified step (1: 索引｜index, 2: 比对｜alignment, 3: 排序｜sort, 4: 组装｜assembly, 5: 合并｜merge, 6: GFF3输出｜GFF3 output, 7: TransDecoder CDS｜TransDecoder CDS) |

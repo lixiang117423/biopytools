@@ -74,9 +74,9 @@ gene_density_output/
 ├── 00_pipeline_info/
 │   └── software_versions.yml        # 版本与参数记录
 ├── 01_density/
-│   └── {prefix}.gene_density.tsv    # 密度表(主结果)
+│   └── {prefix}_gene_density.tsv    # 密度表(主结果)
 ├── 02_plot/
-│   └── {prefix}.gene_density.png    # 每条染色体一张子图
+│   └── {prefix}_gene_density.png    # 每条染色体一张子图
 └── 99_logs/
     └── gene_density.log             # 运行日志
 ```

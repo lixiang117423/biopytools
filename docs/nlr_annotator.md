@@ -7,7 +7,7 @@
 - 封装 NLR-Annotator，从 DNA / CDS 序列预测 NLR（核苷酸结合亮氨酸重复）基因
 - 支持单文件或目录批量处理（目录模式自动按样本名分目录）
 - 输出清洗：自动加表头、去重并排序 motif 列表
-- 冗余过滤（默认开启）：剔除被完整基因完全包含的冗余短片段调用，被剔除记录留档 `*.removed.tsv`
+- 冗余过滤（默认开启）：剔除被完整基因完全包含的冗余短片段调用，被剔除记录留档 `*_removed.tsv`
 - 默认输出 GFF3：由过滤后结果表逐行生成，与 TSV 一条记录对一行（非 Java 原生 GFF）
 - 可选输出 BED / motifs BED / motif 比对 FASTA
 - 目录模式自动生成多样本汇总表 `nlr_annotator_summary.tsv` 与总 GFF `nlr_annotator_summary.gff`
@@ -62,11 +62,11 @@ ATGGCTAG...
 
 ### 可选输出 | Optional outputs
 
-**通俗理解|In plain words:** 每个样本默认输出两样东西：TSV 结果表和 GFF3 坐标文件（`{sample}.nlr_annotator.gff`），GFF 由过滤后的结果表逐行生成，两者内容完全一致，可直接喂给 IGV / bedtools 等下游工具。需要 BED 就开 `--output-bed`；想看每个预测用了哪些 motif 开 `--output-motifs`；想看 motif 的序列比对开 `--output-alignment`。**这三项默认不开，按需勾选。**
+**通俗理解|In plain words:** 每个样本默认输出两样东西：TSV 结果表和 GFF3 坐标文件（`{sample}_nlr_annotator.gff`），GFF 由过滤后的结果表逐行生成，两者内容完全一致，可直接喂给 IGV / bedtools 等下游工具。需要 BED 就开 `--output-bed`；想看每个预测用了哪些 motif 开 `--output-motifs`；想看 motif 的序列比对开 `--output-alignment`。**这三项默认不开，按需勾选。**
 
 ### 结果过滤 | Result filtering
 
-**通俗理解|In plain words:** NLR-Annotator 在密集/串联 NLR 位点常把同一个基因内部的 motif 子集（比如只有 TIR 的一段短片段）单独打包成一条记录，造成「一条 4604 bp 的完整基因里嵌着一条 361 bp 的 TIR-only 小片段」这类冗余。模块默认按坐标完全包含关系自动剔除这些小片段（链式包含只留最外层，坐标相同的重复只留靠前一条），被剔除的记录会留档到 `*.removed.tsv` 以便审计。**一般不用动；想看原始的全部调用就加 `--no-filter-contained`。**
+**通俗理解|In plain words:** NLR-Annotator 在密集/串联 NLR 位点常把同一个基因内部的 motif 子集（比如只有 TIR 的一段短片段）单独打包成一条记录，造成「一条 4604 bp 的完整基因里嵌着一条 361 bp 的 TIR-only 小片段」这类冗余。模块默认按坐标完全包含关系自动剔除这些小片段（链式包含只留最外层，坐标相同的重复只留靠前一条），被剔除的记录会留档到 `*_removed.tsv` 以便审计。**一般不用动；想看原始的全部调用就加 `--no-filter-contained`。**
 
 ## 分析流程 | Pipeline
 
@@ -82,10 +82,10 @@ ATGGCTAG...
 2. 逐样本运行 NLR-Annotator（java -jar，断点续传跳过已完成）
     │
     ▼
-3. 清洗输出：加表头、去重并排序 motif；剔除被完整包含的冗余调用（默认，留档 *.removed.tsv）
+3. 清洗输出：加表头、去重并排序 motif；剔除被完整包含的冗余调用（默认，留档 *_removed.tsv）
     │
     ▼
-4. 由过滤后结果表逐行生成 GFF3（{sample}.nlr_annotator.gff，与 TSV 一致）
+4. 由过滤后结果表逐行生成 GFF3（{sample}_nlr_annotator.gff，与 TSV 一致）
     │
     ▼
 5. 目录模式：合并所有样本结果 -> nlr_annotator_summary.tsv + nlr_annotator_summary.gff
@@ -97,10 +97,10 @@ ATGGCTAG...
 
 ```text
 output/
-├── {sample}.nlr_annotator.tsv           # 清洗+过滤后的 NLR 结果表（核心）
-├── {sample}.nlr_annotator.gff           # GFF3 坐标文件，由结果表逐行生成（默认输出）
-├── {sample}.nlr_annotator.removed.tsv   # 被剔除的冗余调用留档（仅有剔除时生成）
-├── {sample}.nlr_annotator.bed           # 仅 --output-bed（java 原生产物，未参与冗余过滤）
+├── {sample}_nlr_annotator.tsv           # 清洗+过滤后的 NLR 结果表（核心）
+├── {sample}_nlr_annotator.gff           # GFF3 坐标文件，由结果表逐行生成（默认输出）
+├── {sample}_nlr_annotator_removed.tsv   # 被剔除的冗余调用留档（仅有剔除时生成）
+├── {sample}_nlr_annotator.bed           # 仅 --output-bed（java 原生产物，未参与冗余过滤）
 ├── {sample}_motifs.bed                  # 仅 --output-motifs
 ├── {sample}_alignment.fa                # 仅 --output-alignment
 └── 99_logs/
@@ -112,10 +112,10 @@ output/
 ```text
 output/
 ├── {sample1}/
-│   ├── {sample1}.nlr_annotator.tsv
-│   ├── {sample1}.nlr_annotator.gff
-│   ├── {sample1}.nlr_annotator.removed.tsv   # 仅有剔除时生成
-│   └── 99_logs/{sample1}.nlr_annotator.log
+│   ├── {sample1}_nlr_annotator.tsv
+│   ├── {sample1}_nlr_annotator.gff
+│   ├── {sample1}_nlr_annotator_removed.tsv   # 仅有剔除时生成
+│   └── 99_logs/{sample1}_nlr_annotator.log
 ├── {sample2}/
 │   └── ...
 ├── nlr_annotator_summary.tsv       # 多样本汇总表（核心）
@@ -124,9 +124,9 @@ output/
 
 ### 关键文件说明 | Key files
 
-- `{sample}.nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`；默认已剔除被完整包含的冗余调用
-- `{sample}.nlr_annotator.gff`：与结果表逐行一致的 GFF3，每条数据行对应一条 `gene` 记录；坐标沿用 TSV（1-based），NLR 类型在 `nlr_type` 属性、motif 列表在 `motifs` 属性；由过滤后 TSV 生成，不含被剔除的冗余调用
-- `{sample}.nlr_annotator.removed.tsv`：被剔除的冗余调用留档，比结果表多一列 `contained_by`（是被哪条完整基因包含），一行一条被剔记录
+- `{sample}_nlr_annotator.tsv`：每个样本预测出的 NLR 基因表，表头为 `gene_id / nlr_id / type / start / end / strand / motifs`；默认已剔除被完整包含的冗余调用
+- `{sample}_nlr_annotator.gff`：与结果表逐行一致的 GFF3，每条数据行对应一条 `gene` 记录；坐标沿用 TSV（1-based），NLR 类型在 `nlr_type` 属性、motif 列表在 `motifs` 属性；由过滤后 TSV 生成，不含被剔除的冗余调用
+- `{sample}_nlr_annotator_removed.tsv`：被剔除的冗余调用留档，比结果表多一列 `contained_by`（是被哪条完整基因包含），一行一条被剔记录
 - `nlr_annotator_summary.tsv`：目录模式的汇总表，比单样本表多一列 `sample`，一行对应一个样本的一条 NLR 记录
 - `nlr_annotator_summary.gff`：多样本总 GFF，与汇总表逐行一致；每条记录 seqid 保持 gene_id 原样、附 `sample={样本名}` 属性、ID/Name 加 `{样本}:` 前缀保证 GFF3 ID 全局唯一
 
@@ -139,7 +139,7 @@ output/
 - `type`：NLR 类型（如 CNL、TNL、RNL 等）
 - `start / end / strand`：该 NLR 在输入序列上的坐标区间与方向
 - `motifs`：命中的 motif 列表（已去重、排序、去掉 `motif_` 前缀），motif 越多通常结构越完整
-- 一行 = 一个独立 NLR 基因：默认已剔除被其他调用完全包含的冗余片段，若需核对剔除了什么，看同目录 `*.removed.tsv` 的 `contained_by` 列
+- 一行 = 一个独立 NLR 基因：默认已剔除被其他调用完全包含的冗余片段，若需核对剔除了什么，看同目录 `*_removed.tsv` 的 `contained_by` 列
 - GFF3 是结果表的「坐标镜像」：记录数、坐标、链向与 TSV 完全一致，适合 IGV 可视化或 `bedtools getfasta` 提取序列；想知道某条 GFF 记录的 NLR 类型看 `nlr_type` 属性、特征 motif 看 `motifs` 属性
 - 总 GFF（`nlr_annotator_summary.gff`）是汇总表的「坐标镜像」：每条记录的 `sample` 属性标明来源样本。注意不同样本的 seqid 可能重名（如都叫 `Chr1`），程序会打 WARNING——跨样本的记录按 `sample` 属性区分，别把重名 seqid 的坐标当成同一基因组混用
 
@@ -189,8 +189,8 @@ output/
 | `-i, --input` | 必填 |  | 输入DNA/CDS FASTA文件或目录｜Input DNA/CDS FASTA file or directory |
 | `-o, --output-dir` | `./output` |  | 输出目录｜Output directory (default: ./output) |
 | `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode (default: *.fa) |
-| `--merge-only` | — | store_true | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
-| `--no-filter-contained` | — | store_true | 关闭被包含冗余调用过滤(默认开启:剔除同序列上被完整基因完全包含的短片段调用,被剔除记录留档为*.nlr_annotator.removed.tsv)｜Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *.removed.tsv) |
+| `--merge-only` | — | store_true | 只合并已有结果TSV(*_nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
+| `--no-filter-contained` | — | store_true | 关闭被包含冗余调用过滤(默认开启:剔除同序列上被完整基因完全包含的短片段调用,被剔除记录留档为*_nlr_annotator_removed.tsv)｜Disable contained-call filtering (default ON: drop calls fully contained in another call on the same sequence, archived to *_removed.tsv) |
 | `--jar-path` | `` |  | NLR-Annotator JAR文件路径｜NLR-Annotator JAR file path |
 | `--mot-file` | `` |  | mot.txt配置文件路径｜mot.txt config file path |
 | `--store-file` | `` |  | store.txt配置文件路径｜store.txt config file path |
@@ -222,7 +222,7 @@ NLR-Annotator 需要这三件套齐全。检查默认路径 `~/software/NLR-Anno
 用 conda 环境的 Java 时，需显式 `--java-path ~/miniforge3/envs/xxx/bin/java`（默认的裸 `java` 可能指向系统 Java，版本或环境不对）。
 
 **Q3：批量跑到一半被杀了，怎么接着跑？**
-重跑同一命令即可，已完成样本会因断点续传自动跳过；若只是想补一张汇总表，用 `--merge-only` 直接合并已有 `*.nlr_annotator.tsv`。
+重跑同一命令即可，已完成样本会因断点续传自动跳过；若只是想补一张汇总表，用 `--merge-only` 直接合并已有 `*_nlr_annotator.tsv`。
 
 **Q4：结果表里的 motifs 列为什么和原工具不一样？**
 程序做了清洗：加了表头、把 motif 去重并排序、去掉 `motif_` 前缀，让结果更规整、便于下游处理。
@@ -231,10 +231,10 @@ NLR-Annotator 需要这三件套齐全。检查默认路径 `~/software/NLR-Anno
 程序会按 `--sample-suffix`（默认 `*.fa`）在目录里 glob 匹配并打印「发现 N 个文件」。若你的文件后缀不是 `.fa`，用 `--sample-suffix` 调整，例如 `*.cds.fa`。
 
 **Q6：为什么会出现「完整基因内部嵌着一条 TIR-only 小片段」？结果表里怎么没有了？**
-这是 NLR-Annotator 的已知行为：它先用 meme/mast 扫描全基因组匹配 NLR 保守 motif，再把邻近 motif 按距离阈值链接成基因模型。TIR 结构域内部本身含多个亚 motif，在 TIR 类 NLR 成簇/串联重复区域，这些亚 motif 间距恰好也满足「最小 NLR 判定标准」时，就会被单独打包成一条记录——本质是同一基因的冗余/重复调用，不是独立基因。模块默认按坐标完全包含关系剔除这类小片段（如 `A1091_Chr06_nlr12 [46996597-46996957]` 被完整基因 `nlr11 [46995758-47000361]` 完全包含），留档在 `*.removed.tsv`；想看原始调用加 `--no-filter-contained`。
+这是 NLR-Annotator 的已知行为：它先用 meme/mast 扫描全基因组匹配 NLR 保守 motif，再把邻近 motif 按距离阈值链接成基因模型。TIR 结构域内部本身含多个亚 motif，在 TIR 类 NLR 成簇/串联重复区域，这些亚 motif 间距恰好也满足「最小 NLR 判定标准」时，就会被单独打包成一条记录——本质是同一基因的冗余/重复调用，不是独立基因。模块默认按坐标完全包含关系剔除这类小片段（如 `A1091_Chr06_nlr12 [46996597-46996957]` 被完整基因 `nlr11 [46995758-47000361]` 完全包含），留档在 `*_removed.tsv`；想看原始调用加 `--no-filter-contained`。
 
 **Q7：GFF 里的记录数和 Java 原生工具跑出来的对不上？**
-正常。模块的 GFF 由清洗+冗余过滤后的结果表逐行生成（一条数据行对应一条 `gene` 记录），比 Java 原生 GFF 少了被剔除的冗余短片段调用——两边口径以模块的结果表为准。被剔记录在同目录 `*.removed.tsv` 可核对；想拿未经 Java 过滤的原生 GFF，可直接运行原工具或对比 `--no-filter-contained` 的结果表。
+正常。模块的 GFF 由清洗+冗余过滤后的结果表逐行生成（一条数据行对应一条 `gene` 记录），比 Java 原生 GFF 少了被剔除的冗余短片段调用——两边口径以模块的结果表为准。被剔记录在同目录 `*_removed.tsv` 可核对；想拿未经 Java 过滤的原生 GFF，可直接运行原工具或对比 `--no-filter-contained` 的结果表。
 
 **Q8：升级前跑的旧结果没有 GFF，怎么补？**
 重跑同一条命令即可：已完成的样本会因断点续传跳过 Java，GFF 每次运行都由最终 TSV 重新生成，旧结果原地补出，无需删任何文件。

@@ -6,13 +6,13 @@
 
 - seqkit 封装，自动识别三种查询：单个 ID、ID 文件（一列）、BED 文件（至少两列）
 - 单 ID 用 seqkit grep -p，ID 文件用 seqkit grep -f，BED 用 seqkit subseq --bed
-- 输出文件名可省略，自动推导为 {查询}.{目标}.fa
+- 输出文件名可省略，自动推导为 {查询}_{目标}.fa
 - 可用 --bed 强制按 BED 模式处理
 
 ## 快速开始 | Quick Start { #quick-start }
 
 ```bash
-biopytools seq-extract -i gene.id.txt -s gene.fa -o gene.genomic.fa
+biopytools seq-extract -i gene.id.txt -s gene.fa -o gene_genomic.fa
 ```
 
 最小输入：一个查询（ID / ID 文件 / BED 文件）+ 一个目标序列 FASTA。
@@ -53,7 +53,7 @@ chr2	10	60
 
 ### 必需与输出 | Required & output
 
-**通俗理解|In plain words:** -i 是查询，-s 是目标 FASTA，两者必填；-o 输出文件可省略，省略时自动命名为 {查询文件名去扩展名}.{目标文件名去扩展名}.fa。
+**通俗理解|In plain words:** -i 是查询，-s 是目标 FASTA，两者必填；-o 输出文件可省略，省略时自动命名为 {查询文件名去扩展名}_{目标文件名去扩展名}.fa。
 
 ### 模式 | Mode
 
@@ -80,7 +80,7 @@ chr2	10	60
 ## 输出 | Output { #output }
 
 ```text
-gene.genomic.fa      # 提取出的序列（文件名由 -o 指定或自动推导）
+gene_genomic.fa      # 提取出的序列（文件名由 -o 指定或自动推导）
 ```
 
 单文件 FASTA 输出，序列名与目标 FASTA 中的原始名字一致。
@@ -114,7 +114,7 @@ gene.genomic.fa      # 提取出的序列（文件名由 -o 指定或自动推�
 |------|--------|------|------|
 | `-i, --input` | 必填 |  | 查询:单个ID、ID文件(一列)或BED文件(>=2列)｜Query: single ID, ID file (1 column), or BED file (>=2 columns) |
 | `-s, --sequence` | 必填 |  | 目标序列FASTA文件｜Target sequence FASTA file |
-| `-o, --output` | — |  | 输出文件(默认自动推导:{query}.{subject}.fa)｜Output file (default: auto-derived) |
+| `-o, --output` | — |  | 输出文件(默认自动推导:{query}_{subject}.fa)｜Output file (default: auto-derived) |
 | `--bed` | — |  | 强制BED模式(跳过自动检测)｜Force BED mode (skip auto-detection) |
 
 ### 模块直调参数 | Direct invocation options
@@ -123,7 +123,7 @@ gene.genomic.fa      # 提取出的序列（文件名由 -o 指定或自动推�
 |------|--------|------|------|
 | `-i, --input` | 必填 |  | 查询:单个ID、ID文件(一列)或BED文件(>=2列)｜Query: single ID, ID file (1 column), or BED file (>=2 columns) |
 | `-s, --sequence` | 必填 |  | 目标序列FASTA文件｜Target sequence FASTA file |
-| `-o, --output` | — |  | 输出文件(默认自动推导:{query}.{subject}.fa)｜Output file (default: auto-derived {query}.{subject}.fa) |
+| `-o, --output` | — |  | 输出文件(默认自动推导:{query}_{subject}.fa)｜Output file (default: auto-derived {query}_{subject}.fa) |
 | `--bed` | — | store_true | 强制BED模式(跳过自动检测)｜Force BED mode (skip auto-detection) |
 
 <!-- END PARAMS:auto -->
@@ -145,7 +145,7 @@ Q3：怎么确认它判断成了哪种模式？
 运行日志里会打印「查询类型|Query type: single_id / id_file / bed_file」，据此判断；判断错了用 --bed 强制指定或调整输入文件内容。
 
 Q4：输出文件名是什么？
-指定了 -o 就用它；否则自动为 {查询文件名去扩展名}.{目标文件名去扩展名}.fa。当 -i 是单个 ID（非文件）时，查询部分就是该 ID 字符串本身。
+指定了 -o 就用它；否则自动为 {查询文件名去扩展名}_{目标文件名去扩展名}.fa。当 -i 是单个 ID（非文件）时，查询部分就是该 ID 字符串本身。
 
 Q5：seqkit 找不到怎么办？
 默认调用 seqkit（可在 PATH 或 conda 环境里）；也可用 SEQKIT_PATH 环境变量或 ~/.config/biopytools/config.yml 指定路径。

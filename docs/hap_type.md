@@ -88,12 +88,12 @@ cyvcf2 读取区间内变异位点（无索引则回退全文件遍历）
 单区间模式（`-r chr1:1000-5000`）：
 
 ```text
-chr1_1000_5000.hapResult.txt      # 每行=一个样本：单倍型ID + 各位点碱基 + 样本名
-chr1_1000_5000.hapResult.xlsx
-chr1_1000_5000.hapSummary.txt     # 每行=一个唯一单倍型：ID + 碱基串 + 样本名单 + 频率
-chr1_1000_5000.hapSummary.xlsx
-chr1_1000_5000.sampleHap.txt      # 样本→单倍型映射表
-chr1_1000_5000.sampleHap.xlsx
+chr1_1000_5000_hapResult.txt      # 每行=一个样本：单倍型ID + 各位点碱基 + 样本名
+chr1_1000_5000_hapResult.xlsx
+chr1_1000_5000_hapSummary.txt     # 每行=一个唯一单倍型：ID + 碱基串 + 样本名单 + 频率
+chr1_1000_5000_hapSummary.xlsx
+chr1_1000_5000_sampleHap.txt      # 样本→单倍型映射表
+chr1_1000_5000_sampleHap.xlsx
 chr1_1000_5000.log                # 运行日志
 ```
 

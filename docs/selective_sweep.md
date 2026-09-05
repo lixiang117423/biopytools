@@ -65,10 +65,10 @@ sample4    cultivated
     │   产出 01_filter/{pop}.samples.txt / {pop}.vcf.gz
     ▼
 步骤3: 每群体统计 π / Tajima's D / RAiSD μ / SweeD CLR
-    │   产出 02_stats/{pop}.windowed.pi 等
+    │   产出 02_stats/{pop}_windowed.pi 等
     ▼
 步骤4: 两两群体 Fst / XP-CLR(逐染色体)
-    │   产出 02_stats/{a}_{b}.windowed.weir.fst / XPCLR_{a}_{b}.{chr}.tsv
+    │   产出 02_stats/{a}_{b}_windowed.weir.fst / XPCLR_{a}_{b}_{chr}.tsv
     ▼
 步骤5: 各统计量百分位排名 → composite_score
     │   产出 03_sweep/genome_wide_stats.tsv
@@ -89,12 +89,12 @@ sweep_output/
 │   ├── {pop}.samples.txt            # 每群体的样本列表
 │   └── {pop}.vcf.gz                 # 每群体的子 VCF
 ├── 02_stats/
-│   ├── {pop}.windowed.pi            # vcftools 窗口 π
-│   ├── {pop}.Tajima.D               # vcftools 窗口 Tajima's D
-│   ├── RAiSD_Report.{pop}.{chr}     # RAiSD μ 报告
-│   ├── SweeD_Report.{pop}.{chr}     # SweeD CLR 报告
-│   ├── {a}_{b}.windowed.weir.fst    # 两两 Fst
-│   └── XPCLR_{a}_{b}.{chr}.tsv      # 两两 XP-CLR（逐染色体）
+│   ├── {pop}_windowed.pi            # vcftools 窗口 π
+│   ├── {pop}_Tajima.D               # vcftools 窗口 Tajima's D
+│   ├── RAiSD_Report_{pop}_{chr}     # RAiSD μ 报告
+│   ├── SweeD_Report_{pop}_{chr}     # SweeD CLR 报告
+│   ├── {a}_{b}_windowed.weir.fst    # 两两 Fst
+│   └── XPCLR_{a}_{b}_{chr}.tsv      # 两两 XP-CLR（逐染色体）
 ├── 03_sweep/
 │   ├── genome_wide_stats.tsv        # 全基因组逐窗口综合表（含 composite_score）
 │   └── candidate_regions.tsv        # 候选扫荡区域（最终结果）

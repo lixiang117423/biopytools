@@ -67,13 +67,13 @@ biopytools purge_dups -i assembly.fa -r hifi_reads.fq.gz -o purged_output
 组装 FASTA + reads
     │
     ▼
-步骤1: 计算深度(minimap2 比对 → pbcstat/ngscstat 统计)  → coverage/*.base.cov, *.stat
+步骤1: 计算深度(minimap2 比对 → pbcstat/ngscstat 统计)  → coverage/*_base.cov, *.stat
     │
     ▼
 步骤2: 计算阈值(calcuts)                                  → coverage/cutoffs
     │
     ▼
-步骤3: 分割基因组并自比对(split_fa + minimap2 -xasm5)      → split_aln/*.split.self.paf.gz
+步骤3: 分割基因组并自比对(split_fa + minimap2 -xasm5)      → split_aln/*_split_self_paf.gz
     │
     ▼
 步骤4: 去冗余(purge_dups, 输出冗余区间)                     → purge_dups/dups.bed
@@ -87,12 +87,12 @@ biopytools purge_dups -i assembly.fa -r hifi_reads.fq.gz -o purged_output
 ```text
 purged_output/
 ├── coverage/
-│   ├── {genome}.base.cov          # 每个碱基的测序深度
+│   ├── {genome}_base.cov          # 每个碱基的测序深度
 │   ├── {genome}.stat              # 深度统计(用于算阈值)
 │   └── cutoffs                    # 深度分界阈值
 ├── split_aln/
 │   ├── {genome}.split             # 分割后的序列
-│   └── {genome}.split.self.paf.gz # 自比对结果
+│   └── {genome}_split_self_paf.gz # 自比对结果
 ├── purge_dups/
 │   ├── dups.bed                   # 被判定为冗余的区间清单
 │   └── purge_dups.log             # purge_dups 子命令日志

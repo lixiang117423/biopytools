@@ -77,10 +77,10 @@ pi_output/
 ├── 00_pipeline_info/
 │   └── software_versions.yml        # 软件版本与参数
 ├── 01_vcftools/                     # vcftools 原始输出(每群体)
-│   ├── {pop}.sites.pi               # 全基因组模式: 位点级 π
-│   └── {pop}.windowed.pi            # 滑窗模式: 窗口级 π
+│   ├── {pop}_sites.pi                # 全基因组模式: 位点级 π
+│   └── {pop}_windowed.pi             # 滑窗模式: 窗口级 π
 ├── 03_windowed/                     # 仅全基因组模式: 100kb 滑窗结果
-│   ├── 01_vcftools/{pop}.windowed.pi
+│   ├── 01_vcftools/{pop}_windowed.pi
 │   └── pi_merged.tsv
 └── 99_logs/
     └── *.log                        # 运行日志
@@ -101,7 +101,7 @@ pi_output/
 
 - **`-w / --window-step`（滑窗）**：不设 `-w` 就是全基因组模式（推荐先跑这个拿整体 π）；要看分布再加 `-w 100000`（100kb 窗口）
 - **`--maf / --max-missing`（质控）**：默认 0.0 / 1.0（不过滤）一般不用动；数据质量差时可设 `--maf 0.05 --max-missing 0.2`
-- **`--keep-intermediate`**：默认清理 `.keep.txt` 中间文件；调试时加它保留
+- **`--keep-intermediate`**：默认清理 `_keep.txt` 中间文件；调试时加它保留
 - **`--vcftools-path`**：vcftools 不在默认 conda 环境（pop）时，用这个指定路径
 
 ## 依赖 | Dependencies
@@ -112,7 +112,7 @@ pi_output/
 ## 常见问题 | FAQ
 
 **Q1：换参数（如 `--maf`）重跑，结果没变？**
-断点续传按每群体的 `.sites.pi` / `.windowed.pi` 是否存在判断。换质控参数后需删除 `01_vcftools/`（和 `03_windowed/`）里的旧结果，否则会复用。
+断点续传按每群体的 `_sites.pi` / `_windowed.pi` 是否存在判断。换质控参数后需删除 `01_vcftools/`（和 `03_windowed/`）里的旧结果，否则会复用。
 
 **Q2：参考基因组目录只读，建不了 `.fai` 索引怎么办？**
 程序会自动尝试用 `samtools faidx` 补建索引；若失败（目录只读/无权限），会记录 WARNING 并降级为直接解析 FASTA 拿染色体长度，流程照常继续、结果不受影响。

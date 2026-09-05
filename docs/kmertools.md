@@ -51,7 +51,7 @@ import-db : -i k-mer 矩阵（可 .gz 压缩）
 split-fasta : 输入 FASTA + 输出目录（位置参数）
 ```
 
-FASTQ 默认按 _1.clean.fq.gz / _2.clean.fq.gz 配对识别，其他命名可用后缀参数调整。
+FASTQ 默认按 _1_clean.fq.gz / _2_clean.fq.gz 配对识别，其他命名可用后缀参数调整。
 
 ## 参数说明 | Parameters
 
@@ -161,8 +161,8 @@ extract 输出：
 | `--kmtricks-path` | — |  | kmtricks路径 (默认按 KMTRICKS_PATH环境变量>配置文件>内置默认 解析)｜kmtricks path (resolved via KMTRICKS_PATH env>config>built-in) |
 | `--kmindex-path` | — |  | kmindex路径 (默认按 KMINDEX_PATH环境变量>配置文件>内置默认 解析)｜kmindex path (resolved via KMINDEX_PATH env>config>built-in) |
 | `--bgzip-path` | — |  | bgzip路径 (默认按 BGZIP_PATH环境变量>配置文件>内置默认 解析)｜bgzip path (resolved via BGZIP_PATH env>config>built-in) |
-| `--fof-suffix-1` | `_1.clean.fq.gz` |  | R1文件后缀 (默认: _1.clean.fq.gz)｜R1 file suffix (default: _1.clean.fq.gz) |
-| `--fof-suffix-2` | `_2.clean.fq.gz` |  | R2文件后缀 (默认: _2.clean.fq.gz)｜R2 file suffix (default: _2.clean.fq.gz) |
+| `--fof-suffix-1` | `_1_clean.fq.gz` |  | R1文件后缀 (默认: _1_clean.fq.gz)｜R1 file suffix (default: _1_clean.fq.gz) |
+| `--fof-suffix-2` | `_2_clean.fq.gz` |  | R2文件后缀 (默认: _2_clean.fq.gz)｜R2 file suffix (default: _2_clean.fq.gz) |
 | `-d, --database` | — |  | RocksDB数据库目录 (kmtricks模式必需，默认模式)｜RocksDB database directory (required for kmtricks mode, default) |
 | `-i, --index` | — |  | kmindex索引目录 (kmindex模式必需，需加--use-kmindex)｜kmindex index directory (required for kmindex mode, requires --use-kmindex) |
 | `-q, --query` | 必填 |  | 查询FASTA文件｜Query FASTA file |
@@ -172,8 +172,8 @@ extract 输出：
 | `--threshold` | `0.0` | float | 共享k-mer阈值 (默认: 0.0)｜Shared k-mer threshold (default: 0.0) |
 | `--format` | `matrix` | json/matrix | 输出格式 (默认: matrix)｜Output format (default: matrix) |
 | `--dir` | 必填 |  | 输入目录｜Input directory |
-| `--suffix-1` | `_1.clean.fq.gz` |  | R1文件后缀 (默认: _1.clean.fq.gz)｜R1 file suffix (default: _1.clean.fq.gz) |
-| `--suffix-2` | `_2.clean.fq.gz` |  | R2文件后缀 (默认: _2.clean.fq.gz)｜R2 file suffix (default: _2.clean.fq.gz) |
+| `--suffix-1` | `_1_clean.fq.gz` |  | R1文件后缀 (默认: _1_clean.fq.gz)｜R1 file suffix (default: _1_clean.fq.gz) |
+| `--suffix-2` | `_2_clean.fq.gz` |  | R2文件后缀 (默认: _2_clean.fq.gz)｜R2 file suffix (default: _2_clean.fq.gz) |
 | `--input-delimiter` | `	` |  | 输入分隔符 (默认: tab)｜Input delimiter (default: tab) |
 | `--batch-size` | `20000` | int | 批量写入大小 (默认: 20000)｜Batch write size (default: 20000) |
 | `--bloom-bits` | `15` | int | Bloom filter位数 (默认: 15)｜Bloom filter bits per key (default: 15) |

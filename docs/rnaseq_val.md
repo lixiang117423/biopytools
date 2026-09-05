@@ -47,7 +47,7 @@ biopytools rnaseq-val -g genome.fa -a anno.gtf --sr-dir ./sr/ -o out
 
 ### 数据输入 | Data input { #parameters-data }
 
-**通俗理解|In plain words:** `--sr-dir` 放二代配对 fastq，`--lr-dir` 放三代单端 fastq。`--sr-pattern` 在命名不规范时指定配对模式(如 `*_1.clean.fq.gz`)。`--lr-platform` 告诉程序三代数据是 PacBio HiFi 还是 ONT，影响比对和组装参数。
+**通俗理解|In plain words:** `--sr-dir` 放二代配对 fastq，`--lr-dir` 放三代单端 fastq。`--sr-pattern` 在命名不规范时指定配对模式(如 `*_1_clean.fq.gz`)。`--lr-platform` 告诉程序三代数据是 PacBio HiFi 还是 ONT，影响比对和组装参数。
 
 ### 运行参数 | Run { #parameters-run }
 
@@ -70,8 +70,8 @@ biopytools rnaseq-val -g genome.fa -a anno.gtf --sr-dir ./sr/ -o out
 ```text
 输入 genome.fa + annotation.gtf + (sr_dir 和/或 lr_dir)
     │
-    ├─ align_2nd：HISAT2 建索引 + 比对二代 reads → 02_align_2nd/*.sorted.bam
-    ├─ align_3rd：minimap2 比对三代 reads → 03_align_3rd/*.sorted.bam
+    ├─ align_2nd：HISAT2 建索引 + 比对二代 reads → 02_align_2nd/*_sorted.bam
+    ├─ align_3rd：minimap2 比对三代 reads → 03_align_3rd/*_sorted.bam
     ├─ assemble_2nd：StringTie 组装 + 合并 → 04_assemble_2nd/merged.gtf
     ├─ assemble_3rd：FLAIR correct + collapse → 05_assemble_3rd/.../collapse.isoforms.gtf
     ├─ compare：GFFcompare 比较组装 vs 参考 → 06_compare/merged.annotated.gtf
@@ -146,7 +146,7 @@ out/
 | `-a, --annotation` | 必填 |  | 参考注释 GTF 文件｜Reference annotation GTF file |
 | `-o, --output` | 必填 |  | 输出目录｜Output directory |
 | `--sr-dir` | — |  | 二代 clean reads 目录（自动检测配对 fastq）｜SR clean reads directory (auto-detect paired fastq) |
-| `--sr-pattern` | — |  | 二代 fastq 自定义命名模式｜SR fastq custom pattern (e.g. *_1.clean.fq.gz) |
+| `--sr-pattern` | — |  | 二代 fastq 自定义命名模式｜SR fastq custom pattern (e.g. *_1_clean.fq.gz) |
 | `--lr-dir` | — |  | 三代 clean reads 目录（自动检测单端 fastq）｜LR clean reads directory (auto-detect single fastq) |
 | `--lr-platform` | `pacbio` | pacbio/ont | 三代测序平台｜LR sequencing platform |
 | `-t, --threads` | `12` | int | 线程数｜Threads |

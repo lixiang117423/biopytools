@@ -4,7 +4,7 @@
 
 ## 功能概述 | Overview { #overview }
 
-- 自动识别目录里的双端 FASTQ 样本（默认后缀 _1.clean.fq.gz / _2.clean.fq.gz）
+- 自动识别目录里的双端 FASTQ 样本（默认后缀 _1_clean.fq.gz / _2_clean.fq.gz）
 - 全流程：导入→切引物(cutadapt)→去噪(DADA2 得 ASV)→可选 OTU 聚类(vsearch)→分类注释(sklearn)→系统发育(mafft+fasttree)→多样性+抽平→导出
 - 支持 16S（默认）与 ITS 两种扩增子；ITS 自动跳过系统发育
 - 分类器三级获取：用户指定 → 缓存复用 → 自动训练（SILVA/UNITE）
@@ -36,17 +36,17 @@ biopytools qiime2 -i raw_reads/ -o qiime2_output
 
 ## 输入 | Input { #input }
 
-- **双端 FASTQ 目录**（`-i`）：R1/R2 按后缀配对，默认 `_1.clean.fq.gz` / `_2.clean.fq.gz`（可用 `--r1-suffix` 与 `--r2-suffix` 修改）。
+- **双端 FASTQ 目录**（`-i`）：R1/R2 按后缀配对，默认 `_1_clean.fq.gz` / `_2_clean.fq.gz`（可用 `--r1-suffix` 与 `--r2-suffix` 修改）。
 - **样品元数据 TSV**（`--metadata-file`，可选）：用于多样性分组的表；不提供则自动生成一个「全部归为 all 组」的最小元数据。
 
 示例目录：
 
 ```text
 raw_reads/
-├── S1_1.clean.fq.gz
-├── S1_2.clean.fq.gz
-├── S2_1.clean.fq.gz
-└── S2_2.clean.fq.gz
+├── S1_1_clean.fq.gz
+├── S1_2_clean.fq.gz
+├── S2_1_clean.fq.gz
+└── S2_2_clean.fq.gz
 ```
 
 ## 参数说明 | Parameters { #parameters }
@@ -196,8 +196,8 @@ qiime2_output/
 | `--database-dir` | — |  | 原始参考库目录(SILVA/UNITE)｜Raw reference DB directory |
 | `--qiime-path` | — |  | qiime可执行文件路径｜qiime executable path |
 | `--classifier-cache-dir` | — |  | 分类器缓存目录｜Classifier cache directory |
-| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
-| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+| `--r1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
 | `--skip-cutadapt` | — |  | 跳过引物切除｜Skip primer trimming |
 | `--skip-phylogeny` | — |  | 跳过系统发育建树(ITS自动跳过)｜Skip phylogeny (auto for ITS) |
 | `--metadata-file` | — |  | 样品元数据TSV(可选)｜Sample metadata TSV (optional) |
@@ -229,8 +229,8 @@ qiime2_output/
 | `--database-dir` | — |  | 原始参考库目录(SILVA/UNITE)｜Raw reference DB directory (default: ~/database/qiime2) |
 | `--qiime-path` | — |  | qiime可执行文件路径｜qiime executable path (default: ~/miniforge3/envs/qiime_v.2024.10.1/bin/qiime) |
 | `--classifier-cache-dir` | — |  | 分类器缓存目录｜Classifier cache directory (default: <db>/classifier_cache) |
-| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix (default: _1.clean.fq.gz) |
-| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix (default: _2.clean.fq.gz) |
+| `--r1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀｜R1 file suffix (default: _1_clean.fq.gz) |
+| `--r2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀｜R2 file suffix (default: _2_clean.fq.gz) |
 | `--skip-cutadapt` | — | store_true | 跳过引物切除(数据已去引物)｜Skip primer trimming |
 | `--skip-phylogeny` | — | store_true | 跳过系统发育建树(ITS自动跳过)｜Skip phylogeny (auto for ITS) |
 | `--metadata-file` | — |  | 样品元数据TSV(可选)｜Sample metadata TSV (optional) |

@@ -4,7 +4,7 @@
 
 ## 功能概述 | Overview { #overview }
 
-- 输入一个 GVCF 目录(匹配 `*.g.vcf.gz`) + 参考基因组 + GTX 可执行文件
+- 输入一个 GVCF 目录(匹配 `*_g.vcf.gz`) + 参考基因组 + GTX 可执行文件
 - 自动检查/重建参考基因组索引(samtools faidx)和每个 GVCF 的索引(tabix)
 - 按样本数量自动选择三种模式生成脚本：单机模式(≤200 样本)、按染色体拆分(>200 样本)、按区间拆分(>200 样本且指定窗口)
 - 只生成脚本不执行，输出可执行脚本 `run_gtx_joint.sh` + 运行日志
@@ -30,14 +30,14 @@ biopytools gtx-joint -r genome.fa -i ./gvcf -o ./output
 
 ### GVCF 目录
 
-`-i` 指向一个目录，程序只认文件名匹配 `*.g.vcf.gz` 的文件。缺 `.tbi` 索引或索引过时会自动重建。
+`-i` 指向一个目录，程序只认文件名匹配 `*_g.vcf.gz` 的文件。缺 `.tbi` 索引或索引过时会自动重建。
 
 ```text
 gvcf/
-├── sample1.g.vcf.gz
-├── sample1.g.vcf.gz.tbi
-├── sample2.g.vcf.gz
-└── sample2.g.vcf.gz.tbi
+├── sample1_g.vcf.gz
+├── sample1_g.vcf.gz.tbi
+├── sample2_g.vcf.gz
+└── sample2_g.vcf.gz.tbi
 ```
 
 ### 参考基因组
@@ -100,8 +100,8 @@ output/
 
 ```text
 单机模式:  gtx_joint_raw.vcf.gz
-按染色体:  Chr01.joint.vcf.gz  Chr02.joint.vcf.gz ...
-按区间:    Chr01_1-10000000.joint.vcf.gz  Chr01_10000001-20000000.joint.vcf.gz ...
+按染色体:  Chr01_joint.vcf.gz  Chr02_joint.vcf.gz ...
+按区间:    Chr01_1-10000000_joint.vcf.gz  Chr01_10000001-20000000_joint.vcf.gz ...
 ```
 
 ## 结果解读 | Interpreting Results { #interpreting }
@@ -118,7 +118,7 @@ output/
 **通俗理解|In plain words:** 按区间拆分时，一条染色体被切成多块、产出多个 VCF，用完要拼回去。
 
 ```bash
-bcftools concat -o Chr01.merged.vcf.gz output/Chr01_*.joint.vcf.gz
+bcftools concat -o Chr01_merged.vcf.gz output/Chr01_*_joint.vcf.gz
 ```
 
 ## 参数选择建议 | Parameter Guidance { #guidance }
@@ -182,7 +182,7 @@ bcftools concat -o Chr01.merged.vcf.gz output/Chr01_*.joint.vcf.gz
 自动从单机模式切换为按染色体拆分；若同时给了 `-w`，则按区间拆分。
 
 **Q3：GVCF 文件没找到？**
-程序只认文件名匹配 `*.g.vcf.gz` 的文件，其它命名不会被扫描到。缺 `.tbi` 索引或索引过时会自动用 tabix 重建。
+程序只认文件名匹配 `*_g.vcf.gz` 的文件，其它命名不会被扫描到。缺 `.tbi` 索引或索引过时会自动用 tabix 重建。
 
 **Q4：faketime 没装会报错吗？**
 不会。faketime 可用则用，不可用会在日志里 WARNING 并不加 faketime 前缀；但实际跑 GTX 时若 license 校验失败，仍建议安装 libfaketime。

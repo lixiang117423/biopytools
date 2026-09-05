@@ -32,7 +32,7 @@ biopytools check-reads -i 2nd/clean/ -o check_out/ -t 88
 一个或多个 fastq 目录(逗号分隔),递归扫描子目录:
 
 - 支持后缀:`.fq`、`.fastq`,可带 `.gz`
-- 命名识别(配对检查用):`SRR123_1.fq.gz`+`_2.fq.gz`、`A_R1.fq`+`A_R2.fq`、`SRR123_1.clean.fq.gz`+`_2.clean.fq.gz` 等
+- 命名识别(配对检查用):`SRR123_1.fq.gz`+`_2.fq.gz`、`A_R1.fq`+`A_R2.fq`、`SRR123_1_clean.fq.gz`+`_2_clean.fq.gz` 等
 - 单端文件(`C.fq` 等无法配对的)合法,报告里单独统计
 - 非 fastq 文件忽略并记录在报告尾部
 
@@ -80,9 +80,9 @@ output/
 ```
 === check_reads 报告|report | 2026-08-27 09:22:19 ===
 -- 文件状态|file status --
-OK       /path/SRR1_1.clean.fq.gz
-CORRUPT  /path/SRR2_1.clean.fq.gz      ← 损坏
-EMPTY    /path/SRR3_1.clean.fq.gz      ← 空文件
+OK       /path/SRR1_1_clean.fq.gz
+CORRUPT  /path/SRR2_1_clean.fq.gz      ← 损坏
+EMPTY    /path/SRR3_1_clean.fq.gz      ← 空文件
 -- 配对检查|pairing --
 缺R2 missing_R2: SRR4                   ← 只有 R1 没有 R2
 -- 汇总|summary --

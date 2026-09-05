@@ -40,12 +40,12 @@ biopytools rnaseq -g genome.fa -f genes.gtf -i ./fastq_data -o rnaseq_results
 
 ### 测序数据（二选一）
 
-1. **FASTQ 目录**：目录内放成对双端 FASTQ，按 `-p/--pattern` 命名（默认 `*_1.clean.fq.gz`，`*` 是样本名，R2 自动换为 `_2.clean.fq.gz`）
+1. **FASTQ 目录**：目录内放成对双端 FASTQ，按 `-p/--pattern` 命名（默认 `*_1_clean.fq.gz`，`*` 是样本名，R2 自动换为 `_2_clean.fq.gz`）
 2. **样本信息文件**：制表符三列 `样本名\tR1路径\tR2路径`
 
 ```text
-sampleA    /data/sampleA_1.clean.fq.gz    /data/sampleA_2.clean.fq.gz
-sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
+sampleA    /data/sampleA_1_clean.fq.gz    /data/sampleA_2_clean.fq.gz
+sampleB    /data/sampleB_1_clean.fq.gz    /data/sampleB_2_clean.fq.gz
 ```
 
 ## 参数说明 | Parameters
@@ -61,9 +61,9 @@ sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
 
 ### 样本与文件 | Samples & files
 
-**通俗理解|In plain words:** `-p` 是「文件名长什么样」的模板，文件命名与默认 `*_1.clean.fq.gz` 不一致时才改。`-r` 决定「跑完后删不删 BAM」——BAM 很占磁盘，只想要表达量的话可设 `yes` 删掉省空间。
+**通俗理解|In plain words:** `-p` 是「文件名长什么样」的模板，文件命名与默认 `*_1_clean.fq.gz` 不一致时才改。`-r` 决定「跑完后删不删 BAM」——BAM 很占磁盘，只想要表达量的话可设 `yes` 删掉省空间。
 
-- `-p/--pattern`：FASTQ 命名模式（默认 `*_1.clean.fq.gz`）
+- `-p/--pattern`：FASTQ 命名模式（默认 `*_1_clean.fq.gz`）
 - `-r/--remove`：处理后是否删除 BAM（`yes`/`y`/`no`/`n`，默认 `no`）
 
 ### 运行与超时 | Runtime & timeout
@@ -112,9 +112,9 @@ sampleB    /data/sampleB_1.clean.fq.gz    /data/sampleB_2.clean.fq.gz
 
 ```text
 output_dir/
-+-- 01_bam/{sample}.sorted.bam        # 比对结果(旧版目录名 01.bam)
++-- 01_bam/{sample}_sorted.bam        # 比对结果(旧版目录名 01.bam)
 +-- 02_stringtie/{sample}.gtf         # StringTie 定量 GTF(旧版 02.stringtie)
-+-- 03_fpkm_tpm/{sample}.fpkm.txt     # 单样本 FPKM/TPM(旧版 03.fpkm_tpm)
++-- 03_fpkm_tpm/{sample}_fpkm.txt     # 单样本 FPKM/TPM(旧版 03.fpkm_tpm)
 +-- all_fpkm_tpm.txt                  # 所有样本合并表达矩阵(主要产物)
 +-- rnaseq_summary.txt                # 总结报告
 +-- rnaseq_processing_*.log           # 运行日志
@@ -137,7 +137,7 @@ gene1      gene1.1          14.1   4.02    6.10   sampleB
 - 含 `sample` 列，是多样本拼接的长格式，下游可用 R（reshape2/tidyr）转成「基因 × 样本」宽表后做差异分析
 - `FPKM`、`TPM` 越大表达越强；`cov` 是覆盖度
 
-### 2. 单样本表达量（`03_fpkm_tpm/{sample}.fpkm.txt`）
+### 2. 单样本表达量（`03_fpkm_tpm/{sample}_fpkm.txt`）
 
 与矩阵中该样本的内容一致，表头为 `gene_id	transcript_id	cov	FPKM	TPM	sample`。
 
@@ -170,7 +170,7 @@ gene1      gene1.1          14.1   4.02    6.10   sampleB
 | `--gtf, -f` | 必填 |  | 基因注释GTF文件路径｜Gene annotation GTF file path |
 | `--input, -i` | 必填 | Path | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
 | `--output, -o` | 必填 | Path | 输出目录｜Output directory |
-| `--pattern, -p` | `*_1.clean.fq.gz` | str | FASTQ文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
+| `--pattern, -p` | `*_1_clean.fq.gz` | str | FASTQ文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
 | `--remove, -r` | `no` | yes/y/no/n | 处理后删除BAM文件｜Remove BAM files after processing |
 | `--verbose, -v` | — |  | 增加输出详细程度｜Increase output verbosity (-v, -vv, -vvv) |
 | `--quiet` | — |  | 静默模式｜Quiet mode, only output errors |
@@ -189,7 +189,7 @@ gene1      gene1.1          14.1   4.02    6.10   sampleB
 | `-f, --gtf` | 必填 |  | 基因注释GTF文件路径｜Gene annotation GTF file path |
 | `-i, --input` | 必填 |  | 输入fastq文件目录或样本信息文件｜Input fastq file directory or sample information file |
 | `-o, --output` | 必填 |  | 输出目录｜Output directory |
-| `-p, --pattern` | `*_1.clean.fq.gz` |  | Fastq文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
+| `-p, --pattern` | `*_1_clean.fq.gz` |  | Fastq文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
 | `-r, --remove` | `no` | yes/y/no/n | 处理后删除BAM文件｜Remove BAM files after processing |
 | `-t, --threads` | `8` | int | 线程数｜Number of threads |
 | `--sample-timeout` | — | int | 单个样本处理超时时间（秒），默认不限制｜Sample processing timeout in seconds, default no limit |
@@ -213,7 +213,7 @@ gene1      gene1.1          14.1   4.02    6.10   sampleB
 ## 常见问题 | FAQ
 
 **Q1：换参数重跑为什么结果没变？**
-断点续传按「样本输出 `{sample}.fpkm.txt` 是否已存在」判断，已完成的样本会跳过。要重算请加 `--force`。
+断点续传按「样本输出 `{sample}_fpkm.txt` 是否已存在」判断，已完成的样本会跳过。要重算请加 `--force`。
 
 **Q2：HISAT2 索引建在哪？**
 建在基因组 FASTA 的**同目录**下（不在输出目录），前缀为 `{基因组名}.hisat2.index`。同一基因组多次运行会复用该索引，不会重复构建。

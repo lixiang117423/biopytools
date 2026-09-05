@@ -69,14 +69,14 @@ biopytools coverage -i sample1.bam sample2.bam -o results.txt -t 16
 3. 逐文件: samtools depth -a 提取深度 → temp_{sample}.depth
 4. 过滤(染色体/区间/质量)后追加到输出长表
 5. (可选)滑窗统计
-6. 生成统计报告 .stats.txt
+6. 生成统计报告 _stats.txt
 ~~~
 
 ## 输出 | Output
 
 ~~~text
 depth_results.txt                     # 主结果长表: Sample Chromosome Position Depth
-depth_results.stats.txt               # 统计报告(每样本/每染色体深度统计)
+depth_results_stats.txt               # 统计报告(每样本/每染色体深度统计)
 depth_results_windows_1000bp.txt      # 滑窗结果(开启 --enable-windows 时)
 depth_analysis.log                    # 运行日志
 ~~~
@@ -88,7 +88,7 @@ depth_analysis.log                    # 运行日志
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 主结果表一行一个位置，`Depth` 列就是该位置的深度；统计报告 `.stats.txt` 直接给出每个样本/染色体的平均、中位深度。
+**通俗理解|In plain words:** 主结果表一行一个位置，`Depth` 列就是该位置的深度；统计报告 `_stats.txt` 直接给出每个样本/染色体的平均、中位深度。
 
 - `Depth = 0` 的位置大量出现：低测序区、重复区或比对不上区（因为用了 `-a` 才被显式列出）
 - 平均深度与中位深度差距大：深度分布不均

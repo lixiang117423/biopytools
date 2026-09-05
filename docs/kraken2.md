@@ -4,7 +4,7 @@
 
 ## 功能概述 | Overview { #overview }
 
-- 自动扫描目录识别双端 FASTQ 样本（默认后缀 _1.clean.fq.gz / _2.clean.fq.gz）
+- 自动扫描目录识别双端 FASTQ 样本（默认后缀 _1_clean.fq.gz / _2_clean.fq.gz）
 - 逐样本运行 Kraken2（配对、gzip 输入、--use-names 输出学名）
 - 可选 Bracken 丰度重估，把「分类条数」纠正为「物种相对丰度」
 - 汇总所有样本为一张分类总表与一张物种丰度矩阵
@@ -33,17 +33,17 @@ biopytools kraken2 -i ./fastq/ -d ~/database/kraken2_db -o ./kraken2_output
 
 ## 输入 | Input { #input }
 
-- **FASTQ 目录**（`-i`）：内含成对的双端文件，R1/R2 通过后缀配对（默认 `_1.clean.fq.gz` / `_2.clean.fq.gz`，可用 `--r1-suffix` / `--r2-suffix` 改）。
+- **FASTQ 目录**（`-i`）：内含成对的双端文件，R1/R2 通过后缀配对（默认 `_1_clean.fq.gz` / `_2_clean.fq.gz`，可用 `--r1-suffix` / `--r2-suffix` 改）。
 - **Kraken2 数据库目录**（`-d`）：已用 kraken2-build 建好（含 hash.k2d、opts.k2d、taxo.k2d 等）。
 
 示例目录：
 
 ```text
 fastq/
-├── S1_1.clean.fq.gz
-├── S1_2.clean.fq.gz
-├── S2_1.clean.fq.gz
-└── S2_2.clean.fq.gz
+├── S1_1_clean.fq.gz
+├── S1_2_clean.fq.gz
+├── S2_1_clean.fq.gz
+└── S2_2_clean.fq.gz
 ```
 
 ## 参数说明 | Parameters { #parameters }
@@ -87,10 +87,10 @@ kraken2_output/
 │   └── software_versions.yml          # 版本与参数存档
 ├── 01_kraken2/
 │   ├── S1.kraken                      # Kraken2 逐条分类结果
-│   └── S1.kraken_report.txt           # Kraken2 分类报告(分级汇总)
+│   └── S1_kraken_report.txt           # Kraken2 分类报告(分级汇总)
 ├── 02_bracken/
-│   ├── S1.bracken.txt                 # Bracken 丰度估算表
-│   └── S1.bracken_report.txt          # Bracken 新报告
+│   ├── S1_bracken.txt                 # Bracken 丰度估算表
+│   └── S1_bracken_report.txt          # Bracken 新报告
 ├── 03_summary/
 │   ├── kraken2_summary.tsv            # 各样本分类率/优势种总表
 │   └── bracken_species.tsv            # 物种丰度矩阵(样本×物种)
@@ -100,13 +100,13 @@ kraken2_output/
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 
-### 1. S1.kraken_report.txt（Kraken2 分类报告）
+### 1. S1_kraken_report.txt（Kraken2 分类报告）
 
 **通俗理解|In plain words:** 每行一个分类单元，从根到物种逐级汇总，回答「多少 reads 落到了谁头上」。
 
 每列含义：`percentage`（占根的比例%）、`clade_reads`（该分支累积 reads 数）、`taxid`（NCBI 分类号）、`rank`（级别代码 U=未分类/R=根/D..S）、`name`（学名）。taxid=0 那行是未分类 reads。
 
-### 2. S1.bracken.txt（Bracken 丰度表）
+### 2. S1_bracken.txt（Bracken 丰度表）
 
 **通俗理解|In plain words:** 这是最常用的结果——每个物种的「真实占比」估算。
 
@@ -149,8 +149,8 @@ kraken2_output/
 | `--bracken-level` | `S` | D/P/C/O/F/G/S/S1 | Bracken分类级别｜Bracken taxonomic level |
 | `--bracken-threshold` | `10` | int | Bracken最小读数阈值｜Bracken minimum read threshold |
 | `--no-bracken` | — |  | 跳过Bracken分析｜Skip Bracken analysis |
-| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
-| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+| `--r1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -165,8 +165,8 @@ kraken2_output/
 | `--bracken-level` | `S` | D/P/C/O/F/G/S/S1 | Bracken分类级别｜Bracken taxonomic level |
 | `--bracken-threshold` | `10` | int | Bracken最小读数阈值｜Bracken minimum read threshold |
 | `--no-bracken` | — | store_true | 跳过Bracken分析｜Skip Bracken analysis |
-| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
-| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+| `--r1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
 
 <!-- END PARAMS:auto -->
 
@@ -179,7 +179,7 @@ kraken2_output/
 ## 常见问题 | FAQ { #faq }
 
 **Q1：支持断点续传吗？**
-支持，按样本粒度。某样本的 `01_kraken2/<样本>.kraken` 与报告已存在即跳过 Kraken2，`02_bracken/<样本>.bracken.txt` 与报告已存在即跳过 Bracken。
+支持，按样本粒度。某样本的 `01_kraken2/<样本>.kraken` 与报告已存在即跳过 Kraken2，`02_bracken/<样本>_bracken.txt` 与报告已存在即跳过 Bracken。
 
 **Q2：只支持双端吗？**
 是。当前实现只按 R1/R2 后缀配对双端，单端数据需先改后缀或另行处理；未找到任何配对样本会直接报错退出。

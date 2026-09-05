@@ -83,10 +83,10 @@ ACGTAAACGTACGT
 ```text
 out/
 ├── 01_trimal/
-│   ├── <sample>.trimmed.fasta        # 修剪后的比对(主结果)
-│   ├── <sample>.complementary.fasta  # 互补比对(仅 --complementary)
-│   ├── <sample>.backtrans.fasta      # 反向翻译比对(仅 --backtrans)
-│   └── <sample>.colnumbering.tsv     # 新旧列号映射(仅 --colnumbering)
+│   ├── <sample>_trimmed.fasta        # 修剪后的比对(主结果)
+│   ├── <sample>_complementary.fasta  # 互补比对(仅 --complementary)
+│   ├── <sample>_backtrans.fasta      # 反向翻译比对(仅 --backtrans)
+│   └── <sample>_colnumbering.tsv     # 新旧列号映射(仅 --colnumbering)
 ├── 00_pipeline_info/
 │   └── software_versions.yml         # 软件版本与参数记录
 └── 99_logs/
@@ -173,7 +173,7 @@ trimAl 是独立二进制，直接按绝对路径调用(无需 conda 环境激�
 
 ### 1. 会断点续传吗？
 
-**主修剪会**：如果目标文件 `<sample>.trimmed.<ext>` 已存在，会跳过主修剪步骤。但 `--complementary` 和 `--backtrans` 两个附加输出**不参与断点续传**，每次都会重新生成。
+**主修剪会**：如果目标文件 `<sample>_trimmed.<ext>` 已存在，会跳过主修剪步骤。但 `--complementary` 和 `--backtrans` 两个附加输出**不参与断点续传**，每次都会重新生成。
 
 ### 2. gt 方法的 gap 阈值参数名是什么？
 

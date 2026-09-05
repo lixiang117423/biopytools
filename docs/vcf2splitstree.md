@@ -17,7 +17,7 @@
 biopytools vcf2splitstree -i variants.vcf.gz -o vcf2s_out/
 ```
 
-转换完成后,把 `vcf2s_out/variants.distances.csv` 拷回 Mac,用 SplitsTree6 的 File→Open 打开即可。
+转换完成后,把 `vcf2s_out/variants_distances.csv` 拷回 Mac,用 SplitsTree6 的 File→Open 打开即可。
 
 ## 零基础概念速览 | Concepts in plain words { #concepts }
 
@@ -67,7 +67,7 @@ biopytools vcf2splitstree -i variants.vcf.gz -o vcf2s_out/
 
 ```
 output/
-├── variants.distances.csv     # 距离矩阵 CSV(SplitsTree6 直接打开)
+├── variants_distances.csv     # 距离矩阵 CSV(SplitsTree6 直接打开)
 ├── 00_pipeline_info/
 │   └── software_versions.yml  # 输入/输出/样本数/耗时
 └── 99_logs/
@@ -78,7 +78,7 @@ output/
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 
-- **在 Mac 上打开**:SplitsTree6 → File → Open → 选 `variants.distances.csv` → 自动识别距离矩阵 → 自动跑 NeighborNet
+- **在 Mac 上打开**:SplitsTree6 → File → Open → 选 `variants_distances.csv` → 自动识别距离矩阵 → 自动跑 NeighborNet
 - **fit 值**:网络对距离矩阵的拟合度(GUI 里 Splits Network 窗口可看),**>90 说明网络能很好表达数据**
 - **矩阵质量检查**:对角线全 0;两样本距离接近 0 时警惕测序混样;CSV 行数 = 样本数
 - **平行边(网状结构)**:NeighborNet 的网格状分支表示存在不一致的系统发育信号(重组/杂交/基因流),这是网络的特色不是错误

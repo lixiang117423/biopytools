@@ -48,7 +48,7 @@ TTTTGGGG
 **通俗理解|In plain words:** 这两个参数告诉工具「读什么、写到哪」，每次必填。
 
 - `-i, --input`：输入 FASTA 文件或文件夹。
-- `-o, --output`：输出位置。工具会「智能判断」——如果给的是目录（以 `/` 结尾、或已存在目录、或不像文件名），就在里面写 `<前缀>.seq_len.tsv` 和 `<前缀>.seq_len.summary.tsv`；如果给的是文件路径，就直接当主表写，汇总表自动变成 `xxx.summary.tsv`。
+- `-o, --output`：输出位置。工具会「智能判断」——如果给的是目录（以 `/` 结尾、或已存在目录、或不像文件名），就在里面写 `<前缀>_seq_len.tsv` 和 `<前缀>_seq_len_summary.tsv`；如果给的是文件路径，就直接当主表写，汇总表自动变成 `xxx_summary.tsv`。
 
 ### 过滤与排序 | Filter & sort
 
@@ -78,8 +78,8 @@ TTTTGGGG
 
 ```text
 out/
-├── genome.seq_len.tsv            # 主表：每条序列的长度
-└── genome.seq_len.summary.tsv    # 汇总表：N50/总长等统计
+├── genome_seq_len.tsv            # 主表：每条序列的长度
+└── genome_seq_len_summary.tsv    # 汇总表：N50/总长等统计
 ```
 
 - 主表（文件模式）两列：`sequence_id`、`length`。

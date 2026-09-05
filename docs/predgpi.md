@@ -61,7 +61,7 @@ MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLS...
 蛋白质 FASTA
     │
     ▼
-(断点续传) {prefix}.predgpi.tsv 已存在? → 是则跳过
+(断点续传) {prefix}_predgpi.tsv 已存在? → 是则跳过
     │
     ▼
 加载 HMM + SVM 模型(GPIDAT)
@@ -70,7 +70,7 @@ MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLS...
 逐条预测: 替换非标准AA → 短序列直接判非GPI → 其余跑 predGpipe
     │
     ▼
-按 FPR 分类 → 写 {prefix}.predgpi.tsv + software_versions.yml
+按 FPR 分类 → 写 {prefix}_predgpi.tsv + software_versions.yml
 ```
 
 ## 输出 | Output
@@ -79,16 +79,16 @@ MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLS...
 output_dir/
 ├── 00_pipeline_info/
 │   └── software_versions.yml     # 软件/模型版本与参数记录
-├── {prefix}.predgpi.tsv          # 主结果:预测汇总表
+├── {prefix}_predgpi.tsv          # 主结果:预测汇总表
 └── 99_logs/
     └── predgpi.log               # 运行日志
 ```
 
-- 主结果 `{prefix}.predgpi.tsv` 列：`ID / Length / GPI_Anchored / Cleavage_Site / FPR / HMM_LogProb / SVM_Score / Probability / Classification`
+- 主结果 `{prefix}_predgpi.tsv` 列：`ID / Length / GPI_Anchored / Cleavage_Site / FPR / HMM_LogProb / SVM_Score / Probability / Classification`
 
 ## 结果解读 | Interpreting Results
 
-### 1. 汇总表（`{prefix}.predgpi.tsv`）
+### 1. 汇总表（`{prefix}_predgpi.tsv`）
 
 **通俗理解|In plain words:** 每行一个蛋白，先看 `GPI_Anchored`（是不是），再看 `Classification`（多可信）。
 
@@ -157,7 +157,7 @@ output_dir/
 ## 常见问题 | FAQ
 
 **Q1：换 `--conservative` 重跑，为什么结果没变？**
-断点续传按 `{prefix}.predgpi.tsv` 是否存在判断。换模型重跑前先删掉旧 TSV（或换输出目录），否则直接复用旧结果。
+断点续传按 `{prefix}_predgpi.tsv` 是否存在判断。换模型重跑前先删掉旧 TSV（或换输出目录），否则直接复用旧结果。
 
 **Q2：报「模型文件不存在 / GPIDAT 目录不存在」？**
 说明 PredGPI 没装好或路径不对。确认 `--predgpi-home` 指向的目录下有 `GPIDAT/` 及其中的模型文件；`--conservative` 还需 `PHMM.TOT.ss.mod_CSDGN`。

@@ -87,7 +87,7 @@ biopytools hic-heatmap -i genome.fa -g EcA -1 R1.fq.gz -2 R2.fq.gz -o output
 ```text
 output/
 ├── hicpro.conf                     # 自动生成的 HiCPro 配置文件
-├── {genome_id}.chrom.sizes         # 染色体大小表
+├── {genome_id}_chrom.sizes         # 染色体大小表
 ├── {genome_id}_{酶}_resfrag.bed    # 酶切片段表（BED）
 ├── hicpro_output/
 │   └── hic_results/matrix/{样本}/{raw,iced}/{bin_size}/…   # HiCPro 矩阵

@@ -94,18 +94,18 @@ results/
 │   └── alignment_summary.txt        # 多样本汇总报告
 ├── 01_index/                        # 参考基因组索引（ref.l2b/.mbw，meth 加 .meth.mbw）
 ├── <样本名>/
-│   ├── <样本>.minibwa.bam           # 排序比对结果（+ .bam.bai 索引）
-│   ├── <样本>.minibwa.markdup.bam   # 标记重复后（仅 --markdup）
-│   ├── <样本>.minibwa.flagstat.txt  # 比对统计（flagstat）
-│   ├── <样本>.minibwa.stats.txt     # 详细统计（samtools stats）
-│   ├── <样本>.minibwa.depth.txt     # 逐位覆盖深度
-│   └── <样本>.minibwa.window.bed    # 滑窗平均覆盖度
+│   ├── <样本>_minibwa.bam           # 排序比对结果（+ .bam.bai 索引）
+│   ├── <样本>_minibwa_markdup.bam   # 标记重复后（仅 --markdup）
+│   ├── <样本>_minibwa_flagstat.txt  # 比对统计（flagstat）
+│   ├── <样本>_minibwa_stats.txt     # 详细统计（samtools stats）
+│   ├── <样本>_minibwa_depth.txt     # 逐位覆盖深度
+│   └── <样本>_minibwa_window.bed    # 滑窗平均覆盖度
 └── 99_logs/minibwa_pipeline.log     # 运行日志
 ```
 
-- <样本>.minibwa.bam：核心比对结果，后续变异检测/定量都从它出发。
-- <样本>.minibwa.flagstat.txt：比对率、配对率等关键指标（多少读段比对上了）。
-- <样本>.minibwa.window.bed：四列（染色体、窗口起、窗口止、平均深度），便于画覆盖度曲线。
+- <样本>_minibwa.bam：核心比对结果，后续变异检测/定量都从它出发。
+- <样本>_minibwa_flagstat.txt：比对率、配对率等关键指标（多少读段比对上了）。
+- <样本>_minibwa_window.bed：四列（染色体、窗口起、窗口止、平均深度），便于画覆盖度曲线。
 - alignment_summary.txt：所有成功样本的清单与关键参数汇总。
 
 ## 结果解读 | Interpreting Results
@@ -227,7 +227,7 @@ results/
 ## 常见问题 | FAQ
 
 **Q1：断点续传怎么用？**
-加 --resume 后，重跑会检查每个样本是否已有 <样本>.minibwa.bam 和 .bam.bai，都有则跳过该样本。索引也一样：已存在 .l2b/.mbw 就不再重建。
+加 --resume 后，重跑会检查每个样本是否已有 <样本>_minibwa.bam 和 .bam.bai，都有则跳过该样本。索引也一样：已存在 .l2b/.mbw 就不再重建。
 
 **Q2：BS-seq（meth）模式为什么多建一次索引？**
 BS-seq 比对需要标准索引再加一个 .meth.mbw 索引，程序会自动检测并按需补建，无需手动处理。

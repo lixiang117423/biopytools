@@ -61,7 +61,7 @@ biopytools braker4phyto -g genome.fa -s psojae -p prot.fa -o out/
     |
     v
 阶段2: 同源查漏补缺(miniprot 扫描 + 漏检/合并分析 + 三重质控 + 合并)
-  -> 最终整合 GFF3(04_merged/<prefix>.merged.gff3)
+  -> 最终整合 GFF3(04_merged/<prefix>_merged.gff3)
 ```
 
 ## 输出 | Output { #output }
@@ -75,10 +75,10 @@ out/
 ├── 04_braker_annotation/           # BRAKER 预测: braker.gtf / braker.gff3 / braker.aa
 ├── logs/                           # BRAKER 阶段日志
 └── 05_gap_filling/                 # 查漏补缺核心产物
-    ├── 01_evidence_scan/<prefix>.miniprot.gff3
-    ├── 02_gap_analysis/<prefix>.gap_report.tsv
-    ├── 03_gap_filled/<prefix>.gap_filled.gff3
-    ├── 04_merged/<prefix>.merged.gff3   # 最终整合结果
+    ├── 01_evidence_scan/<prefix>_miniprot.gff3
+    ├── 02_gap_analysis/<prefix>_gap_report.tsv
+    ├── 03_gap_filled/<prefix>_gap_filled.gff3
+    ├── 04_merged/<prefix>_merged.gff3   # 最终整合结果
     └── 99_logs/annorefine.log
 ```
 
@@ -88,8 +88,8 @@ out/
 
 与 annorefine 完全一致：
 
-- **最终结果**：`05_gap_filling/04_merged/<prefix>.merged.gff3`，基因 ID 前缀 `<prefix>_gap_N` / `<prefix>_small_gap_N`
-- **证据报告**：`05_gap_filling/02_gap_analysis/<prefix>.gap_report.tsv`，逐基因列出蛋白相似度、表达深度、TE 重叠等证据
+- **最终结果**：`05_gap_filling/04_merged/<prefix>_merged.gff3`，基因 ID 前缀 `<prefix>_gap_N` / `<prefix>_small_gap_N`
+- **证据报告**：`05_gap_filling/02_gap_analysis/<prefix>_gap_report.tsv`，逐基因列出蛋白相似度、表达深度、TE 重叠等证据
 - 重点看 `te_overlap_pct` 列：本命令不屏蔽重复，意味着候选基因更可能落在 TE 区，**靠表达证据和完整 ORF 把关**，而不是靠屏蔽排除
 
 ## 参数选择建议 | Parameter Guidance { #guidance }

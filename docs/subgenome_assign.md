@@ -72,7 +72,7 @@ biopytools subgenome-assign -i Cf.chr.fa     --parent Ca:Ca_hap1.fa,Ca_hap2.fa  
 ```text
 输入目标FASTA + 亲本hap列表
   -> Step 1: 检查依赖(minimap2/samtools)
-  -> Step 2: 合并每个亲本的hap -> 01_alignment/<parent>.combined.fa
+  -> Step 2: 合并每个亲本的hap -> 01_alignment/<parent>_combined.fa
   -> Step 3: minimap2比对 -> 01_alignment/target_vs_<parent>.paf
   -> Step 4: 解析PAF、逐染色体判定归属 -> 02_assignment/subgenome_assignment.tsv
   -> Step 5: 按归属拆分FASTA -> 03_split_fastas/subgenome_<parent>.fa
@@ -87,7 +87,7 @@ subgenome_assign_output/
 │   ├── software_versions.yml        # 软件版本信息
 │   └── pipeline_params.yaml         # 参数与归属结果汇总
 ├── 01_alignment/
-│   ├── <parent>.combined.fa         # 每个亲本合并后的参考
+│   ├── <parent>_combined.fa         # 每个亲本合并后的参考
 │   └── target_vs_<parent>.paf       # 目标 vs 每个亲本的比对
 ├── 02_assignment/
 │   └── subgenome_assignment.tsv     # 归属表(核心结果)

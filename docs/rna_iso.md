@@ -103,8 +103,8 @@ ONT/HiFi fasta|fastq ───────────────────�
 ```
 output_dir/
 ├── 00_pipeline_info/software_versions.yml   # 工具版本与运行参数
-├── 01_ccs/<movie>.ccs.bam                   # PacBio subreads输入时:HiFi reads
-├── 02_refine/<movie>.flnc.bam + .flnc.fa    # PacBio输入时:全长非嵌合reads
+├── 01_ccs/<movie>_ccs.bam                   # PacBio subreads输入时:HiFi reads
+├── 02_refine/<movie>_flnc.bam + _flnc.fa    # PacBio输入时:全长非嵌合reads
 ├── 03_isoquant/<prefix>/                    # IsoQuant标准输出树:
 │   ├── <prefix>.transcript_models.gtf       #   最终转录本模型(喂下游注释/IGV)
 │   ├── <prefix>.extended_annotation.gtf     #   原注释+新发现转录本合并(给了genedb时)
@@ -112,7 +112,7 @@ output_dir/
 │   ├── <prefix>.gene_counts.tsv             #   基因表达计数
 │   ├── <prefix>.*_tpm.tsv                   #   TPM表达量(基因/转录本/新发现)
 │   └── <prefix>.polyA_prediction.tsv        #   polyA位点预测
-├── 04_isoseq3/<prefix>.transcripts.bam/.fasta  # isoseq3引擎:de novo转录本
+├── 04_isoseq3/<prefix>_transcripts.bam/.fasta  # isoseq3引擎:de novo转录本
 └── 99_logs/rna_iso.log                      # 模块总日志
 ```
 

@@ -8,7 +8,7 @@
 - 全流程：读 VCF 头部校验样本 → **逐染色体**调用 xpclr 计算（支持断点续传、单条染色体失败不拖垮整体）→ 合并成全基因组表 → 按分数排出 Top 候选窗口 → 记录软件版本
 - **双后端**：默认调用 **xpclrs**（Rust 重实现，结果与经典版近乎一致、速度快一个量级、支持多线程）；`--backend xpclr` 可切回 python 经典版（结果互为验证）
 - XP-CLR 是选择信号分析的经典方法（Chen et al. 2010），特别适合**两个亲缘群体**（如驯化种 vs 野生种、抗病品系 vs 感病品系）之间的受选择区域定位
-- 核心产出：`02_merged/*.xpclr.genome.tsv`（全基因组逐窗口分数表）和 `03_top/*.xpclr.top50.tsv`（最值得优先关注的候选窗口）
+- 核心产出：`02_merged/*_xpclr_genome.tsv`（全基因组逐窗口分数表）和 `03_top/*_xpclr_top50.tsv`（最值得优先关注的候选窗口）
 
 ## 快速开始 | Quick Start
 
@@ -75,10 +75,10 @@ VCF(.gz+.tbi) + popA.txt + popB.txt
 [2] 逐染色体循环: xpclr --chr <每条一次>   (已完成染色体自动跳过=断点续传;
         |                                 单条失败记WARNING继续跑其余)
         v
-[3] 合并: 所有成功染色体 -> 02_merged/<label>.xpclr.genome.tsv
+[3] 合并: 所有成功染色体 -> 02_merged/<label>_xpclr_genome.tsv
         |
         v
-[4] Top候选: 按xpclr_norm降序取前N -> 03_top/<label>.xpclr.top<N>.tsv
+[4] Top候选: 按xpclr_norm降序取前N -> 03_top/<label>_xpclr_top<N>.tsv
         |
         v
 [5] 记录: 00_pipeline_info/software_versions.yml + 99_logs/xpclr.log
@@ -91,11 +91,11 @@ out_dir/
 ├── 00_pipeline_info/
 │   └── software_versions.yml     # 软件版本+关键参数快照
 ├── 01_xpclr/
-│   └── <chrom>.xpclr.tsv         # 每条染色体一个(断点续传的粒度)
+│   └── <chrom>_xpclr.tsv         # 每条染色体一个(断点续传的粒度)
 ├── 02_merged/
-│   └── <label>.xpclr.genome.tsv  # 全基因组逐窗口合并表(主结果)
+│   └── <label>_xpclr_genome.tsv  # 全基因组逐窗口合并表(主结果)
 ├── 03_top/
-│   └── <label>.xpclr.top<N>.tsv  # Top N 候选窗口
+│   └── <label>_xpclr_top<N>.tsv  # Top N 候选窗口
 └── 99_logs/
     └── xpclr.log                 # 运行日志(含每条命令完整记录)
 ```

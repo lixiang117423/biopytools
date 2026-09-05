@@ -58,7 +58,7 @@ chr1	200	.	G	C	50	PASS	.	GT:AD	1/1:0,30	0/0:15,3
 
 ```text
 deepbsa_input/
-├── bsa_pools.deepbsa.csv   # DeepBSA 输入 CSV(文件名=输入名.deepbsa.csv)
+├── bsa_pools_deepbsa.csv   # DeepBSA 输入 CSV(文件名=输入名_deepbsa.csv)
 └── vcf2deepbsa.log         # 运行日志(含转换统计)
 ```
 
@@ -92,7 +92,7 @@ chr1,200,G,C,0,30,15,3
 | 常规使用 | 全默认，只给 `-i` |
 | 输出想放别处 | `-o 指定目录/` |
 | 想看哪些行被跳过 | `--log-level DEBUG` 后看日志 |
-| 转完直接跑 BSA | `biopytools deepbsa run -i deepbsa_input/bsa_pools.deepbsa.csv -o bsa_results` |
+| 转完直接跑 BSA | `biopytools deepbsa run -i deepbsa_input/bsa_pools_deepbsa.csv -o bsa_results` |
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -127,7 +127,7 @@ chr1,200,G,C,0,30,15,3
 ## 常见问题 | FAQ
 
 **Q1：以前用 `biopytools deepbsa vcf2csv`，现在怎么报错了？**
-1.67.0 起该子命令拆分为独立模块，改用 `biopytools vcf2deepbsa -i input.vcf -o out_dir/`。注意两点变化：`-o` 从「输出 CSV 文件名」改为「输出目录」；CSV 文件名自动按输入名生成(`xxx.vcf → xxx.deepbsa.csv`)。
+1.67.0 起该子命令拆分为独立模块，改用 `biopytools vcf2deepbsa -i input.vcf -o out_dir/`。注意两点变化：`-o` 从「输出 CSV 文件名」改为「输出目录」；CSV 文件名自动按输入名生成(`xxx.vcf → xxx_deepbsa.csv`)。
 
 **Q2：日志大量「跳过-无AD字段」怎么办？**
 说明 VCF 的 FORMAT 里没有 AD。常见原因：变异检测时没开 AD 输出。解决：回上游重新检测(如 bcftools mpileup 默认含 AD)，或用 `bcftools query -f '%CHROM\t%POS[\t%AD]\n'` 先确认。
@@ -139,4 +139,4 @@ chr1,200,G,C,0,30,15,3
 按原 DeepBSA 工具的行为，只取 AD 的前两个值(REF 和第一个 ALT)，REF/ALT 列保持 VCF 原文。建议上游先用 `bcftools view -m2 -M2 -v snps` 过滤成双等位 SNP 再转。
 
 **Q5：输出的 CSV 能给 DeepBSA 的哪些命令用？**
-`deepbsa run -i xxx.deepbsa.csv` 和 `deepbsa batch -i xxx.deepbsa.csv` 都行，DeepBSA 对 VCF/CSV 输入同等对待；CSV 更小、解析更快。
+`deepbsa run -i xxx_deepbsa.csv` 和 `deepbsa batch -i xxx_deepbsa.csv` 都行，DeepBSA 对 VCF/CSV 输入同等对待；CSV 更小、解析更快。

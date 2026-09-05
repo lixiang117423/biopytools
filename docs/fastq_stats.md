@@ -12,7 +12,7 @@
 ## 快速开始 | Quick Start
 
 ```bash
-biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1.clean.fq.gz"
+biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1_clean.fq.gz"
 ```
 
 最小输入：一个 FASTQ 目录（或单个文件）+ 一个输出文件名（.csv 或 .xlsx）。
@@ -37,7 +37,7 @@ biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1.clean.fq.gz"
 
 ### 匹配模式 pattern（可选）
 
-用 `*` 代表样本名，如 `*_1.clean.fq.gz`。程序会把 `*` 匹配到的部分当样本名，并自动推导对应的 R2 文件（支持 `_1.`→`_2.`、`_R1.`→`_R2.`、`.1.`→`.2.`、`.R1.`→`.R2.` 等命名）。
+用 `*` 代表样本名，如 `*_1_clean.fq.gz`。程序会把 `*` 匹配到的部分当样本名，并自动推导对应的 R2 文件（支持 `_1.`→`_2.`、`_R1.`→`_R2.`、`.1.`→`.2.`、`.R1.`→`.R2.` 等命名）。
 
 ## 参数说明 | Parameters
 
@@ -47,7 +47,7 @@ biopytools fq-stats -i /data/fastq/ -o results.csv -p "*_1.clean.fq.gz"
 
 ### 匹配模式 | Pattern
 
-**通俗理解|In plain words:** `-p` 是「按什么规则认出样本和配对」。模式里必须带一个 `*`（代表样本名），程序靠它抽样本名、并自动找 R2。不写 `-p` 时，会把每个 FASTQ 文件各自当成一个样本（不配对）。目录里文件命名规范时，用 `-p "*_1.clean.fq.gz"` 这类模式最省事。
+**通俗理解|In plain words:** `-p` 是「按什么规则认出样本和配对」。模式里必须带一个 `*`（代表样本名），程序靠它抽样本名、并自动找 R2。不写 `-p` 时，会把每个 FASTQ 文件各自当成一个样本（不配对）。目录里文件命名规范时，用 `-p "*_1_clean.fq.gz"` 这类模式最省事。
 
 ### 线程数 | Threads
 
@@ -99,7 +99,7 @@ CSV 列（Excel 顺序略有调整）：
 ## 参数选择建议 | Parameter Guidance
 
 - **统计目录下全部文件**：不写 `-p`，每个文件当独立样本
-- **目录里有大量无关文件**：用 `-p "*_1.clean.fq.gz"` 精确圈定
+- **目录里有大量无关文件**：用 `-p "*_1_clean.fq.gz"` 精确圈定
 - **单文件**：直接 `-i sample_R1.fastq.gz`，当单样本统计
 - **要 Excel 给同事看**：`-o stats.xlsx`（需 pandas + openpyxl）
 
@@ -115,7 +115,7 @@ CSV 列（Excel 顺序略有调整）：
 |------|--------|------|------|
 | `--input, -i` | 必填 |  | 输入FASTQ文件或目录｜Input FASTQ file or directory |
 | `--output, -o` | 必填 | Path | 输出文件路径(.csv或.xlsx)｜Output file path (.csv or .xlsx) |
-| `--pattern, -p` | — |  | FASTQ文件匹配模式，如"*_1.clean.fq.gz"｜FASTQ file matching pattern, e.g., "*_1.clean.fq.gz" |
+| `--pattern, -p` | — |  | FASTQ文件匹配模式，如"*_1_clean.fq.gz"｜FASTQ file matching pattern, e.g., "*_1_clean.fq.gz" |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 
 ### 模块直调参数 | Direct invocation options
@@ -124,7 +124,7 @@ CSV 列（Excel 顺序略有调整）：
 |------|--------|------|------|
 | `-i, --input` | 必填 |  | 输入FASTQ文件或包含FASTQ文件的目录｜Input FASTQ file or directory containing FASTQ files |
 | `-o, --output` | 必填 |  | 输出文件路径 (.csv 或 .xlsx)｜Output file path (.csv or .xlsx) |
-| `-p, --pattern` | — |  | FASTQ文件匹配模式，如 "*_1.clean.fq.gz"，*代表样品名称｜FASTQ file matching pattern, e.g., "*_1.clean.fq.gz", * represents sample name |
+| `-p, --pattern` | — |  | FASTQ文件匹配模式，如 "*_1_clean.fq.gz"，*代表样品名称｜FASTQ file matching pattern, e.g., "*_1_clean.fq.gz", * represents sample name |
 | `-t, --threads` | `12` | int | 线程数｜Number of threads (默认｜default: 12) |
 
 <!-- END PARAMS:auto -->

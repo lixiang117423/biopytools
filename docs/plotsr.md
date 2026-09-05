@@ -77,7 +77,7 @@ Ler	/path/to/ler.fa
 minimap2 相邻基因组两两比对 → {A}_vs_{B}.bam(.bai)
     │
     ▼
-SyRI 结构注释 → {A}_vs_{B}syri.out → 过滤 → syri.filtered.out
+SyRI 结构注释 → {A}_vs_{B}syri.out → 过滤 → syri_filtered.out
     │
     ▼
 生成 plotsr/genomes.txt 配置
@@ -92,7 +92,7 @@ PlotSR 绘图 → plot.{format}
 output/
 ├── alignment/{A}_vs_{B}.bam(.bai)         # minimap2 比对结果（相邻基因组）
 ├── syri/{A}_vs_{B}syri.out                # SyRI 原始结构注释
-├── syri/{A}_vs_{B}syri.filtered.out       # 过滤注释行后的结果（PlotSR 输入）
+├── syri/{A}_vs_{B}syri_filtered.out      # 过滤注释行后的结果（PlotSR 输入）
 ├── plotsr/genomes.txt                     # PlotSR 基因组配置
 ├── plotsr/{name}.chrlen                   # 各基因组染色体长度
 ├── plot.pdf                               # 最终多基因组共线性图（格式随 --output-format）
@@ -110,7 +110,7 @@ output/
 - 连线跳到别的染色体：易位
 - 某区段连线消失：可能有缺失或分化过大
 
-### 2. SyRI 输出（`syri.filtered.out`）
+### 2. SyRI 输出（`syri_filtered.out`）
 
 **通俗理解|In plain words:** 结构注释明细，记录了每段是 SYN（同源）/INV（倒位）/TRANS（易位）/DUP（重复）等。供 PlotSR 使用，也便于程序化统计各类 SV 数量。
 

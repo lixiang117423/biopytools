@@ -43,7 +43,7 @@ FASTA 格式的基因组序列。程序内部会先做重复屏蔽再用于预�
 ### 证据(至少一种)
 
 - **近缘蛋白(`--prot_seq`)**：一个 FASTA 文件或目录。给目录自动识别合并，给文件自动清理非标准氨基酸字符(如 `.`)
-- **二代 RNA-seq(`--rnaseq_dirs`)**：逗号分隔的目录列表，目录里是成对 FASTQ，默认按 `_1.clean.fq.gz` / `_2.clean.fq.gz` 识别(可用 `--read1_pattern` / `--read2_pattern` 改)
+- **二代 RNA-seq(`--rnaseq_dirs`)**：逗号分隔的目录列表，目录里是成对 FASTQ，默认按 `_1_clean.fq.gz` / `_2_clean.fq.gz` 识别(可用 `--read1_pattern` / `--read2_pattern` 改)
 - **三代转录本(`--isoseq`)**：三代全长转录本文件或目录
 
 ## 参数说明 | Parameters { #parameters }
@@ -88,11 +88,11 @@ FASTA 格式的基因组序列。程序内部会先做重复屏蔽再用于预�
     |
     v
 步骤2: 三代转录本处理(给了 isoseq 才跑)
-  - minimap2 比对 -> isoseq.sorted.bam
+  - minimap2 比对 -> isoseq_sorted.bam
     |
     v
 步骤3: 二代 RNA-seq 处理(给了 rnaseq_dirs 才跑)
-  - HISAT2 建索引 + 比对 -> rnaseq.sorted.bam
+  - HISAT2 建索引 + 比对 -> rnaseq_sorted.bam
     |
     v
 步骤3.5: 证据还原(可选, --no-skip_rescue 开启)
@@ -112,9 +112,9 @@ output_dir/
 │   ├── genome.fa.masked             # 屏蔽后的基因组(软屏蔽, 小写=重复区)
 │   └── genome.fa.out                # RepeatMasker 报告
 ├── 02_long_reads/                   # 步骤2: 三代转录本比对(给了 isoseq 才有)
-│   └── isoseq.sorted.bam
+│   └── isoseq_sorted.bam
 ├── 03_short_reads/                  # 步骤3: 二代 RNA-seq 比对(给了 rnaseq_dirs 才有)
-│   └── rnaseq.sorted.bam            # 排序后的 BAM + 索引
+│   └── rnaseq_sorted.bam            # 排序后的 BAM + 索引
 ├── 04_braker_annotation/            # 步骤4: 最终注释结果(核心产物)
 │   ├── braker.gtf                   # 基因结构 GTF 格式
 │   ├── braker.gff3                  # 基因结构 GFF3 格式
@@ -168,8 +168,8 @@ output_dir/
 | `--prot_seq, -p` | — |  | 近缘物种蛋白质序列文件或文件夹｜Protein sequences file or directory |
 | `--isoseq, -l` | — |  | 三代全长转录本文件夹｜Long-read transcript directory |
 | `--rnaseq_dirs` | — |  | 二代RNA-seq目录列表(逗号分隔)｜Comma-separated RNA-seq directories |
-| `--read1_pattern` | `_1.clean.fq.gz` |  | R1文件模式｜R1 file pattern |
-| `--read2_pattern` | `_2.clean.fq.gz` |  | R2文件模式｜R2 file pattern |
+| `--read1_pattern` | `_1_clean.fq.gz` |  | R1文件模式｜R1 file pattern |
+| `--read2_pattern` | `_2_clean.fq.gz` |  | R2文件模式｜R2 file pattern |
 | `--output_dir, -o` | `./braker_output` |  | 输出目录｜Output directory |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--fungus` | — |  | 使用真菌模式｜Use fungus mode (suitable for oomycetes) |
@@ -195,8 +195,8 @@ output_dir/
 | `--prot_seq, -p` | — |  | 近缘物种蛋白质序列文件或文件夹｜Protein sequences file or directory |
 | `--isoseq, -l` | — |  | 三代全长转录本文件夹｜Long-read transcript directory |
 | `--rnaseq_dirs` | — |  | 二代RNA-seq数据目录列表，逗号分隔｜Comma-separated list of RNA-seq directories |
-| `--read1_pattern` | `_1.clean.fq.gz` |  | R1文件模式｜R1 file pattern (default: _1.clean.fq.gz) |
-| `--read2_pattern` | `_2.clean.fq.gz` |  | R2文件模式｜R2 file pattern (default: _2.clean.fq.gz) |
+| `--read1_pattern` | `_1_clean.fq.gz` |  | R1文件模式｜R1 file pattern (default: _1_clean.fq.gz) |
+| `--read2_pattern` | `_2_clean.fq.gz` |  | R2文件模式｜R2 file pattern (default: _2_clean.fq.gz) |
 | `--output_dir, -o` | `./braker_output` |  | 输出目录｜Output directory (default: ./braker_output) |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads (default: 12) |
 | `--fungus` | — | store_true | 使用真菌模式｜Use fungus mode (suitable for oomycetes) |

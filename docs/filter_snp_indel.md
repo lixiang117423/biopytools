@@ -95,12 +95,12 @@ biopytools filter-snp-indel -i variants.vcf -o filtered_output/
 
 ```text
 filtered_vcf/
-├── variation.raw.snp.vcf.gz               # 分离出的原始 SNP (+.tbi)
-├── variation.raw.indel.vcf.gz             # 分离出的原始 INDEL (+.tbi)
-├── variation.filtered.snp.vcf.gz          # 过滤后的 SNP (+.tbi)
-├── variation.filtered.indel.vcf.gz        # 过滤后的 INDEL (+.tbi)
-├── variation.filtered.snp.biallelic.vcf.gz # 双等位位点过滤后的 SNP (+.tbi)
-├── variation.filtered.merged.vcf.gz       # 合并后的最终 VCF (+.tbi)
+├── variation_raw_snp.vcf.gz               # 分离出的原始 SNP (+.tbi)
+├── variation_raw_indel.vcf.gz             # 分离出的原始 INDEL (+.tbi)
+├── variation_filtered_snp.vcf.gz          # 过滤后的 SNP (+.tbi)
+├── variation_filtered_indel.vcf.gz        # 过滤后的 INDEL (+.tbi)
+├── variation_filtered_snp_biallelic.vcf.gz # 双等位位点过滤后的 SNP (+.tbi)
+├── variation_filtered_merged.vcf.gz       # 合并后的最终 VCF (+.tbi)
 └── (统计报告)
 ```
 
@@ -108,13 +108,13 @@ filtered_vcf/
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-### 1. variation.filtered.merged.vcf.gz（最终结果）
+### 1. variation_filtered_merged.vcf.gz（最终结果）
 
 **通俗理解|In plain words:** 这是最终交付的、过滤+合并后的 SNP+INDEL VCF，直接用于下游。
 
 ### 2. 分类型文件
 
-**通俗理解|In plain words:** raw.* 是分离后未过滤的，filtered.* 是过滤后的，biallelic.* 是再经过双等位过滤的 SNP。想单独用 SNP 或 INDEL 时取对应文件。
+**通俗理解|In plain words:** raw_* 是分离后未过滤的，filtered_* 是过滤后的，biallelic_* 是再经过双等位过滤的 SNP。想单独用 SNP 或 INDEL 时取对应文件。
 
 ### 3. 统计报告
 
@@ -225,4 +225,4 @@ INDEL 的链偏倚(FS/SOR)天然更高，所以用更宽松的标准（FS<=200�
 运行时日志会逐条打印 SNP/INDEL 的完整过滤表达式；也可加 -v 看更详细的命令。
 
 **Q5：输出文件名为什么都叫 variation？**
-模块内部 base_name 固定为 variation，所以输出前缀统一是 variation.*，无法通过 CLI 修改。
+模块内部 base_name 固定为 variation，所以输出前缀统一是 variation_*，无法通过 CLI 修改。

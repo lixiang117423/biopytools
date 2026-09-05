@@ -33,14 +33,14 @@ biopytools parabricks -i /data/fastq -o results/ -r /ref/genome.fa
 
 ### FASTQ 目录
 
-`-i` 指向一个目录，默认按 `*_1.clean.fq.gz` / `*_2.clean.fq.gz` 配对(可用 `--read1-pattern` / `--read2-pattern` 改)。
+`-i` 指向一个目录，默认按 `*_1_clean.fq.gz` / `*_2_clean.fq.gz` 配对(可用 `--read1-pattern` / `--read2-pattern` 改)。
 
 ```text
 fastq/
-├── sample1_1.clean.fq.gz
-├── sample1_2.clean.fq.gz
-├── sample2_1.clean.fq.gz
-└── sample2_2.clean.fq.gz
+├── sample1_1_clean.fq.gz
+├── sample1_2_clean.fq.gz
+├── sample2_1_clean.fq.gz
+└── sample2_2_clean.fq.gz
 ```
 
 ### 参考基因组
@@ -63,7 +63,7 @@ fastq/
 
 ### GVCF 与 Joint Calling 参数 | GVCF & Joint calling
 
-**通俗理解|In plain words:** `--gvcf/--no-gvcf`(默认输出 gVCF)决定个体结果是 gVCF 还是普通 VCF；`--joint-calling/--no-joint-calling`(默认开)决定是否做联合；`--combined-output`(默认 `combined.g.vcf`)是联合结果文件名。**联合需要至少 2 个样本，且只输出 gVCF 时才有意义，一般保持默认。**
+**通俗理解|In plain words:** `--gvcf/--no-gvcf`(默认输出 gVCF)决定个体结果是 gVCF 还是普通 VCF；`--joint-calling/--no-joint-calling`(默认开)决定是否做联合；`--combined-output`(默认 `combined_g.vcf`)是联合结果文件名。**联合需要至少 2 个样本，且只输出 gVCF 时才有意义，一般保持默认。**
 
 ### 质控参数 | Quality control
 
@@ -71,7 +71,7 @@ fastq/
 
 ### 文件模式参数 | File patterns
 
-**通俗理解|In plain words:** 告诉程序 R1/R2 怎么命名，只有和默认 `*_1.clean.fq.gz` / `*_2.clean.fq.gz` 不同时才需要改，且必须含 `*`。
+**通俗理解|In plain words:** 告诉程序 R1/R2 怎么命名，只有和默认 `*_1_clean.fq.gz` / `*_2_clean.fq.gz` 不同时才需要改，且必须含 `*`。
 
 ## 分析流程 | Pipeline { #pipeline }
 
@@ -87,13 +87,13 @@ fastq/
 步骤1: 初始化容器(apptainer/singularity exec --nv)
     |
     ▼
-步骤2: 每样本 pbrun fq2bam(→ bam/<样本>.sorted.bam)
+步骤2: 每样本 pbrun fq2bam(→ bam/<样本>_sorted.bam)
     |
     ▼
-步骤3: 每样本 pbrun haplotypecaller(→ vcf/<样本>.g.vcf.gz)
+步骤3: 每样本 pbrun haplotypecaller(→ vcf/<样本>_g.vcf.gz)
     |
     ▼
-步骤4: Joint Calling(pbrun genotypegvcf → vcf/combined.g.vcf.gz + bcftools index)
+步骤4: Joint Calling(pbrun genotypegvcf → vcf/combined_g.vcf.gz + bcftools index)
     |
     ▼
 步骤5: 生成总结报告 parabricks_analysis_summary.txt
@@ -104,10 +104,10 @@ fastq/
 ```text
 results/
 ├── bam/                             # 每样本比对结果
-│   └── sample1.sorted.bam
+│   └── sample1_sorted.bam
 ├── vcf/                             # 变异结果
-│   ├── sample1.g.vcf.gz             # 个体 gVCF(默认)
-│   └── combined.g.vcf.gz            # 联合 VCF(默认 joint calling 时)
+│   ├── sample1_g.vcf.gz             # 个体 gVCF(默认)
+│   └── combined_g.vcf.gz            # 联合 VCF(默认 joint calling 时)
 ├── tmp/                             # 临时文件目录
 ├── parabricks_analysis_summary.txt  # 分析总结报告
 └── parabricks_analysis.log          # 运行日志
@@ -115,15 +115,15 @@ results/
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-### 1. vcf/<样本>.g.vcf.gz(个体 gVCF)
+### 1. vcf/<样本>_g.vcf.gz(个体 gVCF)
 
 **通俗理解|In plain words:** 每个样本自己的变异记录(gVCF 格式，含未变异位点)。用 `--no-gvcf` 时改为普通 `<样本>.vcf.gz`。
 
-### 2. vcf/combined.g.vcf.gz(联合 VCF，核心)
+### 2. vcf/combined_g.vcf.gz(联合 VCF，核心)
 
 **通俗理解|In plain words:** 把所有样本的 gVCF 合并后重新判读的群体变异结果，是多样本项目最常用的下游输入。
 
-- 文件名由 `--combined-output` 决定(默认 `combined.g.vcf`，实际写成 `combined.g.vcf.gz`)
+- 文件名由 `--combined-output` 决定(默认 `combined_g.vcf`，实际写成 `combined_g.vcf.gz`)
 - 联合需要至少 2 个 gVCF；合并后会自动用 bcftools index 建索引
 
 ### 3. parabricks_analysis_summary.txt(总结报告)
@@ -157,13 +157,13 @@ results/
 | `--tmp-dir` | — | Path | 临时目录｜Temporary directory |
 | `--gvcf/--no-gvcf` | `True` |  | 输出GVCF格式｜Output GVCF format |
 | `--joint-calling/--no-joint-calling` | `True` |  | 启用Joint Calling｜Enable Joint Calling |
-| `--combined-output` | `combined.g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
+| `--combined-output` | `combined_g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
 | `--min-confidence` | `30` | int | 最小置信度阈值｜Minimum confidence threshold |
 | `--min-base-quality` | `20` | int | 最小碱基质量阈值｜Minimum base quality threshold |
 | `--ploidy` | `2` | int | 倍性｜Ploidy |
 | `--pcr-indel-model` | `CONSERVATIVE` | str | PCR indel模型｜PCR indel model |
-| `--read1-pattern` | `*_1.clean.fq.gz` | str | R1文件模式｜R1 file pattern |
-| `--read2-pattern` | `*_2.clean.fq.gz` | str | R2文件模式｜R2 file pattern |
+| `--read1-pattern` | `*_1_clean.fq.gz` | str | R1文件模式｜R1 file pattern |
+| `--read2-pattern` | `*_2_clean.fq.gz` | str | R2文件模式｜R2 file pattern |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -180,11 +180,11 @@ results/
 | `--min-base-quality` | `20` | int | 最小碱基质量｜Min base quality |
 | `--ploidy` | `2` | int | 倍性｜Ploidy |
 | `--pcr-indel-model` | `CONSERVATIVE` |  | PCR indel模型｜PCR indel model |
-| `--read1-pattern` | `*_1.clean.fq.gz` |  | R1文件模式｜R1 pattern |
-| `--read2-pattern` | `*_2.clean.fq.gz` |  | R2文件模式｜R2 pattern |
+| `--read1-pattern` | `*_1_clean.fq.gz` |  | R1文件模式｜R1 pattern |
+| `--read2-pattern` | `*_2_clean.fq.gz` |  | R2文件模式｜R2 pattern |
 | `--no-gvcf` | — | store_false | 输出VCF而非GVCF｜Output VCF instead of GVCF |
 | `--no-joint-calling` | `True` | store_false | 禁用Joint Calling｜Disable Joint Calling |
-| `--combined-output` | `combined.g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
+| `--combined-output` | `combined_g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
 
 <!-- END PARAMS:auto -->
 
@@ -201,10 +201,10 @@ results/
 Parabricks 通过容器运行，系统里必须能 `which apptainer` 或 `which singularity` 找到其中一个，且需要 GPU(容器用 `--nv` 模式)。
 
 **Q2：支持断点续传吗？**
-支持。单个样本按 `bam/<样本>.sorted.bam` 和 `vcf/<样本>.g.vcf.gz` 是否都存在判断跳过；联合结果 `vcf/combined.g.vcf.gz` 已存在也跳过。换参数重跑前需先删除旧产物。
+支持。单个样本按 `bam/<样本>_sorted.bam` 和 `vcf/<样本>_g.vcf.gz` 是否都存在判断跳过；联合结果 `vcf/combined_g.vcf.gz` 已存在也跳过。换参数重跑前需先删除旧产物。
 
 **Q3：`genotypegvcf` 模式为什么不用给 FASTQ？**
-这个模式只做联合，会自动扫描输出目录 `vcf/` 下已有的 `*.g.vcf.gz` 文件来合并，所以只需要参考基因组和已有 gVCF。
+这个模式只做联合，会自动扫描输出目录 `vcf/` 下已有的 `*_g.vcf.gz` 文件来合并，所以只需要参考基因组和已有 gVCF。
 
 **Q4：`-t` 线程数为什么没效果？**
 当前版本线程数为预留参数，未直接传入 `pbrun` 命令(Parabricks 主要靠 GPU 加速)。

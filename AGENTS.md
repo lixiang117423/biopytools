@@ -494,10 +494,10 @@ databases:
 output/                          # ✅ 推荐:by-step
 ├── 00_pipeline_info/            # 全局元数据(P0 必须)
 ├── 01_qc/
-│   ├── sample1_1.clean.fq.gz    # 文件名前缀区分样本
-│   └── sample2_1.clean.fq.gz
+│   ├── sample1_1_clean.fq.gz   # 文件名前缀区分样本
+│   └── sample2_1_clean.fq.gz
 ├── 02_alignment/
-│   └── sample1.sorted.bam
+│   └── sample1_sorted.bam
 └── 99_logs/                     # 日志(P0 必须)
 ```
 - 步骤目录格式 `[序号]_[步骤名]`，如 `01_qc/`；序号两位数
@@ -506,35 +506,35 @@ output/                          # ✅ 推荐:by-step
 
 ### 12.3 输出文件命名
 
-**基本模式：`{Sample_ID}.{Tool/Step}.{State}.{Extension}`**（Sample_ID 必须在最前）
+**基本模式：`{Sample_ID}_{Tool/Step}_{State}.{Extension}`**（Sample_ID 必须在最前）
 
-**后缀叠加（GATK 风格）：** `sample.bam → sample.sorted.bam → sample.sorted.markdup.bam`
+**后缀叠加（下划线风格）：** `sample.bam → sample_sorted.bam → sample_sorted_markdup.bam`
 
 | 文件类型 | 推荐命名 | 示例 |
 |---------|---------|------|
 | FASTQ 原始 | `{ID}_R{1/2}.fastq.gz` | `S1_R1.fastq.gz` |
-| 质控报告 | `{ID}.fastqc.html` | `S1.fastqc.html` |
-| 过滤数据 | `{ID}.trimmed.fq.gz` | `S1.trimmed.fq.gz` |
-| Jellyfish | `{ID}.jellyfish.{jf,histo}` | `S1.jellyfish.jf` |
-| GenomeScope | `{ID}.genomescope.{model.txt,linear.png}` | `S1.genomescope.model.txt` |
-| Smudgeplot | `{ID}.smudgeplot.linear.png` | `S1.smudgeplot.linear.png` |
-| 日志 | `{ID}.{tool}.log` | `S1.genomescope.log` |
+| 质控报告 | `{ID}_fastqc.html` | `S1_fastqc.html` |
+| 过滤数据 | `{ID}_trimmed.fq.gz` | `S1_trimmed.fq.gz` |
+| Jellyfish | `{ID}_jellyfish.{jf,histo}` | `S1_jellyfish.jf` |
+| GenomeScope | `{ID}_genomescope_model.txt` | `S1_genomescope_model.txt` |
+| Smudgeplot | `{ID}_smudgeplot_linear.png` | `S1_smudgeplot_linear.png` |
+| 日志 | `{ID}_{tool}.log` | `S1_genomescope.log` |
 
 ❌ `genome_analysis.jf`（无样本名）/ `smudgeplot_smudgeplot.png`（重复前缀）/ `plot.png` / `result.txt`
-✅ `R0590-6.jellyfish.jf` / `R0590-6.smudgeplot.linear.png`
+✅ `R0590-6_jellyfish.jf` / `R0590-6_smudgeplot_linear.png`
 
 ### 12.4 临时文件
 统一用 `output_dir/tmp` 子目录并运行结束清理（**避免超算 `/tmp` 爆满**）；禁止混入结果目录。
 > `tempfile.TemporaryDirectory` 用法、清理场景、上下文管理器实现见 [docs/dev-standards/12_output_naming.md](docs/dev-standards/12_output_naming.md)
 
 ### 12.5 版本信息
-- **禁止文件名含版本号**：`sample.bwa.bam` ✅　`sample_bwa_v0.7.17.bam` ❌
+- **禁止文件名含版本号**：`sample_bwa.bam` ✅　`sample_bwa_v0.7.17.bam` ❌
 - 生成 `00_pipeline_info/software_versions.yml`（代码模板见参考文档）
 
 ### 12.6 检查清单
 - [ ] 文件夹名无空格、小写；步骤目录用 `01_`/`02_` 数字前缀
 - [ ] `00_pipeline_info/` + `99_logs/`；条件性/支持性目录不加编号
-- [ ] 输出文件含样本 ID 前缀，遵循 `{Sample}.{Tool}.{State}.{Ext}`
+- [ ] 输出文件含样本 ID 前缀，遵循 `{Sample}_{Tool}_{State}.{Ext}`
 - [ ] 扩展名标准含压缩格式（`.fastq.gz`/`.bam`）；临时文件用 `output_dir/tmp` 并清理
 - [ ] 生成 `software_versions.yml`；日志统一 `99_logs/`；文件名不含版本号；避免重复前缀
 

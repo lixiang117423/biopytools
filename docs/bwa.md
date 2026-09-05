@@ -6,7 +6,7 @@
 
 - 封装 BWA-MEM 全流程：基因组索引 → 双端比对 → SAM 转 BAM → 排序 →（可选）标记/移除重复 → 建 BAM 索引
 - 每个样本自动生成比对统计（`samtools flagstat` / `stats`）、单碱基覆盖度、滑窗覆盖度
-- 自动查找成对 FASTQ（按 `-p` 模式匹配，默认 `_1.clean.fq.gz`）
+- 自动查找成对 FASTQ（按 `-p` 模式匹配，默认 `_1_clean.fq.gz`）
 - 暴露 BWA-MEM 的算法/打分/输出参数（`--bwa-*`），高级用户可调
 - 支持 `--resume` 断点续传（跳过已完成样本）；基因组索引自动复用/构建
 - 生成整体汇总报告 `alignment_summary.txt`
@@ -31,14 +31,14 @@ biopytools bwa -g genome.fa -i fastq_dir
 ## 输入 | Input
 
 - 参考基因组 FASTA（`-g`，必需）
-- FASTQ 目录（`-i`，必需），内含成对 FASTQ，read1 文件名含 `-p` 指定的模式（默认 `_1.clean.fq.gz`），read2 由 `_1.` 换成 `_2.` 自动推出
+- FASTQ 目录（`-i`，必需），内含成对 FASTQ，read1 文件名含 `-p` 指定的模式（默认 `_1_clean.fq.gz`），read2 由 `_1.` 换成 `_2.` 自动推出
 
 ~~~text
 fastq_dir/
-├── sampleA_1.clean.fq.gz
-├── sampleA_2.clean.fq.gz
-├── sampleB_1.clean.fq.gz
-└── sampleB_2.clean.fq.gz
+├── sampleA_1_clean.fq.gz
+├── sampleA_2_clean.fq.gz
+├── sampleB_1_clean.fq.gz
+└── sampleB_2_clean.fq.gz
 ~~~
 
 - 找不到配对文件（read2）的 read1 会被跳过并警告
@@ -59,7 +59,7 @@ fastq_dir/
 
 ### 后处理 | Post-processing
 
-**通俗理解|In plain words:** `--markdup` 标记重复读段，`--remove-dup` 直接移除（需要先 markdup 语义）；`--keep-sam` 保留中间 SAM 文件（默认删）。`--markdup` 后最终 BAM 名为 `样本.markdup.bam`，否则为 `样本.bam`。做变异检测前一般建议 `--markdup`。
+**通俗理解|In plain words:** `--markdup` 标记重复读段，`--remove-dup` 直接移除（需要先 markdup 语义）；`--keep-sam` 保留中间 SAM 文件（默认删）。`--markdup` 后最终 BAM 名为 `样本_markdup.bam`，否则为 `样本.bam`。做变异检测前一般建议 `--markdup`。
 
 ### 覆盖度与窗口 | Coverage & window
 
@@ -86,15 +86,15 @@ fastq_dir/
 ~~~text
 bwa_output/
 ├── bam/
-│   ├── sampleA.bam               # 最终BAM(或 sampleA.markdup.bam)
+│   ├── sampleA.bam               # 最终BAM(或 sampleA_markdup.bam)
 │   └── sampleA.bam.bai           # BAM 索引
 ├── coverage/
-│   └── sampleA.depth.txt         # 单碱基深度(chrom pos depth)
+│   └── sampleA_depth.txt         # 单碱基深度(chrom pos depth)
 ├── windows/
-│   └── sampleA.window.bed        # 滑窗平均深度(chrom start end avg_depth)
+│   └── sampleA_window.bed        # 滑窗平均深度(chrom start end avg_depth)
 ├── stats/
-│   ├── sampleA.flagstat.txt      # samtools flagstat 比对统计
-│   └── sampleA.stats.txt         # samtools stats 详细统计
+│   ├── sampleA_flagstat.txt      # samtools flagstat 比对统计
+│   └── sampleA_stats.txt         # samtools stats 详细统计
 ├── logs/
 │   └── bwament.log               # 运行日志
 └── alignment_summary.txt         # 汇总报告(参数+已处理样本清单)
@@ -104,11 +104,11 @@ bwa_output/
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 每个样本先看 `stats/*.flagstat.txt` 的比对率，再看 `windows/*.window.bed` 的深度是否均匀。
+**通俗理解|In plain words:** 每个样本先看 `stats/*_flagstat.txt` 的比对率，再看 `windows/*_window.bed` 的深度是否均匀。
 
 - `flagstat` 中 `mapped` 比例越高越好（通常 >95% 为正常）；`properly paired` 比例高说明双端比对正常
-- `coverage/*.depth.txt`：每行 `染色体 位置 深度`，可画深度曲线；`windows/*.window.bed` 是滑窗平均，适合看大尺度覆盖
-- `stats/*.stats.txt`：含 GC、插入片段、错误率等更细的质控数据
+- `coverage/*_depth.txt`：每行 `染色体 位置 深度`，可画深度曲线；`windows/*_window.bed` 是滑窗平均，适合看大尺度覆盖
+- `stats/*_stats.txt`：含 GC、插入片段、错误率等更细的质控数据
 - `alignment_summary.txt`：本次运行的参数与成功处理的样本列表，用于留档
 
 ## 参数选择建议 | Parameter Guidance
@@ -131,7 +131,7 @@ bwa_output/
 |------|--------|------|------|
 | `--genome, -g` | 必填 |  | 参考基因组文件｜Reference genome file |
 | `--input, -i` | 必填 |  | 输入FASTQ目录｜Input FASTQ directory |
-| `--pattern, -p` | `_1.clean.fq.gz` | str | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--pattern, -p` | `_1_clean.fq.gz` | str | FASTQ文件匹配模式｜FASTQ file pattern |
 | `--output-dir, -o` | `./bwa_output` | Path | 输出目录｜Output directory |
 | `--threads, -t` | `12` | int | 线程数｜Number of threads |
 | `--bwa-k` | `19` | int | 最小种子长度｜Minimum seed length |
@@ -172,7 +172,7 @@ bwa_output/
 |------|--------|------|------|
 | `-g, --genome` | 必填 |  | 参考基因组文件｜Reference genome file |
 | `-i, --input` | 必填 |  | 输入FASTQ文件目录｜Input FASTQ directory |
-| `-p, --pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern (default: _1.clean.fq.gz) |
+| `-p, --pattern` | `_1_clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern (default: _1_clean.fq.gz) |
 | `-o, --output-dir` | `./bwa_output` |  | 输出目录｜Output directory |
 | `-t, --threads` | `88` | int | 线程数｜Number of threads |
 | `--bwa-k` | `19` | int | 最小种子长度｜Minimum seed length |
@@ -219,10 +219,10 @@ bwa_output/
 基因组索引会自动复用（缺了才重建）。样本级断点续传需要显式加 `--resume`：已存在最终 BAM 的样本会跳过。不加 `--resume` 则每次全部重跑。
 
 **Q2：提示"未找到匹配的FASTQ文件对"？**
-read1 文件名必须包含 `-p` 指定的模式（默认 `_1.clean.fq.gz`），且同目录有对应的 `_2.clean.fq.gz`。后缀不同就改 `-p`。
+read1 文件名必须包含 `-p` 指定的模式（默认 `_1_clean.fq.gz`），且同目录有对应的 `_2_clean.fq.gz`。后缀不同就改 `-p`。
 
 **Q3：markdup 之后 BAM 名字变了？**
-是的。`--markdup` 时最终文件是 `样本.markdup.bam`，否则是 `样本.bam`。`--remove-dup` 会直接删掉重复读段（比标记更激进）。
+是的。`--markdup` 时最终文件是 `样本_markdup.bam`，否则是 `样本.bam`。`--remove-dup` 会直接删掉重复读段（比标记更激进）。
 
 **Q4：线程数默认到底是多少？**
 通过 `biopytools bwa` 入口时默认 12 线程（模块直调默认 88）。核多的机器建议显式 `-t 32` 或更高。

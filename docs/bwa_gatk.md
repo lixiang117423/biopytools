@@ -107,17 +107,17 @@ sample2_R1.fastq.gz    sample2_R2.fastq.gz
 output/
 ├── 00_pipeline_info/               # 流程元数据
 ├── 01_qc/                          # fastp 清洗后的 FASTQ
-├── 02_alignment/                   # 各样本 {sample}.dedup.bam (+.bai)
-├── 03_gvcf/                        # 各样本 {sample}.g.vcf.gz + combined.g.vcf.gz
+├── 02_alignment/                   # 各样本 {sample}_dedup.bam (+.bai)
+├── 03_gvcf/                        # 各样本 {sample}_g.vcf.gz + combined_g.vcf.gz
 ├── 04_filter/                      # 变异结果
 │   ├── raw_variants.vcf.gz         # 联合分型原始变异
 │   ├── raw_snp.vcf.gz / raw_indel.vcf.gz      # 分离后的 SNP/INDEL
-│   ├── filtered.hard.SNP.vcf.gz / filtered.hard.INDEL.vcf.gz   # 硬过滤(仅标记)
-│   ├── all_samples.filtered.SNP.vcf.gz / all_samples.filtered.INDEL.vcf.gz  # 硬过滤(删除后 PASS)
-│   └── filtered.soft.SNP.vcf.gz / filtered.soft.INDEL.vcf.gz   # 软过滤(仅标记)
+│   ├── filtered_hard_SNP.vcf.gz / filtered_hard_INDEL.vcf.gz   # 硬过滤(仅标记)
+│   ├── all_samples_filtered_SNP.vcf.gz / all_samples_filtered_INDEL.vcf.gz  # 硬过滤(删除后 PASS)
+│   └── filtered_soft_SNP.vcf.gz / filtered_soft_INDEL.vcf.gz   # 软过滤(仅标记)
 ├── 05_stats/
 │   ├── pipeline_statistics.txt     # 比对/变异统计总报告
-│   └── {sample}.dedup_metrics.txt  # 各样本去重指标
+│   └── {sample}_dedup_metrics.txt  # 各样本去重指标
 ├── 99_logs/                        # 运行日志
 └── temp/                           # 中间文件(运行中)
 ```
@@ -133,7 +133,7 @@ output/
 
 ### 2. 硬过滤 vs 软过滤
 
-**通俗理解|In plain words:** 硬过滤结果（all_samples.filtered.*）是「删干净了、直接能用」的最终清单；软过滤结果（filtered.soft.*）保留了所有位点、只在 FILTER 列打标，适合你想自己控制宽松程度时用。
+**通俗理解|In plain words:** 硬过滤结果（all_samples_filtered.*）是「删干净了、直接能用」的最终清单；软过滤结果（filtered_soft.*）保留了所有位点、只在 FILTER 列打标，适合你想自己控制宽松程度时用。
 
 ### 3. GVCF vs VCF
 

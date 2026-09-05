@@ -44,7 +44,7 @@ biopytools rnaseq2vcf -g genome.fa --gff3 anno.gff3 -i reads/ -o out/
 1. **原始 FASTQ**（`-i/--input`）：目录内成对 FASTQ，会自动跑 fastp 质控
 2. **已清洗 FASTQ**（`--clean-fastq-dir`）：已质控，跳过 QC 步骤
 
-默认按 `_1.clean.fq.gz`/`_1.fq.gz`/`_1.fastq.gz` 等常见后缀自动识别成对样本（R1/R2），也可用 `--read1-pattern`/`--read2-pattern` 手动指定后缀。
+默认按 `_1_clean.fq.gz`/`_1.fq.gz`/`_1.fastq.gz` 等常见后缀自动识别成对样本（R1/R2），也可用 `--read1-pattern`/`--read2-pattern` 手动指定后缀。
 
 ## 参数说明 | Parameters
 
@@ -70,7 +70,7 @@ biopytools rnaseq2vcf -g genome.fa --gff3 anno.gff3 -i reads/ -o out/
 
 ### 样本命名 | Sample naming
 
-**通俗理解|In plain words:** 控制「怎么从文件名里识别 R1/R2 和样本名」。默认自动识别 `_1.clean.fq.gz`/`_1.fq.gz` 等常见后缀，**只有你的命名不标准时才需要手动指定**。
+**通俗理解|In plain words:** 控制「怎么从文件名里识别 R1/R2 和样本名」。默认自动识别 `_1_clean.fq.gz`/`_1.fq.gz` 等常见后缀，**只有你的命名不标准时才需要手动指定**。
 
 - `--read1-pattern` / `--read2-pattern`：R1/R2 后缀（默认自动识别）
 
@@ -116,20 +116,20 @@ biopytools rnaseq2vcf -g genome.fa --gff3 anno.gff3 -i reads/ -o out/
 ```text
 output_dir/
 +-- genome_index/                      # 共享基因组索引(faidx/dict/hisat2)
-+-- 01_qc/{sample}_1.clean.fq.gz      # fastp 质控后读段
++-- 01_qc/{sample}_1_clean.fq.gz      # fastp 质控后读段
 +-- 02_align/
-|   +-- {sample}.sorted.bam           # 比对结果
-|   +-- {sample}.hisat2.log           # 比对日志
+|   +-- {sample}_sorted.bam           # 比对结果
+|   +-- {sample}_hisat2.log           # 比对日志
 +-- 03_calling/                        # 每样本 calling 中间产物
-|   +-- {sample}.rg.bam / .dedup.bam / .split.bam
-|   +-- {sample}.g.vcf.gz (+ .tbi)    # 每样本 gVCF
+|   +-- {sample}_rg.bam / _dedup.bam / _split.bam
+|   +-- {sample}_g.vcf.gz (+ .tbi)    # 每样本 gVCF
 |   +-- {sample}.metrics
 +-- 04_joint/                          # 联合 calling 结果
-|   +-- combined.g.vcf.gz             # 合并后 gVCF
+|   +-- combined_g.vcf.gz             # 合并后 gVCF
 |   +-- joint.vcf.gz                  # 联合基因分型 VCF
-|   +-- joint.filtered.vcf.gz         # 过滤后(带 FILTER 标记)
-|   +-- all_samples.pass.vcf.gz       # 最终 PASS VCF(主要产物)
-|   +-- all_samples.pass.vcf.gz.tbi   # 索引
+|   +-- joint_filtered.vcf.gz         # 过滤后(带 FILTER 标记)
+|   +-- all_samples_pass.vcf.gz       # 最终 PASS VCF(主要产物)
+|   +-- all_samples_pass.vcf.gz.tbi   # 索引
 +-- 00_pipeline_info/checkpoints/      # 断点标记
 +-- 99_logs/pipeline.log               # 日志
 +-- tmp/                               # GATK 临时文件
@@ -138,7 +138,7 @@ output_dir/
 
 ## 结果解读 | Interpreting Results
 
-### 1. 最终 VCF（`04_joint/all_samples.pass.vcf.gz`）
+### 1. 最终 VCF（`04_joint/all_samples_pass.vcf.gz`）
 
 **通俗理解|In plain words:** 这是最终成果——一个包含全部样本、已经过滤的多样本 VCF。可直接送 ANNOVAR 注释或做下游群体/进化分析。
 
@@ -146,9 +146,9 @@ output_dir/
 
 **通俗理解|In plain words:** 一键看懂「过滤前后各有多少变异、每个样本有多少变异」。
 
-- 过滤前总数（`joint.vcf.gz`）与过滤后 PASS 数（`all_samples.pass.vcf.gz`）对比，以及被过滤掉的数量与百分比
+- 过滤前总数（`joint.vcf.gz`）与过滤后 PASS 数（`all_samples_pass.vcf.gz`）对比，以及被过滤掉的数量与百分比
 - 每样本 PASS 变异数（非参考基因型计数）
-- 被滤变异可在 `joint.filtered.vcf.gz` 里复查（FILTER 列标有 FS/QD/SNPCluster 原因）
+- 被滤变异可在 `joint_filtered.vcf.gz` 里复查（FILTER 列标有 FS/QD/SNPCluster 原因）
 
 ### 3. 过滤后仍保留的记录怎么读
 
@@ -183,7 +183,7 @@ VCF 的 FILTER 列为 `PASS` 的即通过项。被标记 FS（链偏好）、QD�
 | `--qd-threshold` | `2.0` | float | QD 过滤阈值(标记小于此值)｜QD filter threshold (mark if lower) |
 | `--cluster-window` | `35` | int | SNP cluster 过滤窗口(bp)｜SNP cluster filter window (bp) |
 | `--cluster-size` | `3` | int | SNP cluster 过滤数量｜SNP cluster filter count |
-| `--read1-pattern` | — |  | R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)｜R1 suffix (auto-detected by default) |
+| `--read1-pattern` | — |  | R1 后缀(默认自动识别 _1_clean.fq.gz/_1.fq.gz 等)｜R1 suffix (auto-detected by default) |
 | `--read2-pattern` | — |  | R2 后缀(默认自动识别)｜R2 suffix (auto-detected by default) |
 | `-s, --step` | — | IntRange | 0=仅建索引｜index only;省略=全流程｜omit for full pipeline |
 | `--no-checkpoint` | — |  | 关闭断点续传｜Disable checkpoint |
@@ -208,7 +208,7 @@ VCF 的 FILTER 列为 `PASS` 的即通过项。被标记 FS（链偏好）、QD�
 | `--qd-threshold` | `2.0` | float |  |
 | `--cluster-window` | `35` | int |  |
 | `--cluster-size` | `3` | int |  |
-| `--read1-pattern` | — |  | R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)｜R1 suffix (auto) |
+| `--read1-pattern` | — |  | R1 后缀(默认自动识别 _1_clean.fq.gz/_1.fq.gz 等)｜R1 suffix (auto) |
 | `--read2-pattern` | — |  | R2 后缀(默认自动识别)｜R2 suffix (auto) |
 | `-s, --step` | — | 0/1/2/3/4 | 0=仅建索引｜index only;省略=全流程｜omit for full pipeline |
 | `--no-checkpoint` | — | store_true |  |
@@ -231,13 +231,13 @@ VCF 的 FILTER 列为 `PASS` 的即通过项。被标记 FS（链偏好）、QD�
 ## 常见问题 | FAQ
 
 **Q1：支持断点续传吗？**
-支持。共享索引用 `00_pipeline_info/checkpoints/*.done` 标记；每样本质控/比对/call 按输出文件存在性跳过；联合 calling 以 `all_samples.pass.vcf.gz` 存在为完成标志。`--no-checkpoint` 关闭，`-f/--force` 强制重跑。
+支持。共享索引用 `00_pipeline_info/checkpoints/*.done` 标记；每样本质控/比对/call 按输出文件存在性跳过；联合 calling 以 `all_samples_pass.vcf.gz` 存在为完成标志。`--no-checkpoint` 关闭，`-f/--force` 强制重跑。
 
 **Q2：为什么提示磁盘空间不足？**
 预检要求输出目录所在盘有至少 200 GB 可用空间（GATK 中间文件很大）。空间不足会在日志中警告；请清理或换盘。
 
 **Q3：断点续传时怎么判断 gVCF 是否完整？**
-只有 `{sample}.g.vcf.gz` 与其索引 `.tbi` **同时存在**才视为已完成。若中断导致只有 `.g.vcf.gz` 缺 `.tbi`，程序会视为残缺并重跑该样本，避免用到损坏结果。
+只有 `{sample}_g.vcf.gz` 与其索引 `.tbi` **同时存在**才视为已完成。若中断导致只有 `_g.vcf.gz` 缺 `.tbi`，程序会视为残缺并重跑该样本，避免用到损坏结果。
 
 **Q4：输出 VCF 里有注释吗？**
 没有。本工具只做到 VCF（含过滤），ANNOVAR 注释需另跑 `biopytools annovar`。
@@ -246,4 +246,4 @@ VCF 的 FILTER 列为 `PASS` 的即通过项。被标记 FS（链偏好）、QD�
 CLI 入口只允许 `-s 0`（仅建索引）或省略（全流程）。没有「只跑到第 N 步」的用法；省略即跑完整流程。
 
 **Q6：样本命名不标准怎么办？**
-用 `--read1-pattern`/`--read2-pattern` 手动指定 R1/R2 后缀。默认已支持 `_1.clean.fq.gz`/`_1.fq.gz`/`_1.fastq.gz` 等常见命名。
+用 `--read1-pattern`/`--read2-pattern` 手动指定 R1/R2 后缀。默认已支持 `_1_clean.fq.gz`/`_1.fq.gz`/`_1.fastq.gz` 等常见命名。

@@ -35,7 +35,7 @@ biopytools reads2tree -i ~/tmp/reads_dir/ -o ~/tmp/reads2tree_out/
 一个 fastq 目录,自动识别(**支持多级子目录**,如 `raw/`、`clean/`):
 
 - **双端**:`A_R1.fq.gz` + `A_R2.fq.gz` → 样本 A(支持 `_R1/_R2`、`_1/_2`、`.R1.`、`read1/read2`、`_R1_001` 等;多 lane 自动归组)
-- **质控后命名**:`SRR123_1.clean.fq.gz` + `SRR123_2.clean.fq.gz` → 样本 SRR123(fastp 等清洗产物直接可用)
+- **质控后命名**:`SRR123_1_clean.fq.gz` + `SRR123_2_clean.fq.gz` → 样本 SRR123(fastp 等清洗产物直接可用)
 - **单端**:`C.fq`、`C.fastq.gz` 等,直接作为样本 C
 - 缺一侧的双端(只有 R1 没有 R2)→ 按单端处理
 - 非 fastq 文件(如脚本、txt)→ 忽略并 WARNING
@@ -92,7 +92,7 @@ reads目录
   └─ 自动识别双端(_R1/_R2 等)→ 配对分组
 01_input/uncompressed/{sample}.fq   ← 解压 + R1+R2 拼接(cat / BBMerge)
 01_input/input.tsv                  ← 样本<TAB>文件路径(WASTER 输入清单)
-02_waster/waster.species_tree.nw    ← WASTER 物种树(local bootstrap 支持度)
+02_waster/waster_species_tree.nw   ← WASTER 物种树(local bootstrap 支持度)
 03_branch_length/                   ← (可选)固定拓扑打分出枝长
 ```
 
@@ -109,10 +109,10 @@ output/
 │       ├── A.fq                    # A_R1.fq.gz + A_R2.fq.gz 拼接结果
 │       └── B.fq
 ├── 02_waster/
-│   ├── waster.species_tree.nw      # 物种树(Newick,含 local bootstrap)
+│   ├── waster_species_tree.nw     # 物种树(Newick,含 local bootstrap)
 │   └── waster.log                  # waster 运行日志
 ├── 03_branch_length/               # (加 --branch-length 时)
-│   ├── waster_branchlength.species_tree.nw
+│   ├── waster_branchlength_species_tree.nw
 │   └── waster_branchlength.log
 └── 99_logs/
     └── reads2tree.log              # 全量日志
@@ -120,7 +120,7 @@ output/
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 
-- **`waster.species_tree.nw`**:Newick 格式物种树。内部节点冒号后是 local bootstrap 支持率,**>95.0 表示该分支很可靠**,50 以下的支要谨慎解读
+- **`waster_species_tree.nw`**:Newick 格式物种树。内部节点冒号后是 local bootstrap 支持率,**>95.0 表示该分支很可靠**,50 以下的支要谨慎解读
 - **`01_input/input.tsv`**:每行 `样本名<TAB>合并后fastq路径`。先看这文件确认每个样本的 reads 都合并对了(文件大小与预期一致)
 - **`02_waster/waster.log`**:waster 运行详情,报错时从这里看
 - **质量判断**:样本数 ≥4 才有四聚体支持度统计;物种太少时日志会 WARNING。reads 质量差(接头污染、低质量)会拉低支持度

@@ -41,7 +41,7 @@ biopytools msaviz -i sequences.fa -o output.png
 
 ### 比对参数 | Alignment
 
-**通俗理解|In plain words:** `--skip-align` 表示输入已是比对结果、跳过 MAFFT；`--mafft-path` 指定 MAFFT 路径；`--mafft-params` 是传给 MAFFT 的参数（默认 `--auto --preservecase`）；`--threads` 是 MAFFT 线程数；`--keep-alignment` 默认开，会把比对结果存成 `{输出名}.aligned.fa` 方便复用。**一般全默认即可**；序列特别多时调大 `--threads`。
+**通俗理解|In plain words:** `--skip-align` 表示输入已是比对结果、跳过 MAFFT；`--mafft-path` 指定 MAFFT 路径；`--mafft-params` 是传给 MAFFT 的参数（默认 `--auto --preservecase`）；`--threads` 是 MAFFT 线程数；`--keep-alignment` 默认开，会把比对结果存成 `{输出名}_aligned.fa` 方便复用。**一般全默认即可**；序列特别多时调大 `--threads`。
 
 ### 格式参数 | Format
 
@@ -61,7 +61,7 @@ biopytools msaviz -i sequences.fa -o output.png
 输入 FASTA
     │
     ▼
-（可选）MAFFT 多序列比对 → .aligned.fa
+（可选）MAFFT 多序列比对 → _aligned.fa
     │
     ▼
 载入比对 → 检测 DNA/蛋白 → 选配色
@@ -77,7 +77,7 @@ matplotlib 绘制彩色方块矩阵 → 保存图像
 
 ```text
 {outfile}                    # 可视化图（png/jpg/svg/pdf）
-{outfile.stem}.aligned.fa    # 比对结果（--keep-alignment 默认保留，--no-keep-alignment 则删）
+{outfile.stem}_aligned.fa    # 比对结果（--keep-alignment 默认保留，--no-keep-alignment 则删）
 ```
 
 > 未保留比对结果时（`--no-keep-alignment`），中间比对文件写在输出目录 `tmp/` 下，用完即弃。

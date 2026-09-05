@@ -38,7 +38,7 @@ biopytools ocbsa f1 -i input.vcf -p1 1 -p2 2 -b1 3 -b2 4 -o ./output
 
 ### 其他子命令的输入
 
-- `fig`：`-i` 输入 `f1/f2` 生成的平滑结果文件（`*.smoothed`），`-o` 输出 `.png/.pdf`
+- `fig`：`-i` 输入 `f1/f2` 生成的平滑结果文件（`*_smoothed`），`-o` 输出 `.png/.pdf`
 - `primer`：`-g` 参考基因组 FASTA + `-i` OcValue 文件 + `--region chr,start,end`（逗号分隔）
 
 ## 分析流程 | Pipeline
@@ -68,10 +68,10 @@ biopytools ocbsa f1 -i input.vcf -p1 1 -p2 2 -b1 3 -b2 4 -o ./output
 
 ```text
 output/
-├── ocbsa.OcValue          # 逐位点 DHHP 原始结果(核心)
-├── ocbsa.smoothed         # 滑窗平滑后的 OcValue
-├── ocbsa.summary.tsv      # 供绘图的汇总数据
-├── ocbsa.OcValue.png      # 自动绘制的 OcValue 图
+├── ocbsa_OcValue          # 逐位点 DHHP 原始结果(核心)
+├── ocbsa_smoothed         # 滑窗平滑后的 OcValue
+├── ocbsa_summary.tsv      # 供绘图的汇总数据
+├── ocbsa_OcValue.png      # 自动绘制的 OcValue 图
 └── 99_logs/ocbsa_f1.log   # 运行日志
 ```
 
@@ -79,10 +79,10 @@ output/
 
 ```text
 output/
-├── f2bsa.snpindex 或 f2bsa.ED    # 逐位点结果(--method 决定)
-├── f2bsa.smoothed                # 滑窗平滑结果
-├── f2bsa.summary.tsv             # 供绘图的汇总数据
-├── f2bsa.SNP-index.png 或 f2bsa.ED.png  # 自动绘制的图
+├── f2bsa_snpindex 或 f2bsa_ED    # 逐位点结果(--method 决定)
+├── f2bsa_smoothed                # 滑窗平滑结果
+├── f2bsa_summary.tsv             # 供绘图的汇总数据
+├── f2bsa_SNP-index.png 或 f2bsa_ED.png  # 自动绘制的图
 └── 99_logs/ocbsa_f2.log
 ```
 
@@ -98,8 +98,8 @@ output/
 
 ## 结果解读 | Interpreting Results
 
-- **`*.OcValue / *.snpindex`**：逐位点的统计值，绝对值越大越像与性状连锁
-- **`*.smoothed`**：滑窗平滑后的值，用于画图和找峰；图上明显隆起、超过阈值线的山头就是候选区域
+- **`*_OcValue / *_snpindex`**：逐位点的统计值，绝对值越大越像与性状连锁
+- **`*_smoothed`**：滑窗平滑后的值，用于画图和找峰；图上明显隆起、超过阈值线的山头就是候选区域
 - **`*.png 里的阈值线**：f1 的 OcValue 图在非指定区域模式下画红/绿/蓝三条虚线，分别对应 top95/99/99.9 分位数，点越靠近红色以上越显著
 - **`primer_design_results.txt`**：每行一对引物（左右序列、Tm、GC、产物长度），用于候选区验证
 - **好坏判据**：候选峰若由多个相邻位点共同支持（不是单点尖峰）、且落在目标性状已知区域，结论更可信

@@ -8,7 +8,7 @@
 - 支持 GLM（一般线性模型）、MLM（混合线性模型，默认）、BOTH 三种模式
 - MLM 模式自动预计算亲缘关系矩阵(K)与 PCA 协变量，所有性状共享，避免重复计算
 - 可复用外部 Q 矩阵（群体结构）和 K 矩阵（亲缘关系）
-- 每个性状产出独立的曼哈顿图输入文件(.manht_input)，批量报告汇总成功/失败
+- 每个性状产出独立的曼哈顿图输入文件(_manht_input)，批量报告汇总成功/失败
 
 ## 快速开始 | Quick Start
 
@@ -27,7 +27,7 @@ biopytools tassel-gwas -i input.vcf.gz -p traits.txt -o results
 | 亲缘关系矩阵(K) | 样本两两「亲戚有多近」的表，用来排除「长得像是因为亲戚近」 |
 | Q 矩阵 | 群体结构的量化表（常由 PCA 或 STRUCTURE 得到），作为背景变量扣除 |
 | PCA 协变量 | 主成分，把人群按遗传背景排序，前几列作为协变量 |
-| 曼哈顿图输入(.manht_input) | 一行一个位点 + P 值，供 R 等工具画「山峰图」 |
+| 曼哈顿图输入(_manht_input) | 一行一个位点 + P 值，供 R 等工具画「山峰图」 |
 
 ## 输入 | Input
 
@@ -73,18 +73,18 @@ results/
 +-- failed_traits.log               # 失败性状及原因
 +-- gwas.log                        # 全局日志
 +-- 性状1/                          # 每个性状一个子目录
-|   +-- 性状1_GWAS.mlm.manht_input  # 曼哈顿图输入(4列:Chr Pos SNP P-value)
-|   +-- 性状1_GWAS.glm.manht_input  # (GLM 模式时)
-|   +-- 性状1_GWAS.pipeline.log     # 该性状运行日志
-|   +-- 性状1.pheno.txt             # 提取出的单性状表型
-|   +-- 性状1_GWAS.stats.txt        # 该性状统计报告
+|   +-- 性状1_GWAS_mlm_manht_input  # 曼哈顿图输入(4列:Chr Pos SNP P-value)
+|   +-- 性状1_GWAS_glm_manht_input  # (GLM 模式时)
+|   +-- 性状1_GWAS_pipeline.log     # 该性状运行日志
+|   +-- 性状1_pheno.txt             # 提取出的单性状表型
+|   +-- 性状1_GWAS_stats.txt        # 该性状统计报告
 +-- 性状2/
 +-- ...
 ```
 
 ## 结果解读 | Interpreting Results
 
-### 1. 性状_GWAS.mlm.manht_input（主结果）
+### 1. 性状_GWAS_mlm_manht_input（主结果）
 
 四列：Chr（染色体）、Pos（位置）、SNP（位点名）、P-value（P 值）。**P 值越小越显著**。把这个文件喂给 R 的 qqman/CMplot 就能画曼哈顿图和 QQ 图；关注「山峰」最高的区域，那是最可能的候选区间。
 
@@ -181,4 +181,4 @@ results/
 MLM 自动算 PCA 需要 VCF2PCACluster（默认找 ~/software/VCF2PCACluster-1.42/bin/VCF2PCACluster）。找不到时用 --q-matrix 传入外部 PCA 文件即可绕过。
 
 **Q5：某些性状失败怎么排查？**
-先看 failed_traits.log 定位失败性状，再看对应子目录里的 性状_GWAS.pipeline.log 查具体报错（常见是内存不足或样本不匹配）。
+先看 failed_traits.log 定位失败性状，再看对应子目录里的 性状_GWAS_pipeline.log 查具体报错（常见是内存不足或样本不匹配）。

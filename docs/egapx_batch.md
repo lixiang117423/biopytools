@@ -6,7 +6,7 @@
 ## 功能概述 | Overview { #overview }
 
 - 按染色体(或序列)拆分基因组，为每条序列生成独立的 EGAPx YAML 配置 + 运行脚本
-- 生成一个总的提交列表脚本(`all_jobs_submit.list.sh`)，支持串行 / GNU parallel / xargs 三种方式并行执行
+- 生成一个总的提交列表脚本(`all_jobs_submit_list.sh`)，支持串行 / GNU parallel / xargs 三种方式并行执行
 - 支持短读、长读测序数据作为注释证据，自动生成 EGAPx 格式的 reads 列表
 - 在输出目录上层自动创建 EGAPx 运行所需的软链接(ui/nf/egapx_config)与 SIF 镜像配置
 - 可自定义 locus 标签前缀、报告名、染色体前缀过滤、NCBI 物种分类 ID
@@ -18,7 +18,7 @@
 biopytools egapx-batch -g genome.fa -o output_dir
 ```
 
-最小输入：一个基因组 FASTA + 一个输出目录。生成后按提示执行 `bash all_jobs_submit.list.sh`(或 parallel 并行)开始真正注释。
+最小输入：一个基因组 FASTA + 一个输出目录。生成后按提示执行 `bash all_jobs_submit_list.sh`(或 parallel 并行)开始真正注释。
 
 ## 零基础概念速览 | Concepts in plain words { #concepts }
 
@@ -73,11 +73,11 @@ FASTA 格式，支持 `.fa` / `.fa.gz` / `.fasta` / `.fasta.gz`。按序列(通�
   - {chr}.fa: 该序列的 FASTA
   - {chr}.yaml: EGAPx 配置(genome/taxid/locus前缀/reads/线程)
   - egapx_{chr}.sh: 运行脚本(激活 conda + singularity 跑 EGAPx)
-  - 追加到 all_jobs_submit.list.sh
+  - 追加到 all_jobs_submit_list.sh
     |
     v
 步骤3: 清理临时目录 + 生成 EGAPx 软链接 + 打印执行方式
-  -> 用户执行 bash all_jobs_submit.list.sh 开始注释
+  -> 用户执行 bash all_jobs_submit_list.sh 开始注释
 ```
 
 ## 输出 | Output { #output }
@@ -96,7 +96,7 @@ output_dir/
 └── long_reads_list.txt               # 长读列表(给了 --long-reads 才有)
 
 output_dir 的上一级目录:
-├── all_jobs_submit.list.sh           # 总提交列表(逐行 bash 每条染色体的脚本)
+├── all_jobs_submit_list.sh           # 总提交列表(逐行 bash 每条染色体的脚本)
 ├── ui/ nf/ egapx_config/             # EGAPx 运行所需软链接(自动创建)
 └── (egapx_config/singularity.config) # 自定义 SIF 镜像配置(给了 --sif 时)
 ```
@@ -109,8 +109,8 @@ output_dir 的上一级目录:
 
 ### 2. 执行方式(日志末尾会打印)
 
-- 串行：`bash all_jobs_submit.list.sh`(一条条跑，最慢但最稳)
-- 并行：`cat all_jobs_submit.list.sh | parallel -j 4` 或 `xargs -P 4`
+- 串行：`bash all_jobs_submit_list.sh`(一条条跑，最慢但最稳)
+- 并行：`cat all_jobs_submit_list.sh | parallel -j 4` 或 `xargs -P 4`
 
 ### 3. 真正的注释结果在哪
 
@@ -177,7 +177,7 @@ output_dir 的上一级目录:
 ## 常见问题 | FAQ { #faq }
 
 **Q1：这个工具会直接跑注释吗？**
-不会。它只生成配置和脚本，真正的注释要你随后执行 `all_jobs_submit.list.sh`(或 parallel)才会开始。
+不会。它只生成配置和脚本，真正的注释要你随后执行 `all_jobs_submit_list.sh`(或 parallel)才会开始。
 
 **Q2：生成的 YAML 里 threads 写的是 88，对吗？**
 对。生成器给每条染色体任务默认写 `threads: 88`(针对大染色体)。如需调整，改对应 `<chr>.yaml` 后再跑脚本。

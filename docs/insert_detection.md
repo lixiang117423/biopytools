@@ -6,7 +6,7 @@
 
 - 检测插入序列（T-DNA 等）在参考基因组上的插入位点，输出每个位点的坐标、方向、支持 reads 数与得分
 - 三步流程：reads 比对基因组 → 提取 soft-clip 序列 → soft-clip 序列回比插入序列，再按 5 组 reads 分类加权打分
-- 自动识别 FASTQ 目录中的成对样品（默认匹配 biopytools fastp 输出后缀 _1.clean.fq.gz / _2.clean.fq.gz，可自定义）
+- 自动识别 FASTQ 目录中的成对样品（默认匹配 biopytools fastp 输出后缀 _1_clean.fq.gz / _2_clean.fq.gz，可自定义）
 - 断点续传：每步按输出文件存在性跳过已完成部分，--force 强制全部重跑
 - 自动构建 bowtie2 索引（基因组和插入序列各一次），生成可导入 IGV 的 BAM 方便人工核对
 
@@ -41,14 +41,14 @@ biopytools insert-detection -i genome.fa --insert tdna.fa --fastq-dir fastq_outp
 
 ### FASTQ 目录
 
---fastq-dir 指定一个目录，程序扫描其中成对的文件。默认匹配 fastp 输出命名：R1 后缀 _1.clean.fq.gz、R2 后缀 _2.clean.fq.gz，可用 --read1-suffix/--read2-suffix 自定义。
+--fastq-dir 指定一个目录，程序扫描其中成对的文件。默认匹配 fastp 输出命名：R1 后缀 _1_clean.fq.gz、R2 后缀 _2_clean.fq.gz，可用 --read1-suffix/--read2-suffix 自定义。
 
 ```text
 fastq_output/
-├── sampleA_1.clean.fq.gz
-├── sampleA_2.clean.fq.gz
-├── sampleB_1.clean.fq.gz
-└── sampleB_2.clean.fq.gz
+├── sampleA_1_clean.fq.gz
+├── sampleA_2_clean.fq.gz
+├── sampleB_1_clean.fq.gz
+└── sampleB_2_clean.fq.gz
 ```
 
 ## 参数说明 | Parameters
@@ -109,9 +109,9 @@ output/
 │   └── insert_detection.log         # 运行日志
 ├── tmp/                             # 临时文件 (运行结束清理)
 └── <sample>_insert_detection/       # 每个样品一个目录
-    ├── 01_genome_alignment/<sample>.sorted.bam (+.bai)
-    ├── 02_softclip_extraction/<sample>.softclip.fastq (+.softclip.bam)
-    └── 03_insert_alignment/<sample>.tdna.bam (+.bai)
+    ├── 01_genome_alignment/<sample>_sorted.bam (+.bai)
+    ├── 02_softclip_extraction/<sample>_softclip.fastq (+_softclip.bam)
+    └── 03_insert_alignment/<sample>_tdna.bam (+.bai)
 ```
 
 ### insertion_sites.tsv 字段
@@ -165,8 +165,8 @@ output/
 | `--score-threshold` | `1000` | int | 得分阈值｜Score threshold |
 | `--bowtie2-path` | `bowtie2` |  | Bowtie2可执行文件路径｜Bowtie2 executable path |
 | `--samtools-path` | `samtools` |  | samtools可执行文件路径｜samtools executable path |
-| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀（包含扩展名）｜Read 1 file suffix with extension |
-| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀（包含扩展名）｜Read 2 file suffix with extension |
+| `--read1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀（包含扩展名）｜Read 1 file suffix with extension |
+| `--read2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀（包含扩展名）｜Read 2 file suffix with extension |
 | `--force` | — |  | 强制重新运行所有步骤｜Force rerun all steps |
 | `--verbose` | — |  | 显示详细日志｜Verbose logging |
 | `--quiet` | — |  | 仅显示错误｜Errors only |
@@ -185,8 +185,8 @@ output/
 | `--score-threshold` | `1000` | int | 得分阈值｜Score threshold (default: 1000) |
 | `--bowtie2-path` | — |  | Bowtie2可执行文件路径(默认域环境自动解析)｜Bowtie2 executable path (default: auto domain env) |
 | `--samtools-path` | — |  | samtools可执行文件路径(默认域环境自动解析)｜samtools executable path (default: auto domain env) |
-| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀（包含扩展名，默认匹配fastp输出）｜Read 1 file suffix with extension (default: _1.clean.fq.gz, matches fastp output) |
-| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀（包含扩展名，默认匹配fastp输出）｜Read 2 file suffix with extension (default: _2.clean.fq.gz, matches fastp output) |
+| `--read1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀（包含扩展名，默认匹配fastp输出）｜Read 1 file suffix with extension (default: _1_clean.fq.gz, matches fastp output) |
+| `--read2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀（包含扩展名，默认匹配fastp输出）｜Read 2 file suffix with extension (default: _2_clean.fq.gz, matches fastp output) |
 | `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
 | `--verbose` | — | store_true | 显示详细日志｜Show verbose logs |
 | `--quiet` | — | store_true | 仅显示错误日志｜Show error logs only |
@@ -209,7 +209,7 @@ output/
 --min-support（最小支持 reads 数）目前只被声明和记录到 pipeline_params.yml，实际过滤靠 --score-threshold 的加权得分。若想收紧，请调 --score-threshold 而不是 --min-support。
 
 **Q3：为什么没识别到我的 FASTQ 样品？**
-程序只认文件名后缀匹配 --read1-suffix/--read2-suffix 的文件（默认 _1.clean.fq.gz/_2.clean.fq.gz），且必须 R1/R2 成对出现。请确认命名或自定义后缀。
+程序只认文件名后缀匹配 --read1-suffix/--read2-suffix 的文件（默认 _1_clean.fq.gz/_2_clean.fq.gz），且必须 R1/R2 成对出现。请确认命名或自定义后缀。
 
 **Q4：索引会自动构建吗？**
 会。基因组和插入序列的 bowtie2 索引若不存在，程序会自动运行 bowtie2-build 构建。

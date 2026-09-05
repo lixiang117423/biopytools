@@ -108,8 +108,8 @@ scaffold FASTA + TGS reads
 ```text
 （输出到 -o 前缀所在目录）
 ├── gapclosed.gapcloser.fa      # 填充后的最终基因组（核心产物）
-├── gapclosed.gap_report.txt    # 填充前后 gap 对比报告
-├── gapclosed.gap_table.tsv     # 逐个 gap 明细（填充状态/残留长度）
+├── gapclosed_gap_report.txt    # 填充前后 gap 对比报告
+├── gapclosed_gap_table.tsv     # 逐个 gap 明细（填充状态/残留长度）
 ├── gapclosed.gapcloser.fa.round1  # 第1轮结果备份（仅跑第2轮时生成）
 └── tgsgapcloser.log            # 运行日志
 ```
@@ -122,7 +122,7 @@ scaffold FASTA + TGS reads
 
 **通俗理解|In plain words:** 这是最终要用的文件——原来的 N 空洞被真实序列替换了（或缩短了）。可以重新跑一遍 gap-stat 或 seqkit stats 对比 N 比例。
 
-### 2. gap 对比报告（{prefix}.gap_report.txt）
+### 2. gap 对比报告（{prefix}_gap_report.txt）
 
 **通俗理解|In plain words:** 一份「填洞前后对比成绩单」。
 
@@ -130,7 +130,7 @@ scaffold FASTA + TGS reads
 - 填充效果：填充了多少个 gap、多少碱基、按数量的填充率（%）；
 - **填充率越高越好**；剩余 gap 越少、越短越好。
 
-### 3. gap 明细表（{prefix}.gap_table.tsv）
+### 3. gap 明细表（{prefix}_gap_table.tsv）
 
 **通俗理解|In plain words:** 逐个 gap 的「命运清单」，每个 gap 一行。
 

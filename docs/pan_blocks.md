@@ -114,10 +114,10 @@ genomeC    /path/to/genomeC.fa
     │
     ▼
 步骤1 align: nucmer 两两比对 → delta-filter 过滤 → show-coords 输出坐标
-    │  (输出 01_coords/*.filtered.coords,已完成的比对自动跳过)
+    │  (输出 01_coords/*_filtered.coords,已完成的比对自动跳过)
     ▼
 步骤2 build: 收集共线性区域 → bedtools merge 合并 → 按顺序迭代 subtract 去重
-    │  (输出 02_blocks/{chrom}.pan_blocks.bed,已完成的染色体自动跳过)
+    │  (输出 02_blocks/{chrom}_pan_blocks.bed,已完成的染色体自动跳过)
     ▼
 步骤3 plot: 按 Pan-Blocks 画每个基因组的彩色块 + 相邻基因组共线性连线
     │  (输出 03_plots/{chrom}.svg 或 .png)
@@ -132,10 +132,10 @@ output_dir/
 ├── 00_pipeline_info/
 │   └── software_versions.yml               # 工具版本与运行参数
 ├── 01_coords/
-│   ├── genomeA.vs.genomeB.filtered.coords  # 两两比对坐标(每对一个文件)
+│   ├── genomeA_vs_genomeB_filtered.coords  # 两两比对坐标(每对一个文件)
 │   └── ...
 ├── 02_blocks/
-│   ├── chr1.pan_blocks.bed                 # 每条染色体的 Pan-Blocks(1-based 闭区间)
+│   ├── chr1_pan_blocks.bed                 # 每条染色体的 Pan-Blocks(1-based 闭区间)
 │   └── ...
 ├── 03_plots/
 │   ├── chr1.svg                            # 共线性块可视化图
@@ -147,13 +147,13 @@ output_dir/
 
 关键文件说明：
 
-- **`*.filtered.coords`**：show-coords 输出的比对坐标，是构建 Pan-Blocks 的原料，也可直接用于其它共线性分析
-- **`{chrom}.pan_blocks.bed`**：四列 `Chr\tStart\tEnd\tGenome`，`Genome` 列即该片段被判定归属的"贡献者"基因组；坐标 1-based、两端闭区间
+- **`*_filtered.coords`**：show-coords 输出的比对坐标，是构建 Pan-Blocks 的原料，也可直接用于其它共线性分析
+- **`{chrom}_pan_blocks.bed`**：四列 `Chr\tStart\tEnd\tGenome`，`Genome` 列即该片段被判定归属的"贡献者"基因组；坐标 1-based、两端闭区间
 - **`{chrom}.svg`**：每行一个基因组的染色体条，彩色块=Pan-Block(颜色=贡献者)，相邻行之间的灰色/绿色连线=共线性(绿色表示方向倒置)
 
 ## 结果解读 | Interpreting Results
 
-### 1. Pan-Blocks 表（`*.pan_blocks.bed`）
+### 1. Pan-Blocks 表（`*_pan_blocks.bed`）
 
 **通俗理解|In plain words:** 这是一张"分区表"——每条染色体被切成了哪些块，每块归谁。块的总数反映基因组间的共线性破碎程度。
 
@@ -168,7 +168,7 @@ output_dir/
 - 灰色细线=方向一致的共线性，绿色线=方向倒置(倒位等结构变异)
 - 连线密集且连续=高度共线；连线稀疏断裂=这段经历了较多重排
 
-### 3. 比对坐标（`*.filtered.coords`）
+### 3. 比对坐标（`*_filtered.coords`）
 
 - 每行是一个比对片段，含 ref/query 的染色体与起止坐标
 - 被 `--min-alignment-length`(默认 10000bp) 过滤过，短于该值的不在文件里
@@ -191,7 +191,7 @@ output_dir/
 ## 常见问题 | FAQ
 
 **Q1：中途断了，重跑会从头来吗？**
-不会。align 步骤按 `*.filtered.coords` 是否存在跳过已完成比对；build 步骤按 `{chrom}.pan_blocks.bed` 是否存在跳过已完成染色体。直接用 `biopytools pan-blocks all` 重跑即可续跑。
+不会。align 步骤按 `*_filtered.coords` 是否存在跳过已完成比对；build 步骤按 `{chrom}_pan_blocks.bed` 是否存在跳过已完成染色体。直接用 `biopytools pan-blocks all` 重跑即可续跑。
 
 **Q2：想只重跑某一步怎么做？**
 用 `--step`：`biopytools pan-blocks plot -i genome_list.txt -o output_dir/` 只重画图，不重算比对和建块。
@@ -203,4 +203,4 @@ output_dir/
 检查 genome_list.txt 是否至少两行有效记录，且每行是"名称<TAB>路径"两列（用制表符分隔，不是空格）。
 
 **Q5：画图时某条染色体没有输出？**
-plot 依赖 `02_blocks/{chrom}.pan_blocks.bed`；若 build 步骤未生成该染色体(或比对没覆盖到)，该染色体会被跳过。先确认比对坐标里是否有这条染色体。
+plot 依赖 `02_blocks/{chrom}_pan_blocks.bed`；若 build 步骤未生成该染色体(或比对没覆盖到)，该染色体会被跳过。先确认比对坐标里是否有这条染色体。

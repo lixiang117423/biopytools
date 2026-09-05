@@ -111,15 +111,15 @@ out_dir/
 ├── 01_modeler/                              # 重复库(核心)
 │   └── {样品}_rm_run/{样品}_db-families.fa  # de novo 重复库
 ├── 02_masker/
-│   ├── {样品}.masked.fa                     # 小写软屏蔽基因组(下游基因预测用这个)
+│   ├── {样品}_masked.fa                     # 小写软屏蔽基因组(下游基因预测用这个)
 │   ├── {样品}.out / {样品}.gff              # 逐条重复注释
 │   └── {样品}.tbl                           # RepeatMasker 自带汇总
 ├── 03_tesorter/
-│   └── {样品}_db-families.rexdb.cls.tsv     # 家族分类表(核心)
+│   └── {样品}_db-families_rexdb.cls.tsv     # 家族分类表(核心)
 ├── 04_summary/
-│   ├── {样品}.repeat_summary.tsv            # 总体+逐类 bp/%/GC%/家族数
-│   ├── {样品}.families_classified.tsv       # 每个家族的分类(未分类标 unknown)
-│   ├── {样品}.effector_overlap.tsv          # effector 交叉检查(可选)
+│   ├── {样品}_repeat_summary.tsv            # 总体+逐类 bp/%/GC%/家族数
+│   ├── {样品}_families_classified.tsv       # 每个家族的分类(未分类标 unknown)
+│   ├── {样品}_effector_overlap.tsv          # effector 交叉检查(可选)
 │   └── batch_summary.tsv                    # 批量模式每样品状态
 ├── 99_logs/                                 # 全量/stdout/stderr 三份日志
 └── tmp/                                     # 运行结束清理

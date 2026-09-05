@@ -31,7 +31,7 @@ biopytools smudgescope -i fastq_dir -o output_dir -l 150
 ## 输入 | Input
 
 - 单个 FASTQ 文件（`.fastq` / `.fq` / `.fastq.gz` / `.fq.gz`），或一个含 FASTQ 的目录（递归查找）。
-- 目录模式下按 `--read1-suffix` 模式把文件归组为样本（默认 `*_1.clean.fq.gz`，自动配对 `_1` / `_2`）。
+- 目录模式下按 `--read1-suffix` 模式把文件归组为样本（默认 `*_1_clean.fq.gz`，自动配对 `_1` / `_2`）。
 - 双端数据同一样本的两端文件会被合并进同一次 k-mer 计数。
 
 ## 参数说明 | Parameters
@@ -71,7 +71,7 @@ biopytools smudgescope -i fastq_dir -o output_dir -l 150
 
 - `--fastk-table`：直接指定一个已生成的 FastK 表文件路径（跳过 FastK 建表，加速重跑）。
 - `--fastk-memory`：FastK 内存大小（CLI 默认 `100G`）。
-- `--read1-suffix`：Read1 文件后缀模式（默认 `*_1.clean.fq.gz`）。
+- `--read1-suffix`：Read1 文件后缀模式（默认 `*_1_clean.fq.gz`）。
 
 ## 分析流程 | Pipeline
 
@@ -81,7 +81,7 @@ biopytools smudgescope -i fastq_dir -o output_dir -l 150
 2. Jellyfish `histo`：生成 k-mer 频数直方图 `.histo`
 3. GenomeScope 2.0：拟合模型，产出 `model.txt` / `summary.txt` / 图，并提取 k-mer 覆盖度(kcov)
 4. FastK：为 Smudgeplot 生成 k-mer 表（`fastk_table.ktab` + `.hist`）
-5. Smudgeplot `hetmers`：用阈值 `int(kcov×0.5)` 提取杂合 k-mer 对，产出 `.kmerpairs.smu`
+5. Smudgeplot `hetmers`：用阈值 `int(kcov×0.5)` 提取杂合 k-mer 对，产出 `_kmerpairs.smu`
 6. Smudgeplot `plot`：画倍性指纹图 `{sample}_smudgeplot.png`
 
 ## 输出 | Output
@@ -91,15 +91,15 @@ output_dir/
 ├── {sample}/                          # 每个样本一个子目录
 │   ├── 00_pipeline_info/software_versions.yml   # 软件版本信息
 │   ├── 01_jellyfish/
-│   │   ├── {sample}.jellyfish.jf                # k-mer 计数库
-│   │   └── {sample}.jellyfish.histo             # k-mer 频数直方图
+│   │   ├── {sample}_jellyfish.jf              # k-mer 计数库
+│   │   └── {sample}_jellyfish.histo           # k-mer 频数直方图
 │   ├── 02_genomescope/
 │   │   ├── model.txt                 # 模型参数（含 kcov、杂合度 r 等）
 │   │   ├── summary.txt               # 关键指标汇总
 │   │   ├── linear_plot.png           # 拟合曲线图（线性坐标）
 │   │   └── log_plot.png              # 拟合曲线图（对数坐标）
 │   ├── 03_smudgeplot/                # 仅未跳过 Smudgeplot 时
-│   │   ├── {sample}.kmerpairs.smu    # 杂合 k-mer 对数据
+│   │   ├── {sample}_kmerpairs.smu   # 杂合 k-mer 对数据
 │   │   └── {sample}_smudgeplot.png   # 倍性指纹图
 │   ├── fastk/                        # 条件目录，仅跑 Smudgeplot 时
 │   │   ├── fastk_table.ktab
@@ -168,7 +168,7 @@ output_dir/
 | `--ploidy` | `2` | int | 基因组倍性 1-6 (默认: 2，由Smudgeplot自动推断)｜Genome ploidy level 1-6 (default: 2, auto-inferred by Smudgeplot) |
 | `--fastk-table` | `` |  | FastK表文件路径｜FastK table file path |
 | `--fastk-memory` | `100G` |  | FastK内存大小｜FastK memory size |
-| `--read1-suffix` | `*_1.clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
+| `--read1-suffix` | `*_1_clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -186,7 +186,7 @@ output_dir/
 | `--genomescope-env` | `genomescope_v.2.0.1` |  | GenomeScope conda环境名称 (默认: genomescope_v.2.0.1)｜GenomeScope conda env name (default: genomescope_v.2.0.1) |
 | `--fastk-table` | `` |  | FastK表文件路径｜FastK table file path |
 | `--fastk-memory` | `16G` |  | FastK内存大小｜FastK memory size |
-| `--read1-suffix` | `*_1.clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
+| `--read1-suffix` | `*_1_clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
 
 <!-- END PARAMS:auto -->
 
@@ -201,7 +201,7 @@ output_dir/
 ## 常见问题 | FAQ
 
 **Q1：支持断点续传吗？**
-支持。每一步都按「输出文件是否存在」判断是否跳过（`.jf` / `.histo` / `model.txt` / `fastk_table.ktab` / `.kmerpairs.smu` / 最终图）。换参数重跑前，需先删除对应的旧产物，否则会复用旧结果。
+支持。每一步都按「输出文件是否存在」判断是否跳过（`.jf` / `.histo` / `model.txt` / `fastk_table.ktab` / `_kmerpairs.smu` / 最终图）。换参数重跑前，需先删除对应的旧产物，否则会复用旧结果。
 
 **Q2：Smudgeplot 没生成图，报「未找到 .smu 文件」正常吗？**
 正常。纯合二倍体基因组的杂合 k-mer 对太少，Smudgeplot 检测不到信号就不画图，不影响 GenomeScope 的基因组大小等结果。

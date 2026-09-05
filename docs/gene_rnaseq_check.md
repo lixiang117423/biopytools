@@ -83,7 +83,7 @@ StringTie 组装 + gffcompare 分类
 ```text
 out/
 ├── 00_pipeline_info/                    # 软件版本与参数
-├── 01_align/                            # 索引、各样本 sorted.bam/.bai/.flagstat
+├── 01_align/                            # 索引、各样本 {sample}_sorted.bam/.bai/.flagstat
 ├── 02_coverage/
 │   ├── effector_*.bed                   # exon/gene/上下游 BED
 │   ├── coverage_summary.tsv             # 每基因覆盖度汇总

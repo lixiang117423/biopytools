@@ -93,10 +93,10 @@ biopytools ncbi-datasets -t 67593 -o ~/tmp/ncbi_download/
 ```
 output/
 ├── 00_pipeline_info/
-│   ├── 67593.assemblies.tsv      # assembly 清单(下载前先看这个)
+│   ├── 67593_assemblies.tsv      # assembly 清单(下载前先看这个)
 │   └── software_versions.yml     # datasets 与模块版本
 ├── 01_download/                  # 原始下载(NCBI 打包结构,不动)
-│   ├── 67593.genomes.zip         # 官方打包的下载文件
+│   ├── 67593_genomes.zip         # 官方打包的下载文件
 │   └── 67593.ncbi_dataset/
 │       └── data/
 │           ├── GCF_000149865.2/
@@ -111,14 +111,14 @@ output/
 │   ├── cds/                      #   GCF_000149865.2.cds.fa (加 --include-cds 时)
 │   └── files.tsv                 # 索引:accession/type/绝对路径,可直接喂下游 fof
 └── 99_logs/
-    └── 67593.ncbi_datasets.log   # 全量日志(+ .out.log / .err.log 分离)
+    └── 67593_ncbi_datasets.log   # 全量日志(+ .out.log / .err.log 分离)
 ```
 
 `02_organized/` 下所有序列文件统一后缀:基因组 `.fa`(不保留 NCBI 的 `_genomic.fna` 名)、蛋白 `.faa`、CDS `.cds.fa`;均为软链,不占额外空间。`files.tsv` 三列 `accession/type/path`,绝对路径,下游(fastani、busco、fof 清单)拿来即用。不想要整理产物用 `--no-organize`。
 
 ## 结果解读 | Interpreting Results { #interpreting-results }
 
-- **67593.assemblies.tsv**:每行一个 assembly,列 = accession、物种名、组装级别、状态。`assembly_status` 为 `current` 表示当前有效;下载前先数行数,行数=将下载的基因组数
+- **67593_assemblies.tsv**:每行一个 assembly,列 = accession、物种名、组装级别、状态。`assembly_status` 为 `current` 表示当前有效;下载前先数行数,行数=将下载的基因组数
 - **zip 体积判断**:基因组数量 × 单基因组大小粗估;加了 `--include-gff3/--include-protein` 会明显变大
 - **质量判断**:优先看清单里 `assembly_level` 是否 `Complete Genome`/`Chromosome`;`GCF_` 前缀(RefSeq)比 `GCA_`(GenBank)通常更权威
 - **数据完整性**:`01_download/67593.ncbi_dataset/data/` 下 accession 子目录数应等于清单行数;对不上说明下载被中断,重跑同命令会自动续传

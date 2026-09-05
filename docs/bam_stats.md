@@ -13,7 +13,7 @@
 ## 快速开始 | Quick Start
 
 ~~~bash
-biopytools bam-stats -i ./bam_files -o result.summary.tsv
+biopytools bam-stats -i ./bam_files -o result_summary.tsv
 ~~~
 
 ## 零基础概念速览 | Concepts in plain words
@@ -35,15 +35,15 @@ biopytools bam-stats -i ./bam_files -o result.summary.tsv
 - 可选 `--bed-file` 限定只在目标区域统计
 
 ~~~text
-biopytools bam-stats -i sample.bam -o result.summary.tsv -g reference.fa
-biopytools bam-stats -i ./bam_dir -o result.summary.tsv --bed-file targets.bed
+biopytools bam-stats -i sample.bam -o result_summary.tsv -g reference.fa
+biopytools bam-stats -i ./bam_dir -o result_summary.tsv --bed-file targets.bed
 ~~~
 
 ## 参数说明 | Parameters
 
 ### 输入输出 | Input & output
 
-**通俗理解|In plain words:** `-i` 是 BAM 文件或目录，`-o` 是汇总表输出路径（默认 `bam_stats.summary.tsv`）。`-g` 参考基因组、`--bed-file` 目标区域是可选增强，给了能算 GC 偏差、能把统计限定在感兴趣区域。
+**通俗理解|In plain words:** `-i` 是 BAM 文件或目录，`-o` 是汇总表输出路径（默认 `bam_stats_summary.tsv`）。`-g` 参考基因组、`--bed-file` 目标区域是可选增强，给了能算 GC 偏差、能把统计限定在感兴趣区域。
 
 ### 过滤与阈值 | Filters
 
@@ -68,23 +68,23 @@ biopytools bam-stats -i ./bam_dir -o result.summary.tsv --bed-file targets.bed
 3. 多进程并行, 逐样本跑六类统计:
    比对 | 覆盖度 | 序列特征 | 插入片段 | 重复 | 变异/特异性
 4. 生成报告:
-   {prefix}.summary.tsv        (全局长表)
-   {prefix}.per_chromosome.tsv (染色体级)
-   {prefix}.genome_stats.json  (基因组级JSON)
+   {prefix}_summary.tsv        (全局长表)
+   {prefix}_per_chromosome.tsv (染色体级)
+   {prefix}_genome_stats.json  (基因组级JSON)
 ~~~
 
 ## 输出 | Output
 
 ~~~text
 输出目录/
-├── result.summary.tsv               # 全局长表(样本为行, 指标为列) —— 核心结果
-├── result.per_chromosome.tsv        # 染色体级统计(每样本每染色体一行)
-├── result.genome_stats.json         # 基因组级汇总(JSON)
+├── result_summary.tsv               # 全局长表(样本为行, 指标为列) —— 核心结果
+├── result_per_chromosome.tsv        # 染色体级统计(每样本每染色体一行)
+├── result_genome_stats.json         # 基因组级汇总(JSON)
 └── 99_logs/
     └── pipeline.log                 # 运行日志
 ~~~
 
-全局长表 `result.summary.tsv` 主要列：
+全局长表 `result_summary.tsv` 主要列：
 
 | 分组 | 列 |
 |------|----|
@@ -105,7 +105,7 @@ biopytools bam-stats -i ./bam_dir -o result.summary.tsv --bed-file targets.bed
 - `SoftClip_Rate(%)` 高提示结构变异或接头/污染
 - `Avg_Depth` 与 `Median_Depth` 差距大说明深度不均
 - `Contam_Warning` 列：`Normal` 表示无预警；出现 `LowMapRate(...)` 或某染色体名则提示该样本/该染色体可疑
-- `result.per_chromosome.tsv`：看某条染色体 `Coverage_Depth` 是否异常偏低/偏高，可用于定位污染或倍性异常
+- `result_per_chromosome.tsv`：看某条染色体 `Coverage_Depth` 是否异常偏低/偏高，可用于定位污染或倍性异常
 
 ## 参数选择建议 | Parameter Guidance
 
@@ -144,7 +144,7 @@ biopytools bam-stats -i ./bam_dir -o result.summary.tsv --bed-file targets.bed
 | 参数 | 默认值 | 类型 | 说明 |
 |------|--------|------|------|
 | `-i, --input` | 必填 |  | BAM文件或目录｜BAM file or directory containing BAM files |
-| `-o, --output` | `bam_stats.summary.tsv` |  | 输出文件｜Output file (default: bam_stats.summary.tsv) |
+| `-o, --output` | `bam_stats_summary.tsv` |  | 输出文件｜Output file (default: bam_stats_summary.tsv) |
 | `-t, --threads` | `12` | int | samtools线程数｜Samtools threads (default: 12) |
 | `-p, --processes` | `16` | int | 并行处理的样本数｜Max parallel samples (default: 16) |
 | `-g, --reference` | — |  | 参考基因组FASTA｜Reference genome FASTA (for GC bias) |

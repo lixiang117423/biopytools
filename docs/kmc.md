@@ -43,7 +43,7 @@ count 步骤支持两种输入方式：
 文件列表模式：-i s1.fq -i s2.fq       # 逐个指定文件
 ```
 
-默认后缀：Read1 为 _1.clean.fq.gz，Read2 为 _2.clean.fq.gz（可用 --read1-suffix/--read2-suffix 改）；单末端数据加 --single-end。
+默认后缀：Read1 为 _1_clean.fq.gz，Read2 为 _2_clean.fq.gz（可用 --read1-suffix/--read2-suffix 改）；单末端数据加 --single-end。
 
 query 步骤输入一个 FASTA 文件（每行一条查询序列），输出各序列在各样本的丰度。
 
@@ -137,8 +137,8 @@ kmc_output/
 | `--input-dir, -d` | — |  | 输入目录(自动识别双末端测序)｜Input directory (auto-detect paired-end) |
 | `--input, -i` | — |  | 输入文件(FASTQ/FASTA)，可多次使用｜Input files (FASTQ/FASTA), can be used multiple times |
 | `--sample-names, -n` | — |  | 样本名称，可多次使用(默认使用文件名)｜Sample names, can be used multiple times (default: use filename) |
-| `--read1-suffix` | `_1.clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
-| `--read2-suffix` | `_2.clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
+| `--read1-suffix` | `_1_clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
+| `--read2-suffix` | `_2_clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
 | `--single-end` | — |  | 单末端测序模式｜Single-end sequencing mode |
 | `--input-dir, -i` | — |  | 包含kmc_databases的目录(即count步骤的-o参数)｜Directory containing kmc_databases (i.e., -o from count step) |
 | `--max-memory` | `500` | int | 最大内存使用量(GB)｜Maximum memory usage (GB) |
@@ -162,8 +162,8 @@ kmc_output/
 | `-d, --input-dir` | — |  | 输入目录(自动识别双末端测序)｜Input directory (auto-detect paired-end) |
 | `-i, --input` | — |  | 输入文件列表(FASTQ/FASTA)｜Input files list (FASTQ/FASTA) |
 | `-n, --sample-names` | — |  | 样本名称(默认使用文件名)｜Sample names (default: use filename) |
-| `--read1-suffix` | `_1.clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
-| `--read2-suffix` | `_2.clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
+| `--read1-suffix` | `_1_clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
+| `--read2-suffix` | `_2_clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
 | `--single-end` | — | store_true | 单末端测序模式｜Single-end sequencing mode |
 | `-k, --kmer-size` | `21` | int | k-mer大小｜k-mer size |
 | `--min-count` | `2` | int | 最小计数阈值｜Minimum count threshold |

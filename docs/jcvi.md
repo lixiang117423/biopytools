@@ -88,10 +88,10 @@ output/
 ├── 01_pep/{样本}.pep（或 .cds）          # 提取的蛋白/CDS 序列
 ├── 02_bed/{样本}.bed、{stem}.uniq.bed    # GFF 转 BED 及去重结果
 ├── 03_pairwise/{A}_vs_{B}/
-│   ├── {stemA}.{stemB}.last              # 原始比对
-│   ├── {stemA}.{stemB}.last.filtered     # C-score 过滤后
-│   ├── {stemA}.{stemB}.anchors           # 共线性锚点（直接比对）
-│   ├── {stemA}.{stemB}.lifted.anchors    # liftover 推断后的锚点
+│   ├── {stemA}_{stemB}.last              # 原始比对
+│   ├── {stemA}_{stemB}.last.filtered     # C-score 过滤后
+│   ├── {stemA}_{stemB}.anchors           # 共线性锚点（直接比对）
+│   ├── {stemA}_{stemB}.lifted.anchors    # liftover 推断后的锚点
 │   └── {A}_{B}.allelic_pairs.txt         # 等位基因对（allelic 子命令）
 ├── all_collinearity_summary.txt          # mcscan 汇总
 ├── all_allelic_pairs.txt                 # allelic 汇总

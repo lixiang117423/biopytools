@@ -6,8 +6,8 @@
 
 - 输入一个样本清单(fof)，指定一个参考样本，其余样本作为查询逐一分析
 - 每个查询样本：minimap2 比对到参考(asm5/asm10/asm20 预设) → svim-asm 检测结构变异(SV) → SURVIVOR 把各样本的 SV 合并
-- 合并后的群体 SV 清单输出为 `pan_sv.survivor.vcf`，并生成每样本 SV 类型统计表 `sv_summary.tsv`
-- 同时输出每条 SV 的代表序列 `pan_sv.sequences.fa` 和样本×SV 的 PAV 矩阵(`pav_matrix.tsv` / `pav_binary.tsv`)
+- 合并后的群体 SV 清单输出为 `pan_sv_survivor.vcf`，并生成每样本 SV 类型统计表 `sv_summary.tsv`
+- 同时输出每条 SV 的代表序列 `pan_sv_sequences.fa` 和样本×SV 的 PAV 矩阵(`pav_matrix.tsv` / `pav_binary.tsv`)
 - 输出每条 SV 上下游侧翼序列(`06_sv_flanks/`，默认 ±300bp 可调) + 每样本基因型表(TSV/FASTA/XLSX)，可直接用于引物设计
 - 全程断点续传：比对、SV 调用、SURVIVOR 合并已完成的步骤重跑时自动跳过
 - 六个依赖工具(minimap2 / samtools / svim-asm / bcftools / bedtools / SURVIVOR)统一在 `align` 域环境中调用(比对管道要求单环境)
@@ -89,7 +89,7 @@ sampleB /data/genomes/sampleB.fa
 步骤1: 读取查询样本(fof 中除参考外)
     |
     ▼
-步骤2: 逐个样本比对(minimap2 -ax asm5 | samtools sort → .sorted.bam + 索引)
+步骤2: 逐个样本比对(minimap2 -ax asm5 | samtools sort → _sorted.bam + 索引)
     |
     ▼
 步骤3: 逐个样本 SV 调用(svim-asm → 02_svim/<样本>/)
@@ -104,7 +104,7 @@ sampleB /data/genomes/sampleB.fa
 步骤6: SV ±flank 侧翼序列 + 每样本 GT/LN/QV 基因型表(TSV/FASTA/XLSX)
     |
     ▼
-输出 pan_sv.survivor.vcf + pan_sv.sequences.fa + pav_matrix.tsv + sv_flank300bp.* + sv_summary.tsv
+输出 pan_sv_survivor.vcf + pan_sv_sequences.fa + pav_matrix.tsv + sv_flank300bp.* + sv_summary.tsv
 ```
 
 ## 输出 | Output { #output }
@@ -113,20 +113,20 @@ sampleB /data/genomes/sampleB.fa
 results/
 ├── reference/                  # 参考基因组软链 + .fai 索引
 ├── 01_alignment/               # 比对结果
-│   ├── sampleA.sorted.bam
-│   └── sampleA.sorted.bam.bai
+│   ├── sampleA_sorted.bam
+│   └── sampleA_sorted.bam.bai
 ├── 02_svim/                    # 每个查询样本的 SV 调用输出
 │   └── sampleA/                # svim-asm 产出的 VCF
 ├── 03_merged/
 │   ├── survivor_input.txt      # SURVIVOR 输入清单(各样本 VCF 绝对路径)
-│   └── pan_sv.survivor.vcf     # 合并后的群体 SV 清单(核心结果)
+│   └── pan_sv_survivor.vcf     # 合并后的群体 SV 清单(核心结果)
 ├── 04_stats/
 │   ├── sv_summary.tsv          # 每样本(含 merged)的 SV 类型统计表
-│   ├── pan_sv.survivor.stats   # bcftools stats 输出
+│   ├── pan_sv_survivor.stats   # bcftools stats 输出
 │   ├── pav_matrix.tsv          # PAV 矩阵(SV 元数据 + 每样本 0/1)
 │   └── pav_binary.tsv          # 纯 0/1 PAV 矩阵(R 可直接 as.matrix)
 ├── 05_sv_sequences/
-│   └── pan_sv.sequences.fa     # 每条 SV 一条代表序列(FASTA)
+│   └── pan_sv_sequences.fa     # 每条 SV 一条代表序列(FASTA)
 ├── 06_sv_flanks/
 │   ├── sv_flank300bp.fa        # 每条 SV ±300bp 侧翼序列(FASTA)
 │   ├── sv_flank300bp.tsv       # 侧翼坐标 + 每样本 GT/LN/QV + 序列(程序友好)
@@ -139,7 +139,7 @@ results/
 
 ## 结果解读 | Interpreting Results { #interpreting }
 
-### 1. pan_sv.survivor.vcf(核心结果)
+### 1. pan_sv_survivor.vcf(核心结果)
 
 **通俗理解|In plain words:** 这是「群体里都有哪些结构变异」的最终清单，一行一个 SV，可拿去做下游分析或画图。
 
@@ -159,7 +159,7 @@ merged    150      35     80     15     10     8      2
 - `total` 是该样本(或合并后)检测到的 SV 总数，后面几列是各类型计数，`OTHER` 是其它类型
 - 合并后的 `merged` 行 SV 数一般不少于单个样本，因为汇总了所有样本的 SV
 
-### 3. pan_sv.sequences.fa(SV 序列)
+### 3. pan_sv_sequences.fa(SV 序列)
 
 **通俗理解|In plain words:** 把每条 SV 对应的那段 DNA 序列抠出来存成 FASTA，可直接拿去 blast、设计引物或做注释。
 
@@ -183,7 +183,7 @@ merged    150      35     80     15     10     8      2
 
 - 序列区间 = 参考 `[min(pos,end)-flank, max(pos,end)+flank]`(1-based 闭区间)；INS 的 pos=end，插入位点正好在序列中部；靠近染色体首尾时区间会截断(日志给"边界截断"计数)
 - `TRA/BND`(易位)没有单一参考区间，不输出(日志计数)；不做额外长度过滤，保留哪些 SV 由 `--min-sv-length` 在合并时决定
-- `sv_id`(如 `pan_sv.DEL.00001`)与 `pav_matrix.tsv`、`pan_sv.sequences.fa` 完全一致，可用 vlookup 互相对照；FASTA header 还带 `flank=起点-终点`
+- `sv_id`(如 `pan_sv.DEL.00001`)与 `pav_matrix.tsv`、`pan_sv_sequences.fa` 完全一致，可用 vlookup 互相对照；FASTA header 还带 `flank=起点-终点`
 - 三个文件内容一致、各有所长：`.fa` 给引物设计软件，`.tsv` 给脚本/R 批量处理，`.xlsx` 给人筛选浏览
 - Excel 单元格最多存 32767 字符，超长的序列在 `.xlsx` 里只写占位提示，全长以 `.fa` 为准
 
@@ -259,7 +259,7 @@ merged    150      35     80     15     10     8      2
 ## 常见问题 | FAQ { #faq }
 
 **Q1：支持断点续传吗？**
-支持。比对步骤按 `.sorted.bam` 和 `.bam.bai` 是否都存在判断跳过；SV 调用按 `02_svim/<样本>/` 下是否已有 VCF 判断跳过。换参数重跑前需先删除对应的旧产物。
+支持。比对步骤按 `_sorted.bam` 和 `.bam.bai` 是否都存在判断跳过；SV 调用按 `02_svim/<样本>/` 下是否已有 VCF 判断跳过。换参数重跑前需先删除对应的旧产物。
 
 **Q2：SURVIVOR 显示「缺失工具」但明明装了？**
 SURVIVOR 是子命令式命令行(没有 `--version`)，依赖检查按「能否执行」而非「退出码为 0」判定，属正常。确认 SURVIVOR 在 `align` 环境里即可。

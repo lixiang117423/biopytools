@@ -65,11 +65,11 @@ Chr1  100  .  A  G  .  PASS  .  GT  0/0  0/1  1/1
 
 ```text
 converted_results/
-├── <prefix>.min4.phy          # PHYLIP 比对矩阵(默认)
-├── <prefix>.min4.fasta        # FASTA 矩阵(仅 -f)
-├── <prefix>.min4.nexus        # NEXUS 矩阵(仅 -n)
-├── <prefix>.min4.bin.nexus    # 二进制 NEXUS 矩阵(仅 -b)
-├── <prefix>.min4.used_sites.tsv  # 通过筛选的位点坐标(仅 -w)
+├── <prefix>_min4.phy          # PHYLIP 比对矩阵(默认)
+├── <prefix>_min4.fasta        # FASTA 矩阵(仅 -f)
+├── <prefix>_min4.nexus        # NEXUS 矩阵(仅 -n)
+├── <prefix>_min4.bin.nexus    # 二进制 NEXUS 矩阵(仅 -b)
+├── <prefix>_min4_used_sites.tsv  # 通过筛选的位点坐标(仅 -w)
 └── vcf_conversion.log         # 运行日志
 ```
 
@@ -92,7 +92,7 @@ sample3  ACGTACGT...
 
 **通俗理解|In plain words:** 同样的数据换种格式存，FASTA 给 IQ-TREE 等、NEXUS 给 MrBayes 等。二进制 NEXUS(`.bin.nexus`)用 0/1/2 编码纯合/杂合，只含二等位 SNP。
 
-### 3. 位点坐标表(.used_sites.tsv)
+### 3. 位点坐标表(_used_sites.tsv)
 
 **通俗理解|In plain words:** 记录「哪些位点通过了筛选」(染色体、位置、样本数)。需要把结果里的位点映射回原始基因组坐标时用它。
 

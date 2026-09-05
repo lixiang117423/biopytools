@@ -99,8 +99,8 @@ biopytools longrnaseq -i input.bam -r genome.fa -o output_dir
 
 ```text
 output_dir/
-+-- {sample}.sorted.bam            # 排序后的比对结果
-+-- {sample}.sorted.bam.bai        # BAM 索引
++-- {sample}_sorted.bam            # 排序后的比对结果
++-- {sample}_sorted.bam.bai        # BAM 索引
 +-- logs/alignment_{sample}.log    # 运行日志
 +-- stats/{sample}_stats.txt       # flagstat + 平均深度
 +-- stats/{sample}_detail_stats.txt# samtools stats 详细统计
@@ -111,7 +111,7 @@ output_dir/
 
 ## 结果解读 | Interpreting Results
 
-### 1. 排序 BAM（`{sample}.sorted.bam`）
+### 1. 排序 BAM（`{sample}_sorted.bam`）
 
 **通俗理解|In plain words:** 这是最核心产物——每条读段「落在基因组哪个位置」的完整记录，可直接喂给下游 StringTie 组装、featureCounts 定量、rMATS 剪接分析等。
 

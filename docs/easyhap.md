@@ -56,7 +56,7 @@ biopytools easyhap -i sample.phased.vcf.gz --group groups.tsv --region Chr1:1-10
 
 **通俗理解|In plain words — 出图组:** 只有开了 `--plot` 才生成图形；`--gff` 提供基因注释才有基因结构图，`--traits` 提供性状表才有性状箱线图；`--plot-min-count` 只是"显示门槛"——图中类别计数小于它的不单独显示，**不是过滤**，不会删除任何单倍型数据。
 
-**通俗理解|In plain words — 通用组:** 默认断点续传——已完成的区域（`{label}.easyhap.done` 存在）自动跳过，`--force` 可强制重跑；`--log-level`/`--log-file` 控制日志级别与日志位置（默认 `99_logs/easyhap.log`）。
+**通俗理解|In plain words — 通用组:** 默认断点续传——已完成的区域（`{label}_easyhap.done` 存在）自动跳过，`--force` 可强制重跑；`--log-level`/`--log-file` 控制日志级别与日志位置（默认 `99_logs/easyhap.log`）。
 
 ## 分析流程 | Pipeline
 
@@ -187,6 +187,6 @@ easyhap_out/
 ## 常见问题 | FAQ
 
 - **Q: 报错 "No variants found in region"?** 该区域在 VCF 中无变异位点，上游直接报错；本模块会标记该区域失败并继续其余区域（退出码 1 但成功产出保留）。
-- **Q: 重跑会覆盖已有结果吗?** 不会——已完成的区域（`{label}.easyhap.done` 存在）自动跳过；要重跑用 `--force`。
+- **Q: 重跑会覆盖已有结果吗?** 不会——已完成的区域（`{label}_easyhap.done` 存在）自动跳过；要重跑用 `--force`。
 - **Q: 为什么默认 inbred 模式?** 上游默认即 inbred；杂交/异交群体请用 `--mode hybrid`。
 - **Q: pop 环境没有 cyvcf2 会怎样?** `--vcf-backend auto` 自动回退纯 Python plain 后端，功能一致只是大文件略慢。

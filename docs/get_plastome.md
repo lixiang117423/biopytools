@@ -7,7 +7,7 @@
 - 基于 GetOrganelle，从全基因组测序（WGS）reads 中自动组装细胞器基因组（默认叶绿体）
 - 默认批量模式：自动扫描输入目录里所有成对 reads 样品，逐个组装
 - 支持 7 种细胞器类型：被子植物叶绿体（默认）、线粒体、动物线粒体、真菌线粒体等
-- 自动整理结果：把 GetOrganelle 主产物重命名为 `{sample}.plastome.fasta`，序列每行 60 碱基
+- 自动整理结果：把 GetOrganelle 主产物重命名为 `{sample}_plastome.fasta`，序列每行 60 碱基
 - 无断点续传：重跑会重新执行组装（见 FAQ）
 
 ## 快速开始 | Quick Start
@@ -16,7 +16,7 @@
 biopytools get-plastome -i fastq_folder -o plastome_output
 ```
 
-最小输入：一个目录，里面按 `{sample}_1.clean.fq.gz` / `{sample}_2.clean.fq.gz` 命名存放成对 clean reads。
+最小输入：一个目录，里面按 `{sample}_1_clean.fq.gz` / `{sample}_2_clean.fq.gz` 命名存放成对 clean reads。
 
 ## 零基础概念速览 | Concepts in plain words
 
@@ -36,14 +36,14 @@ biopytools get-plastome -i fastq_folder -o plastome_output
 一个目录，包含一个或多个样品的成对二代 clean reads，默认按以下后缀识别：
 
 ```text
-sampleA_1.clean.fq.gz     # R1
-sampleA_2.clean.fq.gz     # R2
-sampleB_1.clean.fq.gz
-sampleB_2.clean.fq.gz
+sampleA_1_clean.fq.gz     # R1
+sampleA_2_clean.fq.gz     # R2
+sampleB_1_clean.fq.gz
+sampleB_2_clean.fq.gz
 ...
 ```
 
-- 默认 R1 后缀 `_1.clean.fq.gz`、R2 后缀 `_2.clean.fq.gz`（如需改后缀，用模块直调参数 `--read1-suffix`/`--read2-suffix`，见参数速查）
+- 默认 R1 后缀 `_1_clean.fq.gz`、R2 后缀 `_2_clean.fq.gz`（如需改后缀，用模块直调参数 `--read1-suffix`/`--read2-suffix`，见参数速查）
 - 支持 gzip 压缩（.fq.gz）；也支持单端 reads（仅模块直调）
 
 ## 参数说明 | Parameters
@@ -72,13 +72,13 @@ sampleB_2.clean.fq.gz
 输入目录(fastq)
     │
     ▼
-扫描样品: 按 _1/_2.clean.fq.gz 后缀识别成对 reads
+扫描样品: 按 _1/_2_clean.fq.gz 后缀识别成对 reads
     │
     ▼
 对每个样品: GetOrganelle 组装(-F 细胞器类型 -R 轮数 -k kmer列表 -t 线程)
     │
     ▼
-整理结果: graph1.1.path_sequence.fasta → {sample}.plastome.fasta(每行60碱基)
+整理结果: graph1.1.path_sequence.fasta → {sample}_plastome.fasta(每行60碱基)
 ```
 
 ## 输出 | Output
@@ -86,19 +86,19 @@ sampleB_2.clean.fq.gz
 ```text
 plastome_output/
 └── {sample}/
-    ├── {sample}.plastome.fasta        # 最终叶绿体序列(重命名+格式化)
-    ├── {sample}.graph.gfa             # 组装图(重命名自 selected_graph.gfa)
+    ├── {sample}_plastome.fasta        # 最终叶绿体序列(重命名+格式化)
+    ├── {sample}_graph.gfa             # 组装图(重命名自 selected_graph.gfa)
     ├── *.path_sequence.fasta          # GetOrganelle 原始路径序列(如 graph1.1/others)
     ├── *.selected_graph.gfa           # GetOrganelle 选出的组装图
     └── *.log.txt                      # GetOrganelle 运行日志
 ```
 
-- `{sample}.plastome.fasta`：最关心的最终序列，优先选择 `graph1.1` 路径（通常是最优解）重命名而来
-- `{sample}.graph.gfa`：对应的组装图，可导入 Bandage 等工具可视化
+- `{sample}_plastome.fasta`：最关心的最终序列，优先选择 `graph1.1` 路径（通常是最优解）重命名而来
+- `{sample}_graph.gfa`：对应的组装图，可导入 Bandage 等工具可视化
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 打开 `{sample}.plastome.fasta`，看它是不是「一本完整、长度合理的小册子」。
+**通俗理解|In plain words:** 打开 `{sample}_plastome.fasta`，看它是不是「一本完整、长度合理的小册子」。
 
 - **长度**：被子植物叶绿体通常约 120–170 kb。远小于此（如几十 kb）往往是没拼全；远大于此可能混入了核基因组或线粒体污染
 - **序列数**：正常的环状叶绿体应拼成 1 条（或 1–2 条含重复区的情况）；如果拆成很多条 contig，说明数据或参数不够好
@@ -110,7 +110,7 @@ plastome_output/
 - `--organelle-type`：植物默认 `embplant_pt`；动物线粒体 `animal_mt`；叶绿体和线粒体各跑一次即可都拿到
 - `--max-rounds` / `--kmer-list`：**默认即可**，只有拼装结果差时再尝试调大轮数或改 k-mer 列表
 - `--threads`：默认 12，样品多或数据大时可适当调高
-- 后缀不符：若文件名不是 `_1.clean.fq.gz` 风格，用模块直调参数 `--read1-suffix`/`--read2-suffix` 指定（见参数速查「模块直调参数」）
+- 后缀不符：若文件名不是 `_1_clean.fq.gz` 风格，用模块直调参数 `--read1-suffix`/`--read2-suffix` 指定（见参数速查「模块直调参数」）
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -145,8 +145,8 @@ plastome_output/
 | `-R, --max-rounds` | `15` | int | 最大扩展轮数｜Maximum extension rounds |
 | `-k, --kmer-list` | `21,45,65,85,105` |  | Kmer列表(逗号分隔)｜Kmer list comma-separated |
 | `-t, --threads` | `12` | int | 线程数｜Threads |
-| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀模式｜R1 file suffix pattern (default: %(default)s) |
-| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀模式｜R2 file suffix pattern (default: %(default)s) |
+| `--read1-suffix` | `_1_clean.fq.gz` |  | R1文件后缀模式｜R1 file suffix pattern (default: %(default)s) |
+| `--read2-suffix` | `_2_clean.fq.gz` |  | R2文件后缀模式｜R2 file suffix pattern (default: %(default)s) |
 | `--getorganelle-path` | `~/miniforge3/envs/asm/bin/get_organelle_from_reads.py` |  | GetOrganelle脚本路径｜GetOrganelle script path |
 | `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
 | `--log-file` | — |  | 日志文件路径｜Log file path |
@@ -161,7 +161,7 @@ plastome_output/
 ## 常见问题 | FAQ
 
 **Q1：输入目录里一个样品都没识别到？**
-检查文件名是否严格符合 `{sample}_1.clean.fq.gz` / `{sample}_2.clean.fq.gz`。若后缀不同，用模块直调参数 `--read1-suffix` / `--read2-suffix` 指定（这两个参数 click 包装器未暴露）。
+检查文件名是否严格符合 `{sample}_1_clean.fq.gz` / `{sample}_2_clean.fq.gz`。若后缀不同，用模块直调参数 `--read1-suffix` / `--read2-suffix` 指定（这两个参数 click 包装器未暴露）。
 
 **Q2：支持断点续传吗？**
 不支持。重跑会重新执行 GetOrganelle 组装。若中途失败，建议检查 `*.log.txt` 后重跑。

@@ -55,30 +55,30 @@ MKKLLIAAMMAAALAACSQEAKTEVFSKSADEGGAPK...
 ```text
 蛋白质 FASTA
     │
-    ├─ 步骤1: phobius -short → {prefix}.phobius.short.txt  (已存在则跳过)
-    ├─ 步骤2: phobius -long  → {prefix}.phobius.long.txt   (已存在则跳过)
+    ├─ 步骤1: phobius -short → {prefix}_phobius_short.txt  (已存在则跳过)
+    ├─ 步骤2: phobius -long  → {prefix}_phobius_long.txt   (已存在则跳过)
     │
     ▼
-解析 short(结论) + long(坐标) → 合并 → {prefix}.phobius.tsv
+解析 short(结论) + long(坐标) → 合并 → {prefix}_phobius.tsv
 ```
 
 ## 输出 | Output
 
 ```text
 output_dir/
-├── {prefix}.phobius.short.txt    # Phobius -short 原始输出
-├── {prefix}.phobius.long.txt     # Phobius -long 原始输出(FT 特征表)
-├── {prefix}.phobius.tsv          # 主结果:合并汇总表
+├── {prefix}_phobius_short.txt    # Phobius -short 原始输出
+├── {prefix}_phobius_long.txt     # Phobius -long 原始输出(FT 特征表)
+├── {prefix}_phobius.tsv          # 主结果:合并汇总表
 └── 99_logs/
     └── phobius.log               # 运行日志
 ```
 
 - `{prefix}` 默认是输入文件名
-- 主结果 `{prefix}.phobius.tsv` 列：`ID / TM / SP / SP_region / TM_regions / Prediction`
+- 主结果 `{prefix}_phobius.tsv` 列：`ID / TM / SP / SP_region / TM_regions / Prediction`
 
 ## 结果解读 | Interpreting Results
 
-### 1. 汇总表（`{prefix}.phobius.tsv`）
+### 1. 汇总表（`{prefix}_phobius.tsv`）
 
 **通俗理解|In plain words:** 每行一个蛋白，看 `SP` 和 `TM` 两列即可定性。
 
@@ -136,7 +136,7 @@ output_dir/
 不能跳过——本工具用 short 拿「结论」、long 拿「坐标」，二者合并才得到完整 TSV。断点续传会分别检查这两个原始文件，缺哪个补跑哪个。
 
 **Q2：换参数重跑，为什么结果没变？**
-断点续传按 `.phobius.short.txt` / `.phobius.long.txt` 是否存在判断。想强制重跑，删掉这两个文件（或换输出目录）。
+断点续传按 `_phobius_short.txt` / `_phobius_long.txt` 是否存在判断。想强制重跑，删掉这两个文件（或换输出目录）。
 
 **Q3：报「phobius.pl 不存在」？**
 默认路径 `~/miniforge3/envs/protein/bin/phobius.pl` 里没有该脚本。用 `--phobius-path` 指定实际位置，或确认 protein 环境已装 Phobius。

@@ -36,7 +36,7 @@ biopytools raxml -s variants.vcf -n my_tree
 
 ### VCF 变异文件(自动转换 | auto-converted)
 
-**群体 SNP 的 VCF 可以直接输入**(`.vcf` / `.vcf.gz`)：程序会先调用内置的 vcf2phylip 转换器把基因型变成 PHYLIP 矩阵(双等位 SNP、杂合子按 IUPAC 模糊码编码，如 A/G 杂合记为 `R`)，再自动接着建树。转换产物为 `输出目录/<输出名>_converted.min<m>.phy`，重跑时若该文件已存在会**跳过转换直接建树**。
+**群体 SNP 的 VCF 可以直接输入**(`.vcf` / `.vcf.gz`)：程序会先调用内置的 vcf2phylip 转换器把基因型变成 PHYLIP 矩阵(双等位 SNP、杂合子按 IUPAC 模糊码编码，如 A/G 杂合记为 `R`)，再自动接着建树。转换产物为 `输出目录/<输出名>_converted_min<m>.phy`，重跑时若该文件已存在会**跳过转换直接建树**。
 
 - 位点会按「最少检出样本数」过滤(默认 4，可用 `--min-samples-locus` 调整)：一个位点至少要有 m 个样本有基因型才保留
 - `--resolve-iupac` 可把杂合子随机解析成单一碱基(默认保留 IUPAC 模糊码，RAxML 原生支持)
@@ -130,7 +130,7 @@ raxml_output/
 ├── my_tree_summary.txt                 # 总结报告(本工具生成)
 ├── raxml_analysis.log                  # 本工具的运行日志
 ├── alignment.phy                       # 复制到工作目录的输入比对
-└── my_tree_converted.min4.phy          # VCF 输入时自动生成的 PHYLIP 矩阵(仅 VCF 输入)
+└── my_tree_converted_min4.phy          # VCF 输入时自动生成的 PHYLIP 矩阵(仅 VCF 输入)
 ```
 
 以上文件名中的 `my_tree` 即 `-n` 指定的输出后缀名。
@@ -254,7 +254,7 @@ raxml_output/
 
 ### 1. 我给 FASTA 文件可以吗？VCF 可以直接喂吗？
 
-都可以。FASTA 是 RAxML 原生支持的输入，直接透传使用；VCF(`.vcf`/`.vcf.gz`)会自动转换为 PHYLIP 矩阵后再建树，转换产物 `<输出名>_converted.min<m>.phy` 留在输出目录里可复用。
+都可以。FASTA 是 RAxML 原生支持的输入，直接透传使用；VCF(`.vcf`/`.vcf.gz`)会自动转换为 PHYLIP 矩阵后再建树，转换产物 `<输出名>_converted_min<m>.phy` 留在输出目录里可复用。
 
 ### 2. 跑完没有 RAxML_bipartitions 文件？
 

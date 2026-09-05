@@ -33,14 +33,14 @@ biopytools gtx -i input_dir -o results/ -r ref.fa --enable-joint
 
 ### FASTQ 目录
 
-`-i` 指向一个目录，里面放每个样本的一对 clean FASTQ。默认按 `*_1.clean.fq.gz` / `*_2.clean.fq.gz` 配对(可用 `--read1-pattern` / `--read2-pattern` 改)。
+`-i` 指向一个目录，里面放每个样本的一对 clean FASTQ。默认按 `*_1_clean.fq.gz` / `*_2_clean.fq.gz` 配对(可用 `--read1-pattern` / `--read2-pattern` 改)。
 
 ```text
 input_dir/
-├── sample1_1.clean.fq.gz
-├── sample1_2.clean.fq.gz
-├── sample2_1.clean.fq.gz
-└── sample2_2.clean.fq.gz
+├── sample1_1_clean.fq.gz
+├── sample1_2_clean.fq.gz
+├── sample2_1_clean.fq.gz
+└── sample2_2_clean.fq.gz
 ```
 
 ### 参考基因组
@@ -67,7 +67,7 @@ input_dir/
 
 ### 文件模式参数 | File patterns
 
-**通俗理解|In plain words:** 告诉程序「R1/R2 文件怎么命名」。只有你的文件命名和默认 `*_1.clean.fq.gz` / `*_2.clean.fq.gz` 不一样时才需要改，且必须含 `*` 通配符。
+**通俗理解|In plain words:** 告诉程序「R1/R2 文件怎么命名」。只有你的文件命名和默认 `*_1_clean.fq.gz` / `*_2_clean.fq.gz` 不一样时才需要改，且必须含 `*` 通配符。
 
 ## 分析流程 | Pipeline { #pipeline }
 
@@ -83,7 +83,7 @@ input_dir/
 步骤1: 参考索引检查/构建(bwa index + samtools faidx)
     |
     ▼
-步骤2: 单样本分析(gtx wgs -g → bam/<样本>.sorted.bam + vcf/<样本>.vcf.gz)
+步骤2: 单样本分析(gtx wgs -g → bam/<样本>_sorted.bam + vcf/<样本>.vcf.gz)
     |
     ▼
 步骤3: Joint Calling(可选, gtx joint → joint/merged_gtx.vcf.gz)
@@ -97,7 +97,7 @@ input_dir/
 ```text
 results/
 ├── bam/                        # 每个样本的比对结果
-│   └── sample1.sorted.bam
+│   └── sample1_sorted.bam
 ├── vcf/                        # 每个样本的 gVCF
 │   └── sample1.vcf.gz
 ├── joint/                      # 仅 --enable-joint 时生成
@@ -158,8 +158,8 @@ results/
 | `--min-base-quality` | `20` | int | 最小碱基质量阈值｜Minimum base quality threshold |
 | `--ploidy` | `2` | int | 倍性｜Ploidy |
 | `--pcr-indel-model` | `CONSERVATIVE` | CONSERVATIVE/AGGRESSIVE | PCR indel模型｜PCR indel model |
-| `--read1-pattern` | `*_1.clean.fq.gz` | str | R1文件匹配模式｜R1 file pattern |
-| `--read2-pattern` | `*_2.clean.fq.gz` | str | R2文件匹配模式｜R2 file pattern |
+| `--read1-pattern` | `*_1_clean.fq.gz` | str | R1文件匹配模式｜R1 file pattern |
+| `--read2-pattern` | `*_2_clean.fq.gz` | str | R2文件匹配模式｜R2 file pattern |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -197,7 +197,7 @@ results/
 GTX 命令会用 `faketime '2020-10-20 00:00:00'` 伪装系统时间来绕过 license 时间校验，所以 faketime 必须能通过 `which` 找到。请先安装 libfaketime。
 
 **Q2：支持断点续传吗？**
-支持。单个样本按 `bam/<样本>.sorted.bam` 和 `vcf/<样本>.vcf.gz` 是否都存在判断跳过；Joint Calling 结果 `joint/merged_gtx.vcf.gz` 已存在也会跳过；参考索引缺失时自动补建。换参数重跑前需先删除旧产物。
+支持。单个样本按 `bam/<样本>_sorted.bam` 和 `vcf/<样本>.vcf.gz` 是否都存在判断跳过；Joint Calling 结果 `joint/merged_gtx.vcf.gz` 已存在也会跳过；参考索引缺失时自动补建。换参数重跑前需先删除旧产物。
 
 **Q3：Joint Calling 没跑起来？**
 需要满足两点：加了 `--enable-joint`，且至少 2 个样本成功处理。样本不足会在日志里给出 WARNING。另外 `--joint-output` 的文件名必须以 `.vcf.gz` 结尾。
