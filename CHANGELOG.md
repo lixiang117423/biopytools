@@ -1,3 +1,11 @@
+## [1.68.0] - 2026-09-05
+
+### Added
+- `mixrace`(模块 0.4.0): 新增 **step 6 kraken2+bracken 污染评估**——对 01_qc clean reads(寄主剔除前)逐样本物种分类,回答"样品里除病原/寄主外还混了哪些微生物、各占多少";默认随全流程自动跑(`--skip-kraken2` 关闭),`--step 6` 可单独重跑;逐样本断点续传;kraken2 仅留 `--report`(`--output /dev/null`,防逐read明细灌爆 stdout 管道);bracken `-r` 自动吸附到库内 kmer_distrib 档位(50/75/100/150/200/250/300);汇总 `08_contamination/contamination_summary.tsv`(每样本:classified/unclassified%、top物种+占比、其余classified占比、≥1%物种数)+ `contamination_detail.tsv`(样本×物种长表,≥0.1%);**物种占比统一按全部reads(含unclassified)作分母自算**——bracken 原生 `fraction_total_reads` 分母仅含已分类 reads(est_abundance.py `sum_all_reads`),口径不一致不采信;默认库 `~/database/kraken2`(238GB PlusPF 大库,含植物,启动打印实际内存需求 WARNING;`--kraken-memory-mapping` 省内存模式);样本间因内存串行;tools=kraken2 2.17/bracken 3.0(env kraken_v.2.17,bracken 版本探测用 `-v`);注意 bracken 3.x `bracken-build` 参数已改(`-l READ_LEN`,本模块不调用,自建库需留意);24 新单测 + 迷你库真实工具链 e2e 验证(合成混合样本 1000 对 reads 100% 正确分出双物种);docs/mixrace.md 补污染评估全套文档(参数组/输出/结果解读/FAQ)
+
+### Changed
+- `scripts/delete_list.txt`: 移除 `kraken_v.2.17`(mixrace 0.4.0 起为活跃依赖,退役计划排除);`docs/conda_env_software_map.md` 第二部分登记为保留独立环境(kraken2 2.17/bracken 3.0)
+
 ## [1.67.0] - 2026-09-04
 
 ### Added
