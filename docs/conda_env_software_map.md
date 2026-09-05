@@ -231,6 +231,7 @@ conda run -n busco <工具> --no-capture-output
 | juicer_v.1.6 | (见 backup yaml) |
 | kmc_v.3.2.4 | (见 backup yaml) |
 | kmeriaenv | (见 backup yaml) |
+| kraken_v.2.17 | kraken2 2.17, bracken 3.0 (mixrace 污染评估 step 6) |
 | ltr_finder_parallel_v.1.3 | (见 backup yaml) |
 | ltr_harvest_parallel_v.1.2 | (见 backup yaml) |
 | ltr_retriever_v.3.0.1 | (见 backup yaml) |

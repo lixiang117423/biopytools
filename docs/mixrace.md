@@ -8,6 +8,7 @@
 - **四层杂合评估**(导师 v4 方法学):L1 AD/DP 排测序错误 → L2 shared/private ALT + **混合伴侣分析** → L3 100kb 窗口分布 → L4 共享热点排除
 - **三分支判读 + 实验建议**:纯菌(可保存)/ 优势菌株·参考差异型(可保存,可强制纯合化)/ 混杂菌株(需再分离纯化,附成分推断)
 - **reads 账本**:寄主占比、病原 mapping 率、**污染 reads**(两步都没比对上)全程可追溯
+- **kraken2+bracken 污染评估**(step 6):clean reads 逐样本做物种分类,回答"样品里除了病原和寄主,还混了哪些微生物、各占多少"
 - **k-mer 分析只用比对上的 reads**:genomescope 基因组估计 + smudgeplot 不被污染 reads 干扰
 - **群体结构 + 全套图**:SNP 距离矩阵、PCA、NJ 树、杂合热图、Manhattan、三面板评估等 9 图
 
@@ -27,6 +28,8 @@
 | 热点区域 | 所有混杂样品一致偏高的窗口——是远缘菌株与参考基因组的系统性差异区,不是样品特异的混杂信号,评估时可剔除 |
 | DP 检验 (dp_ratio) | 杂合位点的深度 ÷ 纯合位点深度。>1.5 说明杂合位点反而测得更深——真混合,不是低覆盖错误 |
 | 污染 reads | 既没比对上寄主基因组、也没比对上病原基因组的 reads——可能来自其他微生物或低质量 |
+| 分类 (classified/unclassified) | kraken2 把每条 read 贴标签:"像哪个物种"。贴不上的叫 unclassified——目标菌根肿菌不在公共库里,它的 reads 基本都落在这里,属正常 |
+| 物种丰度 (bracken) | 光数 reads 会把"长得像的近缘种"数错;bracken 按各物种基因组特征重新分摊,给出更接近真实的占比 |
 | 强制纯合化 | 对判"可保存但有杂合"的样品,取每个位点占多数的碱基当纯合用,适合高精度下游 |
 
 ## 输入 | Input
@@ -72,15 +75,26 @@
 | `--hotspot-min-median` | 0.10 | 窗口在候选样品中的中位杂合率下限 |
 | `--repeat-bed` | 无 | 手动追加排除区域 BED(与自动热点取并集) |
 
+**污染评估(kraken2+bracken,step 6)**
+
+**通俗理解|In plain words:** 管的是"给每条 read 查户口——你到底是谁家的"。结果回答:样品里除了目标菌,还混了哪些微生物、各占百分之几。**数据库默认用超算上的 `~/database/kraken2`(238GB 大库),默认模式要把整个库装进内存——整个作业必须提交到 ≥250GB 内存的节点**;内存不够就加 `--kraken-memory-mapping`(慢一些但省内存)。不想要这一步就 `--skip-kraken2`,其余参数一般不用动。
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
+|---|---|---|
+| `--skip-kraken2` | 不跳过 | 关闭污染评估(默认全流程自动跑) |
+| `--kraken2-db` | `~/database/kraken2` | kraken2/bracken 数据库 |
+| `--kraken-memory-mapping` | 关 | 省内存模式(适合内存不足节点,速度变慢) |
+| `--bracken-level` | S | 丰度统计层级:S=种 / G=属 / F=科(粗排查用 G 更稳) |
+
 **执行**
 
 | 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
 |---|---|---|
-| `-t/--threads` | 12 | 线程数(samtools/bwa/GTX/smudgescope 全部生效) |
-| `--sample-parallel` | 1 | 样本级并行数:寄主剔除/mapped提取/reads统计同时跑 N 个样本,每 worker 线程=threads/N。25 样本推荐 4-8 |
-| `--step` | 全跑 | 1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 |
+| `-t/--threads` | 12 | 线程数(samtools/bwa/GTX/smudgescope/kraken2 全部生效) |
+| `--sample-parallel` | 1 | 样本级并行数:寄主剔除/mapped提取/reads统计同时跑 N 个样本,每 worker 线程=threads/N。25 样本推荐 4-8。注意 kraken2 因内存按样本串行,不受此参数影响 |
+| `--step` | 全跑 | 1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 6=kraken2污染评估 |
 | `--no-checkpoint` / `--dry-run` | 关 | 禁用断点 / 只打印命令 |
-| `-k/--kmer-size`、`-l/--read-length` | 21 / 150 | smudgescope 参数 |
+| `-k/--kmer-size`、`-l/--read-length` | 21 / 150 | smudgescope 参数;`-l` 同时是 bracken 读长(自动吸附到库内可用档位 50/75/100/150/200/250/300) |
 
 ## 分析流程 | Pipeline
 
@@ -99,6 +113,9 @@ raw fastq ─fastp→ clean ─[寄主剔除]→ nohost fastq
    └────────────────→ ④mapped reads → smudgescope(genomescope+smudgeplot)
                                           ▼
                           ⑤全套图 + 判读汇总 + 单样品报告 + HTML
+
+01_qc clean ──→ ⑥kraken2 逐样本分类(寄主剔除前,寄主占比也可见)
+                      └→ bracken 物种丰度 → contamination_summary/detail
 ```
 
 ## 输出 | Output
@@ -117,6 +134,8 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 ├── 05_kmer/            mapped_fastq/{sample}_1/2.mapped.fq.gz + smudgescope 输出
 ├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
 ├── 07_report/          {sample}.report.md(证据链)
+├── 08_contamination/   kraken2/{sample}.k2.report.txt · bracken/{sample}.bracken.S.txt ·
+│                       contamination_summary.tsv(每样本一行) · contamination_detail.tsv(样本×物种长表)
 ├── summary/            verdict_summary.tsv · verdict_summary.xlsx(中文/英文双sheet) · mixrace_report.html(自包含交互报告) · verdict_summary.html(汇总表独立页)
 ├── tmp/                临时文件(运行中,结束清理)
 └── 99_logs/
@@ -144,6 +163,19 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | uncertain | 位点不足 | 补数据 | n_sites < min_sites |
 
 **辅助判据:** `dp_ratio`>1.5(杂合位点反而更深=真混合);`排除热点后杂合率`仍高=证据坚实;`host_rate/污染reads占比`高=样品制备问题。
+
+### 污染评估怎么看 | Reading contamination results
+
+**看 `08_contamination/contamination_summary.tsv`(每样本一行):**
+
+| 列<br>Column | 通俗解释<br>In plain words |
+|---|---|
+| classified_pct / unclassified_pct | 成功查到户口的 read 占比 / 查不到的占比。**根肿菌不在公共库里,所以 unclassified 的大头就是目标菌,unclassified 高是好事** |
+| top_species / top_species_pct | 占比第一的物种。样品没除寄主时它多半是**油菜/拟南芥(寄主)**;除净寄主后它就是**最大污染源** |
+| other_classified_pct | 除第一物种外的已分类占比——这个数大,说明污染是"多种微生物混入"而非单一来源 |
+| n_species_ge_1pct | 占比 ≥1% 的物种个数。干净样品通常 ≤2(寄主+一个杂菌),连续两位数就是脏了 |
+
+**判读口径:** 目标菌(根肿菌)和寄主之外的任何具体物种占比 ≥1% 就值得追查;≥5% 基本可确认污染,对照 `contamination_detail.tsv`(样本×物种长表,含 0.1% 以上全部物种)定位具体是谁。注意 top_species_pct 的分母是**全部 reads(含 unclassified)**,与 bracken 原生输出(分母只有已分类 reads)口径不同。
 
 ## 参数选择建议 | Parameter Guidance
 
@@ -173,7 +205,11 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--sample-parallel` | `1` | int | 样本级并行数(每worker线程=threads/N)｜Per-sample parallelism |
 | `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
 | `--read-length, -l` | `150` | int | 测序读长｜Read length |
-| `--step` | — | int | 只跑指定步骤1-5(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告)｜Run single step 1-5 (default all) |
+| `--step` | — | int | 只跑指定步骤1-6(1=QC+寄主剔除 2=GTX 3=评估判读 4=k-mer 5=图+报告 6=kraken2污染评估)｜Run single step 1-6 (default all) |
+| `--skip-kraken2` | `False` |  | 跳过kraken2+bracken污染评估｜Skip contamination assessment |
+| `--kraken2-db` | `~/database/kraken2` |  | kraken2/bracken数据库(默认模式内存需约DB大小,~240GB)｜kraken2 db (RAM ~ DB size in default mode) |
+| `--kraken-memory-mapping` | `False` |  | kraken2省内存模式(慢)｜kraken2 --memory-mapping (slower, less RAM) |
+| `--bracken-level` | `S` | D/P/C/O/F/G/S | bracken丰度层级(S=种)｜bracken abundance rank (S=species) |
 | `--no-checkpoint` | `False` |  | 禁用断点续传｜Disable checkpoint |
 | `--dry-run` | `False` |  | 只打印命令不执行｜Print commands only |
 | `--pure-het-threshold` | `0.001` | float | 总杂合率低于此值判纯菌(0.001=0.1%)｜Pure threshold |
@@ -209,6 +245,10 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--window-size` | `100000` | int | 热点窗口大小bp(默认100kb)｜hotspot window size |
 | `--hotspot-fold` | `2.0` | float | 热点:窗口杂合率>该倍数×自身全基因组率(默认2)｜hotspot fold |
 | `--hotspot-min-median` | `0.1` | float | 热点:窗口在候选中的中位杂合率下限(默认0.1)｜hotspot min median rate |
+| `--skip-kraken2` | — | store_false | 跳过 kraken2+bracken 污染评估(默认跑)｜skip contamination assessment |
+| `--kraken2-db` | `~/database/kraken2` |  | kraken2/bracken 数据库(默认~/database/kraken2,内存需约DB大小)｜kraken2 db (RAM ~ DB size) |
+| `--kraken-memory-mapping` | — | store_true | kraken2 省内存模式(慢,适合内存不足节点)｜kraken2 --memory-mapping (slower) |
+| `--bracken-level` | `S` | D/P/C/O/F/G/S | bracken 丰度层级(默认S=种)｜bracken rank (S=species) |
 
 <!-- END PARAMS:auto -->
 
@@ -218,6 +258,8 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 |---|---|---|
 | fastq2vcf-gtx(biopytools 模块) | 比对+gVCF+联合 calling | `~/software/gtx`(第三方二进制,直调) |
 | bwa-mem2 / samtools / bcftools | 寄主索引 / 提取计数 / query | cphasing / align 域环境 |
+| kraken2 2.17 / bracken 3.0 | 物种分类 / 丰度重估 | kraken_v.2.17 |
+| kraken2 数据库 | PlusPF 大库(238GB,含真菌/原生/植物) | `~/database/kraken2` |
 | smudgescope(biopytools 模块) | genomescope + smudgeplot | smudgescope 环境 |
 | numpy / matplotlib / biopython | 评估引擎 / 全套图 / NJ 树 | biopytools env |
 
@@ -227,4 +269,8 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 - **群2/群3 那种 4-5% 杂合的近缘样品呢?** divergent(伴侣互为 0/1,纯合占比不过线)→ 可保存,需要高精度时强制纯合化
 - **旧 v0.2 输出目录能接着跑吗?** 不能,目录结构与后端都变了(02_alignment/03_variants 已不存在),换新目录重跑
 - **`--step 3` 要重跑但 GTX 太慢?** GTX 有断点;VCF 已在 `03_gtx/` 就直接 `--step 3`,秒级起评估
+- **kraken2 报内存不足/OOM 被杀?** 默认模式要把 238GB 数据库整装进内存,作业须提交到 ≥250GB 内存节点;上不了大内存节点就加 `--kraken-memory-mapping`(省内存但明显变慢)
+- **unclassified 占比很高正常吗?** 正常。目标菌根肿菌**不在公共数据库里**,它的 reads 全落 unclassified;反而要警惕 classified 高的样品——说明混了大量库内微生物
+- **top_species 是油菜?** step 6 吃的是寄主剔除**前**的 clean reads,寄主占比本来就该看见;想看剔除后的组成,拿 `02_host_filter/` 的 nohost fastq 自行跑 `--step 6 --clean-fastq-dir`
+- **读长 120 会被怎么处理?** bracken 只认库内档位(50/75/100/150/200/250/300),模块自动吸附到最近的 100 并打 WARNING,无需手动换算
 - **图里中文变方框?** 系统无中文字体时模块自动退英文标签,不影响数据

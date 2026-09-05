@@ -87,7 +87,6 @@ kmeria_v.2.0.1
 kmindex_v.0.6.0
 kmtricks_v.1.5.1
 kofamscan_v.1.3.0
-kraken_v.2.17
 mafft_v
 mafft_v.7.525
 mcscanx_v.1.0.0
