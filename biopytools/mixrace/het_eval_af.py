@@ -206,6 +206,20 @@ def run_af_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
     af_rows = compute_af_based_het(d, alt_frac_min=config.af_het_min_frac,
                                    min_depth=config.af_het_min_depth,
                                    min_alt_ad=config.af_het_min_alt_ad)
+    # 小分母守卫:论文分母 het/(het+hom_alt) 前提是变异位点充足;与参考几乎一致
+    # 的纯菌 het+hom_alt 可低至几十,该比率退化为噪声(如 25 个位点里 24 杂合→96%)
+    # 而形似混合。分母 < min_sites 时比率置空防误导,计数照常保留——与 judge()
+    # 的 min_sites 数据不足降级同语义。|small-denominator guard: rate is pure
+    # noise when het+hom_alt < min_sites (near-reference pure samples); omit
+    # the rate, keep the counts.
+    for r in af_rows:
+        denom = r["n_het_af"] + r["n_hom_alt_af"]
+        if denom < config.min_sites:
+            runner.logger.warning(
+                f"{r['sample']}: AF分母不足(杂合+纯合变异={denom} < min_sites="
+                f"{config.min_sites}),het_rate_af 置空|AF denominator too small, "
+                f"rate omitted")
+            r["het_rate_af"] = float("nan")
     write_tsv(l1_af, af_rows)
     if config.enable_checkpoint:
         ckpt.create("af_het_eval")

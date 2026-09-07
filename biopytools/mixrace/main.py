@@ -100,10 +100,10 @@ def _argv_to_config() -> MixraceConfig:
     p.add_argument("--hotspot-min-median", dest="hotspot_min_median", type=float, default=0.10,
                    help="热点:窗口在候选中的中位杂合率下限(默认0.1)|hotspot min median rate")
     # AF直接判定分支|paper-style AF branch
-    p.add_argument("--af-het-eval", dest="af_het_eval", action="store_true",
-                   help="增跑论文式AF直接判定杂合度(Cao et al. 2026,不依赖GT;从联合VCF取"
-                        "AD/DP),verdict_table 追加 het_rate_af 列与GT口径并列对比"
-                        "|paper-style AF-based het (GT-independent, side-by-side)")
+    p.add_argument("--no-af-het-eval", dest="af_het_eval", action="store_false",
+                   help="关闭论文式AF直接判定杂合度(默认开启;Cao et al. 2026,不依赖GT,从联合VCF取"
+                        "AD/DP,verdict_table 追加 het_rate_af 列与GT口径并列对比)"
+                        "|disable paper-style AF-based het (on by default)")
     p.add_argument("--af-het-min-frac", dest="af_het_min_frac", type=float, default=0.05,
                    help="AF杂合:alt比例下限,杂合区间[min,1-min]闭(默认0.05)|min alt fraction")
     p.add_argument("--af-het-min-depth", dest="af_het_min_depth", type=int, default=10,

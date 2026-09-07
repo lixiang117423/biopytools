@@ -1,3 +1,12 @@
+## [1.71.1] - 2026-09-07
+
+### Changed
+- `mixrace`: AF 直接判定分支**默认开启**(1.71.0 保守默认关,真实样本验证 AF 口径有效后正式默认启用)——CLI 开关反转为 `--no-af-het-eval` 关闭,verdict_table/汇总报告默认多 `het_rate_af` 列(判读仍 GT 口径不受影响);`af_ad_dp.tsv`/`l1_het_af_based.tsv` 默认产出
+
+### Fixed
+- `mixrace`(het_eval_af): 小分母守卫——`het+hom_alt < min_sites` 时 `het_rate_af` 置空(近参考纯菌变异位点少至几十个时比率退化为噪声,如 25 位点 24 杂合→96% 形似混合;与 judge() 的 min_sites 数据不足降级同语义,计数照常保留)
+- `mixrace`(reporter): nan 展示修复——`_fmt` 将 nan 渲染为 —,`data-v` 排除 nan(防 JS `parseFloat("nan")` 破坏汇总表排序)
+
 ## [1.71.0] - 2026-09-07
 
 ### Added

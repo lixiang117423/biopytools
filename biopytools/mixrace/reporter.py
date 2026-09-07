@@ -118,8 +118,8 @@ def _html_escape(text: str) -> str:
 
 
 def _fmt(key, val) -> str:
-    """指标值格式化(None→—;比率→百分比)|format metric value."""
-    if val is None or val == "":
+    """指标值格式化(None/nan→—;比率→百分比)|format metric value."""
+    if val is None or val == "" or (isinstance(val, float) and val != val):
         return "—"
     if isinstance(val, str):
         return val
@@ -204,7 +204,10 @@ def _summary_table_fragment(rows: list) -> str:
                 cells.append(f'<td>{_html_escape(str(d.get(c, "")))}</td>')
             else:
                 raw = r.get(c)
-                dv = f' data-v="{raw}"' if isinstance(raw, (int, float)) else ""
+                # nan 不进 data-v:JS parseFloat("nan")=NaN 破坏表头排序
+                # |keep nan out of data-v (parseFloat NaN breaks sorting)
+                dv = (f' data-v="{raw}"'
+                      if isinstance(raw, (int, float)) and raw == raw else "")
                 cells.append(f'<td class="num"{dv}>{_html_escape(str(d.get(c, "")))}</td>')
         body_rows.append(f'<tr data-sample="{_html_escape(str(r.get("sample", "")))}">'
                          + "".join(cells) + "</tr>")

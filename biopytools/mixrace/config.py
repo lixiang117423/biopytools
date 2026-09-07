@@ -35,8 +35,8 @@ class MixraceConfig:
     window_size: int = 100000
     hotspot_fold: float = 2.0
     hotspot_min_median: float = 0.10
-    # AF直接判定分支(--af-het-eval,Cao et al. 2026 口径)|paper-style AF branch
-    af_het_eval: bool = False           # 默认关;开后与 GT-based het_rate 并列输出|off by default
+    # AF直接判定分支(Cao et al. 2026 口径)|paper-style AF branch
+    af_het_eval: bool = True            # 默认跑;--no-af-het-eval 关闭|on by default
     af_het_min_frac: float = 0.05       # 杂合 alt 比例下限(区间[min,1-min]闭)|min alt fraction
     af_het_min_depth: int = 10          # 参与判定的最低深度|min depth to evaluate
     af_het_min_alt_ad: int = 3          # 杂合判定最低 alt reads 数|min alt AD
