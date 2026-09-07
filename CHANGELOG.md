@@ -1,3 +1,8 @@
+## [1.71.0] - 2026-09-07
+
+### Added
+- `mixrace`(模块 0.5.0): 新增论文式 AF 直接判定杂合度分支(`--af-het-eval`,默认关)——不依赖联合 VCF 的 GT 字段(GATK 二倍体先验会把 ALT 比例偏离 50% 的真实非对称混合信号误判纯合,系统性低估杂合度),改用 `bcftools query` 只取 AD/DP(reads 比对直接产生、无 GT 先验,等效逐 BAM mpileup 且免重跑 pileup),按 Cao et al. 2026(Front. Microbiol. 17:1789807)口径:深度≥10 位点 alt_frac∈[0.05,0.95] 且 altAD≥3 判杂合,alt 主导判纯合变异,`het_rate_af = het/(het+hom_alt)` 分母不含纯合参考位点(与 GT 口径分母不同,两列并排对照不混用);产出 `04_het_eval/af_ad_dp.tsv`(中间长表)+ `l1_het_af_based.tsv`(逐样本统计),`verdict_table.tsv` 追加 `het_rate_af` 列(判读仍用 GT 口径不受影响);独立断点 af_query/af_het_eval,旧输出加开关重跑 `--step 3` 即只补 AF 分支并整合进已有表;失败 WARNING 降级不阻断主流程;三阈值 `--af-het-min-frac/-depth/-alt-ad` 开放(frac 校验 (0,0.5) 防杂合区间为空);汇总 TSV/HTML/Excel/单样本报告动态插入"AF口径杂合率"列于总杂合率旁(未开启时输出与历史逐字节一致);41 新单测(tests/test_mixrace/test_het_af.py);docs/mixrace.md 补参数组/输出树/两把尺子对照解读/FAQ,参数表经 gen_docs_params.py 重新生成
+
 ## [1.70.0] - 2026-09-07
 
 ### Added
