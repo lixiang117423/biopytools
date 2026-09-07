@@ -75,6 +75,17 @@
 | `--hotspot-min-median` | 0.10 | 窗口在候选样品中的中位杂合率下限 |
 | `--repeat-bed` | 无 | 手动追加排除区域 BED(与自动热点取并集) |
 
+**AF 直接判定杂合度(--af-het-eval,论文式对照)**
+
+**通俗理解|In plain words:** 这是一把"备用尺子"。默认的总杂合率要靠软件先给每个位点判基因型(GT),而 GATK 这类软件的先验倾向"变异碱基占一半才算杂合"——如果两个菌株按 7:3 混合,变异只占 30%,软件会误判成纯合,杂合率被低估。论文式做法不看软件判的基因型,直接数每个变异位点上"参考碱基几条 read、变异碱基几条 read":变异占比在 5%-95% 之间且变异 reads ≥3 条、深度 ≥10,就算杂合位点。**默认不开**;开了以后 verdict_table 和汇总报告会多一列"AF口径杂合率"与总杂合率**并排对比**(判读本身不变,仍用 GT 口径)。注意两者**分母不同**:AF 口径 = 杂合/(杂合+纯合变异),不含纯合参考位点,数值天然偏高,只用于对照"GT 先验有没有压低非对称混合的信号",不能和总杂合率直接比大小。三个阈值一般不用动。
+
+| 参数<br>Parameter | 默认<br>Default | 说明<br>Description |
+|---|---|---|
+| `--af-het-eval` | 关 | 增跑论文式 AF 直接判定(Cao et al. 2026),verdict_table 追加 het_rate_af 列与 GT 口径并列 |
+| `--af-het-min-frac` | 0.05 | 杂合判定的 alt 比例下限(杂合区间 [0.05, 0.95] 闭区间;须在 0-0.5 之间) |
+| `--af-het-min-depth` | 10 | 位点参与判定的最低深度 |
+| `--af-het-min-alt-ad` | 3 | 杂合判定的最低变异 reads 数(压测序错误) |
+
 **污染评估(kraken2+bracken,step 6)**
 
 **通俗理解|In plain words:** 管的是"给每条 read 查户口——你到底是谁家的"。结果回答:样品里除了目标菌,还混了哪些微生物、各占百分之几。**数据库默认用超算上的 `~/database/kraken2`(238GB 大库),默认模式要把整个库装进内存——整个作业必须提交到 ≥250GB 内存的节点**;内存不够就加 `--kraken-memory-mapping`(慢一些但省内存)。不想要这一步就 `--skip-kraken2`,其余参数一般不用动。
@@ -129,7 +140,8 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 ├── 04_het_eval/        gt_ad_dp.tsv · L1_杂合统计 · L2_shared_private · L2_shared_only评估
 │                       混合伴侣矩阵 · 混合伴侣top · L3_窗口杂合率 · L4_共享热点窗口
 │                       hotspots.bed · L4_排除热点前后对比 · 距离矩阵 · PCA坐标 · nj_tree.nwk
-│                       verdict_table.tsv(判读+证据链+建议) ·
+│                       verdict_table.tsv(判读+证据链+建议;--af-het-eval 时多一列 het_rate_af) ·
+│                       af_ad_dp.tsv · l1_het_af_based.tsv(仅 --af-het-eval;论文式 AF 直接判定,不依赖GT) ·
 │                       alignment_qc/{sample}_stats.txt(深度缓存)
 ├── 05_kmer/            mapped_fastq/{sample}_1/2_mapped.fq.gz + smudgescope 输出
 ├── 06_figures/         9 张图(热图/Manhattan/距离/PCA/NJ/altfrac/三面板等)
@@ -164,6 +176,15 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 
 **辅助判据:** `dp_ratio`>1.5(杂合位点反而更深=真混合);`排除热点后杂合率`仍高=证据坚实;`host_rate/污染reads占比`高=样品制备问题。
 
+### 两把杂合率尺子怎么对照 | GT-based vs AF-based
+
+> **通俗理解|In plain words:** 一个看"软件判的基因型",一个看"reads 里数出来的碱基比例"。都开 `--af-het-eval` 才有 AF 口径列。
+
+- **两数接近** → 该样品的混合接近对称(变异占比≈50%),GT 口径没吃亏
+- **AF口径 >> 总杂合率** → 存在大量 5%-45% 的非对称混合信号被 GATK 先验压成"纯合"了——非对称多菌株混合(如 7:3)的典型表现;这类样品优先按"需再分离纯化"处理
+- **AF口径也低** → 杂合确实少,GT 口径低估的担忧可以排除
+- 两个口径**分母不同**(AF 口径分母不含纯合参考位点),数值本身不可直接比大小,看的是**量级差距**;完整逐样本数字见 `04_het_eval/l1_het_af_based.tsv`(n_sites_eval/n_het_af/n_hom_alt_af 全字段)
+
 ### 污染评估怎么看 | Reading contamination results
 
 **看 `08_contamination/contamination_summary.tsv`(每样本一行):**
@@ -183,6 +204,7 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 - 样品只有 2-3 个:伴侣分析统计力弱,判读以 L1/热点为主(报告会显示证据不足)
 - 寄主污染重的样品务必给 `--host-genome`——寄主 reads 会同时虚抬"污染reads"并干扰 k-mer 基因组估计
 - 想看"不剔除热点"的原始杂合率:对比 `l4_hotspot_excluded_compare.tsv` 两列即可,无需重跑
+- 旧结果想补 AF 口径对照:直接 `--af-het-eval --step 3` 重跑——GT 侧四层评估有断点会跳过,只跑 AF 分支并把 `het_rate_af` 列整合进已有 `verdict_table.tsv`;想刷新报告再 `--step 5`
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -219,6 +241,10 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--window-size` | `100000` | int | 热点窗口大小bp｜Hotspot window size |
 | `--hotspot-fold` | `2.0` | float | 热点:窗口杂合率>该倍数x自身全基因组率｜Hotspot fold |
 | `--hotspot-min-median` | `0.1` | float | 热点:窗口候选中位杂合率下限｜Hotspot min median rate |
+| `--af-het-eval` | `False` |  | 增跑论文式AF直接判定杂合度(不依赖GT,从联合VCF取AD/DP,verdict_table追加het_rate_af列与GT口径并列对比)｜Paper-style AF-based het eval (GT-independent, side-by-side) |
+| `--af-het-min-frac` | `0.05` | float | AF杂合:alt比例下限,杂合区间[min,1-min]闭｜Min alt fraction |
+| `--af-het-min-depth` | `10` | int | AF杂合:参与判定的最低深度｜Min depth to evaluate |
+| `--af-het-min-alt-ad` | `3` | int | AF杂合:杂合判定最低alt reads数｜Min alt AD |
 
 ### 模块直调参数 | Direct invocation options
 
@@ -245,6 +271,10 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 | `--window-size` | `100000` | int | 热点窗口大小bp(默认100kb)｜hotspot window size |
 | `--hotspot-fold` | `2.0` | float | 热点:窗口杂合率>该倍数×自身全基因组率(默认2)｜hotspot fold |
 | `--hotspot-min-median` | `0.1` | float | 热点:窗口在候选中的中位杂合率下限(默认0.1)｜hotspot min median rate |
+| `--af-het-eval` | — | store_true | 增跑论文式AF直接判定杂合度(Cao et al. 2026,不依赖GT;从联合VCF取AD/DP),verdict_table 追加 het_rate_af 列与GT口径并列对比｜paper-style AF-based het (GT-independent, side-by-side) |
+| `--af-het-min-frac` | `0.05` | float | AF杂合:alt比例下限,杂合区间[min,1-min]闭(默认0.05)｜min alt fraction |
+| `--af-het-min-depth` | `10` | int | AF杂合:参与判定的最低深度(默认10)｜min depth to evaluate |
+| `--af-het-min-alt-ad` | `3` | int | AF杂合:杂合判定最低alt reads数(默认3)｜min alt AD |
 | `--skip-kraken2` | — | store_false | 跳过 kraken2+bracken 污染评估(默认跑)｜skip contamination assessment |
 | `--kraken2-db` | `~/database/kraken2` |  | kraken2/bracken 数据库(默认~/database/kraken2,内存需约DB大小)｜kraken2 db (RAM ~ DB size) |
 | `--kraken-memory-mapping` | — | store_true | kraken2 省内存模式(慢,适合内存不足节点)｜kraken2 --memory-mapping (slower) |
@@ -267,6 +297,7 @@ out/                          # by-step:所有样本共享编号步骤目录,文
 
 - **Pb9 那种样品会怎么判?** contaminated,partner=Pb22,报告写明"≈88% Pb22型+12% 参考型",建议再分离纯化
 - **群2/群3 那种 4-5% 杂合的近缘样品呢?** divergent(伴侣互为 0/1,纯合占比不过线)→ 可保存,需要高精度时强制纯合化
+- **开了 --af-het-eval 后 AF口径杂合率比总杂合率高很多,是bug吗?** 不是。分母口径不同(AF 口径分母=杂合+纯合变异位点,不含大量纯合参考位点,天然偏高),且 AF 口径把 5%-45% 的非对称混合信号也计为杂合而 GT 口径会漏掉。两列看的是量级差距,不是精确比值;详见「两把杂合率尺子怎么对照」
 - **旧 v0.2 输出目录能接着跑吗?** 不能,目录结构与后端都变了(02_alignment/03_variants 已不存在),换新目录重跑
 - **`--step 3` 要重跑但 GTX 太慢?** GTX 有断点;VCF 已在 `03_gtx/` 就直接 `--step 3`,秒级起评估
 - **kraken2 报内存不足/OOM 被杀?** 默认模式要把 238GB 数据库整装进内存,作业须提交到 ≥250GB 内存节点;上不了大内存节点就加 `--kraken-memory-mapping`(省内存但明显变慢)

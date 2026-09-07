@@ -35,6 +35,11 @@ class MixraceConfig:
     window_size: int = 100000
     hotspot_fold: float = 2.0
     hotspot_min_median: float = 0.10
+    # AF直接判定分支(--af-het-eval,Cao et al. 2026 口径)|paper-style AF branch
+    af_het_eval: bool = False           # 默认关;开后与 GT-based het_rate 并列输出|off by default
+    af_het_min_frac: float = 0.05       # 杂合 alt 比例下限(区间[min,1-min]闭)|min alt fraction
+    af_het_min_depth: int = 10          # 参与判定的最低深度|min depth to evaluate
+    af_het_min_alt_ad: int = 3          # 杂合判定最低 alt reads 数|min alt AD
     # 污染评估(step 6,kraken2+bracken)|contamination assessment (step 6)
     run_kraken2: bool = True             # 默认跑;--skip-kraken2 关闭|default on; --skip-kraken2 disables
     kraken2_db: str = "~/database/kraken2"   # PlusPF 库(含真菌/原生,bracken kmer_distrib 齐全)|PlusPF DB
@@ -114,6 +119,16 @@ class MixraceConfig:
             errors.append("hotspot_fold必须>=1|hotspot_fold must be >= 1")
         if not 0 <= self.hotspot_min_median <= 1:
             errors.append("hotspot_min_median须在[0,1]|hotspot_min_median must be in [0,1]")
+        # AF直接判定分支|paper-style AF branch
+        # 杂合区间为 [frac, 1-frac] 闭区间,>=0.5 区间为空,故上界严于 pure_het_threshold
+        # |het window is [frac, 1-frac]; >= 0.5 would leave it empty
+        if not 0 < self.af_het_min_frac < 0.5:
+            errors.append("af_het_min_frac须在(0,0.5),否则杂合区间为空"
+                          "|af_het_min_frac must be in (0,0.5)")
+        if self.af_het_min_depth < 1:
+            errors.append("af_het_min_depth须>=1|af_het_min_depth must be >= 1")
+        if self.af_het_min_alt_ad < 1:
+            errors.append("af_het_min_alt_ad须>=1|af_het_min_alt_ad must be >= 1")
         if self.step is not None and not (1 <= self.step <= 6):
             errors.append("step须为1-6|step must be 1-6")
         # 污染评估|contamination assessment

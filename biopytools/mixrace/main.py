@@ -99,6 +99,17 @@ def _argv_to_config() -> MixraceConfig:
                    help="热点:窗口杂合率>该倍数×自身全基因组率(默认2)|hotspot fold")
     p.add_argument("--hotspot-min-median", dest="hotspot_min_median", type=float, default=0.10,
                    help="热点:窗口在候选中的中位杂合率下限(默认0.1)|hotspot min median rate")
+    # AF直接判定分支|paper-style AF branch
+    p.add_argument("--af-het-eval", dest="af_het_eval", action="store_true",
+                   help="增跑论文式AF直接判定杂合度(Cao et al. 2026,不依赖GT;从联合VCF取"
+                        "AD/DP),verdict_table 追加 het_rate_af 列与GT口径并列对比"
+                        "|paper-style AF-based het (GT-independent, side-by-side)")
+    p.add_argument("--af-het-min-frac", dest="af_het_min_frac", type=float, default=0.05,
+                   help="AF杂合:alt比例下限,杂合区间[min,1-min]闭(默认0.05)|min alt fraction")
+    p.add_argument("--af-het-min-depth", dest="af_het_min_depth", type=int, default=10,
+                   help="AF杂合:参与判定的最低深度(默认10)|min depth to evaluate")
+    p.add_argument("--af-het-min-alt-ad", dest="af_het_min_alt_ad", type=int, default=3,
+                   help="AF杂合:杂合判定最低alt reads数(默认3)|min alt AD")
     # 污染评估(step 6)|contamination assessment (step 6)
     p.add_argument("--skip-kraken2", dest="run_kraken2", action="store_false",
                    help="跳过 kraken2+bracken 污染评估(默认跑)|skip contamination assessment")
@@ -119,6 +130,8 @@ def _argv_to_config() -> MixraceConfig:
         partner_hom_min=a.partner_hom_min, min_sites=a.min_sites,
         window_size=a.window_size, hotspot_fold=a.hotspot_fold,
         hotspot_min_median=a.hotspot_min_median,
+        af_het_eval=a.af_het_eval, af_het_min_frac=a.af_het_min_frac,
+        af_het_min_depth=a.af_het_min_depth, af_het_min_alt_ad=a.af_het_min_alt_ad,
         threads=a.threads, sample_parallel=a.sample_parallel,
         kmer_size=a.kmer_size, read_length=a.read_length,
         step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run,

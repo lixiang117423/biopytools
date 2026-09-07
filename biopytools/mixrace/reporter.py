@@ -19,6 +19,17 @@ _SUMMARY_COLS = ["sample", "verdict", "advice", "het_rate", "robust_rate",
                  "het_rate_after_hotspot", "dp_ratio", "host_rate",
                  "pathogen_map_rate", "contamination_rate", "mean_depth", "breadth_1x"]
 
+
+def _summary_cols(rows: list) -> list:
+    """汇总列集:默认规范列;--af-het-eval 产出时在 het_rate 后插 het_rate_af
+    并排对比(未开启时输出与历史逐字节一致)|canonical columns; het_rate_af
+    inserted right after het_rate when present (byte-identical otherwise).
+    """
+    cols = list(_SUMMARY_COLS)
+    if any("het_rate_af" in r for r in rows):
+        cols.insert(cols.index("het_rate") + 1, "het_rate_af")
+    return cols
+
 _VERDICT_CN = {"pure": "纯菌", "divergent": "优势菌株/参考差异型",
                "contaminated": "混杂菌株", "uncertain": "不确定"}
 
@@ -40,10 +51,12 @@ _VERDICT_ORDER = ["pure", "divergent", "contaminated", "uncertain"]
 # 数值列(右对齐+data-v 原始值供 JS 排序)|numeric cols (right-aligned + raw data-v)
 _NUM_COLS = {"het_rate", "robust_rate", "shared_only_rate", "mix_proportion",
              "het_rate_after_hotspot", "dp_ratio", "host_rate",
-             "pathogen_map_rate", "contamination_rate", "mean_depth", "breadth_1x"}
+             "pathogen_map_rate", "contamination_rate", "mean_depth", "breadth_1x",
+             "het_rate_af"}
 
 _METRIC_EXPLAIN = {
     "het_rate": "总杂合率:单倍体每个位点本该纯合,出现杂合=混合或错误。这是判读的主指标,像混合比例的指纹。",
+    "het_rate_af": "AF口径杂合率(论文式,--af-het-eval 开启才有):不看软件判的基因型,直接数每个变异位点上参考/变异碱基的reads比例,变异碱基占5%-95%即算杂合位点。分母只含杂合+纯合变异位点(不含纯合参考),与总杂合率口径不同,适合对照看GATK先验是否低估了非对称混合。",
     "robust_rate": "稳健杂合率:只统计 altAD>=5 且 altfrac>=0.2 的杂合位点(排除低深度测序错误)后的杂合率。",
     "shared_only_rate": "shared-only 杂合率:只统计 ALT 在其他样品也出现的杂合位点(排除样品特异噪声)。",
     "top_partner": "混合伴侣:在我的杂合位点上携带 ALT 最多的样品——相当于在群体里找与你共享变异的『另一半』。",
@@ -57,9 +70,9 @@ _METRIC_EXPLAIN = {
     "breadth_1x": "覆盖广度:基因组至少被测到1次的碱基占比;广度低说明有大片区域没测到。",
 }
 
-_EVIDENCE_KEYS = ["het_rate", "robust_rate", "shared_only_rate", "top_partner",
-                  "mix_proportion", "het_rate_after_hotspot", "dp_ratio",
-                  "host_rate", "pathogen_map_rate", "contamination_rate",
+_EVIDENCE_KEYS = ["het_rate", "het_rate_af", "robust_rate", "shared_only_rate",
+                  "top_partner", "mix_proportion", "het_rate_after_hotspot",
+                  "dp_ratio", "host_rate", "pathogen_map_rate", "contamination_rate",
                   "mean_depth", "breadth_1x"]
 
 # stem → (中文标题, 一句话图注)|stem -> (CN title, one-line caption)
@@ -110,7 +123,8 @@ def _fmt(key, val) -> str:
         return "—"
     if isinstance(val, str):
         return val
-    if key in ("het_rate", "robust_rate", "shared_only_rate", "het_rate_after_hotspot"):
+    if key in ("het_rate", "het_rate_af", "robust_rate", "shared_only_rate",
+               "het_rate_after_hotspot"):
         return f"{val*100:.4f}%" if val < 0.01 else f"{val*100:.2f}%"
     if key in ("host_rate", "pathogen_map_rate", "contamination_rate"):
         return f"{val*100:.2f}%"
@@ -126,7 +140,8 @@ def _fmt(key, val) -> str:
 
 
 _COLS_CN = {"sample": "样品", "verdict": "判读", "advice": "建议",
-            "het_rate": "总杂合率", "robust_rate": "稳健杂合率",
+            "het_rate": "总杂合率", "het_rate_af": "AF口径杂合率",
+            "robust_rate": "稳健杂合率",
             "shared_only_rate": "shared-only杂合率", "top_partner": "混合伴侣",
             "mix_proportion": "成分推断", "het_rate_after_hotspot": "排除热点后杂合率",
             "dp_ratio": "DP检验", "host_rate": "寄主占比",
@@ -139,7 +154,7 @@ def _format_summary_rows(rows: list) -> list:
     disp = []
     for r in rows:
         d = dict(r)
-        for k in ("het_rate", "robust_rate", "shared_only_rate",
+        for k in ("het_rate", "het_rate_af", "robust_rate", "shared_only_rate",
                   "het_rate_after_hotspot", "host_rate", "pathogen_map_rate",
                   "contamination_rate", "mix_proportion", "dp_ratio",
                   "mean_depth", "breadth_1x"):
@@ -167,14 +182,15 @@ def _badge(verdict: str, subtag: str = "") -> str:
 def _summary_table_fragment(rows: list) -> str:
     """汇总表 HTML 片段(横滚容器+粘性表头/首列+徽章+data-v)|table fragment."""
     disp = _format_summary_rows(rows)
+    cols = _summary_cols(rows)
     head = "".join(
         f'<th class="sortable" data-sortable="1" tabindex="0" title="{_html_escape(c)}">'
         f'{_html_escape(_COLS_CN.get(c, c))}<br><span class="en">{_html_escape(c)}</span></th>'
-        for c in _SUMMARY_COLS)
+        for c in cols)
     body_rows = []
     for d, r in zip(disp, rows):
         cells = []
-        for c in _SUMMARY_COLS:
+        for c in cols:
             if c == "sample":
                 cells.append(f'<td class="smp">{_html_escape(str(d.get(c, "")))}</td>')
             elif c == "verdict":
@@ -200,9 +216,10 @@ def _summary_table_fragment(rows: list) -> str:
 def build_summary_table(rows: list) -> Tuple[str, str]:
     """判读汇总表(TSV+独立 HTML 文档)|verdict summary table (tsv + standalone html)."""
     disp = _format_summary_rows(rows)
-    tsv = "\t".join(_SUMMARY_COLS) + "\n"
+    cols = _summary_cols(rows)
+    tsv = "\t".join(cols) + "\n"
     for d in disp:
-        tsv += "\t".join(str(d.get(c, "")) for c in _SUMMARY_COLS) + "\n"
+        tsv += "\t".join(str(d.get(c, "")) for c in cols) + "\n"
     body = _summary_table_fragment(rows)
     html = _document("判读汇总|verdict summary",
                      f'<header class="page"><span class="eyebrow">MIXRACE</span>'
@@ -522,21 +539,22 @@ def write_summary_excel(rows: list, path: str) -> None:
     disp = _format_summary_rows(rows)
     wb = Workbook()
 
-    def _fill(ws, headers, verdict_of_row):
+    def _fill(ws, headers, cols, verdict_of_row):
         ws.append(headers)
         for d in disp:
             ws.append([verdict_of_row(d) if c == "verdict" else str(d.get(c, ""))
-                       for c in _SUMMARY_COLS])
+                       for c in cols])
         for cell in ws[1]:
             cell.font = Font(bold=True)
         ws.freeze_panes = "A2"
         for j, h in enumerate(headers, start=1):
             ws.column_dimensions[ws.cell(1, j).column_letter].width = max(10, len(str(h)) * 2.2)
 
+    cols = _summary_cols(rows)
     ws_cn = wb.active
     ws_cn.title = "判读汇总"
-    _fill(ws_cn, [_COLS_CN.get(c, c) for c in _SUMMARY_COLS],
+    _fill(ws_cn, [_COLS_CN.get(c, c) for c in cols], cols,
           lambda d: str(d.get("verdict_cn", d.get("verdict", ""))))
     ws_en = wb.create_sheet("summary")
-    _fill(ws_en, list(_SUMMARY_COLS), lambda d: str(d.get("verdict", "")))
+    _fill(ws_en, list(cols), cols, lambda d: str(d.get("verdict", "")))
     wb.save(path)

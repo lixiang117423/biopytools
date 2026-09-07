@@ -425,7 +425,7 @@ def read_verdict_table(config) -> list:
         r = dict(zip(head, f))
         for k in ("het_rate", "robust_rate", "shared_only_rate", "median_altfrac",
                   "het_rate_after_hotspot", "dp_ratio", "top_partner_alt_rate",
-                  "top_partner_hom_rate", "mix_proportion"):
+                  "top_partner_hom_rate", "mix_proportion", "het_rate_af"):
             try:
                 r[k] = float(r.get(k, "") or "nan")
             except ValueError:
@@ -452,10 +452,19 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
     tsv = out_dir / "gt_ad_dp.tsv"
 
     # 断点续传:整步已判读则直接读表返回|checkpoint: reuse verdict table
+    # (--af-het-eval 对旧输出单独补跑本分支并把 het_rate_af 列整合进已有表)
+    # |checkpoint path; AF branch may still be added to an existing run
     if config.enable_checkpoint and _done(ckpt, "het_eval",
                                           out_dir / "verdict_table.tsv"):
         runner.logger.info("跳过已完成步骤|Skipping completed step: het_eval")
-        return read_verdict_table(config)
+        rows = read_verdict_table(config)
+        if getattr(config, "af_het_eval", False):
+            from .het_eval_af import run_af_het_eval, merge_af_rows
+            af_rows = run_af_het_eval(config, runner, ckpt, vcf)
+            if af_rows:
+                rows = merge_af_rows(rows, af_rows)
+                write_tsv(out_dir / "verdict_table.tsv", rows)
+        return rows
 
     # ① 长表提取|long-table query
     if config.enable_checkpoint and _done(ckpt, "query", tsv):
@@ -573,6 +582,16 @@ def run_het_eval(config, runner, ckpt, vcf: str) -> List[dict]:
                      "het_rate_after_hotspot": ex.get("het_rate_after", r["het_rate"]),
                      "dp_ratio": r["dp_ratio"],
                      "rationale": v["rationale"]})
+    # AF直接判定分支(可选,纯新增:只追加 het_rate_af 列,不影响判读)
+    # |optional AF branch (add-only: appends het_rate_af, verdicts untouched)
+    if getattr(config, "af_het_eval", False):
+        from .het_eval_af import run_af_het_eval, merge_af_rows
+        af_rows = run_af_het_eval(config, runner, ckpt, vcf)
+        if af_rows:
+            rows = merge_af_rows(rows, af_rows)
+        else:
+            runner.logger.warning("AF分支未产出,verdict_table 不含 het_rate_af"
+                                  "|AF branch empty, het_rate_af column omitted")
     write_tsv(out_dir / "verdict_table.tsv", rows)
     if config.enable_checkpoint:
         ckpt.create("het_eval")

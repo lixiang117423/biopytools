@@ -97,11 +97,22 @@ def _validate_file(path):
               help='热点:窗口杂合率>该倍数x自身全基因组率|Hotspot fold')
 @click.option('--hotspot-min-median', type=float, default=0.10, show_default=True,
               help='热点:窗口候选中位杂合率下限|Hotspot min median rate')
+@click.option('--af-het-eval', is_flag=True, default=False,
+              help='增跑论文式AF直接判定杂合度(不依赖GT,从联合VCF取AD/DP,'
+                   'verdict_table追加het_rate_af列与GT口径并列对比)'
+                   '|Paper-style AF-based het eval (GT-independent, side-by-side)')
+@click.option('--af-het-min-frac', type=float, default=0.05, show_default=True,
+              help='AF杂合:alt比例下限,杂合区间[min,1-min]闭|Min alt fraction')
+@click.option('--af-het-min-depth', type=int, default=10, show_default=True,
+              help='AF杂合:参与判定的最低深度|Min depth to evaluate')
+@click.option('--af-het-min-alt-ad', type=int, default=3, show_default=True,
+              help='AF杂合:杂合判定最低alt reads数|Min alt AD')
 def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome, min_mapq,
             threads, sample_parallel, kmer_size, read_length, step, no_checkpoint, dry_run,
             pure_het_threshold, partner_alt_rate, partner_hom_rate, min_sites,
             window_size, hotspot_fold, hotspot_min_median, skip_kraken2, kraken2_db,
-            kraken_memory_mapping, bracken_level):
+            kraken_memory_mapping, bracken_level, af_het_eval, af_het_min_frac,
+            af_het_min_depth, af_het_min_alt_ad):
     """
     WGS混合小种检测(三分支判读)|WGS mixed-race detection (three-branch).
 
@@ -156,6 +167,14 @@ def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, host_genome,
         args.extend(['--hotspot-fold', str(hotspot_fold)])
     if hotspot_min_median != 0.10:
         args.extend(['--hotspot-min-median', str(hotspot_min_median)])
+    if af_het_eval:
+        args.append('--af-het-eval')
+    if af_het_min_frac != 0.05:
+        args.extend(['--af-het-min-frac', str(af_het_min_frac)])
+    if af_het_min_depth != 10:
+        args.extend(['--af-het-min-depth', str(af_het_min_depth)])
+    if af_het_min_alt_ad != 3:
+        args.extend(['--af-het-min-alt-ad', str(af_het_min_alt_ad)])
     if skip_kraken2:
         args.append('--skip-kraken2')
     if kraken2_db != '~/database/kraken2':
