@@ -1,3 +1,9 @@
+## [1.70.0] - 2026-09-07
+
+### Added
+- `get_link_from_CNCB`(模块 1.4.0): ID 文件分隔符自动识别——两列间 Tab/逗号/分号/空格任意一种或混排均可(Excel 另存 CSV 直接可用),不再要求严格 Tab 两列;逐行嗅探共用 `_split_fields`(`[\t;,]+|\s+` 拆分并过滤空段),`read_and_group_by_project` 与 `validate_input_file` 校验口径统一;表头行(前两列均纯字母,真实 accession 必含数字)自动跳过;超过两列取前两列并 WARNING(Excel 附加列场景);解析完成 INFO 汇总各分隔符出现行数;20 新单测(tests/test_get_link_from_CNCB/);docs/get_link_from_CNCB.md 输入格式一节同步
+- `hifi_hic`(模块 1.1.0): 单倍型 hap1..hapN 也参与 Purge_Dups 去冗余(默认启用,`--no-purge-haplotypes` 关闭)——`build_purge_targets` 构建 primary+hap 目标,缺失 hap 跳过并 WARNING;hap 输出隔离到 `04_purge_dups/hap{i}/` 子目录(固定名中间文件 cutoffs/dups.bed 不互踩),primary 仍在顶层兼容历史续传;单倍型强制全量 HiFi reads(NGS 筛选子集会带偏 calcuts 覆盖度阈值);hap 失败 WARNING 降级继续,primary 失败仍 fatal;断点续传修正:输出查找按 seqs/ 目录+输入 stem 过滤(同目录多产物不拿错),且尊重 `--no-resume` 强制重跑
+
 ## [1.69.2] - 2026-09-07
 
 ### Fixed
