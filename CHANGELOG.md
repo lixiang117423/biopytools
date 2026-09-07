@@ -1,3 +1,8 @@
+## [1.69.2] - 2026-09-07
+
+### Fixed
+- `.gitignore`: 模块自带参考数据入库——`data/` 全匹配规则曾致 `phyto_effector/data` 的 9 个 HMM/FAA(PF18634/paper_RxLR/paper_CRN/paper_nlp/protease_pfam/paper_scp/paper_elicitin/paper_yxsl/reference_RxLR_queries.faa)从未入库,工作区重建后丢失;加 `!biopytools/*/data/` 白名单并入库数据(共 2.3MB);Mac 本地 4 个未被代码引用的旧 HMM(PF16810/PF20147/WY_fold/paper_protease)保留不入库,针对性忽略
+
 ## [1.69.1] - 2026-09-05
 
 ### Fixed

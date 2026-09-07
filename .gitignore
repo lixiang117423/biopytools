@@ -380,6 +380,15 @@ tests/
 
 # Large data directories
 data/
+# 模块自带参考数据必须入库|Module-bundled reference data must be tracked
+# (data/ 会匹配任意层级,曾致 phyto_effector/data 的 HMM/FAA 从未入库、工作区重建后丢失)
+!biopytools/*/data/
+!biopytools/*/data/**
+# phyto_effector/data 中未被代码引用的 Mac 本地旧 HMM(保留不入库)|legacy unused HMMs, kept untracked
+biopytools/phyto_effector/data/PF16810.hmm
+biopytools/phyto_effector/data/PF20147.hmm
+biopytools/phyto_effector/data/WY_fold.hmm
+biopytools/phyto_effector/data/paper_protease.hmm
 datasets/
 genomes/
 references/
