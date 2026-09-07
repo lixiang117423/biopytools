@@ -6,7 +6,7 @@
 
 - 基于 hifiasm 组装，支持「仅 HiFi」或「HiFi + Hi-C」两种模式
 - 可选 NGS polish：用二代数据校正组装
-- 默认启用 Purge_Dups 去冗余，去掉因杂合/重复导致的冗余序列
+- 默认启用 Purge_Dups 去冗余，去掉因杂合/重复导致的冗余序列；primary 与两套单倍型各自独立去冗余
 - 断点续传默认启用，按各步骤产物存在性自动跳过
 - 按倍性（n-hap）动态输出 primary / hap1 / hap2 等 FASTA
 
@@ -61,7 +61,7 @@ IIIIIIII...
 
 ### 去冗余参数 | Purge_Dups
 
-**通俗理解|In plain words:** 默认会自动做 Purge_Dups 去冗余。`--high-cov`/`--medium-cov-min` 决定「多少覆盖算真、多少算冗余」，**一般不用动**；如果只想直接要 hifiasm 原始结果、不做去冗余，用 `--no-purge-dups` 关掉。
+**通俗理解|In plain words:** 默认会自动做 Purge_Dups 去冗余，而且**主组装和两套单倍型（hap1/hap2）各自都会做一遍**——单倍型也是基因组，里面同样可能藏着被重复组装的片段。`--high-cov`/`--medium-cov-min` 决定「多少覆盖算真、多少算冗余」，**一般不用动**；如果只想直接要 hifiasm 原始结果、不做去冗余，用 `--no-purge-dups` 关掉；只想去掉单倍型那部分（比如下游只分析 primary），用 `--no-purge-haplotypes`。
 
 ### NGS polish 与执行控制 | NGS polish & execution
 
@@ -85,7 +85,7 @@ HiFi reads (+ Hi-C 可选)
 步骤4: NGS polish(可选, 03_ngs_polish)
     │
     ▼
-步骤5: Purge_Dups 去冗余(默认, 04_purge_dups → *_purged.purge.fa)
+步骤5: Purge_Dups 去冗余(默认, primary + hap1/hap2 各自一遍, 04_purge_dups)
 ```
 
 ## 输出 | Output
@@ -106,8 +106,11 @@ assembly_output/
     │   └── {prefix}_p_ctg_contig_reads.tsv  # contig→reads 映射
     ├── 03_ngs_polish/                   # (仅给 --ngs 时)
     │   └── {prefix}_polished.fa         # NGS 校正后的基因组
-    ├── 04_purge_dups/                   # 去冗余(默认)
-    │   └── sequences/{prefix}_purged.purge.fa  # 去冗余最终结果
+    ├── 04_purge_dups/                   # 去冗余(默认, primary + 单倍型各自独立)
+    │   ├── seqs/{prefix}_primary_purged.purged.fa       # primary 去冗余结果(顶层,兼容旧目录)
+    │   │                                                 # (给 --ngs 时为 {prefix}_polished_purged.purged.fa)
+    │   ├── hap1/seqs/{prefix}_hap1_purged.purged.fa      # 单倍型1 去冗余结果
+    │   └── hap2/seqs/{prefix}_hap2_purged.purged.fa      # 单倍型2 去冗余结果
     └── 99_logs/
         └── hifiasm_assembly.log         # 组装日志
 ```
@@ -116,10 +119,11 @@ assembly_output/
 
 ## 结果解读 | Interpreting Results
 
-**通俗理解|In plain words:** 先看 `04_purge_dups/sequences/{prefix}_purged.purge.fa`（去冗余后的最终基因组），再看 `02_fasta/{prefix}_primary.fa`（主组装）。
+**通俗理解|In plain words:** 先看 `04_purge_dups/seqs/{prefix}_primary_purged.purged.fa`（去冗余后的最终基因组），再看 `02_fasta/{prefix}_primary.fa`（主组装）。
 
-- **去冗余后的 purged.fa**：最终推荐使用的基因组，冗余少、更接近真实一套
+- **去冗余后的 purged.fa**：最终推荐使用的基因组，冗余少、更接近真实一套（给了 `--ngs` 时文件名是 `{prefix}_polished_purged.purged.fa`）
 - **primary.fa vs hap1/hap2.fa**：primary 是主组装；hap1/hap2 是拆分出的两套单倍型，供研究等位差异用
+- **单倍型去冗余（v1.1.0 起默认）**：`04_purge_dups/hap{i}/seqs/{prefix}_hap{i}_purged.purged.fa` 是各自去冗余后的单倍型，做等位基因分析/泛基因组建议用这套而不是 `02_fasta/` 里的原始 hap；单倍型固定用全量 HiFi reads 估覆盖度（NGS 筛选子集只对应 primary 的高覆盖 contig，会带偏阈值）；某个单倍型文件缺失时该套自动跳过、不影响其余结果
 - **序列数/长度**：去冗余后序列数应明显下降（冗余被合并/删除）；若几乎没变化，说明原始组装本身杂合/冗余低
 - `software_versions.yml` 记录 hifiasm/seqkit/samtools 的版本，写论文 Methods 时直接抄
 
@@ -128,6 +132,7 @@ assembly_output/
 - `--n-hap`：二倍体=2（默认）；单倍体=1；多倍体按染色体组数
 - `--genome-size`：**不传则 hifiasm 自动估计**（推荐，`--hg-size auto`）；手动指定时报预估大小（宁大勿小），单位 `g`/`m`——早期版本写死默认 `1.45g`，对小于/大于 1.45Gb 的基因组会跑偏覆盖度推断，已移除
 - `--no-purge-dups`：想要 hifiasm 原始结果、或后续自己控制去冗余时关掉
+- `--no-purge-haplotypes`：只去冗余 primary、跳过单倍型（下游不分析 hap 时省时间）
 - `--threads`：默认 88 偏大，按机器核数调整；去冗余默认复用组装线程数（`--purge-dups-threads` 可单独指定）
 - `--high-cov`/`--medium-cov-min`：**一般不用动**，只有覆盖分布异常（如极高覆盖污染）时才调
 
@@ -156,6 +161,7 @@ assembly_output/
 | `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
 | `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
 | `--no-purge-dups` | `False` |  | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
+| `--no-purge-haplotypes` | `False` |  | 禁止单倍型(hap1..hapN)去冗余｜Disable haplotype (hap1..hapN) purging (enabled by default) |
 | `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` | str | Purge_Dups软件路径｜Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6) |
 | `--purge-dups-threads` | — | int | 去冗余线程数｜Deduplication threads (default: same as assembly threads) |
 | `--purge-dups-read-type` | `hifi` | pacbio/hifi/illumina | 去冗余reads类型｜Deduplication reads type (default: hifi) |
@@ -180,6 +186,7 @@ assembly_output/
 | `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
 | `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
 | `--no-purge-dups` | — | store_true | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
+| `--no-purge-haplotypes` | — | store_true | 禁止单倍型(hap1..hapN)去冗余｜Disable haplotype (hap1..hapN) purging (enabled by default) |
 | `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` |  | Purge_Dups软件路径｜Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6) |
 | `--purge-dups-threads` | — | int | 去冗余线程数｜Deduplication threads (default: same as assembly threads) |
 | `--purge-dups-read-type` | `hifi` | pacbio/hifi/illumina | 去冗余reads类型｜Deduplication reads type (default: hifi) |

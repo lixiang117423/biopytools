@@ -36,19 +36,29 @@ class PurgeDupsWrapper:
             self.logger.error(f"无法导入Purge_Dups模块|Failed to import Purge_Dups module: {e}")
             raise
 
-    def _find_purged_output(self, input_fa: str) -> str:
+    def _find_purged_output(self, input_fa: str, output_subdir: str = None) -> str:
         """
         查找去冗余输出文件|Find purged output file
 
         Purge_Dups输出目录可能是sequences或seqs,文件名格式多样,逐一尝试+glob兜底
         |Purge_Dups output dir may be sequences/seqs; filename varies; try each + glob fallback
 
+        Args:
+            input_fa: 输入基因组FASTA文件|Input genome FASTA file
+            output_subdir: 单倍型等子目录|Subdirectory for haplotypes etc.
+
         Returns:
             找到的文件路径或None|Found file path or None
         """
-        sequences_dir = os.path.join(self.config.purge_dups_dir, "sequences")
+        # hap{i}/子目录隔离输出,固定名中间文件(cutoffs/dups.bed)不互踩
+        # |hap{i}/ subdirs isolate outputs; fixed-name intermediates (cutoffs/dups.bed) never collide
+        purge_base = self.config.purge_dups_dir
+        if output_subdir:
+            purge_base = os.path.join(purge_base, output_subdir)
+
+        sequences_dir = os.path.join(purge_base, "sequences")
         if not os.path.exists(sequences_dir):
-            sequences_dir = os.path.join(self.config.purge_dups_dir, "seqs")
+            sequences_dir = os.path.join(purge_base, "seqs")
         if not os.path.exists(sequences_dir):
             return None
 
@@ -58,35 +68,45 @@ class PurgeDupsWrapper:
             f"{input_stem}_purged.purge.fa",   # 旧版本格式|Legacy format
             f"{Path(input_fa).name}_purged.purged.fa",
             f"{input_stem.replace('_primary', '')}_purged.purged.fa",
-            f"{input_stem.replace('_hap', '')}_purged.purged.fa",
         ]
         for filename in possible_filenames:
             candidate = os.path.join(sequences_dir, filename)
             if os.path.exists(candidate):
                 return candidate
 
-        # glob兜底:扫描任意*_purged.purge.fa|glob fallback: scan any *_purged.purge.fa
-        candidates = glob.glob(os.path.join(sequences_dir, "*_purged.purged.fa"))
+        # glob兜底:按输入stem过滤,同目录多个purged产物时不拿错
+        # |glob fallback filtered by input stem; never grabs the wrong file among multiple outputs
+        candidates = sorted(glob.glob(os.path.join(sequences_dir, f"{input_stem}_purged.purged.fa")))
         if not candidates:
-            candidates = glob.glob(os.path.join(sequences_dir, "*_purged.purge.fa"))
+            candidates = sorted(glob.glob(os.path.join(sequences_dir, f"{input_stem}_purged.purge.fa")))
         if candidates:
             self.logger.info(f"使用自动检测的去冗余文件|Using auto-detected purged file: {candidates[0]}")
             return candidates[0]
         return None
 
-    def run_purge_dups(self, input_fa: str) -> str:
+    def run_purge_dups(self, input_fa: str, output_subdir: str = None,
+                       force_hifi_reads: bool = False) -> str:
         """
         运行Purge_Dups去冗余流程(支持断点续传,§10.2)|Run Purge_Dups deduplication (resume support)
 
         Args:
             input_fa: 输入基因组FASTA文件|Input genome FASTA file
+            output_subdir: 输出子目录(单倍型用hap{i})|Output subdirectory (hap{i} for haplotypes)
+            force_hifi_reads: 强制使用全量HiFi reads(单倍型用,避免NGS筛选子集带偏覆盖度阈值)
+                |Force full HiFi reads (for haplotypes; NGS-filtered subset biases haploid cutoffs)
 
         Returns:
             str: 去冗余后的FASTA文件路径|Path to purged FASTA file
         """
+        input_label = output_subdir or Path(input_fa).stem
         self.logger.info("=" * 80)
-        self.logger.info("开始Purge_Dups去冗余流程|Starting Purge_Dups Deduplication Pipeline")
+        self.logger.info(f"开始Purge_Dups去冗余流程[{input_label}]|Starting Purge_Dups Deduplication Pipeline [{input_label}]")
         self.logger.info("=" * 80)
+
+        # 单倍型输出到独立子目录|Haplotypes write into isolated subdirectories
+        purge_output_dir = self.config.purge_dups_dir
+        if output_subdir:
+            purge_output_dir = os.path.join(purge_output_dir, output_subdir)
 
         try:
             # 确定输入文件|Determine input file
@@ -95,16 +115,24 @@ class PurgeDupsWrapper:
                 self.logger.error(f"输入文件不存在|Input file not found: {input_fa}")
                 return None
 
-            # 断点续传:输出已存在则跳过去冗余(§10.2)|Resume: skip dedup if output exists
-            existing_purged = self._find_purged_output(input_fa)
-            if existing_purged and os.path.getsize(existing_purged) > 0:
+            # 断点续传:输出已存在且未禁用续传则跳过去冗余(§10.2)
+            # |Resume: skip dedup if output exists and resume enabled (§10.2)
+            existing_purged = self._find_purged_output(input_fa, output_subdir)
+            if existing_purged and os.path.getsize(existing_purged) > 0 and self.config.resume:
                 self.logger.info(f"检测到去冗余输出已存在，跳过|Purge_dups output exists, skipping: {existing_purged}")
                 return existing_purged
 
             # 确定输入reads文件|Determine input reads file
-            # 优先使用NGS polish后的reads，否则使用原始HiFi reads
-            # Prefer NGS polished reads, otherwise use original HiFi reads
-            if self.config.has_ngs:
+            # 单倍型固定全量HiFi reads:NGS筛选子集按primary高覆盖contig筛出,
+            # 拿去算单套hap的覆盖度直方图会带偏calcuts阈值
+            # |Haplotypes always use full HiFi reads: the NGS-filtered subset is selected
+            # by primary high-coverage contigs and would bias calcuts cutoffs on a hap
+            if force_hifi_reads:
+                input_reads = self.config.hifi_data
+                self.logger.info(f"使用全量HiFi reads|Using full HiFi reads: {input_reads}")
+            elif self.config.has_ngs:
+                # 优先使用NGS polish后的reads，否则使用原始HiFi reads
+                # Prefer NGS polished reads, otherwise use original HiFi reads
                 filtered_reads = os.path.join(resolve_legacy_path(self.config.ngs_polish_dir, "03_filtered_reads"),
                                             f"{self.config.prefix}_high_quality_reads.fq.gz")
                 if os.path.exists(filtered_reads):
@@ -122,7 +150,7 @@ class PurgeDupsWrapper:
                 input=input_fa,
                 reads=input_reads,
                 purge_dups_path=self.config.purge_dups_path,
-                output_dir=self.config.purge_dups_dir,
+                output_dir=purge_output_dir,
                 threads=self.config.purge_dups_threads,
                 read_type=self.config.purge_dups_read_type
             )
@@ -131,7 +159,7 @@ class PurgeDupsWrapper:
             purge_runner = self.PurgeDupsRunner(
                 input=input_fa,
                 reads=input_reads,
-                output_dir=self.config.purge_dups_dir,
+                output_dir=purge_output_dir,
                 threads=self.config.purge_dups_threads,
                 read_type=self.config.purge_dups_read_type,
                 purge_dups_path=self.config.purge_dups_path
@@ -145,14 +173,14 @@ class PurgeDupsWrapper:
                 return None
 
             # 查找输出文件|Find output files
-            purged_fa = self._find_purged_output(input_fa)
+            purged_fa = self._find_purged_output(input_fa, output_subdir)
 
             if not purged_fa:
-                self.logger.error(f"去冗余输出文件未找到|Purged output file not found in {self.config.purge_dups_dir}")
+                self.logger.error(f"去冗余输出文件未找到|Purged output file not found in {purge_output_dir}")
                 return None
 
             self.logger.info("=" * 80)
-            self.logger.info("Purge_Dups去冗余流程完成|Purge_Dups Deduplication Pipeline Completed")
+            self.logger.info(f"Purge_Dups去冗余流程完成[{input_label}]|Purge_Dups Deduplication Pipeline Completed [{input_label}]")
             self.logger.info("=" * 80)
             self.logger.info(f"去冗余基因组|Purged genome: {purged_fa}")
 

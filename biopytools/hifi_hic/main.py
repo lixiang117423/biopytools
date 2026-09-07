@@ -10,11 +10,53 @@ from datetime import datetime
 
 from .config import AssemblyConfig
 from .logger import AssemblyLogger
-from .utils import check_dependencies, generate_software_versions_yml
+from .utils import check_dependencies, generate_software_versions_yml, get_fasta_stats
 from .assembler import HifiasmAssembler
 from .report import ReportGenerator
 from .ngs_polisher import NGSPolisher
 from .purge_dups_wrapper import PurgeDupsWrapper
+
+
+def build_purge_targets(config, logger=None) -> list:
+    """
+    构建去冗余目标列表|Build purge target list
+
+    单倍型hap1..hapN也参与去冗余(默认启用);缺失hap降级跳过不中断
+    |Haplotypes hap1..hapN are also purged (default on); missing haps degrade to skip
+
+    Args:
+        config: AssemblyConfig对象|AssemblyConfig object
+        logger: 可选日志器(缺失hap时告警)|Optional logger (warn on missing hap)
+
+    Returns:
+        list: [(label, input_fa, output_subdir), ...] primary在前
+        |list of (label, input_fa, output_subdir) tuples, primary first
+    """
+    # primary输入:优先NGS polished产物,否则组装primary|Primary input: NGS polished if any
+    if config.has_ngs:
+        polished = os.path.join(config.ngs_polish_dir, f"{config.prefix}_polished.fa")
+        if os.path.exists(polished):
+            primary_fa = polished
+        else:
+            primary_fa = os.path.join(config.fasta_dir, f"{config.prefix}_primary.fa")
+    else:
+        primary_fa = os.path.join(config.fasta_dir, f"{config.prefix}_primary.fa")
+
+    # primary写04_purge_dups/顶层,兼容历史输出续传|Primary at top level, legacy-output compatible
+    targets = [('primary', primary_fa, None)]
+
+    # 单倍型目标:写04_purge_dups/hap{i}/独立子目录|Hap targets in isolated hap{i}/ subdirs
+    if config.has_purge_haplotypes and config.n_hap >= 2:
+        for i in range(1, config.n_hap + 1):
+            hap_fa = os.path.join(config.fasta_dir, f"{config.prefix}_hap{i}.fa")
+            if os.path.exists(hap_fa) and os.path.getsize(hap_fa) > 0:
+                targets.append((f"hap{i}", hap_fa, f"hap{i}"))
+            elif logger:
+                logger.warning(
+                    f"单倍型文件缺失，跳过该单倍型去冗余|Haplotype FASTA missing, skipping its purge: {hap_fa}"
+                )
+
+    return targets
 
 class GenomeAssembler:
     """基因组组装主类|Main Genome Assembler Class"""
@@ -112,43 +154,15 @@ class GenomeAssembler:
                     # 可以选择使用polish后的结果|Optionally use polished results
                     self.logger.info(f"Polished基因组|Polished genome: {polished_genome}")
 
-            # 7. 如果启用了Purge_Dups，执行去冗余|If Purge_Dups enabled, run deduplication
+            # 7. 如果启用了Purge_Dups，执行去冗余(primary+单倍型)|Run dedup (primary + haplotypes)
             final_genome = None
             if self.config.has_purge_dups:
                 self.logger.info("=" * 80)
                 self.logger.info("检测到Purge_Dups启用，开始去冗余流程|Purge_Dups enabled, starting deduplication")
                 self.logger.info("=" * 80)
 
-                # 确定去冗余的输入文件|Determine input file for deduplication
-                # 优先使用NGS polish后的结果，否则使用组装结果
-                # Prefer NGS polished result, otherwise use assembly result
-                if self.config.has_ngs:
-                    polished_genome = os.path.join(self.config.ngs_polish_dir,
-                                                 f"{self.config.prefix}_polished.fa")
-                    if os.path.exists(polished_genome):
-                        purge_input = polished_genome
-                        self.logger.info(f"使用Polished基因组进行去冗余|Using Polished genome for deduplication: {purge_input}")
-                    else:
-                        # 使用primary.fa|Use primary.fa
-                        if self.config.has_hic:
-                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
-                        else:
-                            purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
-                        self.logger.info(f"使用Assembly基因组进行去冗余|Using Assembly genome for deduplication: {purge_input}")
-                else:
-                    # 没有NGS polish，直接使用组装结果|No NGS polish, use assembly result directly
-                    if self.config.has_hic:
-                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
-                    else:
-                        purge_input = os.path.join(self.config.fasta_dir, f"{self.config.prefix}_primary.fa")
-                    self.logger.info(f"使用Assembly基因组进行去冗余|Using Assembly genome for deduplication: {purge_input}")
-
-                # 运行去冗余|Run deduplication
-                final_genome = self.purge_dups_wrapper.run_purge_dups(purge_input)
-
-                if not final_genome:
-                    self.logger.error("Purge_Dups去冗余流程失败|Purge_Dups deduplication pipeline failed")
-                    sys.exit(1)
+                purge_results = self._run_purge_stage()
+                final_genome = purge_results.get('primary')
 
             end_time = datetime.now()
 
@@ -162,6 +176,49 @@ class GenomeAssembler:
         except Exception as e:
             self.logger.error(f"组装流程在执行过程中意外终止|Assembly pipeline terminated unexpectedly: {e}")
             sys.exit(1)
+
+    def _run_purge_stage(self) -> dict:
+        """
+        执行去冗余阶段(primary+单倍型,断点续传由wrapper逐输入判断)|Run purge stage
+
+        primary失败致命exit 1;单倍型失败WARNING降级继续(§优雅降级)
+        |Primary failure is fatal; haplotype failures degrade with WARNING
+
+        Returns:
+            dict: label -> 去冗余FASTA路径(失败为None)|label -> purged FASTA path (None on failure)
+        """
+        if not self.config.has_purge_dups:
+            return {}
+
+        targets = build_purge_targets(self.config, logger=self.logger)
+        results = {}
+
+        for label, input_fa, output_subdir in targets:
+            # 单倍型固定全量HiFi reads(NGS筛选子集会带偏覆盖度阈值)
+            # |Haps force full HiFi reads (NGS-filtered subset biases cutoffs)
+            is_hap = label.startswith('hap')
+            purged_fa = self.purge_dups_wrapper.run_purge_dups(
+                input_fa, output_subdir=output_subdir, force_hifi_reads=is_hap)
+
+            if purged_fa:
+                stats = get_fasta_stats(purged_fa)
+                self.logger.info(
+                    f"[{label}] 去冗余完成|Purged: "
+                    f"序列数|Sequences: {stats.get('num_seqs', 0)}, "
+                    f"总长度|Total length: {stats.get('total_len', 0):,} bp"
+                )
+                results[label] = purged_fa
+            elif is_hap:
+                # 单倍型失败降级,不影响其余目标|Hap failure degrades, other targets unaffected
+                self.logger.warning(
+                    f"单倍型{label}去冗余失败，跳过继续|Haplotype {label} purge failed, skipping"
+                )
+                results[label] = None
+            else:
+                self.logger.error("Purge_Dups去冗余流程失败|Purge_Dups deduplication pipeline failed")
+                sys.exit(1)
+
+        return results
 
     def _log_resume_status(self, completed_steps: dict):
         """
@@ -245,6 +302,8 @@ class GenomeAssembler:
             self.logger.info(f"  Purge_Dups去冗余|Purge_Dups Deduplication: 启用|Enabled")
             self.logger.info(f"  去冗余线程数|Deduplication Threads: {self.config.purge_dups_threads}")
             self.logger.info(f"  去冗余reads类型|Deduplication Reads Type: {self.config.purge_dups_read_type}")
+            hap_status = "启用|Enabled" if self.config.has_purge_haplotypes else "禁用|Disabled"
+            self.logger.info(f"  单倍型去冗余|Haplotype Purging: {hap_status}")
 
         self.logger.info(f"  工作目录|Work Directory: {self.config.work_dir}")
 
@@ -316,6 +375,8 @@ def main():
     # Purge_Dups去冗余参数|Purge_Dups deduplication parameters
     parser.add_argument('--no-purge-dups', action='store_true',
                        help='禁用Purge_Dups去冗余|Disable Purge_Dups deduplication (enabled by default)')
+    parser.add_argument('--no-purge-haplotypes', action='store_true',
+                       help='禁止单倍型(hap1..hapN)去冗余|Disable haplotype (hap1..hapN) purging (enabled by default)')
     parser.add_argument('--purge-dups-path', default='~/miniforge3/envs/purge_dups_v.1.2.6',
                        help='Purge_Dups软件路径|Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6)')
     parser.add_argument('--purge-dups-threads', type=int, default=None,
@@ -338,6 +399,11 @@ def main():
     # 默认启用去冗余，使用--no-purge-dups可禁用|Purge_dups enabled by default, use --no-purge-dups to disable
     purge_dups_value = not args.no_purge_dups
 
+    # 确定单倍型去冗余参数值|Determine haplotype purging parameter value
+    # 默认对单倍型也去冗余，使用--no-purge-haplotypes可禁用
+    # |Haplotype purging enabled by default, use --no-purge-haplotypes to disable
+    purge_haplotypes_value = not args.no_purge_haplotypes
+
     # 创建组装器并运行|Create assembler and run
     assembler = GenomeAssembler(
         hifi_data=args.hifi,
@@ -356,6 +422,7 @@ def main():
         high_cov=args.high_cov,
         medium_cov_min=args.medium_cov_min,
         enable_purge_dups=purge_dups_value,
+        purge_haplotypes=purge_haplotypes_value,
         purge_dups_path=args.purge_dups_path,
         purge_dups_threads=args.purge_dups_threads,
         purge_dups_read_type=args.purge_dups_read_type

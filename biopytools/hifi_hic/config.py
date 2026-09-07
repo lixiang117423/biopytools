@@ -44,6 +44,7 @@ class AssemblyConfig:
 
     # Purge_Dups去冗余参数|Purge_Dups deduplication parameters
     enable_purge_dups: bool = True  # 是否启用去冗余（默认启用）|Whether to enable deduplication (enabled by default)
+    purge_haplotypes: bool = True  # 是否对单倍型hap1..hapN也去冗余（默认启用）|Also purge hap1..hapN (enabled by default)
     purge_dups_path: str = '~/miniforge3/envs/purge_dups_v.1.2.6'  # Purge_Dups软件路径(目录)|Purge_Dups software path (directory)
     purge_dups_threads: int = None  # 去冗余线程数（默认使用assembly的threads）|Deduplication threads (default: use assembly threads)
     purge_dups_read_type: str = 'hifi'  # 去冗余reads类型|Deduplication reads type
@@ -98,6 +99,8 @@ class AssemblyConfig:
 
         # 检查是否启用Purge_Dups|Check if Purge_Dups is enabled
         self.has_purge_dups = self.enable_purge_dups
+        # 单倍型去冗余依赖去冗余总开关|Haplotype purging depends on the master purge switch
+        self.has_purge_haplotypes = self.has_purge_dups and self.purge_haplotypes
         if self.purge_dups_threads is None:
             self.purge_dups_threads = self.threads  # 默认使用assembly的线程数|Use assembly threads by default
 
@@ -173,13 +176,13 @@ class AssemblyConfig:
         """
         import subprocess
         info = {
-            'pipeline': {'name': 'biopytools hifi_hic', 'version': '1.0.1'},
+            'pipeline': {'name': 'biopytools hifi_hic', 'version': '1.1.0'},
             'tools': {},
             'parameters': {
                 'prefix': self.prefix, 'threads': self.threads,
                 'genome_size': self.genome_size if self.genome_size else 'auto', 'n_hap': self.n_hap,
                 'has_hic': self.has_hic, 'has_ngs': self.has_ngs,
-                'has_purge_dups': self.has_purge_dups,
+                'has_purge_dups': self.has_purge_dups, 'purge_haplotypes': self.purge_haplotypes,
             }
         }
         tools_to_check = {
@@ -300,13 +303,32 @@ class AssemblyConfig:
                 'purge_dups_seqs': False,  # 序列提取完成|Sequence extraction completed
             })
 
-            # 检查Purge_Dups输出文件|Check Purge_Dups output files
-            from pathlib import Path
-            purge_output = Path(self.purge_dups_dir)
+            # purge_dups模块实际输出在seqs/,文件名带输入stem|Module writes seqs/ with input stem
+            # |purge_dups output lives in seqs/, filenames carry input stem
+            purge_root = Path(self.purge_dups_dir)
+            seqs_dir = purge_root / "seqs"
 
-            # 检查最终输出文件|Check final output files
-            purged_fa = purge_output / "sequences" / f"{self.prefix}_purged.purge.fa"
-            if purged_fa.exists() and purged_fa.stat().st_size > 0:
+            def _purged_exists(path: Path) -> bool:
+                return path.exists() and path.stat().st_size > 0
+
+            # primary去冗余输出:NGS时用polished命名,否则primary命名|Primary purge output name
+            primary_names = [f"{self.prefix}_primary_purged.purged.fa"]
+            if self.has_ngs:
+                primary_names.insert(0, f"{self.prefix}_polished_purged.purged.fa")
+            primary_done = any(_purged_exists(seqs_dir / n) for n in primary_names)
+
+            # 单倍型去冗余输出在hap{i}/子目录|Hap outputs live in hap{i}/ subdirs
+            haps_done = True
+            if self.has_purge_haplotypes and self.n_hap >= 2:
+                for i in range(1, self.n_hap + 1):
+                    hap_fa = os.path.join(self.fasta_dir, f"{self.prefix}_hap{i}.fa")
+                    if os.path.exists(hap_fa) and os.path.getsize(hap_fa) > 0:
+                        hap_purged = purge_root / f"hap{i}" / "seqs" / \
+                            f"{self.prefix}_hap{i}_purged.purged.fa"
+                        if not _purged_exists(hap_purged):
+                            haps_done = False
+
+            if primary_done and haps_done:
                 steps['purge_dups_seqs'] = True
                 steps['purge_dups_coverage'] = True
                 steps['purge_dups_cutoffs'] = True

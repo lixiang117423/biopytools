@@ -87,6 +87,10 @@ def _lazy_import_assembler_main():
               is_flag=True,
               default=False,
               help='禁用Purge_Dups去冗余|Disable Purge_Dups deduplication (enabled by default)')
+@click.option('--no-purge-haplotypes',
+              is_flag=True,
+              default=False,
+              help='禁止单倍型(hap1..hapN)去冗余|Disable haplotype (hap1..hapN) purging (enabled by default)')
 @click.option('--purge-dups-path',
               default='~/miniforge3/envs/purge_dups_v.1.2.6',
               type=str,
@@ -107,7 +111,7 @@ def _lazy_import_assembler_main():
               help='禁用断点续传（强制重新运行所有步骤）|Disable resume mode (force rerun all steps)')
 def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
              n_hap, purge_level, hom_cov, output, ngs, ngs_pattern, high_cov, medium_cov_min,
-             no_purge_dups, purge_dups_path, purge_dups_threads, purge_dups_read_type,
+             no_purge_dups, no_purge_haplotypes, purge_dups_path, purge_dups_threads, purge_dups_read_type,
              no_resume):
     """
     HiFi基因组组装流程|HiFi Genome Assembly Pipeline
@@ -172,6 +176,9 @@ def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
     # Purge_Dups去冗余参数|Purge_Dups deduplication parameters
     if no_purge_dups:
         args.append('--no-purge-dups')
+
+    if no_purge_haplotypes:
+        args.append('--no-purge-haplotypes')
 
     if purge_dups_path != '~/miniforge3/envs/purge_dups_v.1.2.6':
         args.extend(['--purge-dups-path', purge_dups_path])
