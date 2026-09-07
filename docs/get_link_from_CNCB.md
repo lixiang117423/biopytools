@@ -16,7 +16,7 @@
 biopytools get-link-from-CNCB -i projects.txt
 ```
 
-最小输入：一个两列 Tab 分隔的文本文件 projects.txt（第一列项目编号，第二列 Run ID）。输出默认写到与输入同目录的 <输入名>_links.txt 等文件。
+最小输入：一个两列的文本文件 projects.txt（第一列项目编号，第二列 Run ID），列间分隔符随意（Tab、逗号、分号、空格均可，程序自动识别）。输出默认写到与输入同目录的 <输入名>_links.txt 等文件。
 
 ## 零基础概念速览 | Concepts in plain words
 
@@ -31,18 +31,20 @@ biopytools get-link-from-CNCB -i projects.txt
 
 ## 输入 | Input
 
-一个 UTF-8 编码的文本文件，两列用 Tab 分隔（制表符，不是空格），每行一个「项目编号 + Run ID」组合：
+一个 UTF-8 编码的文本文件，每行一个「项目编号 + Run ID」组合。两列之间的分隔符程序会自动识别，Tab、逗号、分号、空格任意一种或混用都行（Excel 直接另存为 CSV 也能读）：
 
 ```text
 # 注释行以 # 开头，会被跳过
 CRA010060	CRR123456
-PRJCA001234	CRR234567
-PRJNA1014406	SRR28526560
+PRJCA001234,CRR234567
+PRJNA1014406 SRR28526560
 ```
 
 格式要点：
 
-- 第一列是项目编号，第二列是 Run ID，必须严格两列 Tab 分隔，否则该行报错
+- 第一列是项目编号，第二列是 Run ID；分隔符自动识别（Tab / 逗号 / 分号 / 空格及其混排），不用提前转换文件
+- 超过两列的行取前两列、其余忽略（会提示 WARNING）；只有一列的行跳过并提示
+- 表头行（如 Excel 导出的 `ProjectID,RunID`）会被自动跳过，不会误当数据
 - 允许空行和 # 开头的注释行
 - 同一个项目下的 Run ID 可以写多行，程序会自动分组、去重、排序
 - CRR（GSA 原生）的 Run ID，项目列建议直接填它的 CRA 编号（如 CRA010060）可直达；填 PRJCA 等 BioProject 编号时程序会通过 NGDC 搜索页反查，但依赖网络可达

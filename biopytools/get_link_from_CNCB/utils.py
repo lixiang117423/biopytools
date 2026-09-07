@@ -2,14 +2,19 @@
 CNCB链接提取器工具函数模块|CNCB Link Extractor Utility Functions Module
 """
 
+import re
 import time
 import ftplib
 import logging
 import os
 import stat
-from collections import defaultdict
+from collections import Counter, defaultdict
 from typing import Dict, List, Tuple, Optional, Set
 from pathlib import Path
+
+# ID文件分隔符嗅探:Tab/分号/逗号/空白任意组合(Excel导出常见混排)
+# |Delimiter sniffing for ID files: tab/semicolon/comma/whitespace in any combination
+_FIELD_SEPARATOR_RE = re.compile(r'[\t;,]+|\s+')
 
 
 def get_requests():
@@ -104,9 +109,40 @@ class InputFileParser:
     """输入文件解析器|Input File Parser"""
 
     @staticmethod
+    def _split_fields(line: str) -> List[str]:
+        """
+        按Tab/分号/逗号/空白拆分字段并过滤空段|Split fields on tab/semicolon/comma/whitespace and drop empties
+
+        ID文件的分隔符来源不可控(手工整理/Excel导出/其他工具输出),
+        逐行自动嗅探而非要求固定分隔符;"A, B"这类混排拆出的空段直接丢弃
+        |ID files come from uncontrolled sources (hand-edited, Excel exports,
+        other tools), so delimiters are sniffed per line instead of fixed;
+        empty segments from mixes like "A, B" are dropped
+        """
+        return [p.strip() for p in _FIELD_SEPARATOR_RE.split(line) if p.strip()]
+
+    @staticmethod
+    def _looks_like_header(fields: List[str]) -> bool:
+        """
+        两列均为纯字母视为表头行|All-alphabetic first two columns mean a header row
+
+        真实accession(PRJNA/ERR/SRR/CRR等)必含数字,纯字母列只会出现在
+        "ProjectID,RunID"这类表头里
+        |Real accessions (PRJNA/ERR/SRR/CRR...) always contain digits;
+        all-alphabetic columns only appear in headers like "ProjectID,RunID"
+        """
+        return len(fields) >= 2 and not any(
+            any(c.isdigit() for c in f) for f in fields[:2]
+        )
+
+    @staticmethod
     def read_and_group_by_project(input_file: str, logger=None) -> Optional[Dict[str, List[str]]]:
         """
         读取输入文件并按项目分组|Read input file and group by project
+
+        每行两列:ProjectID与RunID,分隔符自动识别(Tab/分号/逗号/空格)
+        |Two columns per line: ProjectID and RunID, delimiter auto-detected
+        (tab/semicolon/comma/space)
 
         Args:
             input_file: 输入文件路径|Input file path
@@ -119,32 +155,42 @@ class InputFileParser:
         log = logger or logging.getLogger(__name__)
 
         projects = defaultdict(list)
+        delimiter_rows = Counter()
 
         try:
             with open(input_file, 'r', encoding='utf-8') as f:
-                line_count = 0
-
                 for line_num, line in enumerate(f, 1):
-                    line_count += 1
                     line = line.strip()
 
                     # 跳过空行和注释行
                     if not line or line.startswith('#'):
                         continue
 
-                    # 解析ProjectID和RunID
-                    parts = line.split('\t')
-                    if len(parts) == 2:
-                        project_id, run_id = parts
-                        project_id = project_id.strip()
-                        run_id = run_id.strip()
+                    # 记录本行用到的分隔符类别,供解析完成后汇报
+                    # |Track which delimiter classes this line used, reported after parsing
+                    if '\t' in line:
+                        delimiter_rows['tab'] += 1
+                    if ';' in line:
+                        delimiter_rows['semicolon'] += 1
+                    if ',' in line:
+                        delimiter_rows['comma'] += 1
+                    if re.search(r'\s', line):
+                        delimiter_rows['space'] += 1
 
-                        if project_id and run_id:
-                            projects[project_id].append(run_id)
-                        else:
-                                            log.warning(f"第{line_num}行|Line {line_num}: 项目ID或Run ID为空|Project ID or Run ID is empty -> '{line}'")
-                    else:
-                            log.warning(f"第{line_num}行|Line {line_num}: 格式不正确，应为两列Tab分隔|Incorrect format, should be two tab-separated columns -> '{line}'")
+                    fields = InputFileParser._split_fields(line)
+
+                    if InputFileParser._looks_like_header(fields):
+                        log.info(f"第{line_num}行检测到表头行,已跳过|Line {line_num} looks like a header row, skipped -> '{line}'")
+                        continue
+
+                    if len(fields) == 1:
+                        log.warning(f"第{line_num}行|Line {line_num}: 只有一个字段,应为ProjectID和RunID两列|Only one field, expected two columns (ProjectID and Run ID) -> '{line}'")
+                        continue
+
+                    if len(fields) > 2:
+                        log.warning(f"第{line_num}行|Line {line_num}: 超过两列,取前两列并忽略其余|More than two columns, keeping the first two and ignoring the rest -> '{line}'")
+
+                    projects[fields[0]].append(fields[1])
 
             # 对每个项目的Run ID去重并排序
             # 原实现先sort再set,set会破坏已排序的顺序
@@ -154,6 +200,9 @@ class InputFileParser:
 
             log.info(f"成功解析文件|Successfully parsed file: {input_file}")
             log.info(f"发现|Found {len(projects)} 个项目|projects，总计|total {sum(len(ids) for ids in projects.values())} 个Run IDs")
+            if delimiter_rows:
+                stats = ", ".join(f"{name}={count}" for name, count in sorted(delimiter_rows.items()))
+                log.info(f"检测到的分隔符(出现行数)|Detected delimiters (rows containing): {stats}")
 
             return projects
 
@@ -169,11 +218,11 @@ class InputFileParser:
         """
         验证输入文件格式|Validate input file format
 
-        Args:
-            input_file: 输入文件路径|Input file path
-
-        Returns:
-            (是否有效, 错误信息)|(is_valid, error_message)
+        校验口径与read_and_group_by_project一致:分隔符自动识别,
+        两列及以上即有效(超出两列解析时取前两列),表头行跳过不计数
+        |Same rules as read_and_group_by_project: delimiters are auto-detected,
+        two or more columns count as valid (extras are dropped at parse time),
+        header rows are skipped
         """
         if not os.path.exists(input_file):
             return False, f"文件不存在|File does not exist: {input_file}"
@@ -184,20 +233,22 @@ class InputFileParser:
         try:
             with open(input_file, 'r', encoding='utf-8') as f:
                 valid_lines = 0
-                total_lines = 0
 
                 for line_num, line in enumerate(f, 1):
-                    total_lines += 1
                     line = line.strip()
 
                     if not line or line.startswith('#'):
                         continue
 
-                    parts = line.split('\t')
-                    if len(parts) == 2 and parts[0].strip() and parts[1].strip():
+                    fields = InputFileParser._split_fields(line)
+
+                    if InputFileParser._looks_like_header(fields):
+                        continue
+
+                    if len(fields) >= 2:
                         valid_lines += 1
                     else:
-                        return False, f"第{line_num}行格式错误|Line {line_num} format error: '{line}'"
+                        return False, f"第{line_num}行格式错误,只解析出一个字段,应为ProjectID和RunID两列|Line {line_num} format error: only one field parsed, expected two columns (ProjectID and Run ID): '{line}'"
 
                 if valid_lines == 0:
                     return False, "文件中没有有效的数据行|No valid data lines found in file"

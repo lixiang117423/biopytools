@@ -15,7 +15,7 @@ GSA-native run IDs (CRR prefix) are resolved via the NGDC browse page / HTTPS
 Runs with no ENA links fall back to the NCBI SDL API to locate the real files.
 """
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 __author__ = "biopytools development team"
 
 from .main import CNCLinkExtractor
