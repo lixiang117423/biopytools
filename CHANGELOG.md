@@ -1,3 +1,18 @@
+## [1.72.0] - 2026-09-11
+
+### Added
+- `anno_curate`(模块 1.0.0): GSA 提交前注释校正新模块(GSAman GXF Fix/Quick Diagnosis/CDS Phase Corrector 三件套的独立 Python 重实现,规则对齐、未复制其源码)——单命令完成「11 步结构修复 + 质量诊断」:坐标颠倒交换/环状 Parent 解开/重复转录本 ID 硬失败(报全部明细)/gene·mRNA·exon·UTR 补建/重复子特征 ID 去重(.u\<N\>)/悬空 mRNA 隔离(`{sample}.fixed.dangling.gff3`)/CDS 相位校正(只信 CDS 长度重算;总长非3倍数只报不修,`_phase_corrected`/`_phase_problematic` 附加文件带全记录+父gene)/按层级规范排序;GFF3/GTF 自动识别(GTF transcript 行 `transcript_id`/`gene_id` 转 `ID`/`Parent`,子特征行 `transcript_id` 转 `Parent`,行尾无分号属性兼容),输出统一规范 GFF3;诊断五项:相位缺失错乱/CDS 过短过长/UTR 占比(基准×(1+relax))/CPC2 编码潜能(`-g`,annot 域,seqid 不一致逐条 WARNING 跳过、成功 0 条才降级)/外显子 RNA 零覆盖(`--rna-bam`,任一 BAM 有 reads 即算覆盖,NO RNA COVERAGE/ZERO-COV EXON 两级);两级断点续传(修复级=固定输出存在即跳过;诊断级=参数指纹,换阈值/--rna-bam 只补诊断)+`--force` 全重跑(顺带清理条件附加文件与旧诊断目录的陈旧副本);输出 by-step(`01_fixed/02_diagnosis/00_pipeline_info/99_logs`,中间产物 output_dir/tmp 于 finally 清理);纯标准库(除可选 CPC2/samtools);86 单测 + 4 计算节点 e2e(samtools bedcov 真跑+CPC2 真跑+GTF 场景);pyproject 新增 `[tool.pytest.ini_options]`(addopts `-m 'not e2e'` 登录节点默认跳过 e2e,显式 `-m e2e` 可覆盖);docs/anno_curate.md 全套用户文档
+
+## [1.71.3] - 2026-09-11
+
+### Fixed
+- `kmertools`(build): **修复异常样品名分支 FOF 相对路径基准错位**——点号等特殊字符样品名(如 `120.sorted.genome`)走改名拷贝分支后,FOF 内写 `cleaned_data/...`(基准是 output_path 即 kmerdb 目录),而正常样品分支基准是 cwd;kmtricks/GATB 按**子进程 cwd**解析 FOF 内路径(非 FOF 所在目录),标准 by-step 布局(`-o 02_kmerdb` 从项目根提交,cwd≠kmerdb 目录)下报 `GATB ERROR: Unable to open bank 'cleaned_data/...'` 建库失败。修复为与正常样品分支同基准(`relpath(cleaned_dir/..., cwd)`),双末端/单末端两处;保留相对路径设计不动(kmtricks 不支持中文路径,项目目录含中文时绝对路径不可用)。同批:清理副本已存在且同尺寸时跳过重拷(断点续传,重跑免重复拷贝改名副本);4 新单测(tests/test_kmertools/test_fof_path_base.py);toy e2e(点号样品名)全流程通过 kmtricks→aggregate→bgzip→RocksDB
+
+## [1.71.2] - 2026-09-10
+
+### Fixed
+- `smudgescope`/`genome_analysis`(run_fastk): **P0 修复 FastK `-t` 参数错位**——`-t` 本义是「k-mer 表计数下限」(只导出计数>=N 的 k-mer)而非线程,线程是 `-T`;旧版把 threads 同时传给两者,导致 ktab 只剩计数>=threads(如 88)的高覆盖 k-mer,杂合 k-mer(计数约为单倍体覆盖度一半)被整表滤掉,下游 smudgeplot 分箱全 0/只剩高拷贝信号,而作业照常成功、图照常生成,肉眼不可察。修复为固定 `-t4`(官方 smudgeplot README 同款用法,滤测序错误单例;hetmers 的 -L=int(kcov*0.5) 才是真正的覆盖度过滤,-t4<<L 无损)。已实证:三个独立样品 `.smu` 下限恒等于线程数 88 即中招铁证;补跑 -t 小值后 AB 主峰恢复;`.hist` 直方图不经过 `-t`(md5 对照实验证实),故 GenomeScope 的 kcov/基因组大小/杂合率不受影响,仅 Smudgeplot 倍性部分需删 `fastk/`+`03_smudgeplot/` 旧产物重跑(自查判据与重跑方法见 docs/smudgescope.md FAQ Q7)。`genome_analysis`(未注册 CLI 的遗留同源代码)一并修复;新增 tests/test_smudgescope/test_utils_fastk.py 3 个守卫测试防回归(含 threads=4 时 -t4 撞值的精确断言)
+
 ## [1.71.1] - 2026-09-07
 
 ### Changed
