@@ -162,16 +162,19 @@ class PipelineProcessor:
                     r2_src = sample['r2']
 
                     # 拷贝并重命名 R1 文件|Copy and rename R1 file
+                    # 同尺寸副本已存在则跳过(断点续传,避免重跑重复拷贝大文件)|Skip if same-size copy exists (resume)
                     r1_name_new = r1_src.name.replace(orig_name, sane_name)
                     r1_dst = cleaned_dir / r1_name_new
-                    shutil.copy2(r1_src, r1_dst)
-                    self.logger.debug(f"拷贝文件|Copying file: {r1_src} -> {r1_dst}")
+                    if not (r1_dst.exists() and r1_dst.stat().st_size == r1_src.stat().st_size):
+                        shutil.copy2(r1_src, r1_dst)
+                        self.logger.debug(f"拷贝文件|Copying file: {r1_src} -> {r1_dst}")
 
                     # 拷贝并重命名 R2 文件|Copy and rename R2 file
                     r2_name_new = r2_src.name.replace(orig_name, sane_name)
                     r2_dst = cleaned_dir / r2_name_new
-                    shutil.copy2(r2_src, r2_dst)
-                    self.logger.debug(f"拷贝文件|Copying file: {r2_src} -> {r2_dst}")
+                    if not (r2_dst.exists() and r2_dst.stat().st_size == r2_src.stat().st_size):
+                        shutil.copy2(r2_src, r2_dst)
+                        self.logger.debug(f"拷贝文件|Copying file: {r2_src} -> {r2_dst}")
 
                     # 记录映射信息|Record mapping info
                     r1_rel_orig = os.path.relpath(r1_src, fof_path.parent)
@@ -195,10 +198,12 @@ class PipelineProcessor:
                 for sample_name, r1_file, r2_path, sanitized_name in sample_info:
                     if self.has_invalid_chars(sample_name):
                         # 使用清理后的文件路径|Use cleaned file path
+                        # kmtricks按cwd解析FOF内路径(非FOF所在目录),须与正常样品分支同基准(相对cwd)
+                        # kmtricks resolves FOF paths against cwd (not FOF dir), same base as normal branch
                         r1_name_new = r1_file.name.replace(sample_name, sanitized_name)
                         r2_name_new = r2_path.name.replace(sample_name, sanitized_name)
-                        r1_rel = f"cleaned_data/{r1_name_new}"
-                        r2_rel = f"cleaned_data/{r2_name_new}"
+                        r1_rel = os.path.relpath(cleaned_dir / r1_name_new, os.getcwd())
+                        r2_rel = os.path.relpath(cleaned_dir / r2_name_new, os.getcwd())
                         f.write(f"{sanitized_name}: {r1_rel} ; {r2_rel}\n")
                     else:
                         # 使用相对路径（相对于当前工作目录）|Use relative path (relative to current working directory)
@@ -261,10 +266,12 @@ class PipelineProcessor:
                 file_src = sample['file']
 
                 # 拷贝并重命名文件|Copy and rename file
+                # 同尺寸副本已存在则跳过(断点续传)|Skip if same-size copy exists (resume)
                 file_name_new = file_src.name.replace(orig_name, sane_name)
                 file_dst = cleaned_dir / file_name_new
-                shutil.copy2(file_src, file_dst)
-                self.logger.debug(f"拷贝文件|Copying file: {file_src} -> {file_dst}")
+                if not (file_dst.exists() and file_dst.stat().st_size == file_src.stat().st_size):
+                    shutil.copy2(file_src, file_dst)
+                    self.logger.debug(f"拷贝文件|Copying file: {file_src} -> {file_dst}")
 
                 # 记录映射信息|Record mapping info
                 file_rel_orig = os.path.relpath(file_src, fof_path.parent)
@@ -285,8 +292,9 @@ class PipelineProcessor:
             for sample_name, fastq_file, sanitized_name in sample_info:
                 if self.has_invalid_chars(sample_name):
                     # 使用清理后的文件路径|Use cleaned file path
+                    # 同双末端:相对cwd,kmtricks按cwd解析FOF内路径|Same as paired-end: relative to cwd
                     file_name_new = fastq_file.name.replace(sample_name, sanitized_name)
-                    file_rel = f"cleaned_data/{file_name_new}"
+                    file_rel = os.path.relpath(cleaned_dir / file_name_new, os.getcwd())
                     f.write(f"{sanitized_name}: {file_rel}\n")
                 else:
                     # 使用相对路径（相对于当前工作目录）|Use relative path (relative to current working directory)
