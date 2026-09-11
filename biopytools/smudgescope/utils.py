@@ -542,11 +542,16 @@ class SmudgeplotRunner:
             fastq_files_to_use = decompressed_files if decompressed_files else fastq_files
 
             # 构建FastK命令
-            # FastK的参数格式：-t threads -k kmer_size -M memory -T threads
-            # 参数和值需要连在一起，如 -t12 -k21 -M16 -T12
+            # FastK参数语义(勿混淆,历史bug见CHANGELOG 1.71.2):
+            #   -t是k-mer表计数下限(只导出计数>=N的k-mer),官方smudgeplot README推荐固定值4滤测序错误单例;
+            #     曾误把threads传给-t,导致表只剩计数>=threads的高覆盖k-mer,下游smudgeplot分箱全0
+            #   -T才是线程数;且.smudgeplot hetmers的-t是线程,与FastK相反,勿相互照抄
+            # 参数和值需要连在一起，如 -t4 -k21 -M16 -T12
+            # FastK -t = table count cutoff (official smudgeplot README uses fixed 4); -T = threads.
+            # Values attach directly to flags, e.g. -t4 -k21 -M16 -T12
             cmd = build_conda_command(
                 'FastK',
-                ['-v', f'-t{threads}', f'-k{kmer_size}', f'-M{memory_int}', f'-T{threads}']
+                ['-v', '-t4', f'-k{kmer_size}', f'-M{memory_int}', f'-T{threads}']
                 + fastq_files_to_use + [f'-N{fastk_table}']
             )
 
