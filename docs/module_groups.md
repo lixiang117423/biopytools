@@ -68,10 +68,11 @@
 | telocomp | telocomp | TeloComp端粒鉴定工具|TeloComp telomere identification tool |
 | yahs | yahs | YaHS Hi-C scaffolding流程|YaHS Hi-C scaffolding pipeline |
 
-## 基因组注释|Annotation(30)|30 modules
+## 基因组注释|Annotation(31)|31 modules
 
 | 模块 | 命令 | 说明 |
 |------|------|------|
+| anno_curate | anno-curate | GSA提交前注释校正(修复+诊断)|Pre-GSA annotation curation (fix + diagnosis) |
 | annorefine | annorefine | BRAKER+查漏补漏端到端→整合GFF3(基因组+转录组+同源蛋白)|End-to-end: BRAKER + homology gap-filling → integrated GFF3 |
 | braker | braker | BRAKER3基因组注释工具|BRAKER3 genome annotation tool |
 | braker4phyto | braker4phyto | BRAKER3疫霉菌基因组注释(默认不屏蔽重复)|BRAKER3 Phytophthora annotation (no repeat masking by default) |
@@ -288,4 +289,4 @@
 | subseq | subseq | 序列子集提取工具|Sequence subset extraction tool |
 | wgsim | wgsim | Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation |
 
-总覆盖|Total: 219/219;缺失|Missing: 无;重复|Duplicated: 无
+总覆盖|Total: 220/220;缺失|Missing: 无;重复|Duplicated: 无

@@ -131,6 +131,7 @@ nav:
           - telocomp: telocomp.md
           - yahs: yahs.md
       - 基因组注释:
+          - anno-curate: anno_curate.md
           - annorefine: annorefine.md
           - braker: braker.md
           - braker4phyto: braker4phyto.md

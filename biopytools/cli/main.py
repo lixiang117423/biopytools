@@ -20,6 +20,7 @@ COMMAND_REGISTRY = [
     ('admixture', 'admixture', 'ADMIXTURE群体结构分析|ADMIXTURE Population Structure Analysis'),
     ('aliner', 'aliner', 'a-liner共线性可视化pipeline(FASTA→minimap2→图)|a-liner synteny pipeline (FASTA->minimap2->plot)'),
     ('agp2table', 'agp2table', 'AGP转表格工具|AGP to table converter'),
+    ('anno_curate', 'anno-curate', 'GSA提交前注释校正(修复+诊断)|Pre-GSA annotation curation (fix + diagnosis)'),
     ('annovar', 'annovar', 'ANNOVAR变异注释|ANNOVAR Variant Annotation'),
     ('allhic', 'allhic', '使用ALLHiC进行染色体挂载|Use ALLHiC for chromosome scaffolding'),
     ('jcvi', 'jcvi', 'JCVI共线性分析工具集|JCVI Synteny Analysis Toolkit'),
