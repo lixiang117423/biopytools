@@ -3,62 +3,19 @@ VCF过滤工具函数模块|VCF Filtering Utility Functions Module
 """
 
 import logging
-import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中,返回环境名称|Detect conda env of a command
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令来运行conda环境中的软件|Build conda run command for conda env software
-
-    Args:
-        command: 命令名称或完整路径(建议传完整路径以正确检测env)|Command name or full path (full path recommended)
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表(配合subprocess.run(shell=False))|Complete command list (use with subprocess.run(shell=False))
-
-    Note:
-        必须使用--no-capture-output避免conda缓冲输出导致大数据内存溢出
-        |Must use --no-capture-output to avoid conda buffering output causing OOM
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + 'run -p <环境绝对前缀>',
+# 严禁裸调 'conda'——作业环境PATH上的conda可能是另一套安装(只读系统anaconda),
+# 按环境名解析不到align环境, 依赖检查会误判"BCFtools不可用"
+# |Conda wrapping is delegated to the common layer, which invokes the
+# same-installation conda by absolute path with 'run -p'; never call bare
+# 'conda' (a job's PATH may carry a foreign conda that cannot resolve the
+# env by name, making the dependency check wrongly report bcftools missing)
+from ..common.conda_runner import build_conda_command
 
 
 class FilterLogger:
