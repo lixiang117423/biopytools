@@ -90,18 +90,19 @@ class FastpProcessor:
         for sample_name, _, _ in sample_pairs:
             self.logger.info(f"  - {sample_name}")
 
-        # 检测模拟数据|Detect simulated data
-        if self.sample_finder.detect_simulated_data(sample_pairs):
-            original_threshold = self.config.quality_threshold
-            self.config.quality_threshold = 0
+        # 逐样本检测模拟数据|Detect simulated samples (per sample, never batch-wide:
+        # 混批里只有部分材料是模拟的, 整批判定会污染真实样品参数)
+        simulated_samples = self.sample_finder.detect_simulated_samples(sample_pairs)
+        if simulated_samples:
             self.logger.warning("=" * 60)
             self.logger.warning(
-                "检测到模拟数据（质量值全为0），已自动将质量阈值设为0|"
-                "Simulated data detected (all quality scores are 0), quality threshold auto-set to 0"
+                f"检测到 {len(simulated_samples)} 个模拟数据样品(质量值近乎全同)，"
+                f"仅这些样品的质量阈值自动降为0|"
+                f"Simulated data detected for {len(simulated_samples)} sample(s); "
+                f"only their quality threshold is lowered to 0"
             )
-            self.logger.warning(
-                f"质量阈值|Quality threshold: {original_threshold} -> {self.config.quality_threshold}"
-            )
+            for name in simulated_samples:
+                self.logger.warning(f"  - 模拟样品|Simulated sample: {name}")
             self.logger.warning("=" * 60)
 
         # 处理所有样本|Process all samples
@@ -109,7 +110,9 @@ class FastpProcessor:
         failed_count = 0
 
         for sample_name, read1_file, read2_file in sample_pairs:
-            if self.fastp_core.process_sample(sample_name, read1_file, read2_file):
+            quality_override = 0 if sample_name in simulated_samples else None
+            if self.fastp_core.process_sample(sample_name, read1_file, read2_file,
+                                              quality_threshold=quality_override):
                 successful_count += 1
             else:
                 failed_count += 1
@@ -121,11 +124,26 @@ class FastpProcessor:
 
         # 输出最终统计|Output final statistics
         self.logger.info("=" * 60)
-        self.logger.info("FASTQ数据处理流程完成|FASTQ data processing pipeline completed!")
         self.logger.info(f"总样本数|Total samples: {len(sample_pairs)}")
         self.logger.info(f"成功处理|Successfully processed: {successful_count}")
         self.logger.info(f"失败样本|Failed samples: {failed_count}")
         self.logger.info(f"成功率|Success rate: {(successful_count/len(sample_pairs))*100:.1f}%")
+
+        # 失败必须以非零退出码向上传递: 退出码0会让上游流程(如fastq2vcf_gtx)
+        # 误判成功并写下检查点, 掩盖失败直到后续步骤才暴露|
+        # Failures must propagate via a non-zero exit code: exit 0 makes
+        # upstream pipelines mistake this run for success and write
+        # checkpoints, hiding the failure until a later step
+        if failed_count > 0:
+            self.logger.error("=" * 60)
+            self.logger.error(
+                f"{failed_count}/{len(sample_pairs)} 个样本处理失败，流程以失败结束(退出码1)|"
+                f"{failed_count}/{len(sample_pairs)} sample(s) failed; pipeline exits with code 1"
+            )
+            self.logger.error("=" * 60)
+            sys.exit(1)
+
+        self.logger.info("FASTQ数据处理流程完成|FASTQ data processing pipeline completed!")
 
         # 显示输出位置|Show output locations
         self.logger.info(f"质控后的清洁数据位于|Clean data location: {self.config.output_dir}")

@@ -78,7 +78,8 @@ class FastpCore:
         self.logger.info(f"Fastp可执行文件验证成功|Fastp executable validated: {self.config.fastp_path}")
         return True
 
-    def process_sample(self, sample_name: str, read1_file: Path, read2_file: Path = None) -> bool:
+    def process_sample(self, sample_name: str, read1_file: Path, read2_file: Path = None,
+                       quality_threshold: int = None) -> bool:
         """
         处理单个样本|Process single sample
 
@@ -90,20 +91,33 @@ class FastpCore:
             sample_name: 样本名称|Sample name
             read1_file: Read1文件路径|Read1 file path
             read2_file: Read2文件路径（单末端模式为None）|Read2 file path (None for single-end mode)
+            quality_threshold: 该样品的质量阈值覆盖（None用全局配置）|
+                               Per-sample quality threshold override (None = global config)
 
         Returns:
             处理是否成功|Whether processing succeeded
         """
+        # 模拟样品的质量阈值覆盖(如wgsim材料自动降为0)|Per-sample threshold
+        # override for simulated materials (e.g. wgsim auto-lowered to 0)
+        if quality_threshold is not None and quality_threshold != self.config.quality_threshold:
+            self.logger.warning(
+                f"样本 {sample_name} 判定为模拟数据, 质量阈值 "
+                f"{self.config.quality_threshold} -> {quality_threshold}|"
+                f"Sample {sample_name} looks simulated; quality threshold "
+                f"{self.config.quality_threshold} -> {quality_threshold}"
+            )
+
         # 单末端模式（显式指定或自动检测到无配对文件）|Single-end mode (explicit or auto-detected no paired file)
         if self.config.single_end or read2_file is None:
             if not self.config.single_end and read2_file is None:
                 self.logger.info(f"自动检测为单末端模式|Auto-detected single-end mode for: {sample_name}")
-            return self._process_single_end(sample_name, read1_file)
+            return self._process_single_end(sample_name, read1_file, quality_threshold)
 
         # 双末端模式|Paired-end mode
-        return self._process_paired_end(sample_name, read1_file, read2_file)
+        return self._process_paired_end(sample_name, read1_file, read2_file, quality_threshold)
 
-    def _process_single_end(self, sample_name: str, read1_file: Path) -> bool:
+    def _process_single_end(self, sample_name: str, read1_file: Path,
+                            quality_threshold: int = None) -> bool:
         """处理单末端样本|Process single-end sample"""
         # 构建输出文件路径|Construct output file paths
         final_read1 = self.config.output_path / f"{sample_name}_clean.fq.gz"
@@ -127,6 +141,7 @@ class FastpCore:
         self.logger.info("---")
 
         # 构建fastp命令（单末端）|Build fastp command (single-end)
+        effective_q = self.config.quality_threshold if quality_threshold is None else quality_threshold
         cmd = [
             self.config.fastp_path,
             "-i", str(read1_file),
@@ -134,7 +149,7 @@ class FastpCore:
             "-h", str(html_report),
             "-j", str(json_report),
             "-w", str(self.worker_threads),
-            "-q", str(self.config.quality_threshold),
+            "-q", str(effective_q),
             "-l", str(self.config.min_length),
             "-u", str(self.config.unqualified_percent),
             "-n", str(self.config.n_base_limit)
@@ -155,7 +170,8 @@ class FastpCore:
             self.logger.error(f"样本 {sample_name} FASTP处理失败|Sample {sample_name} FASTP processing failed")
             return False
 
-    def _process_paired_end(self, sample_name: str, read1_file: Path, read2_file: Path) -> bool:
+    def _process_paired_end(self, sample_name: str, read1_file: Path, read2_file: Path,
+                            quality_threshold: int = None) -> bool:
         """
         处理双末端样本|Process paired-end sample
 
@@ -178,13 +194,16 @@ class FastpCore:
 
         if self.config.enable_pair:
             # fastp -> seqkit pair -> 最终输出
-            return self._process_with_pair(sample_name, read1_file, read2_file, html_report, json_report)
+            return self._process_with_pair(sample_name, read1_file, read2_file,
+                                           html_report, json_report, quality_threshold)
         else:
             # 直接fastp|Direct fastp
-            return self._process_fastp_only(sample_name, read1_file, read2_file, final_read1, final_read2, html_report, json_report)
+            return self._process_fastp_only(sample_name, read1_file, read2_file, final_read1, final_read2,
+                                            html_report, json_report, quality_threshold)
 
     def _process_with_pair(self, sample_name: str, read1_file: Path, read2_file: Path,
-                           html_report: Path, json_report: Path) -> bool:
+                           html_report: Path, json_report: Path,
+                           quality_threshold: int = None) -> bool:
         """
         使用fastp + seqkit pair处理样本|Process sample with fastp + seqkit pair
 
@@ -201,7 +220,7 @@ class FastpCore:
         fastp_read2 = self.config.temp_fastp_path / f"{sample_name}_2_fastp.fq.gz"
 
         if not self._run_fastp(read1_file, read2_file, fastp_read1, fastp_read2,
-                              html_report, json_report, sample_name):
+                              html_report, json_report, sample_name, quality_threshold):
             return False
 
         # 步骤2: seqkit pair配对修复|Step 2: seqkit pair
@@ -225,17 +244,19 @@ class FastpCore:
 
     def _process_fastp_only(self, sample_name: str, read1_file: Path, read2_file: Path,
                            final_read1: Path, final_read2: Path,
-                           html_report: Path, json_report: Path) -> bool:
+                           html_report: Path, json_report: Path,
+                           quality_threshold: int = None) -> bool:
         """只使用fastp处理样本|Process sample with fastp only"""
         self.logger.info("=" * 60)
         self.logger.info(f"FASTP质控|FASTP Quality Control -> {sample_name}")
         self.logger.info("=" * 60)
 
         return self._run_fastp(read1_file, read2_file, final_read1, final_read2,
-                             html_report, json_report, sample_name)
+                             html_report, json_report, sample_name, quality_threshold)
 
     def _run_fastp(self, read1: Path, read2: Path, out1: Path, out2: Path,
-                  html_report: Path, json_report: Path, sample_name: str) -> bool:
+                  html_report: Path, json_report: Path, sample_name: str,
+                  quality_threshold: int = None) -> bool:
         """运行fastp命令|Run fastp command"""
         self.logger.info(f"  Read 1 (输入|input): {read1}")
         self.logger.info(f"  Read 2 (输入|input): {read2}")
@@ -244,6 +265,7 @@ class FastpCore:
         self.logger.info(f"  HTML report (报告|report): {html_report}")
         self.logger.info("---")
 
+        effective_q = self.config.quality_threshold if quality_threshold is None else quality_threshold
         cmd = [
             self.config.fastp_path,
             "-i", str(read1),
@@ -253,7 +275,7 @@ class FastpCore:
             "-h", str(html_report),
             "-j", str(json_report),
             "-w", str(self.worker_threads),
-            "-q", str(self.config.quality_threshold),
+            "-q", str(effective_q),
             "-l", str(self.config.min_length),
             "-u", str(self.config.unqualified_percent),
             "-n", str(self.config.n_base_limit)

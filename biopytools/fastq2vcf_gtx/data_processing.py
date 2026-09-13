@@ -44,13 +44,35 @@ class QualityController:
         self.logger = logger
         self.cmd_runner = cmd_runner
 
+    def _count_clean_files(self) -> int:
+        """统计清洁目录中的FASTQ文件数|Count FASTQ files in the clean directory"""
+        clean_count = FileManager.count_files(self.config.clean_fastq_dir, "*.fq.gz")
+        if clean_count == 0:
+            clean_count = FileManager.count_files(self.config.clean_fastq_dir, "*.fastq.gz")
+        return clean_count
+
     def run_quality_control(self) -> bool:
         """运行质量控制|Run quality control"""
         step_name = "quality_control"
+        checkpoint = _checkpoint_manager(self.config, self.logger)
 
-        if self.config.enable_checkpoint and _checkpoint_manager(self.config, self.logger).exists(step_name):
-            self.logger.info("检查点已存在，跳过质控|Checkpoint exists, skipping QC")
-            return True
+        if self.config.enable_checkpoint and checkpoint.exists(step_name):
+            # 检查点存在但清洁目录为空 → 陈旧检查点(旧版fastp全失败仍退出码0
+            # 时误写下的), 作废重跑, 不得让毒化检查点挡住质控|
+            # A checkpoint with an empty clean dir is stale (written by the
+            # old bug where fastp exited 0 despite total failure); invalidate
+            # and rerun instead of letting it skip QC
+            if (self.config.raw_fastq_dir is not None and not self.config.skip_qc
+                    and self._count_clean_files() == 0):
+                self.logger.warning(
+                    "检查点存在但清洁目录为空，判定为陈旧检查点，作废并重跑质控|"
+                    "Checkpoint exists but clean directory is empty; "
+                    "treating it as stale, invalidating and rerunning QC"
+                )
+                checkpoint.remove(step_name)
+            else:
+                self.logger.info("检查点已存在，跳过质控|Checkpoint exists, skipping QC")
+                return True
 
         if self.config.skip_qc:
             self.logger.info("用户指定跳过质控步骤|User specified to skip QC step")
@@ -89,12 +111,24 @@ class QualityController:
         success = self.cmd_runner.run(command, "质量控制|Quality Control")
 
         if success:
-            clean_count = FileManager.count_files(self.config.clean_fastq_dir, "*.fq.gz")
+            clean_count = self._count_clean_files()
+
+            # 命令退出码0但零产出(如conda环境解析失败被吞) → 判失败, 不写检查点|
+            # Exit code 0 but zero output (e.g. swallowed conda env resolution
+            # failure) → treat as failed, do not write the checkpoint
+            if clean_count == 0:
+                self.logger.error(
+                    "质控命令成功结束但清洁目录没有任何 FASTQ 文件，判定失败且不写检查点|"
+                    "QC command finished successfully but the clean directory has no FASTQ files; "
+                    "treating as failed without creating the checkpoint"
+                )
+                return False
+
             self.logger.info(f"质控完成: {clean_count} 个清洁文件|QC completed: {clean_count} clean files")
 
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
-                _checkpoint_manager(self.config, self.logger).create(step_name)
+                checkpoint.create(step_name)
         else:
             self.logger.error("质控处理失败|QC processing failed")
 

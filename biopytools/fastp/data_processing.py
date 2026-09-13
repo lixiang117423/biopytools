@@ -163,40 +163,57 @@ class SampleFinder:
 
         return sample_pairs
 
-    def detect_simulated_data(self, sample_pairs: List[Tuple[str, Path, Path]]) -> bool:
+    def detect_simulated_samples(self, sample_pairs: List[Tuple[str, Path, Path]]) -> List[str]:
         """
-        检测输入数据是否为模拟数据（如wgsim输出），通过检查质量行是否全为同一低质量字符
-        Detect if input data is simulated (e.g., wgsim output) by checking if quality lines
-        are all the same low-quality character
+        逐样本检测模拟数据（如wgsim输出），返回判定为模拟数据的样本名列表
+        Detect simulated samples (e.g., wgsim output) per sample; return their names
 
-        模拟工具输出的FASTQ质量行通常有两种特征：
+        模拟工具输出的FASTQ质量行字符近乎单一：
         1. wgsim默认输出质量字符全为'!'（ASCII 33, Phred 0）
         2. wgsim带-e参数输出质量字符全为同一字符（如'2', ASCII 50, Phred 18）
-        如果用默认质量阈值（30）过滤会导致所有reads被丢弃。
-        Simulated tools output FASTQ quality lines with uniform characters:
-        1. wgsim default: all '!' (Phred 0)
-        2. wgsim with -e: all same char like '2' (Phred 18)
-        Filtering with default quality threshold (30) would discard all reads.
+        若按默认质量阈值（30）过滤，该样品所有reads会被丢弃。
+
+        检测必须逐样品进行：混合批次里可能只有部分材料是模拟的，
+        按第一个样品整批判定会污染真实样品的质量参数
+        |Simulated tools output near-uniform FASTQ quality lines. Detection
+        MUST be per sample: in a mixed batch only some materials are
+        simulated, and a batch-wide verdict from the first sample pollutes
+        real samples' quality parameters
 
         Args:
             sample_pairs: 样本配对列表|List of sample pairs
 
         Returns:
-            True表示检测到模拟数据|True if simulated data detected
+            模拟样品名列表|List of detected simulated sample names
         """
-        if not sample_pairs:
-            return False
+        simulated = []
+        for sample_name, read1_file, _ in sample_pairs:
+            if read1_file is not None and self._is_simulated_fastq(read1_file):
+                simulated.append(sample_name)
+        return simulated
 
-        _, read1_file, _ = sample_pairs[0]
-        filepath = str(read1_file)
-        opener = gzip.open if filepath.endswith('.gz') else open
+    def _is_simulated_fastq(self, filepath: Path) -> bool:
+        """
+        检查单个FASTQ是否为模拟数据：前100条reads质量行字符种类<=3
+        Check if one FASTQ is simulated: <=3 distinct quality chars in first 100 reads
+
+        真实测序数据质量行包含多种不同字符|Real data has varied quality chars
+
+        Args:
+            filepath: FASTQ文件路径|FASTQ file path
+
+        Returns:
+            True表示模拟数据|True if simulated
+        """
+        path = str(filepath)
+        opener = gzip.open if path.endswith('.gz') else open
 
         try:
             n_checked = 0
             max_check = 100  # 检查前100条reads|Check first 100 reads
             quality_chars = set()
 
-            with opener(filepath, 'rt') as f:
+            with opener(path, 'rt') as f:
                 for i, line in enumerate(f):
                     # FASTQ质量行是第4行（索引3）|Quality line is line 4 (index 3)
                     if i % 4 == 3:
@@ -218,8 +235,8 @@ class SampleFinder:
 
         except Exception as e:
             self.logger.warning(
-                f"模拟数据检测失败，将使用原始参数|"
-                f"Simulated data detection failed, using original params: {e}"
+                f"模拟数据检测失败，该样品按真实数据处理|"
+                f"Simulated data detection failed, treating this file as real data: {filepath}: {e}"
             )
 
         return False

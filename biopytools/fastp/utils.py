@@ -2,46 +2,18 @@
 FASTP质控工具函数模块|FASTP Quality Control Utility Functions Module
 """
 
-import os
-import re
-import shutil
 import logging
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional, List
 
-
-def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
-    """检测命令所在的conda环境名称|Detect conda env name where the command resides"""
-    conda_exe = os.environ.get('CONDA_EXE')
-    envs_dir = None
-    if conda_exe:
-        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-
-    if preferred and envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', command)):
-        return preferred
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    if envs_dir and os.path.isdir(envs_dir):
-        for env_name in os.listdir(envs_dir):
-            if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str], preferred_env: Optional[str] = None) -> List[str]:
-    """构建conda run命令(单工具)|Build conda run command (single tool)"""
-    conda_env = get_conda_env(command, preferred=preferred_env)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
+# conda包装统一走公共层: 环境名解析后用与环境同源的绝对conda + 'run -p'调用,
+# 严禁裸调 'conda'(作业PATH上可能是系统anaconda, 解析不到miniforge3环境)
+# |Conda wrapping is delegated to the common layer, which invokes the
+# same-installation conda by absolute path with 'run -p'; never call bare
+# 'conda' (a job's PATH may carry the system anaconda that cannot resolve
+# miniforge3 envs)
+from ..common.conda_runner import build_conda_command
 
 
 class FastpLogger:
@@ -180,8 +152,11 @@ class CommandRunner:
             bool: 是否可用|Whether available
         """
         try:
+            # 可执行性检查也走conda包装, 与实际执行路径一致(裸调时作业环境
+            # PATH上未必有该工具)|Probe through the same conda wrapping as real
+            # execution (the tool may not be on the job's PATH unwrapped)
             result = subprocess.run(
-                [executable_path, "--version"],
+                build_conda_command(str(executable_path), ["--version"]),
                 capture_output=True,
                 text=True,
                 timeout=timeout
