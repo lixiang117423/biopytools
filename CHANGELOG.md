@@ -1,3 +1,13 @@
+## [1.72.1] - 2026-09-13
+
+### Fixed
+- `common/conda_runner`: conda 调用改为**同源绝对路径 + `run -p <环境绝对前缀>`**(解析不到前缀才回退 `-n`)——作业环境 PATH 上的 conda 可能是另一套安装(如只读的系统 anaconda),按环境名 `-n` 解析不到 miniforge3 环境报 `EnvironmentLocationNotFound`;新增 `_conda_installations()`(CONDA_EXE 优先,回退 `~/miniforge3`,按 envs 目录去重)与 `_resolve_env_prefix()`;`_extract_actual_command()` 兼容 `-p`/`-n` 两种形态
+- `fastp`: 模拟数据检测改为**逐样本**(原按第一个样品整批判定,混批中部分材料为模拟数据时会污染真实样品的质量阈值);有样本失败时以**退出码 1** 结束(原退出码 0 致上游流程误判成功并写下检查点);`fastp/utils.py` 删除模块内复制的 conda 实现,改用 `common/conda_runner`(§13)
+- `fastq2vcf_gtx`: 质控检查点防毒化——检查点存在但清洁目录为空时判定为陈旧检查点(旧版 fastp 全失败仍退出 0 时误写)作废重跑;命令成功但零产出(如 conda 环境解析失败被吞)判失败且不写检查点;清洁文件计数兼容 `*.fq.gz`/`*.fastq.gz`
+
+### Docs
+- 规范同步(CLAUDE.md/AGENTS.md → v2.24、docs/conda_env_software_map.md、docs/dev-standards/13_conda_invocation.md): conda 调用形态统一由 `build_conda_command()` 生成(同源 conda 绝对路径 + `run -p <环境前缀>`,回退 `-n`),**严禁裸调 `conda`**;补 `EnvironmentLocationNotFound` 故障排查项
+
 ## [1.72.0] - 2026-09-11
 
 ### Added
