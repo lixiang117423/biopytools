@@ -545,7 +545,9 @@ output/                          # ✅ 推荐:by-step
 ## 十三、Conda环境软件调用规范|Conda Environment Software Invocation
 
 ### 13.1 问题
-conda 环境中的软件（尤其 Python 包）直接调用会失败（依赖隔离、`which` 路径错乱），须用 `conda run -n <env>` 包装。
+conda 环境中的软件（尤其 Python 包）直接调用会失败（依赖隔离、`which` 路径错乱），须用 `conda run` 包装——统一经 `common/conda_runner.build_conda_command()` 生成，禁止模块内手写 conda 命令。
+
+> ⚠️ 作业环境 PATH 上的 `conda` 可能是**另一套安装**（如只读的系统 anaconda），按环境名 `-n <env>` 解析不到 miniforge3 的环境，报 `EnvironmentLocationNotFound`。因此 `build_conda_command()` 解析到环境时用**与环境目录同源的 conda 绝对路径 + `run -p <环境绝对前缀>`**，解析不到前缀才回退 `conda run -n <env>`；**严禁裸调 `conda`**。
 
 ### 13.2 核心铁律（必须遵守）
 
@@ -598,7 +600,7 @@ result = subprocess.run(cmd, shell=False, ...)
 2. 域环境没有的软件 → 查速查表第二部分的保留独立环境（legacy 强依赖）
 3. **禁止**使用 scripts/delete_list.txt 中 154 个待退役环境，新模块也不得依赖它们
 4. 新模块引入新软件 → 优先并入现有域环境（配方在 envs/*.yml），禁止新建环境
-5. 调用方式：`conda run -n <env> <tool> --no-capture-output`（§13.2.1）
+5. 调用方式：统一用 `build_conda_command()` 生成（同源 conda 绝对路径 + `run -p <环境前缀>`，回退 `-n`），必带 `--no-capture-output`（§13.2.1）；**严禁裸调 `conda`**
 
 ---
 
@@ -674,6 +676,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更<br>Major Changes |
 |---|---|---|
+| 2.24 | 2026-09-13 | §13.1 修订 conda 调用形态：`build_conda_command()` 解析到环境时改用**同源 conda 绝对路径 + `run -p <环境绝对前缀>`**（回退 `conda run -n <env>`）；严禁裸调 `conda`；§13.5 规则5 同步 |
 | 2.23 | 2026-08-18 | §10.1 新增 10.1.2「版本发布规范」：minor 版本必须打 tag + GitHub Release（release.yml 自动建 Release 后需用 CHANGELOG 段填充说明） |
 | 2.22 | 2026-08-18 | §13.5 新增规则0：AI 调软件的完整决策树指向 docs/dev-standards/14_tool_invocation_policy.md（从哪调/缺了装哪/何时新建环境）；公共层 common/conda_runner.py 落地 |
 | 2.21 | 2026-08-17 | 新增 §14「模块文档规范」：每模块必须配 `docs/<module>.md`（固定12节模板+通俗化写作要求+参数表自动生成禁止手写，审查不通过条款）；模板示例 docs/cim.md |

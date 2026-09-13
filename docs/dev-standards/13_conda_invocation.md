@@ -21,6 +21,7 @@ conda环境中的软件（特别是Python包）无法通过直接调用执行，
    $ conda run -n BUSCO_v.6.0.0 busco --version
    BUSCO 6.0.0
    ```
+4. **作业环境 conda 非同源|Foreign conda on PATH**: 作业环境 PATH 上的 `conda` 可能是**另一套安装**（如只读的系统 anaconda），按环境名 `-n <env>` 解析不到 miniforge3 的环境，报 `EnvironmentLocationNotFound`。因此公共层 `build_conda_command()` 解析到环境时改用**同源 conda 绝对路径 + `run -p <环境绝对前缀>`**（回退 `-n`）——详见 §3.2
 
 ---
 
@@ -144,6 +145,11 @@ def get_conda_env(command: str) -> Optional[str]:
 ```
 
 ### 3.2 命令构建函数|Command Building Function
+
+> ⚠️ **现行实现（公共层 `biopytools/common/conda_runner.py`，权威）**：模块**一律调用** `build_conda_command()`，禁止在模块内复制 conda 实现。
+> - 解析到环境时返回 `[<同源conda绝对路径>, 'run', '-p', <环境绝对前缀>, '--no-capture-output', command, ...]`——不用裸 `conda`，避免作业 PATH 上外来 conda 按 `-n` 解析失败（`EnvironmentLocationNotFound`）
+> - 前缀无法解析（非标准安装布局）才回退 `['conda', 'run', '-n', <env>, '--no-capture-output', command, ...]`
+> - `_extract_actual_command()` 同时兼容 `-p` 与 `-n` 两种形态（管道场景 §2 方案B）
 
 ```python
 from typing import List
@@ -365,6 +371,14 @@ def test_conda_detection():
 ---
 
 ## 6. 故障排查|Troubleshooting
+
+**症状 0|Symptom:** 作业里报 `EnvironmentLocationNotFound: Not a conda environment`
+
+**原因|Cause:** 裸调 `conda`（PATH 上可能是系统 anaconda 等另一套安装），按环境名找不到 miniforge3 的环境。
+
+**处理|Fix:** 确认调用的是公共层 `build_conda_command()`（会生成同源 conda 绝对路径 + `run -p <环境前缀>`）；模块内不得手写 conda 命令。
+
+---
 
 **症状|Symptom:** 生成的命令缺少 `-n <env_name>` 参数
 
