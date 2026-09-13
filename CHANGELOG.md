@@ -1,3 +1,8 @@
+## [1.72.3] - 2026-09-13
+
+### Changed
+- `filter_snp_indel`: 删除模块内复制的 `get_conda_env`/`build_conda_command` 实现,`utils.py` 改为从公共层 `common/conda_runner` 转发(§13 权威实现,调用方 API 不变)——该模块的 conda 调用随之获得 v1.72.1 的**同源 conda 绝对路径 + `run -p <环境绝对前缀>`** 修复,避免作业环境 PATH 上外来 conda 按 `-n` 解析不到 align 环境、导致依赖检查误判「BCFtools 不可用」(存量 85 个模块复制实现中的首个迁移)
+
 ## [1.72.2] - 2026-09-13
 
 ### Docs
