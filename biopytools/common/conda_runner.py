@@ -24,19 +24,60 @@ import subprocess
 from typing import List, Optional, Sequence, Tuple, Union
 
 
+def _conda_installations() -> List[Tuple[str, str]]:
+    """候选conda安装(环境目录, 同源conda可执行文件), 按优先级|
+    Candidate conda installations (envs_dir, same-installation conda exe), in priority order
+
+    CONDA_EXE 指向的安装优先, 其次回退 ~/miniforge3;
+    conda 可执行文件与环境目录必须同源——作业环境 PATH 上的 conda 可能是
+    另一套安装(如只读的系统 anaconda), 按环境名它解析不到 miniforge3 的环境
+    |CONDA_EXE's installation first, then ~/miniforge3. The conda exe and the
+    envs dir must come from the same installation: the conda on PATH in a
+    compute job may be a foreign one (e.g. the read-only system anaconda)
+    that cannot resolve miniforge3 envs by name
+    """
+    installs: List[Tuple[str, str]] = []
+    conda_exe = os.environ.get('CONDA_EXE')
+    if conda_exe:
+        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
+        if os.path.isdir(envs_dir):
+            installs.append((envs_dir, conda_exe))
+    fallback_base = os.path.expanduser('~/miniforge3')
+    fallback_envs = os.path.join(fallback_base, 'envs')
+    if os.path.isdir(fallback_envs):
+        installs.append((fallback_envs, os.path.join(fallback_base, 'bin', 'conda')))
+    # 同一环境目录只留一份(优先级最高的)|Deduplicate by envs dir (highest priority wins)
+    seen = set()
+    unique = []
+    for item in installs:
+        if item[0] not in seen:
+            seen.add(item[0])
+            unique.append(item)
+    return unique
+
+
 def _conda_envs_dir() -> Optional[str]:
-    """conda环境根目录|Conda envs root directory
+    """conda环境根目录(首个候选)|Conda envs root directory (first candidate)
 
     优先用 CONDA_EXE 定位, 回退 ~/miniforge3/envs
     |Locate via CONDA_EXE first, fall back to ~/miniforge3/envs
     """
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        return os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-    fallback = os.path.expanduser('~/miniforge3/envs')
-    if os.path.isdir(fallback):
-        return fallback
-    return None
+    installs = _conda_installations()
+    return installs[0][0] if installs else None
+
+
+def _resolve_env_prefix(conda_env: str) -> Tuple[Optional[str], Optional[str]]:
+    """环境名 → (同源conda可执行文件, 环境绝对前缀)|env name → (same-installation conda exe, absolute env prefix)
+
+    Returns:
+        (conda可执行文件绝对路径, 环境目录绝对路径); 解析不到返回 (None, None)
+        |(absolute conda exe path, absolute env dir); (None, None) if unresolvable
+    """
+    for envs_dir, conda_exe in _conda_installations():
+        env_prefix = os.path.join(envs_dir, conda_env)
+        if os.path.isdir(env_prefix) and os.access(conda_exe, os.X_OK):
+            return conda_exe, env_prefix
+    return None, None
 
 
 def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
@@ -59,12 +100,13 @@ def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str
         conda环境名称或None|conda env name or None
     """
     basename = os.path.basename(command)
-    envs_dir = _conda_envs_dir()
+    installs = _conda_installations()
 
-    # 1. preferred 环境优先|Preferred env first
+    # 1. preferred 环境优先(任一候选安装中存在即可)|Preferred env first (any installation)
     if preferred:
-        if envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', basename)):
-            return preferred
+        for envs_dir, _ in installs:
+            if os.path.exists(os.path.join(envs_dir, preferred, 'bin', basename)):
+                return preferred
         if os.path.isabs(command) and f'/envs/{preferred}/' in command:
             return preferred
 
@@ -84,8 +126,8 @@ def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str
         if match:
             return match.group(1)
 
-    # 4. 功能域映射表|Domain env from env_map
-    if envs_dir:
+    # 4. 功能域映射表(逐候选安装)|Domain env from env_map (per installation)
+    for envs_dir, _ in installs:
         try:
             from .env_map import TOOL_DOMAIN_MAP
             domain = TOOL_DOMAIN_MAP.get(basename)
@@ -94,7 +136,8 @@ def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str
         except Exception:
             pass
 
-        # 5. 全量扫描|Scan all envs
+    # 5. 全量扫描(逐候选安装)|Scan all envs (per installation, priority order)
+    for envs_dir, _ in installs:
         try:
             for env_name in sorted(os.listdir(envs_dir)):
                 if os.path.exists(os.path.join(envs_dir, env_name, 'bin', basename)):
@@ -116,6 +159,16 @@ def build_conda_command(
     非conda软件直接调用, 向后兼容|Auto-detect conda env and wrap with
     --no-capture-output; non-conda tools are called directly (backward compatible)
 
+    环境解析成功时用与环境目录同源的绝对conda可执行文件 + 'run -p <环境绝对前缀>'
+    调用: 严禁裸调 'conda'——作业环境 PATH 上的 conda 可能是另一套安装(如只读的
+    系统anaconda), 按环境名(-n)它解析不到 miniforge3 的环境, 报
+    EnvironmentLocationNotFound
+    |When an env is resolved, invoke the same-installation conda by absolute
+    path with 'run -p <absolute env prefix>'. Never call bare 'conda': in a
+    compute job the conda on PATH may be a foreign installation (e.g. the
+    read-only system anaconda) that cannot resolve miniforge3 envs by name
+    (-n) and fails with EnvironmentLocationNotFound
+
     Args:
         command: 命令名称或完整路径|Command name or full path
                  (必须传完整路径, 禁止 os.path.basename 提取命令名, §13.2.3)
@@ -128,13 +181,18 @@ def build_conda_command(
 
     Examples:
         >>> build_conda_command('~/miniforge3/envs/align/bin/samtools', ['--version'])
-        ['conda', 'run', '-n', 'align', '--no-capture-output',
-         '~/miniforge3/envs/align/bin/samtools', '--version']
+        ['<conda_base>/bin/conda', 'run', '-p', '<conda_base>/envs/align',
+         '--no-capture-output', '~/miniforge3/envs/align/bin/samtools', '--version']
     """
     conda_env = get_conda_env(command, preferred=preferred_env)
 
     if conda_env:
-        # conda环境软件用conda run包装|Wrap conda env tools with conda run
+        conda_exe, env_prefix = _resolve_env_prefix(conda_env)
+        if conda_exe and env_prefix:
+            return [conda_exe, 'run', '-p', env_prefix,
+                    '--no-capture-output', command] + list(args)
+        # 前缀解析不到(非本机标准安装布局), 回退环境名形式|Prefix unresolvable
+        # (non-standard layout), fall back to the env-name form
         return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + list(args)
 
     # 非conda环境, 直接调用|Non-conda environment, direct call
@@ -147,18 +205,29 @@ def _extract_actual_command(wrapped_cmd: List[str]) -> List[str]:
     方案B(§13.2.2): 管道中禁止 conda run, 提取实际命令后直接调用
     |Solution B: conda run is forbidden in pipelines; extract and call directly
 
+    兼容两种形态|Supports both forms:
+    - ['<conda_exe>', 'run', '-p', <prefix>, '--no-capture-output', command, ...]
+    - ['conda', 'run', '-n', <env>, '--no-capture-output', command, ...]
+
     Args:
         wrapped_cmd: build_conda_command 的返回值|Result of build_conda_command
 
     Returns:
         实际命令列表|Actual command list
     """
-    if wrapped_cmd and wrapped_cmd[0] == 'conda':
-        # ['conda', 'run', '-n', env, '--no-capture-output', command, ...]
-        idx = 4
-        if len(wrapped_cmd) > idx and wrapped_cmd[idx] == '--no-capture-output':
-            idx += 1
-        return wrapped_cmd[idx:]
+    if (wrapped_cmd and len(wrapped_cmd) > 2
+            and wrapped_cmd[1] == 'run'
+            and os.path.basename(str(wrapped_cmd[0])) == 'conda'):
+        i = 2
+        while i < len(wrapped_cmd):
+            token = wrapped_cmd[i]
+            if token in ('-n', '--name', '-p', '--prefix'):
+                i += 2  # 跳过flag及其取值|Skip the flag and its value
+            elif token.startswith('-'):
+                i += 1
+            else:
+                break
+        return list(wrapped_cmd[i:])
     return list(wrapped_cmd)
 
 
