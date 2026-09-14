@@ -12,6 +12,9 @@ import re
 from pathlib import Path
 from typing import List, Tuple, Optional
 
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
+
 
 class KmerToolsLogger:
     """K-mer工具日志管理器|K-mer Tools Logger Manager"""
@@ -599,83 +602,3 @@ def generate_software_versions_yml(output_base, pipeline_name: str,
         yaml.safe_dump(info, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
 
     return out_file
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, return environment name
-
-    策略|Strategy:
-    1. 首先尝试从which命令路径检测（优先级高）
-    2. 如果未找到，搜索所有conda环境（兜底方案）
-
-    Args:
-        command: 命令名称或路径|Command name or path (e.g., 'kmtricks' or '/path/to/kmtricks')
-
-    Returns:
-        conda环境名称或None|conda environment name or None (e.g., 'kmtricks_v.1.5.1' or None)
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs
-        # 例如: /miniforge3/envs/pan/bin/kmtricks
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        # CONDA_EXE通常是/path/to/miniforge3/bin/conda
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            # 搜索所有环境中的命令
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件
-    Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表 (适用于subprocess.run(shell=False))
-        Complete command list (for subprocess.run(shell=False))
-
-    Examples:
-        >>> build_conda_command('kmtricks', ['--version'])
-        ['conda', 'run', '-n', 'kmtricks_v.1.5.1', '--no-capture-output', 'kmtricks', '--version']
-
-        >>> # 绝对路径且不在conda envs目录下时，直接调用
-        >>> # Absolute path not under conda envs: called directly
-        >>> build_conda_command('/usr/bin/tool', ['--help'])
-        ['/usr/bin/tool', '--help']
-
-    注意|Note:
-        返回的列表应配合 subprocess.run(shell=False) 使用
-        The returned list must be used with subprocess.run(shell=False)
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # 使用conda run调用
-        # 如果command是命令名，conda run会自动找到环境中的版本
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        # 非conda环境，直接调用
-        full_cmd = [command] + args
-
-    return full_cmd

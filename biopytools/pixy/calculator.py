@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import time
 
+from ..common.conda_runner import conda_env_run_prefix
+
 
 class PixyCalculator:
     """Pixy计算器类|Pixy Calculator Class"""
@@ -34,8 +36,7 @@ class PixyCalculator:
         # 从conda环境路径提取环境名|Extract environment name from conda environment path
         env_name = Path(self.config.conda_env).name
 
-        cmd = [
-            "conda", "run", "-n", env_name, "--no-capture-output",
+        cmd = conda_env_run_prefix(env_name).split() + [
             "pixy",
             "--stats", stats,
             "--vcf", str(self.config.vcf_path),

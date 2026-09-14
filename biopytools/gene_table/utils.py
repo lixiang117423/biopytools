@@ -7,6 +7,7 @@ import re
 import shutil
 import sys
 from typing import Dict, List, Optional, Tuple
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 _COMPLEMENT = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G', 'N': 'N'}
 
@@ -47,41 +48,6 @@ class GeneTableLogger:
             file_h.setFormatter(fmt)
             logger.addHandler(file_h)
         return logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所属 conda 环境(从完整路径 /envs/<name>/ 提取)|Detect conda env from full path
-
-    策略:完整路径下只看 /envs/<name>/ 命中;只有裸命令名(无路径分隔符)才扫描所有环境兜底。
-    传完整路径但不在 /envs/ 下 → 返回 None(直接调用),避免把 ~/.local/bin 的独立二进制
-    误包进某个 conda 环境。|A full path not under /envs/ returns None (direct call), so a
-    standalone ~/.local/bin binary is never mis-wrapped into some conda env.
-    """
-    cmd_path = shutil.which(command) or command
-    match = re.search(r'/envs/([^/]+)/', cmd_path)
-    if match:
-        return match.group(1)
-    # 仅对裸命令名(无路径分隔符)扫描所有 conda 环境兜底|Scan envs only for bare command names
-    if os.sep not in command and '/' not in command:
-        conda_exe = os.environ.get('CONDA_EXE')
-        if conda_exe:
-            envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-            if os.path.isdir(envs_dir):
-                for env_name in os.listdir(envs_dir):
-                    if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                        return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """包装 conda 环境内命令;非 conda 则直接调用|Wrap conda-env command; direct call otherwise
-
-    必须传完整路径,禁止 basename|Must pass the full path, never the basename.
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
 
 
 def reverse_complement(seq: str) -> str:

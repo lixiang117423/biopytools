@@ -6,53 +6,14 @@ conda 包装 / 日志管理器 / 命令运行器
 
 import logging
 import os
-import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-
-# ============================================================
-# conda 环境检测与命令构建|Conda env detection & command building
-# ============================================================
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所属 conda 环境|Detect conda env of a command.
-
-    优先从命令完整路径的 /envs/<name> 段提取; 找不到则扫描所有 conda 环境。
-    |Extract from /envs/<name> in full path first; else scan all envs.
-    """
-    # 必须传完整路径(规范§13.6), 命令名无法可靠检测 env|Full path required (spec §13.6)
-    cmd_path = shutil.which(command) or command
-    if cmd_path:
-        match = re.search(r"/envs/([^/]+)", cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_exe = os.environ.get("CONDA_EXE")
-    if conda_exe:
-        base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(base_dir, "envs")
-        if os.path.isdir(envs_dir):
-            cmd_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, "bin", cmd_name)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建 conda run 命令(传完整路径)|Build conda run command (full path).
-
-    传完整路径(command)以正确检测 env; 必须含 --no-capture-output(规范§13.2.0)。
-    |Pass full path so env is detected; must include --no-capture-output.
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ["conda", "run", "-n", conda_env, "--no-capture-output", command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 def build_genemark_command(
@@ -62,13 +23,13 @@ def build_genemark_command(
 
     GeneMark 安装路径无 /envs/, get_conda_env 检测不到; 且其 .pl shebang 为
     #!/usr/bin/env perl, 必须跑在带 7 个 CPAN 模块的环境里(已验证 braker_v.3.0.8)。
-    所以显式用 conda run -n <perl_env> perl <gmes_petap_path> 调用。
+    所以显式用 conda run -p <perl_env前缀> perl <gmes_petap_path> 调用。
     |GeneMark lives outside /envs/ so env auto-detection fails; its shebang is
     env-perl, so it MUST run inside an env with the 7 CPAN modules (braker_v.3.0.8).
-    Hence explicit: conda run -n <perl_env> perl <gmes_petap_path>.
+    Hence explicit: conda run -p <perl_env prefix> perl <gmes_petap_path>.
     """
     return (
-        ["conda", "run", "-n", perl_env, "--no-capture-output", "perl", gmes_petap_path]
+        conda_env_run_prefix(perl_env).split() + ["perl", gmes_petap_path]
         + args
     )
 

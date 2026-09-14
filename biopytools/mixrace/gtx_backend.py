@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 from .pipeline import _done
-from .utils import get_conda_env
+from ..common.conda_runner import conda_run_prefix  # §13 同源conda绝对路径+run -p
 
 _EXCL = "0x904"          # unmapped+secondary+supplementary
 _EXCL_INCL_UNMAPPED = "0x900"
@@ -73,11 +73,12 @@ def extract_mapped_fastq(config, runner, ckpt, sample: str,
         return str(r1), str(r2)
     q = config.min_mapq
     qpart = f" -q {q}" if q > 0 else ""
-    env = get_conda_env(config.samtools_path)
+    prefix = conda_run_prefix(config.samtools_path)
     st_path = shlex.quote(config.samtools_path)
     runner.logger.info(f"开始步骤|Starting step: extract mapped reads {sample}")
+    wrap = f"{prefix} bash -c " if prefix else "bash -c "
     ok, _, _ = runner.run(
-        f"conda run -n {env} --no-capture-output bash -c "
+        wrap +
         f"'{st_path} view -b -@ {config.threads} -F {_EXCL}{qpart} {bam} - | "
         f"{st_path} fastq -@ {config.threads} -1 {r1} -2 {r2} -'",
         f"提取mapped reads|extract mapped reads {sample} (MAPQ>={q if q > 0 else 0})")

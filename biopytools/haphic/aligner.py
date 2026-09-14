@@ -11,6 +11,9 @@ import shutil
 import re
 from pathlib import Path
 from typing import List, Tuple, Optional
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_pipeline_command
 from .utils import build_conda_command
 from ..common.paths import resolve_legacy_path
 
@@ -31,27 +34,12 @@ class BWAAligner:
         """
         构建conda环境包装的管道命令|Build conda-wrapped pipeline command
 
-        Args:
-            commands: 命令列表的列表|List of command lists
-
-        Returns:
-            str: 管道命令字符串|Pipeline command string
+        委托公共层 build_pipeline_command(§13.2.2 方案B): 每段包装后提取实际命令,
+        严禁 conda run | conda run
+        |Delegates to the common build_pipeline_command (§13.2.2 solution B):
+        each segment is wrapped then unwrapped; never conda run | conda run
         """
-        wrapped_commands = []
-        for cmd in commands:
-            # 传递完整路径而不是只传递命令名，让 build_conda_command 能够正确检测conda环境
-            # Pass full path instead of just command name, so build_conda_command can detect conda env correctly
-            wrapped_cmd = build_conda_command(cmd[0], cmd[1:])
-            # 对于conda run命令，需要提取实际命令部分
-            if wrapped_cmd[0] == 'conda' and len(wrapped_cmd) > 4:
-                # conda run -n <env> --no-capture-output command args...
-                # 跳过 'conda', 'run', '-n', env_name, '--no-capture-output'
-                actual_cmd = ' '.join(wrapped_cmd[5:])
-                wrapped_commands.append(f"{actual_cmd}")
-            else:
-                wrapped_commands.append(' '.join(wrapped_cmd))
-
-        return ' | '.join(wrapped_commands)
+        return build_pipeline_command(commands)
 
     def _conda_lib_env(self, tool_paths: List[str]) -> dict:
         """

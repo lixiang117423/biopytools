@@ -5,6 +5,7 @@ import subprocess
 import logging
 from pathlib import Path
 from typing import Optional
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p
 import shutil
 
 from .utils import build_conda_command
@@ -463,7 +464,9 @@ class HiCProPipeline:
             else:
                 self.logger.info("直接运行HiCPro|Running HiC-Pro directly")
 
-                cmd = ['conda', 'run', '-n', 'HiC-Pro_v3.1.0', '--no-capture-output',
+                # 同源conda绝对路径 + -p(§13, 严禁裸调conda)|
+                # Same-installation conda + -p (§13; never bare 'conda')
+                cmd = conda_env_run_prefix('HiC-Pro_v3.1.0').split() + [
                        self.config.hicpro_path,
                        "-c", self.config.config_file,
                        "-i", str(temp_input_dir),

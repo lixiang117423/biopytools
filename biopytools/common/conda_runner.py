@@ -199,6 +199,49 @@ def build_conda_command(
     return [command] + list(args)
 
 
+def conda_run_prefix(command: str, preferred_env: Optional[str] = None) -> Optional[str]:
+    """命令的conda run前缀字符串(整条shell命令包装用)|conda run prefix string for wrapping whole shell commands
+
+    管道/整条shell命令无法用列表形式包装时, 用本函数取同源conda绝对路径前缀
+    (§13.2.2: 一条命令只在首个工具的环境下激活一次, 避免 conda run | conda run)
+    |When a piped/whole shell command cannot be wrapped as a list, get the
+    same-installation absolute conda prefix here (§13.2.2: activate once in
+    the first tool's env; never conda run | conda run)
+
+    Args:
+        command: 命令名或完整路径|Command name or full path
+        preferred_env: 优先环境名|Preferred env name (optional)
+
+    Returns:
+        '<conda绝对路径> run -p <环境绝对前缀> --no-capture-output';
+        非conda软件返回None(原样执行)|None for non-conda tools (run as-is)
+    """
+    conda_env = get_conda_env(command, preferred=preferred_env)
+    if not conda_env:
+        return None
+    conda_exe, env_prefix = _resolve_env_prefix(conda_env)
+    if conda_exe and env_prefix:
+        return f"{conda_exe} run -p {env_prefix} --no-capture-output"
+    # 前缀解析不到时回退环境名形式|Fall back to env-name form
+    return f"conda run -n {conda_env} --no-capture-output"
+
+
+def conda_env_run_prefix(env_name: str) -> str:
+    """显式环境名的conda run前缀(不校验命令)|conda run prefix for an explicit env name (no command check)
+
+    调用方已明确知道目标环境(如 rnaseq_val 的专用环境、CLI 包装器的 --env 参数),
+    无需按命令名探测; 返回同源conda绝对路径 + -p 前缀字符串, 供整条shell命令包装
+    |The caller already knows the target env (e.g. a dedicated env or a CLI
+    --env option), so no command-based detection; returns the
+    same-installation absolute conda prefix string for wrapping whole commands
+    """
+    conda_exe, env_prefix = _resolve_env_prefix(env_name)
+    if conda_exe and env_prefix:
+        return f"{conda_exe} run -p {env_prefix} --no-capture-output"
+    # 环境解析不到时回退环境名形式|Fall back to the env-name form
+    return f"conda run -n {env_name} --no-capture-output"
+
+
 def _extract_actual_command(wrapped_cmd: List[str]) -> List[str]:
     """从conda run包装命令中提取实际命令|Extract actual command from conda run wrapper
 
@@ -503,6 +546,8 @@ def check_tools(
 __all__ = [
     'get_conda_env',
     'build_conda_command',
+    'conda_run_prefix',
+    'conda_env_run_prefix',
     'build_pipeline_command',
     'run_pipeline',
     'CommandRunner',

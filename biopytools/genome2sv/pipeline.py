@@ -11,6 +11,7 @@ from .utils import (FaidxReader, ModuleLogger, build_conda_command,
                     format_sv_summary_tsv, get_conda_env, gt_present,
                     parse_info_str, parse_sample_fields, parse_svtype_stats,
                     stable_sv_id, write_flank_xlsx)
+from ..common.conda_runner import conda_run_prefix
 
 # 无参考坐标区间、不进侧翼输出的类型|types without a reference interval
 _FLANK_SKIP_TYPES = {"TRA", "BND"}
@@ -97,9 +98,12 @@ class Genome2SVPipeline:
                 f"minimap2({mm_env}) 与 samtools({sam_env}) 环境不一致,以 samtools 为准|"
                 f"env mismatch minimap2={mm_env} samtools={sam_env}; using samtools env")
         env = sam_env or mm_env
-        if env:
-            return ["conda", "run", "-n", env, "--no-capture-output",
-                    "bash", "-c", script]
+        # 同源conda绝对路径前缀(§13.2.2: 整条管道在首个工具的环境激活一次)|
+        # Same-installation absolute conda prefix (§13.2.2: activate once)
+        prefix = conda_run_prefix(self.config.samtools_path,
+                                  preferred_env=env)
+        if prefix:
+            return prefix.split() + ["bash", "-c", script]
         return ["bash", "-c", script]
 
     def align_sample(self, sample: str, query_fasta: str) -> bool:

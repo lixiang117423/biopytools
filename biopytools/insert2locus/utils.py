@@ -1,37 +1,13 @@
 """insert2locus工具函数|insert2locus utilities"""
 
 import logging
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """从完整路径提取conda环境名|Extract conda env name from full path
-
-    必须传完整路径(禁basename提取,会丢/envs/段)|
-    Always pass the full path (never basename, which loses the /envs/ segment)
-    """
-    match = re.search(r"/envs/([^/]+)/", command)
-    if match:
-        return match.group(1)
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r"/envs/([^/]+)/", cmd_path)
-        if match:
-            return match.group(1)
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """conda run包装(必须含--no-capture-output)|Wrap with conda run (must include --no-capture-output)"""
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ["conda", "run", "-n", conda_env, "--no-capture-output", command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 def format_number(num: int) -> str:

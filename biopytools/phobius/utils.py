@@ -4,61 +4,13 @@ Phobius工具函数模块|Phobius utility functions module
 
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令所在conda环境,返回环境名|Detect conda env for a command, return env name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名或None|conda env name or None
-    """
-    # 优先从完整路径检测|First detect from full path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r"/envs/([^/]+)", cmd_path)
-        if match:
-            return match.group(1)
-
-    # 兜底: 搜索所有conda环境|Fallback: search all conda envs
-    conda_base = os.environ.get("CONDA_EXE")
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, "envs")
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, "bin", os.path.basename(command))
-                if os.path.exists(env_bin):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令(列表形式)|Build conda run command (list form)
-
-    必须传完整路径(含/envs/), 不能用basename|Must pass full path (with /envs/), not basename
-
-    Args:
-        command: 命令完整路径|Full command path
-        args: 命令参数|Command arguments
-
-    Returns:
-        完整命令列表(配合subprocess.run(shell=False))|Full command list (for shell=False)
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ["conda", "run", "-n", conda_env, "--no-capture-output", command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class PhobiusLogger:

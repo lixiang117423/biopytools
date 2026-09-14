@@ -14,6 +14,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 # IUPAC互补碱基映射(DNA: A↔T, C↔G)|IUPAC complementary base mapping (DNA: A↔T, C↔G)
@@ -79,75 +80,6 @@ class Qiime2Logger:
     def get_logger(self):
         """获取日志器|Get logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中,返回环境名称|Detect conda environment name from command path
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    # 方法1: 从命令路径检测|Method 1: detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 命令本身是绝对路径时也检测|Also detect when command is an absolute path
-    if command.startswith('/'):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: search all conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            cmd_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', cmd_name)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来调用conda环境中的软件|Build conda run command
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表(配合subprocess.run(shell=False))|Complete command list (for shell=False)
-
-    Note:
-        必须传递完整路径(§13.6),否则无法提取环境名
-        |Must pass full path, otherwise env name cannot be extracted
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # --no-capture-output避免conda缓冲输出导致内存问题(§13.2.0)
-        # |--no-capture-output avoids conda buffering output causing memory issues
-        full_cmd = [
-            'conda', 'run', '-n', conda_env,
-            '--no-capture-output', command
-        ] + args
-    else:
-        # 非conda环境,直接调用|Non-conda environment, direct call
-        full_cmd = [command] + args
-
-    return full_cmd
 
 
 class CommandRunner:

@@ -11,46 +11,14 @@ import re
 import shutil
 import time
 from pathlib import Path
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda;
+# get_conda_env 一并转出(annorefine/utils.py 跨模块引用此名)
+# |Wrapping delegated to the common layer; get_conda_env re-exported because
+# annorefine/utils.py imports it from here
+from ..common.conda_runner import conda_run_prefix, get_conda_env
 from typing import List, Tuple, Optional
 
 
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 优先从传入的完整路径中检测|First check the passed path directly
-    if os.path.isabs(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    # 再尝试从which结果检测|Then try from which result
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            command_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command_name)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
 
 
 class BrakerLogger:
@@ -202,15 +170,14 @@ class CommandRunner:
         command_exe = match.group(1)
         rest_args = match.group(2)
 
-        # 检查是否在conda环境中|Check if in conda environment
-        conda_env = get_conda_env(command_exe)
+        # 同源conda绝对路径前缀(§13, 严禁裸调conda)|
+        # Same-installation absolute conda prefix (§13; never bare 'conda')
+        prefix = conda_run_prefix(command_exe)
 
-        if conda_env:
+        if prefix:
             # 提取纯命令名，conda run会自动在环境PATH中找到|Extract command name, conda run finds it in env PATH
             command_name = os.path.basename(command_exe)
-            # 使用--no-capture-output避免conda缓冲输出导致内存问题
-            # Use --no-capture-output to avoid conda buffering output causing memory issues
-            return f"conda run -n {conda_env} --no-capture-output {command_name}{rest_args}"
+            return f"{prefix} {command_name}{rest_args}"
         else:
             # 直接返回原命令|Return original command directly
             return cmd

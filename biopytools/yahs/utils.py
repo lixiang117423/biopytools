@@ -243,43 +243,6 @@ class CommandRunner:
             return False
 
 
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, return environment name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains envs
-        # 例如: /miniforge3/envs/busco/bin/busco
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        # CONDA_EXE通常是/path/to/miniforge3/bin/conda
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            # 搜索所有环境中的命令|Search command in all environments
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
 def build_conda_command(command: str, args: List[str]) -> List[str]:
     """
     构建conda run命令来运行conda环境中的软件

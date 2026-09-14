@@ -9,6 +9,7 @@ from pathlib import Path
 from .config import AlinerConfig
 from .utils import (AlinerLogger, build_conda_command, extract_fasta_lengths,
                     check_dependencies, get_tool_version, get_aliner_version, format_number)
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 class AlinerPipeline:
@@ -121,7 +122,7 @@ class AlinerPipeline:
         if self.config.extra_args:
             args.extend(shlex.split(self.config.extra_args))
         # a-liner固定conda环境，显式构造（不走自动检测）|a-liner fixed env, explicit
-        cmd = ['conda', 'run', '-n', self.config.aliner_env, '--no-capture-output', 'a-liner'] + args
+        cmd = conda_env_run_prefix(self.config.aliner_env).split() + ['a-liner'] + args
         # 必须记录完整命令到INFO级别（§2.2.1）|log full command at INFO
         self.logger.info(f"执行|Executing: a-liner 可视化|a-liner visualization")
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
@@ -145,7 +146,7 @@ class AlinerPipeline:
                 'samtools': {'version': get_tool_version(self.config.samtools_path),
                              'path': self.config.samtools_path},
                 'a-liner': {'version': get_aliner_version(self.config.aliner_env),
-                            'path': f"conda run -n {self.config.aliner_env}"},
+                            'path': conda_env_run_prefix(self.config.aliner_env)},
             },
             'parameters': {
                 'preset': self.config.preset,

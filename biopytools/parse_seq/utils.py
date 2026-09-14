@@ -5,11 +5,12 @@
 import logging
 import subprocess
 import sys
-import shutil
-import re
 import os
 from pathlib import Path
-from typing import List, Tuple, Optional
+from typing import List, Tuple
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 class ExtractorLogger:
     """序列提取日志管理器|Sequence Extraction Logger Manager"""
@@ -99,82 +100,6 @@ class CommandRunner:
             self.logger.error(f"错误信息|Error message: {e.stderr}")
             self.logger.error(f"标准输出|Stdout: {e.stdout}")
             return False
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    策略|Strategy:
-    1. 首先尝试从which命令路径检测（优先级高）|First try detecting from which command path (high priority)
-    2. 如果未找到，搜索所有conda环境（兜底方案）|If not found, search all conda environments (fallback)
-
-    Args:
-        command: 命令名称或路径|Command name or path (e.g., 'samtools' or '/path/to/samtools')
-
-    Returns:
-        conda环境名称或None|conda environment name or None (e.g., 'GATK_v.4.6.2.0' or None)
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains 'envs'
-        # 例如: /miniforge3/envs/align/bin/samtools
-        # e.g.: /miniforge3/envs/align/bin/samtools
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        # CONDA_EXE通常是/path/to/miniforge3/bin/conda|CONDA_EXE is usually /path/to/miniforge3/bin/conda
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            # 搜索所有环境中的命令|Search command in all environments
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表 (适用于subprocess.run(shell=False))|Complete command list (for subprocess.run(shell=False))
-
-    Examples:
-        >>> build_conda_command('samtools', ['view', 'file.bam'])
-        ['conda', 'run', '-n', 'env_name', '--no-capture-output', 'samtools', 'view', 'file.bam']
-
-    注意|Note:
-        返回的列表应配合 subprocess.run(shell=False) 使用|The returned list must be used with subprocess.run(shell=False)
-
-     重要|IMPORTANT:
-        必须使用--no-capture-output避免conda缓冲输出导致内存问题|Must use --no-capture-output to avoid conda buffering output causing memory issues
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # 使用conda run调用|Use conda run to invoke
-        # 如果command是命令名，conda run会自动找到环境中的版本|If command is a name, conda run will auto-find the version in the environment
-        # 添加--no-capture-output避免缓冲输出导致内存问题|Add --no-capture-output to avoid buffering output causing memory issues
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        # 非conda环境，直接调用|Non-conda environment, call directly
-        full_cmd = [command] + args
-
-    return full_cmd
 
 
 def check_dependencies(config, logger):

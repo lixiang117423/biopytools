@@ -11,62 +11,7 @@ import sys
 import time
 from pathlib import Path
 from typing import List, Optional, Tuple
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    if os.path.isabs(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            command_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command_name)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令|Build conda run command
-
-    Args:
-        command: 命令路径|Command path
-        args: 参数列表|Argument list
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        command_name = os.path.basename(command)
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
-    else:
-        return [command] + args
+from ..common.conda_runner import build_conda_command, conda_env_run_prefix  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class Picrust2Logger:
@@ -726,8 +671,7 @@ def generate_software_versions_yml(output_dir: str, config, start_time) -> str:
     picrust2_version = "unknown"
     try:
         result = subprocess.run(
-            ['conda', 'run', '-n', 'picrust_v.2.6.3', '--no-capture-output',
-             'picrust2_pipeline.py', '--version'],
+            conda_env_run_prefix('picrust_v.2.6.3').split() + ['picrust2_pipeline.py', '--version'],
             capture_output=True, text=True, timeout=30
         )
         if result.returncode == 0:

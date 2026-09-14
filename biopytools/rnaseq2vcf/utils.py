@@ -3,12 +3,14 @@
 import glob
 import logging
 import os
-import re
 import shutil
 import subprocess
 import sys
 import threading
 from typing import List, Optional, Tuple
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 LOG_FORMAT = '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s'
 LOG_DATEFMT = '%Y-%m-%d %H:%M:%S'
@@ -55,27 +57,6 @@ class Rnaseq2vcfLogger:
 
     def step(self, message: str):
         self._logger.info(f"==== {message} ====")
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所属 conda 环境|Detect conda env of a command (by path)"""
-    match = re.search(r'/envs/([^/]+)', command)
-    if match:
-        return match.group(1)
-    resolved = shutil.which(command)
-    if resolved:
-        m2 = re.search(r'/envs/([^/]+)', resolved)
-        if m2:
-            return m2.group(1)
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建 conda run 命令(带 --no-capture-output)|Build conda run cmd with --no-capture-output"""
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
 
 
 class CommandRunner:

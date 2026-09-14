@@ -5,48 +5,13 @@ conda 包装、日志管理器、命令运行器|conda wrapping, logger, runner
 
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令所属 conda 环境|Detect conda env of a command.
-
-    优先从命令完整路径的 /envs/<name> 段提取|Extract from /envs/<name> in full path first.
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r"/envs/([^/]+)", cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get("CONDA_EXE")
-    if conda_base:
-        base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(base_dir, "envs")
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, "bin", command)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建 conda run 命令|Build conda run command.
-
-    传完整路径(command 参数)以正确检测 env;必须含 --no-capture-output(规范§13.2.0)。
-    Pass full path so env is detected; must include --no-capture-output.
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ["conda", "run", "-n", conda_env, "--no-capture-output", command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class EggnogMapperLogger:

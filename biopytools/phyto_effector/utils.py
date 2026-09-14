@@ -9,6 +9,9 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterator, List, Optional, Set, Tuple
 
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
+
 
 class PhytoEffectorLogger:
     """Phytophthora效应子鉴定日志管理器|Phytophthora Effector Identification Logger Manager"""
@@ -57,34 +60,6 @@ class PhytoEffectorLogger:
     def get_logger(self):
         """获取日志记录器|Get logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中|Detect if command is in a conda environment"""
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令|Build conda run command"""
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
 
 
 def run_command(cmd: List[str], logger: logging.Logger, description: str = "",

@@ -13,29 +13,8 @@ import time
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
-    """检测命令所在的conda环境名称|Detect conda env name where the command resides"""
-    conda_exe = os.environ.get('CONDA_EXE')
-    envs_dir = None
-    if conda_exe:
-        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-
-    if preferred and envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', command)):
-        return preferred
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    if envs_dir and os.path.isdir(envs_dir):
-        for env_name in os.listdir(envs_dir):
-            if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                return env_name
-
-    return None
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import conda_run_prefix
 
 
 # dual_rnaseq 涉及的工具,用于在整条shell命令(含管道)中检测conda环境|
@@ -102,7 +81,7 @@ class CommandRunner:
 
     def _conda_wrap(self, cmd: str) -> str:
         """
-        把整条shell命令(含管道)包进 conda run -n ENV bash -c '...'|Wrap a whole shell
+        把整条shell命令(含管道)包进 conda run -p <环境前缀> bash -c '...'|Wrap a whole shell
         command (pipes allowed) in a single conda run activation.
 
         检测命令中的工具,取第一个能解析出 conda 环境的,整条命令(含 hisat2|samtools 管道)
@@ -112,10 +91,10 @@ class CommandRunner:
         """
         for tool in DUAL_RNASEQ_TOOLS:
             if re.search(rf'(^|[\s|;]){re.escape(tool)}\b', cmd):
-                env = get_conda_env(tool)
-                if env:
-                    self.logger.info(f"使用conda环境|Using conda env: {env} (for {tool})")
-                    return f"conda run -n {env} --no-capture-output bash -c {shlex.quote(cmd)}"
+                prefix = conda_run_prefix(tool)
+                if prefix:
+                    self.logger.info(f"使用conda环境|Using conda env for {tool}")
+                    return f"{prefix} bash -c {shlex.quote(cmd)}"
                 return cmd
         return cmd
 

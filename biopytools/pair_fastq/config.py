@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 from ..common.paths import expand_path
+from ..common.conda_runner import conda_env_run_prefix
 
 
 @dataclass
@@ -127,7 +128,7 @@ class FastqPairConfig:
         try:
             import subprocess
             result = subprocess.run(
-                ["conda", "run", "-n", self.repair_conda_env, "--no-capture-output", "which", self.repair_sh],
+                conda_env_run_prefix(self.repair_conda_env).split() + ["which", self.repair_sh],
                 capture_output=True,
                 text=True
             )

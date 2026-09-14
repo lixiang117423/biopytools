@@ -4,60 +4,14 @@ DeepTMHMM 1.0跨膜螺旋/信号肽预测工具函数模块|DeepTMHMM 1.0 Utilit
 
 import logging
 import os
-import re
 import shutil
 import subprocess
 import sys
 import tempfile
 from typing import Optional, List
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect conda env for a command, return env name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 1. 若command本身含/envs/<name>/,直接提取(最可靠,不依赖which/basename)
-    # |If command path itself contains /envs/<name>/, extract directly (most reliable)
-    match = re.search(r'/envs/([^/]+)', command)
-    if match:
-        return match.group(1)
-
-    # 2. which解析裸命令名|Resolve bare command name via which
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令|Build conda run command
-
-    必须传完整路径(含/envs/), 不能用basename, 否则无法识别环境|Must pass full path
-    (containing /envs/), never a basename, or env detection fails
-
-    Args:
-        command: 命令完整路径|Full command path
-        args: 命令参数|Command arguments
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        full_cmd = [command] + args
-    return full_cmd
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class DeeptmhmmLogger:

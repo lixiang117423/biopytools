@@ -14,6 +14,12 @@ import sys
 from pathlib import Path
 from typing import Optional, List
 
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import (
+    build_conda_command as _common_build_conda_command,
+    get_conda_env as _common_get_conda_env,
+)
+
 
 class JcviLogger:
     """JCVI日志管理器|JCVI Logger Manager"""
@@ -115,22 +121,16 @@ def _get_conda_env_python(conda_env: str) -> Optional[str]:
 
 
 def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所在conda环境|Detect conda environment for command"""
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-    return None
+    """检测命令所在conda环境(转发公共层)|Detect conda environment for command (delegates to common)"""
+    # 保留本模块兼容入口: __init__ 历史上导出过 get_conda_env/build_conda_command
+    # |Compatibility shims: __init__ historically exported these names
+    return _common_get_conda_env(command)
 
 
 def build_conda_command(command: str, args: List[str],
                         conda_env: Optional[str] = None) -> List[str]:
-    """构建conda run命令|Build conda run command"""
-    env_name = conda_env or get_conda_env(command)
-    if env_name:
-        return ['conda', 'run', '-n', env_name, '--no-capture-output', command] + args
-    return [command] + args
+    """构建conda run命令(转发公共层, §13)|Build conda run command (delegates to common)"""
+    return _common_build_conda_command(command, args, preferred_env=conda_env)
 
 
 def build_jcvi_command(module: str, args: List[str], conda_env: str) -> List[str]:
@@ -148,8 +148,10 @@ def build_jcvi_command(module: str, args: List[str], conda_env: str) -> List[str
         env_python_fallback = os.path.join(conda_base, 'envs', conda_env, 'bin', 'python')
         if os.path.isfile(env_python_fallback):
             return [env_python_fallback, '-m', module] + args
-    return ['conda', 'run', '-n', conda_env, '--no-capture-output',
-            'python', '-m', module] + args
+    # 兜底也走公共层(§13): 严禁裸调conda, 作业PATH上可能是外来conda
+    # |Fallback also goes through the common layer; never bare 'conda'
+    return _common_build_conda_command('python', ['-m', module] + args,
+                                       preferred_env=conda_env)
 
 
 def discover_samples(input_dir: str, gff_ext: str, fa_ext: str,

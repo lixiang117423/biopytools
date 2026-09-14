@@ -14,77 +14,11 @@ from pathlib import Path
 from typing import Tuple, Optional, List
 
 
-def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
-    """
-    检测命令所在的conda环境名称|Detect conda env name where the command resides
-
-    策略|Strategy:
-        0. 优先 preferred 环境(若该环境含此命令)|Prefer user-specified env if it has the command
-        1. 从 which 解析出的路径提取 /envs/<name>/|Extract /envs/<name>/ from which path
-        2. 搜索所有 conda 环境的 bin 目录|Search all conda envs' bin directories
-
-    Args:
-        command: 命令名或完整路径|Command name or full path
-        preferred: 优先环境名(若该环境含此命令则优先返回)，用于锁定特定版本|
-            Preferred env name (returned first if it has the command), to pin a specific version
-
-    Returns:
-        conda环境名或None|Conda env name or None
-
-    说明|Note:
-        preferred 用于超算等需锁定版本场景(如 genomescope2 锁定 2.0.1)；
-        方法2 兜底保证即使工具不在 PATH 中也能自动找到|Method 2 fallback finds
-        the tool even when it's not in PATH.
-    """
-    conda_exe = os.environ.get('CONDA_EXE')
-    envs_dir = None
-    if conda_exe:
-        # CONDA_EXE 形如 /.../miniforge3/bin/conda|CONDA_EXE looks like /.../miniforge3/bin/conda
-        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-
-    # 优先 preferred 环境(锁定版本)|Prefer user-specified env (pin version)
-    if preferred and envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', command)):
-        return preferred
-
-    # 方法1: 从命令路径检测|Method 1: detect from resolved command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有 conda 环境|Method 2: search all conda environments
-    if envs_dir and os.path.isdir(envs_dir):
-        for env_name in os.listdir(envs_dir):
-            if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str], preferred_env: Optional[str] = None) -> List[str]:
-    """
-    构建conda run命令调用conda环境中的软件|Build conda run command to invoke software in a conda env
-
-    Args:
-        command: 命令名或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-        preferred_env: 优先环境名(锁定特定版本，如 genomescope2 的 genomescope_v.2.0.1)|
-            Preferred env name (pin a specific version, e.g. genomescope_v.2.0.1 for genomescope2)
-
-    Returns:
-        完整命令列表(配合 subprocess.run(shell=False) 使用)|
-        Full command list (use with subprocess.run(shell=False))
-
-    注意|Note:
-        必须使用 --no-capture-output 避免 conda 缓冲输出导致内存问题(§13.2.0)|
-        Must use --no-capture-output to avoid conda buffering output (§13.2.0)
-    """
-    conda_env = get_conda_env(command, preferred=preferred_env)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    # 非conda环境，直接调用|Not in a conda env, call directly
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda;
+# preferred_env 锁定特定版本(如 genomescope_v.2.0.1)的语义公共层同样支持
+# |Conda wrapping is delegated to the common layer, which also supports the
+# preferred_env version-pinning semantics (e.g. genomescope_v.2.0.1)
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 
 class GenomeAnalysisLogger:

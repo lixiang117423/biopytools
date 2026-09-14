@@ -1,7 +1,6 @@
 """候选基因RNA-seq转录验证工具函数模块|Candidate Gene RNA-seq Validation Utility Functions Module"""
 
 import os
-import re
 import subprocess
 import sys
 import time
@@ -9,48 +8,8 @@ import logging
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
-
-# ============================================================
-# conda 环境检测与命令构建|Conda environment detection and command building
-# ============================================================
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所在conda环境|Detect conda environment for a command"""
-    import shutil
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        conda_base = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base, 'envs')
-        if os.path.isdir(envs_dir):
-            cmd_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', cmd_name)
-                if os.path.exists(env_bin):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令|Build conda run command
-
-    Args:
-        command: 命令完整路径|Full command path
-        args: 参数列表|Argument list
-
-    Returns:
-        命令列表（适用于 subprocess.run(shell=False)）|Command list for subprocess.run(shell=False)
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 # ============================================================

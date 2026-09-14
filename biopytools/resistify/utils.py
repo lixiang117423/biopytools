@@ -3,49 +3,13 @@ Resistify工具函数模块|Resistify Utility Functions Module
 """
 
 import logging
-import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name"""
-    if os.path.isabs(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment"""
-    conda_env = get_conda_env(command)
-    if conda_env:
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        full_cmd = [command] + args
-    return full_cmd
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class CommandRunner:

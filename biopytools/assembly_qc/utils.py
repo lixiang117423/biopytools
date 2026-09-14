@@ -13,6 +13,9 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List, Callable
 from functools import wraps
 
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command as _common_build_conda_command
+
 
 def get_conda_env_from_path(conda_env_path: str) -> str:
     """
@@ -33,7 +36,8 @@ def get_conda_env_from_path(conda_env_path: str) -> str:
 
 def build_conda_command(env_name: str, command: str, args: List[str]) -> List[str]:
     """
-    构建conda run命令来运行conda环境中的软件|Build conda run command to execute software in conda environment
+    构建conda run命令来运行conda环境中的软件(委托公共层, §13)|
+    Build conda run command to execute software in conda environment (delegates to common)
 
     Args:
         env_name: conda环境名称|conda environment name (e.g., BUSCO_v.6.0.0)
@@ -42,13 +46,10 @@ def build_conda_command(env_name: str, command: str, args: List[str]) -> List[st
 
     Returns:
         完整命令列表 (适用于subprocess.run(shell=False))|Complete command list (for subprocess.run(shell=False))
-
-    Examples:
-        >>> build_conda_command('BUSCO_v.6.0.0', 'busco', ['--version'])
-        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
     """
-    full_cmd = ['conda', 'run', '-n', env_name, '--no-capture-output', command] + args
-    return full_cmd
+    # 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda(§13)|
+    # Same-installation conda + 'run -p <env prefix>'; never bare 'conda'
+    return _common_build_conda_command(command, args, preferred_env=env_name)
 
 
 class AssemblyQCLogger:

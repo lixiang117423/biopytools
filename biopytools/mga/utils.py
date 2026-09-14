@@ -7,6 +7,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+from ..common.conda_runner import conda_env_run_prefix
+
 
 def build_mga_command(mga_path: str, conda_env: str, reads: str,
                       output_dir: str, threads: int) -> list:
@@ -17,7 +19,7 @@ def build_mga_command(mga_path: str, conda_env: str, reads: str,
     因此不能用build_conda_command(get_conda_env返回None),必须显式包装。
     """
     args = ["--reads", reads, "--output", output_dir, "--threads", str(threads)]
-    return ["conda", "run", "-n", conda_env, "--no-capture-output", mga_path] + args
+    return conda_env_run_prefix(conda_env).split() + [mga_path] + args
 
 
 class MGALogger:
@@ -74,7 +76,7 @@ def check_dependencies(config, logger) -> Optional[dict]:
 
     try:
         # 1. MGA --help(验证二进制可执行+env可激活)|MGA --help
-        r = _run(["conda", "run", "-n", env, "--no-capture-output", config.mga_path, "--help"])
+        r = _run(conda_env_run_prefix(env).split() + [config.mga_path, "--help"])
         if r.returncode != 0:
             logger.error(f"MGA --help失败(检查env/mga_path)|MGA --help failed: {(r.stderr or '').strip()}")
             return None
@@ -82,7 +84,7 @@ def check_dependencies(config, logger) -> Optional[dict]:
 
         # 2. env内工具|minimap2 / samtools in env
         for tool in ["minimap2", "samtools"]:
-            r = _run(["conda", "run", "-n", env, "--no-capture-output", tool, "--version"], timeout=60)
+            r = _run(conda_env_run_prefix(env).split() + [tool, "--version"], timeout=60)
             out = (r.stdout or r.stderr or "").strip()
             if r.returncode != 0 or not out:
                 logger.error(f"{tool}不可用(env={env})|{tool} not available: {out}")
@@ -90,7 +92,7 @@ def check_dependencies(config, logger) -> Optional[dict]:
             versions[tool] = {"version": out.split()[0]}
 
         # 3. python依赖|python deps (pysam/Bio/numpy)
-        r = _run(["conda", "run", "-n", env, "python", "-c",
+        r = _run(conda_env_run_prefix(env).split() + ["python", "-c",
                   "import pysam,Bio,numpy;print(pysam.__version__,Bio.__version__,numpy.__version__)"],
                  timeout=60)
         if r.returncode != 0:

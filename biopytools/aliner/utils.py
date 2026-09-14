@@ -3,53 +3,13 @@
 import os
 import re
 import sys
-import shutil
 import logging
 import subprocess
 from typing import List, Optional, Tuple, Dict
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令所在conda环境|Detect conda env of command
-
-    策略|strategy:
-        1. 从命令完整路径的 /envs/<name>/ 检测|from /envs/<name>/ in full path
-        2. 从 CONDA_EXE 搜索所有环境兜底|fallback: search all envs via CONDA_EXE
-    """
-    # 方法1: 完整路径直接正则|method 1: regex on full path
-    match = re.search(r'/envs/([^/]+)/bin/', command)
-    if match:
-        return match.group(1)
-    # 方法1b: which 解析命令名|resolve via which
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-    # 方法2: 搜索所有conda环境|method 2: search all envs
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令|Build conda run command
-
-    注意：command 必须是完整路径（含 /envs/<env>/bin/），禁止用 os.path.basename 提取命令名（§13.6）
-    Note: command must be a full path; never reduce via os.path.basename
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 def parse_seq_spec(spec: str) -> Tuple[str, Optional[int], Optional[int]]:
@@ -146,7 +106,7 @@ def get_tool_version(tool_path: str, args: Optional[List[str]] = None) -> str:
 def get_aliner_version(aliner_env: str) -> str:
     """获取a-liner版本（固定环境）|Get a-liner version (fixed env)"""
     try:
-        cmd = ['conda', 'run', '-n', aliner_env, '--no-capture-output', 'a-liner', '--version']
+        cmd = conda_env_run_prefix(aliner_env).split() + ['a-liner', '--version']
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         return (result.stdout.strip() or result.stderr.strip()) or 'unknown'
     except Exception:

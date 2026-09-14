@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Tuple, Optional, List
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class RMVPLogger:
@@ -162,9 +163,10 @@ def check_r_mvp(r_env_name_or_path: str, r_env_type: Optional[str] = None, logge
     try:
         # 测试rMVP是否可用|Test if rMVP is available
         if r_env_type == "conda":
-            # 使用conda run -n <env_name>|Use conda run -n <env_name>
+            # 同源conda绝对路径 + -p(§13, 严禁裸调conda)|
+            # Same-installation conda + -p (§13; never bare 'conda')
             # 注意：<env_name> 应该是环境名称（如 rMVP），而不是路径|Note: <env_name> should be env name (e.g., rMVP) not path
-            cmd = f"conda run -n {r_env_name_or_path} --no-capture-output R --slave -e \"suppressPackageStartupMessages(library(rMVP))\""
+            cmd = f"{conda_env_run_prefix(r_env_name_or_path)} R --slave -e \"suppressPackageStartupMessages(library(rMVP))\""
         else:
             # 直接调用R|Direct R call
             cmd = f'{r_env_name_or_path} R --slave -e "suppressPackageStartupMessages(library(rMVP))"'
@@ -409,74 +411,4 @@ class CommandRunner:
             self.logger.error(f"   命令执行异常|Command error: {description}")
             self.logger.error(f"   异常信息|Exception: {e}")
             return False
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    import shutil
-    import re
-
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-    # 命令本身是绝对路径时，直接从路径解析|If command is an absolute path, parse from it
-    if '/' in command:
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-
-    重要|IMPORTANT:
-        必须使用--no-capture-output避免conda缓冲输出导致内存问题
-        Must use --no-capture-output to avoid conda buffering output causing memory issues
-    """
-    # 从路径中提取命令名称|Extract command name from path
-    command_name = os.path.basename(command)
-
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # 使用conda run调用，只使用命令名称|Use conda run with command name only
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
-    else:
-        # 非conda环境，使用完整路径或命令名称|Non-conda environment, use full path or command name
-        full_cmd = [command] + args
-
-    return full_cmd
 

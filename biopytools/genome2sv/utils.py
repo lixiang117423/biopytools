@@ -6,12 +6,13 @@
 import glob
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional, Tuple
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 # SURVIVOR 统计的 SV 类型|SV types tracked for SURVIVOR stats
 _VALID_SVTYPES = {"INS", "DEL", "INV", "DUP", "BND"}
@@ -47,36 +48,6 @@ class ModuleLogger:
     def get_logger(self) -> logging.Logger:
         """返回 logger|Return logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所在 conda 环境|Detect conda env of a command.
-
-    先从 which 路径的 /envs/<name>/ 解析,否则搜索所有 conda 环境兜底。
-    |Parse /envs/<name>/ from which path, else search all envs.
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        m = re.search(r"/envs/([^/]+)/", cmd_path)
-        if m:
-            return m.group(1)
-    conda_exe = os.environ.get("CONDA_EXE")
-    if conda_exe:
-        base = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(base, "envs")
-        if os.path.isdir(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, "bin", command)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建 conda run 命令(必带 --no-capture-output)|Build conda run command."""
-    env = get_conda_env(command)
-    if env:
-        return ["conda", "run", "-n", env, "--no-capture-output", command] + args
-    return [command] + args
 
 
 def check_dependencies(config, logger: logging.Logger) -> bool:

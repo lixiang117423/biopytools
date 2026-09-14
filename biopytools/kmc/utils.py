@@ -8,46 +8,18 @@ import subprocess
 import sys
 import shutil
 import re
+import shlex
 from pathlib import Path
 from typing import List, Dict, Optional
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 首先尝试从命令路径检测|First try to detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains 'envs'
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
+from ..common.conda_runner import build_conda_command, conda_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 def build_conda_command_string(command: str, args: str) -> str:
     """
     构建conda run命令字符串（用于需要shell特性的命令）|Build conda run command string (for commands needing shell features)
+
+    委托公共层(§13)后拼接: 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+    |Delegates to the common layer (§13) then joins into a string
 
     Args:
         command: 命令名称|Command name
@@ -56,11 +28,7 @@ def build_conda_command_string(command: str, args: str) -> str:
     Returns:
         完整命令字符串|Complete command string
     """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return f"conda run -n {conda_env} --no-capture-output {command} {args}"
-    else:
-        return f"{command} {args}"
+    return ' '.join(build_conda_command(command, shlex.split(args) if args else []))
 
 
 class KMCLogger:
@@ -125,13 +93,13 @@ class CommandRunner:
         if cmd_parts:
             cmd_name = os.path.basename(cmd_parts[0])
 
-            # 自动检测conda环境|Auto-detect conda environment
-            conda_env = get_conda_env(cmd_name)
+            # 同源conda绝对路径前缀(§13, 严禁裸调conda)|Same-installation absolute conda prefix
+            prefix = conda_run_prefix(cmd_name)
 
-            if conda_env:
+            if prefix:
                 # 使用conda run包装命令|Use conda run to wrap command
-                full_cmd = f"conda run -n {conda_env} --no-capture-output {cmd}"
-                self.logger.debug(f"检测到conda环境|Detected conda environment: {conda_env}")
+                full_cmd = f"{prefix} {cmd}"
+                self.logger.debug(f"检测到conda环境|Conda env prefix applied for: {cmd_name}")
             else:
                 # 直接执行命令|Execute command directly
                 full_cmd = cmd

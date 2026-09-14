@@ -8,7 +8,7 @@ Responsible for building and executing CPhasing pipeline commands
 import os
 from typing import List
 from .config import CPhasingConfig
-from .utils import CPhasingLogger, CommandRunner, get_conda_env, get_cphasing_env
+from .utils import CPhasingLogger, CommandRunner
 
 
 class CPhasingPipeline:
@@ -114,16 +114,12 @@ class CPhasingPipeline:
 
         cmd = self.build_command()
 
-        # 获取conda环境名|Get conda environment name
-        conda_env = get_conda_env('cphasing')
-        if conda_env:
-            self.logger.info(f"检测到conda环境|Detected conda env: {conda_env}")
-            cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output'] + cmd
-        else:
-            self.logger.warning("未检测到cphasing conda环境|CPhasing conda env not detected")
-
-        # 获取CPhasing运行环境（含bin目录PATH）|Get CPhasing runtime env (with bin PATH)
-        extra_env = get_cphasing_env()
+        # CPhasing 为 pixi 安装, 不做 conda run 包装(104e122 设计: 用户先
+        # source activate_cphasing 激活, 子进程直接继承已激活环境)|
+        # CPhasing is pixi-installed; no conda run wrapping (as designed in
+        # 104e122: the user activates via activate_cphasing first and the
+        # subprocess simply inherits the activated environment)
+        extra_env = None
 
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
 

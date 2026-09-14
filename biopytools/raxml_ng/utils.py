@@ -3,69 +3,13 @@ RAxML-NG 分析工具函数模块|RAxML-NG Analysis Utility Functions Module
 """
 
 import logging
-import re
-import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中,返回环境名称|Detect if command is in a conda environment, return env name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    # 方法1: 从命令解析路径检测(绝对路径或 which 解析)|Method 1: detect from resolved path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 仅当 command 是裸命令名(不含路径分隔符)时,才搜索所有 conda 环境|
-    # Method 2: search all conda envs ONLY for bare command names (no path separator).
-    # 对绝对路径(如静态二进制 /share/.../raxml-ng)必须跳过,否则 os.path.join 会塌缩到
-    # 该绝对路径,误判为存在于某个 env 而返回错误的环境名。
-    # For absolute paths (e.g. static binary) MUST skip, else os.path.join collapses
-    # to that path and falsely matches the first env iterated.
-    if os.path.sep not in command:
-        conda_base = os.environ.get('CONDA_EXE')
-        if conda_base:
-            conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-            envs_dir = os.path.join(conda_base_dir, 'envs')
-            if os.path.exists(envs_dir):
-                for env_name in os.listdir(envs_dir):
-                    env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                    if os.path.exists(env_bin):
-                        return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令来运行conda环境中的软件|Build conda run command for conda env software
-
-    静态二进制(不在 /envs/)直接调用;conda 环境内软件用 conda run --no-capture-output 包装
-    Static binary (not under /envs/) called directly; conda env software wrapped with conda run --no-capture-output
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表(配合 subprocess.run(shell=False))|Complete command list (for subprocess.run(shell=False))
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class RaxmlNgLogger:

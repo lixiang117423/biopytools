@@ -10,6 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class Pi4GeneLogger:
@@ -56,54 +57,6 @@ class Pi4GeneLogger:
     def get_logger(self):
         """获取日志器|Get logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, return environment name
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    if os.path.exists(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件
-    Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        cmd_name = Path(command).name
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', cmd_name] + args
-    else:
-        full_cmd = [command] + args
-
-    return full_cmd
 
 
 class CommandRunner:

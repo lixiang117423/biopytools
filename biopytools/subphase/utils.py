@@ -2,8 +2,6 @@
 
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from collections import defaultdict
@@ -11,6 +9,12 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from .config import SUBGENOME_LABELS
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda;
+# 本模块历史签名是(环境名, 命令, 参数), 保留薄适配层不改动调用方
+# |Conda wrapping is delegated to the common layer; a thin adapter keeps the
+# historical (env_name, command, args) signature so callers stay untouched
+from ..common.conda_runner import build_conda_command as _common_build_conda_command
 
 
 class SubPhaserLogger:
@@ -57,29 +61,11 @@ class SubPhaserLogger:
         return self.logger
 
 
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所在conda环境|Detect conda environment from command path"""
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-    return None
-
-
+# conda包装统一走公共层(§13): 适配层定义见文件顶部 import 处说明|
+# Conda wrapping delegated to common layer; see the import note at file top
 def build_conda_command(conda_env: str, command: str, args: list) -> list:
-    """构建conda run命令|Build conda run command"""
-    return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+    """构建conda run命令(显式环境名, 委托公共层)|Build conda run command (explicit env, delegated)"""
+    return _common_build_conda_command(command, args, preferred_env=conda_env)
 
 
 # ===== 自动模式工具函数|Auto mode utility functions =====

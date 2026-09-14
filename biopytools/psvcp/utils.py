@@ -10,49 +10,13 @@ run via `conda run -n psvcp_v.1.0.1`.
 
 import logging
 import os
-import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-
-# --------------------------------------------------------------------------- #
-# conda 包装(§13)|conda wrapping
-# --------------------------------------------------------------------------- #
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令所属 conda 环境,返回环境名|Detect conda env of a command, return env name
-
-    传完整路径(禁止 basename,§13.6.1)。|Pass FULL path (never basename).
-    """
-    cmd_path = shutil.which(command) or command
-    match = re.search(r'/envs/([^/]+)/bin/', cmd_path) or re.search(r'/envs/([^/]+)', cmd_path)
-    if match:
-        return match.group(1)
-
-    # 兜底:搜索所有 conda 环境|fallback: search all conda envs
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-        base_name = os.path.basename(command)
-        if os.path.isdir(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', base_name)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args) -> List[str]:
-    """构建 conda run 命令列表(配合 subprocess.run(shell=False))|Build conda run command list
-
-    必须传完整路径;自动加 --no-capture-output(§13.2.0,避免大数据 OOM)。
-    |Must pass full path; auto-adds --no-capture-output (avoids OOM on large data).
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + list(args)
-    return [command] + list(args)
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 # --------------------------------------------------------------------------- #

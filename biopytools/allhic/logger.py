@@ -9,7 +9,7 @@ import re
 import time
 from pathlib import Path
 from datetime import datetime
-from .utils import get_conda_env
+from ..common.conda_runner import conda_run_prefix
 
 class PipelineLogger:
     """流水线日志管理器|Pipeline Logger Manager"""
@@ -159,12 +159,13 @@ class PipelineLogger:
         # 提取纯命令名（去掉路径）|Extract pure command name (remove path)
         command_name = os.path.basename(command_exe)
 
-        # 检查是否在conda环境中|Check if in conda environment
-        conda_env = get_conda_env(command_name)
+        # 同源conda绝对路径前缀(§13, 严禁裸调conda)|
+        # Same-installation absolute conda prefix (§13; never bare 'conda')
+        prefix = conda_run_prefix(command_name)
 
-        if conda_env:
+        if prefix:
             # 返回带conda run前缀的命令|Return command with conda run prefix
-            return f"conda run -n {conda_env} --no-capture-output {cmd}"
+            return f"{prefix} {cmd}"
         else:
             # 直接返回原命令|Return original command directly
             return cmd

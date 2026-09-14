@@ -11,6 +11,7 @@ import re
 import glob
 from pathlib import Path
 from typing import Dict, Any, Optional, List
+from ..common.conda_runner import conda_env_run_prefix
 from .utils import get_conda_env_from_path, build_conda_command
 
 
@@ -366,7 +367,7 @@ class LAIEvaluator:
         # -pa与EDTA --threads同理: 内存随并行度近线性增长, 用edta_threads(已封顶)而非lai_threads
         # -pa same as EDTA --threads: memory scales ~linearly with parallelism, use edta_threads (capped) not lai_threads
         cmd_str = (
-            f"conda run -n {self.edta_env_name} --no-capture-output "
+            f"{conda_env_run_prefix(self.edta_env_name)} "
             f"RepeatMasker -pa {self.config.edta_threads} -species {self.config.lai_repeatmasker_species} "
             f"-gff -dir {self.working_dir} {genome_mod}"
         )
@@ -506,7 +507,7 @@ class LAIEvaluator:
         # 注意：LAI工具位于EDTA环境，不在LTR_retriever环境中
         # Note: LAI tool is in EDTA environment, not in LTR_retriever environment
         cmd_str = (
-            f"conda run -n {self.edta_env_name} --no-capture-output "
+            f"{conda_env_run_prefix(self.edta_env_name)} "
             f"LAI -genome {genome_mod} -intact {passed_list} -all {out_file} "
             f"-t {self.config.lai_threads} {quick_mode_flag}"
         )

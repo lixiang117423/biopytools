@@ -10,66 +10,7 @@ import shutil
 import re
 from pathlib import Path
 from typing import List, Optional
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 首先检查传入的command是否本身就是完整路径
-    # First check if command itself is a full path
-    if os.path.isabs(command):
-        # 直接从完整路径中提取环境名|Extract env name directly from full path
-        # 例如: /miniforge3/envs/annot/bin/gt
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    # 如果不是完整路径，尝试用which查找|If not full path, try which
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains 'envs'
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称|Command name
-        args: 命令参数|Command arguments
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        return [command] + args
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class LAILogger:

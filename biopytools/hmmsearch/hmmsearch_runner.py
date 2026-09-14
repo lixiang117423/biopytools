@@ -8,36 +8,21 @@ import shlex
 import shutil
 import re
 from pathlib import Path
+import shlex
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p
 from typing import Optional, List
 
 
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name"""
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-    return None
 
 
 def build_conda_command_string(command: str, args: str) -> str:
-    """构建conda run命令字符串（用于需要shell特性的命令）|Build conda run command string (for commands needing shell features)"""
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return f"conda run -n {conda_env} --no-capture-output {command} {args}"
-    else:
-        return f"{command} {args}"
+    """
+    构建conda run命令字符串|Build conda run command string
+
+    委托公共层(§13)后拼接: 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+    |Delegates to the common layer (§13) then joins into a string
+    """
+    return ' '.join(build_conda_command(command, shlex.split(args) if args else []))
 
 
 class HMMsearchRunner:

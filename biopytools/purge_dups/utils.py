@@ -10,39 +10,7 @@ import shutil
 import re
 from pathlib import Path
 from typing import Optional
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 首先尝试从命令路径检测|First try to detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains 'envs'
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
+from ..common.conda_runner import conda_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 class PurgeDupsLogger:
@@ -105,13 +73,13 @@ class CommandRunner:
         if cmd_parts:
             cmd_name = os.path.basename(cmd_parts[0])
 
-            # 自动检测conda环境|Auto-detect conda environment
-            conda_env = get_conda_env(cmd_name)
+            # 同源conda绝对路径前缀(§13, 严禁裸调conda)|Same-installation absolute conda prefix
+            prefix = conda_run_prefix(cmd_name)
 
-            if conda_env:
+            if prefix:
                 # 使用conda run包装命令|Use conda run to wrap command
-                full_cmd = f"conda run -n {conda_env} --no-capture-output {cmd}"
-                self.logger.debug(f"检测到conda环境|Detected conda environment: {conda_env}")
+                full_cmd = f"{prefix} {cmd}"
+                self.logger.debug(f"检测到conda环境|Conda env prefix applied for: {cmd_name}")
             else:
                 # 直接执行命令|Execute command directly
                 full_cmd = cmd

@@ -9,6 +9,7 @@ import pysam
 
 from .config import PanvarConfig
 from .utils import PanvarLogger
+from ..common.conda_runner import conda_env_run_prefix
 
 VERSION = "1.0.0"
 
@@ -68,7 +69,7 @@ class PanvarRunner:
 
         self.logger.info(f"执行vg deconstruct|Running vg deconstruct")
         cmd = (
-            f"conda run -n {self.config.vg_env} --no-capture-output "
+            f"{conda_env_run_prefix(self.config.vg_env)} "
             f"vg deconstruct -t {self.config.threads} -a "
             f"{self.config.ref_path} {self.config.input_file}"
             f" > {output_vcf}"

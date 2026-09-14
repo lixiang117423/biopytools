@@ -6,6 +6,7 @@ import logging
 import sys
 import subprocess
 from pathlib import Path
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 class DeepBSALogger:
@@ -157,8 +158,7 @@ def run_deepbsa_method(method: str, input_file: Path, deepbsa_script: Path,
     if parallel:
         logger.info(f"启动|Starting {method} (工作目录|work_dir: {output_dir})")
 
-    cmd = [
-        "conda", "run", "-n", conda_env_name, "--no-capture-output",
+    cmd = conda_env_run_prefix(conda_env_name).split() + [
         "python3",
         str(deepbsa_script),
         "--i", str(input_file),

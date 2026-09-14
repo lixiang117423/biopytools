@@ -4,7 +4,8 @@ import os
 import shlex
 from typing import List, Tuple
 
-from .utils import build_conda_command, get_conda_env, CommandRunner
+from ..common.conda_runner import conda_run_prefix
+from .utils import build_conda_command, CommandRunner
 
 
 class GenomeIndexer:
@@ -110,7 +111,7 @@ class Aligner:
         cfg = self.config
         ht2_prefix = os.path.join(cfg.genome_index_dir, cfg.genome_name)
         t = str(cfg.threads)
-        env = get_conda_env(cfg.hisat2_path)  # RNA_Seq
+        prefix = conda_run_prefix(cfg.hisat2_path)  # RNA_Seq
         ss_opt = ""
         if cfg.gff3_file:
             ss_file = os.path.join(cfg.genome_index_dir, f"{cfg.genome_name}.ss")
@@ -119,10 +120,10 @@ class Aligner:
         pipeline = (f"set -o pipefail; hisat2 -x {shlex.quote(ht2_prefix)} {ss_opt}-p {t} --dta "
                     f"-1 {shlex.quote(r1)} -2 {shlex.quote(r2)} 2> {shlex.quote(log_file)} | "
                     f"samtools sort -@ {t} -o {shlex.quote(out_bam)} -")
-        if env:
+        if prefix:
             # conda env:env 内 hisat2/samtools 在 PATH,裸名即可|in-env tools resolve via PATH
-            return f"conda run -n {env} --no-capture-output bash -c {shlex.quote(pipeline)}"
-        # env=None:hisat2 不在 conda env,回退直调(须已在 PATH)|fallback direct call (tools must be in PATH)
+            return f"{prefix} bash -c {shlex.quote(pipeline)}"
+        # prefix=None:hisat2 不在 conda env,回退直调(须已在 PATH)|fallback direct call (tools must be in PATH)
         return f"bash -c {shlex.quote(pipeline)}"
 
     def run_sample(self, sample: str, r1: str, r2: str) -> str:

@@ -13,44 +13,8 @@ import time
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
-    """
-    检测命令所在的conda环境名称|Detect conda env name where the command resides
-
-    策略|Strategy:
-        1. 优先 preferred 环境(若该环境含此命令)|Prefer user-specified env if it has the command
-        2. 从 which 解析出的路径提取 /envs/<name>/|Extract /envs/<name>/ from which path
-        3. 搜索所有 conda 环境的 bin 目录|Search all conda envs' bin directories
-    """
-    conda_exe = os.environ.get('CONDA_EXE')
-    envs_dir = None
-    if conda_exe:
-        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
-
-    if preferred and envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', command)):
-        return preferred
-
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    if envs_dir and os.path.isdir(envs_dir):
-        for env_name in os.listdir(envs_dir):
-            if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str], preferred_env: Optional[str] = None) -> List[str]:
-    """构建conda run命令(单工具,非管道)|Build conda run command (single tool, not a pipeline)"""
-    conda_env = get_conda_env(command, preferred=preferred_env)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import conda_run_prefix
 
 
 # rnaseq 涉及的工具,用于在整条shell命令(含管道)中检测conda环境|
@@ -129,8 +93,8 @@ class CommandRunner:
 
     def _conda_wrap(self, cmd: str) -> str:
         """
-        把整条shell命令(支持管道)包进 conda run -n ENV bash -c '...'|Wrap a whole shell
-        command (pipes allowed) in a single conda run activation.
+        把整条shell命令(支持管道)包进 conda run -p <环境前缀> bash -c '...'|Wrap a whole
+        shell command (pipes allowed) in a single conda run activation.
 
         检测命令中出现的 rnaseq 工具,取第一个能解析出 conda 环境的,把整条命令(含管道)
         在该环境下执行。这样 hisat2|samtools 管道两端都在同一环境下运行,符合 §13.2.1
@@ -142,10 +106,10 @@ class CommandRunner:
         """
         for tool in RNASEQ_TOOLS:
             if re.search(rf'(^|[\s|;]){re.escape(tool)}\b', cmd):
-                env = get_conda_env(tool)
-                if env:
-                    wrapped = f"conda run -n {env} --no-capture-output bash -c {shlex.quote(cmd)}"
-                    self.logger.info(f"使用conda环境|Using conda env: {env} (for {tool})")
+                prefix = conda_run_prefix(tool)
+                if prefix:
+                    wrapped = f"{prefix} bash -c {shlex.quote(cmd)}"
+                    self.logger.info(f"使用conda环境|Using conda env for {tool}")
                     return wrapped
                 # 找到工具但无conda环境,说明在PATH,原样执行|tool on PATH, run as-is
                 return cmd

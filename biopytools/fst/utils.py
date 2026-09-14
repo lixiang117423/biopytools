@@ -10,6 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Optional, List
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class FstLogger:
@@ -53,58 +54,6 @@ class FstLogger:
     def get_logger(self):
         """获取日志器|Get logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, return environment name
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs
-        # Check if path contains 'envs'
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件
-    Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    conda_env = get_conda_env(command)
-
-    # 提取命令的基本名称（去掉路径）|Extract command basename (remove path)
-    cmd_name = Path(command).name
-
-    if conda_env:
-        # 使用conda run调用，添加--no-capture-output避免内存问题
-        # Use conda run with --no-capture-output to avoid memory issues
-        # 直接使用命令名，conda会自动处理PATH|Use command name directly, conda handles PATH
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', cmd_name] + args
-    else:
-        # 非conda环境，直接调用|Non-conda environment, call directly
-        full_cmd = [command] + args
-
-    return full_cmd
 
 
 class CommandRunner:

@@ -4,6 +4,8 @@ import subprocess
 import sys
 import click
 
+from ...common.conda_runner import conda_env_run_prefix
+
 
 def _print_help():
     """打印帮助信息|Print help"""
@@ -42,8 +44,9 @@ def vcf2gwas(ctx, vcf2gwas_env):
         _print_help()
         return
 
-    full_cmd = ['conda', 'run', '-n', vcf2gwas_env, '--no-capture-output',
-                'vcf2gwas'] + list(ctx.args)
+    # 同源conda绝对路径 + -p(§13, 严禁裸调conda——作业PATH上可能是外来conda)|
+    # Same-installation conda + -p (§13; never bare 'conda')
+    full_cmd = conda_env_run_prefix(vcf2gwas_env).split() + ['vcf2gwas'] + list(ctx.args)
 
     try:
         result = subprocess.call(full_cmd)

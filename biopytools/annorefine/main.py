@@ -21,6 +21,7 @@ from .gap_analysis import (
 from .model_build import qc_filter, qc_filter_small, build_gene_models
 from .expression import prepare_unique_bam, compute_hit_depth_breadth
 from .merge import merge_gff3
+from ..common.conda_runner import conda_env_run_prefix
 
 
 class AnnorefineRunner:
@@ -51,8 +52,7 @@ class AnnorefineRunner:
         from .utils import get_conda_env
         env = get_conda_env(tool_path)
         if env:
-            cmd = ['conda', 'run', '-n', env, '--no-capture-output',
-                   tool_path, '--version']
+            cmd = conda_env_run_prefix(env).split() + [tool_path, '--version']
         else:
             cmd = [tool_path, '--version']
         try:

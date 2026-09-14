@@ -6,7 +6,7 @@ Samplot配置类
 import os
 from typing import List, Optional
 
-from common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_tool_path
 
 
 class SamplotPlotConfig:

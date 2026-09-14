@@ -7,6 +7,7 @@ import sys
 from typing import Dict, Tuple
 from .config import FastqPairConfig
 from .utils import FastqPairLogger, CommandRunner, PairFinder
+from ..common.conda_runner import conda_env_run_prefix
 
 
 class FastqPairFixer:
@@ -158,9 +159,8 @@ class FastqPairFixer:
         # 构建repair.sh命令|Build repair.sh command
         # 使用conda run调用repair.sh，确保在正确的conda环境中执行
         # 输出文件名保持和输入文件名一致，方便后续流程处理
-        cmd = [
-            "conda", "run", "-n", self.config.repair_conda_env,
-            "--no-capture-output", self.config.repair_sh,
+        cmd = conda_env_run_prefix(self.config.repair_conda_env).split() + [
+            self.config.repair_sh,
             f"in={r1_file}",
             f"in2={r2_file}",
             f"out={output_r1}",

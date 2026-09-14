@@ -10,6 +10,7 @@ from typing import Dict, List
 from .config import DeepBSAConfig
 from .utils import clean_vcf_comments, run_deepbsa_method, check_parallel_results
 from .merge_results import DeepBSAMerger
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 class DeepBSARunner:
@@ -362,8 +363,7 @@ class DeepBSARunner:
                 else:
                     self.logger.info(f"  线程数|Threads: auto (自动检测|auto-detect)")
 
-            cmd = [
-                "conda", "run", "-n", self.config.conda_env_name, "--no-capture-output",
+            cmd = conda_env_run_prefix(self.config.conda_env_name).split() + [
                 "python3",
                 str(self.config.deepbsa_script),
                 "--i", str(input_file),

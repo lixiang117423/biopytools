@@ -14,7 +14,8 @@ from pathlib import Path
 from typing import Optional
 
 from .pipeline import _done
-from .utils import format_number, get_conda_env
+from .utils import format_number
+from ..common.conda_runner import conda_run_prefix  # §13 同源conda绝对路径+run -p
 
 
 def _count_bam(runner, samtools_path: str, bam, excl_flags: str,
@@ -246,14 +247,15 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
     runner.logger.info(f"开始步骤|Starting step: host filter {sample}")
     t = config.threads
     q = config.min_mapq
-    env = get_conda_env(config.bwa_mem2_path)   # bwa-mem2 的 conda 环境
+    prefix = conda_run_prefix(config.bwa_mem2_path)  # bwa-mem2 的 conda 环境前缀(同源绝对路径,§13)
     # §13.2.3: 管道内一律完整路径(shlex.quote), 不依赖 env PATH 解析命令名
     # |full quoted paths inside the pipe (no bare command names, §13.2.3)
     bwa_path = shlex.quote(config.bwa_mem2_path)
     st_path = shlex.quote(config.samtools_path)
     # ① 寄主比对(临时 BAM,bwa 输出天然按名成对,免排序)|align to host (temp BAM)
+    wrap = f'{prefix} bash -c ' if prefix else 'bash -c '
     ok_aln, _, _ = runner.run(
-        f'conda run -n {env} --no-capture-output bash -c '
+        wrap +
         f'"{bwa_path} mem -t {t} {fa} {r1} {r2} | {st_path} view -b -@ {t} -o {host_bam} -"',
         f"寄主比对|host align {sample}")
     if not ok_aln:
@@ -275,9 +277,10 @@ def run_host_filter(config, runner, ckpt, sample: str, r1: str, r2: str,
         runner.logger.error(f"寄主计数失败,中止 host_filter {sample}|host count failed, aborted")
         return None
     # ③ 置信寄主 read 名单|extract confident host read names
-    st_env = get_conda_env(config.samtools_path)
+    st_prefix = conda_run_prefix(config.samtools_path)
+    wrap = f'{st_prefix} bash -c ' if st_prefix else 'bash -c '
     ok_names, _, _ = runner.run(
-        f'conda run -n {st_env} --no-capture-output bash -c '
+        wrap +
         f"'{st_path} view -@ {t} -F {_EXCL_MAPPED} -q {q} {host_bam} | cut -f1 | sort -u --parallel={t} > {names_file}'",
         f"提取寄主read名|extract host read names {sample}")
     if not (ok_names and names_file.exists()):

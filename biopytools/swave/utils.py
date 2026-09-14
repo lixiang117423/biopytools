@@ -6,9 +6,10 @@ import logging
 import sys
 import subprocess
 import os
-import shutil
-import re
 from typing import Optional, List, Tuple
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command
 
 
 class SwaveLogger:
@@ -75,78 +76,6 @@ class SwaveLogger:
     def get_logger(self):
         """获取日志器|Get logger"""
         return self.logger
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
-
-    策略|Strategy:
-    1. 首先尝试从which命令路径检测（优先级高）|Try detecting from which command path first (high priority)
-    2. 如果未找到，搜索所有conda环境（兜底方案）|If not found, search all conda environments (fallback)
-
-    Args:
-        command: 命令名称或路径|Command name or path
-
-    Returns:
-        conda环境名称或None|conda environment name or None
-    """
-    # 方法1: 从命令路径检测|Method 1: Detect from command path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        # 检查路径中是否包含 envs|Check if path contains envs
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        # CONDA_EXE通常是/path/to/miniforge3/bin/conda|CONDA_EXE is usually /path/to/miniforge3/bin/conda
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-
-        if os.path.exists(envs_dir):
-            # 搜索所有环境中的命令|Search command in all environments
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-
-    Examples:
-        >>> build_conda_command('busco', ['--version'])
-        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
-
-        >>> # 绝对路径且不在conda envs目录下时，直接调用
-        >>> # Absolute path not under conda envs: called directly
-        >>> build_conda_command('/usr/bin/tool', ['--help'])
-        ['/usr/bin/tool', '--help']
-    """
-    conda_env = get_conda_env(command)
-
-    if conda_env:
-        # 使用conda run调用，--no-capture-output避免缓冲输出导致内存问题
-        # Use conda run, --no-capture-output to avoid memory issues from output buffering
-        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        # 非conda环境，直接调用|Non-conda environment, call directly
-        full_cmd = [command] + args
-
-    return full_cmd
 
 
 class CommandRunner:

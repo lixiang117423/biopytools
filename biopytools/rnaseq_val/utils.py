@@ -10,6 +10,9 @@ import sys
 import time
 import shutil
 from pathlib import Path
+
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import conda_env_run_prefix
 from typing import List, Dict, Optional, Tuple
 
 
@@ -389,7 +392,7 @@ class SampleParser:
 # ============================================================
 
 def build_conda_command(cmd: str, env_name: str = "rnaseq_val") -> str:
-    """构建 conda run 包装命令|Build conda run wrapped command
+    """构建 conda run 包装命令(委托公共层, §13)|Build conda run wrapped command (delegates to common)
 
     Args:
         cmd: 原始命令字符串|Original command string
@@ -398,7 +401,7 @@ def build_conda_command(cmd: str, env_name: str = "rnaseq_val") -> str:
     Returns:
         str: 包装后的命令字符串|Wrapped command string
     """
-    return f"conda run -n {env_name} --no-capture-output {cmd}"
+    return f"{conda_env_run_prefix(env_name)} {cmd}"
 
 
 def format_number(num: int) -> str:

@@ -447,8 +447,9 @@ class RMVPAnalyzer:
         """
         script_file = str(script_file)
         if self.config.r_env_type == "conda":
-            return ['conda', 'run', '-n', self.config.r_env_name,
-                    '--no-capture-output', 'Rscript', script_file]
+            # 同源conda绝对路径 + -p(§13, 严禁裸调conda)|
+            # Same-installation conda + -p (§13; never bare 'conda')
+            return conda_env_run_prefix(self.config.r_env_name).split() + ['Rscript', script_file]
         else:
             # direct 模式：r_env_name 为 R 可执行文件路径|direct: r_env_name is the R executable path
             return [self.config.r_env_name, 'Rscript', script_file]

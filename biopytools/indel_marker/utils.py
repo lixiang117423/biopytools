@@ -8,6 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Optional, List
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class IndelMarkerLogger:
@@ -120,62 +121,6 @@ class CommandRunner:
         except Exception as e:
             self.logger.error(f"命令执行异常|Command exception: {description}: {e}")
             return None
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令的conda环境|Detect conda env of a command
-
-    策略|Strategy:
-    1. 从which命令路径检测|Detect from which-path
-    2. 兜底：搜索所有conda环境|Fallback: search all conda envs
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|Conda env name or None
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            # command 可能是完整路径,直接 join 会被绝对路径劫持,先取 basename
-            # command may be a full path; os.path.join drops the prefix on an absolute
-            # path, so basename it first (consistent with braker/phobius)
-            command_name = os.path.basename(command)
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command_name)):
-                    return env_name
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令|Build conda run command
-
-    必须使用--no-capture-output避免conda缓冲输出导致内存问题
-    Must use --no-capture-output to avoid conda buffering output causing memory issues
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Complete command list
-    """
-    command_name = os.path.basename(command)
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
-    return [command] + args
 
 
 def check_dependencies(config, logger) -> bool:

@@ -11,6 +11,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import List, Optional, Tuple
+from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class MinibwaLogger:
@@ -167,69 +168,6 @@ class CommandRunner:
             self.logger.error(f"管道执行异常|Pipeline exception: {description}")
             self.logger.error(f"异常信息|Exception: {e}")
             return False
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中|Detect conda environment from command path
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名或None|Conda env name or None
-    """
-    # 绝对路径：只检查 /envs/ 模式，不匹配则返回None（尊重用户显式指定的路径）
-    # |Absolute path: only check /envs/ pattern, return None if no match
-    # (respect user's explicit path choice)
-    if os.path.isabs(command):
-        match = re.search(r'/envs/([^/]+)', command)
-        return match.group(1) if match else None
-
-    # 命令名：先用shutil.which解析实际路径|Command name: resolve via shutil.which
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 命令名未在PATH中找到，才搜索conda envs兜底
-    # |Only fallback to envs search if name not in PATH
-    conda_exe = os.environ.get('CONDA_EXE')
-    if conda_exe:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run包装命令|Build conda run wrapped command
-
-    严格按规范13：传递完整路径，自动检测环境，添加--no-capture-output
-    |Per spec 13: pass full path, auto-detect env, add --no-capture-output
-
-    Args:
-        command: 完整命令路径|Full command path
-        args: 参数列表|Argument list
-
-    Returns:
-        包装后的命令列表|Wrapped command list
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        # conda run使用命令名即可，因为已经通过-n指定了环境
-        # |conda run uses command name, env is specified via -n
-        cmd_name = os.path.basename(command)
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', cmd_name] + args
-    # 非conda环境，直接用完整路径|Non-conda, use full path directly
-    return [command] + args
 
 
 def check_dependencies(config, logger) -> bool:

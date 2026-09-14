@@ -16,60 +16,21 @@ import shutil
 import logging
 from pathlib import Path
 from typing import List, Optional
+from ..common.conda_runner import build_conda_command as _common_build_conda_command  # §13 同源conda绝对路径+run -p
 
 from ..common.paths import expand_path
-
-
-def get_conda_env(command: str) -> Optional[str]:
-    """
-    检测命令是否在conda环境中,返回环境名称|Detect if command is in conda env, return env name
-
-    策略|Strategy:
-    1. 完整路径含/envs/直接提取(最高优先)|Full path with /envs/ extracted directly
-    2. which路径检测|which path detection
-    3. 遍历所有conda env兜底|Scan all conda envs as fallback
-    """
-    # 方法0:完整路径含envs直接提取|Method 0: full path with envs
-    if '/envs/' in command:
-        match = re.search(r'/envs/([^/]+)', command)
-        if match:
-            return match.group(1)
-
-    # 方法1:which路径检测|Method 1: which path
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        if os.path.islink(cmd_path):
-            cmd_path = os.path.realpath(cmd_path)
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 方法2:遍历所有conda env|Method 2: scan all envs
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
-                    return env_name
-    return None
 
 
 def build_conda_command(command: str, args: List[str]) -> List[str]:
     """
     构建conda run命令(必须--no-capture-output,避免缓冲OOM)|Build conda run command
 
-    传递完整路径(非命令名)以便get_conda_env正确提取env(§13.6.1)
-    |Pass full path (not command name) so get_conda_env extracts env correctly (§13.6.1)
+    先展开~路径再委托公共层(§13: 同源conda绝对路径 + run -p <环境前缀>)
+    |Expand ~ paths first, then delegate to the common layer (§13)
     """
-    # 展开路径(用户可能传含~的路径)|Expand path (user may pass ~ path)
     if '/' in command:
         command = expand_path(command)
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
+    return _common_build_conda_command(command, args)
 
 
 def _conda_lib_env(tool_paths: List[str]) -> dict:

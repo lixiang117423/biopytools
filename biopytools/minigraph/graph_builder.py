@@ -69,7 +69,7 @@ class MinigraphGraphBuilder:
         # 基础命令|Base command
         minigraph_cmd = build_conda_command(self.config.minigraph_path, [])
         # minigraph_cmd 是完整的 conda run 命令或直接命令
-        # 例如: ['conda', 'run', '-n', 'swave_v.1.2', 'minigraph']
+        # 例如: ['<conda绝对路径>', 'run', '-p', '<envs/swave_v.1.2>', '--no-capture-output', 'minigraph']
         # 或: ['minigraph']
 
         # 添加预设参数|Add preset parameters

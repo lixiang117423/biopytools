@@ -3,67 +3,15 @@
 """
 
 import logging
-import os
 import re
-import shutil
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-
-def get_conda_env(command: str) -> Optional[str]:
-    """检测命令是否在conda环境中|Detect if command is in conda environment
-
-    Args:
-        command: 命令名称或完整路径|Command name or full path
-
-    Returns:
-        conda环境名称或None|Conda environment name or None
-    """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    # 仅当command是裸命令名(不含路径分隔符)时,才搜索所有conda环境。
-    # 绝对路径(如静态二进制 ~/software/sweed/SweeD-P)必须跳过,否则
-    # os.path.join(envs_dir, env, 'bin', command) 会被绝对路径塌缩为原路径
-    # (存在),误判为位于第一个枚举到的env而静默包装另一个同名二进制。
-    # |Search all conda envs ONLY for bare command names. Absolute paths MUST
-    # skip, else os.path.join collapses to that path (which exists) and falsely
-    # reports the first env iterated, silently wrapping a different binary.
-    if os.path.sep not in command:
-        conda_base = os.environ.get('CONDA_EXE')
-        if conda_base:
-            conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-            envs_dir = os.path.join(conda_base_dir, 'envs')
-            if os.path.exists(envs_dir):
-                for env_name in os.listdir(envs_dir):
-                    env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                    if os.path.exists(env_bin):
-                        return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """构建conda run命令(含--no-capture-output)|Build conda run command (with --no-capture-output)
-
-    Args:
-        command: 命令名称或完整路径(禁用os.path.basename提取)|Command name or full path
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表(配合subprocess.run(shell=False))|Full command list (for shell=False)
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    else:
-        return [command] + args
+# conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
+from ..common.conda_runner import build_conda_command, get_conda_env
 
 
 class SweepModuleLogger:
@@ -209,9 +157,9 @@ def _probe_xpclr_version(xpclr_path: str, timeout: int = 20) -> str:
     故在其conda环境中 python -c import 探测。
     |xpclr exposes xpclr.__version__ (no --version CLI), so probe via import.
     """
-    env = get_conda_env(xpclr_path)
-    if env:
-        cmd = ['conda', 'run', '-n', env, '--no-capture-output', 'python', '-c',
+    prefix = conda_run_prefix(xpclr_path)
+    if prefix:
+        cmd = prefix.split() + ['python', '-c',
                'import xpclr; print(xpclr.__version__)']
     else:
         cmd = ['python', '-c', 'import xpclr; print(xpclr.__version__)']
