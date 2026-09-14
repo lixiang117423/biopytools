@@ -1,3 +1,11 @@
+## [1.72.4] - 2026-09-14
+
+### Changed
+- **全库 conda 实现去重**(§13 权威实现): 105 个模块删除各自复制的 `get_conda_env`/`build_conda_command`(共 -4050 行),统一改为从 `common/conda_runner` 转发或委托——字符串形态(`build_conda_command_string`)委托 `conda_run_prefix`、显式环境名形态(如 rnaseq_val/subphase/assembly_qc/jcvi)委托 `conda_env_run_prefix`/`preferred_env`,各模块签名与调用点保持不变;全库自此共享 v1.72.1 的**同源 conda 绝对路径 + `run -p <环境前缀>`** 修复,作业环境 PATH 上的外来 conda 不再导致 `EnvironmentLocationNotFound`;`common/conda_runner` 新增并导出 `conda_run_prefix()`/`conda_env_run_prefix()`(整条 shell 命令/管道包装用,§13.2.2;`yahs` 按设计仍直接调用完整路径不包装)
+
+### Fixed
+- `allhic`: 包内统一相对导入——删除 `__init__.py`/`main.py` 的 `sys.path` hack 与顶层绝对导入(`from config import ...`),改为 `from .config import ...`,并同步 `asmkit.py`/`steps.py` 的脚本式导入。旧写法使 `allhic.config` 被当作顶层模块加载,其 `..common.paths` 报 `attempted relative import beyond top-level package`,**`biopytools allhic` 实际不可用**(`--help` 可显示但执行即导入失败)
+
 ## [1.72.3] - 2026-09-13
 
 ### Changed
