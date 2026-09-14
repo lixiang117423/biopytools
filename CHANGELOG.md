@@ -1,3 +1,9 @@
+## [1.72.5] - 2026-09-14
+
+### Fixed
+- `fastq2vcf_gtx`: 输入识别表补下划线风格 nohost——mixrace 写出 `{样品}_1_nohost.fq.gz`，而 R1/R2_PATTERNS 与 strip/build 后缀表只有点号 `_1.nohost.fq.gz`，寄主剔除产物作 GTX 输入时报"未找到任何R1文件"(两作业 76710859/76712744 根因之一)；四种模式列表+剥离表统一补 `_1/_2_nohost.fq.gz`
+- `mixrace`: `--clean-fastq-dir` 指向已是寄主剔除产物的目录时不再被旁路——原逻辑给 `--host-genome` 即无条件重跑寄主剔除并把 GTX 输入钉死在 `<output>/02_host_filter`，用户指定目录失效(根因之二)；新增 `samples.dir_has_nohost_input()` 嗅探(下划线/点号双风格)，命中则跳过剔除、GTX 直读该目录并 WARNING 说明；8 新单测(识别表契约 4 + 嗅探 4)
+
 ## [1.72.4] - 2026-09-14
 
 ### Changed
