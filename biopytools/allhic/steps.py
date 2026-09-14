@@ -3,7 +3,7 @@ ALLHiC流水线步骤模块 |ALLHiC Pipeline Steps Module
 """
 
 import os
-from utils import link_file, check_file_exists, clean_work_directory
+from .utils import link_file, check_file_exists, clean_work_directory
 
 class ALLHiCSteps:
     """ALLHiC流水线步骤执行器|ALLHiC Pipeline Steps Executor"""

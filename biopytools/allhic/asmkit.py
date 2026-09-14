@@ -3,7 +3,7 @@ asmkit JBAT生成模块 |asmkit JBAT Generation Module
 """
 
 import os
-from utils import link_file, check_file_exists
+from .utils import link_file, check_file_exists
 
 class AsmkitProcessor:
     """asmkit处理器|asmkit Processor"""

@@ -25,16 +25,12 @@ Features: Hi-C genome scaffolding and chromosome-level assembly
 __version__ = "5.4.0"
 __author__ = "Claude"
 
-import sys
-import os
-from pathlib import Path
-
-# 添加当前目录到sys.path，解决相对导入问题
-package_dir = Path(__file__).parent
-if str(package_dir) not in sys.path:
-    sys.path.insert(0, str(package_dir))
-
-from config import PipelineConfig
-from main import ALLHiCPipeline
+# 包内统一相对导入(§一): 不得用 sys.path hack + 顶层绝对导入,
+# 否则 config.py 的 `..common.paths` 相对导入会失败(import biopytools.allhic 即报
+# "attempted relative import with no known parent package")
+# |Intra-package relative imports only; the old sys.path hack made
+# config.py's `..common.paths` fail at import time
+from .config import PipelineConfig
+from .main import ALLHiCPipeline
 
 __all__ = ['ALLHiCPipeline', 'PipelineConfig']

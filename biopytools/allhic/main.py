@@ -8,25 +8,16 @@ import time
 import argparse
 from pathlib import Path
 
-# 添加当前目录到sys.path，解决相对导入问题
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-try:
-    from config import PipelineConfig
-    from logger import PipelineLogger
-    from utils import check_dependencies, setup_conda_environment
-    from steps import ALLHiCSteps
-    from asmkit import AsmkitProcessor
-except ImportError:
-    # 如果相对导入失败，尝试绝对导入
-    sys.path.append(str(current_dir.parent))
-    from allhic.config import PipelineConfig
-    from allhic.logger import PipelineLogger
-    from allhic.utils import check_dependencies, setup_conda_environment
-    from allhic.steps import ALLHiCSteps
-    from allhic.asmkit import AsmkitProcessor
+# 包内统一相对导入(§一): 严禁 sys.path hack + 顶层绝对导入——旧写法把 config/logger
+# 等当顶层模块加载, 使其中的 `..common.paths` 相对导入报 "attempted relative import
+# beyond top-level package", 整个 allhic CLI 不可用
+# |Intra-package relative imports only; the old sys.path hack + top-level
+# absolute imports made config.py's `..common.paths` fail, breaking the CLI
+from .config import PipelineConfig
+from .logger import PipelineLogger
+from .utils import check_dependencies, setup_conda_environment
+from .steps import ALLHiCSteps
+from .asmkit import AsmkitProcessor
 
 class ALLHiCPipeline:
     """ALLHiC流水线主类|Main ALLHiC Pipeline Class"""
