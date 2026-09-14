@@ -64,3 +64,24 @@ def discover_samples(fastq_dir: str) -> List[Dict[str, str]]:
                 samples[sample] = {"sample": sample, "r1": r1, "r2": r2}
                 break  # 一个文件只匹配一个后缀|one file matches one suffix
     return [samples[k] for k in sorted(samples, key=_natural_key)]
+
+
+def dir_has_nohost_input(fastq_dir: str) -> bool:
+    """目录是否已是寄主剔除(nohost)产物|Whether the dir already holds nohost reads
+
+    --clean-fastq-dir 指向 nohost 目录时, 寄主剔除应整体跳过、GTX 直接读该目录,
+    否则用户指定的输入被旁路到 <output>/02_host_filter(2026-09-14 两作业 GTX 0 R1 根因之二)。
+    下划线(本模块写出)与点号(旧产物)两种命名都认。
+    |When --clean-fastq-dir points at nohost reads, host depletion must be
+    skipped entirely and GTX must read that dir directly; otherwise the
+    user's input is bypassed by <output>/02_host_filter. Accepts both the
+    underscore style (written by this module) and the legacy dot style.
+    """
+    if not fastq_dir or not os.path.isdir(fastq_dir):
+        return False
+    nohost_r1_suffixes = ("_1_nohost.fq.gz", "_1.nohost.fq.gz")
+    try:
+        names = os.listdir(fastq_dir)
+    except OSError:
+        return False
+    return any(n.endswith(nohost_r1_suffixes) for n in names)

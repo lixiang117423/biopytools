@@ -14,7 +14,7 @@ from pathlib import Path
 
 from .config import MixraceConfig
 from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_software_versions
-from .samples import discover_samples
+from .samples import dir_has_nohost_input, discover_samples
 from .pipeline import run_index, run_qc, run_depth, read_cached_depth, run_kmer
 from .contamination import run_contamination
 from .host_filter import run_host_index, run_host_filter, pathogen_alignment_stats
@@ -256,7 +256,18 @@ def run_pipeline(config, runner, ckpt, logger):
     # 01b 寄主剔除(--host-genome)|host depletion
     host_failed = set()
     depleted_dir = clean_dir
-    if config.host_genome:
+    # --clean-fastq-dir 已是寄主剔除产物时整体跳过(用户复用既往 nohost 输入,
+    # 不能无条件重跑并把 GTX 输入钉死在 <output>/02_host_filter)|
+    # skip entirely when --clean-fastq-dir already holds nohost reads (the
+    # user is reusing prior host-depleted output; never bypass their input
+    # by re-running depletion into <output>/02_host_filter)
+    if config.host_genome and dir_has_nohost_input(str(clean_dir)):
+        logger.warning(
+            f"--clean-fastq-dir 目录已是寄主剔除(nohost)产物,跳过寄主剔除步骤,"
+            f"GTX 直接使用该目录|"
+            f"--clean-fastq-dir already contains nohost reads; host depletion "
+            f"skipped, GTX reads this directory directly: {clean_dir}")
+    elif config.host_genome:
         host_dir = Path(config.output_dir) / "02_host_filter"
         if step in (None, 1):
             host_idx = run_host_index(config, runner, ckpt)
