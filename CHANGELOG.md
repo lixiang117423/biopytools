@@ -1,3 +1,12 @@
+## [1.73.0] - 2026-09-16
+
+### Fixed
+- `orthofinder`: OrthoFinder 3.x 停滞自杀被误判成功——命令判定在退出码之外叠加输出内容判定(`ERROR:` 行实时升级 ERROR 级日志、退出码 0 但含 ERROR 标记判失败、失败补记 stdout 尾巴 50 行、进程退出后排空管道残留行防漏检);复制结果前强制校验 `Orthogroups.tsv`(`.txt` 兜底)与 `Orthogroups.GeneCount.tsv`,缺失即报错并保留现场,不再把空壳 Results 目录当成功拷走;目标目录已存在时不再无条件 rmtree(默认改名 `*.old.<时间戳>` 保留,`--force` 才删除)
+- `orthofinder`: basic 模式(`-og`)命令追加 `--no-fix-files`——OF 的 fix_files 默认 True 会在写完同源群后继续执行 GetOrthologues(MSA/基因树),对仅做泛基因组分类的流程纯耗时(111 物种实测白跑约 6.5h,源码 run/main.py:468 `if options.fix_files or not options.qStopAfterGroups` 坐实)
+
+### Added
+- `orthofinder`: 新增三个续跑/透传参数(模块版本 1.0.0→1.1.0,20 个单测 tests/test_orthofinder/):`--resume-from-blast <dir>`(映射 OF `-b`,与 `-f` 互斥故替换之,绕过已有结果短路,结果目录搜索扩展到 BLAST 目录自身/父级/祖父级,`__post_init__` 展开 `~`)、`--old-version`(旧版并行管理器,无 200s 停滞检测)、`--orthofinder-extra "..."`(shlex 切分后追加到命令末尾)
+
 ## [1.72.5] - 2026-09-14
 
 ### Fixed
