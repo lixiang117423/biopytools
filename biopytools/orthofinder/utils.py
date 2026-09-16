@@ -3,14 +3,40 @@ OrthoFinder泛基因组分析工具函数模块|OrthoFinder Pangenome Analysis U
 """
 
 import logging
+import re
 import subprocess
 import sys
 import os
+from collections import deque
 from pathlib import Path
 from typing import List, Tuple
 
 # conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
 from ..common.conda_runner import build_conda_command
+
+# 失败诊断保留的输出尾巴行数|Number of tail lines kept for failure diagnostics
+_TAIL_LINES = 50
+
+# rich终端着色的ANSI转义码|ANSI escape codes from rich terminal coloring
+_ANSI_ESCAPE_RE = re.compile(r'\x1b\[[0-9;]*[A-Za-z]')
+
+
+def _strip_ansi_codes(text: str) -> str:
+    """剥离ANSI转义码(rich着色行)|Strip ANSI escape codes (rich-colored lines)"""
+    return _ANSI_ESCAPE_RE.sub('', text)
+
+
+def _line_has_error_marker(line: str) -> bool:
+    """判定输出行是否携带ERROR标记|Whether an output line carries an ERROR marker
+
+    Why: OrthoFinder 3.x 失败信息以 ERROR: 前缀打印(停滞检测/依赖缺失等),
+    且其 main() finally 块裸 sys.exit() 会把失败退出码吞成 0, 退出码不可信,
+    必须叠加输出内容判定|OrthoFinder 3.x prints failures with an ERROR: prefix
+    (stall detection, missing dependencies), and the bare sys.exit() in its
+    main() finally block swallows the failure exit code into 0, so a content
+    verdict must be layered on top of the return code.
+    """
+    return 'ERROR:' in _strip_ansi_codes(line)
 
 
 class PangenomeLogger:
@@ -118,7 +144,7 @@ class CommandRunner:
         return True
 
     def _run_long_command(self, cmd: list, description: str = "") -> bool:
-        """执行长时间命令（流式输出）|Execute long-running command (streaming output)"""
+        """执行长时间命令（流式输出+内容判定）|Execute long-running command (streaming + content verdict)"""
         import selectors
 
         env = os.environ.copy()
@@ -139,6 +165,27 @@ class CommandRunner:
 
         stdout_lines = []
         stderr_lines = []
+        output_tail = deque(maxlen=_TAIL_LINES)
+        error_marker_seen = False
+
+        def _consume(line_bytes, is_stdout: bool):
+            nonlocal error_marker_seen
+            decoded = line_bytes.decode('utf-8', errors='replace').rstrip()
+            if not decoded:
+                return
+            output_tail.append(decoded)
+            if is_stdout:
+                stdout_lines.append(decoded)
+            else:
+                stderr_lines.append(decoded)
+            # Why: ERROR标记行实时升级到ERROR级别, 超算.err与失败诊断立即可见, 不再埋在DEBUG
+            if _line_has_error_marker(decoded):
+                error_marker_seen = True
+                self.logger.error(f"[{'stdout' if is_stdout else 'stderr'}] {decoded}")
+            elif is_stdout:
+                self.logger.debug(f"[stdout] {decoded}")
+            else:
+                self.logger.info(f"[stderr] {decoded}")
 
         while proc.poll() is None:
             events = sel.select(timeout=1)
@@ -146,23 +193,31 @@ class CommandRunner:
                 line = key.fileobj.readline()
                 if not line:
                     continue
-                decoded = line.decode('utf-8', errors='replace').rstrip()
-                if not decoded:
-                    continue
-                if key.fileobj is proc.stdout:
-                    stdout_lines.append(decoded)
-                    self.logger.debug(f"[stdout] {decoded}")
-                else:
-                    stderr_lines.append(decoded)
-                    self.logger.info(f"[stderr] {decoded}")
+                _consume(line, key.fileobj is proc.stdout)
 
         sel.close()
+
+        # Why: 进程退出后管道仍可能残留未读行, 不排空会漏检ERROR标记
+        for stream, is_stdout in ((proc.stdout, True), (proc.stderr, False)):
+            while True:
+                line = stream.readline()
+                if not line:
+                    break
+                _consume(line, is_stdout)
 
         if proc.returncode != 0:
             self.logger.error(f"命令执行失败|Command execution failed: {description}")
             self.logger.error(f"错误代码|Error code: {proc.returncode}")
             if stderr_lines:
                 self.logger.error(f"错误信息|Error message:\n" + "\n".join(stderr_lines))
+            if stdout_lines:
+                self.logger.error(f"标准输出末尾|Stdout tail:\n" + "\n".join(stdout_lines[-_TAIL_LINES:]))
+            return False
+
+        if error_marker_seen:
+            # Why: OrthoFinder 3.x finally块裸sys.exit()吞码, 退出码0不可信, 以内容判定为准
+            self.logger.error(f"命令退出码为0但输出含ERROR标记，判定失败|Exit code 0 but output contains ERROR marker, treated as failed: {description}")
+            self.logger.error(f"输出末尾|Output tail:\n" + "\n".join(output_tail))
             return False
 
         self.logger.info(f"命令执行成功|Command executed successfully: {description}")

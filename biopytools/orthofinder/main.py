@@ -282,6 +282,12 @@ def main():
                        help='强制重新分析覆盖已有结果|Force reanalysis overwriting existing results')
     parser.add_argument('--skip-orthofinder', action='store_true',
                        help='跳过OrthoFinder步骤直接进行分类|Skip OrthoFinder step and go directly to classification')
+    parser.add_argument('--resume-from-blast',
+                       help='从已有BLAST结果目录续跑(OF -b, 与-f互斥)|Resume from precomputed BLAST results directory (OF -b, mutually exclusive with -f)')
+    parser.add_argument('--old-version', action='store_true',
+                       help='使用旧版并行管理器(无200s停滞检测)|Use the legacy parallel manager (no 200s stall detection)')
+    parser.add_argument('--orthofinder-extra', default='',
+                       help='透传给OrthoFinder的额外参数(shlex切分后追加)|Extra arguments passed through to OrthoFinder (shlex-split and appended)')
 
     parser.add_argument('--no-plots', action='store_true',
                        help='不生成图表|Do not generate plots')
@@ -325,6 +331,9 @@ def main():
         resume_from_existing=True,
         skip_orthofinder=args.skip_orthofinder,
         force_overwrite=args.force,
+        resume_blast_dir=args.resume_from_blast,
+        use_old_version=args.old_version,
+        orthofinder_extra=args.orthofinder_extra,
         enable_rarefaction=not args.disable_rarefaction,
         rarefaction_iterations=args.rarefaction_iterations,
         generate_plots=not args.no_plots,

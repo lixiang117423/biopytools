@@ -69,7 +69,7 @@ protein_sequences/
 
 ### 断点续传 | Resume
 
-**通俗理解|In plain words:** 默认自动复用已完成的 OrthoFinder 结果，重跑不会从头再来。想彻底重算加 `--force`；已有结果但想跳过 OrthoFinder 直接做分类用 `--skip-orthofinder`。
+**通俗理解|In plain words:** 默认自动复用已完成的 OrthoFinder 结果，重跑不会从头再来。想彻底重算加 `--force`；已有结果但想跳过 OrthoFinder 直接做分类用 `--skip-orthofinder`。若上一轮 OrthoFinder 中途死掉（如大数据集触发 200 秒"停滞自杀"），BLAST 中间结果通常还在，用 `--resume-from-blast <目录>` 从 BLAST 结果接着跑，不必从头比对；配 `--old-version` 换旧版并行管理器避开停滞检测；`--orthofinder-extra "..."` 可透传任意 OrthoFinder 原生参数。
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -97,6 +97,9 @@ protein_sequences/
 | `--orthofinder-path` | `orthofinder` |  | OrthoFinder程序路径｜OrthoFinder program path |
 | `--force` | — |  | 强制重新分析覆盖已有结果｜Force reanalysis overwriting existing results |
 | `--skip-orthofinder` | — |  | 跳过OrthoFinder步骤直接分类｜Skip OrthoFinder step and go directly to classification |
+| `--resume-from-blast` | — | Path | 从已有BLAST结果目录续跑(OF -b, 与-f互斥)｜Resume from precomputed BLAST results directory (OF -b, mutually exclusive with -f) |
+| `--old-version` | — |  | 使用旧版并行管理器(无200s停滞检测)｜Use the legacy parallel manager (no 200s stall detection) |
+| `--orthofinder-extra` | `` | str | 透传给OrthoFinder的额外参数(shlex切分后追加)｜Extra arguments passed through to OrthoFinder (shlex-split and appended) |
 | `--disable-rarefaction` | — |  | 禁用稀释曲线分析｜Disable rarefaction curve analysis |
 | `--disable-single-copy` | — |  | 禁用单拷贝基因分析｜Disable single copy gene analysis |
 | `--no-plots` | — |  | 不生成图表｜Do not generate plots |
@@ -128,6 +131,9 @@ protein_sequences/
 | `--tree-program` | `fasttree` | fasttree/fasttree_fastest/raxml/raxml-ng/iqtree | 系统发育树构建程序｜Phylogenetic tree inference program |
 | `--force` | — | store_true | 强制重新分析覆盖已有结果｜Force reanalysis overwriting existing results |
 | `--skip-orthofinder` | — | store_true | 跳过OrthoFinder步骤直接进行分类｜Skip OrthoFinder step and go directly to classification |
+| `--resume-from-blast` | — |  | 从已有BLAST结果目录续跑(OF -b, 与-f互斥)｜Resume from precomputed BLAST results directory (OF -b, mutually exclusive with -f) |
+| `--old-version` | — | store_true | 使用旧版并行管理器(无200s停滞检测)｜Use the legacy parallel manager (no 200s stall detection) |
+| `--orthofinder-extra` | `` |  | 透传给OrthoFinder的额外参数(shlex切分后追加)｜Extra arguments passed through to OrthoFinder (shlex-split and appended) |
 | `--no-plots` | — | store_true | 不生成图表｜Do not generate plots |
 | `--plot-format` | `png` | png/pdf/svg | 图表格式｜Plot format |
 | `--orthofinder-path` | `~/miniforge3/envs/annot/bin/orthofinder` |  | OrthoFinder程序路径｜OrthoFinder program path |
@@ -258,3 +264,6 @@ pangenome_results/
 
 **Q6：生成的图想换成 PDF/SVG？**
 用 `--plot-format pdf` 或 `--plot-format svg`（默认 png）。
+
+**Q7：OrthoFinder 作业显示"成功"却没有 Orthogroups.tsv？**
+OrthoFinder 3.x 两个坑叠加：① 新并行管理器硬编码 200 秒停滞检测——要求"200 秒内至少完成一个物种任务"，物种多、蛋白量大时单物种任务超 200 秒就会被误判"停滞"自杀（6 月旧版约 170 秒/物种压线通过，本次蛋白量 +33% 后越线）；② 其 main() 结尾裸 `sys.exit()` 把失败退出码吞成 0，作业表面"成功"。本模块已双保险：输出中出现 `ERROR:` 行即判失败；复制结果前强制校验 `Orthogroups.tsv` + `Orthogroups.GeneCount.tsv`，缺失即报错并保留现场（不复制不删除）。补救：BLAST 中间结果通常已算完，用 `--resume-from-blast <上次的WorkingDirectory> --old-version` 续跑即可（WorkingDirectory 位于 `<输入目录>/OrthoFinder/Results_*/WorkingDirectory`）。

@@ -48,6 +48,12 @@ class PangenomeConfig:
     resume_from_existing: bool = True
     skip_orthofinder: bool = False
     force_overwrite: bool = False
+    # OF -b: 从已有BLAST结果续跑(与-f互斥)|Resume from precomputed BLAST results (mutually exclusive with -f)
+    resume_blast_dir: Optional[str] = None
+    # OF --old-version: 旧版并行管理器,无200s停滞检测|Legacy parallel manager without 200s stall detection
+    use_old_version: bool = False
+    # 透传给OrthoFinder的额外参数(shlex切分后追加)|Extra args passed through to OrthoFinder (shlex-split and appended)
+    orthofinder_extra: str = ''
 
     # 可视化参数|Visualization parameters
     generate_plots: bool = True
@@ -73,6 +79,9 @@ class PangenomeConfig:
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
 
+        if self.resume_blast_dir:
+            self.resume_blast_dir = expand_path(self.resume_blast_dir)
+
         if not self.project_name:
             self.project_name = f"pangenome_{Path(self.input_dir).name}"
 
@@ -90,6 +99,9 @@ class PangenomeConfig:
 
         if self.threads <= 0:
             errors.append(f"线程数必须为正整数|Thread count must be positive: {self.threads}")
+
+        if self.resume_blast_dir and not os.path.isdir(self.resume_blast_dir):
+            errors.append(f"续跑BLAST目录不存在|Resume BLAST directory does not exist: {self.resume_blast_dir}")
 
         if not 0.1 <= self.mcl_inflation <= 10.0:
             errors.append(f"MCL inflation参数超出合理范围|MCL inflation parameter out of range: {self.mcl_inflation}")

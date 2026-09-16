@@ -103,6 +103,17 @@ def _validate_directory_exists(dir_path):
 @click.option('--skip-orthofinder',
               is_flag=True,
               help='跳过OrthoFinder步骤直接分类|Skip OrthoFinder step and go directly to classification')
+@click.option('--resume-from-blast',
+              type=click.Path(),
+              help='从已有BLAST结果目录续跑(OF -b, 与-f互斥)|Resume from precomputed BLAST results directory (OF -b, mutually exclusive with -f)')
+@click.option('--old-version',
+              is_flag=True,
+              help='使用旧版并行管理器(无200s停滞检测)|Use the legacy parallel manager (no 200s stall detection)')
+@click.option('--orthofinder-extra',
+              type=str,
+              default='',
+              show_default=True,
+              help='透传给OrthoFinder的额外参数(shlex切分后追加)|Extra arguments passed through to OrthoFinder (shlex-split and appended)')
 @click.option('--disable-rarefaction',
               is_flag=True,
               help='禁用稀释曲线分析|Disable rarefaction curve analysis')
@@ -130,6 +141,7 @@ def _validate_directory_exists(dir_path):
 def orthofinder(input, output, project_name, softcore_threshold, dispensable_threshold,
                 threads, search, mcl_inflation, dna, basic_only, generate_trees,
                 msa_program, tree_program, orthofinder_path, force, skip_orthofinder,
+                resume_from_blast, old_version, orthofinder_extra,
                 disable_rarefaction, disable_single_copy, no_plots,
                 rarefaction_iterations, single_copy_format, plot_format):
     """
@@ -184,6 +196,15 @@ def orthofinder(input, output, project_name, softcore_threshold, dispensable_thr
 
     if skip_orthofinder:
         args.append('--skip-orthofinder')
+
+    if resume_from_blast:
+        args.extend(['--resume-from-blast', resume_from_blast])
+
+    if old_version:
+        args.append('--old-version')
+
+    if orthofinder_extra:
+        args.extend(['--orthofinder-extra', orthofinder_extra])
 
     if disable_rarefaction:
         args.append('--disable-rarefaction')
