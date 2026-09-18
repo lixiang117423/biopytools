@@ -9,6 +9,8 @@
 - 调用 KaKs_Calculator 2.0 批量计算同源基因对的 Ka（非同义替换率）与 Ks（同义替换率）
 - 支持 17 种计算方法（默认 GMYN，即 Gamma 修正的 Yang-Nielsen 方法）
 - 输入侧做严格质控：字符、N 比例、序列长度、密码子完整性逐一校验，不合格的配对自动剔除
+- **密码子比对（pal2nal 式，默认开启）**：先把 CDS 翻译成蛋白做逐对全局比对（BLOSUM62 仿射 gap，等价 EMBOSS needle 同参），再把蛋白 gap 回译成 `---` 得到等长密码子比对——含插入缺失（indel）的配对被正确对齐，不再错位
+- **多进程并行**：按配对分块 `fork` 并行（比对 → AXT → KaKs_Calculator → 解析），`-t/--threads` 为并行进程数；各块只做解析，合并后再统一计算分位数/z-score 等全量指标
 - 输出逐对详细结果（TSV/CSV）+ Excel 汇总 + JSON 统计，并自动给每个基因打上选择压力标签
 - 断点续传：无（每次运行都从头计算，临时文件默认自动清理，可用 `--keep-temp` 保留）
 
@@ -74,7 +76,8 @@ gene003    gene003
 步骤3: 序列质控（字符/N比例/长度/密码子完整性），剔除不合格配对
    |
    v
-步骤4: 生成 AXT 格式输入 -> KaKs_Calculator 批量计算
+步骤4: 逐对密码子比对(翻译->蛋白全局比对->回译, 含gap) -> 生成 AXT -> KaKs_Calculator 批量计算
+   (分块并行; 严格直通模式长度不等直接报错, 永不静默截断)
    |
    v
 步骤5: 解析结果 -> 添加选择压力分类/质量标记 -> 输出 TSV/CSV/XLSX/JSON
@@ -144,7 +147,7 @@ output_dir/
 | `-p, --pairs, --pair-file` | 必填 | str | 序列配对文件 (TSV/CSV格式)｜Sequence pair file (TSV/CSV format) |
 | `-o, --output, --output-dir` | 必填 | str | 输出目录｜Output directory for results |
 | `-m, --method, --calc-method` | `GMYN` | GMYN/MYN/YN/NG/LWL/LPB/MLWL/MLPB/GY/MS/MA/GNG/GLWL/GLPB/GMLWL/GMLPB/GYN | 计算方法 (默认: GMYN)｜Calculation method (default: GMYN) |
-| `-t, --threads` | `12` | int | 线程数 (默认: 12)｜Thread count (default: 12) |
+| `-t, --threads` | `12` | int | 并行进程数 (默认: 12，按配对分块 fork 并行)｜Parallel worker processes (default: 12) |
 | `--kaks-path, --calculator-path` | `KaKs_Calculator` | str | KaKs_Calculator可执行文件路径｜Path to KaKs_Calculator executable |
 | `-v, --verbose, --debug` | — | store_true | 启用详细日志记录｜Enable verbose logging |
 | `--temp-dir, --tmp-dir` | — | str | 自定义临时目录｜Custom temporary directory |
@@ -165,7 +168,10 @@ output_dir/
 输入质控阶段被剔除的配对不会进入结果：序列含非法字符、N 比例 >10%、长度超出 50-50000、长度不是 3 的倍数，都会导致该配对被跳过。加 `--verbose` 看日志里的「过滤 X 个配对」与逐条失败原因。
 
 **Q2：序列长度不是 3 的倍数会怎样？**
-质控直接判该序列无效（密码子不完整），相关配对被剔除。请确认输入是完整 CDS（去掉 UTR、内含子）。注意：程序内部写 AXT 时对「配对里两条长度不一致」会**自动截断到较短者**（对齐到 3 的倍数），这只针对长度一致性问题，不是密码子问题。
+质控直接判该序列无效（密码子不完整），相关配对被剔除。请确认输入是完整 CDS（去掉 UTR、内含子）。
+
+**Q2b：配对里两条序列长度不一致（含插入缺失）会怎样？**
+默认做**密码子比对**：翻译成蛋白后全局比对，再回译成等长密码子比对（蛋白 gap 变 `---`，KaKs_Calculator 自行剔除 gap 密码子）——含 indel 的配对能正确对齐，**不会错位**。若关闭比对（严格直通模式），长度不等会**直接报错**，不再静默截断到较短者（旧版截断会让含 indel 的配对整个读码框位移，算出的 Ka/Ks 不可信）。
 
 **Q3：KaKs_Calculator 要 AXT 格式，我要自己准备吗？**
 不需要。程序自动把两个 FASTA + 配对表转成 AXT 格式喂给 KaKs_Calculator，你只需给 FASTA 和配对表。

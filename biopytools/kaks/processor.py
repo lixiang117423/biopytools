@@ -25,12 +25,14 @@ class ResultProcessor:
         self.logger = logger
         self.config = KaKsConfig()
 
-    def parse_results(self, output_file: str) -> pd.DataFrame:
+    def parse_results(self, output_file: str, postprocess: bool = True) -> pd.DataFrame:
         """
-        解析Ka/Ks计算结果|Parse Ka/Ks calculation results
+        解析KaKs计算结果|Parse KaKs calculation results
 
         Args:
             output_file: KaKs_Calculator输出文件路径|KaKs_Calculator output file path
+            postprocess: 是否附加指标与质控(分块并行时False,合并后统一处理)
+                Whether to attach metrics/QC (False in chunked mode; applied after merge)
 
         Returns:
             解析后的结果DataFrame|Parsed results DataFrame
@@ -120,24 +122,8 @@ class ResultProcessor:
                 sample_display = {k: v for k, v in sample_data.items() if k in key_cols and k in df.columns}
                 self.logger.debug(f"解析样本|Parsed sample: {sample_display}")
 
-            df = self._add_calculated_metrics(df)
-
-            if 'Ka/Ks' in df.columns:
-                df['Selection_Type'] = df['Ka/Ks'].apply(self._classify_selection)
-                df['Selection_Strength'] = df['Ka/Ks'].apply(self._classify_selection_strength)
-                p_col = 'P-Value(Fisher)' if 'P-Value(Fisher)' in df.columns else None
-                if p_col:
-                    df['Significance'] = df.apply(
-                        lambda r: self._classify_significance(r['Ka/Ks'], r[p_col]), axis=1
-                    )
-
-            length_cols = ['Length', 'Length1', 'Length_seq']
-            for col in length_cols:
-                if col in df.columns:
-                    df['Sequence_Length'] = pd.to_numeric(df[col], errors='coerce')
-                    break
-
-            df = self._add_quality_flags(df)
+            if postprocess:
+                df = self.postprocess_merged(df)
 
             self.logger.success(f"结果解析完成|Results parsed: {len(df)} sequence pairs")
             return df
@@ -145,6 +131,32 @@ class ResultProcessor:
         except Exception as e:
             self.logger.error(f"结果解析失败|Failed to parse results: {e}")
             raise
+
+    def postprocess_merged(self, df: pd.DataFrame) -> pd.DataFrame:
+        """附加指标/选择分类/质控标记|Attach metrics, selection classes and QC flags
+
+        分块并行时各块只做解析,合并后的全量DataFrame在此统一计算
+        (分位数/z-score等必须基于全量数据|quantiles and z-scores need the full data)。
+        """
+        df = self._add_calculated_metrics(df)
+
+        if 'Ka/Ks' in df.columns:
+            df['Selection_Type'] = df['Ka/Ks'].apply(self._classify_selection)
+            df['Selection_Strength'] = df['Ka/Ks'].apply(self._classify_selection_strength)
+            p_col = 'P-Value(Fisher)' if 'P-Value(Fisher)' in df.columns else None
+            if p_col:
+                df['Significance'] = df.apply(
+                    lambda r: self._classify_significance(r['Ka/Ks'], r[p_col]), axis=1
+                )
+
+        length_cols = ['Length', 'Length1', 'Length_seq']
+        for col in length_cols:
+            if col in df.columns:
+                df['Sequence_Length'] = pd.to_numeric(df[col], errors='coerce')
+                break
+
+        df = self._add_quality_flags(df)
+        return df
 
     def _convert_data_types(self, df: pd.DataFrame):
         """数据类型转换|Convert data types"""

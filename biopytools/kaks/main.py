@@ -6,6 +6,7 @@ Ka/Ks Calculator主分析流水线|Ka/Ks Calculator Main Analysis Pipeline
 import os
 import sys
 import argparse
+import multiprocessing
 import subprocess
 import tempfile
 import shutil
@@ -18,6 +19,55 @@ from .utils import KaKsLogger
 from .validator import SequenceValidator
 from .calculator import KaKsCalculator
 from .processor import ResultProcessor
+from .aligner import PairAlignmentResult
+
+
+def chunk_list(items: List, n_chunks: int) -> List[List]:
+    """将列表均衡切为n块|Split a list evenly into n chunks"""
+    if not items:
+        return []
+    n_chunks = max(1, min(n_chunks, len(items)))
+    avg, extra = divmod(len(items), n_chunks)
+    chunks = []
+    start = 0
+    for i in range(n_chunks):
+        size = avg + (1 if i < extra else 0)
+        chunks.append(items[start:start + size])
+        start += size
+    return chunks
+
+
+# fork子进程继承的执行上下文|Execution context inherited by forked workers
+_WORKER_CONTEXT: Dict = {}
+
+
+def _process_chunk(chunk_id: int, chunk_pairs: List[Tuple[str, str, str]]) -> Tuple[List[PairAlignmentResult], object]:
+    """
+    工作进程:单块比对→AXT→KaKs_Calculator→解析|Worker: one chunk align→AXT→KaKs→parse
+
+    上下文经fork从_WORKER_CONTEXT继承|Context inherited via fork from _WORKER_CONTEXT
+    """
+    import pandas as pd
+
+    ctx = _WORKER_CONTEXT
+    chunk_dir = os.path.join(ctx["temp_root"], f"chunk_{chunk_id:04d}")
+    os.makedirs(chunk_dir, exist_ok=True)
+
+    logger = KaKsLogger(Path(ctx["log_dir"]), log_name=f"kaks_chunk_{chunk_id:04d}.log")
+    calculator = KaKsCalculator(logger, ctx["kaks_path"], check_installation=False)
+    processor = ResultProcessor(logger)
+
+    axt_file, records = calculator.prepare_input_file(
+        ctx["seq1_dict"], ctx["seq2_dict"], chunk_pairs, chunk_dir, align=ctx["align"]
+    )
+
+    writable = [r for r in records if not r.skip_reason]
+    if not writable:
+        return records, None
+
+    output_file = calculator.run_calculation(axt_file, ctx["method"], chunk_dir)
+    df = processor.parse_results(output_file, postprocess=False)
+    return records, df
 
 
 class KaKsAnalyzer:
@@ -26,7 +76,8 @@ class KaKsAnalyzer:
     def __init__(self, fasta1: str, fasta2: str, pairs: str, output_dir: str,
                  method: str = None, kaks_path: str = "KaKs_Calculator",
                  threads: int = 12, verbose: bool = False,
-                 temp_dir: str = None, keep_temp: bool = False):
+                 temp_dir: str = None, keep_temp: bool = False,
+                 align: bool = True, check_installation: bool = True):
         """
         初始化分析器|Initialize analyzer
 
@@ -41,6 +92,7 @@ class KaKsAnalyzer:
             verbose: 详细模式|Verbose mode
             temp_dir: 临时目录|Temporary directory
             keep_temp: 保留临时文件|Keep temporary files
+            align: 比对模式(默认True)|Alignment mode (default True)
         """
         self.fasta1 = fasta1
         self.fasta2 = fasta2
@@ -52,6 +104,7 @@ class KaKsAnalyzer:
         self.verbose = verbose
         self.temp_dir = temp_dir
         self.keep_temp = keep_temp
+        self.align = align
 
         output_path = Path(output_dir)
         output_path.mkdir(parents=True, exist_ok=True)
@@ -65,7 +118,8 @@ class KaKsAnalyzer:
         # 初始化组件|Initialize components
         self.config = KaKsConfig()
         self.validator = SequenceValidator(self.logger)
-        self.calculator = KaKsCalculator(self.logger, kaks_path)
+        self.calculator = KaKsCalculator(self.logger, kaks_path,
+                                         check_installation=check_installation)
         self.processor = ResultProcessor(self.logger)
 
         self._temp_dir_created = None
@@ -190,26 +244,90 @@ class KaKsAnalyzer:
 
     def _run_calculation(self, seq1_dict: Dict[str, str], seq2_dict: Dict[str, str],
                         pairs_list: List[Tuple[str, str, str]]):
-        """执行Ka/Ks计算|Execute Ka/Ks calculation"""
+        """执行Ka/Ks计算(分块并行)|Execute Ka/Ks calculation in parallel chunks"""
         self.logger.separator("Ka/Ks计算|Ka/Ks Calculation")
 
-        input_file = self.calculator.prepare_input_file(
-            seq1_dict, seq2_dict, pairs_list, self._temp_dir_created
+        # 每块至少500对,避免小任务并行开销|At least 500 pairs per chunk to limit overhead
+        n_chunks = max(1, min(self.threads, len(pairs_list) // 500))
+        chunks = chunk_list(pairs_list, n_chunks)
+        self.logger.info(
+            f"分块并行|Chunked parallel: {len(pairs_list)} 对|pairs -> {len(chunks)} 块|chunks "
+            f"(每块约|~{len(pairs_list) // len(chunks)} 对|pairs per chunk)"
         )
 
-        output_file = self.calculator.run_calculation(
-            input_file, self.method, self._temp_dir_created
+        global _WORKER_CONTEXT
+        _WORKER_CONTEXT = {
+            "seq1_dict": seq1_dict,
+            "seq2_dict": seq2_dict,
+            "kaks_path": self.kaks_path,
+            "method": self.method,
+            "align": self.align,
+            "temp_root": self._temp_dir_created,
+            "log_dir": str(Path(self.output_dir) / "99_logs"),
+        }
+
+        try:
+            if n_chunks == 1:
+                chunk_results = [_process_chunk(0, chunks[0])]
+            else:
+                # fork上下文COW共享序列字典,零拷贝|fork shares seq dicts via COW, zero copy
+                with multiprocessing.get_context("fork").Pool(len(chunks)) as pool:
+                    chunk_results = pool.starmap(
+                        _process_chunk, list(enumerate(chunks))
+                    )
+        finally:
+            _WORKER_CONTEXT = {}
+
+        all_records = [record for records, _ in chunk_results for record in records]
+        frames = [df for _, df in chunk_results if df is not None and len(df) > 0]
+
+        results_df = self._merge_chunk_results(frames, all_records)
+        return self.processor.postprocess_merged(results_df)
+
+    def _merge_chunk_results(self, chunk_frames: List, records: List[PairAlignmentResult]):
+        """
+        合并各块结果并并入比对统计|Merge chunk frames and join alignment stats
+
+        KaKs漏算或被跳过的配对保留行(NaN填充),确保输出覆盖全部输入配对。
+        Pairs skipped or dropped by KaKs keep a NaN row so output covers all input pairs.
+        """
+        import pandas as pd
+
+        record_map = {record.pair_name: record for record in records}
+
+        if chunk_frames:
+            merged = pd.concat(chunk_frames, ignore_index=True)
+        else:
+            merged = pd.DataFrame(columns=["Sequence", "Pair_ID"])
+
+        id_col = "Pair_ID" if "Pair_ID" in merged.columns else "Sequence"
+        merged["seq1_id"] = merged[id_col].map(lambda name: record_map.get(name).seq1_id if name in record_map else "")
+        merged["seq2_id"] = merged[id_col].map(lambda name: record_map.get(name).seq2_id if name in record_map else "")
+
+        # 补齐KaKs漏算/被跳过的配对|Backfill pairs missing from KaKs output or skipped
+        present = set(merged[id_col].astype(str))
+        missing = [name for name in record_map if name not in present]
+        if missing:
+            merged = pd.concat([merged, pd.DataFrame({
+                "Sequence": missing,
+                "Pair_ID": missing,
+                "seq1_id": [record_map[name].seq1_id for name in missing],
+                "seq2_id": [record_map[name].seq2_id for name in missing],
+            })], ignore_index=True)
+
+        for column in ["protein_identity", "aln_codons", "gap_codons", "cds1_len", "cds2_len"]:
+            merged[column] = merged[id_col].map(
+                lambda name: getattr(record_map[name], column) if name in record_map else None
+            )
+        merged["skip_reason"] = merged[id_col].map(
+            lambda name: getattr(record_map[name], "skip_reason") if name in record_map else ""
         )
 
-        results_df = self.processor.parse_results(output_file)
-
-        # 添加seq1_id和seq2_id列|Add seq1_id and seq2_id columns
-        pair_map = {pair_name: (seq1_id, seq2_id) for seq1_id, seq2_id, pair_name in pairs_list}
-        id_col = 'Pair_ID' if 'Pair_ID' in results_df.columns else 'Sequence'
-        results_df['seq1_id'] = results_df[id_col].map(lambda x: pair_map.get(x, ('', ''))[0])
-        results_df['seq2_id'] = results_df[id_col].map(lambda x: pair_map.get(x, ('', ''))[1])
-
-        return results_df
+        self.logger.info(
+            f"合并完成|Merged: {len(merged)} 行|rows "
+            f"(跳过配对|skipped pairs: {sum(1 for r in records if r.skip_reason)})"
+        )
+        return merged
 
     def _process_and_save_results(self, results_df):
         """处理并保存结果|Process and save results"""
@@ -329,7 +447,7 @@ def create_argument_parser() -> argparse.ArgumentParser:
                        action='store_true',
                        help='保留临时文件 (用于调试)|Keep temporary files (for debugging)')
 
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
 
     return parser
 

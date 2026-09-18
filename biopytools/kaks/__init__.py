@@ -3,8 +3,8 @@ Ka/Ks Calculator 2.0 Python封装|Ka/Ks Calculator 2.0 Python Wrapper
 功能: 基于KaKs_Calculator2.0的同义和非同义替换率分析工具|Ka/Ks substitution rate analysis toolkit
 支持: 多种计算方法和批量分析|Multiple calculation methods and batch analysis
 作者|Author: Bioinformatics Pipeline Team
-版本|Version: v1.0.0 - Python模块化版本|Python modular version
-日期|Date: 2025-08-15
+版本|Version: v1.1.0 - Python模块化版本|Python modular version
+日期|Date: 2026-09-18
 
 主要功能|Main Features:
 - Ka/Ks比率计算|Ka/Ks ratio calculation
@@ -29,7 +29,7 @@ Ka/Ks Calculator 2.0 Python封装|Ka/Ks Calculator 2.0 Python Wrapper
     analyzer.run_analysis()
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "Bioinformatics Pipeline Team"
 
 from .main import KaKsAnalyzer
