@@ -10,6 +10,7 @@
 - 支持短读、长读测序数据作为注释证据，自动生成 EGAPx 格式的 reads 列表
 - 在输出目录上层自动创建 EGAPx 运行所需的软链接(ui/nf/egapx_config)与 SIF 镜像配置
 - 可自定义 locus 标签前缀、报告名、染色体前缀过滤、NCBI 物种分类 ID
+- 生成的脚本在 EGAPx **运行成功后自动删除该染色体的 `work/` 目录**(Nextflow 中间产物，单染色体可达数百 GB)；失败时保留以便断点续跑，`--keep-work` 可关闭自动删除
 - 注意：本模块只**生成**配置，真正的注释由用户随后执行生成的脚本完成
 
 ## 快速开始 | Quick Start { #quick-start }
@@ -60,6 +61,10 @@ FASTA 格式，支持 `.fa` / `.fa.gz` / `.fasta` / `.fasta.gz`。按序列(通�
 
 **通俗理解|In plain words:** `--locus-prefix` 是预测基因编号的前缀(最终会拼成 `<prefix>_<chr>`)，`--report-name` 是报告名，`--taxid` 是 NCBI 物种分类 ID。**taxid 默认 71234 是占位值，务必改成自己物种的 NCBI taxonomy ID**，否则注释报告里的物种信息是错的。
 
+### 磁盘清理 | Disk cleanup
+
+**通俗理解|In plain words:** `work/` 是 EGAPx(Nextflow)干活时的临时工地，体量常比最终结果大一个数量级。默认**每条染色体注释成功后自动删掉它的 `work/`**，给磁盘腾地方；只有任务**失败**时才留着(里面有断点，重跑能续)。`--keep-work` 关掉自动删除，一般只在排查问题或想手动断点续跑时才需要加。**一般不用动**。
+
 ## 分析流程 | Pipeline { #pipeline }
 
 ```text
@@ -89,7 +94,7 @@ output_dir/
 │   ├── <chr1>.fa                     # 该染色体序列
 │   ├── <chr1>.yaml                   # EGAPx 配置
 │   ├── egapx_<chr1>.sh               # 运行脚本(可执行)
-│   ├── work/                         # EGAPx 工作目录
+│   ├── work/                         # EGAPx 工作目录(运行成功后自动删除)
 │   └── output/                       # EGAPx 输出目录
 ├── <chr2>/ ...                       # 其余染色体同结构
 ├── short_reads_list.txt              # 短读列表(给了 --short-reads 才有)
@@ -116,6 +121,10 @@ output_dir 的上一级目录:
 
 执行脚本后，注释结果在各 `<chr>/output/` 里；全部跑完后把各染色体的 GFF 合并，即得到全基因组注释。
 
+### 4. work 目录去哪了
+
+某条染色体注释**成功**后，脚本会自动删除它的 `work/` 目录(日志里会打印"删除work目录")——这是正常清理，不是丢数据，最终结果都在 `output/` 里。某条染色体**失败**时 `work/` 会保留，重跑同一脚本可断点续传。注意：旧版本生成的脚本没有自动清理，已生成未跑的旧脚本可重新运行本模块覆盖生成，或手动 `rm -rf <chr>/work`。
+
 ## 参数选择建议 | Parameter Guidance { #guidance }
 
 - **常规用法**：`-g genome.fa -o out --taxid <你的物种ID>`，其余默认
@@ -123,6 +132,7 @@ output_dir 的上一级目录:
 - **只想注释核染色体**：`-p chr` 只保留前缀为 chr 的序列(视具体命名)
 - **基因组小、不想拆**：`--no-split` 整体一个任务
 - **统一基因命名**：`--locus-prefix 物种缩写`，预测基因会编号成 `物种缩写_染色体_序号`
+- **排查问题/手动续跑**：`--keep-work` 关闭成功后的自动清理，保留 `work/` 以便查看中间产物或断点续跑
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -140,6 +150,7 @@ output_dir 的上一级目录:
 | `--local-cache` | `~/software/EGAPX_v.0.4.1-alpha/local_cache` |  | EGAPx本地缓存路径｜EGAPx local cache path |
 | `--sif` | `~/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif` |  | Singularity镜像路径｜Singularity image path |
 | `--no-split` | `False` |  | 不按染色体拆分基因组｜Do not split genome by chromosome |
+| `--keep-work` | `False` |  | 运行成功后保留work目录(默认自动删除)｜Keep work directory after successful run (removed by default) |
 | `--chr-prefix, -p` | — |  | 染色体前缀过滤｜Chromosome prefix filter |
 | `--locus-prefix` | `` |  | locus标签前缀｜Locus tag prefix |
 | `--report-name` | `EGAPx` |  | 报告名称｜Report name |
@@ -157,6 +168,7 @@ output_dir 的上一级目录:
 | `--local-cache` | `~/software/EGAPX_v.0.4.1-alpha/local_cache` |  | [PATH] EGAPx本地缓存路径｜EGAPx local cache path |
 | `--sif` | `~/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif` |  | [FILE] Singularity镜像路径｜Singularity image path |
 | `--no-split` | `False` | store_true | 不按染色体拆分基因组｜Do not split genome by chromosome |
+| `--keep-work` | `False` | store_true | 运行成功后保留work目录(默认自动删除)｜Keep work directory after successful run (removed by default) |
 | `--taxid` | `71234` |  | [INT] 物种分类ID｜Species taxonomy ID |
 | `-p, --chr-prefix` | — |  | [STR] 染色体前缀过滤｜Chromosome prefix filter |
 | `--locus-prefix` | `` |  | [STR] locus标签前缀｜Locus tag prefix |
@@ -186,7 +198,7 @@ output_dir 的上一级目录:
 是生成器内置的占位物种 ID。务必用 `--taxid` 改成自己物种的 NCBI taxonomy ID，否则报告里的物种信息不对。
 
 **Q4：有断点续传吗？**
-本模块是轻量生成器，没有断点续传概念——重跑就是重新生成配置。真正注释阶段由 EGAPx 自己在 `<chr>/work/` 里管理续传。
+本模块是轻量生成器，没有断点续传概念——重跑就是重新生成配置。真正注释阶段由 EGAPx 自己在 `<chr>/work/` 里管理续传：任务失败时 `work/` 会保留，直接重跑同一脚本即可续传；任务成功后 `work/` 被自动删除(无续传需求)。若希望成功后也保留(如想反复调试)，生成配置时加 `--keep-work`。
 
 **Q5：为什么输出目录上层多了 ui/nf/egapx_config 软链接？**
 EGAPx 运行时需要这些目录，生成器自动把它们软链接到输出目录的上一级，供脚本调用。这是正常现象，别删。

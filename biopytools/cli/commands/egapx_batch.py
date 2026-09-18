@@ -163,6 +163,11 @@ def _validate_sif_image(file_path):
               default=False,
               show_default=True,
               help='不按染色体拆分基因组|Do not split genome by chromosome')
+@click.option('--keep-work',
+              is_flag=True,
+              default=False,
+              show_default=True,
+              help='运行成功后保留work目录(默认自动删除)|Keep work directory after successful run (removed by default)')
 @click.option('--chr-prefix', '-p',
               help='染色体前缀过滤|Chromosome prefix filter')
 @click.option('--locus-prefix',
@@ -187,8 +192,8 @@ def _validate_sif_image(file_path):
               default='71234',
               show_default=True,
               help='物种分类ID|Species taxonomy ID')
-def egapx_batch(genome, output, egapx, local_cache, sif, no_split, chr_prefix, locus_prefix,
-                report_name, short_reads, long_reads, taxid):
+def egapx_batch(genome, output, egapx, local_cache, sif, no_split, keep_work, chr_prefix,
+                locus_prefix, report_name, short_reads, long_reads, taxid):
     """
     EGAPx批量运行配置生成工具|EGAPx Batch Config Generator
 
@@ -219,6 +224,9 @@ def egapx_batch(genome, output, egapx, local_cache, sif, no_split, chr_prefix, l
 
     if no_split:
         args.append('--no-split')
+
+    if keep_work:
+        args.append('--keep-work')
 
     if chr_prefix:
         args.extend(['-p', chr_prefix])

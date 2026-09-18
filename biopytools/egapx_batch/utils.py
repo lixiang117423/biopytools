@@ -223,6 +223,22 @@ python3 \\
     -o {output_dir} \\
     -lc {local_cache} \\
     -r {report_name}
+
+# 捕获EGAPx退出码|Capture EGAPx exit code
+egapx_exit=$?
+{cleanup_block}exit $egapx_exit
+"""
+
+    # 成功后清理work目录块|Post-success work-dir cleanup block
+    # Why: work/是Nextflow中间产物(单染色体可达数百GB),成功后必须清理;
+    # 失败保留以支持断点续跑|work/ holds Nextflow intermediates (can be
+    # hundreds of GB); removed on success, kept on failure for resume
+    CLEANUP_BLOCK = """# 运行成功后清理work目录(失败保留以便断点续跑)|Remove work dir on success (kept on failure for resume)
+if [ $egapx_exit -eq 0 ] && [ -d "{work_dir}" ]; then
+    echo "EGAPx运行成功，删除work目录|EGAPx succeeded, removing work directory: {work_dir}"
+    rm -rf "{work_dir}"
+fi
+
 """
 
     def __init__(self, logger):
@@ -385,7 +401,8 @@ class JobGenerator:
 
     def generate_script(self, yaml_path: str, work_dir: str,
                         output_dir: str, report_name: str, chr_dir: str,
-                        egapx_dir: str = None, local_cache: str = None) -> str:
+                        egapx_dir: str = None, local_cache: str = None,
+                        cleanup_work: bool = True) -> str:
         """
         生成运行脚本|Generate run script
 
@@ -397,6 +414,7 @@ class JobGenerator:
             chr_dir: 染色体目录|Chromosome directory
             egapx_dir: EGAPx软链接目录|EGAPx symlink directory
             local_cache: EGAPx本地缓存路径|EGAPx local cache path
+            cleanup_work: 成功后是否清理work目录|Whether to remove work dir on success
 
         Returns:
             生成的脚本内容|Generated script content
@@ -405,11 +423,17 @@ class JobGenerator:
         if not egapx_dir:
             egapx_dir = os.path.dirname(chr_dir)
 
+        cleanup_block = (
+            TemplateProcessor.CLEANUP_BLOCK.format(work_dir=work_dir)
+            if cleanup_work else ""
+        )
+
         return TemplateProcessor.DEFAULT_SCRIPT_TEMPLATE.format(
             egapx_dir=egapx_dir,
             yaml_path=yaml_path,
             work_dir=work_dir,
             output_dir=output_dir,
             report_name=report_name,
-            local_cache=local_cache
+            local_cache=local_cache,
+            cleanup_block=cleanup_block
         )

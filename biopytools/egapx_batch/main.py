@@ -278,7 +278,8 @@ class EGAPxBatchGenerator:
                         report_name=self.config.report_name,
                         chr_dir=chr_dir_abs,
                         egapx_dir=os.path.dirname(output_dir_abs),
-                        local_cache=self.config.local_cache
+                        local_cache=self.config.local_cache,
+                        cleanup_work=self.config.cleanup_work
                     )
 
                     with open(new_script, 'w') as f:
@@ -405,6 +406,8 @@ def main():
                          help='[FILE] Singularity镜像路径|Singularity image path')
     optional.add_argument('--no-split', action='store_true', default=False,
                          help='不按染色体拆分基因组|Do not split genome by chromosome')
+    optional.add_argument('--keep-work', action='store_true', default=False,
+                         help='运行成功后保留work目录(默认自动删除)|Keep work directory after successful run (removed by default)')
     optional.add_argument('--taxid', default='71234',
                          help='[INT] 物种分类ID|Species taxonomy ID')
     optional.add_argument('-p', '--chr-prefix',
@@ -429,6 +432,7 @@ def main():
         local_cache=args.local_cache,
         sif_image=args.sif,
         split_genome=not args.no_split,
+        cleanup_work=not args.keep_work,
         chr_prefix=args.chr_prefix,
         locus_tag_prefix=args.locus_prefix,
         report_name=args.report_name,

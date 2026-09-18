@@ -22,6 +22,7 @@ class EGAPxBatchConfig:
     local_cache: str = "~/software/EGAPX_v.0.4.1-alpha/local_cache"
     sif_image: str = "~/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif"
     split_genome: bool = True
+    cleanup_work: bool = True
     chr_prefix: str = None
     locus_tag_prefix: str = ""
     report_name: str = "EGAPx"
