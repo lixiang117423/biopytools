@@ -1,3 +1,12 @@
+## [1.74.0] - 2026-09-18
+
+### Added
+- `egapx_batch`: 生成的运行脚本在 EGAPx **运行成功后自动删除该染色体的 `work/` 目录**(模块版本 1.0.0→1.1.0,16 个单测 tests/test_egapx_batch/)——`work/` 是 Nextflow 中间产物,单染色体可达数百 GB;**失败时保留**以支持断点续跑;新增 `--keep-work` 关闭自动清理(config/argparse/Click 三层接线);脚本尾部同时新增退出码捕获与 `exit $egapx_exit` 透传(原脚本不透传,parallel 并行时失败会被吞);只对新生成的脚本生效,旧脚本需重新生成本模块配置或手动清理
+- `kaks`(模块 1.1.0): 新增 **pal2nal 式密码子比对**(`aligner.py`)——翻译 CDS 后逐对做蛋白全局比对(等价 EMBOSS needle 同参: BLOSUM62 + 仿射 gap -11/-1), 再把蛋白 gap 回译成 `---` 得到等长密码子比对(KaKs_Calculator 自动剔除 gap 密码子); 修复原「配对长度不等即静默截断到较短者」致含 indel 配对整段读码框位移、Ka/Ks 不可信的问题; 新增**多进程分块并行**(按配对 fork 分块: 比对→AXT→KaKs→解析, `-t/--threads` 为并行进程数; 各块只做解析, 合并后统一计算分位数/z-score 等全量指标); 新增严格直通模式(长度不等直接报错, 永不静默截断); `KaKsCalculator`/`KaKsAnalyzer` 新增 `check_installation` 开关(测试可跳过本机 KaKs_Calculator 存在性校验); docs/kaks.md 同步(功能概述/流程/参数表/FAQ——删除已废弃的「自动截断到较短者」描述)
+
+### Fixed
+- `kaks`: 修复 `processor.py` 语法破损——`postprocess_merged` 尾部遗留一段无配对 `try` 的 `except` 块(错误文案为 parse_results 的「结果解析失败」), 导致模块无法导入、测试无法收集
+
 ## [1.73.0] - 2026-09-16
 
 ### Fixed
