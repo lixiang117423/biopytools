@@ -8,7 +8,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Tuple, Optional, List
-from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
+from ..common.conda_runner import build_conda_command, conda_env_run_prefix  # §13 同源conda绝对路径+run -p, 严禁裸调conda
 
 
 class RMVPLogger:

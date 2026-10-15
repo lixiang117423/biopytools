@@ -1,3 +1,15 @@
+## [1.74.1] - 2026-10-15
+
+### Fixed
+- **全库 conda 名称漏导入（`cb73fe28` 全库 conda 去重重构的回归）**：以下 5 个文件使用了 conda_runner 的名称，但 import 行只导入了 `build_conda_command`，运行时首次调用即抛 `NameError`：
+  - `rmvp/utils.py`：用 `conda_env_run_prefix` 但未导入 → `biopytools rmvp` **自 1.72.4 起在 conda 环境模式下完全不可用**（实测 2026-10-15：依赖检查第 1 步报 `rMVP检查失败|rMVP check failed: name 'conda_env_run_prefix' is not defined`，随后误报「rMVP包未安装」并退出；项目侧先用进程内注入的兼容层绕过，本次为永久修复）
+  - `rmvp/analyzer.py`：同上（第 452 行构造 Rscript 命令处）
+  - `oomycete_anno/utils.py`：用 `conda_env_run_prefix` 但未导入（gmes_petap 调用路径）
+  - `qiime2/utils.py`：用 `get_conda_env` 但未导入（qiime 版本探测）
+  - `selective_sweep/utils.py`：用 `conda_run_prefix` 但未导入（xpclr 版本探测）
+  修法：按 §13 权威实现，从 `common/conda_runner` 补全各文件缺失的导入（各一行），不改变任何调用点与行为。
+- 新增**静态自检**（AST 扫描：模块中「使用了 conda_runner 名称但既未导入也未定义」）：本次修复后全库扫描 0 命中，可纳入发布前检查，防止同类回归。
+
 ## [1.74.0] - 2026-09-18
 
 ### Added

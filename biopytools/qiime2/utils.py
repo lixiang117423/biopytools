@@ -14,7 +14,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-from ..common.conda_runner import build_conda_command  # §13 同源conda绝对路径+run -p, 严禁裸调conda
+from ..common.conda_runner import build_conda_command, get_conda_env  # §13 同源conda绝对路径+run -p, 严禁裸调conda（1.74.1 修复：原漏导入 get_conda_env 致 NameError）
 
 
 # IUPAC互补碱基映射(DNA: A↔T, C↔G)|IUPAC complementary base mapping (DNA: A↔T, C↔G)

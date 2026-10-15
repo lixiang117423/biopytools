@@ -10,6 +10,7 @@ from typing import List, Dict, Optional
 
 from .config import RMVPConfig
 from .utils import RMVPLogger, detect_r_environment, check_r_mvp, validate_vcf_file, validate_phenotype_file, prepare_vcf_for_rmvp, CommandRunner, build_conda_command
+from ..common.conda_runner import conda_env_run_prefix  # §13 同源conda绝对路径+run -p（1.74.1 修复：原漏导入致 NameError）
 from .rscript_generator import RMVPRScriptGenerator
 
 

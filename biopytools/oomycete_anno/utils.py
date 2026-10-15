@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 # conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
-from ..common.conda_runner import build_conda_command
+from ..common.conda_runner import build_conda_command, conda_env_run_prefix  # 1.74.1 修复：原漏导入 conda_env_run_prefix 致 NameError
 
 
 def build_genemark_command(

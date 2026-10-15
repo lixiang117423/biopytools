@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import List, Optional
 
 # conda包装统一走公共层(§13): 同源conda绝对路径 + run -p <环境前缀>, 严禁裸调conda
-from ..common.conda_runner import build_conda_command, get_conda_env
+from ..common.conda_runner import build_conda_command, conda_run_prefix, get_conda_env  # 1.74.1 修复：原漏导入 conda_run_prefix 致 NameError
 
 
 class SweepModuleLogger:
