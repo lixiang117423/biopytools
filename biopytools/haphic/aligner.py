@@ -1,6 +1,6 @@
 """
 HapHiC序列比对模块|HapHiC Sequence Alignment Module
-使用官方推荐的BWA比对流程
+支持 minibwa（默认）与 bwa-mem（回退）的 Hi-C 比对流程
 """
 
 import os
@@ -19,7 +19,7 @@ from ..common.paths import resolve_legacy_path
 
 
 class BWAAligner:
-    """BWA比对器|BWA Aligner - 使用官方推荐的流程"""
+    """Hi-C比对器|Hi-C Aligner - minibwa（默认）或 bwa-mem（回退）"""
 
     def __init__(self, config, logger):
         self.config = config
@@ -29,6 +29,20 @@ class BWAAligner:
         # Use samtools path from config with conda run wrapper
         self.samtools_path = self.config.samtools_bin
         self.logger.info(f"使用配置samtools路径|Using configured samtools: {self.samtools_path}")
+
+    def _aligner_backend(self) -> str:
+        """当前比对后端|Current alignment backend"""
+        return getattr(self.config, 'aligner', 'minibwa')
+
+    def _aligner_bin(self) -> str:
+        """当前比对后端可执行文件|Executable of the active alignment backend"""
+        if self._aligner_backend() == 'minibwa':
+            return self.config.minibwa_bin
+        return self.config.bwa_bin
+
+    def _aligner_label(self) -> str:
+        """日志用后端名称|Backend label for logging"""
+        return 'minibwa' if self._aligner_backend() == 'minibwa' else 'BWA'
 
     def _build_pipeline_command(self, commands: List[List[str]]) -> str:
         """
@@ -76,7 +90,7 @@ class BWAAligner:
 
     def run_alignment(self, is_realignment: bool = False) -> str:
         """
-        运行BWA比对流程|Run BWA alignment pipeline using official method
+        运行Hi-C比对流程|Run Hi-C alignment pipeline (minibwa or BWA)
 
         Args:
             is_realignment: 是否是纠错后的重新比对|Whether this is realignment after correction
@@ -87,7 +101,7 @@ class BWAAligner:
         if self.config.hic_file_type != "fastq":
             return self.config.bam_file
 
-        self.logger.info("开始BWA比对|Starting BWA alignment (official method)")
+        self.logger.info(f"开始{self._aligner_label()}比对|Starting {self._aligner_label()} alignment")
 
         # 创建比对输出目录|Create alignment output directory
         if is_realignment:
@@ -146,10 +160,10 @@ class BWAAligner:
 
                 self.logger.info(f"创建FASTQ软链接|Created FASTQ symlinks: {read1_link}, {read2_link}")
 
-            # 执行BWA比对流程|Execute BWA alignment pipeline
+            # 执行比对流程|Execute alignment pipeline
             final_bam = self._run_official_alignment_pipeline(asm_link, fastq_links, is_realignment)
 
-            self.logger.info(f"BWA比对完成|BWA alignment completed: {final_bam}")
+            self.logger.info(f"{self._aligner_label()}比对完成|{self._aligner_label()} alignment completed: {final_bam}")
             return os.path.join(alignment_dir, final_bam)
 
         finally:
@@ -190,9 +204,11 @@ class BWAAligner:
 
     def _run_official_alignment_pipeline(self, asm_link: str, fastq_links: List[Tuple[str, str]], is_realignment: bool = False) -> str:
         """
-        运行官方推荐的BWA比对流程|Run official BWA alignment pipeline
+        运行 Hi-C 比对流程（minibwa 或 BWA）|Run Hi-C alignment pipeline (minibwa or BWA)
 
-        官方流程:
+        默认（minibwa，约 3x 快于 bwa-mem，MAPQ>=20 一致率 99.99%）:
+        1. minibwa map --hic -t threads asm.fa read1.fq.gz read2.fq.gz|samblaster|samtools view -@ threads -S -h -b -F 3340 -o HiC.bam
+        BWA 回退:
         1. bwa mem -5SP -t threads asm.fa read1.fq.gz read2.fq.gz|samblaster|samtools view -@ threads -S -h -b -F 3340 -o HiC.bam
         2. HapHiC/utils/filter_bam HiC.bam 1 --nm 3 --threads threads|samtools view -b -@ threads -o HiC.filtered.bam
 
@@ -200,14 +216,15 @@ class BWAAligner:
             is_realignment: 是否是纠错后的重新比对|Whether this is realignment after correction
         """
 
-        # (1) BWA索引|BWA indexing
+        # (1) 比对索引|Alignment indexing
         self._ensure_bwa_index(asm_link)
 
         # (1.5) 检查并调整线程数以避免内存问题|Check and adjust threads to avoid memory issues
         self._adjust_threads_for_memory()
 
-        # (2) BWA比对 + samblaster + samtools view|BWA alignment + samblaster + samtools view
-        self.logger.info(f"步骤1: BWA比对 + 去重 + 初步过滤 (使用 {self.config.threads} 线程)|Step 1: BWA alignment + deduplication + initial filtering (using {self.config.threads} threads)")
+        # (2) 比对 + samblaster + samtools view|Alignment + samblaster + samtools view
+        label = self._aligner_label()
+        self.logger.info(f"步骤1: {label}比对 + 去重 + 初步过滤 (使用 {self.config.threads} 线程)|Step 1: {label} alignment + deduplication + initial filtering (using {self.config.threads} threads)")
 
         # 根据是否是重新比对设置文件名|Set filename based on whether this is realignment
         if is_realignment:
@@ -216,17 +233,24 @@ class BWAAligner:
         else:
             raw_bam = "HiC.bam"
 
-        # 构建BWA比对命令|Build BWA alignment command (使用官方参数)
-        bwa_cmd = [
-            self.config.bwa_bin, "mem",
-            "-5SP",  # 5: mark shorter split hits as secondary, S: output mate pairs, P: output in sam format
-            "-t", str(self.config.threads),
-            asm_link
-        ]
+        # 构建比对命令|Build alignment command
+        if self._aligner_backend() == 'minibwa':
+            aligner_cmd = [
+                self.config.minibwa_bin, "map", "--hic",
+                "-t", str(self.config.threads),
+                asm_link
+            ]
+        else:
+            aligner_cmd = [
+                self.config.bwa_bin, "mem",
+                "-5SP",  # 5: mark shorter split hits as secondary, S: output mate pairs, P: output in sam format
+                "-t", str(self.config.threads),
+                asm_link
+            ]
 
         # 添加所有FASTQ文件|Add all FASTQ files
         for read1_link, read2_link in fastq_links:
-            bwa_cmd.extend([read1_link, read2_link])
+            aligner_cmd.extend([read1_link, read2_link])
 
         # 检查samblaster是否存在（仅在使用时检查）
         # Check samblaster existence (only when needed)
@@ -236,7 +260,7 @@ class BWAAligner:
 
         try:
             if self.config.dry_run:
-                self.logger.info(f"[DRY RUN] BWA alignment command: {' '.join(bwa_cmd)}")
+                self.logger.info(f"[DRY RUN] {label} alignment command: {' '.join(aligner_cmd)}")
                 if self.config.use_samblaster:
                     self.logger.info(f"[DRY RUN] ...|{self.config.samblaster_bin}|samtools view -@ {self.config.threads} -S -h -b -F 3340 -o {raw_bam}")
                 else:
@@ -255,14 +279,14 @@ class BWAAligner:
                     ]
 
                     # 使用辅助函数构建包装后的管道命令|Use helper to build wrapped pipeline command
-                    full_cmd = self._build_pipeline_command([bwa_cmd, [self.config.samblaster_bin], samtools_view_cmd])
+                    full_cmd = self._build_pipeline_command([aligner_cmd, [self.config.samblaster_bin], samtools_view_cmd])
 
                     self.logger.info(f"命令|Command: {full_cmd}")
 
-                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self.config.bwa_bin, self.config.samblaster_bin, self.samtools_path]))
+                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self._aligner_bin(), self.config.samblaster_bin, self.samtools_path]))
 
                     if result.returncode != 0:
-                        error_msg = f"BWA比对管道失败|BWA alignment pipeline failed:\n"
+                        error_msg = f"{label}比对管道失败|{label} alignment pipeline failed:\n"
                         error_msg += f"输出|Output: {result.stderr}\n" if result.stderr else ""
                         error_msg += f"命令|Command: {full_cmd}"
                         self.logger.error(error_msg)
@@ -281,21 +305,21 @@ class BWAAligner:
                     ]
 
                     # 使用辅助函数构建包装后的管道命令|Use helper to build wrapped pipeline command
-                    full_cmd = self._build_pipeline_command([bwa_cmd, samtools_view_cmd])
+                    full_cmd = self._build_pipeline_command([aligner_cmd, samtools_view_cmd])
 
-                    self.logger.info(f"执行BWA比对管道（无samblaster）|Executing BWA alignment pipeline (no samblaster)")
+                    self.logger.info(f"执行{label}比对管道（无samblaster）|Executing {label} alignment pipeline (no samblaster)")
                     self.logger.info(f"命令|Command: {full_cmd}")
 
-                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self.config.bwa_bin, self.config.samblaster_bin, self.samtools_path]))
+                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self._aligner_bin(), self.config.samblaster_bin, self.samtools_path]))
 
                     if result.returncode != 0:
-                        error_msg = f"BWA比对管道失败|BWA alignment pipeline failed:\n"
+                        error_msg = f"{label}比对管道失败|{label} alignment pipeline failed:\n"
                         error_msg += f"输出|Output: {result.stderr}\n" if result.stderr else ""
                         error_msg += f"命令|Command: {full_cmd}"
                         self.logger.error(error_msg)
                         raise RuntimeError(error_msg)
 
-                self.logger.info(f"BWA比对完成，生成 {raw_bam}|BWA alignment completed, generated {raw_bam}")
+                self.logger.info(f"{label}比对完成，生成 {raw_bam}|{label} alignment completed, generated {raw_bam}")
 
                 # 检查文件大小|Check file size
                 if os.path.exists(raw_bam):
@@ -303,7 +327,7 @@ class BWAAligner:
                     self.logger.info(f"BAM文件大小: {size_mb:.2f} MB|BAM file size: {size_mb:.2f} MB")
 
         except Exception as e:
-            self.logger.error(f"BWA比对失败|BWA alignment failed: {e}")
+            self.logger.error(f"{label}比对失败|{label} alignment failed: {e}")
             raise
 
         # (3) HapHiC filter_bam过滤|HapHiC filter_bam filtering
@@ -427,33 +451,42 @@ class BWAAligner:
             self.logger.warning(f"检查内存使用时出错|Error checking memory usage: {e}")
 
     def _ensure_bwa_index(self, asm_file: str):
-        """确保BWA索引存在|Ensure BWA index exists"""
-        index_files = [
-            asm_file + ".bwt",
-            asm_file + ".pac",
-            asm_file + ".ann",
-            asm_file + ".amb",
-            asm_file + ".sa"
-        ]
+        """确保比对索引存在|Ensure alignment index exists (minibwa or BWA)"""
+        backend = self._aligner_backend()
+        label = self._aligner_label()
+
+        if backend == 'minibwa':
+            index_files = [asm_file + ".l2b", asm_file + ".mbw"]
+        else:
+            index_files = [
+                asm_file + ".bwt",
+                asm_file + ".pac",
+                asm_file + ".ann",
+                asm_file + ".amb",
+                asm_file + ".sa"
+            ]
 
         if all(os.path.exists(f) for f in index_files):
-            self.logger.info(f"BWA索引已存在|BWA index already exists: {asm_file}")
+            self.logger.info(f"{label}索引已存在|{label} index already exists: {asm_file}")
             return
 
-        self.logger.info(f"创建BWA索引|Creating BWA index: {asm_file}")
-        cmd = [self.config.bwa_bin, "index", asm_file]
+        self.logger.info(f"创建{label}索引|Creating {label} index: {asm_file}")
+        index_args = ["index"]
+        if backend == 'minibwa':
+            index_args += ["-t", str(self.config.threads)]
+        index_args.append(asm_file)
 
         if self.config.dry_run:
-            self.logger.info(f"[DRY RUN] {' '.join(cmd)}")
+            self.logger.info(f"[DRY RUN] {' '.join([self._aligner_bin()] + index_args)}")
         else:
             try:
                 # 自动包装conda环境的命令|Auto-wrap conda environment commands
-                wrapped_cmd = build_conda_command(self.config.bwa_bin, ["index", asm_file])
+                wrapped_cmd = build_conda_command(self._aligner_bin(), index_args)
 
                 result = subprocess.run(wrapped_cmd, capture_output=True, text=True, check=True)
-                self.logger.info("BWA索引创建完成|BWA index created")
+                self.logger.info(f"{label}索引创建完成|{label} index created")
             except subprocess.CalledProcessError as e:
-                self.logger.error(f"BWA索引创建失败|BWA index creation failed: {e.stderr}")
+                self.logger.error(f"{label}索引创建失败|{label} index creation failed: {e.stderr}")
                 raise
 
     def _create_bam_index(self, bam_file: str):

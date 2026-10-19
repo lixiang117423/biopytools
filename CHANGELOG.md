@@ -1,3 +1,11 @@
+## [Unreleased]
+
+### Changed
+- `haphic`: Hi-C 比对后端默认改为 **minibwa**（`minibwa map --hic`，等价 `bwa mem -5SP` 的 Hi-C 模式），新增 `--aligner [minibwa|bwa]`（默认 `minibwa`）与 `--minibwa-bin`（默认 `~/software/minibwa/minibwa`）；`--aligner bwa` 可完全回退原 bwa-mem 流程。
+  - 索引检查按后端区分：minibwa 认 `.l2b`/`.mbw`，BWA 认 `.bwt/.pac/.ann/.amb/.sa`，两者互不覆盖。
+  - 实测（NG386-8，200 万 read pairs，16 线程）：bwa 111.5 s / 7.29 GB vs minibwa 34.7 s / 6.06 GB；主比对位点一致率 MAPQ≥20 99.99%、MAPQ≥30 99.99%（同染色体且位置差 ≤100 bp）。
+  - 配置摘要与 `software_versions.yml` 增加 `aligner`/`minibwa_bin` 记录。
+
 ## [1.74.1] - 2026-10-15
 
 ### Fixed

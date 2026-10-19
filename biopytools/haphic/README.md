@@ -203,3 +203,20 @@ tail -f {prefix}_haphic.log
 - `--min-link-density` → pipeline内部默认值
 - `--min-RE-sites` → `--RE_site_cutoff`
 - 其他参数保持一致的映射关系
+
+## 比对后端（minibwa / BWA）
+
+从 2026-10 起，默认使用 **minibwa**（`minibwa map --hic`）完成 Hi-C 比对：
+
+- 等价于 `bwa mem -5SP` 的 Hi-C 模式；高置信比对（MAPQ >= 20 / 30）位点一致率 99.99%
+- 实测约 3x 加速（200 万 read pairs、16 线程：bwa 111.5 s vs minibwa 34.7 s）
+- 默认路径 `~/software/minibwa/minibwa`，可用 `--minibwa-bin` 覆盖
+
+需要回退到 bwa-mem 时：
+
+```bash
+biopytools haphic -i asm.fa -1 R1.fq.gz -2 R2.fq.gz -c 20 --aligner bwa
+```
+
+注意：minibwa 的索引文件为 `.l2b` / `.mbw`，与 BWA 的 `.bwt/.pac/.ann/.amb/.sa` 不同；
+切换后端时会在同一个参考前缀下生成对应索引，互不覆盖。

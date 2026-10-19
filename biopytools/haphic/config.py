@@ -32,13 +32,24 @@ class HapHiCConfig:
             'bwa', '~/miniforge3/envs/align/bin/bwa', 'BWA_PATH'
         )
     )
+    # 比对后端与 minibwa 路径|Alignment backend and minibwa path
+    # 默认使用 minibwa（约 3x 快于 bwa-mem，高置信比对一致率 99.99%）；
+    # 如需回退 bwa-mem，传 --aligner bwa。
+    # Default to minibwa (~3x faster than bwa-mem, 99.99% concordance on MAPQ>=20);
+    # pass --aligner bwa to fall back to bwa-mem.
+    aligner: str = "minibwa"  # minibwa 或 bwa | minibwa or bwa
+    minibwa_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'minibwa', '~/software/minibwa/minibwa', 'MINIBWA_PATH'
+        )
+    )
     samtools_bin: str = field(
         default_factory=lambda: get_tool_path(
             'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'
         )
     )
 
-    # BWA参数|BWA parameters
+    # 比对参数|Alignment parameters
     read1_pattern: str = "_R1.fastq.gz"
     read2_pattern: str = "_R2.fastq.gz"
 
@@ -240,6 +251,9 @@ class HapHiCConfig:
         if self.bwa_bin:
             self.bwa_bin = self._expand_tool_path(self.bwa_bin)
 
+        if self.minibwa_bin:
+            self.minibwa_bin = self._expand_tool_path(self.minibwa_bin)
+
         if self.samtools_bin:
             self.samtools_bin = self._expand_tool_path(self.samtools_bin)
 
@@ -305,9 +319,14 @@ class HapHiCConfig:
         if self.haphic_bin != "haphic" and not os.path.exists(self.haphic_bin):
             errors.append(f"HapHiC可执行文件不存在|HapHiC executable does not exist: {self.haphic_bin}")
 
-        # 检查BWA工具 (如果需要)|Check BWA tool (if needed)
+        # 检查比对工具 (如果需要)|Check alignment tool (if needed)
+        if self.aligner not in ("minibwa", "bwa"):
+            errors.append(f"比对后端必须是 minibwa 或 bwa|Aligner must be minibwa or bwa: {self.aligner}")
         if self.hic_file_type == "fastq":
-            if self.bwa_bin != "bwa" and not os.path.exists(self.bwa_bin):
+            if self.aligner == "minibwa":
+                if self.minibwa_bin != "minibwa" and not os.path.exists(self.minibwa_bin):
+                    errors.append(f"minibwa可执行文件不存在|minibwa executable does not exist: {self.minibwa_bin}")
+            elif self.bwa_bin != "bwa" and not os.path.exists(self.bwa_bin):
                 errors.append(f"BWA可执行文件不存在|BWA executable does not exist: {self.bwa_bin}")
             if self.samtools_bin != "samtools" and not os.path.exists(self.samtools_bin):
                 errors.append(f"Samtools可执行文件不存在|Samtools executable does not exist: {self.samtools_bin}")
@@ -419,6 +438,10 @@ class HapHiCConfig:
             "phasing_weight": self.phasing_weight,
             "gfa_files": self.gfa_files,
             "haphic_bin": self.haphic_bin,
+            "aligner": self.aligner if self.hic_file_type == "fastq" else "N/A",
+            "aligner_bin": (
+                self.minibwa_bin if self.aligner == "minibwa" else self.bwa_bin
+            ) if self.hic_file_type == "fastq" else "N/A",
             "bwa_bin": self.bwa_bin if self.hic_file_type == "fastq" else "N/A",
             "samtools_bin": self.samtools_bin if self.hic_file_type == "fastq" else "N/A"
         }
@@ -459,6 +482,7 @@ class HapHiCConfig:
         # haphic/samtools/samblaster use --version; bwa/matlock have no version subcommand (unknown)
         tools_to_check = {
             'haphic': self.haphic_bin,
+            'minibwa': self.minibwa_bin,
             'bwa': self.bwa_bin,
             'samtools': self.samtools_bin,
             'matlock': self.matlock_bin,
@@ -468,7 +492,8 @@ class HapHiCConfig:
         for tool_name, tool_path in tools_to_check.items():
             try:
                 result = subprocess.run(
-                    [tool_path, '--version'] if tool_name in ['haphic', 'samtools', 'samblaster'] else [tool_path],
+                    [tool_path, 'version'] if tool_name == 'minibwa'
+                    else ([tool_path, '--version'] if tool_name in ['haphic', 'samtools', 'samblaster'] else [tool_path]),
                     capture_output=True,
                     text=True,
                     timeout=5
