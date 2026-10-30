@@ -10,7 +10,7 @@ criteria on 2026-10-30.
 - Repository: `https://github.com/lixiang117423/biopytools`
 - Git branch: leave blank (`paper/paper.md` is on the default `main` branch)
 - Paper: `paper/paper.md`
-- Version: `v1.75.0` (create and archive the final tag before submission)
+- Version: `v1.75.0`
 - Submitting author GitHub handle: `@lixiang117423`
 - ORCID: `0000-0002-8400-7116`
 - Type of submission: `New submission`
@@ -29,8 +29,8 @@ Confirm these facts before pasting:
 > planned. BioPyTools is a modular Python command-line toolkit that provides a
 > shared, reproducible execution layer for bioinformatics analyses on local and
 > HPC systems; its scientific algorithms are delegated to established upstream
-> tools. The corresponding author declares no financial or personal competing
-> interests.
+> tools. No dedicated funding supported this work. The corresponding author
+> declares no financial or personal competing interests.
 
 ## Completed in the repository
 
@@ -38,6 +38,7 @@ Confirm these facts before pasting:
 - [x] Public GitHub repository, issue tracker, and source browsing without login.
 - [x] More than six months of public development history (since 2026-01-02).
 - [x] More than 500 commits and more than 150 version tags.
+- [x] `v1.75.0` tagged, published as a GitHub Release, and published on PyPI.
 - [x] PyPI package installation and a lazy unified command-line interface.
 - [x] Public automated test suite with continuous integration.
 - [x] All 220 registered commands return `-h` successfully from a clean wheel
@@ -55,14 +56,14 @@ Confirm these facts before pasting:
 
 ## Must confirm before pressing submit
 
-- [ ] Confirm that the author list and order are complete. Add research-group
+- [x] Confirm that the author list and order are complete. Add research-group
   collaborators who made substantial scientific or software contributions.
 - [ ] Confirm the corresponding author's current affiliation and ORCID.
   Repository metadata currently uses Yazhouwan National Laboratory and ORCID
   0000-0002-8400-7116.
 - [ ] Confirm every AI tool and model version in the disclosure. In particular,
   record the exact Anthropic model/version used through Claude Code if available.
-- [ ] Confirm the funding statement, grant numbers, and sponsor involvement, or
+- [x] Confirm the funding statement, grant numbers, and sponsor involvement, or
   state explicitly that no specific funding supported the work.
 - [ ] Respond to open user issues before submission so the public support record
   reflects the current maintenance practice.
@@ -70,10 +71,10 @@ Confirm these facts before pasting:
   `python -m pytest`, `python -m build`, and `python -m twine check dist/*`.
 - [ ] Let at least one colleague who did not develop the package install it from
   a clean environment and run the documented quick-start command.
-- [ ] Create the final tagged release, archive it on Zenodo or another accepted
+- [ ] Archive the existing `v1.75.0` release on Zenodo or another accepted
   repository, obtain the software DOI, and add the DOI to the paper or repository
   metadata as required by JOSS.
-- [ ] Download the `paper.pdf` artifact from the latest JOSS workflow run and
+- [x] Download the `paper.pdf` artifact from the latest JOSS workflow run and
   inspect the title, author block, sections, references, and page layout.
 - [ ] Confirm that no data, credentials, private paths, or unpublished sensitive
   information appears in the paper, logs, or repository.
