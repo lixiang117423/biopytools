@@ -14,7 +14,7 @@ criteria on 2026-10-30.
 - Submitting author GitHub handle: `@lixiang117423`
 - ORCID: `0000-0002-8400-7116`
 - Type of submission: `New submission`
-- Main subject: `Bioinformatics`
+- Main subject: `Bioinformatics and computational biology`
 - Suggested tags: bioinformatics, Python, command-line interface, reproducible
   research, high-performance computing, plant genomics
 
