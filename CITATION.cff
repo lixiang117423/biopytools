@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using these metadata."
 type: software
 title: "BioPyTools: A modular command-line toolkit for reproducible bioinformatics workflows"
-version: "1.74.1"
+version: "1.75.0"
 authors:
   - family-names: Li
     given-names: Xiang

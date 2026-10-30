@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [1.75.0] - 2026-10-30
+
 ### Added
 - **2026-10-30 09:46 — JOSS submission package**: added
   `paper/paper.md` with the required Summary, Statement of need, State of the

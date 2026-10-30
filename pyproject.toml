@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.74.1"
+version = "1.75.0"
 description = "A modular Python command-line toolkit for reproducible bioinformatics workflows."
 readme = "README.md"
 license = "MIT"

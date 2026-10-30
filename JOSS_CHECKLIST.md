@@ -10,7 +10,7 @@ criteria on 2026-10-30.
 - Repository: `https://github.com/lixiang117423/biopytools`
 - Git branch: leave blank (`paper/paper.md` is on the default `main` branch)
 - Paper: `paper/paper.md`
-- Version: `v1.74.1` (create and archive the final tag before submission)
+- Version: `v1.75.0` (create and archive the final tag before submission)
 - Submitting author GitHub handle: `@lixiang117423`
 - ORCID: `0000-0002-8400-7116`
 - Type of submission: `New submission`
