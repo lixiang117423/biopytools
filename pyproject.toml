@@ -37,6 +37,7 @@ dependencies = [
     "scikit-learn>=1.0.0",
     "matplotlib>=3.5.0",
     "seaborn>=0.11.0",
+    "biopython>=1.79",
     "click>=8.0.0",  # 添加Click依赖
     "requests",
     "PyYAML>=6.0",
@@ -78,10 +79,10 @@ test = [
     "pytest-cov",
     "PyYAML>=6.0",
     "openpyxl>=3.0",
+    "tomli>=1.1; python_version < '3.11'",
 ]
 
 full = [
-    "biopython>=1.79",
     "pysam>=0.22",
     "cyvcf2>=0.30",
     "h5py>=3.6",

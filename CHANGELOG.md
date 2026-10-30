@@ -17,6 +17,10 @@
   `phylo-selector`, and prevented `vcf2gwas -h` from probing an unavailable Conda
   environment. Installed wheels now read their version from package metadata
   instead of reporting `0.0.0` when `pyproject.toml` is absent.
+- **2026-10-30 10:02 — clean-CI dependency fix**: promoted Biopython to a core
+  runtime dependency because multiple modules import it during normal command
+  loading, added the Python 3.10 `tomli` test fallback, and updated GitHub
+  Actions versions to their current Node 24-compatible releases.
 
 ### Documentation
 - **2026-10-30 09:56 — JOSS documentation audit**: synchronized the README
