@@ -23,6 +23,9 @@
   runtime dependency because multiple modules import it during normal command
   loading, added the Python 3.10 `tomli` test fallback, and updated GitHub
   Actions versions to their current Node 24-compatible releases.
+- **2026-10-30 10:43 — release safety**: disabled automatic and manual GitHub
+  Release cleanup jobs so publishing a tag cannot delete historical releases
+  without a separate explicit maintainer review.
 
 ### Documentation
 - **2026-10-30 09:56 — JOSS documentation audit**: synchronized the README

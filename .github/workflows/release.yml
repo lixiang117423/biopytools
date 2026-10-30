@@ -72,11 +72,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Job 2: 自动清理旧 Release（始终执行）
+  # Job 2: 旧 Release 清理保持关闭，避免打 tag 时产生未授权删除
+  # Keep cleanup disabled so publishing a tag never deletes historic releases.
   cleanup-releases:
     runs-on: ubuntu-latest
     needs: create-release
-    if: always() && (github.event_name == 'push' || github.event.inputs.cleanup_only == 'true')
+    if: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -96,7 +97,7 @@ jobs:
           KEEP_RELEASES: 10           # 正式版本保留数量
           KEEP_PRERELEASES: 5         # 测试版本保留数量
           DELETE_AFTER_DAYS: 30       # 删除超过天数的 Release
-          DRY_RUN: false              # 设为 true 仅测试不实际删除
+          DRY_RUN: true
 
       - name: Upload cleanup log
         uses: actions/upload-artifact@v7
@@ -105,9 +106,10 @@ jobs:
           path: cleanup_log.txt
           retention-days: 30
 
-  # Job 3: 仅清理任务（手动触发时使用）
+  # Job 3: 手动清理入口同样保持关闭；需要时由维护者单独审查后执行
+  # The manual cleanup path is also disabled pending explicit maintainer review.
   cleanup-only:
-    if: github.event_name == 'workflow_dispatch'
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -127,10 +129,10 @@ jobs:
           KEEP_RELEASES: 10
           KEEP_PRERELEASES: 5
           DELETE_AFTER_DAYS: 30
-          DRY_RUN: false
+          DRY_RUN: true
 
       - name: Upload cleanup log
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cleanup-log-manual-${{ github.run_number }}
           path: cleanup_log.txt
