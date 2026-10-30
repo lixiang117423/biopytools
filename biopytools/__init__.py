@@ -53,7 +53,7 @@ def show_info():
     print(f"版本|Version: {get_version_string()}")
     print(f"可用模块|Available modules: {', '.join(_available_modules) if _available_modules else 'None'}")
     print("许可证|License: MIT")
-    print("项目主页|Homepage: https://github.com/yourusername/biopytools")
+    print("项目主页|Homepage: https://github.com/lixiang117423/biopytools")
 
 def list_modules():
     """列出所有可用的模块|List all available modules"""
@@ -107,7 +107,7 @@ def check_python_version():
     """检查Python版本兼容性|Check Python version compatibility"""
     import sys
     
-    min_version = (3, 8)
+    min_version = (3, 10)
     current_version = sys.version_info[:2]
     
     if current_version < min_version:

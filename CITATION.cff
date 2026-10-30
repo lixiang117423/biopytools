@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+type: software
+title: "BioPyTools: A modular command-line toolkit for reproducible bioinformatics workflows"
+version: "1.74.1"
+authors:
+  - family-names: Li
+    given-names: Xiang
+    orcid: "https://orcid.org/0000-0002-8400-7116"
+    email: lixiang117423@gmail.com
+    affiliation: "Yazhouwan National Laboratory, Sanya, Hainan, China"
+repository-code: "https://github.com/lixiang117423/biopytools"
+url: "https://lixiang117423.github.io/biopytools/"
+license: MIT
+abstract: >-
+  BioPyTools is a Python command-line toolkit for reproducible bioinformatics
+  workflows, with modules for sequencing-data quality control, genome assembly
+  and annotation, variant analysis, pangenomics, phylogenetics, population
+  genetics, microbiome analysis, and effector prediction.
+keywords:
+  - bioinformatics
+  - computational biology
+  - command-line interface
+  - reproducible research
+  - high-performance computing
+  - plant genomics

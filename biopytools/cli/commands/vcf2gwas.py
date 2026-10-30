@@ -40,7 +40,7 @@ Options:
 @click.pass_context
 def vcf2gwas(ctx, vcf2gwas_env):
     # 无参数时显示包装器帮助|Show wrapper help when no args
-    if not ctx.args:
+    if not ctx.args or ctx.args[0] in ('-h', '--help'):
         _print_help()
         return
 

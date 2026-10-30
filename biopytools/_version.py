@@ -7,6 +7,7 @@ import os
 import subprocess
 import re
 from datetime import datetime
+from importlib.metadata import PackageNotFoundError, version as package_version
 from typing import Dict, Tuple, Any
 
 # 从 pyproject.toml 动态读取版本号
@@ -27,11 +28,18 @@ def _get_version_from_pyproject() -> str:
     except Exception:
         pass
 
-    # fallback 版本号
-    return "0.0.0"
+    return ""
+
+
+def _get_version_from_metadata() -> str:
+    """从已安装包的元数据读取版本号|Read version from installed package metadata"""
+    try:
+        return package_version("biopytools")
+    except PackageNotFoundError:
+        return ""
 
 # 版本信息（从 pyproject.toml 读取）
-_version_str = _get_version_from_pyproject()
+_version_str = _get_version_from_pyproject() or _get_version_from_metadata() or "0.0.0"
 __version__ = _version_str
 
 # 解析版本号元组

@@ -13,7 +13,11 @@ from pathlib import Path
 
 @click.command(
     name='hifi-hic-workflow',
-    help='HiFi+Hi-C基因组组装与挂载流程|HiFi+Hi-C Genome Assembly and Scaffolding Workflow'
+    help='HiFi+Hi-C基因组组装与挂载流程|HiFi+Hi-C Genome Assembly and Scaffolding Workflow',
+    context_settings=dict(
+        help_option_names=['-h', '--help'],
+        max_content_width=120,
+    ),
 )
 @click.option(
     '--hifi',
@@ -126,6 +130,7 @@ def hifi_hic_workflow(
     Complete plant genome assembly workflow: HiFi assembly → Hi-C scaffolding → Chromosome rename → Hi-C heatmap
     """
     # 延迟导入主模块|Lazy import main module
+    original_argv = sys.argv
     try:
         from biopytools.hifi_hic_workflow.main import main as workflow_main
 
@@ -184,3 +189,5 @@ def hifi_hic_workflow(
     except Exception as e:
         click.echo(f"错误|Error: {e}", err=True)
         sys.exit(1)
+    finally:
+        sys.argv = original_argv

@@ -4,6 +4,9 @@ A Python toolkit for bioinformatics analysis and computational biology.
 
 一个用于生物信息学分析和计算生物学的Python工具包。
 
+JOSS submission materials: [manuscript](paper/paper.md),
+[references](paper/paper.bib), and [submission checklist](JOSS_CHECKLIST.md).
+
 ## 简介 | Overview
 
 BioPyTools 是一个专为生物信息学研究设计的Python工具包，提供了一系列常用的生物数据分析功能。
@@ -37,7 +40,7 @@ protein  phylo  pan  viz  misc  r  busco
 | 资料<br>Resource | 说明<br>Note |
 |---|---|
 | [envs/README.md](envs/README.md) | 14 个域环境定义（envs/*.yml）、一键建环境脚本、授权软件注册、冒烟测试 |
-| [docs/env_migration_map.md](docs/env_migration_map.md) | 旧环境 → 新域环境的完整对应关系（debug 用） |
+| [docs/conda_env_software_map.md](docs/conda_env_software_map.md) | 软件 → Conda 环境速查表（新域环境与保留环境） |
 | [scripts/delete_obsolete_envs.sh](scripts/delete_obsolete_envs.sh) | 删除已被域环境取代的旧环境（默认 dry-run） |
 
 快速开始|Quick start:
@@ -98,13 +101,16 @@ biopytools <命令>-h    # 例如: biopytools fastp -h
 
 ## 模块文档 | Module Documentation
 
-BioPyTools 提供190+个模块（运行 `biopytools` 查看全部命令），按功能分为以下类别。
+BioPyTools 提供220+个模块（运行 `biopytools` 查看全部命令），按功能分为以下类别。
 
-BioPyTools provides 190+ modules (run `biopytools` to list all commands), organized by functionality into the following categories.
+BioPyTools provides 220+ modules (run `biopytools` to list all commands), organized by functionality into the following categories.
 
 ### 数据下载与质控 | Data Download & QC
 
 - [ena_downloader](./docs/ena_downloader.md) - ENA数据下载工具（`biopytools ena-downloader`）
+- [ncbi_datasets](./docs/ncbi_datasets.md) - NCBI taxon基因组批量下载（`biopytools ncbi-datasets`）
+- [check_reads](./docs/check_reads.md) - FASTQ完整性检查（`biopytools check-reads`）
+- [fof](./docs/fof.md) - FOF文件生成工具（`biopytools fof`）
 - [fastp](./docs/fastp.md) - FASTQ数据质量控制（`biopytools fastp`）
 - [fastq_gc_filter](./docs/fastq_gc_filter.md) - FASTQ文件GC含量和序列长度过滤（`biopytools fastq-gc-filter`）
 - [fastq_stats](./docs/fastq_stats.md) - FASTQ文件统计工具（`biopytools fq-stats`）
@@ -131,7 +137,7 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [assembly_stats](./docs/assembly_stats.md) - 基因组装配统计（`biopytools assembly-stats`）
 - [busco](./docs/busco.md) - BUSCO质量评估分析工具（`biopytools busco`）
 - [centier](./docs/centier.md) - CentIER着丝粒鉴定工具（`biopytools centier`）
-- [gap_stat](./docs/gapstat.md) - 基因组Gap统计工具（`biopytools gap-stat`）
+- [gap_stat](./docs/gap_stat.md) - 基因组Gap统计工具（`biopytools gap-stat`）
 - [hic_qc](./docs/hic_qc.md) - Hi-C数据质量评估工具（`biopytools hic-qc`）
 - [lai](./docs/lai.md) - LAI组装质量指数计算工具（`biopytools lai`）
 
@@ -169,23 +175,23 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 ### 比对与BAM处理 | Alignment & BAM
 
 - [bam2fastq](./docs/bam2fastq.md) - BAM to FASTQ批量转换工具（`biopytools bam2fastq`）
-- [bam_cov](./docs/bam_coverage_stats.md) - BAM覆盖度统计（`biopytools bam-cov`）
+- [bam_cov](./docs/bam_cov.md) - BAM覆盖度统计（`biopytools bam-cov`）
 - [bam_stats](./docs/bam_stats.md) - BAM文件批量统计分析（`biopytools bam-stats`）
 - [bam_view](./docs/bam_view.md) - BAM比对可视化工具（`biopytools bam-view`）
 - [blast](./docs/blast.md) - BLAST序列比对分析（`biopytools blast`）
 - [bwa](./docs/bwa.md) - 全基因组比对工具（`biopytools bwa`）
-- [bwa_gatk](./docs/bwa.md) - 全基因组比对和变异检测（`biopytools bwa-gatk`）
-- [coverage](./docs/coverage_filter.md) - BAM覆盖度分析工具（`biopytools coverage`）
+- [bwa_gatk](./docs/bwa_gatk.md) - 全基因组比对和变异检测（`biopytools bwa-gatk`）
+- [coverage](./docs/coverage.md) - BAM覆盖度分析工具（`biopytools coverage`）
 - [coverage_filter](./docs/coverage_filter.md) - 基于覆盖度的序列质量过滤（`biopytools coverage-filter`）
 - [extract_reads](./docs/extract_reads.md) - 基于contig-reads对应关系提取fastq reads（`biopytools extract-reads`）
-- [longestmrna](./docs/longest_mrna.md) - 提取最长转录本（`biopytools longest-mrna`）
+- [longestmrna](./docs/longestmrna.md) - 提取最长转录本（`biopytools longest-mrna`）
 - [mafft_fasttree](./docs/mafft_fasttree.md) - 系统发育树构建工具（`biopytools mafft-fasttree`）
 - [minibwa](./docs/minibwa.md) - Minibwa短读长比对（标准/Hi-C/BS-seq/长读）（`biopytools minibwa`）
 - [minimap2](./docs/minimap2.md) - Minimap2比对与区域提取（`biopytools minimap2`）
-- [msa](./docs/msaviz.md) - 多序列比对分析工具（`biopytools msa`）
+- [msa](./docs/msa.md) - 多序列比对分析工具（`biopytools msa`）
 - [msaviz](./docs/msaviz.md) - MSA可视化工具（自动比对+可视化）（`biopytools msaviz`）
 - [parse_gene_dna](./docs/parse_gene_dna.md) - 基因DNA序列提取工具（`biopytools parse-gene-dna`）
-- [parse_seq](./docs/parse_sequence_vcf.md) - 核酸或蛋白序列提取工具（`biopytools parse-seq`）
+- [parse_seq](./docs/parse_seq.md) - 核酸或蛋白序列提取工具（`biopytools parse-seq`）
 - [pep2genome](./docs/pep2genome.md) - 蛋白质到基因组比对工具（`biopytools pep2genome`）
 - [samplot](./docs/samplot.md) - Samplot结构变异可视化工具（`biopytools samplot`）
 - [seq2genome](./docs/seq2genome.md) - 序列到基因组比对工具（支持DNA/蛋白质自动检测）（`biopytools seq2genome`）
@@ -197,17 +203,19 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [fastq2vcf_parabricks](./docs/fastq2vcf_parabricks.md) - Fastq到VCF (Parabricks) 全流程分析（`biopytools fastq2vcf-parabricks`）
 - [filter_snp_indel](./docs/filter_snp_indel.md) - SNP和INDEL过滤工具（`biopytools filter-snp-indel`）
 - [gatk_joint](./docs/gatk_joint.md) - GATK Joint Genotyping工具（`biopytools gatk-joint`）
-- [geneinfo](./docs/parse_gene_info.md) - 从GFF文件提取基因信息（`biopytools geneinfo`）
+- [geneinfo](./docs/geneinfo.md) - 从GFF文件提取基因信息（`biopytools geneinfo`）
 - [gffcompare](./docs/gffcompare.md) - GFF/GTF文件两两比较分析（`biopytools gffcompare`）
-- [gtx](./docs/gtx-joint.md) - 运行GTX WGS流程（`biopytools gtx`）
-- [gtx_joint](./docs/gtx-joint.md) - GTX Joint Calling命令生成工具（`biopytools gtx-joint`）
+- [gtx](./docs/gtx.md) - 运行GTX WGS流程（`biopytools gtx`）
+- [gtx_joint](./docs/gtx_joint.md) - GTX Joint Calling命令生成工具（`biopytools gtx-joint`）
 - [hap_type](./docs/hap_type.md) - 单倍型可视化工具（`biopytools hap-type`）
 - [indelpav](./docs/indelpav.md) - INDEL PAV分析工具（`biopytools indelpav`）
 - [insert_detection](./docs/insert_detection.md) - 插入序列位点检测（`biopytools insert-detection`）
+- [genome2sv](./docs/genome2sv.md) - 组装间结构变异检测（`biopytools genome2sv`）
 - [parabricks](./docs/parabricks.md) - 基于GPU的全基因组流程（`biopytools parabricks`）
 - [swave](./docs/swave.md) - Swave结构变异检测工具（`biopytools swave`）
 - [vcf2gene](./docs/vcf2gene.md) - VCF变异基因注释工具（`biopytools vcf2gene`）
 - [vcf2genotype](./docs/vcf2genotype.md) - VCF基因型提取（`biopytools vcf2genotype`）
+- [vcf2pav](./docs/vcf2pav.md) - VCF转PAV矩阵（`biopytools vcf2pav`）
 - [vcf_filter](./docs/vcf_filter.md) - VCF文件筛选（`biopytools vcf-filter`）
 - [vcf_merger](./docs/vcf_merger.md) - VCF按染色体合并工具（`biopytools vcf-merger`）
 - [vcf_renamer](./docs/vcf_renamer.md) - VCF样品名称重命名工具（`biopytools vcf-renamer`）
@@ -225,10 +233,15 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [panman](./docs/panman.md) - Panman泛基因组构建和分析工具（`biopytools panman`）
 - [panvar](./docs/panvar.md) - 泛基因组变异分析（`biopytools panvar`）
 - [pggb](./docs/pggb.md) - PGGB泛基因组图构建工具（`biopytools pggb`）
+- [psvcp](./docs/psvcp.md) - PSVCP线性泛基因组构建（`biopytools psvcp`）
 
 ### 注释与功能预测 | Annotation
 
 - [braker](./docs/braker.md) - BRAKER3基因组注释工具（`biopytools braker`）
+- [braker4phyto](./docs/braker4phyto.md) - BRAKER3疫霉菌基因组注释（`biopytools braker4phyto`）
+- [anno_curate](./docs/anno_curate.md) - GSA提交前注释校正（`biopytools anno-curate`）
+- [annorefine](./docs/annorefine.md) - BRAKER+查漏补漏端到端（`biopytools annorefine`）
+- [func_anno](./docs/func_anno.md) - 蛋白功能注释（`biopytools func-anno`）
 - [deeploc](./docs/deeploc.md) - DeepLoc 2.1蛋白质亚细胞定位预测工具（`biopytools deeploc`）
 - [egapx_batch](./docs/egapx_batch.md) - EGAPx批量运行配置生成工具（`biopytools egapx-batch`）
 - [eviann](./docs/eviann.md) - EviAnn基因组注释工具（`biopytools eviann`）
@@ -241,8 +254,6 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [tmhmm](./docs/tmhmm.md) - TMHMM跨膜螺旋预测（`biopytools tmhmm`）
 - [deeptmhmm](./docs/deeptmhmm.md) - DeepTMHMM跨膜螺旋/信号肽预测（`biopytools deeptmhmm`）
 - [transcript_assembly](./docs/transcript_assembly.md) - 转录本从头组装(HISAT2+StringTie)（`biopytools transcript-assembly`）
-- [ps_gene_anno](./docs/ps_gene_anno.md) - BRAKER后效应子查漏补缺(miniprot补回多拷贝/漏注)（`biopytools ps-gene-anno`）
-- [braker4ps](./docs/braker4ps.md) - braker+ps-gene-anno端到端(注释+查漏补缺)（`biopytools braker4ps`）
 - [oomycete_anno](./docs/oomycete_anno.md) - 疫霉菌基因组注释(T2T Augustus流程)（`biopytools oomycete-anno`）
 - [eggnog_mapper](./docs/eggnog_mapper.md) - eggNOG功能注释(GO/KEGG/COG/CAZy/Pfam)（`biopytools eggnog-mapper`）
 - [phobius](./docs/phobius.md) - Phobius跨膜拓扑+信号肽预测（`biopytools phobius`）
@@ -251,23 +262,26 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 
 - [edta](./docs/edta.md) - EDTA转座子注释（`biopytools edta`）
 - [hite](./docs/hite.md) - HiTE转座子检测与注释（`biopytools hite`）
-- [panedta](./docs/edta.md) - PanEDTA泛基因组转座子注释（`biopytools panedta`）
-- [panhite](./docs/hite.md) - panHiTE群体基因组TE分析（`biopytools panhite`）
+- [pathorepeat](./docs/pathorepeat.md) - 病原菌重复序列注释（`biopytools pathorepeat`）
+- [panedta](./docs/panedta.md) - PanEDTA泛基因组转座子注释（`biopytools panedta`）
+- [panhite](./docs/panhite.md) - panHiTE群体基因组TE分析（`biopytools panhite`）
 - [repeat_analyzer](./docs/repeat_analyzer.md) - 重复序列分析模块（`biopytools repeat-analyzer`）
 - [repeatmask](./docs/repeatmask.md) - 重复序列屏蔽工具（`biopytools repeatmask`）
 
 ### RNA-seq与转录组 | RNA-seq
 
 - [dual_rnaseq](./docs/dual_rnaseq.md) - 互作转录组分析（`biopytools dual-rnaseq`）
-- [gene_rnaseq_check](./docs/rnaseq.md) - 候选基因RNA-seq转录验证（`biopytools gene-rnaseq-check`）
+- [gene_rnaseq_check](./docs/gene_rnaseq_check.md) - 候选基因RNA-seq转录验证（`biopytools gene-rnaseq-check`）
 - [longrnaseq](./docs/longrnaseq.md) - 三代转录组比对工具（`biopytools longrnaseq`）
+- [rna_iso](./docs/rna_iso.md) - 全长转录本分析（`biopytools rna-iso`）
 - [rnabloom](./docs/rnabloom.md) - RNA-Bloom转录组从头组装工具（`biopytools rnabloom`）
 - [rnaseq](./docs/rnaseq.md) - RNA-seq表达定量流程（`biopytools rnaseq`）
-- [rnaseq_val](./docs/rnaseq.md) - 转录组验证注释（`biopytools rnaseq-val`）
+- [rnaseq2vcf](./docs/rnaseq2vcf.md) - 转录组变异检测（`biopytools rnaseq2vcf`）
+- [rnaseq_val](./docs/rnaseq_val.md) - 转录组验证注释（`biopytools rnaseq-val`）
 
 ### 共线性与比较基因组 | Synteny
 
-- [genomesyn](./docs/genomesyn2.md) - 基因组共线性分析（`biopytools genomesyn`）
+- [genomesyn](./docs/genomesyn.md) - 基因组共线性分析（`biopytools genomesyn`）
 - [genomesyn2](./docs/genomesyn2.md) - GenomeSyn2比较基因组学可视化工具（`biopytools genomesyn2`）
 - [jcvi](./docs/jcvi.md) - JCVI共线性分析工具集（`biopytools jcvi`）
 - [kaks](./docs/kaks.md) - Ka/Ks计算（`biopytools kaks`）
@@ -281,25 +295,33 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 ### 系统发育 | Phylogenetics
 
 - [iqtree](./docs/iqtree.md) - IQ-TREE系统发育树分析工具（`biopytools iqtree`）
+- [reads2tree](./docs/reads2tree.md) - FASTQ目录免组装构建物种树（`biopytools reads2tree`）
+- [genome2tree](./docs/genome2tree.md) - 基因组目录免比对物种树（`biopytools genome2tree`）
+- [vcf2tree](./docs/vcf2tree.md) - VCF转系统发育树（`biopytools vcf2tree`）
+- [vcf2splitstree](./docs/vcf2splitstree.md) - VCF转SplitsTree6距离矩阵（`biopytools vcf2splitstree`）
+- [phy2fa](./docs/phy2fa.md) - Phylip转FASTA（`biopytools phy2fa`）
+- [trimal](./docs/trimal.md) - 多序列比对自动修剪（`biopytools trimal`）
+- [phylo_trim](./docs/phylo_trim.md) - 比对修剪前后树整合分析（`biopytools phylo-trim`）
 - [phylo_selector](./docs/phylo_selector.md) - 系统发育树样品选择工具（`biopytools phylo-selector`）
 - [raxml](./docs/raxml.md) - RAxML系统发育树（`biopytools raxml`）
 - [vcf2nj](./docs/vcf2nj.md) - VCF构建NJ进化树（`biopytools vcf2nj`）
 - [vcf2phylip](./docs/vcf2phylip.md) - VCF转phylip格式（`biopytools vcf2phylip`）
-- [raxml_ng](./docs/raxml-ng.md) - RAxML-NG系统发育树(最大似然,自适应模型+bootstrap)（`biopytools raxml-ng`）
+- [raxml_ng](./docs/raxml_ng.md) - RAxML-NG系统发育树(最大似然,自适应模型+bootstrap)（`biopytools raxml-ng`）
 
 ### 群体遗传 | Population Genetics
 
 - [admixture](./docs/admixture.md) - ADMIXTURE群体结构分析（`biopytools admixture`）
 - [dsuite](./docs/dsuite.md) - Dsuite D统计量分析工具（`biopytools dsuite`）
+- [fastani](./docs/fastani.md) - 全基因组ANI计算（`biopytools fastani`）
+- [easyhap](./docs/easyhap.md) - 区域单倍型分析（`biopytools easyhap`）
 - [fst](./docs/fst.md) - Fst遗传分化计算工具（`biopytools fst`）
-- [pi](./docs/pixy.md) - 核苷酸多样性计算工具（`biopytools pi`）
+- [pi](./docs/pi.md) - 核苷酸多样性计算工具（`biopytools pi`）
 - [pi4gene](./docs/pi4gene.md) - 基因分组核苷酸多样性计算（`biopytools pi4gene`）
 - [pixy](./docs/pixy.md) - Pixy群体遗传学统计工具（`biopytools pixy`）
 - [poplddecay](./docs/poplddecay.md) - 连锁不平衡衰减分析工具（`biopytools poplddecay`）
 - [smudgescope](./docs/smudgescope.md) - GenomeScope2+Smudgeplot基因组评估工具（`biopytools smudgescope`）
 - [treemix](./docs/treemix.md) - TreeMix群体历史与基因流分析（`biopytools treemix`）
 - [vcf2pca](./docs/vcf2pca.md) - VCF主成分分析 (PCA)（`biopytools vcf2pca`）
-- [vcf_pca](./docs/vcf_pca.md) - VCF主成分分析 (PCA)（`biopytools vcf-pca`）
 
 ### GWAS与BSA | GWAS & BSA
 
@@ -307,7 +329,7 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [cim](./docs/cim.md) - R/qtl复合区间作图(CIM)分析（`biopytools cim`）
 - [deepbsa](./docs/deepbsa.md) - DeepBSA批量分析工具（`biopytools deepbsa`）
 - [gctb](./docs/gctb.md) - GCTB全基因组复杂性状贝叶斯分析（`biopytools gctb`）
-- [gemma_gwas](./docs/gemma-gwas.md) - GEMMA GWAS批量分析工具（`biopytools gemma-gwas`）
+- [gemma_gwas](./docs/gemma_gwas.md) - GEMMA GWAS批量分析工具（`biopytools gemma-gwas`）
 - [gwas2gene](./docs/gwas2gene.md) - GWAS候选基因筛选工具（`biopytools gwas2gene`）
 - [gwas_gec](./docs/gwas_gec.md) - GWAS基因组范围多重检验校正（`biopytools gwas-gec`）
 - [gwas_lambda](./docs/gwas_lambda.md) - GWAS Lambda GC计算工具（`biopytools gwas-lambda`）
@@ -320,6 +342,10 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [snp_region_gene](./docs/snp_region_gene.md) - SNP区域基因提取工具（`biopytools snp-region-gene`）
 - [tassel_gwas](./docs/tassel_gwas.md) - TASSEL GWAS分析工具（`biopytools tassel-gwas`）
 - [vcf2gwas](./docs/vcf2gwas.md) - vcf2gwas GWAS分析工具（`biopytools vcf2gwas`）
+- [vcf2deepbsa](./docs/vcf2deepbsa.md) - VCF转DeepBSA输入CSV（`biopytools vcf2deepbsa`）
+- [selective_sweep](./docs/selective_sweep.md) - 选择性扫荡检测（`biopytools selective-sweep`）
+- [xpclr](./docs/xpclr.md) - XP-CLR跨群体选择信号扫描（`biopytools xpclr`）
+- [mixrace](./docs/mixrace.md) - WGS混合小种检测（`biopytools mixrace`）
 
 ### 微生物组与k-mer | Microbiome & k-mer
 
@@ -340,7 +366,8 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 ### 效应子与抗病 | Effectors
 
 - [phyto_effector](./docs/phyto_effector.md) - Phytophthora效应子鉴定(rxlr/crn)（`biopytools phyto-effector`）
-- [resistify](./docs/resistify_parser.md) - Resistify NLR分析工具（`biopytools resistify`）
+- [resistify](./docs/resistify.md) - Resistify NLR分析工具（`biopytools resistify`）
+- [predgpi](./docs/predgpi.md) - PredGPI GPI锚定蛋白预测（`biopytools predgpi`）
 - [rxlr_scanner](./docs/rxlr_scanner.md) - RxLR效应蛋白扫描工具（`biopytools rxlr-scanner`）
 - [indel_marker](./docs/indel_marker.md) - 抗病/感病INDEL共显性标记开发（`biopytools indel-marker`）
 
@@ -350,6 +377,10 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 - [protein_stats](./docs/protein_stats.md) - Protein Stats理化性质分析工具（`biopytools protein-stats`）
 - [gene_density](./docs/gene_density.md) - 基因密度计算（每窗口基因数+基因/Mb）（`biopytools gene-density`）
 - [gene_table](./docs/gene_table.md) - 基因信息+序列合并表(基因DNA+CDS+蛋白)（`biopytools gene-table`）
+- [insert2locus](./docs/insert2locus.md) - 转基因插入位点提取（`biopytools insert2locus`）
+- [needle_identity](./docs/needle_identity.md) - 序列两两identity计算（`biopytools needle-identity`）
+- [seq_len](./docs/seq_len.md) - FASTA序列长度统计（`biopytools seq-len`）
+- [allelic_genes](./docs/allelic_genes.md) - 已废弃，迁移到 jcvi allelic（`biopytools allelic-genes`）
 
 ## 许可证 | License
 
@@ -357,17 +388,48 @@ BioPyTools provides 190+ modules (run `biopytools` to list all commands), organi
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 测试 | Testing
+
+```bash
+python -m pip install -e ".[dev,test]"
+python -m pytest
+```
+
+External executables are mocked in the default test suite. End-to-end tests that
+invoke real bioinformatics software should run on a compute node.
+
+## 引用 | Citation
+
+Citation metadata are provided in [CITATION.cff](CITATION.cff), with archive
+metadata in [.zenodo.json](.zenodo.json). The JOSS manuscript is available at
+[paper/paper.md](paper/paper.md). A version-specific archive DOI will be added
+after the JOSS release is accepted.
+
+## 贡献 | Contributing
+
+Contribution guidelines are in [CONTRIBUTING.md](CONTRIBUTING.md). Please use the
+GitHub issue templates for bug reports and feature requests, and follow
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) in all project interactions.
+
+## 支持 | Support
+
+Usage questions, bug reports, and feature requests are handled through
+[GitHub Issues](https://github.com/lixiang117423/biopytools/issues). See
+[SUPPORT.md](SUPPORT.md) for the information needed in a report.
+
 ## 作者信息 | Author
 
 **李详 (Xiang Li)**
 - Email: lixiang117423@gmail.com
 - GitHub: [@lixiang117423](https://github.com/lixiang117423)
+- ORCID: [0000-0002-8400-7116](https://orcid.org/0000-0002-8400-7116)
+- Affiliation: Yazhouwan National Laboratory, Sanya, Hainan, China
 
 ## 致谢 | Acknowledgments
 
 - 感谢所有为本项目做出贡献的开发者 | Thanks to all developers who contributed to this project
 - 感谢开源社区的支持 | Thanks to the open source community for support
-- AI 辅助开发 | AI-assisted development: Claude Code (Anthropic) + GLM 5.2
+- AI 辅助开发 | AI-assisted development: Claude Code (Anthropic), GLM 5.2, and OpenAI Codex (GPT-5)
 
 ## 问题反馈 | Issues
 

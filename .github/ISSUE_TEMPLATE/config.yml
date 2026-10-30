@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage documentation
+    url: https://lixiang117423.github.io/biopytools/
+    about: Read installation and module documentation before opening an issue.
+  - name: Private security report
+    url: mailto:lixiang117423@gmail.com
+    about: Report credentials, private data exposure, or security vulnerabilities privately.

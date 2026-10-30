@@ -29,7 +29,7 @@ def _validate_file_exists(file_path):
 
 @click.command(
     short_help='系统发育树样品选择（基于层级+PCA）|Phylogenetic tree sample selection (Hierarchy+PCA)',
-    context_settings=dict(help_option_names=['--help'], max_content_width=120)
+    context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
 @click.option('-x', '--hierarchy-file',
               required=True,

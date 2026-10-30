@@ -1,13 +1,35 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
 version = "1.74.1"
-description = "Bioinformatics tools package with Python."
+description = "A modular Python command-line toolkit for reproducible bioinformatics workflows."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+    "bioinformatics",
+    "computational biology",
+    "command-line",
+    "reproducible research",
+    "high-performance computing",
+]
 authors = [{name = "Xiang LI", email = "lixiang117423@gmail.com"}]
 requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
 dependencies = [
     "pandas",
     "numpy",
@@ -17,6 +39,11 @@ dependencies = [
     "seaborn>=0.11.0",
     "click>=8.0.0",  # 添加Click依赖
     "requests",
+    "PyYAML>=6.0",
+    "openpyxl>=3.0",
+    "scipy>=1.7.0",
+    "psutil>=5.8.0",
+    "tqdm>=4.60.0",
 ]
 
 [project.scripts]
@@ -27,9 +54,12 @@ Homepage = "https://github.com/lixiang117423/biopytools"
 Documentation = "https://lixiang117423.github.io/article/biopytools-readme/"
 Repository = "https://github.com/lixiang117423/biopytools.git"
 Issues = "https://github.com/lixiang117423/biopytools/issues"
+Changelog = "https://github.com/lixiang117423/biopytools/blob/main/CHANGELOG.md"
+Paper = "https://github.com/lixiang117423/biopytools/blob/main/paper/paper.md"
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]
+exclude = ["biopytools.tests", "biopytools.tests.*"]
 
 [tool.setuptools.package-data]
 "biopytools.interproscan" = ["go_data.json"]
@@ -43,6 +73,24 @@ dev = [
     "flake8"
 ]
 
+test = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "PyYAML>=6.0",
+    "openpyxl>=3.0",
+]
+
+full = [
+    "biopython>=1.79",
+    "pysam>=0.22",
+    "cyvcf2>=0.30",
+    "h5py>=3.6",
+    "Pillow>=9.0",
+    "statsmodels>=0.13",
+    "xlrd>=2.0",
+    "zstandard>=0.19",
+]
+
 docs = [
     "mkdocs",
     "mkdocs-material",
@@ -52,5 +100,6 @@ docs = [
 [tool.pytest.ini_options]
 # 登录节点默认跳过 e2e(计算节点显式 -m e2e 覆盖)|Skip e2e by default
 # on the login node; compute nodes override with an explicit -m e2e
-addopts = "-m 'not e2e'"
+testpaths = ["tests"]
+addopts = "-m 'not e2e' --import-mode=importlib"
 markers = ["e2e: 计算节点e2e|compute-node end-to-end"]

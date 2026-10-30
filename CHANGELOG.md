@@ -1,5 +1,29 @@
 ## [Unreleased]
 
+### Added
+- **2026-10-30 09:46 — JOSS submission package**: added
+  `paper/paper.md` with the required Summary, Statement of need, State of the
+  field, Software design, Research impact statement, and AI usage disclosure
+  sections; added `paper/paper.bib`, the official Open Journals draft-PDF
+  workflow, `CITATION.cff`, contribution/support/code-of-conduct policies,
+  issue and pull-request templates, a public test CI workflow, and
+  `JOSS_CHECKLIST.md`. The top-level `tests/` suite is now tracked by Git
+  instead of being ignored.
+
+### Fixed
+- **2026-10-30 09:56 — JOSS CLI/package audit**: all 220 registered commands now
+  return `-h` successfully from a clean wheel installation. Added the missing
+  deprecated `allelic-genes` compatibility command, accepted `-h` for
+  `phylo-selector`, and prevented `vcf2gwas -h` from probing an unavailable Conda
+  environment. Installed wheels now read their version from package metadata
+  instead of reporting `0.0.0` when `pyproject.toml` is absent.
+
+### Documentation
+- **2026-10-30 09:56 — JOSS documentation audit**: synchronized the README
+  against all 220 registered commands, repaired every broken local Markdown
+  link, added the complete module list, and verified the MkDocs site with
+  `mkdocs build --strict`.
+
 ### Changed
 - `haphic`: Hi-C 比对后端默认改为 **minibwa**（`minibwa map --hic`，等价 `bwa mem -5SP` 的 Hi-C 模式），新增 `--aligner [minibwa|bwa]`（默认 `minibwa`）与 `--minibwa-bin`（默认 `~/software/minibwa/minibwa`）；`--aligner bwa` 可完全回退原 bwa-mem 流程。
   - 索引检查按后端区分：minibwa 认 `.l2b`/`.mbw`，BWA 认 `.bwt/.pac/.ann/.amb/.sa`，两者互不覆盖。

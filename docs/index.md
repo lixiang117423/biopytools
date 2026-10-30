@@ -1,10 +1,10 @@
 <div class="hero" markdown>
 # 每个生信模块，一份零基础也能读懂的文档
 
-BioPyTools 的 210 个工具模块，用统一模板写成使用文档——干什么、输入什么、输出什么、结果怎么看、参数怎么选，全部讲清楚。
+BioPyTools 的 220 个工具模块，用统一模板写成使用文档——干什么、输入什么、输出什么、结果怎么看、参数怎么选，全部讲清楚。
 
 <div class="badge-row" markdown>
-<span class="chip">210 个模块</span>
+<span class="chip">220 个模块</span>
 <span class="chip">中英双语</span>
 <span class="chip">零基础友好</span>
 </div>
@@ -32,7 +32,7 @@ BioPyTools 的 210 个工具模块，用统一模板写成使用文档——干�
 
     ---
 
-    210 个模块按功能域分组，收纳在左侧导航栏，顶部搜索框可直达（模块名/命令名最准）
+    220 个模块按功能域分组，收纳在左侧导航栏，顶部搜索框可直达（模块名/命令名最准）
 
     [:octicons-arrow-right-24: 查看分组](#categories)
 

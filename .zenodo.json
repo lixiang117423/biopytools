@@ -1,0 +1,24 @@
+{
+  "title": "BioPyTools: A modular command-line toolkit for reproducible bioinformatics workflows",
+  "description": "BioPyTools is a Python command-line toolkit for reproducible bioinformatics workflows. It provides modular commands for sequencing-data quality control, genome assembly and annotation, variant analysis, pangenomics, phylogenetics, population genetics, microbiome analysis, and effector prediction, with shared validation, logging, checkpointing, software-version reporting, and Conda/HPC execution support.",
+  "creators": [
+    {
+      "name": "Li, Xiang",
+      "affiliation": "Yazhouwan National Laboratory, Sanya, Hainan, China",
+      "orcid": "0000-0002-8400-7116"
+    }
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "version": "1.74.1",
+  "language": "eng",
+  "keywords": [
+    "bioinformatics",
+    "computational biology",
+    "command-line interface",
+    "reproducible research",
+    "high-performance computing",
+    "plant genomics"
+  ]
+}

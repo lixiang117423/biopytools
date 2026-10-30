@@ -250,6 +250,8 @@ output/
 
 # 随包分发的数据JSON必须入库(勿忽略)|Packaged data JSON must be tracked (do not ignore)
 !biopytools/interproscan/go_data.json
+# 根目录归档元数据必须入库|Root archive metadata must be tracked
+!/.zenodo.json
 
 # 文档站点资源必须入库(§14 MkDocs站点logo/favicon/主题overrides)
 # |Docs site assets must be tracked (logo/favicon/theme overrides)
@@ -371,9 +373,9 @@ examples/
 /examples/
 
 # Test directories
+# The top-level tests/ suite is part of the public JOSS submission and CI.
 test/
-tests/
-/tests/
+/biopytools/tests/
 
 # ==============================================================================
 # PROJECT-SPECIFIC IGNORES
